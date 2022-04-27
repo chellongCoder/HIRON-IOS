@@ -11,7 +11,7 @@ import SWRevealViewController
 
 let kMenuWidth       = 312.0
 
-class VC_LunchScreen: UIViewController {
+class LunchScreenViewController: UIViewController {
         
     private let loadingAnimation    = VW_LoadingAnimation()
     

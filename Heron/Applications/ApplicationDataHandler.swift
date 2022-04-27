@@ -16,14 +16,13 @@ import ObjectMapper
 class ApplicationDataHandler: NSObject {
     
     public static let sharedInstance    = ApplicationDataHandler()
-    
-    let coreDataStored              = ApplicationCoreData()
+    let coreDataStored                  = ApplicationCoreData()
     
     // Alarmofire
     var alamofireManager: Alamofire.Session = {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 15
-        configuration.timeoutIntervalForResource = 15
+        configuration.timeoutIntervalForRequest = 300
+        configuration.timeoutIntervalForResource = 300
         configuration.sessionSendsLaunchEvents = false
         let alamofire = Alamofire.Session(configuration: configuration, startRequestsImmediately: true)
         return alamofire
