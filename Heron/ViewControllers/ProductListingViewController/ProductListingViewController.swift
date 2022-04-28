@@ -7,11 +7,12 @@
 
 import UIKit
 
-class ProductListingViewController: UIViewController {
+class ProductListingViewController: BaseViewController {
+    private let viewModel       = ProductListingViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        viewModel.controller = self
+        
     }
 }
