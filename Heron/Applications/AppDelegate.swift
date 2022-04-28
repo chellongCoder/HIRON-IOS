@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import IQKeyboardManagerSwift
+import BugfenderSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +23,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _AppCoreData.startContext()
         _AppDataHandler.checkConnectionRepeatedly()
         IQKeyboardManager.shared.enable = true
+        
+        //MARK: Tracking
+        Bugfender.activateLogger("PobpLgnctGQTDDJAGhLAJsyDNS8okX5A")
+        Bugfender.enableCrashReporting()
+//        Bugfender.enableUIEventLogging()  // optional, log user interactions automatically
         
         window = UIWindow.init(frame: UIScreen.main.bounds)
         window?.rootViewController = AppNavigationController.sharedInstance

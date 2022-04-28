@@ -238,10 +238,10 @@
 			isa = PBXGroup;
 			children = (
 				933D1912281993DB00F1CCC4 /* AppDelegate.swift */,
-				933D19152819940B00F1CCC4 /* ApplicationCoreData.swift */,
-				933D19172819940B00F1CCC4 /* ApplicationDataHandler.swift */,
-				933D19142819940B00F1CCC4 /* ApplicationTracking.swift */,
 				933D19162819940B00F1CCC4 /* AppNavigationController.swift */,
+				933D19172819940B00F1CCC4 /* ApplicationDataHandler.swift */,
+				933D19152819940B00F1CCC4 /* ApplicationCoreData.swift */,
+				933D19142819940B00F1CCC4 /* ApplicationTracking.swift */,
 				933D19182819940B00F1CCC4 /* ApplicationMacros.swift */,
 			);
 			path = Applications;
