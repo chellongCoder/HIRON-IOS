@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		5420DFD1ADB514180E443DB8 /* Pods_Heron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */; };
 		8F44A8CAC79E09534AD07075 /* Pods_HeronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */; };
+		930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3031281A05A1003D247A /* ProductListingViewModel.swift */; };
+		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
+		930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3035281A05C7003D247A /* ProductDetailsViewController.swift */; };
+		930F3039281A1305003D247A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3038281A1305003D247A /* BaseViewController.swift */; };
 		933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 933D18E62819935900F1CCC4 /* Heron.xcdatamodeld */; };
 		933D18EA2819935E00F1CCC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933D18E92819935E00F1CCC4 /* Assets.xcassets */; };
 		933D18ED2819935E00F1CCC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 933D18EB2819935E00F1CCC4 /* LaunchScreen.storyboard */; };
@@ -63,6 +67,10 @@
 		2F07810B31D8BE9A038CEA94 /* Pods-HeronTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.release.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.release.xcconfig"; sourceTree = "<group>"; };
 		718D7E879D9BB835A6FFA734 /* Pods-HeronTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.debug.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heron_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		930F3031281A05A1003D247A /* ProductListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewModel.swift; sourceTree = "<group>"; };
+		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
+		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
+		930F3038281A1305003D247A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		933D18DA2819935900F1CCC4 /* Heron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D18E72819935900F1CCC4 /* Heron.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heron.xcdatamodel; sourceTree = "<group>"; };
 		933D18E92819935E00F1CCC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -145,6 +153,23 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		930F3030281A0577003D247A /* ProductDetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */,
+				930F3035281A05C7003D247A /* ProductDetailsViewController.swift */,
+			);
+			path = ProductDetailsViewController;
+			sourceTree = "<group>";
+		};
+		930F3037281A05E5003D247A /* BaseViewController */ = {
+			isa = PBXGroup;
+			children = (
+				930F3038281A1305003D247A /* BaseViewController.swift */,
+			);
+			path = BaseViewController;
+			sourceTree = "<group>";
+		};
 		933D18D12819935900F1CCC4 = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +250,7 @@
 		933D191E2819943000F1CCC4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				930F3037281A05E5003D247A /* BaseViewController */,
 				933D194628199DD700F1CCC4 /* ProductListingViewController */,
 				933D194528199D6000F1CCC4 /* LoginViewController */,
 				933D191F2819943A00F1CCC4 /* HomeViewController */,
@@ -294,7 +320,9 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */,
+				930F3031281A05A1003D247A /* ProductListingViewModel.swift */,
 			);
 			path = ProductListingViewController;
 			sourceTree = "<group>";
@@ -549,10 +577,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				933D19392819946800F1CCC4 /* String_EXT.swift in Sources */,
+				930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */,
 				933D193A2819946800F1CCC4 /* UIColor_EXT.swift in Sources */,
 				933D1913281993DB00F1CCC4 /* AppDelegate.swift in Sources */,
 				933D19412819947000F1CCC4 /* SessionDataSource.swift in Sources */,
+				930F3039281A1305003D247A /* BaseViewController.swift in Sources */,
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
+				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
 				933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
@@ -564,6 +595,7 @@
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
+				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
