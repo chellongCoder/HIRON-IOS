@@ -69,5 +69,4 @@ extension UIViewController {
             loadingAnimation.removeFromSuperview()
         })
     }
-
 }

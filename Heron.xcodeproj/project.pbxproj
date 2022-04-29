@@ -29,7 +29,6 @@
 		933D19242819944C00F1CCC4 /* LunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19232819944C00F1CCC4 /* LunchScreenViewController.swift */; };
 		933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */; };
 		933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19292819946800F1CCC4 /* UITextField_EXT.swift */; };
-		933D19332819946800F1CCC4 /* Date_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D192A2819946800F1CCC4 /* Date_EXT.swift */; };
 		933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D192B2819946800F1CCC4 /* UITableView_EXT.swift */; };
 		933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */; };
 		933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D192D2819946800F1CCC4 /* UIFont_EXT.swift */; };
@@ -91,7 +90,6 @@
 		933D19232819944C00F1CCC4 /* LunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LunchScreenViewController.swift; sourceTree = "<group>"; };
 		933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VW_LoadingAnimation.swift; sourceTree = "<group>"; };
 		933D19292819946800F1CCC4 /* UITextField_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField_EXT.swift; sourceTree = "<group>"; };
-		933D192A2819946800F1CCC4 /* Date_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Date_EXT.swift; sourceTree = "<group>"; };
 		933D192B2819946800F1CCC4 /* UITableView_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView_EXT.swift; sourceTree = "<group>"; };
 		933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView_EXT.swift; sourceTree = "<group>"; };
 		933D192D2819946800F1CCC4 /* UIFont_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFont_EXT.swift; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 			isa = PBXGroup;
 			children = (
 				933D19292819946800F1CCC4 /* UITextField_EXT.swift */,
-				933D192A2819946800F1CCC4 /* Date_EXT.swift */,
 				933D192B2819946800F1CCC4 /* UITableView_EXT.swift */,
 				933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */,
 				933D192D2819946800F1CCC4 /* UIFont_EXT.swift */,
@@ -587,7 +584,6 @@
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
 				933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
-				933D19332819946800F1CCC4 /* Date_EXT.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
 				933D19212819944100F1CCC4 /* HomeViewController.swift in Sources */,

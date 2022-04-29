@@ -26,7 +26,7 @@ class LunchScreenViewController: UIViewController {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let homeVC = HomeViewController()
+            let homeVC = ProductListingViewController()
             self.navigationController?.setViewControllers([homeVC], animated: true)
         }
     }

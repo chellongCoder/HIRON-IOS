@@ -80,15 +80,6 @@ class SearchBarTxt: UITextField {
             make.left.equalToSuperview().offset(16)
             make.width.height.equalTo(16)
         }
-
-//        deleteBtn.setImage(UIImage(named: "delete_icon")?.withRenderingMode(.alwaysOriginal), for: .normal)
-//        deleteBtn.addTarget(self, action: #selector(deleteText), for: .touchUpInside)
-//        addSubview(deleteBtn)
-//        deleteBtn.snp.makeConstraints { (make) in
-//            make.centerY.equalToSuperview()
-//            make.right.equalToSuperview().offset(-12)
-//            make.width.height.equalTo(24)
-//        }
     }
     
     override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
