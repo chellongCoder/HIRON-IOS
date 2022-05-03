@@ -9,4 +9,6 @@ import UIKit
 
 class ProductListingViewModel: NSObject {
     weak var controller     : ProductListingViewController? = nil
+    var listProducts        : [String] = ["","","","","","","","","","",]
+    var listBanners         : [String] = ["","","","","","","","",]
 }

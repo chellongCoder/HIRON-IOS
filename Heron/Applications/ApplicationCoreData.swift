@@ -14,6 +14,8 @@ import ObjectMapper
 @_exported import BugfenderSDK
 class ApplicationCoreData: NSObject {
     
+    public static let sharedInstance    = ApplicationCoreData()
+    
     private var userSession: SessionDataSource?
     private var userDataSource: UserDataSource?
     

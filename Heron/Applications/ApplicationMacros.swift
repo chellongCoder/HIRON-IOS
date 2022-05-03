@@ -15,7 +15,7 @@ import SDWebImage
 let _AppDelegate                    = AppDelegate.sharedInstance
 let _NavController                  = AppNavigationController.sharedInstance
 let _AppDataHandler                 = ApplicationDataHandler.sharedInstance
-let _AppCoreData                    = _AppDataHandler.coreDataStored
+let _AppCoreData                    = ApplicationCoreData.sharedInstance
 
 // Define key
 let kUserSessionDataSource          = "kUserSessionDataSource"

@@ -25,7 +25,7 @@
 		933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19162819940B00F1CCC4 /* AppNavigationController.swift */; };
 		933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19172819940B00F1CCC4 /* ApplicationDataHandler.swift */; };
 		933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19182819940B00F1CCC4 /* ApplicationMacros.swift */; };
-		933D19212819944100F1CCC4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19202819944100F1CCC4 /* HomeViewController.swift */; };
+		933D19212819944100F1CCC4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19202819944100F1CCC4 /* MainViewController.swift */; };
 		933D19242819944C00F1CCC4 /* LunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19232819944C00F1CCC4 /* LunchScreenViewController.swift */; };
 		933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */; };
 		933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19292819946800F1CCC4 /* UITextField_EXT.swift */; };
@@ -41,6 +41,22 @@
 		933D19422819947000F1CCC4 /* AppVersionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D193E2819947000F1CCC4 /* AppVersionDataSource.swift */; };
 		933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D193F2819947000F1CCC4 /* ResponseDataSource.swift */; };
 		933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */; };
+		938F7A882820E78F00DD60DB /* MyOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7A872820E78F00DD60DB /* MyOrderViewController.swift */; };
+		938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7A8A2820E7DC00DD60DB /* HomepageViewController.swift */; };
+		938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7A8D28210F3100DD60DB /* ProductTableViewCell.swift */; };
+		938F7A91282111B300DD60DB /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7A90282111B300DD60DB /* BannerView.swift */; };
+		938F7A9F282112B300DD60DB /* SFProText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A93282112B300DD60DB /* SFProText-Medium.ttf */; };
+		938F7AA0282112B300DD60DB /* SFProText-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A94282112B300DD60DB /* SFProText-Heavy.ttf */; };
+		938F7AA1282112B300DD60DB /* SFProText-RegularItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A95282112B300DD60DB /* SFProText-RegularItalic.ttf */; };
+		938F7AA2282112B300DD60DB /* SFProText-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A96282112B300DD60DB /* SFProText-Semibold.ttf */; };
+		938F7AA3282112B300DD60DB /* SFProText-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A97282112B300DD60DB /* SFProText-Regular.ttf */; };
+		938F7AA4282112B300DD60DB /* SFProText-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A98282112B300DD60DB /* SFProText-BoldItalic.ttf */; };
+		938F7AA5282112B300DD60DB /* SFProText-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A99282112B300DD60DB /* SFProText-MediumItalic.ttf */; };
+		938F7AA6282112B300DD60DB /* SFProText-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9A282112B300DD60DB /* SFProText-LightItalic.ttf */; };
+		938F7AA7282112B300DD60DB /* SFProText-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9B282112B300DD60DB /* SFProText-Light.ttf */; };
+		938F7AA8282112B300DD60DB /* SFProText-HeavyItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9C282112B300DD60DB /* SFProText-HeavyItalic.ttf */; };
+		938F7AA9282112B300DD60DB /* SFProText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9D282112B300DD60DB /* SFProText-SemiboldItalic.ttf */; };
+		938F7AAA282112B300DD60DB /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9E282112B300DD60DB /* SFProText-Bold.ttf */; };
 		A3B9C08C5BB52EE77C2C39A0 /* Pods_Heron_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +102,7 @@
 		933D19162819940B00F1CCC4 /* AppNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppNavigationController.swift; sourceTree = "<group>"; };
 		933D19172819940B00F1CCC4 /* ApplicationDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDataHandler.swift; sourceTree = "<group>"; };
 		933D19182819940B00F1CCC4 /* ApplicationMacros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationMacros.swift; sourceTree = "<group>"; };
-		933D19202819944100F1CCC4 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		933D19202819944100F1CCC4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		933D19232819944C00F1CCC4 /* LunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LunchScreenViewController.swift; sourceTree = "<group>"; };
 		933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VW_LoadingAnimation.swift; sourceTree = "<group>"; };
 		933D19292819946800F1CCC4 /* UITextField_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField_EXT.swift; sourceTree = "<group>"; };
@@ -103,6 +119,22 @@
 		933D193F2819947000F1CCC4 /* ResponseDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseDataSource.swift; sourceTree = "<group>"; };
 		933D194428199A9700F1CCC4 /* Heron.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Heron.entitlements; sourceTree = "<group>"; };
 		933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewController.swift; sourceTree = "<group>"; };
+		938F7A872820E78F00DD60DB /* MyOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderViewController.swift; sourceTree = "<group>"; };
+		938F7A8A2820E7DC00DD60DB /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
+		938F7A8D28210F3100DD60DB /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
+		938F7A90282111B300DD60DB /* BannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		938F7A93282112B300DD60DB /* SFProText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Medium.ttf"; sourceTree = "<group>"; };
+		938F7A94282112B300DD60DB /* SFProText-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Heavy.ttf"; sourceTree = "<group>"; };
+		938F7A95282112B300DD60DB /* SFProText-RegularItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-RegularItalic.ttf"; sourceTree = "<group>"; };
+		938F7A96282112B300DD60DB /* SFProText-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Semibold.ttf"; sourceTree = "<group>"; };
+		938F7A97282112B300DD60DB /* SFProText-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Regular.ttf"; sourceTree = "<group>"; };
+		938F7A98282112B300DD60DB /* SFProText-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-BoldItalic.ttf"; sourceTree = "<group>"; };
+		938F7A99282112B300DD60DB /* SFProText-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-MediumItalic.ttf"; sourceTree = "<group>"; };
+		938F7A9A282112B300DD60DB /* SFProText-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-LightItalic.ttf"; sourceTree = "<group>"; };
+		938F7A9B282112B300DD60DB /* SFProText-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Light.ttf"; sourceTree = "<group>"; };
+		938F7A9C282112B300DD60DB /* SFProText-HeavyItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-HeavyItalic.ttf"; sourceTree = "<group>"; };
+		938F7A9D282112B300DD60DB /* SFProText-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		938F7A9E282112B300DD60DB /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EFB177E120D1345F5BAF7A28 /* Pods-Heron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron.debug.xcconfig"; path = "Target Support Files/Pods-Heron/Pods-Heron.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,8 +186,8 @@
 		930F3030281A0577003D247A /* ProductDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
-				930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */,
 				930F3035281A05C7003D247A /* ProductDetailsViewController.swift */,
+				930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */,
 			);
 			path = ProductDetailsViewController;
 			sourceTree = "<group>";
@@ -249,20 +281,22 @@
 			isa = PBXGroup;
 			children = (
 				930F3037281A05E5003D247A /* BaseViewController */,
-				933D194628199DD700F1CCC4 /* ProductListingViewController */,
 				933D194528199D6000F1CCC4 /* LoginViewController */,
-				933D191F2819943A00F1CCC4 /* HomeViewController */,
+				933D191F2819943A00F1CCC4 /* MainViewController */,
 				933D19222819944C00F1CCC4 /* LunchScreenViewController */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
-		933D191F2819943A00F1CCC4 /* HomeViewController */ = {
+		933D191F2819943A00F1CCC4 /* MainViewController */ = {
 			isa = PBXGroup;
 			children = (
-				933D19202819944100F1CCC4 /* HomeViewController.swift */,
+				938F7A892820E7BD00DD60DB /* HomepageViewController */,
+				938F7A862820E77500DD60DB /* MyOrderViewController */,
+				933D194628199DD700F1CCC4 /* ProductListingViewController */,
+				933D19202819944100F1CCC4 /* MainViewController.swift */,
 			);
-			path = HomeViewController;
+			path = MainViewController;
 			sourceTree = "<group>";
 		};
 		933D19222819944C00F1CCC4 /* LunchScreenViewController */ = {
@@ -276,6 +310,7 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				938F7A8F2821119E00DD60DB /* BannerView */,
 				933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */,
 			);
 			path = Views;
@@ -284,6 +319,7 @@
 		933D19282819946800F1CCC4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				938F7A92282112B300DD60DB /* Fonts */,
 				933D19292819946800F1CCC4 /* UITextField_EXT.swift */,
 				933D192B2819946800F1CCC4 /* UITableView_EXT.swift */,
 				933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */,
@@ -317,11 +353,63 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				938F7A8C28210F0C00DD60DB /* ProductTableViewCell */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */,
 				930F3031281A05A1003D247A /* ProductListingViewModel.swift */,
 			);
 			path = ProductListingViewController;
+			sourceTree = "<group>";
+		};
+		938F7A862820E77500DD60DB /* MyOrderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				938F7A872820E78F00DD60DB /* MyOrderViewController.swift */,
+			);
+			path = MyOrderViewController;
+			sourceTree = "<group>";
+		};
+		938F7A892820E7BD00DD60DB /* HomepageViewController */ = {
+			isa = PBXGroup;
+			children = (
+				938F7A8A2820E7DC00DD60DB /* HomepageViewController.swift */,
+			);
+			path = HomepageViewController;
+			sourceTree = "<group>";
+		};
+		938F7A8C28210F0C00DD60DB /* ProductTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				938F7A8D28210F3100DD60DB /* ProductTableViewCell.swift */,
+			);
+			path = ProductTableViewCell;
+			sourceTree = "<group>";
+		};
+		938F7A8F2821119E00DD60DB /* BannerView */ = {
+			isa = PBXGroup;
+			children = (
+				938F7A90282111B300DD60DB /* BannerView.swift */,
+			);
+			path = BannerView;
+			sourceTree = "<group>";
+		};
+		938F7A92282112B300DD60DB /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				938F7A93282112B300DD60DB /* SFProText-Medium.ttf */,
+				938F7A94282112B300DD60DB /* SFProText-Heavy.ttf */,
+				938F7A95282112B300DD60DB /* SFProText-RegularItalic.ttf */,
+				938F7A96282112B300DD60DB /* SFProText-Semibold.ttf */,
+				938F7A97282112B300DD60DB /* SFProText-Regular.ttf */,
+				938F7A98282112B300DD60DB /* SFProText-BoldItalic.ttf */,
+				938F7A99282112B300DD60DB /* SFProText-MediumItalic.ttf */,
+				938F7A9A282112B300DD60DB /* SFProText-LightItalic.ttf */,
+				938F7A9B282112B300DD60DB /* SFProText-Light.ttf */,
+				938F7A9C282112B300DD60DB /* SFProText-HeavyItalic.ttf */,
+				938F7A9D282112B300DD60DB /* SFProText-SemiboldItalic.ttf */,
+				938F7A9E282112B300DD60DB /* SFProText-Bold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		FDD6F5C2326508B4B9DB604E /* Frameworks */ = {
@@ -444,8 +532,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				938F7AA0282112B300DD60DB /* SFProText-Heavy.ttf in Resources */,
+				938F7AA6282112B300DD60DB /* SFProText-LightItalic.ttf in Resources */,
+				938F7AA9282112B300DD60DB /* SFProText-SemiboldItalic.ttf in Resources */,
+				938F7A9F282112B300DD60DB /* SFProText-Medium.ttf in Resources */,
+				938F7AA5282112B300DD60DB /* SFProText-MediumItalic.ttf in Resources */,
+				938F7AA8282112B300DD60DB /* SFProText-HeavyItalic.ttf in Resources */,
+				938F7AA3282112B300DD60DB /* SFProText-Regular.ttf in Resources */,
+				938F7AA7282112B300DD60DB /* SFProText-Light.ttf in Resources */,
 				933D18ED2819935E00F1CCC4 /* LaunchScreen.storyboard in Resources */,
 				933D18EA2819935E00F1CCC4 /* Assets.xcassets in Resources */,
+				938F7AA1282112B300DD60DB /* SFProText-RegularItalic.ttf in Resources */,
+				938F7AA2282112B300DD60DB /* SFProText-Semibold.ttf in Resources */,
+				938F7AA4282112B300DD60DB /* SFProText-BoldItalic.ttf in Resources */,
+				938F7AAA282112B300DD60DB /* SFProText-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,15 +683,19 @@
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
 				933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */,
+				938F7A91282111B300DD60DB /* BannerView.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
-				933D19212819944100F1CCC4 /* HomeViewController.swift in Sources */,
+				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
+				938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */,
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
+				938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */,
+				938F7A882820E78F00DD60DB /* MyOrderViewController.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
@@ -776,9 +880,11 @@
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Heron;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -809,9 +915,11 @@
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Heron;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

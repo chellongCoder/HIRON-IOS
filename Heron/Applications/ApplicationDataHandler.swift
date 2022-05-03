@@ -16,7 +16,6 @@ import ObjectMapper
 class ApplicationDataHandler: NSObject {
     
     public static let sharedInstance    = ApplicationDataHandler()
-    let coreDataStored                  = ApplicationCoreData()
     
     // Alarmofire
     var alamofireManager: Alamofire.Session = {
@@ -107,7 +106,7 @@ extension ApplicationDataHandler {
                     
                     if response.response!.statusCode == 401 {
                         // User expried token
-                        self.coreDataStored.signOut()
+                        _AppCoreData.signOut()
                         
                         return nil
                     } else if response.response!.statusCode == 403 {
@@ -230,7 +229,7 @@ extension ApplicationDataHandler {
                         sessionToken.refreshToken = refreshToken
                     }
                     
-                    self.coreDataStored.setUserSession(sessionToken)
+                    _AppCoreData.setUserSession(sessionToken)
                     
                     completion(true, responseData.successMessage)
                 } else {
@@ -240,7 +239,7 @@ extension ApplicationDataHandler {
     }
     
     func getUserNotificationCount(completion:@escaping (Bool, String?, Int)-> Void) -> Request? {
-        guard let accessToken = self.coreDataStored.getUserSession()?.accessToken else {
+        guard let accessToken = _AppCoreData.getUserSession()?.accessToken else {
             completion(false, NSLocalizedString("kAPIRequestLogin", comment: ""), 0)
             return nil
         }
@@ -282,7 +281,7 @@ extension ApplicationDataHandler {
     
     func getUserDataSource(completion:@escaping (Bool, String?, UserDataSource?)-> Void) -> Request? {
         
-        guard let accessToken = self.coreDataStored.getUserSession()?.accessToken else {
+        guard let accessToken = _AppCoreData.getUserSession()?.accessToken else {
             completion(false, NSLocalizedString("kAPIRequestLogin", comment: ""), nil)
             return nil
         }
@@ -307,7 +306,7 @@ extension ApplicationDataHandler {
                 if let responseDict = responseData.objectData {
                     
                     let userData = Mapper<UserDataSource>().map(JSONObject: responseDict)!
-                    self.coreDataStored.setUserDataSource(userData)
+                    _AppCoreData.setUserDataSource(userData)
                     
                     completion(true, "", userData)
                     
