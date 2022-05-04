@@ -15,7 +15,7 @@ class BannerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        bannerImage.image = UIImage.init(named: "Campaign banner 6")
+        bannerImage.image = UIImage.init(named: "default-image")
         bannerImage.contentMode = .scaleToFill
         bannerImage.layer.cornerRadius = 8
         bannerImage.clipsToBounds = true

@@ -407,8 +407,3 @@ extension ApplicationDataHandler {
     }
 }
 
-//MARK: - GET functions
-//MARK: - POST functions
-//MARK: - PUT functions
-//MARK: - PATCH functions
-
