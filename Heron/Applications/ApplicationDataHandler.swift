@@ -76,113 +76,87 @@ extension ApplicationDataHandler {
     
     // MARK: - Helper
     
-    private func handleResponseDict(response: AFDataResponse<Any>,
-                                    requestParam: [String: Any]? = nil) -> ResponseDataSource?
+    private func handleResponseDict (response:AFDataResponse<Any>) -> ResponseDataSource?
     {
-        
         if let urlRequest = response.request?.url?.path {
-            bfprint(String(format: "Lucas-API-URL-Request: %@", urlRequest), tag: "API-Response", level: .default)
-        }
-        
-        if requestParam != nil {
-            bfprint(String(format: "Lucas-API-Request-Param: %@", requestParam!), tag: "API-Response", level: .default)
+            print(String(format: "Lucas-API-URL-Request: %@", urlRequest))
         }
         
         if let header = response.request?.allHTTPHeaderFields {
-            bfprint(String(format: "Lucas-API-Header-Request: %@", header), tag: "API-Response", level: .default)
+            print(String(format: "Lucas-API-Header-Request: %@", header))
         }
         
+        var responseData = ResponseDataSource()
+        responseData.responseCode = response.response?.statusCode ?? 0
+        
         switch response.result {
-            case .success(let value):
-                
-                if response.response!.statusCode < 300 {
-                    bfprint(String(format:"Lucas-API-Reponse-Success: %@", "Did get \(response.response!.statusCode) success code"), tag: "API-Response", level: .default)
-                    
-                } else if response.response!.statusCode < 400 {
-                    bfprint(String(format:"Lucas-API-Reponse-Error: %@", "Did get \(response.response!.statusCode) error code"), tag: "API-Response", level: .default)
-                    
-                } else if response.response!.statusCode < 500 {
-                    bfprint(String(format:"Lucas-API-Reponse-Error: %@", "Did get \(response.response!.statusCode) error code"), tag: "API-Response", level: .default)
-                    
-                    if response.response!.statusCode == 401 {
-                        // User expried token
-                        _AppCoreData.signOut()
-                        
-                        return nil
-                    } else if response.response!.statusCode == 403 {
-                        // User expried token
-                        
-                        //                    self.reloadUserProfile()
-                       // self.coreDataStored.signOut()
-                        guard let responseDict = value as? [String: Any] else {
-                            var tempResponse = ResponseDataSource.init(JSONString: "{}")!
-                            tempResponse.errorMessage = "Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại."
-                            return tempResponse
-                        }
-                        
-                        var tempResponse = ResponseDataSource.init(JSONString: "{}")!
-                        tempResponse.errorMessage = responseDict["error"] as? String
-                        return tempResponse
-                    }
-                    
-                } else if response.response!.statusCode < 600 {
-                    bfprint(String(format:"Lucas-API-Reponse-Error: %@", "Did get \(response.response!.statusCode) error code"), tag: "API-Response", level: .default)
-                    if response.response!.statusCode == 500 {
-                        var tempResponse = ResponseDataSource.init(JSONString: "{}")!
-                        tempResponse.errorMessage = NSLocalizedString("kServerErrorMessage", comment: "")
-                        
-                        return tempResponse
-                    }
+        case .success(let value):
+            
+            print(String(format:"Lucas-API-Reponse: %@", "Did get \(response.response!.statusCode) code"))
+            if responseData.responseCode == 200 ||
+                responseData.responseCode == 204 ||
+                responseData.responseCode == 400
+            {
+                // Process to responseData
+                if let responseDict = value as? [String: Any] {
+                    responseData.responseData = responseDict
                 }
                 
-                guard let responseDict = value as? [String: Any] else {
-                    var tempResponse = ResponseDataSource.init(JSONString: "{}")!
-                    tempResponse.errorMessage = NSLocalizedString("kAPIWrongFormatMessage", comment: "")
+                if let responseList = value as? [[String:Any]] {
+                    responseData.responseList = responseList
+                }
+                
+                if let responseDict = value as? [String: Any] {
+                    responseData.responseMessage = responseDict["message"] as? String
+                }
+            }
+            else if responseData.responseCode == 401 ||
+                        responseData.responseCode == 403
+            {
+                if (response.request?.url?.path ?? "").contains("system/session") {
                     
-                    return tempResponse
+                    // ignored case signout with 401
+                    return nil
                 }
+                return nil
+            }
+            else if responseData.responseCode == 404 {
+                print("API NOT FOUND")
+                return nil
+            }
+            else if responseData.responseCode >= 500 {
                 
-                let finalResponse = Mapper<ResponseDataSource>().map(JSON: responseDict)
+                responseData.responseMessage = NSLocalizedString("kServerErrorMessage", comment: "")
                 
-                bfprint(String(format:"Lucas-API-Reponse-Error: %@", finalResponse?.toJSONString() ?? ""), tag: "API-Response", level: .default)
-                
-                return finalResponse
-                
-            case .failure(let error):
-                
-                
-                
-                var failResponse = ResponseDataSource.init(JSONString: "{}")!
-                failResponse.errorMessage = error.localizedDescription
-                
-                if error._code == 13 {
-                    failResponse.errorMessage = "Internet không ổn định vui lòng kiểm tra lại"
-                    return failResponse
+                if let responseDict = value as? [String: Any] {
+                    responseData.responseMessage = responseDict["message"] as? String
                 }
-                
-                //            if error._code == NSURLErrorTimedOut {
-                //                failResponse.errorMessage = NSLocalizedString("kAPIErrorTimeOut", comment: "")
-                //            }
-                if error._code == NSURLErrorCancelled {
-                    failResponse.errorMessage = "kAPICanceled"// kAPICancelled
-                } else if error.localizedDescription.contains("cancelled") {
-                    failResponse.errorMessage = "kAPICanceled"// kAPICancelled
-                } else if error._code == NSURLErrorNotConnectedToInternet {
-                    failResponse.errorMessage = NSLocalizedString("kSorryErrorMessage", comment: "")
-                }
-                //            else if error._code == NSURLErrorCannotParseResponse {
-                //                failResponse.errorMessage = NSLocalizedString("kAPIFailToParse", comment: "")
-                //            }
-                //            else if ((failResponse.errorMessage?.contains("JSON could not be serialized because of error")) != nil) {
-                //                failResponse.errorMessage = NSLocalizedString("kAPIFailToParse", comment: "")
-                //            }
-                
-                bfprint(String(format:"Lucas API Response: %@", failResponse.toJSONString() ?? ""), tag: "API-Response", level: .default)
-                //            #else
-                //            bfprint("API Request:", Date(), failResponse.toJSONString() ?? "", to: &ConsoleLog.consoleLog)
-                
-                return failResponse
+            }
+            else {
+                // Don't do anything
+                print(response.response as Any)
+            }
+            
+        case .failure(let error):
+            
+//            responseData.responseMessage = error.localizedDescription
+            
+            if error._code == NSURLErrorCancelled {
+                responseData.responseMessage = "kAPICanceled"// kAPICancelled
+            } else if error.localizedDescription.contains("cancelled") {
+                responseData.responseMessage = "kAPICanceled"// kAPICancelled
+            } else if error._code == NSURLErrorNotConnectedToInternet {
+                responseData.responseMessage = NSLocalizedString("kSorryErrorMessage", comment: "")
+            } else if error._code == NSURLErrorTimedOut {
+                responseData.responseCode = 500
+            } else if error._code == NSURLErrorNetworkConnectionLost {
+                responseData.responseCode = 500
+            }
+            
+            print(String(format:"Lucas API Response: %@", responseData.responseMessage ?? ""))
         }
+        
+        return responseData
     }
     
     func getHeadHeader(_ accessToken: String?) -> HTTPHeaders {
@@ -242,32 +216,34 @@ extension ApplicationDataHandler {
         }
     }
 }
+
+//MARK: - Authentications
 extension ApplicationDataHandler {
     
-    func login(completion:@escaping (Bool, String?)-> Void) -> Request? {
+    func login(completion:@escaping (String?, String?)-> Void) -> Request? {
                 
         let parametter = ["username": "administrator",
                           "password": "super_admin@123./"]
         
-        bfprint(String(format:"Lucas-API-Request-URL: %@", kGatewayAuthenticationBaseURL+"/auth/login/phone"), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-URL: %@", kGatewayAuthenticationURL+"/auth/login/phone"), tag: "API-Request", level: .default)
         bfprint(String(format:"Lucas-API-Request-Param: %@", parametter), tag: "API-Request", level: .default)
         
-        return self.alamofireManager.request(kGatewayAuthenticationBaseURL+"/authentication/login",
+        return self.alamofireManager.request(kGatewayAuthenticationURL+"/authentication/login",
                                              method: .post,
                                              parameters: parametter,
                                              encoding: JSONEncoding.default,
                                              headers: getHeadHeader(nil))
             .responseJSON { (response: AFDataResponse<Any>) in
-                guard let responseData = self.handleResponseDict(response: response,requestParam: parametter) else {
-                    completion(false, NSLocalizedString("kAPIWrongFormatMessage", comment: ""))
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    completion(NSLocalizedString("kAPIWrongFormatMessage", comment: ""), nil )
                     return
                 }
                 
-                if responseData.errorMessage == "kAPICanceled" {
+                if responseData.responseMessage == "kAPICanceled" {
                     return
                 }
                 
-                if let responseDict = responseData.objectData {
+                if let responseDict = responseData.responseData {
                     let sessionToken = SessionDataSource.init(JSONString: "{}")!
                     if let accessToken = responseDict["accessToken"] as? String {
                         sessionToken.accessToken = accessToken
@@ -278,9 +254,51 @@ extension ApplicationDataHandler {
                     
                     _AppCoreData.setUserSession(sessionToken)
                     
-                    completion(true, responseData.successMessage)
+                    completion(nil, responseData.responseMessage)
                 } else {
-                    completion(false, responseData.errorMessage)
+                    completion(responseData.responseMessage, nil)
+                }
+            }
+    }
+}
+
+//MARK: - Inventory
+extension ApplicationDataHandler {
+    
+    func getListProducts(completion:@escaping (String?, [ProductDataSource]?)-> Void) {
+        
+        let param : [String:Any] = ["filter[sku][contains]": "fa30cbc3"]
+        
+        self.alamofireManager.request(kGatwayInventoryURL + "/products",
+                                      method: .get,
+                                      parameters: param,
+                                      encoding: URLEncoding.default,
+                                      headers: self.getHeadHeader(nil))
+            .responseJSON { (response:AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
+                    completion(nil, nil)
+                    return
+                }
+                else if responseData.responseCode == 400 {
+                    completion(responseData.responseMessage, nil)
+                    return
+                }
+                else if responseData.responseCode >= 500 {
+                    return
+                } else {
+                    
+                    #warning("API_NEED_MAINTAIN")
+                    // API response array nhưng lại kẹp trong data.
+                    
+                    if let data = responseData.responseData?["data"] as? [[String:Any]] {
+                        completion(responseData.responseMessage,
+                                   Mapper<ProductDataSource>().mapArray(JSONArray: data))
+                    }
                 }
             }
     }

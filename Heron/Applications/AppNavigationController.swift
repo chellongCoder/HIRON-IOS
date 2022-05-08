@@ -21,10 +21,32 @@ class AppNavigationController: UINavigationController {
         NotificationCenter.default.removeObserver(self)
     }
 
+    private weak var currentAlertVC : UIAlertController? = nil
+    func showAlert(_ alert: UIAlertController) {
+        if let currentAlert = self.currentAlertVC {
+            currentAlert.dismiss(animated: true) {
+                self.currentAlertVC = alert
+                let vc = self as UIViewController
+                vc.presentViewController(alert)
+                
+            }
+        } else {
+            self.currentAlertVC = alert
+            let vc = self as UIViewController
+            vc.presentViewController(alert)
+        }
+    }
+    
+    func doneAlert() {
+        self.currentAlertVC = nil
+    }
 }
 
-//Deeplink Router
+public let kCompletionActionDefault: (() -> Void) = {_NavController.doneAlert()}
+
+//MARK: - Router
 extension AppNavigationController {
+    
     
 }
 

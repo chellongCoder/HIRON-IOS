@@ -9,7 +9,7 @@ import UIKit
 
 class BannerView: UIView {
 
-    private let bannerImage = UIImageView()
+    let bannerImage     = UIImageView()
 //    private var data: BannerDataSource?
 
     override init(frame: CGRect) {

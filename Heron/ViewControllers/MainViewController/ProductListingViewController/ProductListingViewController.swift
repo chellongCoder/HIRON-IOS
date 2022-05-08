@@ -74,6 +74,8 @@ class ProductListingViewController: BaseViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        
+        self.viewModel.getProjectList()
     }
     
     //MARK: - Buttons
@@ -126,19 +128,29 @@ class ProductListingViewController: BaseViewController,
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell") as! ProductTableViewCell
-        
         let cellData = viewModel.listProducts[indexPath.row]
+        cell.productTitleLabel.text = cellData.name
+        if let imageURL = URL.init(string: cellData.thumbnailUrl ?? "") {
+            cell.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+        }
+        
+        cell.priceLabel.text = String(format: "%ld %@", cellData.regularPrice, (cellData.currency ?? "USD"))
+        cell.priceDiscount.text = String(format: "%ld %@", cellData.finalPrice, (cellData.currency ?? "USD"))
         return cell
     }
     
     //MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return (16 + (UIScreen.main.bounds.size.width - 32)*0.5625 + (10+15+10))
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = UIView()
         headerView.backgroundColor = kNeutralColor
-
-        let bannerWidth = UIScreen.main.bounds.size.width
-        let bannerHeight = (bannerWidth - 32)*0.5625
+        
+        let staticHeight = (UIScreen.main.bounds.size.width - 32)*0.5625
         
         bannerScrollView.isPagingEnabled = true
         bannerScrollView.delegate = self
@@ -146,12 +158,9 @@ class ProductListingViewController: BaseViewController,
         headerView.addSubview(bannerScrollView)
         bannerScrollView.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(16)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(bannerWidth)
-            make.height.equalTo(bannerHeight)
-            make.bottom.equalToSuperview().offset(-27)
+            make.right.left.equalToSuperview()
+            make.height.equalTo(staticHeight)
         }
-        bannerScrollView.isHidden = false
         self.reloadBannerView()
         
         pageControl.currentPage = 0
@@ -164,12 +173,14 @@ class ProductListingViewController: BaseViewController,
             make.centerX.equalToSuperview()
             make.height.equalTo(15)
         }
-        pageControl.isHidden = false        
         return headerView
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let productData = viewModel.listProducts[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
+        
+        let viewDetailsController = ProductDetailsViewController.init(productData)
+        self.navigationController?.pushViewController(viewDetailsController, animated: true)
     }
 }

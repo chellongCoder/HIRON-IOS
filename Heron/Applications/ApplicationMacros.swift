@@ -23,7 +23,8 @@ let kUserProfileDataSource          = "kUserProfileDataSource"
 
 
 // Base URL
-let kGatewayAuthenticationBaseURL           = "https://ehp-api.cbidigital.com/authentication-svc/api"
+let kGatewayAuthenticationURL               = "https://ehp-api.cbidigital.com/authentication-svc/api"
+let kGatwayInventoryURL                     = "https://ehp-api.cbidigital.com/inventory-svc/api"
 
 // Define notificationKey
 let kUserLoggedInNotification               = Notification.Name("kUserLoggedInNotification")

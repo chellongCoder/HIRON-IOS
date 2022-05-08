@@ -8,5 +8,6 @@
 import UIKit
 
 class ProductDetailsViewModel: NSObject {
-
+    weak var controller : ProductDetailsViewController? = nil
+    var productDataSource   : ProductDataSource? = nil
 }

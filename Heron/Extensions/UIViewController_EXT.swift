@@ -86,4 +86,19 @@ extension UIViewController {
             
         }
     }
+    
+    func presentViewController(_ vc : UIViewController) {
+        if self.presentedViewController is UIAlertController {
+            if let vc = self.presentedViewController as? UIAlertController {
+                vc.dismiss()
+                self.present(vc, animated: true, completion: nil)
+            }
+        }
+        
+        if let presentedVC = self.presentedViewController {
+            presentedVC.presentViewController(vc)
+        } else {
+            self.present(vc, animated: true, completion: nil)
+        }
+    }
 }

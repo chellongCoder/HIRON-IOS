@@ -11,7 +11,7 @@ class ProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
-    let starView           = UILabel()
+    let starView            = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
     let addToCartBtn        = UIButton()
@@ -77,7 +77,7 @@ class ProductTableViewCell: UITableViewCell {
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
             make.top.equalTo(starView.snp.bottom).offset(10)
-            make.left.equalTo(priceDiscount.snp.right)
+            make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
         addToCartBtn.setTitle("Add to cart", for: .normal)
@@ -95,5 +95,10 @@ class ProductTableViewCell: UITableViewCell {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - DataSource
+    func setDataSource(_ data: ProductDataSource) {
+        
     }
 }

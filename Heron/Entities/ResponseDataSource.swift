@@ -9,43 +9,10 @@
 import UIKit
 import ObjectMapper
 
-struct ResponseDataSource: Mappable {
-
-    var successMessage: String?
-    var errorMessage: String?
-    var objectData: [String: Any]?
-    var objectList: [[String: Any]] = []
-    var objectPaging: PagingDataSource?
-
-    // Mappable
-    init?(map: Map) {
-        //
-    }
-
-    mutating func mapping(map: Map) {
-        successMessage  <- map["message"]
-        errorMessage     <- map["error"]
-        objectData      <- map["data"]
-        objectList      <- map["data"]
-        objectPaging    <- map["pagination"]
-    }
-}
-
-
-class PagingDataSource: Mappable {
-
-    var skip: Int = 0
-    var total: Int = 0
-    var limit: Int = 0
-    var totalPage: Int = 0
-    required init?(map: Map) {
-        //
-    }
-
-    func mapping(map: Map) {
-        skip           <- map["skip"]
-        total          <- map["total"]
-        limit          <- map["limit"]
-        totalPage      <- map["totalPage"]
-    }
+struct ResponseDataSource {
+    
+    var responseCode        : Int = 0
+    var responseMessage     : String? = nil
+    var responseData        : [String:Any]?
+    var responseList        : [[String:Any]] = []
 }
