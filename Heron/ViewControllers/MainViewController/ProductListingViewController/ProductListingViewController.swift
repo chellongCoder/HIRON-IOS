@@ -169,6 +169,7 @@ class ProductListingViewController: BaseViewController,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let productData = viewModel.listProducts[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }

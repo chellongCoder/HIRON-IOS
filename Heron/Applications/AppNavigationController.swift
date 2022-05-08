@@ -28,17 +28,6 @@ extension AppNavigationController {
     
 }
 
-//Notifications badge for AppNavigationController
-extension AppNavigationController {
-    func getUserNotificationCount() {
-        _ = _AppDataHandler.getUserNotificationCount(completion: { (isSuccess, _, count) in
-            if isSuccess {
-                NotificationCenter.default.post(name: kNeedReloadNotificationBagde, object: nil)
-            }
-        })
-    }
-}
-
 //MARK: Force Update
 extension AppNavigationController {
     
@@ -46,51 +35,6 @@ extension AppNavigationController {
         if let url = URL(string: kAppStoreReleaseURL),
            UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func checkVersion(completion: @escaping (()->Void)) {
-        guard let ourVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else { return }
-        _ = _AppDataHandler.getNewestVersion { (isSuccess, _, version) in
-            if isSuccess {
-                guard let iOSMinVersion = version else {
-                    completion()
-                    return
-                }
-                if ourVersion.compare(iOSMinVersion, options: .numeric) == .orderedAscending {
-                    _NavController.showAlertWarning(NSLocalizedString("kAlertTitle", comment: ""),
-                                                    NSLocalizedString("kForceUpdateMessage", comment: ""),
-                                                    NSLocalizedString("kOkAction", comment: ""),
-                                                    successCompletion: {
-                                                        // handle download new version
-                                                        self.redirectToAppStore()
-                                                    })
-                } else {
-                    DispatchQueue.global().async {
-                        _AppDataHandler.isUpdateAvailable { (isUpdate) in
-                            DispatchQueue.main.async {
-                                if isUpdate {
-                                    _NavController.showAlertConfirmation(NSLocalizedString("kAlertTitle", comment: ""),
-                                                                         NSLocalizedString("kForceUpdateMessage", comment: ""),
-                                                                         NSLocalizedString("kOkAction", comment: ""),
-                                                                         NSLocalizedString("kAfterAction", comment: ""),
-                                                                         successCompletion: {
-                                                                            // handle download new version
-                                                                            self.redirectToAppStore()
-                                                                            completion()
-                                                                         }, failureCompletion: {
-                                                                            completion()
-                                                                         })
-                                } else {
-                                    completion()
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                completion()
-            }
         }
     }
 }

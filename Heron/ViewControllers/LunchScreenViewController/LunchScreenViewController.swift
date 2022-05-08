@@ -25,9 +25,12 @@ class LunchScreenViewController: UIViewController {
             make.center.size.equalToSuperview()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-            let homeVC = MainViewController()
-            self.navigationController?.setViewControllers([homeVC], animated: true)
+        
+        _ = _AppDataHandler.login { isSuccess, errorMessgae in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                let homeVC = MainViewController()
+                self.navigationController?.setViewControllers([homeVC], animated: true)
+            }
         }
     }
     
@@ -35,12 +38,6 @@ class LunchScreenViewController: UIViewController {
         super.viewWillAppear(animated)
         
         _NavController.setNavigationBarHidden(true, animated: true)
-        _NavController.checkVersion {
-            _ = Timer.scheduledTimer(withTimeInterval: 0.5,
-                                     repeats: false) { (_) in
-                self.checkUserLoggedIn()
-            }
-        }
     }
     
     override var prefersStatusBarHidden: Bool {

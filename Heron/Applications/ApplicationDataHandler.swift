@@ -195,126 +195,6 @@ extension ApplicationDataHandler {
         let headerFull: HTTPHeaders = ["Authorization": "Bearer " + accessTk]
         return headerFull
     }
-    
-    func refreshToken(completion:@escaping (Bool, String?)-> Void) -> Request? {
-        
-        guard let refreshToken = _AppCoreData.getUserSession()?.refreshToken else {
-            completion(false, NSLocalizedString("kAPIRequestLogin", comment: ""))
-            return nil
-        }
-        
-        let parametter = ["refreshToken": refreshToken]
-        
-        return self.alamofireManager.request(kGatewayUserBaseURL+"/auth/refresh-token",
-                                             method: .post,
-                                             parameters: parametter,
-                                             encoding: JSONEncoding.default,
-                                             headers: nil)
-            .responseJSON { (response: AFDataResponse<Any>) in
-                
-                guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(false, NSLocalizedString("kAPIWrongFormatMessage", comment: ""))
-                    return
-                }
-                if responseData.errorMessage == "kAPICanceled" {
-                    return
-                }
-                
-                if let responseDict = responseData.objectData {
-                    let sessionToken = SessionDataSource.init(JSONString: "{}")!
-                    if let accessToken = responseDict["accessToken"] as? String {
-                        sessionToken.accessToken = accessToken
-                    }
-                    if let refreshToken = responseDict["refreshToken"] as? String {
-                        sessionToken.refreshToken = refreshToken
-                    }
-                    
-                    _AppCoreData.setUserSession(sessionToken)
-                    
-                    completion(true, responseData.successMessage)
-                } else {
-                    completion(false, responseData.errorMessage)
-                }
-            }
-    }
-    
-    func getUserNotificationCount(completion:@escaping (Bool, String?, Int)-> Void) -> Request? {
-        guard let accessToken = _AppCoreData.getUserSession()?.accessToken else {
-            completion(false, NSLocalizedString("kAPIRequestLogin", comment: ""), 0)
-            return nil
-        }
-        
-        bfprint(String(format:"Lucas-API-Request-URL: %@", kGatewayUserBaseURL+"/notifications/unread/count"), tag: "API-Request", level: .default)
-        
-        let request = self.alamofireManager.request(kGatewayUserBaseURL+"/notifications/unread/count",
-                                                    method: .get,
-                                                    parameters: nil,
-                                                    encoding: URLEncoding.default,
-                                                    headers: getHeadHeader(accessToken))
-            .responseJSON { (response: AFDataResponse<Any>) in
-                
-                guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(false, NSLocalizedString("kAPIWrongFormatMessage", comment: ""), 0)
-                    return
-                }
-                
-                if responseData.errorMessage != nil {
-                    
-                    if responseData.errorMessage == "kAPICanceled" {
-                        return
-                    }
-                    
-                    completion(false, responseData.errorMessage, 0)
-                    return
-                }
-                
-                if let count = responseData.objectData?["unRead"] as? Int {
-                    UIApplication.shared.applicationIconBadgeNumber = count
-                    completion(true, responseData.successMessage, count)
-                    return
-                } else {
-                    completion(true, responseData.successMessage, 0)
-                }
-            }
-        return request
-    }
-    
-    func getUserDataSource(completion:@escaping (Bool, String?, UserDataSource?)-> Void) -> Request? {
-        
-        guard let accessToken = _AppCoreData.getUserSession()?.accessToken else {
-            completion(false, NSLocalizedString("kAPIRequestLogin", comment: ""), nil)
-            return nil
-        }
-        
-        bfprint(String(format:"Lucas-API-Request-URL: %@", kGatewayUserBaseURL+"/user/profile"), tag: "API-Request", level: .default)
-        
-        return self.alamofireManager.request(kGatewayUserBaseURL+"/user/profile",
-                                             method: .get,
-                                             parameters: nil,
-                                             encoding: JSONEncoding.default,
-                                             headers: getHeadHeader(accessToken))
-            .responseJSON { (response: AFDataResponse<Any>) in
-                guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(false, NSLocalizedString("kAPIWrongFormatMessage", comment: ""), nil)
-                    return
-                }
-                
-                if responseData.errorMessage == "kAPICanceled" {
-                    return
-                }
-                
-                if let responseDict = responseData.objectData {
-                    
-                    let userData = Mapper<UserDataSource>().map(JSONObject: responseDict)!
-                    _AppCoreData.setUserDataSource(userData)
-                    
-                    completion(true, "", userData)
-                    
-                } else {
-                    completion(false, responseData.errorMessage, nil)
-                }
-            }
-    }
 }
 
 // MARK: - OneSignal Push Notification
@@ -341,50 +221,6 @@ extension ApplicationDataHandler {
 
 // MARK: - App Version
 extension ApplicationDataHandler {
-    func getNewestVersion(completion:@escaping (Bool, String?, String?)-> Void) -> Request? {
-        
-        bfprint(String(format:"Lucas-API-Request-URL: %@", kGatewayUserBaseURL + "/versions"), tag: "API-Request", level: .default)
-        
-        let request = self.alamofireManager.request(kGatewayUserBaseURL + "/versions",
-                                                    method: .get,
-                                                    parameters: nil,
-                                                    encoding: URLEncoding.default,
-                                                    headers: nil)
-            .responseJSON { (response: AFDataResponse<Any>) in
-                
-                guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(false, NSLocalizedString("kAPIWrongFormatMessage", comment: ""), nil)
-                    return
-                }
-                
-                if responseData.errorMessage != nil {
-                    if responseData.errorMessage == "kAPICanceled" {
-                        return
-                    }
-                    
-                    completion(false, responseData.errorMessage, nil)
-                    return
-                }
-                
-                if responseData.objectList.count == 0 {
-                    completion(true, responseData.successMessage, nil)
-                    return
-                } else {
-                    let returnArray = Mapper<AppVersionDataSource>().mapArray(JSONArray: responseData.objectList)
-                    var minimumVersion = "1.0.0"
-                    
-                    for versionData in returnArray {
-                        if versionData.platform == "iOS_DanhY" {
-                            minimumVersion = versionData.minimumVersion ?? "1.0.0"
-                            break
-                        }
-                    }
-                    
-                    completion(true, responseData.successMessage, minimumVersion)
-                }
-            }
-        return request
-    }
     
     func isUpdateAvailable(callback: @escaping (Bool) -> Void) {
         let bundleId = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
@@ -406,4 +242,46 @@ extension ApplicationDataHandler {
         }
     }
 }
-
+extension ApplicationDataHandler {
+    
+    func login(completion:@escaping (Bool, String?)-> Void) -> Request? {
+                
+        let parametter = ["username": "administrator",
+                          "password": "super_admin@123./"]
+        
+        bfprint(String(format:"Lucas-API-Request-URL: %@", kGatewayAuthenticationBaseURL+"/auth/login/phone"), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-Param: %@", parametter), tag: "API-Request", level: .default)
+        
+        return self.alamofireManager.request(kGatewayAuthenticationBaseURL+"/authentication/login",
+                                             method: .post,
+                                             parameters: parametter,
+                                             encoding: JSONEncoding.default,
+                                             headers: getHeadHeader(nil))
+            .responseJSON { (response: AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response,requestParam: parametter) else {
+                    completion(false, NSLocalizedString("kAPIWrongFormatMessage", comment: ""))
+                    return
+                }
+                
+                if responseData.errorMessage == "kAPICanceled" {
+                    return
+                }
+                
+                if let responseDict = responseData.objectData {
+                    let sessionToken = SessionDataSource.init(JSONString: "{}")!
+                    if let accessToken = responseDict["accessToken"] as? String {
+                        sessionToken.accessToken = accessToken
+                    }
+                    if let refreshToken = responseDict["refreshToken"] as? String {
+                        sessionToken.refreshToken = refreshToken
+                    }
+                    
+                    _AppCoreData.setUserSession(sessionToken)
+                    
+                    completion(true, responseData.successMessage)
+                } else {
+                    completion(false, responseData.errorMessage)
+                }
+            }
+    }
+}

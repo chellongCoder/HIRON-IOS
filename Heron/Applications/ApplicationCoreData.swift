@@ -41,13 +41,6 @@ class ApplicationCoreData: NSObject {
         }
         
         UserDefaults.standard.setValue(Int(Date().timeIntervalSince1970), forKey: kAppRefreshUserDataCacheTime)
-        
-        _ = _AppDataHandler.getUserDataSource { (isSuccess, _, userData) in
-            if isSuccess, let data = userData {
-                self.setUserDataSource(data)
-                self.syncDown()
-            }
-        }
     }
     
     
@@ -195,13 +188,13 @@ extension ApplicationCoreData {
     }
     
     @objc private func processRefreshToken() {
-        _ =  _AppDataHandler.refreshToken {(isSuccess, _) in
-            
-            if isSuccess {
-                print("success refreshToken")
-            } else {
-                print("fail refreshToken")
-            }
-        }
+//        _ =  _AppDataHandler.refreshToken {(isSuccess, _) in
+//            
+//            if isSuccess {
+//                print("success refreshToken")
+//            } else {
+//                print("fail refreshToken")
+//            }
+//        }
     }
 }
