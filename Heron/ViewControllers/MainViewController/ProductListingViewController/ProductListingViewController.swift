@@ -81,7 +81,8 @@ class ProductListingViewController: BaseViewController,
     
     //MARK: - Buttons
     @objc private func cartButtonTapped() {
-        
+        let cartVC = CartViewController.sharedInstance
+        _NavController.pushViewController(cartVC, animated: true)
     }
     
     @objc private func filterButtonTapped() {
