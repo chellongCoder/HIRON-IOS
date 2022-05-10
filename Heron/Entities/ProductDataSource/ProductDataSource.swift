@@ -22,6 +22,9 @@ class ProductDataSource: Mappable {
     var media           : [ProductMediaDataSource] = []
     var available       : Bool = false
     
+    //custome value
+    var discountPercent : Float = 0.0
+    
     required init?(map: Map) {
         //
     }
@@ -38,6 +41,8 @@ class ProductDataSource: Mappable {
         thumbnailUrl    <- map["thumbnailUrl"]
         media           <- map["media"]
         available       <- map["available"]
+        
+        self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
     }
 }
 

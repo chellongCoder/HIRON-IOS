@@ -10,6 +10,7 @@ import UIKit
 class ProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
+    let discountPercent     = UILabel()
     let productTitleLabel   = UILabel()
     let starView            = UILabel()
     let priceLabel          = UILabel()
@@ -22,7 +23,7 @@ class ProductTableViewCell: UITableViewCell {
 
         let contentView = UIView()
         contentView.setShadow()
-        self.addSubview(contentView)
+        self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
@@ -39,6 +40,17 @@ class ProductTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(24)
             make.left.equalToSuperview().offset(18)
             make.width.height.equalTo(120)
+        }
+        
+        discountPercent.text = "-50%"
+        discountPercent.backgroundColor = .red
+        discountPercent.textColor = .white
+        discountPercent.layer.cornerRadius = 4
+        discountPercent.font = getFontSize(size: 20, weight: .heavy)
+        contentView.addSubview(discountPercent)
+        discountPercent.snp.makeConstraints { make in
+            make.top.equalTo(packageImage.snp.top).offset(-5)
+            make.right.equalTo(packageImage).offset(5)
         }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
@@ -83,12 +95,13 @@ class ProductTableViewCell: UITableViewCell {
         addToCartBtn.setTitle("Add to cart", for: .normal)
         addToCartBtn.backgroundColor = kCyanTextColor
         addToCartBtn.layer.cornerRadius = 8
+        addToCartBtn.addTarget(self, action: #selector(addCartButtonTapped), for: .touchUpInside)
         contentView.addSubview(addToCartBtn)
         addToCartBtn.snp.makeConstraints { make in
             make.top.equalTo(priceDiscount.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(50)
-            make.width.equalTo(130)
+            make.height.equalTo(40)
+            make.left.equalTo(productTitleLabel)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
@@ -97,8 +110,7 @@ class ProductTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - DataSource
-    func setDataSource(_ data: ProductDataSource) {
+    @objc private func addCartButtonTapped() {
         
     }
 }

@@ -14,10 +14,12 @@ class BannerView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+        
         bannerImage.image = UIImage.init(named: "default-image")
         bannerImage.contentMode = .scaleToFill
         bannerImage.layer.cornerRadius = 8
+        bannerImage.layer.borderWidth = 0.5
+        bannerImage.layer.borderColor = UIColor.lightGray.cgColor
         bannerImage.clipsToBounds = true
         self.addSubview(bannerImage)
         bannerImage.snp.makeConstraints { (make) in

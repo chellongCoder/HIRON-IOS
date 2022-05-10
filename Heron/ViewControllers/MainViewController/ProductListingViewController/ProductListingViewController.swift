@@ -8,7 +8,8 @@
 import UIKit
 
 class ProductListingViewController: BaseViewController,
-                                    UITableViewDataSource, UITableViewDelegate {
+                                    UITableViewDataSource, UITableViewDelegate,
+                                    UIScrollViewDelegate {
     
     private let viewModel           = ProductListingViewModel()
     
@@ -136,6 +137,7 @@ class ProductListingViewController: BaseViewController,
         
         cell.priceLabel.text = String(format: "%ld %@", cellData.regularPrice, (cellData.currency ?? "USD"))
         cell.priceDiscount.text = String(format: "%ld %@", cellData.finalPrice, (cellData.currency ?? "USD"))
+        cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
         return cell
     }
     
@@ -181,6 +183,15 @@ class ProductListingViewController: BaseViewController,
         tableView.deselectRow(at: indexPath, animated: true)
         
         let viewDetailsController = ProductDetailsViewController.init(productData)
-        self.navigationController?.pushViewController(viewDetailsController, animated: true)
+        _NavController.pushViewController(viewDetailsController, animated: true)
+    }
+    
+    //MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        let fractionalPage = scrollView.contentOffset.x / pageWidth
+        
+        let page = lroundf(Float(fractionalPage))
+        self.pageControl.currentPage = page
     }
 }

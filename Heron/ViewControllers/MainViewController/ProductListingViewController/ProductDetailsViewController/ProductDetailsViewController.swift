@@ -7,10 +7,21 @@
 
 import UIKit
 
-class ProductDetailsViewController: BaseViewController {
+class ProductDetailsViewController: BaseViewController,
+                                    UIScrollViewDelegate {
     
     private let viewModel       = ProductDetailsViewModel()
     private let topMediaView    = UIScrollView()
+    private let pageControl     = UIPageControl()
+    
+    private let packageTitle    = UILabel()
+    private let discountPercent = UILabel()
+    private let priceDiscount   = UILabel()
+    private let priceLabel      = UILabel()
+    private let descriptionLabel    = UILabel()
+    
+    private let buyNowBtn       = UIButton()
+    private let AddToCartBtn    = UIButton()
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -39,14 +50,100 @@ class ProductDetailsViewController: BaseViewController {
         
         let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
         topMediaView.isPagingEnabled = true
+        topMediaView.delegate = self
         topMediaView.showsHorizontalScrollIndicator = false
-        self.view.addSubview(topMediaView)
+        self.contentView.addSubview(topMediaView)
         topMediaView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(50)
+            make.top.equalToSuperview()
             make.right.left.equalToSuperview()
             make.bottom.equalTo(topMediaView.snp.top).offset(staticHeight + 50)
         }
         self.loadMediaView(staticHeight)
+        
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = kLightGrayBorder
+        pageControl.currentPageIndicatorTintColor = kCyanTextColor
+        pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
+        self.contentView.addSubview(pageControl)
+        pageControl.snp.makeConstraints { (make) in
+            make.bottom.equalTo(topMediaView.snp.bottom).offset(-10)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(15)
+        }
+        
+        packageTitle.text = self.viewModel.productDataSource?.name
+        packageTitle.font = getFontSize(size: 20, weight: .medium)
+        packageTitle.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
+        packageTitle.numberOfLines = 0
+        self.contentView.addSubview(packageTitle)
+        packageTitle.snp.makeConstraints { make in
+            make.top.equalTo(topMediaView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.left.equalToSuperview().offset(30)
+        }
+        
+        discountPercent.text = String(format: "-%.f%%", viewModel.productDataSource?.discountPercent ?? 0.0)
+        discountPercent.backgroundColor = .red
+        discountPercent.textColor = .white
+        discountPercent.font = getFontSize(size: 20, weight: .semibold)
+        self.contentView.addSubview(discountPercent)
+        discountPercent.snp.makeConstraints { make in
+            make.top.equalTo(packageTitle.snp.bottom).offset(5)
+            make.left.equalTo(packageTitle)
+        }
+        
+        priceDiscount.text = String(format: "%ld %@", viewModel.productDataSource?.finalPrice ?? 0,
+                                    (viewModel.productDataSource?.currency ?? "USD"))
+        priceDiscount.textColor = kNeonFuchsiaColor
+        priceDiscount.font = getFontSize(size: 14, weight: .regular)
+        contentView.addSubview(priceDiscount)
+        priceDiscount.snp.makeConstraints { (make) in
+            make.top.equalTo(discountPercent.snp.bottom).offset(10)
+            make.left.equalTo(packageTitle)
+        }
+        
+        priceLabel.text = String(format: "%ld %@", viewModel.productDataSource?.regularPrice ?? 0,
+                                 (viewModel.productDataSource?.currency ?? "USD"))
+        priceLabel.textColor = kBlackTextColor
+        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        contentView.addSubview(priceLabel)
+        priceLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(discountPercent.snp.bottom).offset(10)
+            make.left.equalTo(priceDiscount.snp.right).offset(5)
+        }
+        
+        descriptionLabel.text = viewModel.productDataSource?.shortDesc
+        descriptionLabel.textColor = kBlackTextColor
+        descriptionLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        contentView.addSubview(descriptionLabel)
+        descriptionLabel.snp.makeConstraints { make in
+            make.left.equalTo(packageTitle)
+            make.top.equalTo(priceLabel.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+        }
+        
+        descriptionLabel.snp.makeConstraints { make in
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        let buyBowBtn = UIButton()
+        buyBowBtn.backgroundColor = kCyanTextColor
+        buyBowBtn.layer.cornerRadius = 8
+        buyBowBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
+        buyBowBtn.setTitle("Buy Now", for: .normal)
+        buyBowBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
+        self.view.addSubview(buyBowBtn)
+        buyBowBtn.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-80)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(40)
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.isNavigationBarHidden = false
     }
     
     //MARK: - Buttons
@@ -55,6 +152,10 @@ class ProductDetailsViewController: BaseViewController {
     }
     
     @objc private func cartButtonTapped() {
+        
+    }
+    
+    @objc private func buyNowButtonTapped() {
         
     }
     
@@ -82,7 +183,21 @@ class ProductDetailsViewController: BaseViewController {
             
             index += 1
         }
-//        self.pageControl.numberOfPages = viewModel.listBanners.count
+        self.pageControl.numberOfPages = listMedia.count
         topMediaView.contentSize = CGSize.init(width: CGFloat(listMedia.count)*(size.width), height: size.height)
+    }
+    
+    @objc private func pageControlDidChange(_ sender: UIPageControl) {
+        let current = sender.currentPage
+        self.topMediaView.setContentOffset(CGPoint(x: CGFloat(current)*view.frame.width, y: 0), animated: true)
+    }
+    
+    //MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        let fractionalPage = scrollView.contentOffset.x / pageWidth
+        
+        let page = lroundf(Float(fractionalPage))
+        self.pageControl.currentPage = page
     }
 }
