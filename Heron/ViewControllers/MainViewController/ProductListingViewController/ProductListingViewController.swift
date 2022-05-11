@@ -138,7 +138,11 @@ class ProductListingViewController: BaseViewController,
         
         cell.priceLabel.text = String(format: "%ld %@", cellData.regularPrice, (cellData.currency ?? "USD"))
         cell.priceDiscount.text = String(format: "%ld %@", cellData.finalPrice, (cellData.currency ?? "USD"))
-        cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
+        if cellData.discountPercent > 0 {
+            cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
+        } else {
+            cell.discountPercent.isHidden = true
+        }
         return cell
     }
     

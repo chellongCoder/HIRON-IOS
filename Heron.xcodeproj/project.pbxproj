@@ -60,6 +60,9 @@
 		93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D552202827FA800034B2B7 /* ProductDataSource.swift */; };
 		93D55226282811D20034B2B7 /* Alert_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55225282811D20034B2B7 /* Alert_Ext.swift */; };
 		93D55229282A73710034B2B7 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55228282A73710034B2B7 /* CartViewController.swift */; };
+		93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */; };
+		93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5522E282A76B60034B2B7 /* AddToCartViewController.swift */; };
+		93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */; };
 		A3B9C08C5BB52EE77C2C39A0 /* Pods_Heron_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -141,6 +144,9 @@
 		93D552202827FA800034B2B7 /* ProductDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataSource.swift; sourceTree = "<group>"; };
 		93D55225282811D20034B2B7 /* Alert_Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert_Ext.swift; sourceTree = "<group>"; };
 		93D55228282A73710034B2B7 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
+		93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFilterViewController.swift; sourceTree = "<group>"; };
+		93D5522E282A76B60034B2B7 /* AddToCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartViewController.swift; sourceTree = "<group>"; };
+		93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartViewModel.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EFB177E120D1345F5BAF7A28 /* Pods-Heron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron.debug.xcconfig"; path = "Target Support Files/Pods-Heron/Pods-Heron.debug.xcconfig"; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 		930F3030281A0577003D247A /* ProductDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				93D5522D282A76790034B2B7 /* AddToCartViewController */,
 				930F3035281A05C7003D247A /* ProductDetailsViewController.swift */,
 				930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */,
 			);
@@ -362,6 +369,7 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				938F7A8C28210F0C00DD60DB /* ProductTableViewCell */,
 				933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */,
@@ -435,6 +443,23 @@
 				93D55228282A73710034B2B7 /* CartViewController.swift */,
 			);
 			path = CartViewController;
+			sourceTree = "<group>";
+		};
+		93D5522A282A74870034B2B7 /* ProductFilterViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */,
+			);
+			path = ProductFilterViewController;
+			sourceTree = "<group>";
+		};
+		93D5522D282A76790034B2B7 /* AddToCartViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93D5522E282A76B60034B2B7 /* AddToCartViewController.swift */,
+				93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */,
+			);
+			path = AddToCartViewController;
 			sourceTree = "<group>";
 		};
 		FDD6F5C2326508B4B9DB604E /* Frameworks */ = {
@@ -709,6 +734,7 @@
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
 				933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */,
+				93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
@@ -719,7 +745,9 @@
 				938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */,
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
+				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */,
+				93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */,
 				938F7A882820E78F00DD60DB /* MyOrderViewController.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,

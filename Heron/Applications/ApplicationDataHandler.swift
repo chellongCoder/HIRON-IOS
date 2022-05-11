@@ -267,7 +267,7 @@ extension ApplicationDataHandler {
     
     func getListProducts(completion:@escaping (String?, [ProductDataSource]?)-> Void) {
         
-        let param : [String:Any] = ["filter[sku][contains]": "fa30cbc3"]
+        let param : [String:Any] = [:]
         
         self.alamofireManager.request(kGatwayInventoryURL + "/products",
                                       method: .get,

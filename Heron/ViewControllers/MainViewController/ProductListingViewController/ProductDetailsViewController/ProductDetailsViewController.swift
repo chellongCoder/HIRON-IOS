@@ -157,7 +157,9 @@ class ProductDetailsViewController: BaseViewController,
     }
     
     @objc private func buyNowButtonTapped() {
-        
+        let addProductPopup = AddToCartViewController()
+        addProductPopup.modalPresentationStyle = .overFullScreen
+        self.present(addProductPopup, animated: true, completion: nil)
     }
     
     //MARK: - Data
