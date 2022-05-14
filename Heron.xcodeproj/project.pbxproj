@@ -57,6 +57,9 @@
 		938F7AA9282112B300DD60DB /* SFProText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9D282112B300DD60DB /* SFProText-SemiboldItalic.ttf */; };
 		938F7AAA282112B300DD60DB /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9E282112B300DD60DB /* SFProText-Bold.ttf */; };
 		938F7AAC28220DD600DD60DB /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7AAB28220DD600DD60DB /* BannerView.swift */; };
+		93BB690F2830033000BC2E5E /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB690E2830033000BC2E5E /* CategoryCollectionViewCell.swift */; };
+		93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB6910283003B000BC2E5E /* ProductFilterViewModel.swift */; };
+		93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB69122830050D00BC2E5E /* CategoryDataSource.swift */; };
 		93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D552202827FA800034B2B7 /* ProductDataSource.swift */; };
 		93D55226282811D20034B2B7 /* Alert_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55225282811D20034B2B7 /* Alert_Ext.swift */; };
 		93D55229282A73710034B2B7 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55228282A73710034B2B7 /* CartViewController.swift */; };
@@ -141,6 +144,9 @@
 		938F7A9D282112B300DD60DB /* SFProText-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		938F7A9E282112B300DD60DB /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		938F7AAB28220DD600DD60DB /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		93BB690E2830033000BC2E5E /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		93BB6910283003B000BC2E5E /* ProductFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFilterViewModel.swift; sourceTree = "<group>"; };
+		93BB69122830050D00BC2E5E /* CategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
 		93D552202827FA800034B2B7 /* ProductDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataSource.swift; sourceTree = "<group>"; };
 		93D55225282811D20034B2B7 /* Alert_Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert_Ext.swift; sourceTree = "<group>"; };
 		93D55228282A73710034B2B7 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
@@ -429,10 +435,19 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		93BB690D2830031100BC2E5E /* CategoryCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				93BB690E2830033000BC2E5E /* CategoryCollectionViewCell.swift */,
+			);
+			path = CategoryCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		93D5521F2827FA690034B2B7 /* ProductDataSource */ = {
 			isa = PBXGroup;
 			children = (
 				93D552202827FA800034B2B7 /* ProductDataSource.swift */,
+				93BB69122830050D00BC2E5E /* CategoryDataSource.swift */,
 			);
 			path = ProductDataSource;
 			sourceTree = "<group>";
@@ -449,6 +464,8 @@
 			isa = PBXGroup;
 			children = (
 				93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */,
+				93BB6910283003B000BC2E5E /* ProductFilterViewModel.swift */,
+				93BB690D2830031100BC2E5E /* CategoryCollectionViewCell */,
 			);
 			path = ProductFilterViewController;
 			sourceTree = "<group>";
@@ -733,6 +750,7 @@
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
+				93BB690F2830033000BC2E5E /* CategoryCollectionViewCell.swift in Sources */,
 				933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */,
 				93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
@@ -749,6 +767,8 @@
 				938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */,
 				93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */,
 				938F7A882820E78F00DD60DB /* MyOrderViewController.swift in Sources */,
+				93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */,
+				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
@@ -932,7 +952,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Heron/Heron.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;
@@ -968,7 +988,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Heron/Heron.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;

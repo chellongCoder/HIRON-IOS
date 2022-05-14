@@ -265,10 +265,8 @@ extension ApplicationDataHandler {
 //MARK: - Inventory
 extension ApplicationDataHandler {
     
-    func getListProducts(completion:@escaping (String?, [ProductDataSource]?)-> Void) {
-        
-        let param : [String:Any] = [:]
-        
+    func getListProducts(param: [String:Any], completion:@escaping (String?, [ProductDataSource]?)-> Void) {
+                
         self.alamofireManager.request(kGatwayInventoryURL + "/products",
                                       method: .get,
                                       parameters: param,
@@ -298,6 +296,42 @@ extension ApplicationDataHandler {
                     if let data = responseData.responseData?["data"] as? [[String:Any]] {
                         completion(responseData.responseMessage,
                                    Mapper<ProductDataSource>().mapArray(JSONArray: data))
+                    }
+                }
+            }
+    }
+    
+    func getListCategories(completion:@escaping (String?, [CategoryDataSource]?)-> Void) {
+                
+        self.alamofireManager.request(kGatwayInventoryURL + "/categories",
+                                      method: .get,
+                                      parameters: nil,
+                                      encoding: URLEncoding.default,
+                                      headers: self.getHeadHeader(nil))
+            .responseJSON { (response:AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
+                    completion(nil, nil)
+                    return
+                }
+                else if responseData.responseCode == 400 {
+                    completion(responseData.responseMessage, nil)
+                    return
+                }
+                else if responseData.responseCode >= 500 {
+                    return
+                } else {
+                    
+                    #warning("API_NEED_MAINTAIN")
+                    // API response array nhưng lại kẹp trong data.
+                    
+                    if let data = responseData.responseData?["data"] as? [[String:Any]] {
+                        completion(responseData.responseMessage,
+                                   Mapper<CategoryDataSource>().mapArray(JSONArray: data))
                     }
                 }
             }

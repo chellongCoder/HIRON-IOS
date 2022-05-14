@@ -9,7 +9,8 @@ import UIKit
 
 class ProductListingViewController: BaseViewController,
                                     UITableViewDataSource, UITableViewDelegate,
-                                    UIScrollViewDelegate {
+                                    UIScrollViewDelegate,
+                                    ProductFilterDelegate {
     
     private let viewModel           = ProductListingViewModel()
     
@@ -86,7 +87,9 @@ class ProductListingViewController: BaseViewController,
     }
     
     @objc private func filterButtonTapped() {
-        
+        let filterVC = ProductFilterViewController()
+        filterVC.delegate = self
+        _NavController.pushViewController(filterVC, animated: true)
     }
     
     //MARK: - UI
@@ -198,5 +201,10 @@ class ProductListingViewController: BaseViewController,
         
         let page = lroundf(Float(fractionalPage))
         self.pageControl.currentPage = page
+    }
+    
+    //MARK: - ProductFilterDelegate
+    func didApplyFilter(_ data: CategoryDataSource?) {
+        self.viewModel.filterData = data
     }
 }

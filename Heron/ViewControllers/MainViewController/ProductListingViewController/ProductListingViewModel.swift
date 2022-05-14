@@ -11,11 +11,21 @@ class ProductListingViewModel: NSObject {
     weak var controller     : ProductListingViewController? = nil
     var listProducts        : [ProductDataSource] = []
     var listBanners         : [String] = ["","","","","","","","",""]
+    var filterData          : CategoryDataSource? = nil
     
     func getProjectList()
     {
+        
+        var param : [String: Any] = ["filter[featureType][eq]" : "ecom",
+                                     "sort[createdAt]" : "desc"]
+        if let filterData = filterData {
+            param = ["filter[featureType][eq]" : "ecom",
+                     "filter[categoryId][eq]" : filterData.id,
+                     "sort[createdAt]" : "desc"]
+        }
+        
         self.controller?.startLoadingAnimation()
-        _AppDataHandler.getListProducts { errorMessage, listNewProducts in
+        _AppDataHandler.getListProducts(param: param) { errorMessage, listNewProducts in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
