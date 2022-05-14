@@ -8,7 +8,7 @@
 import UIKit
 import ObjectMapper
 
-class ProductDataSource: Mappable {
+class ProductDataSource: Mappable, Equatable {
     
     var id              : String = ""
     var code            : String?
@@ -43,6 +43,10 @@ class ProductDataSource: Mappable {
         available       <- map["available"]
         
         self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
+    }
+    
+    static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {
+        return lhs.id == rhs.id
     }
 }
 

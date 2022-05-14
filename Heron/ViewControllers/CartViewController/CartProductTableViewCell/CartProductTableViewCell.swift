@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol ProductCellDelegate {
-    func addProductToCart(_ data: ProductDataSource)
+protocol CartProductCellDelegate {
+    func removeProductFromCart(_ data: ProductDataSource)
 }
 
-class ProductTableViewCell: UITableViewCell {
+class CartProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
     let discountPercent     = UILabel()
@@ -19,10 +19,10 @@ class ProductTableViewCell: UITableViewCell {
     let starView            = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
-    let addToCartBtn        = UIButton()
+    let removeBtn           = UIButton()
     
     private var productData : ProductDataSource? = nil
-    var delegate            : ProductCellDelegate? = nil
+    var delegate            : CartProductCellDelegate? = nil
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -99,12 +99,12 @@ class ProductTableViewCell: UITableViewCell {
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
-        addToCartBtn.setTitle("Add to cart", for: .normal)
-        addToCartBtn.backgroundColor = kCyanTextColor
-        addToCartBtn.layer.cornerRadius = 8
-        addToCartBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
-        contentView.addSubview(addToCartBtn)
-        addToCartBtn.snp.makeConstraints { make in
+        removeBtn.setTitle("Remove", for: .normal)
+        removeBtn.backgroundColor = kPinkTextColor
+        removeBtn.layer.cornerRadius = 8
+        removeBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
+        contentView.addSubview(removeBtn)
+        removeBtn.snp.makeConstraints { make in
             make.top.equalTo(priceDiscount.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(40)
@@ -132,7 +132,7 @@ class ProductTableViewCell: UITableViewCell {
     
     @objc private func removeButtonTapped() {
         if let productData = productData {
-            delegate?.addProductToCart(productData)
+            delegate?.removeProductFromCart(productData)
         }
     }
 }

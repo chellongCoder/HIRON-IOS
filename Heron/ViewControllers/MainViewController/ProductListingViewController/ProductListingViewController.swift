@@ -10,7 +10,8 @@ import UIKit
 class ProductListingViewController: BaseViewController,
                                     UITableViewDataSource, UITableViewDelegate,
                                     UIScrollViewDelegate,
-                                    ProductFilterDelegate {
+                                    ProductFilterDelegate,
+                                    ProductCellDelegate {
     
     private let viewModel           = ProductListingViewModel()
     
@@ -63,7 +64,7 @@ class ProductListingViewController: BaseViewController,
         noDataLabel.textAlignment = .center
         noDataLabel.numberOfLines = 0
         noDataLabel.font = getFontSize(size: 16, weight: .regular)
-        noDataLabel.text = NSLocalizedString("kSearchNoData", comment: "")
+        noDataLabel.text = "No any data to display"
         noDataView.addSubview(noDataLabel)
         noDataLabel.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
@@ -134,13 +135,8 @@ class ProductListingViewController: BaseViewController,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell") as! ProductTableViewCell
         let cellData = viewModel.listProducts[indexPath.row]
-        cell.productTitleLabel.text = cellData.name
-        if let imageURL = URL.init(string: cellData.thumbnailUrl ?? "") {
-            cell.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
-        }
-        
-        cell.priceLabel.text = String(format: "%ld %@", cellData.regularPrice, (cellData.currency ?? "USD"))
-        cell.priceDiscount.text = String(format: "%ld %@", cellData.finalPrice, (cellData.currency ?? "USD"))
+        cell.setDataSource(cellData)
+        cell.delegate = self
         if cellData.discountPercent > 0 {
             cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
         } else {
@@ -206,5 +202,11 @@ class ProductListingViewController: BaseViewController,
     //MARK: - ProductFilterDelegate
     func didApplyFilter(_ data: CategoryDataSource?) {
         self.viewModel.filterData = data
+    }
+    
+    //MARK: - ProductCellDelegate
+    func addProductToCart(_ data: ProductDataSource) {
+        let cartVC = CartViewController.sharedInstance
+        cartVC.addProductToCart(data)
     }
 }
