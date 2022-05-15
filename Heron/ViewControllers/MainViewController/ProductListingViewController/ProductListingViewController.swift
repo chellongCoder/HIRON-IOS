@@ -93,6 +93,10 @@ class ProductListingViewController: BaseViewController,
         _NavController.pushViewController(filterVC, animated: true)
     }
     
+    private func dismissKeyboard() {
+        self.searchBar.endEditing(true)
+    }
+    
     //MARK: - UI
     private func reloadBannerView() {
         // remove all subviews
@@ -137,11 +141,7 @@ class ProductListingViewController: BaseViewController,
         let cellData = viewModel.listProducts[indexPath.row]
         cell.setDataSource(cellData)
         cell.delegate = self
-        if cellData.discountPercent > 0 {
-            cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
-        } else {
-            cell.discountPercent.isHidden = true
-        }
+        
         return cell
     }
     
@@ -188,6 +188,8 @@ class ProductListingViewController: BaseViewController,
         
         let viewDetailsController = ProductDetailsViewController.init(productData)
         _NavController.pushViewController(viewDetailsController, animated: true)
+        
+        self.dismissKeyboard()
     }
     
     //MARK: - UIScrollViewDelegate
@@ -197,6 +199,8 @@ class ProductListingViewController: BaseViewController,
         
         let page = lroundf(Float(fractionalPage))
         self.pageControl.currentPage = page
+        
+        self.dismissKeyboard()
     }
     
     //MARK: - ProductFilterDelegate

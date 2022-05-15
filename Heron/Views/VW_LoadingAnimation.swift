@@ -35,6 +35,8 @@ class VW_LoadingAnimation: UIView {
         }
 
         let logoImage = UIImageView(image: UIImage(named: "AppIcon"))
+        logoImage.layer.cornerRadius = 40
+        logoImage.layer.masksToBounds = true
         self.addSubview(logoImage)
         logoImage.snp.makeConstraints { (make) in
             make.center.equalToSuperview()

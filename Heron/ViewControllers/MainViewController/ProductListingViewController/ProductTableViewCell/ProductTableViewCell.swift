@@ -128,6 +128,13 @@ class ProductTableViewCell: UITableViewCell {
         
         self.priceLabel.text = String(format: "%ld %@", cellData.regularPrice, (cellData.currency ?? "USD"))
         self.priceDiscount.text = String(format: "%ld %@", cellData.finalPrice, (cellData.currency ?? "USD"))
+        
+        if cellData.discountPercent > 0 {
+            self.discountPercent.isHidden = false
+            self.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
+        } else {
+            self.discountPercent.isHidden = true
+        }
     }
     
     @objc private func removeButtonTapped() {
