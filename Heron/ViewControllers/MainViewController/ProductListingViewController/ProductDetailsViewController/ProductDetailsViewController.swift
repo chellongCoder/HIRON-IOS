@@ -21,7 +21,6 @@ class ProductDetailsViewController: BaseViewController,
     private let descriptionLabel    = UILabel()
     
     private let buyNowBtn       = UIButton()
-    private let AddToCartBtn    = UIButton()
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -126,14 +125,13 @@ class ProductDetailsViewController: BaseViewController,
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        let buyBowBtn = UIButton()
-        buyBowBtn.backgroundColor = kCyanTextColor
-        buyBowBtn.layer.cornerRadius = 8
-        buyBowBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
-        buyBowBtn.setTitle("Buy Now", for: .normal)
-        buyBowBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
-        self.view.addSubview(buyBowBtn)
-        buyBowBtn.snp.makeConstraints { (make) in
+        buyNowBtn.backgroundColor = kCyanTextColor
+        buyNowBtn.layer.cornerRadius = 8
+        buyNowBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
+        buyNowBtn.setTitle("Buy Now", for: .normal)
+        buyNowBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
+        self.view.addSubview(buyNowBtn)
+        buyNowBtn.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview().offset(-80)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
@@ -158,6 +156,7 @@ class ProductDetailsViewController: BaseViewController,
     
     @objc private func buyNowButtonTapped() {
         let addProductPopup = AddToCartViewController()
+        addProductPopup.productData = self.viewModel.productDataSource
         addProductPopup.modalPresentationStyle = .overFullScreen
         self.present(addProductPopup, animated: true, completion: nil)
     }

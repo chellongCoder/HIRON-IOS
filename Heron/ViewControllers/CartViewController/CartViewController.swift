@@ -52,7 +52,7 @@ class CartViewController: BaseViewController,
     
     //MARK: - Buttons
     @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @objc private func checkoutButtonTapped() {
