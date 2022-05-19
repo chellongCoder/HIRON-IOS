@@ -21,7 +21,12 @@ class AddToCartViewController: UIViewController {
     let priceDiscount       = UILabel()
     let addToCartBtn        = UIButton()
     
+    let minusBtn            = UIButton()
+    let quantityLabel       = UILabel()
+    let plusBtn             = UIButton()
+    
     var productData         : ProductDataSource? = nil
+    var quantityValue       = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,13 +115,47 @@ class AddToCartViewController: UIViewController {
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
+        minusBtn.setBackgroundImage(UIImage.init(systemName: "minus.circle"), for: .normal)
+        minusBtn.layer.cornerRadius = 15
+        minusBtn.layer.masksToBounds = true
+        minusBtn.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        contentView.addSubview(minusBtn)
+        minusBtn.snp.makeConstraints { make in
+            make.top.equalTo(priceLabel.snp.bottom).offset(5)
+            make.left.equalTo(productTitleLabel)
+            make.height.width.equalTo(30)
+        }
+        
+        plusBtn.setBackgroundImage(UIImage.init(systemName: "plus.circle"), for: .normal)
+        plusBtn.layer.cornerRadius = 15
+        plusBtn.layer.masksToBounds = true
+        plusBtn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+        contentView.addSubview(plusBtn)
+        plusBtn.snp.makeConstraints { make in
+            make.top.equalTo(priceLabel.snp.bottom).offset(5)
+            make.right.equalTo(productTitleLabel)
+            make.height.width.equalTo(30)
+        }
+        
+        quantityLabel.text = String(format: "%ld", self.quantityValue)
+        quantityLabel.layer.borderWidth = 1
+        quantityLabel.layer.borderColor = UIColor.lightGray.cgColor
+        quantityLabel.textAlignment = .center
+        contentView.addSubview(quantityLabel)
+        quantityLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(minusBtn)
+            make.height.equalTo(40)
+            make.left.equalTo(minusBtn.snp.right).offset(5)
+            make.right.equalTo(plusBtn.snp.left).offset(-5)
+        }
+        
         addToCartBtn.setTitle("Add to cart", for: .normal)
         addToCartBtn.backgroundColor = kCyanTextColor
         addToCartBtn.layer.cornerRadius = 8
         addToCartBtn.addTarget(self, action: #selector(addCartButtonTapped), for: .touchUpInside)
         contentView.addSubview(addToCartBtn)
         addToCartBtn.snp.makeConstraints { make in
-            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
+            make.top.equalTo(quantityLabel.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(40)
             make.left.equalTo(productTitleLabel)
@@ -129,11 +168,25 @@ class AddToCartViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @objc private func minusButtonTapped() {
+        if self.quantityValue <= 1 {return}
+        self.quantityValue -= 1
+        quantityLabel.text = String(format: "%ld", self.quantityValue)
+    }
+    
+    @objc private func plusButtonTapped() {
+        if self.quantityValue >= 99 {return}
+        self.quantityValue += 1
+        quantityLabel.text = String(format: "%ld", self.quantityValue)
+    }
+    
     @objc func addCartButtonTapped() {
         guard let productData = productData else {
             return
         }
 
+        productData.quantity = self.quantityValue
+        
         let cartVC = CartViewController.sharedInstance
         cartVC.addProductToCart(productData)
         self.dismiss(animated: true, completion: nil)

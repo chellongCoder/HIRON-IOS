@@ -24,6 +24,7 @@ class ProductDataSource: Mappable, Equatable {
     
     //custome value
     var discountPercent : Float = 0.0
+    var quantity        : Int = 1
     
     required init?(map: Map) {
         //

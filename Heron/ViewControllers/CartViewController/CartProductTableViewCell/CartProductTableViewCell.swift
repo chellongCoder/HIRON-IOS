@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CartProductCellDelegate {
-    func removeProductFromCart(_ data: ProductDataSource)
+    func removeItemFromCart(_ index: IndexPath)
 }
 
 class CartProductTableViewCell: UITableViewCell {
@@ -22,6 +22,7 @@ class CartProductTableViewCell: UITableViewCell {
     let removeBtn           = UIButton()
     
     private var productData : ProductDataSource? = nil
+    private var indexPath   : IndexPath? = nil
     var delegate            : CartProductCellDelegate? = nil
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -117,9 +118,10 @@ class CartProductTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataSource(_ cellData: ProductDataSource) {
+    func setDataSource(_ cellData: ProductDataSource, indexPath: IndexPath) {
         
         self.productData = cellData
+        self.indexPath = indexPath
         
         self.productTitleLabel.text = cellData.name
         if let imageURL = URL.init(string: cellData.thumbnailUrl ?? "") {
@@ -131,8 +133,8 @@ class CartProductTableViewCell: UITableViewCell {
     }
     
     @objc private func removeButtonTapped() {
-        if let productData = productData {
-            delegate?.removeProductFromCart(productData)
+        if let indexPath = indexPath {
+            delegate?.removeItemFromCart(indexPath)
         }
     }
 }

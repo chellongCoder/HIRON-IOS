@@ -41,13 +41,14 @@ class CartViewController: BaseViewController,
         tableView.register(CartProductTableViewCell.self, forCellReuseIdentifier: "CartProductTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.centerX.width.bottom.equalToSuperview()
+            make.center.size.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        self.viewModel.reloadCart()
     }
     
     //MARK: - Buttons
@@ -61,41 +62,63 @@ class CartViewController: BaseViewController,
     
     //MARK: - Cart
     func addProductToCart(_ data: ProductDataSource) {
-        viewModel.listProducts.append(data)
+        viewModel.addToCart(product: data)
         self.tableView.reloadData()
     }
     
     //MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return viewModel.cartDataSource?.store.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.listProducts.count
+        return viewModel.cartDataSource?.store[section].cartItems.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartProductTableViewCell") as! CartProductTableViewCell
-        let cellData = viewModel.listProducts[indexPath.row]
-        cell.setDataSource(cellData)
-        cell.delegate = self
-        if cellData.discountPercent > 0 {
-            cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
-        } else {
-            cell.discountPercent.isHidden = true
+        let storeData = viewModel.cartDataSource?.store[indexPath.section]
+        if let cellData = storeData?.cartItems[indexPath.row].product {
+            cell.setDataSource(cellData, indexPath: indexPath)
+            if cellData.discountPercent > 0 {
+                cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
+            } else {
+                cell.discountPercent.isHidden = true
+            }
         }
+        
+        cell.delegate = self
         return cell
     }
     
     //MARK: - UITableViewDelegate
     
-    //MARK: - CartProductCellDelegate
-    func removeProductFromCart(_ data: ProductDataSource) {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .white
         
-        if let index = viewModel.listProducts.firstIndex(of: data) {
-            viewModel.listProducts.remove(at: index)
+        if let storeData = viewModel.cartDataSource?.store[section] {
+            let titleSignal = UILabel()
+            titleSignal.text = storeData.storeDetails?.name ?? ""
+            headerView.addSubview(titleSignal)
+            titleSignal.snp.makeConstraints { make in
+                make.bottom.equalToSuperview()
+                make.left.equalToSuperview().offset(10)
+                make.height.equalTo(30)
+            }
         }
         
-        self.tableView.reloadData()
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    //MARK: - CartProductCellDelegate
+    func removeItemFromCart(_ index: IndexPath) {
+        guard let store = viewModel.cartDataSource?.store[index.section] else {return}
+        let cartItem = store.cartItems[index.row]
+        viewModel.removeItemFromCart(cartItem)
     }
 }

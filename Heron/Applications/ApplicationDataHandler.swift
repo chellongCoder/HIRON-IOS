@@ -159,9 +159,9 @@ extension ApplicationDataHandler {
         return responseData
     }
     
-    func getHeadHeader(_ accessToken: String?) -> HTTPHeaders {
+    func getHeadHeader() -> HTTPHeaders {
         
-        guard let accessTk = accessToken else {
+        guard let accessTk = _AppCoreData.getUserSession()?.accessToken else {
             let header: HTTPHeaders = [:]
             return header 
         }
@@ -232,7 +232,7 @@ extension ApplicationDataHandler {
                                              method: .post,
                                              parameters: parametter,
                                              encoding: JSONEncoding.default,
-                                             headers: getHeadHeader(nil))
+                                             headers: getHeadHeader())
             .responseJSON { (response: AFDataResponse<Any>) in
                 guard let responseData = self.handleResponseDict(response: response) else {
                     completion(NSLocalizedString("kAPIWrongFormatMessage", comment: ""), nil )
@@ -243,7 +243,7 @@ extension ApplicationDataHandler {
                     return
                 }
                 
-                if let responseDict = responseData.responseData {
+                if let responseDict = responseData.responseData?["data"] as? [String : Any] {
                     let sessionToken = SessionDataSource.init(JSONString: "{}")!
                     if let accessToken = responseDict["accessToken"] as? String {
                         sessionToken.accessToken = accessToken
@@ -271,7 +271,7 @@ extension ApplicationDataHandler {
                                       method: .get,
                                       parameters: param,
                                       encoding: URLEncoding.default,
-                                      headers: self.getHeadHeader(nil))
+                                      headers: self.getHeadHeader())
             .responseJSON { (response:AFDataResponse<Any>) in
                 guard let responseData = self.handleResponseDict(response: response) else {
                     completion(nil, nil)
@@ -307,7 +307,7 @@ extension ApplicationDataHandler {
                                       method: .get,
                                       parameters: nil,
                                       encoding: URLEncoding.default,
-                                      headers: self.getHeadHeader(nil))
+                                      headers: self.getHeadHeader())
             .responseJSON { (response:AFDataResponse<Any>) in
                 guard let responseData = self.handleResponseDict(response: response) else {
                     completion(nil, nil)
@@ -332,6 +332,121 @@ extension ApplicationDataHandler {
                     if let data = responseData.responseData?["data"] as? [[String:Any]] {
                         completion(responseData.responseMessage,
                                    Mapper<CategoryDataSource>().mapArray(JSONArray: data))
+                    }
+                }
+            }
+    }
+}
+
+//MARK: - Cart
+extension ApplicationDataHandler {
+    
+    func addToCart(listProducts: [ProductDataSource], completion:@escaping (String?, String?)-> Void) {
+        
+        var productsDict : [[String:Any]] = []
+        for product in listProducts {
+            let productDict : [String: Any] = ["productId" : product.id,
+                                               "quantity" : product.quantity]
+            productsDict.append(productDict)
+        }
+        
+        let param : [String:Any] = ["products" : productsDict]
+        
+        self.alamofireManager.request(kGatwayCartURL + "/carts/add-to-cart",
+                                      method: .post,
+                                      parameters: param,
+                                      encoding: JSONEncoding.default,
+                                      headers: self.getHeadHeader())
+            .responseJSON { (response:AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
+                    completion(nil, nil)
+                    return
+                }
+                else if responseData.responseCode == 400 {
+                    completion(responseData.responseMessage, nil)
+                    return
+                }
+                else if responseData.responseCode >= 500 {
+                    return
+                }
+                else if responseData.responseCode == 200, responseData.responseCode == 204 {
+                    completion(nil, responseData.responseMessage)
+                }
+                else {
+                    completion(responseData.responseMessage, nil)
+                }
+            }
+    }
+    
+    func removeCartItem(itemID: String, completion:@escaping (String?, String?)-> Void) {
+                
+        let endPoint = String(format: "/carts/items/%ld", itemID)
+        self.alamofireManager.request(kGatwayCartURL + endPoint,
+                                      method: .delete,
+                                      parameters: nil,
+                                      encoding: URLEncoding.default,
+                                      headers: self.getHeadHeader())
+            .responseJSON { (response:AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
+                    completion(nil, nil)
+                    return
+                }
+                else if responseData.responseCode == 400 {
+                    completion(responseData.responseMessage, nil)
+                    return
+                }
+                else if responseData.responseCode >= 500 {
+                    return
+                }
+                else if responseData.responseCode == 200, responseData.responseCode == 204 {
+                    completion(nil, responseData.responseMessage)
+                }
+                else {
+                    completion(responseData.responseMessage, nil)
+                }
+            }
+    }
+    
+    func getCartDataSource(completion:@escaping (String?, CartDataSource?)-> Void) {
+        
+        self.alamofireManager.request(kGatwayCartURL + "/carts",
+                                      method: .get,
+                                      parameters: nil,
+                                      encoding: URLEncoding.default,
+                                      headers: self.getHeadHeader())
+            .responseJSON { (response:AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
+                    completion(nil, nil)
+                    return
+                }
+                else if responseData.responseCode == 400 {
+                    completion(responseData.responseMessage, nil)
+                    return
+                }
+                else if responseData.responseCode >= 500 {
+                    return
+                } else {
+                    
+                    #warning("API_NEED_MAINTAIN")
+                    // API response array nhưng lại kẹp trong data.
+                    
+                    if let data = responseData.responseData?["data"] as? [String:Any] {
+                        completion(responseData.responseMessage, Mapper<CartDataSource>().map(JSON: data))
                     }
                 }
             }

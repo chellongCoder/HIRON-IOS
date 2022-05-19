@@ -68,6 +68,7 @@
 		93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */; };
 		93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5522E282A76B60034B2B7 /* AddToCartViewController.swift */; };
 		93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */; };
+		93E520422835ED4900523772 /* CartItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E520412835ED4900523772 /* CartItemDataSource.swift */; };
 		A3B9C08C5BB52EE77C2C39A0 /* Pods_Heron_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -157,6 +158,7 @@
 		93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFilterViewController.swift; sourceTree = "<group>"; };
 		93D5522E282A76B60034B2B7 /* AddToCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartViewController.swift; sourceTree = "<group>"; };
 		93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartViewModel.swift; sourceTree = "<group>"; };
+		93E520412835ED4900523772 /* CartItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemDataSource.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EFB177E120D1345F5BAF7A28 /* Pods-Heron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron.debug.xcconfig"; path = "Target Support Files/Pods-Heron/Pods-Heron.debug.xcconfig"; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 		933D193B2819947000F1CCC4 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				93E520402835ECC700523772 /* CartData */,
 				93D5521F2827FA690034B2B7 /* ProductDataSource */,
 				933D193C2819947000F1CCC4 /* UserDataSource.swift */,
 				933D193D2819947000F1CCC4 /* SessionDataSource.swift */,
@@ -491,6 +494,14 @@
 				93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */,
 			);
 			path = AddToCartViewController;
+			sourceTree = "<group>";
+		};
+		93E520402835ECC700523772 /* CartData */ = {
+			isa = PBXGroup;
+			children = (
+				93E520412835ED4900523772 /* CartItemDataSource.swift */,
+			);
+			path = CartData;
 			sourceTree = "<group>";
 		};
 		FDD6F5C2326508B4B9DB604E /* Frameworks */ = {
@@ -773,6 +784,7 @@
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
+				93E520422835ED4900523772 /* CartItemDataSource.swift in Sources */,
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
 				938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */,
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
@@ -968,7 +980,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Heron/Heron.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;
@@ -1004,7 +1016,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Heron/Heron.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;
