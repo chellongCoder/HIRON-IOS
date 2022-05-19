@@ -343,27 +343,22 @@ extension ApplicationDataHandler {
     
     func checkout(cart: CartDataSource, completion:@escaping (String?, String?)-> Void) {
         //NOTE: Define model
-        struct CardDetail: Codable {
-            var targetId: String
-            var selectedCartItems: [String]
-        }
-        
         struct CartRequest: Codable {
-            let cartDetail: [CardDetail]
+            let cartDetail: [CartDetailReq]
             let couponIds: [String]?
             let paymentMethod: String?
         }
-        
+       
         //data mapping
         
-        let cartRequest = CartRequest(cartDetail: cart.store.map { CardDetail(targetId: $0.id, selectedCartItems: $0.cartItems.map{ (v) in v.id }) }, couponIds: [], paymentMethod: nil)
+        let cartRequest = CartRequest(cartDetail: cart.cartDetails.map{ CartDetailReq(targetId: $0.targetId, selectedCartItems: $0.cartItems.map{v in v.id})}, couponIds: [], paymentMethod: nil)
         
         let dictionary = try! DictionaryEncoder().encode(cartRequest)
 
         
         self.alamofireManager.request(kGatwayCartURL + "/carts/pre-checkout",
                                       method: .post,
-                                      parameters: dictionary as! Parameters,
+                                      parameters: dictionary as? Parameters,
                                       encoding: JSONEncoding.default,
                                       headers: self.getHeadHeader())
             .responseJSON { (response:AFDataResponse<Any>) in

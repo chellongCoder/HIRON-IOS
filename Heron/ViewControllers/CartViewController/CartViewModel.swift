@@ -12,6 +12,7 @@ class CartViewModel: NSObject {
     var cartDataSource      : CartDataSource? = nil
     
     func checkout() {
+        self.reloadCart()
         self.controller?.startLoadingAnimation()
         assert(cartDataSource != nil, "Cart empty")
         _AppDataHandler.checkout(cart: self.cartDataSource!) { errorMessage, successMessage in
@@ -28,6 +29,7 @@ class CartViewModel: NSObject {
             
             //TODO: Clear cart
             self.reloadCart()
+            
         }
         
     }
@@ -46,7 +48,12 @@ class CartViewModel: NSObject {
                 return
             }
             
-            self.reloadCart()
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Alert", comment: ""), message: "Checkout success", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.dismiss()
+                self.reloadCart()
+            }))
+            _NavController.showAlert(alertVC)
         }
     }
     

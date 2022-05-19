@@ -8,6 +8,27 @@
 import UIKit
 import ObjectMapper
 
+struct CartDetailReq: Codable {
+    var targetId: String
+    var selectedCartItems: [String]
+}
+struct CartDetail: Mappable {
+    var targetId: String = ""
+    var cartItems: [CartItemDataSource] = []
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        targetId    <- map["targetId"]
+        cartItems  <- map["cartItems"]
+    }
+}
+
+
+
+
 struct CartDataSource : Mappable {
     
     var subtotal    : Int = 0
@@ -16,6 +37,7 @@ struct CartDataSource : Mappable {
     var totalItemCount  : Int = 0
     var totalQuantity   : Int = 0
     var store           : [StoreDataSource] = []
+    var cartDetails: [CartDetail] = []
     
     init?(map: Map) {
         //
@@ -28,6 +50,7 @@ struct CartDataSource : Mappable {
         totalItemCount  <- map["totalItemCount"]
         totalQuantity   <- map["totalQuantity"]
         store           <- map["cartDetail"]
+        cartDetails <- map["cartDetail"]
     }
 }
 
