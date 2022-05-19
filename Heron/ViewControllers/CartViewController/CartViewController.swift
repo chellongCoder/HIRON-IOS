@@ -57,7 +57,8 @@ class CartViewController: BaseViewController,
     }
     
     @objc private func checkoutButtonTapped() {
-        
+        //Handle checkout
+        viewModel.checkout()
     }
     
     //MARK: - Cart

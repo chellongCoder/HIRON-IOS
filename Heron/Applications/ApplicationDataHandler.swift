@@ -341,6 +341,57 @@ extension ApplicationDataHandler {
 //MARK: - Cart
 extension ApplicationDataHandler {
     
+    func checkout(cart: CartDataSource, completion:@escaping (String?, String?)-> Void) {
+        //NOTE: Define model
+        struct CardDetail: Codable {
+            var targetId: String
+            var selectedCartItems: [String]
+        }
+        
+        struct CartRequest: Codable {
+            let cartDetail: [CardDetail]
+            let couponIds: [String]?
+            let paymentMethod: String?
+        }
+        
+        //data mapping
+        
+        let cartRequest = CartRequest(cartDetail: cart.store.map { CardDetail(targetId: $0.id, selectedCartItems: $0.cartItems.map{ (v) in v.id }) }, couponIds: [], paymentMethod: nil)
+        
+        let dictionary = try! DictionaryEncoder().encode(cartRequest)
+
+        
+        self.alamofireManager.request(kGatwayCartURL + "/carts/pre-checkout",
+                                      method: .post,
+                                      parameters: dictionary as! Parameters,
+                                      encoding: JSONEncoding.default,
+                                      headers: self.getHeadHeader())
+            .responseJSON { (response:AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    completion(nil, nil)
+                    return
+                }
+                
+                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
+                    completion(nil, nil)
+                    return
+                }
+                else if responseData.responseCode == 400 {
+                    completion(responseData.responseMessage, nil)
+                    return
+                }
+                else if responseData.responseCode >= 500 {
+                    return
+                }
+                else if responseData.responseCode == 200, responseData.responseCode == 204 {
+                    completion(nil, responseData.responseMessage)
+                }
+                else {
+                    completion(responseData.responseMessage, nil)
+                }
+            }
+    }
+    
     func addToCart(listProducts: [ProductDataSource], completion:@escaping (String?, String?)-> Void) {
         
         var productsDict : [[String:Any]] = []
