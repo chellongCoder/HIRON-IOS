@@ -28,10 +28,13 @@ class CartViewModel: NSObject {
             }
             
             //TODO: Clear cart
-            self.reloadCart()
-            
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Alert", comment: ""), message: "Checkout success", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.dismiss()
+                self.reloadCart()
+            }))
+            _NavController.showAlert(alertVC)
         }
-        
     }
     
     func addToCart(product: ProductDataSource, quantity: Int? = 1) {
@@ -47,13 +50,8 @@ class CartViewModel: NSObject {
                 _NavController.showAlert(alertVC)
                 return
             }
-            
-            let alertVC = UIAlertController.init(title: NSLocalizedString("Alert", comment: ""), message: "Checkout success", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
-                alertVC.dismiss()
-                self.reloadCart()
-            }))
-            _NavController.showAlert(alertVC)
+            self.reloadCart()
+          
         }
     }
     

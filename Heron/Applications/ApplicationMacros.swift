@@ -26,7 +26,7 @@ let kUserProfileDataSource          = "kUserProfileDataSource"
 let kGatewayAuthenticationURL               = "https://ehp-api.cbidigital.com/authentication-svc/api"
 let kGatwayInventoryURL                     = "https://ehp-api.cbidigital.com/inventory-svc/api"
 let kGatwayCartURL                          = "https://ehp-api.cbidigital.com/cart-svc/api"
-
+let kGatewayOrderURL                        = "https://ehp-api.cbidigital.com/order-svc/api"
 // Define notificationKey
 let kUserLoggedInNotification               = Notification.Name("kUserLoggedInNotification")
 let kUserSignOutNotification                = Notification.Name("kUserSignOutNotification")

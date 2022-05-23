@@ -342,21 +342,30 @@ extension ApplicationDataHandler {
 extension ApplicationDataHandler {
     
     func checkout(cart: CartDataSource, completion:@escaping (String?, String?)-> Void) {
-        //NOTE: Define model
-        struct CartRequest: Codable {
-            let cartDetail: [CartDetailReq]
-            let couponIds: [String]?
-            let paymentMethod: String?
-        }
-       
+//        //NOTE: Define model
+//        struct CartRequest: Codable {
+//            let cartDetail: [CartDetailReq]
+//            let couponIds: [String]?
+//            let paymentMethod: String?
+//        }
+//
         //data mapping
+        let cardDetail = cart.cartDetails.map{ CartDetailForCheckout(selectedCartItems: $0.cartItems.map{v in v.id}, targetId: $0.targetId, carrierCode: "grab")}
+      
+        let fakeRecipient = Recipient(id: nil, createdAt: nil, updatedAt: nil, userId: nil, profileId: nil, firstName: "Presley", lastName: "Wilkinson", email: "frederick_dietrich71@gmail.com", phone: "0767595278", country: "MS", region: "Lake Aleenbury", province: "Honduras", district: "Goldner Forest", ward: "Lakin Mount", address: "754 Schimmel Extension", postalCode: "70000", latitude: 22.305, longitude: -20.4538, isDefault: nil)
+        let cart = Cart(cartDetail: cardDetail, couponIds: [], recipient: fakeRecipient)
+        let cartRequest = CartDetailReq(cart: cart, includes: "delivery", paymentMethodCode: "cards", paymentPlatform: "web_browser")
+//        CartRequest(cartDetail: <#T##[CartDetailReq]#>, couponIds: <#T##[String]?#>, paymentMethod: <#T##String?#>)
         
-        let cartRequest = CartRequest(cartDetail: cart.cartDetails.map{ CartDetailReq(targetId: $0.targetId, selectedCartItems: $0.cartItems.map{v in v.id})}, couponIds: [], paymentMethod: nil)
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        guard let data = try? encoder.encode(cartRequest),
+            let output = String(data: data, encoding: .utf8)
+            else { fatalError( "Error converting \(cartRequest) to JSON string") }
+        print("JSON string = \(output)")
         
         let dictionary = try! DictionaryEncoder().encode(cartRequest)
-
-        
-        self.alamofireManager.request(kGatwayCartURL + "/carts/pre-checkout",
+        self.alamofireManager.request(kGatewayOrderURL + "/orders",
                                       method: .post,
                                       parameters: dictionary as? Parameters,
                                       encoding: JSONEncoding.default,
