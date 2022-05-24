@@ -8,27 +8,6 @@
 import UIKit
 import ObjectMapper
 
-//struct CartDetailReq: Codable {
-//    var targetId: String
-//    var selectedCartItems: [String]
-//}
-struct CartDetail: Mappable {
-    var targetId: String = ""
-    var cartItems: [CartItemDataSource] = []
-
-    init?(map: Map) {
-        //
-    }
-
-    mutating func mapping(map: Map) {
-        targetId    <- map["targetId"]
-        cartItems  <- map["cartItems"]
-    }
-}
-//
-
-
-
 struct CartDataSource : Mappable {
     
     var subtotal    : Int = 0
@@ -36,8 +15,7 @@ struct CartDataSource : Mappable {
     var totalSaved  : Int = 0
     var totalItemCount  : Int = 0
     var totalQuantity   : Int = 0
-    var store           : [StoreDataSource] = []
-    var cartDetails: [CartDetail] = []
+    var store           : [StoreDataSource] = []  //same as cartDetails - rename for clean flow
     
     init?(map: Map) {
         //
@@ -50,7 +28,6 @@ struct CartDataSource : Mappable {
         totalItemCount  <- map["totalItemCount"]
         totalQuantity   <- map["totalQuantity"]
         store           <- map["cartDetail"]
-        cartDetails <- map["cartDetail"]
     }
 }
 
@@ -58,6 +35,7 @@ struct StoreDataSource : Mappable {
     
     var id              : String = ""
     var storeDetails    : StoreDetailsDataSource? = nil
+    var targetId        : String = ""
     var cartItems       : [CartItemDataSource] = []
     
     init?(map: Map) {
@@ -67,6 +45,7 @@ struct StoreDataSource : Mappable {
     mutating func mapping(map: Map) {
         id              <- map["id"]
         storeDetails    <- map["store"]
+        targetId        <- map["targetId"]
         cartItems       <- map["cartItems"]
     }
 }
