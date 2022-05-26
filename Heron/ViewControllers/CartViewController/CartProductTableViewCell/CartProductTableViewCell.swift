@@ -9,6 +9,7 @@ import UIKit
 
 protocol CartProductCellDelegate {
     func removeItemFromCart(_ index: IndexPath)
+    func modifyCheckoutList(_ index: IndexPath)
 }
 
 class CartProductTableViewCell: UITableViewCell {
@@ -20,8 +21,13 @@ class CartProductTableViewCell: UITableViewCell {
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
     let removeBtn           = UIButton()
+    let checkoutSelection   = UIButton()
     
-    private var productData : ProductDataSource? = nil
+    private var cartItemData : CartItemDataSource? = nil {
+        didSet {
+            checkoutSelection.setTitle((cartItemData?.isSelected ?? false) ? "Deselect this Item" :"Select this Item", for: .normal)
+        }
+    }
     private var indexPath   : IndexPath? = nil
     var delegate            : CartProductCellDelegate? = nil
     
@@ -110,6 +116,19 @@ class CartProductTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(40)
             make.left.equalTo(productTitleLabel)
+//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        checkoutSelection.setTitle((cartItemData?.isSelected ?? false) ? "Deselect this Item" :"Select this Item", for: .normal)
+        checkoutSelection.backgroundColor = kPinkTextColor
+        checkoutSelection.layer.cornerRadius = 8
+        checkoutSelection.addTarget(self, action: #selector(modifyCheckoutList), for: .touchUpInside)
+        contentView.addSubview(checkoutSelection)
+        checkoutSelection.snp.makeConstraints { make in
+            make.top.equalTo(removeBtn.snp.bottom).offset(10)
+            make.right.equalToSuperview().offset(-20)
+            make.height.equalTo(40)
+            make.left.equalTo(productTitleLabel)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
@@ -118,23 +137,29 @@ class CartProductTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataSource(_ cellData: ProductDataSource, indexPath: IndexPath) {
+    func setDataSource(_ cellData: CartItemDataSource, indexPath: IndexPath) {
         
-        self.productData = cellData
+        self.cartItemData = cellData
         self.indexPath = indexPath
         
-        self.productTitleLabel.text = cellData.name
-        if let imageURL = URL.init(string: cellData.thumbnailUrl ?? "") {
+        self.productTitleLabel.text = cellData.product?.name
+        if let imageURL = URL.init(string: cellData.product?.thumbnailUrl ?? "") {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "%ld %@", cellData.regularPrice, (cellData.currency ?? "USD"))
-        self.priceDiscount.text = String(format: "%ld %@", cellData.finalPrice, (cellData.currency ?? "USD"))
+        self.priceLabel.text = String(format: "%ld %@", cellData.product!.regularPrice, (cellData.product?.currency ?? "USD"))
+        self.priceDiscount.text = String(format: "%ld %@", cellData.product!.finalPrice, (cellData.product?.currency ?? "USD"))
     }
     
     @objc private func removeButtonTapped() {
         if let indexPath = indexPath {
             delegate?.removeItemFromCart(indexPath)
+        }
+    }
+    
+    @objc private func modifyCheckoutList() {
+        if let indexPath = indexPath {
+            delegate?.modifyCheckoutList(indexPath)
         }
     }
 }

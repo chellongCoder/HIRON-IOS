@@ -79,10 +79,10 @@ class CartViewController: BaseViewController,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CartProductTableViewCell") as! CartProductTableViewCell
         let storeData = viewModel.cartDataSource?.store[indexPath.section]
-        if let cellData = storeData?.cartItems[indexPath.row].product {
+        if let cellData = storeData?.cartItems[indexPath.row] {
             cell.setDataSource(cellData, indexPath: indexPath)
-            if cellData.discountPercent > 0 {
-                cell.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
+            if cellData.product!.discountPercent > 0 {
+                cell.discountPercent.text = String(format: "-%.f%%", cellData.product!.discountPercent )
             } else {
                 cell.discountPercent.isHidden = true
             }
@@ -121,5 +121,12 @@ class CartViewController: BaseViewController,
         guard let store = viewModel.cartDataSource?.store[index.section] else {return}
         let cartItem = store.cartItems[index.row]
         viewModel.removeItemFromCart(cartItem)
+    }
+    
+    func modifyCheckoutList(_ index: IndexPath) {
+        guard var store = viewModel.cartDataSource?.store[index.section] else {return}
+        let isSelected = viewModel.cartDataSource?.store[index.section].cartItems[index.row].isSelected ?? false
+        viewModel.cartDataSource?.store[index.section].cartItems[index.row].isSelected = !isSelected
+        self.tableView.reloadData()
     }
 }
