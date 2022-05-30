@@ -70,6 +70,7 @@ struct CartItemDataSource: Mappable {
     var id          : String = ""
     var product     : ProductDataSource? = nil
     var quantity    : Int = 0
+    var isSelected  : Bool = false
     
     init?(map: Map) {
         //

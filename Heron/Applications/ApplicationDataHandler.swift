@@ -350,7 +350,7 @@ extension ApplicationDataHandler {
 //        }
 //
         //data mapping
-        let cartDetail = cart.store.map{ CartDetailForCheckout(selectedCartItems: $0.cartItems.map{v in v.id}, targetId: $0.targetId, carrierCode: "grab")}
+        let cartDetail = cart.store.map{ CartDetailForCheckout(selectedCartItems: $0.cartItems.filter{$0.isSelected}.map{v in v.id}, targetId: $0.targetId, carrierCode: "grab")}.filter{$0.selectedCartItems?.count ?? 0 > 0}
       
         let fakeRecipient = Recipient(id: nil, createdAt: nil, updatedAt: nil, userId: nil, profileId: nil, firstName: "Presley", lastName: "Wilkinson", email: "frederick_dietrich71@gmail.com", phone: "0767595278", country: "MS", region: "Lake Aleenbury", province: "Honduras", district: "Goldner Forest", ward: "Lakin Mount", address: "754 Schimmel Extension", postalCode: "70000", latitude: 22.305, longitude: -20.4538, isDefault: nil)
         let cart = Cart(cartDetail: cartDetail, couponIds: [], recipient: fakeRecipient)
