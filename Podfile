@@ -19,6 +19,9 @@ target 'Heron' do
   pod 'IQKeyboardManagerSwift',   '6.5.6'
   pod 'SkeletonView',             '1.11.0'
   
+  pod 'RxSwift',                  '6.5.0'
+  pod 'RxCocoa',                  '6.5.0'
+  
   #Tracking
   pod 'BugfenderSDK'
   # pod 'AppsFlyerFramework',       '6.2.6'
@@ -31,6 +34,7 @@ target 'Heron' do
   end
 
   target 'HeronUITests' do
+    inherit! :search_paths
     # Pods for testing
   end
 

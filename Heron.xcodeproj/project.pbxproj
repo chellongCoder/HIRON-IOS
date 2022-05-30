@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5420DFD1ADB514180E443DB8 /* Pods_Heron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */; };
+		5D9629979773B0F0A8EF6E29 /* Pods_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */; };
 		8F44A8CAC79E09534AD07075 /* Pods_HeronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */; };
 		930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3031281A05A1003D247A /* ProductListingViewModel.swift */; };
 		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
@@ -74,7 +75,6 @@
 		93D73F1428450D0C0015C4FB /* CartServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D73F1328450D0C0015C4FB /* CartServices.swift */; };
 		93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D73F1528450D7E0015C4FB /* CheckoutServices.swift */; };
 		93E520422835ED4900523772 /* CartItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E520412835ED4900523772 /* CartItemDataSource.swift */; };
-		A3B9C08C5BB52EE77C2C39A0 /* Pods_Heron_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 /* End PBXBuildFile section */
 
@@ -98,8 +98,8 @@
 /* Begin PBXFileReference section */
 		274A19593BFB005372FA29B7 /* Pods-Heron-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F07810B31D8BE9A038CEA94 /* Pods-HeronTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.release.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.release.xcconfig"; sourceTree = "<group>"; };
+		3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		718D7E879D9BB835A6FFA734 /* Pods-HeronTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.debug.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.debug.xcconfig"; sourceTree = "<group>"; };
-		91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heron_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		930F3031281A05A1003D247A /* ProductListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewModel.swift; sourceTree = "<group>"; };
 		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -170,8 +170,10 @@
 		93D73F1328450D0C0015C4FB /* CartServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartServices.swift; sourceTree = "<group>"; };
 		93D73F1528450D7E0015C4FB /* CheckoutServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutServices.swift; sourceTree = "<group>"; };
 		93E520412835ED4900523772 /* CartItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemDataSource.swift; sourceTree = "<group>"; };
+		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EFB177E120D1345F5BAF7A28 /* Pods-Heron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron.debug.xcconfig"; path = "Target Support Files/Pods-Heron/Pods-Heron.debug.xcconfig"; sourceTree = "<group>"; };
 		F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,7 +201,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3B9C08C5BB52EE77C2C39A0 /* Pods_Heron_HeronUITests.framework in Frameworks */,
+				5D9629979773B0F0A8EF6E29 /* Pods_HeronUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,6 +217,8 @@
 				E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */,
 				718D7E879D9BB835A6FFA734 /* Pods-HeronTests.debug.xcconfig */,
 				2F07810B31D8BE9A038CEA94 /* Pods-HeronTests.release.xcconfig */,
+				E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */,
+				3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -534,8 +538,8 @@
 			isa = PBXGroup;
 			children = (
 				F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */,
-				91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */,
 				A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */,
+				9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -589,7 +593,6 @@
 				933D18F92819935E00F1CCC4 /* Sources */,
 				933D18FA2819935E00F1CCC4 /* Frameworks */,
 				933D18FB2819935E00F1CCC4 /* Resources */,
-				720B470BD5E0B453DF5F20E6 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -716,7 +719,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Heron-HeronUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-HeronUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -743,23 +746,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		720B470BD5E0B453DF5F20E6 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DA67F540836E541EE4B374E8 /* [CP] Check Pods Manifest.lock */ = {
@@ -1118,7 +1104,7 @@
 		};
 		933D190E2819935E00F1CCC4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 274A19593BFB005372FA29B7 /* Pods-Heron-HeronUITests.debug.xcconfig */;
+			baseConfigurationReference = E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1137,7 +1123,7 @@
 		};
 		933D190F2819935E00F1CCC4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */;
+			baseConfigurationReference = 3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
