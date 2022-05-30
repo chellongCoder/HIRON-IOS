@@ -124,8 +124,8 @@ class CartViewController: BaseViewController,
     }
     
     func modifyCheckoutList(_ index: IndexPath) {
-        guard var store = viewModel.cartDataSource?.store[index.section] else {return}
-        let isSelected = viewModel.cartDataSource?.store[index.section].cartItems[index.row].isSelected ?? false
+        guard let store = viewModel.cartDataSource?.store[index.section] else {return}
+        let isSelected = store.cartItems[index.row].isSelected
         viewModel.cartDataSource?.store[index.section].cartItems[index.row].isSelected = !isSelected
         self.tableView.reloadData()
     }

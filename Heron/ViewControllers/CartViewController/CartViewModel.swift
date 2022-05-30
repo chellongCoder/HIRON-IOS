@@ -15,7 +15,8 @@ class CartViewModel: NSObject {
         self.reloadCart()
         self.controller?.startLoadingAnimation()
         assert(cartDataSource != nil, "Cart empty")
-        _AppDataHandler.checkout(cart: self.cartDataSource!) { errorMessage, successMessage in
+        
+        _CartServices.checkout(cart: self.cartDataSource!) { errorMessage, successMessage in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
@@ -39,7 +40,7 @@ class CartViewModel: NSObject {
     
     func addToCart(product: ProductDataSource, quantity: Int? = 1) {
         self.controller?.startLoadingAnimation()
-        _AppDataHandler.addToCart(listProducts: [product]) { errorMessage, successMessage in
+        _CartServices.addToCart(listProducts: [product]) { errorMessage, successMessage in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
@@ -57,7 +58,7 @@ class CartViewModel: NSObject {
     
     func removeItemFromCart(_ item: CartItemDataSource) {
         self.controller?.startLoadingAnimation()
-        _AppDataHandler.removeCartItem(itemID: item.id) { errorMessage, successMessage in
+        _CartServices.removeCartItem(itemID: item.id) { errorMessage, successMessage in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
@@ -76,7 +77,7 @@ class CartViewModel: NSObject {
     func reloadCart() {
         self.controller?.startLoadingAnimation()
         
-        _AppDataHandler.getCartDataSource(completion: { errorMessage, cartData in
+        _CartServices.getCartDataSource { errorMessage, cartData in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
@@ -94,6 +95,6 @@ class CartViewModel: NSObject {
                     self.controller?.tableView.reloadData()
                 }
             }
-        })
+        }
     }
 }

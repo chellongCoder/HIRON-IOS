@@ -13,7 +13,7 @@ class ProductFilterViewModel: NSObject {
     
     func getListCategoris() {
         controller?.startLoadingAnimation()
-        _AppDataHandler.getListCategories { errorMessage , listNewCategories in
+        _InventoryServices.getListCategories { errorMessage , listNewCategories in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {

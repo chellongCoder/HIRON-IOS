@@ -17,6 +17,11 @@ let _NavController                  = AppNavigationController.sharedInstance
 let _AppDataHandler                 = ApplicationDataHandler.sharedInstance
 let _AppCoreData                    = ApplicationCoreData.sharedInstance
 
+// MARK: - Services
+let _AuthenticationServices         = AuthenticationServices.sharedInstance
+let _InventoryServices              = InventoryServices.sharedInstance
+let _CartServices                   = CartServices.sharedInstance
+
 // Define key
 let kUserSessionDataSource          = "kUserSessionDataSource"
 let kUserProfileDataSource          = "kUserProfileDataSource"

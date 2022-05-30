@@ -25,7 +25,7 @@ class ProductListingViewModel: NSObject {
         }
         
         self.controller?.startLoadingAnimation()
-        _AppDataHandler.getListProducts(param: param) { errorMessage, listNewProducts in
+        _InventoryServices.getListProducts(param: param) { errorMessage, listNewProducts in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {

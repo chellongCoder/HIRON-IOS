@@ -25,8 +25,7 @@ class LunchScreenViewController: UIViewController {
             make.center.size.equalToSuperview()
         }
         
-        
-        _ = _AppDataHandler.login { isSuccess, errorMessgae in
+        _AuthenticationServices.login { isSuccess, errorMessgae in
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 let homeVC = MainViewController()
                 self.navigationController?.setViewControllers([homeVC], animated: true)

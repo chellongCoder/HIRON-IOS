@@ -76,7 +76,7 @@ class ApplicationCoreData: NSObject {
         // OneSignal config
         if let userID = self.userDataSource?.userID {
             if !userID.isEmpty {
-                _AppDataHandler.setExternalUserId(id: userID)
+//                _AppDataHandler.setExternalUserId(id: userID)
             }
         }
         
@@ -91,7 +91,7 @@ class ApplicationCoreData: NSObject {
         self.userSession = nil
         self.userDataSource = nil
         // OneSignal config
-        _AppDataHandler.removeExternalUserId()
+//        _AppDataHandler.removeExternalUserId()
         
         // Stop Refresh token
         self.timerRefeshToken?.invalidate()

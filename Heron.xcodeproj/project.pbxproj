@@ -68,6 +68,11 @@
 		93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */; };
 		93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D5522E282A76B60034B2B7 /* AddToCartViewController.swift */; };
 		93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */; };
+		93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D73F0D28450CD90015C4FB /* AuthenticationServices.swift */; };
+		93D73F1028450CE80015C4FB /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D73F0F28450CE80015C4FB /* UserServices.swift */; };
+		93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D73F1128450CFD0015C4FB /* InventoryServices.swift */; };
+		93D73F1428450D0C0015C4FB /* CartServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D73F1328450D0C0015C4FB /* CartServices.swift */; };
+		93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D73F1528450D7E0015C4FB /* CheckoutServices.swift */; };
 		93E520422835ED4900523772 /* CartItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E520412835ED4900523772 /* CartItemDataSource.swift */; };
 		A3B9C08C5BB52EE77C2C39A0 /* Pods_Heron_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91953BE3CC47F4B3C2262E68 /* Pods_Heron_HeronUITests.framework */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
@@ -159,6 +164,11 @@
 		93D5522B282A75040034B2B7 /* ProductFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFilterViewController.swift; sourceTree = "<group>"; };
 		93D5522E282A76B60034B2B7 /* AddToCartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartViewController.swift; sourceTree = "<group>"; };
 		93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddToCartViewModel.swift; sourceTree = "<group>"; };
+		93D73F0D28450CD90015C4FB /* AuthenticationServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationServices.swift; sourceTree = "<group>"; };
+		93D73F0F28450CE80015C4FB /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
+		93D73F1128450CFD0015C4FB /* InventoryServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryServices.swift; sourceTree = "<group>"; };
+		93D73F1328450D0C0015C4FB /* CartServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartServices.swift; sourceTree = "<group>"; };
+		93D73F1528450D7E0015C4FB /* CheckoutServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutServices.swift; sourceTree = "<group>"; };
 		93E520412835ED4900523772 /* CartItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItemDataSource.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -257,6 +267,7 @@
 				933D193B2819947000F1CCC4 /* Entities */,
 				933D19252819946000F1CCC4 /* Views */,
 				933D191E2819943000F1CCC4 /* ViewControllers */,
+				93D73F0C28450CA40015C4FB /* Services */,
 				933D1911281993C400F1CCC4 /* Applications */,
 				933D19102819938D00F1CCC4 /* SupportingFiles */,
 			);
@@ -497,6 +508,18 @@
 				93D55230282A79B40034B2B7 /* AddToCartViewModel.swift */,
 			);
 			path = AddToCartViewController;
+			sourceTree = "<group>";
+		};
+		93D73F0C28450CA40015C4FB /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				93D73F0D28450CD90015C4FB /* AuthenticationServices.swift */,
+				93D73F0F28450CE80015C4FB /* UserServices.swift */,
+				93D73F1128450CFD0015C4FB /* InventoryServices.swift */,
+				93D73F1328450D0C0015C4FB /* CartServices.swift */,
+				93D73F1528450D7E0015C4FB /* CheckoutServices.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		93E520402835ECC700523772 /* CartData */ = {
@@ -770,6 +793,7 @@
 			files = (
 				933D19392819946800F1CCC4 /* String_EXT.swift in Sources */,
 				930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */,
+				93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */,
 				93D55226282811D20034B2B7 /* Alert_Ext.swift in Sources */,
 				933D193A2819946800F1CCC4 /* UIColor_EXT.swift in Sources */,
 				933D1913281993DB00F1CCC4 /* AppDelegate.swift in Sources */,
@@ -779,11 +803,14 @@
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
+				93D73F1428450D0C0015C4FB /* CartServices.swift in Sources */,
 				93BB690F2830033000BC2E5E /* CategoryCollectionViewCell.swift in Sources */,
+				93D73F1028450CE80015C4FB /* UserServices.swift in Sources */,
 				933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */,
 				93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
+				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
@@ -808,6 +835,7 @@
 				938F7AAC28220DD600DD60DB /* BannerView.swift in Sources */,
 				933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */,
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,
+				93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */,
 				933D19242819944C00F1CCC4 /* LunchScreenViewController.swift in Sources */,
 				93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */,
 				93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */,

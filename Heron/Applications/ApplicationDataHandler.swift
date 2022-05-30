@@ -163,32 +163,11 @@ extension ApplicationDataHandler {
         
         guard let accessTk = _AppCoreData.getUserSession()?.accessToken else {
             let header: HTTPHeaders = [:]
-            return header 
+            return header
         }
         
         let headerFull: HTTPHeaders = ["Authorization": "Bearer " + accessTk]
         return headerFull
-    }
-}
-
-// MARK: - OneSignal Push Notification
-extension ApplicationDataHandler {
-    ////Call this func after logout success
-    public func removeExternalUserId() {
-        OneSignal.removeExternalUserId({ results in
-            guard let results = results else {return}
-            bfprint("OneSignal.removeExternalUserId", results)
-        })
-    }
-    
-    //// Call this function after received login response
-    public func setExternalUserId(id: String) {
-        OneSignal.setExternalUserId(id) { (results) in
-            guard let results = results else {return}
-            bfprint("OneSignal.setExternalUserId Success", results)
-        } withFailure: { (error) in
-            bfprint("OneSignal.setExternalUserId Fail", error?.localizedDescription ?? "")
-        }
     }
 }
 
@@ -217,25 +196,21 @@ extension ApplicationDataHandler {
     }
 }
 
-//MARK: - Authentications
+//MARK: - POST API template request
 extension ApplicationDataHandler {
-    
-    func login(completion:@escaping (String?, String?)-> Void) -> Request? {
+    func get(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
+    {
                 
-        let parametter = ["username": "administrator",
-                          "password": "super_admin@123./"]
+        bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
         
-        bfprint(String(format:"Lucas-API-Request-URL: %@", kGatewayAuthenticationURL+"/auth/login/phone"), tag: "API-Request", level: .default)
-        bfprint(String(format:"Lucas-API-Request-Param: %@", parametter), tag: "API-Request", level: .default)
-        
-        return self.alamofireManager.request(kGatewayAuthenticationURL+"/authentication/login",
-                                             method: .post,
-                                             parameters: parametter,
-                                             encoding: JSONEncoding.default,
+        return self.alamofireManager.request(fullURLRequest,
+                                             method: .get,
+                                             parameters: parameters,
+                                             encoding: URLEncoding.default,
                                              headers: getHeadHeader())
             .responseJSON { (response: AFDataResponse<Any>) in
                 guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(NSLocalizedString("kAPIWrongFormatMessage", comment: ""), nil )
                     return
                 }
                 
@@ -243,267 +218,79 @@ extension ApplicationDataHandler {
                     return
                 }
                 
-                if let responseDict = responseData.responseData?["data"] as? [String : Any] {
-                    let sessionToken = SessionDataSource.init(JSONString: "{}")!
-                    if let accessToken = responseDict["accessToken"] as? String {
-                        sessionToken.accessToken = accessToken
-                    }
-                    if let refreshToken = responseDict["refreshToken"] as? String {
-                        sessionToken.refreshToken = refreshToken
-                    }
-                    
-                    _AppCoreData.setUserSession(sessionToken)
-                    
-                    completion(nil, responseData.responseMessage)
-                } else {
-                    completion(responseData.responseMessage, nil)
-                }
-            }
-    }
-}
-
-//MARK: - Inventory
-extension ApplicationDataHandler {
-    
-    func getListProducts(param: [String:Any], completion:@escaping (String?, [ProductDataSource]?)-> Void) {
-                
-        self.alamofireManager.request(kGatwayInventoryURL + "/products",
-                                      method: .get,
-                                      parameters: param,
-                                      encoding: URLEncoding.default,
-                                      headers: self.getHeadHeader())
-            .responseJSON { (response:AFDataResponse<Any>) in
-                guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(nil, nil)
-                    return
-                }
-                
-                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
-                    completion(nil, nil)
-                    return
-                }
-                else if responseData.responseCode == 400 {
-                    completion(responseData.responseMessage, nil)
-                    return
-                }
-                else if responseData.responseCode >= 500 {
-                    return
-                } else {
-                    
-                    #warning("API_NEED_MAINTAIN")
-                    // API response array nhưng lại kẹp trong data.
-                    
-                    if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                        completion(responseData.responseMessage,
-                                   Mapper<ProductDataSource>().mapArray(JSONArray: data))
-                    }
-                }
+                completion(responseData)
             }
     }
     
-    func getListCategories(completion:@escaping (String?, [CategoryDataSource]?)-> Void) {
+    func post(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
+    {
                 
-        self.alamofireManager.request(kGatwayInventoryURL + "/categories",
-                                      method: .get,
-                                      parameters: nil,
-                                      encoding: URLEncoding.default,
-                                      headers: self.getHeadHeader())
-            .responseJSON { (response:AFDataResponse<Any>) in
-                guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(nil, nil)
-                    return
-                }
-                
-                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
-                    completion(nil, nil)
-                    return
-                }
-                else if responseData.responseCode == 400 {
-                    completion(responseData.responseMessage, nil)
-                    return
-                }
-                else if responseData.responseCode >= 500 {
-                    return
-                } else {
-                    
-                    #warning("API_NEED_MAINTAIN")
-                    // API response array nhưng lại kẹp trong data.
-                    
-                    if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                        completion(responseData.responseMessage,
-                                   Mapper<CategoryDataSource>().mapArray(JSONArray: data))
-                    }
-                }
-            }
-    }
-}
-
-//MARK: - Cart
-extension ApplicationDataHandler {
-    
-    func checkout(cart: CartDataSource, completion:@escaping (String?, String?)-> Void) {
-//        //NOTE: Define model
-//        struct CartRequest: Codable {
-//            let cartDetail: [CartDetailReq]
-//            let couponIds: [String]?
-//            let paymentMethod: String?
-//        }
-//
-        //data mapping
-        let cartDetail = cart.store.map{ CartDetailForCheckout(selectedCartItems: $0.cartItems.filter{$0.isSelected}.map{v in v.id}, targetId: $0.targetId, carrierCode: "grab")}.filter{$0.selectedCartItems?.count ?? 0 > 0}
-      
-        let fakeRecipient = Recipient(id: nil, createdAt: nil, updatedAt: nil, userId: nil, profileId: nil, firstName: "Presley", lastName: "Wilkinson", email: "frederick_dietrich71@gmail.com", phone: "0767595278", country: "MS", region: "Lake Aleenbury", province: "Honduras", district: "Goldner Forest", ward: "Lakin Mount", address: "754 Schimmel Extension", postalCode: "70000", latitude: 22.305, longitude: -20.4538, isDefault: nil)
-        let cart = Cart(cartDetail: cartDetail, couponIds: [], recipient: fakeRecipient)
-        let cartRequest = CartDetailReq(cart: cart, includes: "delivery", paymentMethodCode: "cards", paymentPlatform: "web_browser")
-//        CartRequest(cartDetail: <#T##[CartDetailReq]#>, couponIds: <#T##[String]?#>, paymentMethod: <#T##String?#>)
+        bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
         
-        let encoder = JSONEncoder()
-        encoder.outputFormatting = .prettyPrinted
-        guard let data = try? encoder.encode(cartRequest),
-            let output = String(data: data, encoding: .utf8)
-            else { fatalError( "Error converting \(cartRequest) to JSON string") }
-        print("JSON string = \(output)")
-        
-        let dictionary = try! DictionaryEncoder().encode(cartRequest)
-        self.alamofireManager.request(kGatewayOrderURL + "/orders",
-                                      method: .post,
-                                      parameters: dictionary as? Parameters,
-                                      encoding: JSONEncoding.default,
-                                      headers: self.getHeadHeader())
-            .responseJSON { (response:AFDataResponse<Any>) in
+        return self.alamofireManager.request(fullURLRequest,
+                                             method: .post,
+                                             parameters: parameters,
+                                             encoding: JSONEncoding.default,
+                                             headers: getHeadHeader())
+            .responseJSON { (response: AFDataResponse<Any>) in
                 guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(nil, nil)
                     return
                 }
                 
-                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
-                    completion(nil, nil)
+                if responseData.responseMessage == "kAPICanceled" {
                     return
                 }
-                else if responseData.responseCode == 400 {
-                    completion(responseData.responseMessage, nil)
-                    return
-                }
-                else if responseData.responseCode >= 500 {
-                    return
-                }
-                else if responseData.responseCode == 200, responseData.responseCode == 204 {
-                    completion(nil, responseData.responseMessage)
-                }
-                else {
-                    completion(responseData.responseMessage, nil)
-                }
+                
+                completion(responseData)
             }
     }
     
-    func addToCart(listProducts: [ProductDataSource], completion:@escaping (String?, String?)-> Void) {
+    func put(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
+    {
+                
+        bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
         
-        var productsDict : [[String:Any]] = []
-        for product in listProducts {
-            let productDict : [String: Any] = ["productId" : product.id,
-                                               "quantity" : product.quantity]
-            productsDict.append(productDict)
-        }
-        
-        let param : [String:Any] = ["products" : productsDict]
-        
-        self.alamofireManager.request(kGatwayCartURL + "/carts/add-to-cart",
-                                      method: .post,
-                                      parameters: param,
-                                      encoding: JSONEncoding.default,
-                                      headers: self.getHeadHeader())
-            .responseJSON { (response:AFDataResponse<Any>) in
+        return self.alamofireManager.request(fullURLRequest,
+                                             method: .put,
+                                             parameters: parameters,
+                                             encoding: JSONEncoding.default,
+                                             headers: getHeadHeader())
+            .responseJSON { (response: AFDataResponse<Any>) in
                 guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(nil, nil)
                     return
                 }
                 
-                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
-                    completion(nil, nil)
+                if responseData.responseMessage == "kAPICanceled" {
                     return
                 }
-                else if responseData.responseCode == 400 {
-                    completion(responseData.responseMessage, nil)
-                    return
-                }
-                else if responseData.responseCode >= 500 {
-                    return
-                }
-                else if responseData.responseCode == 200, responseData.responseCode == 204 {
-                    completion(nil, responseData.responseMessage)
-                }
-                else {
-                    completion(responseData.responseMessage, nil)
-                }
+                
+                completion(responseData)
             }
     }
     
-    func removeCartItem(itemID: String, completion:@escaping (String?, String?)-> Void) {
+    func delete(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
+    {
                 
-        let endPoint = String(format: "/carts/items/%ld", itemID)
-        self.alamofireManager.request(kGatwayCartURL + endPoint,
-                                      method: .delete,
-                                      parameters: nil,
-                                      encoding: URLEncoding.default,
-                                      headers: self.getHeadHeader())
-            .responseJSON { (response:AFDataResponse<Any>) in
-                guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(nil, nil)
-                    return
-                }
-                
-                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
-                    completion(nil, nil)
-                    return
-                }
-                else if responseData.responseCode == 400 {
-                    completion(responseData.responseMessage, nil)
-                    return
-                }
-                else if responseData.responseCode >= 500 {
-                    return
-                }
-                else if responseData.responseCode == 200, responseData.responseCode == 204 {
-                    completion(nil, responseData.responseMessage)
-                }
-                else {
-                    completion(responseData.responseMessage, nil)
-                }
-            }
-    }
-    
-    func getCartDataSource(completion:@escaping (String?, CartDataSource?)-> Void) {
+        bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
         
-        self.alamofireManager.request(kGatwayCartURL + "/carts",
-                                      method: .get,
-                                      parameters: nil,
-                                      encoding: URLEncoding.default,
-                                      headers: self.getHeadHeader())
-            .responseJSON { (response:AFDataResponse<Any>) in
+        return self.alamofireManager.request(fullURLRequest,
+                                             method: .delete,
+                                             parameters: parameters,
+                                             encoding: JSONEncoding.default,
+                                             headers: getHeadHeader())
+            .responseJSON { (response: AFDataResponse<Any>) in
                 guard let responseData = self.handleResponseDict(response: response) else {
-                    completion(nil, nil)
                     return
                 }
                 
-                if (responseData.responseMessage != nil) && (responseData.responseMessage == "kAPICanceled") {
-                    completion(nil, nil)
+                if responseData.responseMessage == "kAPICanceled" {
                     return
                 }
-                else if responseData.responseCode == 400 {
-                    completion(responseData.responseMessage, nil)
-                    return
-                }
-                else if responseData.responseCode >= 500 {
-                    return
-                } else {
-                    
-                    #warning("API_NEED_MAINTAIN")
-                    // API response array nhưng lại kẹp trong data.
-                    
-                    if let data = responseData.responseData?["data"] as? [String:Any] {
-                        completion(responseData.responseMessage, Mapper<CartDataSource>().map(JSON: data))
-                    }
-                }
+                
+                completion(responseData)
             }
     }
 }
