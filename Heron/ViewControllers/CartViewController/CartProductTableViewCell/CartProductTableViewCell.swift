@@ -17,7 +17,6 @@ class CartProductTableViewCell: UITableViewCell {
     let packageImage        = UIImageView()
     let discountPercent     = UILabel()
     let productTitleLabel   = UILabel()
-    let starView            = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
     let removeBtn           = UIButton()
@@ -79,21 +78,21 @@ class CartProductTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-16)
         }
         
-        starView.text = "★★★★★"
-        starView.font = getFontSize(size: 16, weight: .medium)
-        starView.textColor = UIColor.init(hexString: "F1C644")
-        contentView.addSubview(starView)
-        starView.snp.makeConstraints { make in
-            make.top.equalTo(productTitleLabel.snp.bottom)
-            make.left.right.equalTo(productTitleLabel)
-        }
+//        starView.text = "★★★★★"
+//        starView.font = getFontSize(size: 16, weight: .medium)
+//        starView.textColor = UIColor.init(hexString: "F1C644")
+//        contentView.addSubview(starView)
+//        starView.snp.makeConstraints { make in
+//            make.top.equalTo(productTitleLabel.snp.bottom)
+//            make.left.right.equalTo(productTitleLabel)
+//        }
         
         priceDiscount.text = "$ 10.00"
         priceDiscount.textColor = kNeonFuchsiaColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(starView.snp.bottom).offset(10)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
             make.left.equalTo(productTitleLabel)
         }
         
@@ -102,7 +101,7 @@ class CartProductTableViewCell: UITableViewCell {
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(starView.snp.bottom).offset(10)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
