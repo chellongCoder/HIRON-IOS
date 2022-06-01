@@ -28,6 +28,15 @@ class AddToCartViewController: UIViewController {
     var productData         : ProductDataSource? = nil
     var quantityValue       = 1
     
+    init(productData: ProductDataSource) {
+        super.init(nibName: nil, bundle: nil)
+        self.productData = productData
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
@@ -64,6 +73,9 @@ class AddToCartViewController: UIViewController {
         
         //Content UI
         packageImage.image = UIImage(named: "default-image")
+        if let imageURL = URL.init(string: productData?.thumbnailUrl ?? "") {
+            self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+        }
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
@@ -85,7 +97,14 @@ class AddToCartViewController: UIViewController {
             make.right.equalTo(packageImage).offset(5)
         }
         
-        productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
+        if (productData?.discountPercent ?? 0) > 0 {
+            self.discountPercent.isHidden = false
+            self.discountPercent.text = String(format: "-%.f%%", productData?.discountPercent ?? 0 )
+        } else {
+            self.discountPercent.isHidden = true
+        }
+        
+        productTitleLabel.text = productData?.name ?? ""
         productTitleLabel.numberOfLines = 0
         productTitleLabel.font = getFontSize(size: 16, weight: .medium)
         productTitleLabel.textColor = kSpaceCadetColor
@@ -97,7 +116,7 @@ class AddToCartViewController: UIViewController {
             make.right.equalToSuperview().offset(-16)
         }
                 
-        priceDiscount.text = "$ 10.00"
+        priceDiscount.text = String(format: "%ld %@", productData?.finalPrice ?? 0, (productData?.currency ?? "USD"))
         priceDiscount.textColor = kNeonFuchsiaColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
@@ -106,7 +125,7 @@ class AddToCartViewController: UIViewController {
             make.left.equalTo(productTitleLabel)
         }
         
-        priceLabel.text = "$ 20.00"
+        priceLabel.text = String(format: "%ld %@", productData?.regularPrice ?? 0, (productData?.currency ?? "USD"))
         priceLabel.textColor = kGrayTextColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)

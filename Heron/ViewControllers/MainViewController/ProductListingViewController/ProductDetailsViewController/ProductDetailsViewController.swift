@@ -15,12 +15,13 @@ class ProductDetailsViewController: BaseViewController,
     private let pageControl     = UIPageControl()
     
     private let packageTitle    = UILabel()
-    private let discountPercent = UILabel()
+//    private let discountPercent = UILabel()
+    private let starView        = UILabel()
     private let priceDiscount   = UILabel()
     private let priceLabel      = UILabel()
     private let descriptionLabel    = UILabel()
     
-    private let buyNowBtn       = UIButton()
+    private let addToCartBtn    = UIButton()
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -81,12 +82,21 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalToSuperview().offset(30)
         }
         
-        discountPercent.text = String(format: "-%.f%%", viewModel.productDataSource?.discountPercent ?? 0.0)
-        discountPercent.backgroundColor = .red
-        discountPercent.textColor = .white
-        discountPercent.font = getFontSize(size: 20, weight: .semibold)
-        self.contentView.addSubview(discountPercent)
-        discountPercent.snp.makeConstraints { make in
+//        discountPercent.text = String(format: "-%.f%%", viewModel.productDataSource?.discountPercent ?? 0.0)
+//        discountPercent.backgroundColor = .red
+//        discountPercent.textColor = .white
+//        discountPercent.font = getFontSize(size: 20, weight: .semibold)
+//        self.contentView.addSubview(discountPercent)
+//        discountPercent.snp.makeConstraints { make in
+//            make.top.equalTo(packageTitle.snp.bottom).offset(5)
+//            make.left.equalTo(packageTitle)
+//        }
+        
+        starView.text = "★★★★★"
+        starView.font = getFontSize(size: 16, weight: .medium)
+        starView.textColor = UIColor.init(hexString: "F1C644")
+        contentView.addSubview(starView)
+        starView.snp.makeConstraints { make in
             make.top.equalTo(packageTitle.snp.bottom).offset(5)
             make.left.equalTo(packageTitle)
         }
@@ -97,7 +107,7 @@ class ProductDetailsViewController: BaseViewController,
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(discountPercent.snp.bottom).offset(10)
+            make.top.equalTo(starView.snp.bottom).offset(10)
             make.left.equalTo(packageTitle)
         }
         
@@ -107,7 +117,7 @@ class ProductDetailsViewController: BaseViewController,
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(discountPercent.snp.bottom).offset(10)
+            make.top.equalTo(starView.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
@@ -125,13 +135,13 @@ class ProductDetailsViewController: BaseViewController,
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        buyNowBtn.backgroundColor = kCyanTextColor
-        buyNowBtn.layer.cornerRadius = 8
-        buyNowBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
-        buyNowBtn.setTitle("Buy Now", for: .normal)
-        buyNowBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
-        self.view.addSubview(buyNowBtn)
-        buyNowBtn.snp.makeConstraints { (make) in
+        addToCartBtn.backgroundColor = kCyanTextColor
+        addToCartBtn.layer.cornerRadius = 8
+        addToCartBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
+        addToCartBtn.setTitle("Buy Now", for: .normal)
+        addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
+        self.view.addSubview(addToCartBtn)
+        addToCartBtn.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview().offset(-80)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
@@ -155,8 +165,8 @@ class ProductDetailsViewController: BaseViewController,
     }
     
     @objc private func buyNowButtonTapped() {
-        let addProductPopup = AddToCartViewController()
-        addProductPopup.productData = self.viewModel.productDataSource
+        guard let productData = self.viewModel.productDataSource else {return}
+        let addProductPopup = AddToCartViewController.init(productData: productData)
         addProductPopup.modalPresentationStyle = .overFullScreen
         self.present(addProductPopup, animated: true, completion: nil)
     }
