@@ -52,7 +52,6 @@ class CartViewModel: NSObject {
                 return
             }
             self.reloadCart()
-          
         }
     }
     
@@ -89,12 +88,12 @@ class CartViewModel: NSObject {
                 return
             }
             
-            if let cartData = cartData {
-                DispatchQueue.main.async {
-                    self.cartDataSource = cartData
-                    self.controller?.tableView.reloadData()
-                }
-            }
+//            if let cartData = cartData {
+//                DispatchQueue.main.async {
+//                    self.cartDataSource = cartData
+//                    self.controller?.tableView.reloadData()
+//                }
+//            }
         }
     }
 }

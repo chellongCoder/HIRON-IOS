@@ -14,6 +14,7 @@
 		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
 		930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3035281A05C7003D247A /* ProductDetailsViewController.swift */; };
 		930F3039281A1305003D247A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3038281A1305003D247A /* BaseViewController.swift */; };
+		931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EC25D2846F60E00B72479 /* CartHotView.swift */; };
 		933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 933D18E62819935900F1CCC4 /* Heron.xcdatamodeld */; };
 		933D18EA2819935E00F1CCC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933D18E92819935E00F1CCC4 /* Assets.xcassets */; };
 		933D18ED2819935E00F1CCC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 933D18EB2819935E00F1CCC4 /* LaunchScreen.storyboard */; };
@@ -104,6 +105,7 @@
 		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		930F3038281A1305003D247A /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		931EC25D2846F60E00B72479 /* CartHotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHotView.swift; sourceTree = "<group>"; };
 		933D18DA2819935900F1CCC4 /* Heron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D18E72819935900F1CCC4 /* Heron.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heron.xcdatamodel; sourceTree = "<group>"; };
 		933D18E92819935E00F1CCC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -355,6 +357,7 @@
 			children = (
 				938F7A8F2821119E00DD60DB /* BannerView */,
 				933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */,
+				931EC25D2846F60E00B72479 /* CartHotView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -813,6 +816,7 @@
 				93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */,
 				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
+				931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
 				933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */,

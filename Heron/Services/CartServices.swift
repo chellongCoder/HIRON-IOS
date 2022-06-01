@@ -6,10 +6,14 @@
 //
 
 import ObjectMapper
+import RxSwift
+import RxRelay
 
 class CartServices {
     
     public static let sharedInstance = CartServices()
+    var cartData            = BehaviorRelay<CartDataSource?>(value: nil)
+    private let disposeBag  = DisposeBag()
 
     func checkout(cart: CartDataSource, completion:@escaping (String?, String?)-> Void) {
 //        //NOTE: Define model
@@ -121,6 +125,9 @@ class CartServices {
                 
                 if let data = responseData.responseData?["data"] as? [String:Any] {
                     completion(responseData.responseMessage, Mapper<CartDataSource>().map(JSON: data))
+                    if let cartData = Mapper<CartDataSource>().map(JSON: data) {
+                        self.cartData.accept(cartData)
+                    }
                 }
             }
         })

@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class ProductListingViewController: BaseViewController,
-                                    UITableViewDataSource, UITableViewDelegate,
+                                    UITableViewDelegate,
                                     UIScrollViewDelegate,
                                     ProductFilterDelegate,
                                     ProductCellDelegate {
@@ -19,7 +21,10 @@ class ProductListingViewController: BaseViewController,
     private let bannerScrollView    = UIScrollView()
     private let pageControl         = UIPageControl()
     let tableView                   = UITableView(frame: .zero, style: .grouped)
+    let cartHotInfo                 = CartHotView()
     let noDataView                  = UIView()
+    
+    private let disposeBag          = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,14 +48,23 @@ class ProductListingViewController: BaseViewController,
                                               action: #selector(filterButtonTapped))
         self.navigationItem.rightBarButtonItems = [filterButtonItem, cartButtonItem]
         
-        tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kNeutralColor
         tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.centerX.width.bottom.equalToSuperview()
+            make.top.centerX.width.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-90)
+        }
+        
+        cartHotInfo.backgroundColor = kCyanTextColor
+        cartHotInfo.layer.cornerRadius = 25
+        self.view.addSubview(cartHotInfo)
+        cartHotInfo.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
         }
         
         noDataView.isHidden = true
@@ -72,13 +86,16 @@ class ProductListingViewController: BaseViewController,
             make.height.equalTo(80)
         }
         
+        self.bindingData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         
-        self.viewModel.getProjectList()
+        self.viewModel.getProductList()
+        self.viewModel.reloadCart()
     }
     
     //MARK: - Buttons
@@ -127,26 +144,38 @@ class ProductListingViewController: BaseViewController,
         bannerScrollView.setContentOffset(CGPoint(x: CGFloat(current)*view.frame.width, y: 0), animated: true)
     }
     
-    //MARK: - UITableViewDataSource
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.listProducts.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductTableViewCell") as! ProductTableViewCell
-        let cellData = viewModel.listProducts[indexPath.row]
-        cell.setDataSource(cellData)
-        cell.delegate = self
+    //MARK: - Binding Data
+    private func bindingData() {
+        _CartServices.cartData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartDataSource in
+                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.subtotal ?? 0)
+            }
+            .disposed(by: disposeBag)
         
-        return cell
+        viewModel.listProducts
+            .bind(to: tableView.rx.items) {
+                (tableView: UITableView, index: Int, element: ProductDataSource) in
+                let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
+                cell.setDataSource(element)
+                cell.delegate = self
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        tableView.rx
+            .modelSelected(ProductDataSource.self)
+            .subscribe { model in
+                guard let productData = model.element else {return}
+                let viewDetailsController = ProductDetailsViewController.init(productData)
+                _NavController.pushViewController(viewDetailsController, animated: true)
+                
+                self.dismissKeyboard()
+            }
+            .disposed(by: disposeBag)
     }
     
     //MARK: - UITableViewDelegate
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return (16 + (UIScreen.main.bounds.size.width - 32)*0.5625 + (10+15+10))
     }
@@ -180,16 +209,6 @@ class ProductListingViewController: BaseViewController,
             make.height.equalTo(15)
         }
         return headerView
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let productData = viewModel.listProducts[indexPath.row]
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let viewDetailsController = ProductDetailsViewController.init(productData)
-        _NavController.pushViewController(viewDetailsController, animated: true)
-        
-        self.dismissKeyboard()
     }
     
     //MARK: - UIScrollViewDelegate

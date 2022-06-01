@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class CartViewController: BaseViewController,
                           UITableViewDataSource, UITableViewDelegate,
@@ -14,6 +15,7 @@ class CartViewController: BaseViewController,
     public static let sharedInstance    = CartViewController()
     private let viewModel               = CartViewModel()
     let tableView                       = UITableView(frame: .zero, style: .grouped)
+    private let disposeBag              = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +45,25 @@ class CartViewController: BaseViewController,
         tableView.snp.makeConstraints { (make) in
             make.center.size.equalTo(self.view.safeAreaLayoutGuide)
         }
+        
+        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         self.viewModel.reloadCart()
+    }
+    
+    //MARK: - BindingData
+    private func bindingData() {
+        _CartServices.cartData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartDataSource in
+                self.viewModel.cartDataSource = cartDataSource.element as? CartDataSource
+                self.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     //MARK: - Buttons
@@ -98,7 +113,7 @@ class CartViewController: BaseViewController,
         let headerView = UIView()
         headerView.backgroundColor = .white
         
-        if let storeData = viewModel.cartDataSource?.store[section] {
+        if let storeData = _CartServices.cartData.value?.store[section] {
             let titleSignal = UILabel()
             titleSignal.text = storeData.storeDetails?.name ?? ""
             headerView.addSubview(titleSignal)
@@ -118,15 +133,19 @@ class CartViewController: BaseViewController,
     
     //MARK: - CartProductCellDelegate
     func removeItemFromCart(_ index: IndexPath) {
-        guard let store = viewModel.cartDataSource?.store[index.section] else {return}
+        guard let store = _CartServices.cartData.value?.store[index.section] else {return}
         let cartItem = store.cartItems[index.row]
         viewModel.removeItemFromCart(cartItem)
     }
     
     func modifyCheckoutList(_ index: IndexPath) {
-        guard let store = viewModel.cartDataSource?.store[index.section] else {return}
+        guard let store = _CartServices.cartData.value?.store[index.section] else {return}
         let isSelected = store.cartItems[index.row].isSelected
-        viewModel.cartDataSource?.store[index.section].cartItems[index.row].isSelected = !isSelected
+        
+        var cartData = _CartServices.cartData.value
+        cartData?.store[index.section].cartItems[index.row].isSelected = !isSelected
+        
+        _CartServices.cartData.accept(cartData)
         self.tableView.reloadData()
     }
 }

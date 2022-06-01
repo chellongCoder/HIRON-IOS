@@ -6,14 +6,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxRelay
 
 class ProductListingViewModel: NSObject {
     weak var controller     : ProductListingViewController? = nil
-    var listProducts        : [ProductDataSource] = []
     var listBanners         : [String] = ["","","","","","","","",""]
     var filterData          : CategoryDataSource? = nil
+    var listProducts        = BehaviorRelay<[ProductDataSource]>(value: [])
     
-    func getProjectList()
+    func getProductList()
     {
         
         var param : [String: Any] = ["filter[featureType][eq]" : "ecom",
@@ -21,6 +23,8 @@ class ProductListingViewModel: NSObject {
         if let filterData = filterData {
             param = ["filter[featureType][eq]" : "ecom",
                      "filter[categoryId][eq]" : filterData.id,
+                     "filter[quantity][not]" : "null",
+                     "filter[visibility][eq]" : "true",
                      "sort[createdAt]" : "desc"]
         }
         
@@ -38,8 +42,20 @@ class ProductListingViewModel: NSObject {
             }
             
             if let listNewProducts = listNewProducts {
-                self.listProducts = listNewProducts
-                self.controller?.tableView.reloadData()
+                self.listProducts.accept(listNewProducts)
+            }
+        }
+    }
+    
+    func reloadCart() {
+        _CartServices.getCartDataSource { errorMessage, cartData in
+            if errorMessage != nil {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                    alertVC.dismiss()
+                }))
+                _NavController.showAlert(alertVC)
+                return
             }
         }
     }
