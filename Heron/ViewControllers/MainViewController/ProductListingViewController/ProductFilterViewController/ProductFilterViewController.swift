@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 protocol ProductFilterDelegate {
     func didApplyFilter(_ data: CategoryDataSource?)
@@ -18,6 +19,9 @@ class ProductFilterViewController: BaseViewController,
     var collectionview      : UICollectionView!
     var selectedIndex       : IndexPath?
     var delegate            : ProductFilterDelegate? = nil
+    
+    let cartHotInfo                 = CartHotView()    
+    private let disposeBag          = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +55,20 @@ class ProductFilterViewController: BaseViewController,
         collectionview.backgroundColor = .white
         self.view.addSubview(collectionview)
         collectionview.snp.makeConstraints { make in
-            make.center.size.equalToSuperview()
+            make.top.centerX.width.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-90)
         }
+        
+        cartHotInfo.backgroundColor = kCyanTextColor
+        cartHotInfo.layer.cornerRadius = 25
+        self.view.addSubview(cartHotInfo)
+        cartHotInfo.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-20)
+        }
+        
+        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +95,16 @@ class ProductFilterViewController: BaseViewController,
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    //MARK: - Binding Data
+    private func bindingData() {
+        _CartServices.cartData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartDataSource in
+                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.subtotal ?? 0)
+            }
+            .disposed(by: disposeBag)
     }
     
     //MARK: - UICollectionViewDataSource

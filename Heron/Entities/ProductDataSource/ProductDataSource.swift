@@ -44,6 +44,8 @@ class ProductDataSource: Mappable, Equatable {
         available       <- map["available"]
         
         self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
+        self.regularPrice = regularPrice/100
+        self.finalPrice = finalPrice/100
     }
     
     static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {

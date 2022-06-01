@@ -28,6 +28,9 @@ struct CartDataSource : Mappable {
         totalItemCount  <- map["totalItemCount"]
         totalQuantity   <- map["totalQuantity"]
         store           <- map["cartDetail"]
+        
+        subtotal = subtotal/100
+        grandTotal = grandTotal/100
     }
 }
 
