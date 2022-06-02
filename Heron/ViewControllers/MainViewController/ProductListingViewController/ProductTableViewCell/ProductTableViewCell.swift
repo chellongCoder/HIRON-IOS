@@ -63,7 +63,7 @@ class ProductTableViewCell: UITableViewCell {
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 0
         productTitleLabel.font = getFontSize(size: 16, weight: .medium)
-        productTitleLabel.textColor = kSpaceCadetColor
+        productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
@@ -82,7 +82,7 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         priceDiscount.text = "$ 10.00"
-        priceDiscount.textColor = kNeonFuchsiaColor
+        priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
@@ -91,7 +91,7 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         priceLabel.text = "$ 20.00"
-        priceLabel.textColor = kGrayTextColor
+        priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
@@ -100,7 +100,7 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         addToCartBtn.setTitle("Add to cart", for: .normal)
-        addToCartBtn.backgroundColor = kCyanTextColor
+        addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
         addToCartBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
         contentView.addSubview(addToCartBtn)

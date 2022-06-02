@@ -61,8 +61,8 @@ class ProductDetailsViewController: BaseViewController,
         self.loadMediaView(staticHeight)
         
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = kLightGrayBorder
-        pageControl.currentPageIndicatorTintColor = kCyanTextColor
+        pageControl.pageIndicatorTintColor = kPrimaryColor
+        pageControl.currentPageIndicatorTintColor = kPrimaryColor
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         self.contentView.addSubview(pageControl)
         pageControl.snp.makeConstraints { (make) in
@@ -103,7 +103,7 @@ class ProductDetailsViewController: BaseViewController,
         
         priceDiscount.text = String(format: "%ld %@", viewModel.productDataSource?.finalPrice ?? 0,
                                     (viewModel.productDataSource?.currency ?? "USD"))
-        priceDiscount.textColor = kNeonFuchsiaColor
+        priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
@@ -113,7 +113,7 @@ class ProductDetailsViewController: BaseViewController,
         
         priceLabel.text = String(format: "%ld %@", viewModel.productDataSource?.regularPrice ?? 0,
                                  (viewModel.productDataSource?.currency ?? "USD"))
-        priceLabel.textColor = kBlackTextColor
+        priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
@@ -131,7 +131,7 @@ class ProductDetailsViewController: BaseViewController,
         
         self.loadContentDescView()
         
-        addToCartBtn.backgroundColor = kCyanTextColor
+        addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
         addToCartBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
         addToCartBtn.setTitle("Buy Now", for: .normal)

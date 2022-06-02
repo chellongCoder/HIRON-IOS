@@ -15,6 +15,11 @@ class CartViewController: BaseViewController,
     public static let sharedInstance    = CartViewController()
     private let viewModel               = CartViewModel()
     let tableView                       = UITableView(frame: .zero, style: .grouped)
+    
+    private let totalLabel              = UILabel()
+    private let savingLabel             = UILabel()
+    private let checkoutBtn             = UIButton()
+    
     private let disposeBag              = DisposeBag()
 
     override func viewDidLoad() {
@@ -30,20 +35,55 @@ class CartViewController: BaseViewController,
                                            action: #selector(backButtonTapped))
         self.navigationItem.leftBarButtonItem = backBtn
         
-        let checkoutBtn = UIBarButtonItem.init(title: "Checkout",
-                                               style: .plain,
-                                               target: self,
-                                               action: #selector(checkoutButtonTapped))
-        self.navigationItem.rightBarButtonItem = checkoutBtn
+//        let checkoutBtn = UIBarButtonItem.init(title: "Checkout",
+//                                               style: .plain,
+//                                               target: self,
+//                                               action: #selector(checkoutButtonTapped))
+//        self.navigationItem.rightBarButtonItem = checkoutBtn
 
+        savingLabel.text = "Saving: $0"
+        savingLabel.textColor = kDefaultTextColor
+        savingLabel.font = .systemFont(ofSize: 16)
+        self.view.addSubview(savingLabel)
+        savingLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(20)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        
+        totalLabel.text = "Total: $0"
+        totalLabel.textColor = kDefaultTextColor
+        totalLabel.font = .systemFont(ofSize: 20)
+        totalLabel.adjustsFontSizeToFitWidth = false
+        totalLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        self.view.addSubview(totalLabel)
+        totalLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(savingLabel.snp.top).offset(-5)
+            make.left.equalToSuperview().offset(20)
+        }
+        
+        checkoutBtn.backgroundColor = kPrimaryColor
+        checkoutBtn.setTitleColor(.white, for: .normal)
+        checkoutBtn.setTitle("Checkout", for: .normal)
+        checkoutBtn.layer.cornerRadius = 8
+        checkoutBtn.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        checkoutBtn.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
+        self.view.addSubview(checkoutBtn)
+        checkoutBtn.snp.makeConstraints { make in
+            make.top.equalTo(totalLabel.snp.top)
+            make.bottom.equalTo(savingLabel.snp.bottom)
+            make.right.equalToSuperview().offset(-10)
+            make.left.equalTo(totalLabel.snp.right).offset(15)
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = kNeutralColor
+        tableView.backgroundColor = kBackgroundColor
         tableView.register(CartProductTableViewCell.self, forCellReuseIdentifier: "CartProductTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.center.size.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
+            make.bottom.equalTo(totalLabel.snp.top).offset(-10)
         }
         
         self.bindingData()
@@ -60,7 +100,13 @@ class CartViewController: BaseViewController,
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.viewModel.cartDataSource = cartDataSource.element as? CartDataSource
+                
+                guard let cartData = cartDataSource.element as? CartDataSource else {return}
+                self.viewModel.cartDataSource = cartData
+                
+                self.totalLabel.text = String(format: "Total: $%ld", cartData.grandTotal)
+                self.savingLabel.text = String(format: "Saving: $%ld", (cartData.subtotal - cartData.grandTotal))
+                
                 self.tableView.reloadData()
             }
             .disposed(by: disposeBag)

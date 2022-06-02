@@ -69,7 +69,7 @@ class CartProductTableViewCell: UITableViewCell {
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 0
         productTitleLabel.font = getFontSize(size: 16, weight: .medium)
-        productTitleLabel.textColor = kSpaceCadetColor
+        productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
@@ -88,7 +88,7 @@ class CartProductTableViewCell: UITableViewCell {
 //        }
         
         priceDiscount.text = "$ 10.00"
-        priceDiscount.textColor = kNeonFuchsiaColor
+        priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
@@ -97,7 +97,7 @@ class CartProductTableViewCell: UITableViewCell {
         }
         
         priceLabel.text = "$ 20.00"
-        priceLabel.textColor = kGrayTextColor
+        priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
@@ -106,7 +106,7 @@ class CartProductTableViewCell: UITableViewCell {
         }
         
         removeBtn.setTitle("Remove", for: .normal)
-        removeBtn.backgroundColor = kPinkTextColor
+        removeBtn.backgroundColor = kRedHightLightColor
         removeBtn.layer.cornerRadius = 8
         removeBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
         contentView.addSubview(removeBtn)
@@ -119,7 +119,7 @@ class CartProductTableViewCell: UITableViewCell {
         }
         
         checkoutSelection.setTitle((cartItemData?.isSelected ?? false) ? "Deselect this Item" :"Select this Item", for: .normal)
-        checkoutSelection.backgroundColor = kPinkTextColor
+        checkoutSelection.backgroundColor = kRedHightLightColor
         checkoutSelection.layer.cornerRadius = 8
         checkoutSelection.addTarget(self, action: #selector(modifyCheckoutList), for: .touchUpInside)
         contentView.addSubview(checkoutSelection)

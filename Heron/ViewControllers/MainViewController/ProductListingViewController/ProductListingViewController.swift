@@ -50,7 +50,7 @@ class ProductListingViewController: BaseViewController,
         
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = kNeutralColor
+        tableView.backgroundColor = kBackgroundColor
         tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -58,7 +58,7 @@ class ProductListingViewController: BaseViewController,
             make.bottom.equalToSuperview().offset(-90)
         }
         
-        cartHotInfo.backgroundColor = kCyanTextColor
+        cartHotInfo.backgroundColor = kPrimaryColor
         cartHotInfo.layer.cornerRadius = 25
         self.view.addSubview(cartHotInfo)
         cartHotInfo.snp.makeConstraints { make in
@@ -183,7 +183,7 @@ class ProductListingViewController: BaseViewController,
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerView = UIView()
-        headerView.backgroundColor = kNeutralColor
+        headerView.backgroundColor = kBackgroundColor
         
         let staticHeight = (UIScreen.main.bounds.size.width - 32)*0.5625
         
@@ -199,8 +199,8 @@ class ProductListingViewController: BaseViewController,
         self.reloadBannerView()
         
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = kLightGrayBorder
-        pageControl.currentPageIndicatorTintColor = kCyanTextColor
+        pageControl.pageIndicatorTintColor = kPrimaryColor
+        pageControl.currentPageIndicatorTintColor = kPrimaryColor
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         headerView.addSubview(pageControl)
         pageControl.snp.makeConstraints { (make) in

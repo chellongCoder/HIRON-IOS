@@ -18,7 +18,7 @@ class CartHotView: UIView {
         let touch = UITapGestureRecognizer.init(target: self, action: #selector(didSelectCartHotView))
         self.addGestureRecognizer(touch)
         
-        self.backgroundColor = kCyanTextColor
+        self.backgroundColor = kPrimaryColor
         self.layer.cornerRadius = 25
                 
         let cartIcon = UIImageView(image: UIImage.init(systemName: "cart")?.withRenderingMode(.alwaysTemplate))

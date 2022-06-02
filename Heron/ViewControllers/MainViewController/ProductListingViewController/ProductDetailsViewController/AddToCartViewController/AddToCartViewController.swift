@@ -55,7 +55,7 @@ class AddToCartViewController: UIViewController {
         contentView.backgroundColor = kBackgroundColor
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = kCyanTextColor?.cgColor
+        contentView.layer.borderColor = kPrimaryColor?.cgColor
         contentView.alpha = 1.0
         self.view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
@@ -107,7 +107,7 @@ class AddToCartViewController: UIViewController {
         productTitleLabel.text = productData?.name ?? ""
         productTitleLabel.numberOfLines = 0
         productTitleLabel.font = getFontSize(size: 16, weight: .medium)
-        productTitleLabel.textColor = kSpaceCadetColor
+        productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
@@ -117,7 +117,7 @@ class AddToCartViewController: UIViewController {
         }
                 
         priceDiscount.text = String(format: "%ld %@", productData?.finalPrice ?? 0, (productData?.currency ?? "USD"))
-        priceDiscount.textColor = kNeonFuchsiaColor
+        priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
@@ -126,7 +126,7 @@ class AddToCartViewController: UIViewController {
         }
         
         priceLabel.text = String(format: "%ld %@", productData?.regularPrice ?? 0, (productData?.currency ?? "USD"))
-        priceLabel.textColor = kGrayTextColor
+        priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
@@ -169,7 +169,7 @@ class AddToCartViewController: UIViewController {
         }
         
         addToCartBtn.setTitle("Add to cart", for: .normal)
-        addToCartBtn.backgroundColor = kCyanTextColor
+        addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
         addToCartBtn.addTarget(self, action: #selector(addCartButtonTapped), for: .touchUpInside)
         contentView.addSubview(addToCartBtn)

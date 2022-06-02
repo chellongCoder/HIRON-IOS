@@ -14,7 +14,7 @@ class MainViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBar.tintColor = kCyanTextColor
+        self.tabBar.tintColor = kPrimaryColor
         self.tabBar.backgroundColor = .white
         self.setNavigationBarAppearance(color: .white)
         
