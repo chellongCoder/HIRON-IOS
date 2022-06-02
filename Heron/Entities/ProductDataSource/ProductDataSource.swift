@@ -14,7 +14,7 @@ class ProductDataSource: Mappable, Equatable {
     var code            : String?
     var name            : String?
     var shortDesc       : String?
-    var desc            : [String] = []
+    var desc            : [ContentDescription] = []
     var regularPrice    : Int = 0
     var finalPrice      : Int = 0
     var currency        : String?
@@ -72,5 +72,22 @@ class ProductMediaDataSource : Mappable {
         type        <- map["type"]
         value       <- map["value"]
         sortOrder   <- map["sortOrder"]
+    }
+}
+
+struct ContentDescription : Mappable {
+    
+    var title       : String = ""
+    var content     : String = ""
+    var visibility  : Bool = true
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        title       <- map["title"]
+        content     <- map["content"]
+        visibility  <- map["visibility"]
     }
 }

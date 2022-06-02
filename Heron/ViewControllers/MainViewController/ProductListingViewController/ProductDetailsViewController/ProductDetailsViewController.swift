@@ -19,7 +19,7 @@ class ProductDetailsViewController: BaseViewController,
     private let starView        = UILabel()
     private let priceDiscount   = UILabel()
     private let priceLabel      = UILabel()
-    private let descriptionLabel    = UILabel()
+    private let contentDescView = UIView()
     
     private let addToCartBtn    = UIButton()
 
@@ -121,19 +121,15 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
-        descriptionLabel.text = viewModel.productDataSource?.shortDesc
-        descriptionLabel.textColor = kBlackTextColor
-        descriptionLabel.font = .systemFont(ofSize: 14, weight: .regular)
-        contentView.addSubview(descriptionLabel)
-        descriptionLabel.snp.makeConstraints { make in
+        contentView.addSubview(contentDescView)
+        contentDescView.snp.makeConstraints { make in
             make.left.equalTo(packageTitle)
             make.top.equalTo(priceLabel.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-50)
         }
         
-        descriptionLabel.snp.makeConstraints { make in
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
+        self.loadContentDescView()
         
         addToCartBtn.backgroundColor = kCyanTextColor
         addToCartBtn.layer.cornerRadius = 8
@@ -197,6 +193,52 @@ class ProductDetailsViewController: BaseViewController,
         }
         self.pageControl.numberOfPages = listMedia.count
         topMediaView.contentSize = CGSize.init(width: CGFloat(listMedia.count)*(size.width), height: size.height)
+    }
+    
+    private func loadContentDescView() {
+        for subview in contentDescView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        guard let productData = self.viewModel.productDataSource else {return}
+        
+        var lastView: UIView? = nil
+        for content in productData.desc {
+            let titleLabel = UILabel()
+            titleLabel.text = content.title
+            titleLabel.textColor = UIColor.init(hexString: "172B4D")
+            titleLabel.font = .boldSystemFont(ofSize: 16)
+            contentDescView.addSubview(titleLabel)
+            
+            if lastView != nil {
+                titleLabel.snp.makeConstraints { make in
+                    make.top.equalTo(lastView!.snp.bottom).offset(16)
+                    make.centerX.left.equalToSuperview()
+                }
+            } else {
+                titleLabel.snp.makeConstraints { make in
+                    make.top.equalToSuperview()
+                    make.centerX.left.equalToSuperview()
+                }
+            }
+            
+            let contentLabel = UILabel()
+            contentLabel.numberOfLines = 0
+            contentLabel.attributedText = content.content.htmlAttributedString()
+            contentLabel.textColor = UIColor.init(hexString: "172B4D")
+            contentLabel.font = .systemFont(ofSize: 16)
+            contentDescView.addSubview(contentLabel)
+            contentLabel.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(15)
+                make.centerX.left.equalToSuperview()
+            }
+            
+            lastView = contentLabel
+        }
+        
+        lastView?.snp.makeConstraints({ make in
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        })
     }
     
     @objc private func pageControlDidChange(_ sender: UIPageControl) {
