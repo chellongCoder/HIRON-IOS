@@ -24,7 +24,13 @@ class CartProductTableViewCell: UITableViewCell {
     
     private var cartItemData : CartItemDataSource? = nil {
         didSet {
-            checkoutSelection.setTitle((cartItemData?.isSelected ?? false) ? "Deselect this Item" :"Select this Item", for: .normal)
+            if (cartItemData?.isSelected ?? false) {
+                checkoutSelection.setTitle("Deselect this Item", for: .normal)
+                checkoutSelection.backgroundColor = kRedHightLightColor
+            } else {
+                checkoutSelection.setTitle("Select this Item", for: .normal)
+                checkoutSelection.backgroundColor = kPrimaryColor
+            }
         }
     }
     private var indexPath   : IndexPath? = nil
@@ -53,6 +59,7 @@ class CartProductTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(24)
             make.left.equalToSuperview().offset(18)
             make.width.height.equalTo(120)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         discountPercent.text = "-50%"
@@ -105,30 +112,35 @@ class CartProductTableViewCell: UITableViewCell {
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
-        removeBtn.setTitle("Remove", for: .normal)
-        removeBtn.backgroundColor = kRedHightLightColor
-        removeBtn.layer.cornerRadius = 8
-        removeBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
-        contentView.addSubview(removeBtn)
-        removeBtn.snp.makeConstraints { make in
-            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(40)
-            make.left.equalTo(productTitleLabel)
-//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
+//        removeBtn.setTitle("Remove", for: .normal)
+//        removeBtn.backgroundColor = kRedHightLightColor
+//        removeBtn.layer.cornerRadius = 8
+//        removeBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
+//        contentView.addSubview(removeBtn)
+//        removeBtn.snp.makeConstraints { make in
+//            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
+//            make.right.equalToSuperview().offset(-20)
+//            make.height.equalTo(40)
+//            make.left.equalTo(productTitleLabel)
+////            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+//        }
         
-        checkoutSelection.setTitle((cartItemData?.isSelected ?? false) ? "Deselect this Item" :"Select this Item", for: .normal)
-        checkoutSelection.backgroundColor = kRedHightLightColor
+        checkoutSelection.setTitle("Select this Item", for: .normal)
+        checkoutSelection.backgroundColor = kPrimaryColor
         checkoutSelection.layer.cornerRadius = 8
         checkoutSelection.addTarget(self, action: #selector(modifyCheckoutList), for: .touchUpInside)
         contentView.addSubview(checkoutSelection)
         checkoutSelection.snp.makeConstraints { make in
-            make.top.equalTo(removeBtn.snp.bottom).offset(10)
+            make.top.equalTo(priceLabel.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(40)
             make.left.equalTo(productTitleLabel)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        if cartItemData?.isSelected ?? false == true {
+            checkoutSelection.setTitle("Deselect this Item", for: .normal)
+            checkoutSelection.backgroundColor = kRedHightLightColor
         }
     }
 

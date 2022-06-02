@@ -97,6 +97,7 @@ class CartServices {
                 return
             }
             else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
                 return
             }
             else if responseData.responseCode == 200, responseData.responseCode == 204 {
