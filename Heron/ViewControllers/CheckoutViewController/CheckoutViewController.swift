@@ -135,8 +135,11 @@ class CheckoutViewController: BaseViewController {
         viewModel.reloadAnimation
             .observe(on: MainScheduler.instance)
             .subscribe { isLoading in
-                if isLoading {self.startLoadingAnimation()}
-                else {self.endLoadingAnimation()}
+                if (isLoading.element ?? false) {
+                    self.startLoadingAnimation()
+                } else {
+                    self.endLoadingAnimation()
+                }
             }
             .disposed(by: disposeBag)
 
