@@ -41,6 +41,9 @@ struct StoreDataSource : Mappable {
     var targetId        : String = ""
     var cartItems       : [CartItemDataSource] = []
     
+    //custom field
+    var isCheckoutSelected : Bool = false
+    
     init?(map: Map) {
         //
     }
