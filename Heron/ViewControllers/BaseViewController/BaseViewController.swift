@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Alamofire
 
 class BaseViewController: UIViewController {
     
-    private let pageScroll      = UIScrollView()
+    internal let pageScroll     = UIScrollView()
     let contentView             = UIView()
 
     override func viewDidLoad() {
