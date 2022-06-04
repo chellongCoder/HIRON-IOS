@@ -77,11 +77,15 @@ class CheckoutViewController: BaseViewController {
     
     //MARK: - Buttons
     @objc private func deliveryToTapped() {
-        
+        let userAddressesVC = UserAddressListingViewController()
+        userAddressesVC.acceptance = viewModel.deliveryAddress
+        self.navigationController?.pushViewController(userAddressesVC, animated: true)
     }
     
     @objc private func billingAddressTapped() {
-        
+        let userAddressesVC = UserAddressListingViewController()
+        userAddressesVC.acceptance = viewModel.billingAddress
+        self.navigationController?.pushViewController(userAddressesVC, animated: true)
     }
     
     @objc private func voucherTapped() {
@@ -109,8 +113,8 @@ class CheckoutViewController: BaseViewController {
             .subscribe { deliveryAddress in
                 
                 guard let deliveryAddress = deliveryAddress.element as? ContactDataSource else {return}
-                self.deliveryTo.contactLabel.text = deliveryAddress.firstName + deliveryAddress.phone
-                self.deliveryTo.contactLabel.text = deliveryAddress.address + deliveryAddress.province + deliveryAddress.postalCode
+                self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " | +" + deliveryAddress.phone
+                self.deliveryTo.addressLabel.text = deliveryAddress.address + deliveryAddress.province + deliveryAddress.postalCode
             }
             .disposed(by: disposeBag)
         

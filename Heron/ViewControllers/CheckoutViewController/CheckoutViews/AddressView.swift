@@ -30,7 +30,7 @@ class AddressView: UIView {
         
         addressTitle.text = "Delivery To"
         addressTitle.textColor = kDefaultTextColor
-        addressTitle.font = .systemFont(ofSize: 16)
+        addressTitle.font = getFontSize(size: 16, weight: .medium)
         self.addSubview(addressTitle)
         addressTitle.snp.makeConstraints { make in
             make.centerY.equalTo(markIcon)
@@ -47,6 +47,7 @@ class AddressView: UIView {
         }
         
         contactLabel.numberOfLines = 0
+        contactLabel.font = getFontSize(size: 14, weight: .medium)
         self.addSubview(contactLabel)
         contactLabel.snp.makeConstraints { make in
             make.top.equalTo(addressTitle.snp.bottom).offset(10)
@@ -55,6 +56,7 @@ class AddressView: UIView {
         }
         
         addressLabel.numberOfLines = 0
+        addressLabel.font = getFontSize(size: 14, weight: .medium)
         self.addSubview(addressLabel)
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(contactLabel.snp.bottom).offset(5)
