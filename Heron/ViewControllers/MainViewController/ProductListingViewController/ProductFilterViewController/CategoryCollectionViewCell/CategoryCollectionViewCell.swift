@@ -17,7 +17,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         self.backgroundColor = .white
         
         cardView.layer.cornerRadius = 8
-        cardView.layer.borderColor = kPrimaryColor?.cgColor
+        cardView.layer.borderColor = kPrimaryColor.cgColor
         cardView.layer.borderWidth = 1
         self.addSubview(cardView)
         cardView.snp.makeConstraints { make in

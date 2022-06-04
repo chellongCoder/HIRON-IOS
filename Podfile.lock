@@ -3,6 +3,13 @@ PODS:
   - BadgeHub (1.0.0)
   - BugfenderSDK (1.10.5)
   - IQKeyboardManagerSwift (6.5.6)
+  - Material (3.1.8):
+    - Material/Core (= 3.1.8)
+  - Material/Core (3.1.8):
+    - Motion (~> 3.1.1)
+  - Motion (3.1.3):
+    - Motion/Core (= 3.1.3)
+  - Motion/Core (3.1.3)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
@@ -26,6 +33,7 @@ DEPENDENCIES:
   - BadgeHub (= 1.0.0)
   - BugfenderSDK
   - IQKeyboardManagerSwift (= 6.5.6)
+  - Material (= 3.1.8)
   - NVActivityIndicatorView (= 5.1.1)
   - ObjectMapper (= 4.2.0)
   - OneSignalXCFramework (< 4.0, >= 3.0.0)
@@ -42,6 +50,8 @@ SPEC REPOS:
     - BadgeHub
     - BugfenderSDK
     - IQKeyboardManagerSwift
+    - Material
+    - Motion
     - NVActivityIndicatorView
     - ObjectMapper
     - OneSignalXCFramework
@@ -58,6 +68,8 @@ SPEC CHECKSUMS:
   BadgeHub: b227771329f78c37a2dae7502607ec6d00a50bd4
   BugfenderSDK: 210724a09aa05c9f6cdaea17af0fbbc2527a654d
   IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
+  Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
+  Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   OneSignalXCFramework: 4efd7bd68c2b14920955b3f14b5b75bbf8fb662c
@@ -69,6 +81,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a
 
-PODFILE CHECKSUM: 1b9271bec635aed1c90736d84ca4a9a448ef33aa
+PODFILE CHECKSUM: 48a966f9c17f8eac152ef58d32bead3de823f65f
 
 COCOAPODS: 1.11.3

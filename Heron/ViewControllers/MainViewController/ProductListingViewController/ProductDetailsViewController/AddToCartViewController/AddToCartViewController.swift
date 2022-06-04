@@ -55,7 +55,7 @@ class AddToCartViewController: UIViewController {
         contentView.backgroundColor = kBackgroundColor
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
-        contentView.layer.borderColor = kPrimaryColor?.cgColor
+        contentView.layer.borderColor = kPrimaryColor.cgColor
         contentView.alpha = 1.0
         self.view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
