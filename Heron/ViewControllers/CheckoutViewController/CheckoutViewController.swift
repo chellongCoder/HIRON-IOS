@@ -131,5 +131,14 @@ class CheckoutViewController: BaseViewController {
                 self.voucherView.voucherCode.text = voucherCode
             }
             .disposed(by: disposeBag)
+        
+        viewModel.reloadAnimation
+            .observe(on: MainScheduler.instance)
+            .subscribe { isLoading in
+                if isLoading {self.startLoadingAnimation()}
+                else {self.endLoadingAnimation()}
+            }
+            .disposed(by: disposeBag)
+
     }
 }
