@@ -15,7 +15,7 @@ protocol CartProductCellDelegate {
 class CartProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
-    let discountPercent     = UILabel()
+//    let discountPercent     = UILabel()
     let productTitleLabel   = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
@@ -62,16 +62,16 @@ class CartProductTableViewCell: UITableViewCell {
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        discountPercent.text = "-50%"
-        discountPercent.backgroundColor = .red
-        discountPercent.textColor = .white
-        discountPercent.layer.cornerRadius = 4
-        discountPercent.font = getFontSize(size: 20, weight: .heavy)
-        contentView.addSubview(discountPercent)
-        discountPercent.snp.makeConstraints { make in
-            make.top.equalTo(packageImage.snp.top).offset(-5)
-            make.right.equalTo(packageImage).offset(5)
-        }
+//        discountPercent.text = "-50%"
+//        discountPercent.backgroundColor = .red
+//        discountPercent.textColor = .white
+//        discountPercent.layer.cornerRadius = 4
+//        discountPercent.font = getFontSize(size: 20, weight: .heavy)
+//        contentView.addSubview(discountPercent)
+//        discountPercent.snp.makeConstraints { make in
+//            make.top.equalTo(packageImage.snp.top).offset(-5)
+//            make.right.equalTo(packageImage).offset(5)
+//        }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 0

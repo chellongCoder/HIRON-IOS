@@ -37,16 +37,16 @@ class ProductListingViewController: BaseViewController,
         searchBar.placeholder = "Seach"
         self.navigationItem.titleView = searchBar
         
-        let cartButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "cart"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(cartButtonTapped))
+//        let cartButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "cart"),
+//                                              style: .plain,
+//                                              target: self,
+//                                              action: #selector(cartButtonTapped))
         
         let filterButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "slider.horizontal.3"),
                                               style: .plain,
                                               target: self,
                                               action: #selector(filterButtonTapped))
-        self.navigationItem.rightBarButtonItems = [filterButtonItem, cartButtonItem]
+        self.navigationItem.rightBarButtonItems = [filterButtonItem]// [filterButtonItem, cartButtonItem]
         
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -55,11 +55,14 @@ class ProductListingViewController: BaseViewController,
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.centerX.width.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-90)
+            make.bottom.equalToSuperview()
         }
+        
+        let touchAction = UITapGestureRecognizer.init(target: self, action: #selector(cartButtonTapped))
         
         cartHotInfo.backgroundColor = kPrimaryColor
         cartHotInfo.layer.cornerRadius = 25
+        cartHotInfo.addGestureRecognizer(touchAction)
         self.view.addSubview(cartHotInfo)
         cartHotInfo.snp.makeConstraints { make in
             make.height.equalTo(50)

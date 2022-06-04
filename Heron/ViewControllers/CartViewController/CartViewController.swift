@@ -142,11 +142,11 @@ class CartViewController: BaseViewController,
         let storeData = viewModel.cartDataSource?.store[indexPath.section]
         if let cellData = storeData?.cartItems[indexPath.row] {
             cell.setDataSource(cellData, indexPath: indexPath)
-            if cellData.product!.discountPercent > 0 {
-                cell.discountPercent.text = String(format: "-%.f%%", cellData.product!.discountPercent )
-            } else {
-                cell.discountPercent.isHidden = true
-            }
+//            if cellData.product!.discountPercent > 0 {
+//                cell.discountPercent.text = String(format: "-%.f%%", cellData.product!.discountPercent )
+//            } else {
+//                cell.discountPercent.isHidden = true
+//            }
         }
         
         cell.delegate = self
