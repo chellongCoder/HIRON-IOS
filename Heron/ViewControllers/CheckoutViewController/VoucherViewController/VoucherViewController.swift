@@ -27,6 +27,12 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
         self.view.backgroundColor = .white
         navigationItem.title = "Vouchers"
         
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = backBtn
+        
         applyBtn.backgroundColor = kPrimaryColor
         applyBtn.setTitleColor(.white, for: .normal)
         applyBtn.setTitle("Apply", for: .normal)
@@ -67,6 +73,12 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getListVoucher()
+    }
+    
+    //MARK: - Buttons
+    
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     //MARK: - Data

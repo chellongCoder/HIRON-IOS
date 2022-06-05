@@ -27,6 +27,12 @@ class UserAddressListingViewController: UIViewController,
         self.view.backgroundColor = .white
         navigationItem.title = "User's Address"
         
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = backBtn
+        
         addNewAddressBtn.backgroundColor = kPrimaryColor
         addNewAddressBtn.setTitle("ADD NEW ADDRESS", for: .normal)
         addNewAddressBtn.setTitleColor(.white, for: .normal)
@@ -59,6 +65,10 @@ class UserAddressListingViewController: UIViewController,
     }
     
     //MARK: - Buttons
+    
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     @objc private func addNewAddressButtonTapped() {
         let newAddressVC = AddUserAddressViewController()

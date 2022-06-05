@@ -35,6 +35,12 @@ class CheckoutViewController: BaseViewController {
         self.view.backgroundColor = kBackgroundColor
         navigationItem.title = "Checkout"
         
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = backBtn
+        
         let deliveryTouch = UITapGestureRecognizer.init(target: self, action: #selector(deliveryToTapped))
         deliveryTo.addGestureRecognizer(deliveryTouch)
         deliveryTo.addressTitle.text = "Delivery To"
@@ -76,6 +82,11 @@ class CheckoutViewController: BaseViewController {
     }
     
     //MARK: - Buttons
+    
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc private func deliveryToTapped() {
         let userAddressesVC = UserAddressListingViewController()
         userAddressesVC.acceptance = viewModel.deliveryAddress

@@ -34,6 +34,12 @@ class AddUserAddressViewController: BaseViewController {
         self.view.backgroundColor = .white
         navigationItem.title = "Add new address"
         
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = backBtn
+        
         viewModel.controller = self
         
         let contactTitle = UILabel()
@@ -211,6 +217,11 @@ class AddUserAddressViewController: BaseViewController {
     }
     
     //MARK: - Buttons
+    
+    @objc private func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @objc private func setAsDefaultAddress() {
         checkboxButton.isSelected = !checkboxButton.isSelected
         
