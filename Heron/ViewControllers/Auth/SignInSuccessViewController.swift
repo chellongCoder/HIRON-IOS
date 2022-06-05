@@ -60,7 +60,7 @@ class SignInSuccessViewController: BaseViewController {
             let continue_btn = UIButton()
             continue_btn.backgroundColor = .red
             continue_btn.setTitle("Continue your journey", for: .normal)
-//            continue_btn.addTarget(self, action: #selector(updateRootVC), for: .touchUpInside)
+            continue_btn.addTarget(self, action: #selector(updateRootVC), for: .touchUpInside)
             self.view.addSubview(continue_btn)
             continue_btn.snp.makeConstraints {
                 $0.top.equalTo(center_desc_info.snp.bottom).offset(30)
@@ -76,4 +76,13 @@ class SignInSuccessViewController: BaseViewController {
     //        self.navigationController?.pushViewController(vc, animated: true)
     ////        self.openChooseOptionSelectImage()
     //    }
+    
+    @objc func updateRootVC() {
+        let mainVc = MainViewController()
+//        mainVc.modalPresentationStyle = .overFullScreen
+        AppDelegate.sharedInstance.window?.rootViewController = AppNavigationController(rootViewController: mainVc)
+//        self.navigationController?.pushViewController(mainVc, animated: true)
     }
+    }
+
+

@@ -25,12 +25,12 @@ class LunchScreenViewController: UIViewController {
             make.center.size.equalToSuperview()
         }
         
-        _AuthenticationServices.login { isSuccess, errorMessgae in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                let homeVC = MainViewController()
-                self.navigationController?.setViewControllers([homeVC], animated: true)
-            }
-        }
+//        _AuthenticationServices.login { isSuccess, errorMessgae in
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+//                let homeVC = MainViewController()
+//                self.navigationController?.setViewControllers([homeVC], animated: true)
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
