@@ -70,6 +70,8 @@
 		93AF91FC284BEDCB0075CD65 /* UserAddressListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF91FB284BEDCB0075CD65 /* UserAddressListingViewController.swift */; };
 		93AF91FE284BEE140075CD65 /* UserAddressListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF91FD284BEE140075CD65 /* UserAddressListingViewModel.swift */; };
 		93AF9202284BEE8F0075CD65 /* UserAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF9201284BEE8F0075CD65 /* UserAddressCell.swift */; };
+		93AF9205284BF93A0075CD65 /* AddUserAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF9204284BF93A0075CD65 /* AddUserAddressViewController.swift */; };
+		93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF9206284CC36A0075CD65 /* AddUserAddressViewModel.swift */; };
 		93BB690F2830033000BC2E5E /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB690E2830033000BC2E5E /* CategoryCollectionViewCell.swift */; };
 		93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB6910283003B000BC2E5E /* ProductFilterViewModel.swift */; };
 		93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB69122830050D00BC2E5E /* CategoryDataSource.swift */; };
@@ -177,6 +179,8 @@
 		93AF91FB284BEDCB0075CD65 /* UserAddressListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressListingViewController.swift; sourceTree = "<group>"; };
 		93AF91FD284BEE140075CD65 /* UserAddressListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressListingViewModel.swift; sourceTree = "<group>"; };
 		93AF9201284BEE8F0075CD65 /* UserAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressCell.swift; sourceTree = "<group>"; };
+		93AF9204284BF93A0075CD65 /* AddUserAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserAddressViewController.swift; sourceTree = "<group>"; };
+		93AF9206284CC36A0075CD65 /* AddUserAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserAddressViewModel.swift; sourceTree = "<group>"; };
 		93BB690E2830033000BC2E5E /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		93BB6910283003B000BC2E5E /* ProductFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFilterViewModel.swift; sourceTree = "<group>"; };
 		93BB69122830050D00BC2E5E /* CategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
@@ -519,6 +523,7 @@
 		93AF91FA284BEDA70075CD65 /* UserAddressListingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				93AF9203284BF91D0075CD65 /* AddUserAddressViewController */,
 				93AF9200284BEE720075CD65 /* UserAddressCell */,
 				93AF91FB284BEDCB0075CD65 /* UserAddressListingViewController.swift */,
 				93AF91FD284BEE140075CD65 /* UserAddressListingViewModel.swift */,
@@ -532,6 +537,15 @@
 				93AF9201284BEE8F0075CD65 /* UserAddressCell.swift */,
 			);
 			path = UserAddressCell;
+			sourceTree = "<group>";
+		};
+		93AF9203284BF91D0075CD65 /* AddUserAddressViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93AF9204284BF93A0075CD65 /* AddUserAddressViewController.swift */,
+				93AF9206284CC36A0075CD65 /* AddUserAddressViewModel.swift */,
+			);
+			path = AddUserAddressViewController;
 			sourceTree = "<group>";
 		};
 		93BB690D2830031100BC2E5E /* CategoryCollectionViewCell */ = {
@@ -853,6 +867,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93AF9205284BF93A0075CD65 /* AddUserAddressViewController.swift in Sources */,
 				933D19392819946800F1CCC4 /* String_EXT.swift in Sources */,
 				930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */,
 				93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */,
@@ -880,6 +895,7 @@
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
+				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
 				93E520422835ED4900523772 /* CartItemDataSource.swift in Sources */,
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,

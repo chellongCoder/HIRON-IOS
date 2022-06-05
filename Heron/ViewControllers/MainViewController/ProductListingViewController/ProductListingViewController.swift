@@ -61,7 +61,6 @@ class ProductListingViewController: BaseViewController,
         let touchAction = UITapGestureRecognizer.init(target: self, action: #selector(cartButtonTapped))
         
         cartHotInfo.backgroundColor = kPrimaryColor
-        cartHotInfo.layer.cornerRadius = 25
         cartHotInfo.addGestureRecognizer(touchAction)
         self.view.addSubview(cartHotInfo)
         cartHotInfo.snp.makeConstraints { make in

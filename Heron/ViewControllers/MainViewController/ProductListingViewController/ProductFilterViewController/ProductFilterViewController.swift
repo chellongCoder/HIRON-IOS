@@ -60,7 +60,6 @@ class ProductFilterViewController: BaseViewController,
         }
         
         cartHotInfo.backgroundColor = kPrimaryColor
-        cartHotInfo.layer.cornerRadius = 25
         self.view.addSubview(cartHotInfo)
         cartHotInfo.snp.makeConstraints { make in
             make.height.equalTo(50)

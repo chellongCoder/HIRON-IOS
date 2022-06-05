@@ -15,7 +15,7 @@ class CartHotView: UIView {
         super.init(frame: frame)
         
         self.backgroundColor = .clear//kPrimaryColor
-        self.layer.cornerRadius = 25
+        self.layer.cornerRadius = 8
                 
         let cartIcon = UIImageView(image: UIImage.init(systemName: "cart")?.withRenderingMode(.alwaysTemplate))
         cartIcon.tintColor = .white

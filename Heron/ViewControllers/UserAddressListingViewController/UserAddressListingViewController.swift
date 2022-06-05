@@ -30,6 +30,8 @@ class UserAddressListingViewController: UIViewController,
         addNewAddressBtn.backgroundColor = kPrimaryColor
         addNewAddressBtn.setTitle("ADD NEW ADDRESS", for: .normal)
         addNewAddressBtn.setTitleColor(.white, for: .normal)
+        addNewAddressBtn.layer.cornerRadius = 8
+        addNewAddressBtn.addTarget(self, action: #selector(addNewAddressButtonTapped), for: .touchUpInside)
         self.view.addSubview(addNewAddressBtn)
         addNewAddressBtn.snp.makeConstraints { make in
             make.bottom.equalTo(self.view.safeAreaLayoutGuide)
@@ -54,6 +56,13 @@ class UserAddressListingViewController: UIViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.getListUserAddress()
+    }
+    
+    //MARK: - Buttons
+    
+    @objc private func addNewAddressButtonTapped() {
+        let newAddressVC = AddUserAddressViewController()
+        self.navigationController?.pushViewController(newAddressVC, animated: true)
     }
     
     //MARK: - Datas

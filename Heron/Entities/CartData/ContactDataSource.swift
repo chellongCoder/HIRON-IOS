@@ -39,4 +39,8 @@ struct ContactDataSource: Mappable {
         latitude        <- map["latitude"]
         longitude       <- map["longitude"]
     }
+    
+    func isValidContact() -> Bool {
+        return (firstName != "") && (lastName != "") && (phone != "") && (email != "") && (address != "") && (country != "") && (province != "") && (postalCode != "")
+    }
 }
