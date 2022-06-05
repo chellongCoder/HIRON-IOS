@@ -103,8 +103,9 @@ class CheckoutViewController: BaseViewController {
             .subscribe { cartDataSource in
                 
                 guard let cartData = cartDataSource.element as? CartDataSource else {return}
-                self.orderTotalView.subTotalValue.text = String(format: "$%ld", cartData.grandTotal)
-                self.orderTotalView.discountValue.text = String(format: "$%ld", (cartData.subtotal - cartData.grandTotal))                
+                self.orderTotalView.subTotalValue.text = String(format: "$%ld", cartData.subtotal)
+                self.orderTotalView.discountValue.text = String(format: "$%ld", (cartData.subtotal - cartData.grandTotal))
+                self.orderTotalView.totalValue.text = String(format: "$%ld", cartData.grandTotal)
             }
             .disposed(by: disposeBag)
         
