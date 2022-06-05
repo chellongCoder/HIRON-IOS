@@ -78,9 +78,8 @@ class SignInSuccessViewController: BaseViewController {
     //    }
     
     @objc func updateRootVC() {
-        let mainVc = MainViewController()
 //        mainVc.modalPresentationStyle = .overFullScreen
-        AppDelegate.sharedInstance.window?.rootViewController = AppNavigationController(rootViewController: mainVc)
+        self.dismiss(animated: true, completion: nil)
 //        self.navigationController?.pushViewController(mainVc, animated: true)
     }
     }

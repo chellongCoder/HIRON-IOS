@@ -18,6 +18,7 @@ class MainViewController: UITabBarController {
         self.tabBar.backgroundColor = .white
         self.setNavigationBarAppearance(color: .white)
         
+     
         if #available(iOS 13.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithDefaultBackground()
@@ -45,5 +46,13 @@ class MainViewController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _NavController.setNavigationBarHidden(true, animated: true)
+        
+        let is_signed = UserDefaults.standard.bool(forKey: "is_login")
+        if !is_signed {
+            let auth = UINavigationController(rootViewController: MainAuthViewController())
+            auth.modalPresentationStyle = .fullScreen
+            self.present(auth, animated: true, completion: nil)
+        }
+        
     }
 }
