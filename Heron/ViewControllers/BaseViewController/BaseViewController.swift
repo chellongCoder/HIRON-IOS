@@ -27,7 +27,10 @@ class BaseViewController: UIViewController {
         contentView.snp.makeConstraints { (make) in
             make.left.top.right.bottom.width.equalToSuperview()
         }
-        
+        self.configUI()
         self.view.layoutIfNeeded()
+        
     }
+    
+    func configUI() {}
 }
