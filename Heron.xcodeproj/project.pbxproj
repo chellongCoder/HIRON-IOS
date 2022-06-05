@@ -72,6 +72,9 @@
 		93AF9202284BEE8F0075CD65 /* UserAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF9201284BEE8F0075CD65 /* UserAddressCell.swift */; };
 		93AF9205284BF93A0075CD65 /* AddUserAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF9204284BF93A0075CD65 /* AddUserAddressViewController.swift */; };
 		93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF9206284CC36A0075CD65 /* AddUserAddressViewModel.swift */; };
+		93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF920B284D06CF0075CD65 /* VoucherDataSource.swift */; };
+		93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF920D284D10BF0075CD65 /* PromotionServices.swift */; };
+		93AF9210284D158C0075CD65 /* VoucherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF920F284D158C0075CD65 /* VoucherTableViewCell.swift */; };
 		93BB690F2830033000BC2E5E /* CategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB690E2830033000BC2E5E /* CategoryCollectionViewCell.swift */; };
 		93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB6910283003B000BC2E5E /* ProductFilterViewModel.swift */; };
 		93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB69122830050D00BC2E5E /* CategoryDataSource.swift */; };
@@ -181,6 +184,9 @@
 		93AF9201284BEE8F0075CD65 /* UserAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAddressCell.swift; sourceTree = "<group>"; };
 		93AF9204284BF93A0075CD65 /* AddUserAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserAddressViewController.swift; sourceTree = "<group>"; };
 		93AF9206284CC36A0075CD65 /* AddUserAddressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserAddressViewModel.swift; sourceTree = "<group>"; };
+		93AF920B284D06CF0075CD65 /* VoucherDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherDataSource.swift; sourceTree = "<group>"; };
+		93AF920D284D10BF0075CD65 /* PromotionServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionServices.swift; sourceTree = "<group>"; };
+		93AF920F284D158C0075CD65 /* VoucherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherTableViewCell.swift; sourceTree = "<group>"; };
 		93BB690E2830033000BC2E5E /* CategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		93BB6910283003B000BC2E5E /* ProductFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFilterViewModel.swift; sourceTree = "<group>"; };
 		93BB69122830050D00BC2E5E /* CategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
@@ -350,7 +356,6 @@
 		933D191E2819943000F1CCC4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				93AF91FA284BEDA70075CD65 /* UserAddressListingViewController */,
 				93AF91EC284BBD100075CD65 /* CheckoutViewController */,
 				93D55227282A73550034B2B7 /* CartViewController */,
 				930F3037281A05E5003D247A /* BaseViewController */,
@@ -496,6 +501,7 @@
 			children = (
 				93AF91E8284BB7210075CD65 /* VoucherViewController.swift */,
 				93AF91EA284BBA750075CD65 /* VoucherViewModel.swift */,
+				93AF920F284D158C0075CD65 /* VoucherTableViewCell.swift */,
 			);
 			path = VoucherViewController;
 			sourceTree = "<group>";
@@ -503,6 +509,8 @@
 		93AF91EC284BBD100075CD65 /* CheckoutViewController */ = {
 			isa = PBXGroup;
 			children = (
+				93AF91FA284BEDA70075CD65 /* UserAddressListingViewController */,
+				93AF91E7284BB6A30075CD65 /* VoucherViewController */,
 				93AF91F5284BE21C0075CD65 /* CheckoutViews */,
 				93AF91ED284BBD290075CD65 /* CheckoutViewController.swift */,
 				93AF91EF284BBD580075CD65 /* CheckoutViewModel.swift */,
@@ -576,7 +584,6 @@
 		93D55227282A73550034B2B7 /* CartViewController */ = {
 			isa = PBXGroup;
 			children = (
-				93AF91E7284BB6A30075CD65 /* VoucherViewController */,
 				93BB691628302B2800BC2E5E /* CartProductTableViewCell */,
 				93D55228282A73710034B2B7 /* CartViewController.swift */,
 				93BB69142830277B00BC2E5E /* CartViewModel.swift */,
@@ -611,6 +618,7 @@
 				93D73F1128450CFD0015C4FB /* InventoryServices.swift */,
 				93D73F1328450D0C0015C4FB /* CartServices.swift */,
 				93D73F1528450D7E0015C4FB /* CheckoutServices.swift */,
+				93AF920D284D10BF0075CD65 /* PromotionServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -620,6 +628,7 @@
 			children = (
 				93E520412835ED4900523772 /* CartItemDataSource.swift */,
 				93AF91F8284BE78E0075CD65 /* ContactDataSource.swift */,
+				93AF920B284D06CF0075CD65 /* VoucherDataSource.swift */,
 			);
 			path = CartData;
 			sourceTree = "<group>";
@@ -901,6 +910,7 @@
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
 				938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */,
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
+				93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
@@ -924,7 +934,9 @@
 				933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */,
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,
 				93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */,
+				93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */,
 				933D19242819944C00F1CCC4 /* LunchScreenViewController.swift in Sources */,
+				93AF9210284D158C0075CD65 /* VoucherTableViewCell.swift in Sources */,
 				93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */,
 				93AF91E9284BB7210075CD65 /* VoucherViewController.swift in Sources */,
 				93AF91FC284BEDCB0075CD65 /* UserAddressListingViewController.swift in Sources */,

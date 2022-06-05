@@ -25,3 +25,14 @@ class DictionaryDecoder {
         return try jsonDecoder.decode(type, from: jsonData)
     }
 }
+
+class TimeConverter {
+    func getDateFromInt(_ int: Int) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy"
+        
+        let date = Date.init(timeIntervalSince1970: TimeInterval(int))
+        
+        return dateFormatter.string(from: date)
+    }
+}

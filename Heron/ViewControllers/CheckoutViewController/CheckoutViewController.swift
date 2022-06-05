@@ -89,7 +89,9 @@ class CheckoutViewController: BaseViewController {
     }
     
     @objc private func voucherTapped() {
-        
+        let voucherVC = VoucherViewController()
+        voucherVC.acceptance = viewModel.voucherCode
+        self.navigationController?.pushViewController(voucherVC, animated: true)
     }
     
     @objc private func placeOrderTapped() {
@@ -131,9 +133,16 @@ class CheckoutViewController: BaseViewController {
         
         viewModel.voucherCode
             .observe(on: MainScheduler.instance)
-            .subscribe { voucherCode in
-                guard let voucherCode = voucherCode.element as? String else {return}
-                self.voucherView.voucherCode.text = voucherCode
+            .subscribe { voucherDataSource in
+                guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
+                if voucherDataSource.couponRule?.isFixed ?? false {
+                    // discount value
+                    self.voucherView.voucherCode.text = String(format: "$%ld", voucherDataSource.couponRule?.discount ?? 0)
+                    
+                } else {
+                    //discout percent
+                    self.voucherView.voucherCode.text = String(format: "%ld%% OFF", voucherDataSource.couponRule?.discount ?? 0)
+                }
             }
             .disposed(by: disposeBag)
         

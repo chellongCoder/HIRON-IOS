@@ -28,7 +28,7 @@ class VoucherSelectedView: UIView {
             make.bottom.lessThanOrEqualToSuperview().offset(-13)
         }
         
-        voucherCode.text = "SALE 30%"
+        voucherCode.text = " SALE 0% "
         voucherCode.layer.borderColor = kRedHightLightColor.cgColor
         voucherCode.layer.borderWidth = 1
         voucherCode.textColor = kRedHightLightColor
