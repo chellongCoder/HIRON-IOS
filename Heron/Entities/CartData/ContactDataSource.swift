@@ -10,6 +10,8 @@ import ObjectMapper
 
 struct ContactDataSource: Mappable {
     
+    var id              : String = ""
+    var userId          : String = ""
     var firstName       : String = ""
     var lastName        : String = ""
     var phone           : String = ""
@@ -27,6 +29,8 @@ struct ContactDataSource: Mappable {
     }
     
     mutating func mapping(map: Map) {
+        id              <- map["id"]
+        userId          <- map["userId"]
         firstName       <- map["firstName"]
         lastName        <- map["lastName"]
         phone           <- map["phone"]

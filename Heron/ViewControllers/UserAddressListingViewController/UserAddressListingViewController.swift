@@ -97,4 +97,12 @@ class UserAddressListingViewController: UIViewController,
             }
             .disposed(by: disposeBag)
     }
+    
+    //MARK: - UserAddressCellDelegate
+    func didEditAddress(_ address: ContactDataSource) {
+        let newAddressVC = AddUserAddressViewController()
+        newAddressVC.viewModel.contact.accept(address)
+        newAddressVC.viewModel.isUpdated = true
+        self.navigationController?.pushViewController(newAddressVC, animated: true)
+    }
 }

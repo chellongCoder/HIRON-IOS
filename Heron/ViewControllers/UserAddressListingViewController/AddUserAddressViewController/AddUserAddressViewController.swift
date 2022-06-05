@@ -25,7 +25,7 @@ class AddUserAddressViewController: BaseViewController {
     
     private let completeBtn         = UIButton()
     
-    private let viewModel           = AddUserAddressViewModel()
+    let viewModel                   = AddUserAddressViewModel()
     private let disposeBage         = DisposeBag()
 
     override func viewDidLoad() {
@@ -213,10 +213,18 @@ class AddUserAddressViewController: BaseViewController {
     //MARK: - Buttons
     @objc private func setAsDefaultAddress() {
         checkboxButton.isSelected = !checkboxButton.isSelected
+        
+        var contact = viewModel.contact.value
+        contact.isDefault = checkboxButton.isSelected
+        viewModel.contact.accept(contact)
     }
     
     @objc private func completeButtonTapped() {
-        viewModel.createNewAddress()
+        if viewModel.isUpdated {
+            viewModel.updateAddress()
+        } else {
+            viewModel.createNewAddress()
+        }
     }
     
     //MARK: - Data

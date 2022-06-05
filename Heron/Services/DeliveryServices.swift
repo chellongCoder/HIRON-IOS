@@ -49,5 +49,26 @@ class DeliveryServices {
             }
         }
     }
+    
+    func updateUserAddress(newContact: ContactDataSource, completion:@escaping (String?, Bool)-> Void) {
+        
+        let contactID = newContact.id
+        let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses/" + contactID
+        
+        _ = _AppDataHandler.patch(parameters: newContact.toJSON(), fullURLRequest: fullURLRequest) { responseData in
+            if responseData.responseCode == 400 {
+                completion(responseData.responseMessage, false)
+                return
+            }
+            else if responseData.responseCode >= 500 {
+                return
+            } else if responseData.responseCode == 204 {
+                // created
+                completion(nil, true)
+            } else {
+                completion(responseData.responseMessage, false)
+            }
+        }
+    }
 
 }

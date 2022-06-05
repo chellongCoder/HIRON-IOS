@@ -123,8 +123,8 @@ class CheckoutViewController: BaseViewController {
             .subscribe { billingAddress in
                 
                 guard let billingAddress = billingAddress.element as? ContactDataSource else {return}
-                self.deliveryTo.contactLabel.text = billingAddress.firstName + billingAddress.phone
-                self.deliveryTo.contactLabel.text = billingAddress.address + billingAddress.province + billingAddress.postalCode
+                self.billingAddress.contactLabel.text = billingAddress.firstName + billingAddress.phone
+                self.billingAddress.addressLabel.text = billingAddress.address + billingAddress.province + billingAddress.postalCode
             }
             .disposed(by: disposeBag)
         

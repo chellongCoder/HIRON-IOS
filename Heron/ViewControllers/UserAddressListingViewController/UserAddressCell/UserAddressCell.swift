@@ -8,11 +8,12 @@
 import UIKit
 
 protocol UserAddressCellDelegate {
-    
+    func didEditAddress(_ address: ContactDataSource)
 }
 
 class UserAddressCell: UITableViewCell {
     
+    let markAsDefault       = UILabel()
     let fullName            = UILabel()
     let phoneNumber         = UILabel()
     let addressLabel        = UILabel()
@@ -34,6 +35,18 @@ class UserAddressCell: UITableViewCell {
             make.top.equalToSuperview().offset(8)
             make.bottom.equalToSuperview().offset(-8)
         }
+        
+        markAsDefault.isHidden = true
+        markAsDefault.text = "Default ✅"
+        markAsDefault.font = getFontSize(size: 16, weight: .medium)
+        markAsDefault.textColor = kDefaultTextColor
+        markAsDefault.textAlignment = .right
+        contentView.addSubview(markAsDefault)
+        markAsDefault.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
+        
 
         fullName.text = "Mike Le"
         fullName.font = getFontSize(size: 14, weight: .medium)
@@ -83,12 +96,23 @@ class UserAddressCell: UITableViewCell {
     
     func setDataSource(_ cellData: ContactDataSource) {
         
+        self.contactData = cellData
+        
         self.fullName.text = cellData.firstName + " " + cellData.lastName
         self.phoneNumber.text = cellData.phone
         self.addressLabel.text = cellData.address + "," + cellData.province + "," + cellData.country + "," + cellData.postalCode
+        if cellData.isDefault {
+            markAsDefault.isHidden = false
+        } else {
+            markAsDefault.isHidden = true
+        }
     }
     
     @objc private func editButtonTapped() {
-        
+        guard let contactData = contactData else {
+            return
+        }
+
+        self.delegate?.didEditAddress(contactData)
     }
 }
