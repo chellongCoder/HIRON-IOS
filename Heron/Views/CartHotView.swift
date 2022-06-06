@@ -10,16 +10,12 @@ import UIKit
 class CartHotView: UIView {
     
     let cartPriceValue  = UILabel()
-    var didSelected     : Void? = nil
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let touch = UITapGestureRecognizer.init(target: self, action: #selector(didSelectCartHotView))
-        self.addGestureRecognizer(touch)
-        
-        self.backgroundColor = kPrimaryColor
-        self.layer.cornerRadius = 25
+        self.backgroundColor = .clear//kPrimaryColor
+        self.layer.cornerRadius = 8
                 
         let cartIcon = UIImageView(image: UIImage.init(systemName: "cart")?.withRenderingMode(.alwaysTemplate))
         cartIcon.tintColor = .white
@@ -53,9 +49,5 @@ class CartHotView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    @objc private func didSelectCartHotView() {
-        self.didSelected
     }
 }

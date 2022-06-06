@@ -117,9 +117,33 @@ class CartViewController: BaseViewController,
         self.navigationController?.popToRootViewController(animated: true)
     }
     
+    @objc private func storeCheckboxButtonTapped(button: UIButton) {
+        
+        button.isSelected = !button.isSelected
+        
+        let section = button.tag
+        guard var cartData = viewModel.cartDataSource else {return}
+        cartData.store[section].isCheckoutSelected = button.isSelected
+        
+        var newlistItem : [CartItemDataSource] = []
+        for item in cartData.store[section].cartItems {
+            var newItem = item
+            newItem.isSelected = button.isSelected
+            newlistItem.append(newItem)
+        }
+        
+        cartData.store[section].cartItems = newlistItem
+        _CartServices.cartData.accept(cartData)
+    }
+    
     @objc private func checkoutButtonTapped() {
         //Handle checkout
-        viewModel.checkout()
+//        viewModel.checkout()
+        
+        guard let cartDataSource = viewModel.cartDataSource else {return}
+        
+        let checkoutVC = CheckoutViewController.init(cartData: cartDataSource)
+        self.navigationController?.pushViewController(checkoutVC, animated: true)
     }
     
     //MARK: - Cart
@@ -142,11 +166,6 @@ class CartViewController: BaseViewController,
         let storeData = viewModel.cartDataSource?.store[indexPath.section]
         if let cellData = storeData?.cartItems[indexPath.row] {
             cell.setDataSource(cellData, indexPath: indexPath)
-            if cellData.product!.discountPercent > 0 {
-                cell.discountPercent.text = String(format: "-%.f%%", cellData.product!.discountPercent )
-            } else {
-                cell.discountPercent.isHidden = true
-            }
         }
         
         cell.delegate = self
@@ -159,15 +178,31 @@ class CartViewController: BaseViewController,
         let headerView = UIView()
         headerView.backgroundColor = .white
         
+        let checkboxButton = UIButton()
+        checkboxButton.tintColor = kPrimaryColor
+        checkboxButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        checkboxButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
+        checkboxButton.tag = section
+        checkboxButton.imageView?.contentMode = .scaleAspectFit
+        checkboxButton.addTarget(self, action: #selector(storeCheckboxButtonTapped(button:)), for:.touchUpInside)
+        headerView.addSubview(checkboxButton)
+        checkboxButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.height.width.equalTo(35)
+        }
+        
         if let storeData = _CartServices.cartData.value?.store[section] {
             let titleSignal = UILabel()
-            titleSignal.text = storeData.storeDetails?.name ?? ""
+            titleSignal.text = storeData.storeDetails?.name ?? "Unknow Store Name"
             headerView.addSubview(titleSignal)
             titleSignal.snp.makeConstraints { make in
-                make.bottom.equalToSuperview()
-                make.left.equalToSuperview().offset(10)
+                make.centerY.equalToSuperview()
+                make.left.equalTo(checkboxButton.snp.right).offset(10)
                 make.height.equalTo(30)
             }
+            
+            checkboxButton.isSelected = storeData.isCheckoutSelected
         }
         
         return headerView

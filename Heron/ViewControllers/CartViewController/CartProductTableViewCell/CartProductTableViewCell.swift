@@ -14,23 +14,15 @@ protocol CartProductCellDelegate {
 
 class CartProductTableViewCell: UITableViewCell {
     
+    let checkboxButton      = UIButton()
     let packageImage        = UIImageView()
-    let discountPercent     = UILabel()
     let productTitleLabel   = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
-    let removeBtn           = UIButton()
-    let checkoutSelection   = UIButton()
     
     private var cartItemData : CartItemDataSource? = nil {
         didSet {
-            if (cartItemData?.isSelected ?? false) {
-                checkoutSelection.setTitle("Deselect this Item", for: .normal)
-                checkoutSelection.backgroundColor = kRedHightLightColor
-            } else {
-                checkoutSelection.setTitle("Select this Item", for: .normal)
-                checkoutSelection.backgroundColor = kPrimaryColor
-            }
+            checkboxButton.isSelected = cartItemData?.isSelected ?? false
         }
     }
     private var indexPath   : IndexPath? = nil
@@ -50,6 +42,18 @@ class CartProductTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-8)
         }
 
+        checkboxButton.tintColor = kPrimaryColor
+        checkboxButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        checkboxButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
+        checkboxButton.imageView?.contentMode = .scaleAspectFit
+        checkboxButton.addTarget(self, action: #selector(modifyCheckoutList(button:)), for:.touchUpInside)
+        contentView.addSubview(checkboxButton)
+        checkboxButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(10)
+            make.height.width.equalTo(35)
+        }
+        
         packageImage.image = UIImage(named: "default-image")
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
@@ -57,20 +61,9 @@ class CartProductTableViewCell: UITableViewCell {
         contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(18)
+            make.left.equalTo(checkboxButton.snp.right).offset(10)
             make.width.height.equalTo(120)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-        
-        discountPercent.text = "-50%"
-        discountPercent.backgroundColor = .red
-        discountPercent.textColor = .white
-        discountPercent.layer.cornerRadius = 4
-        discountPercent.font = getFontSize(size: 20, weight: .heavy)
-        contentView.addSubview(discountPercent)
-        discountPercent.snp.makeConstraints { make in
-            make.top.equalTo(packageImage.snp.top).offset(-5)
-            make.right.equalTo(packageImage).offset(5)
         }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
@@ -84,15 +77,6 @@ class CartProductTableViewCell: UITableViewCell {
             make.top.equalTo(packageImage)
             make.right.equalToSuperview().offset(-16)
         }
-        
-//        starView.text = "★★★★★"
-//        starView.font = getFontSize(size: 16, weight: .medium)
-//        starView.textColor = UIColor.init(hexString: "F1C644")
-//        contentView.addSubview(starView)
-//        starView.snp.makeConstraints { make in
-//            make.top.equalTo(productTitleLabel.snp.bottom)
-//            make.left.right.equalTo(productTitleLabel)
-//        }
         
         priceDiscount.text = "$ 10.00"
         priceDiscount.textColor = kRedHightLightColor
@@ -112,36 +96,7 @@ class CartProductTableViewCell: UITableViewCell {
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
-//        removeBtn.setTitle("Remove", for: .normal)
-//        removeBtn.backgroundColor = kRedHightLightColor
-//        removeBtn.layer.cornerRadius = 8
-//        removeBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
-//        contentView.addSubview(removeBtn)
-//        removeBtn.snp.makeConstraints { make in
-//            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
-//            make.right.equalToSuperview().offset(-20)
-//            make.height.equalTo(40)
-//            make.left.equalTo(productTitleLabel)
-////            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-//        }
-        
-        checkoutSelection.setTitle("Select this Item", for: .normal)
-        checkoutSelection.backgroundColor = kPrimaryColor
-        checkoutSelection.layer.cornerRadius = 8
-        checkoutSelection.addTarget(self, action: #selector(modifyCheckoutList), for: .touchUpInside)
-        contentView.addSubview(checkoutSelection)
-        checkoutSelection.snp.makeConstraints { make in
-            make.top.equalTo(priceLabel.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(40)
-            make.left.equalTo(productTitleLabel)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-        
-        if cartItemData?.isSelected ?? false == true {
-            checkoutSelection.setTitle("Deselect this Item", for: .normal)
-            checkoutSelection.backgroundColor = kRedHightLightColor
-        }
+        checkboxButton.isSelected = cartItemData?.isSelected ?? false
     }
 
     required init?(coder: NSCoder) {
@@ -168,7 +123,7 @@ class CartProductTableViewCell: UITableViewCell {
         }
     }
     
-    @objc private func modifyCheckoutList() {
+    @objc private func modifyCheckoutList(button: UIButton) {
         if let indexPath = indexPath {
             delegate?.modifyCheckoutList(indexPath)
         }

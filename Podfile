@@ -18,6 +18,7 @@ target 'Heron' do
   pod 'BadgeHub',                 '1.0.0'
   pod 'IQKeyboardManagerSwift',   '6.5.6'
   pod 'SkeletonView',             '1.11.0'
+  pod 'Material',                 '3.1.8'
   
   pod 'RxSwift',                  '6.5.0'
   pod 'RxCocoa',                  '6.5.0'

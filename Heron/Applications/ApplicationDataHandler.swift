@@ -293,4 +293,28 @@ extension ApplicationDataHandler {
                 completion(responseData)
             }
     }
+    
+    func patch(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
+    {
+                
+        bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
+        
+        return self.alamofireManager.request(fullURLRequest,
+                                             method: .patch,
+                                             parameters: parameters,
+                                             encoding: JSONEncoding.default,
+                                             headers: getHeadHeader())
+            .responseJSON { (response: AFDataResponse<Any>) in
+                guard let responseData = self.handleResponseDict(response: response) else {
+                    return
+                }
+                
+                if responseData.responseMessage == "kAPICanceled" {
+                    return
+                }
+                
+                completion(responseData)
+            }
+    }
 }
