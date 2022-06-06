@@ -90,7 +90,7 @@ class CartServices {
     
     func removeCartItem(itemID: String, completion:@escaping (String?, String?)-> Void) {
                 
-        let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%ld", itemID)
+        let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         _ = _AppDataHandler.delete(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
@@ -100,7 +100,7 @@ class CartServices {
                 completion(responseData.responseMessage, nil)
                 return
             }
-            else if responseData.responseCode == 200, responseData.responseCode == 204 {
+            else if responseData.responseCode == 200 || responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
             }
             else {

@@ -56,6 +56,9 @@ class CartViewModel: NSObject {
     }
     
     func removeItemFromCart(_ item: CartItemDataSource) {
+        
+//        guard let productID = item.product?.id else {return}
+        
         self.controller?.startLoadingAnimation()
         _CartServices.removeCartItem(itemID: item.id) { errorMessage, successMessage in
             self.controller?.endLoadingAnimation()
