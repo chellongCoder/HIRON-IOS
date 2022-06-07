@@ -86,6 +86,7 @@ class AddUserAddressViewController: BaseViewController {
         phoneTxt.dividerNormalColor = kPrimaryColor
         phoneTxt.errorColor = .red
         phoneTxt.textColor = kDefaultTextColor
+        phoneTxt.keyboardType = .numberPad
         self.pageScroll.addSubview(phoneTxt)
         phoneTxt.snp.makeConstraints { make in
             make.top.equalTo(firstNameTxt.snp.bottom).offset(40)

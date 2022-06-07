@@ -34,7 +34,7 @@ class VW_LoadingAnimation: UIView {
             make.size.equalToSuperview().multipliedBy(0.5)
         }
 
-        let logoImage = UIImageView(image: UIImage(named: "AppIcon"))
+        let logoImage = UIImageView(image: UIImage(named: "AppIcon_HighDimension"))
         logoImage.layer.cornerRadius = 40
         logoImage.layer.masksToBounds = true
         self.addSubview(logoImage)
