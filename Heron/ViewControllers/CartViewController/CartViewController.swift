@@ -237,4 +237,11 @@ class CartViewController: BaseViewController,
         _CartServices.cartData.accept(cartData)
         self.tableView.reloadData()
     }
+    
+    func didUpdateItemQuanlity(_ index: IndexPath, newValue: Int) {
+        guard let store = _CartServices.cartData.value?.store[index.section] else {return}
+        let cartItem = store.cartItems[index.row]
+        
+        viewModel.updateCartItemsQuanlity(cartItem, newValue: newValue)
+    }
 }

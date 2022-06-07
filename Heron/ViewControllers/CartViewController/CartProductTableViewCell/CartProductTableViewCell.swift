@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 protocol CartProductCellDelegate {
     func removeItemFromCart(_ index: IndexPath)
     func modifyCheckoutList(_ index: IndexPath)
+    func didUpdateItemQuanlity(_ index: IndexPath, newValue: Int)
 }
 
 class CartProductTableViewCell: UITableViewCell {
@@ -19,6 +22,13 @@ class CartProductTableViewCell: UITableViewCell {
     let productTitleLabel   = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
+    
+    let minusBtn            = UIButton()
+    let quantityTxt         = UITextField()
+    let plusBtn             = UIButton()
+    
+    private var quantityValue   = 0
+    private let disposeBage = DisposeBag()
     
     private var cartItemData : CartItemDataSource? = nil {
         didSet {
@@ -97,6 +107,53 @@ class CartProductTableViewCell: UITableViewCell {
         }
         
         checkboxButton.isSelected = cartItemData?.isSelected ?? false
+        
+        minusBtn.setBackgroundImage(UIImage.init(systemName: "minus.circle"), for: .normal)
+        minusBtn.layer.cornerRadius = 15
+        minusBtn.layer.masksToBounds = true
+        minusBtn.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        contentView.addSubview(minusBtn)
+        minusBtn.snp.makeConstraints { make in
+            make.top.equalTo(priceLabel.snp.bottom).offset(5)
+            make.left.equalTo(productTitleLabel)
+            make.height.width.equalTo(30)
+        }
+        
+        plusBtn.setBackgroundImage(UIImage.init(systemName: "plus.circle"), for: .normal)
+        plusBtn.layer.cornerRadius = 15
+        plusBtn.layer.masksToBounds = true
+        plusBtn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+        contentView.addSubview(plusBtn)
+        plusBtn.snp.makeConstraints { make in
+            make.top.equalTo(priceLabel.snp.bottom).offset(5)
+            make.right.equalTo(productTitleLabel)
+            make.height.width.equalTo(30)
+        }
+        
+        quantityTxt.text = String(format: "%ld", self.quantityValue)
+        quantityTxt.layer.borderWidth = 1
+        quantityTxt.layer.borderColor = UIColor.lightGray.cgColor
+        quantityTxt.textAlignment = .center
+        quantityTxt.keyboardType = .numberPad
+        contentView.addSubview(quantityTxt)
+        quantityTxt.snp.makeConstraints { make in
+            make.centerY.equalTo(minusBtn)
+            make.height.equalTo(30)
+            make.left.equalTo(minusBtn.snp.right).offset(5)
+            make.right.equalTo(plusBtn.snp.left).offset(-5)
+        }
+
+        quantityTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe ({ [unowned self] _ in
+                
+                let number = Int(quantityTxt.text ?? "0") ?? 0
+                if (number == 0) {return}
+                
+                self.quantityValue = number
+                self.updateItemQuanlity()
+            })
+            .disposed(by: disposeBage)
     }
 
     required init?(coder: NSCoder) {
@@ -115,6 +172,9 @@ class CartProductTableViewCell: UITableViewCell {
         
         self.priceLabel.text = String(format: "$%ld", cellData.product!.regularPrice)
         self.priceDiscount.text = String(format: "$%ld", cellData.product!.finalPrice)
+        
+        self.quantityValue = cellData.quantity
+        self.quantityTxt.text = String(format: "%ld", cellData.quantity)
     }
     
     @objc private func removeButtonTapped() {
@@ -127,5 +187,27 @@ class CartProductTableViewCell: UITableViewCell {
         if let indexPath = indexPath {
             delegate?.modifyCheckoutList(indexPath)
         }
+    }
+    
+    @objc private func minusButtonTapped() {
+        if self.quantityValue <= 1 {return}
+        self.quantityValue -= 1
+        quantityTxt.text = String(format: "%ld", self.quantityValue)
+        self.updateItemQuanlity()
+    }
+    
+    @objc private func plusButtonTapped() {
+        if self.quantityValue >= 99 {return}
+        self.quantityValue += 1
+        quantityTxt.text = String(format: "%ld", self.quantityValue)
+        self.updateItemQuanlity()
+    }
+    
+    private func updateItemQuanlity() {
+        guard let indexPath = indexPath else {
+            return
+        }
+
+        delegate?.didUpdateItemQuanlity(indexPath, newValue: self.quantityValue)
     }
 }

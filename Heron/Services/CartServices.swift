@@ -109,6 +109,28 @@ class CartServices {
         })
     }
     
+    func updateCartItemQuanlity(itemID: String, newValue: Int, completion:@escaping (String?, String?)-> Void) {
+                
+        let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
+        let params : [String: Any] = ["quantity": newValue]
+        _ = _AppDataHandler.patch(parameters: params, fullURLRequest: fullURLRequest, completion: { responseData in
+            if responseData.responseCode == 400 {
+                completion(responseData.responseMessage, nil)
+                return
+            }
+            else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
+                return
+            }
+            else if responseData.responseCode == 200 || responseData.responseCode == 204 {
+                completion(nil, responseData.responseMessage)
+            }
+            else {
+                completion(responseData.responseMessage, nil)
+            }
+        })
+    }
+    
     func getCartDataSource(completion:@escaping (String?, CartDataSource?)-> Void) {
         
         let fullURLRequest = kGatwayCartURL + "/carts"
