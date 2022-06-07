@@ -136,7 +136,7 @@ class ProductDetailsViewController: BaseViewController,
         addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
         self.view.addSubview(addToCartBtn)
         addToCartBtn.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-80)
+            make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(40)

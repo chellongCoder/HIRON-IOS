@@ -101,7 +101,7 @@ class ProductFilterViewController: BaseViewController,
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.subtotal ?? 0)
+                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.grandTotal ?? 0)
             }
             .disposed(by: disposeBag)
     }

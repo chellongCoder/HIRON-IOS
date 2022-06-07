@@ -128,7 +128,7 @@ class CheckoutViewController: BaseViewController {
                 
                 guard let deliveryAddress = deliveryAddress.element as? ContactDataSource else {return}
                 self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " | +" + deliveryAddress.phone
-                self.deliveryTo.addressLabel.text = deliveryAddress.address + deliveryAddress.province + deliveryAddress.postalCode
+                self.deliveryTo.addressLabel.text = deliveryAddress.address + ", " + deliveryAddress.province + ", " + deliveryAddress.country + ", " + deliveryAddress.postalCode
             }
             .disposed(by: disposeBag)
         
@@ -138,7 +138,7 @@ class CheckoutViewController: BaseViewController {
                 
                 guard let billingAddress = billingAddress.element as? ContactDataSource else {return}
                 self.billingAddress.contactLabel.text = billingAddress.firstName + billingAddress.phone
-                self.billingAddress.addressLabel.text = billingAddress.address + billingAddress.province + billingAddress.postalCode
+                self.billingAddress.addressLabel.text = billingAddress.address + ", " + billingAddress.province + ", " + billingAddress.country + ", " + billingAddress.postalCode
             }
             .disposed(by: disposeBag)
         

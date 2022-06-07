@@ -48,7 +48,10 @@ class AddToCartViewController: UIViewController {
         
         self.viewModel.controller = self
         
+        let dismissTouch = UITapGestureRecognizer.init(target: self, action: #selector(closeButtonTapped))
+        
         let transparentView = UIView()
+        transparentView.addGestureRecognizer(dismissTouch)
         transparentView.backgroundColor = .lightGray
         transparentView.alpha = 0.3
         self.view.addSubview(transparentView)
