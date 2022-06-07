@@ -113,8 +113,8 @@ class CartProductTableViewCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "%ld %@", cellData.product!.regularPrice, (cellData.product?.currency ?? "USD"))
-        self.priceDiscount.text = String(format: "%ld %@", cellData.product!.finalPrice, (cellData.product?.currency ?? "USD"))
+        self.priceLabel.text = String(format: "$%ld", cellData.product!.regularPrice)
+        self.priceDiscount.text = String(format: "$%ld", cellData.product!.finalPrice)
     }
     
     @objc private func removeButtonTapped() {

@@ -436,8 +436,8 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
+				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
 				938F7A8C28210F0C00DD60DB /* ProductTableViewCell */,
 				933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */,
 				930F3031281A05A1003D247A /* ProductListingViewModel.swift */,

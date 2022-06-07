@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class AddToCartViewController: UIViewController {
     
@@ -22,11 +24,13 @@ class AddToCartViewController: UIViewController {
     let addToCartBtn        = UIButton()
     
     let minusBtn            = UIButton()
-    let quantityLabel       = UILabel()
+    let quantityTxt         = UITextField()
     let plusBtn             = UIButton()
     
     var productData         : ProductDataSource? = nil
     var quantityValue       = 1
+    
+    private let disposeBage = DisposeBag()
     
     init(productData: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -52,7 +56,7 @@ class AddToCartViewController: UIViewController {
             make.center.size.equalToSuperview()
         }
         
-        contentView.backgroundColor = kBackgroundColor
+        contentView.backgroundColor = .white
         contentView.layer.cornerRadius = 10
         contentView.layer.borderWidth = 1
         contentView.layer.borderColor = kPrimaryColor.cgColor
@@ -116,7 +120,7 @@ class AddToCartViewController: UIViewController {
             make.right.equalToSuperview().offset(-16)
         }
                 
-        priceDiscount.text = String(format: "%ld %@", productData?.finalPrice ?? 0, (productData?.currency ?? "USD"))
+        priceDiscount.text = String(format: "$%ld", productData?.finalPrice ?? 0)
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
@@ -125,7 +129,7 @@ class AddToCartViewController: UIViewController {
             make.left.equalTo(productTitleLabel)
         }
         
-        priceLabel.text = String(format: "%ld %@", productData?.regularPrice ?? 0, (productData?.currency ?? "USD"))
+        priceLabel.text = String(format: "$%ld", productData?.regularPrice ?? 0)
         priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
@@ -156,12 +160,13 @@ class AddToCartViewController: UIViewController {
             make.height.width.equalTo(30)
         }
         
-        quantityLabel.text = String(format: "%ld", self.quantityValue)
-        quantityLabel.layer.borderWidth = 1
-        quantityLabel.layer.borderColor = UIColor.lightGray.cgColor
-        quantityLabel.textAlignment = .center
-        contentView.addSubview(quantityLabel)
-        quantityLabel.snp.makeConstraints { make in
+        quantityTxt.text = String(format: "%ld", self.quantityValue)
+        quantityTxt.layer.borderWidth = 1
+        quantityTxt.layer.borderColor = UIColor.lightGray.cgColor
+        quantityTxt.textAlignment = .center
+        quantityTxt.keyboardType = .numberPad
+        contentView.addSubview(quantityTxt)
+        quantityTxt.snp.makeConstraints { make in
             make.centerY.equalTo(minusBtn)
             make.height.equalTo(40)
             make.left.equalTo(minusBtn.snp.right).offset(5)
@@ -174,13 +179,21 @@ class AddToCartViewController: UIViewController {
         addToCartBtn.addTarget(self, action: #selector(addCartButtonTapped), for: .touchUpInside)
         contentView.addSubview(addToCartBtn)
         addToCartBtn.snp.makeConstraints { make in
-            make.top.equalTo(quantityLabel.snp.bottom).offset(10)
+            make.top.equalTo(quantityTxt.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-20)
             make.height.equalTo(40)
             make.left.equalTo(productTitleLabel)
             make.bottom.lessThanOrEqualToSuperview().offset(-50)
         }
         
+        quantityTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe ({ [unowned self] _ in
+                
+                let number = Int(quantityTxt.text ?? "0") ?? 0
+                self.quantityValue = number
+            })
+            .disposed(by: disposeBage)
     }
     
     @objc func closeButtonTapped() {
@@ -190,13 +203,13 @@ class AddToCartViewController: UIViewController {
     @objc private func minusButtonTapped() {
         if self.quantityValue <= 1 {return}
         self.quantityValue -= 1
-        quantityLabel.text = String(format: "%ld", self.quantityValue)
+        quantityTxt.text = String(format: "%ld", self.quantityValue)
     }
     
     @objc private func plusButtonTapped() {
         if self.quantityValue >= 99 {return}
         self.quantityValue += 1
-        quantityLabel.text = String(format: "%ld", self.quantityValue)
+        quantityTxt.text = String(format: "%ld", self.quantityValue)
     }
     
     @objc func addCartButtonTapped() {

@@ -33,6 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = AppNavigationController.sharedInstance
         window?.makeKeyAndVisible()
         
+        //Disable dark mode
+        if #available(iOS 13.0, *) {
+            window?.overrideUserInterfaceStyle = .light
+        }
+        
         return true
     }
 
