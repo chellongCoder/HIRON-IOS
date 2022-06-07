@@ -97,6 +97,7 @@ class ProductTableViewCell: UITableViewCell {
         priceLabel.snp.makeConstraints { (make) in
             make.top.equalTo(starView.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
+            make.right.lessThanOrEqualTo(productTitleLabel)
         }
         
         addToCartBtn.setTitle("Add to cart", for: .normal)
