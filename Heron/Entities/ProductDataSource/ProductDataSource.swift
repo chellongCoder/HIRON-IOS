@@ -15,8 +15,8 @@ class ProductDataSource: Mappable, Equatable {
     var name            : String?
     var shortDesc       : String?
     var desc            : [ContentDescription] = []
-    var regularPrice    : Int = 0
-    var finalPrice      : Int = 0
+    private var regularPrice    : Int = 0
+    private var finalPrice      : Int = 0
     var currency        : String?
     var thumbnailUrl    : String?
     var media           : [ProductMediaDataSource] = []
@@ -25,6 +25,8 @@ class ProductDataSource: Mappable, Equatable {
     //custome value
     var discountPercent : Float = 0.0
     var quantity        : Int = 1
+    var customRegularPrice  : Float = 0.0
+    var customFinalPrice    : Float = 0.0
     
     required init?(map: Map) {
         //
@@ -44,8 +46,8 @@ class ProductDataSource: Mappable, Equatable {
         available       <- map["available"]
         
         self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
-        self.regularPrice = regularPrice/100
-        self.finalPrice = finalPrice/100
+        self.customRegularPrice = Float(regularPrice)/100.0
+        self.customFinalPrice = Float(finalPrice)/100.0
     }
     
     static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {

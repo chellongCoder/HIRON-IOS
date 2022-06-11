@@ -123,7 +123,7 @@ class AddToCartViewController: UIViewController {
             make.right.equalToSuperview().offset(-16)
         }
                 
-        priceDiscount.text = String(format: "$%ld", productData?.finalPrice ?? 0)
+        priceDiscount.text = String(format: "$%.2f", productData?.customFinalPrice ?? 0.0)
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
@@ -132,7 +132,7 @@ class AddToCartViewController: UIViewController {
             make.left.equalTo(productTitleLabel)
         }
         
-        priceLabel.text = String(format: "$%ld", productData?.regularPrice ?? 0)
+        priceLabel.text = String(format: "$%.2f", productData?.customRegularPrice ?? 0.0)
         priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)

@@ -127,8 +127,8 @@ class ProductTableViewCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%ld", cellData.regularPrice)
-        self.priceDiscount.text = String(format: "$%ld", cellData.finalPrice)
+        self.priceLabel.text = String(format: "$%.2f", cellData.customRegularPrice)
+        self.priceDiscount.text = String(format: "$%.2f", cellData.customFinalPrice)
         
         if cellData.discountPercent > 0 {
             self.discountPercent.isHidden = false

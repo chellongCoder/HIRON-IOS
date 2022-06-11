@@ -101,7 +101,7 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(packageTitle)
         }
         
-        priceDiscount.text = String(format: "$%ld", viewModel.productDataSource?.finalPrice ?? 0)
+        priceDiscount.text = String(format: "$%.2f", viewModel.productDataSource?.customFinalPrice ?? 0.0)
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
@@ -110,7 +110,7 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(packageTitle)
         }
         
-        priceLabel.text = String(format: "#%ld", viewModel.productDataSource?.regularPrice ?? 0)
+        priceLabel.text = String(format: "#%.2f", viewModel.productDataSource?.customRegularPrice ?? 0.0)
         priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)

@@ -22,7 +22,6 @@ class CheckoutViewController: BaseViewController {
     
     init(cartData: CartDataSource) {
         super.init(nibName: nil, bundle: nil)
-        viewModel.cartData.accept(cartData)
     }
     
     required init?(coder: NSCoder) {
@@ -111,14 +110,14 @@ class CheckoutViewController: BaseViewController {
     
     //MARK: - BindingData
     func bindingData() {
-        viewModel.cartData
+        _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
                 
                 guard let cartData = cartDataSource.element as? CartDataSource else {return}
-                self.orderTotalView.subTotalValue.text = String(format: "$%ld", cartData.subtotal)
-                self.orderTotalView.discountValue.text = String(format: "$%ld", (cartData.subtotal - cartData.grandTotal))
-                self.orderTotalView.totalValue.text = String(format: "$%ld", cartData.grandTotal)
+                self.orderTotalView.subTotalValue.text = String(format: "$%.2f", cartData.customSubTotal)
+                self.orderTotalView.discountValue.text = String(format: "$%.2f", (cartData.customSubTotal - cartData.customGrandTotal))
+                self.orderTotalView.totalValue.text = String(format: "$%.2f", cartData.customGrandTotal)
             }
             .disposed(by: disposeBag)
         

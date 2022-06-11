@@ -103,11 +103,18 @@ class CartViewController: BaseViewController,
                 
                 guard let cartData = cartDataSource.element as? CartDataSource else {return}
                 self.viewModel.cartDataSource = cartData
-                
-                self.totalLabel.text = String(format: "Total: $%ld", cartData.grandTotal)
-                self.savingLabel.text = String(format: "Saving: $%ld", (cartData.subtotal - cartData.grandTotal))
-                
                 self.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        _CartServices.cartPreCheckoutData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartPreCheckoutDataSource in
+                guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {return}
+                
+                self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
+                self.savingLabel.text = String(format: "Saving: $%.2f", ((cartPreCheckoutDataSource.checkoutPriceData?.customeMerchandiseSubtotal ?? 0.0) - (cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)))
+                
             }
             .disposed(by: disposeBag)
     }
