@@ -76,7 +76,9 @@ class SignInSuccessViewController: BaseViewController {
     
     @objc func updateRootVC() {
 //        mainVc.modalPresentationStyle = .overFullScreen
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        let vc = MainSubscriptionViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
 //        self.navigationController?.pushViewController(mainVc, animated: true)
     }
     }

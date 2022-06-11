@@ -97,6 +97,8 @@
 		B513EBB2285435B0003185AF /* SignInSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBAD285435B0003185AF /* SignInSuccessViewController.swift */; };
 		B513EBB3285435B0003185AF /* VM_Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBAE285435B0003185AF /* VM_Auth.swift */; };
 		B513EBB4285435B0003185AF /* AccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBAF285435B0003185AF /* AccountInfoViewController.swift */; };
+		B513EBB7285437F0003185AF /* MainSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBB6285437F0003185AF /* MainSubscriptionViewController.swift */; };
+		B513EBB928543F75003185AF /* SubscriptionPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 /* End PBXBuildFile section */
 
@@ -216,6 +218,8 @@
 		B513EBAD285435B0003185AF /* SignInSuccessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignInSuccessViewController.swift; path = Heron/ViewControllers/Auth/SignInSuccessViewController.swift; sourceTree = SOURCE_ROOT; };
 		B513EBAE285435B0003185AF /* VM_Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VM_Auth.swift; path = Heron/ViewControllers/Auth/VM_Auth.swift; sourceTree = SOURCE_ROOT; };
 		B513EBAF285435B0003185AF /* AccountInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountInfoViewController.swift; path = Heron/ViewControllers/Auth/AccountInfoViewController.swift; sourceTree = SOURCE_ROOT; };
+		B513EBB6285437F0003185AF /* MainSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubscriptionViewController.swift; sourceTree = "<group>"; };
+		B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaymentViewController.swift; sourceTree = "<group>"; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -366,6 +370,7 @@
 		933D191E2819943000F1CCC4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B513EBB52854379E003185AF /* SubscriptionViewController */,
 				B513EBAA2854359C003185AF /* AuthViewController */,
 				93AF91EC284BBD100075CD65 /* CheckoutViewController */,
 				93D55227282A73550034B2B7 /* CartViewController */,
@@ -646,6 +651,15 @@
 				B513EBAE285435B0003185AF /* VM_Auth.swift */,
 			);
 			path = AuthViewController;
+			sourceTree = "<group>";
+		};
+		B513EBB52854379E003185AF /* SubscriptionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B513EBB6285437F0003185AF /* MainSubscriptionViewController.swift */,
+				B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */,
+			);
+			path = SubscriptionViewController;
 			sourceTree = "<group>";
 		};
 		FDD6F5C2326508B4B9DB604E /* Frameworks */ = {
@@ -931,7 +945,9 @@
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
 				93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
+				B513EBB7285437F0003185AF /* MainSubscriptionViewController.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
+				B513EBB928543F75003185AF /* SubscriptionPaymentViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */,
 				93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */,
