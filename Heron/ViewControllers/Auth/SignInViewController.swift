@@ -7,6 +7,22 @@
 
 import UIKit
 
+extension UIButton {
+    func successButton(title: String) -> Self {
+        self.setTitle(title, for: .normal)
+       self.backgroundColor = kPrimaryColor
+       self.layer.cornerRadius = 8
+        return self
+    }
+    
+    func subButton(title: String) -> Self {
+        self.setTitle(title, for: .normal)
+        self.backgroundColor = .lightGray
+       self.layer.cornerRadius = 8
+        return self
+    }
+}
+
 class SignInViewController: BaseViewController {
 
         var imagePicker = UIImagePickerController()
@@ -18,13 +34,11 @@ class SignInViewController: BaseViewController {
         let vm = VM_Auth()
 
         override func configUI() {
-            let top_logo = UIImageView(image: UIImage(named: "logo"))
-            top_logo.contentMode = .scaleAspectFit
-            self.view.addSubview(top_logo)
-            top_logo.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(10)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(70)
+            let bg = UIImageView(image: UIImage(named: "bg"))
+            bg.contentMode = .scaleAspectFit
+            self.view.addSubview(bg)
+            bg.snp.makeConstraints {
+                $0.left.right.top.bottom.equalToSuperview()
             }
             
             
@@ -66,9 +80,8 @@ class SignInViewController: BaseViewController {
             pass_tf.isSecureTextEntry = true
             
             let sign_in_btn = UIButton()
-            sign_in_btn.backgroundColor = .red
+            sign_in_btn.successButton(title: is_sign ? "Sign in" : "Continue")
             sign_in_btn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
-            sign_in_btn.setTitle(is_sign ? "Sign in" : "Continue", for: .normal)
            
             stack_view.addArrangedSubview(sign_in_lbl)
             stack_view.addArrangedSubview(sign_up_lbl)

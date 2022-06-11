@@ -24,15 +24,12 @@ class AccountInfoViewController: BaseViewController {
     //    let vm = VM_Auth()
 
         override func configUI() {
-            let top_logo = UIImageView(image: UIImage(named: "logo"))
-            top_logo.contentMode = .scaleAspectFit
-            self.view.addSubview(top_logo)
-            top_logo.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(10)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(70)
+            let bg = UIImageView(image: UIImage(named: "bg"))
+            bg.contentMode = .scaleAspectFit
+            self.view.addSubview(bg)
+            bg.snp.makeConstraints {
+                $0.left.right.top.bottom.equalToSuperview()
             }
-            
             
             let child_vỉew = UIView()
             self.view.addSubview(child_vỉew)

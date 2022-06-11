@@ -22,12 +22,12 @@ class MainAuthViewController: BaseViewController {
             top_logo.contentMode = .scaleAspectFit
             self.view.addSubview(top_logo)
             top_logo.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(10)
+                $0.top.equalToSuperview().offset(50)
                 $0.centerX.equalToSuperview()
                 $0.height.equalTo(70)
             }
             
-            let center_image = UIImageView(image: UIImage(named: "center_img"))
+            let center_image = UIImageView(image: UIImage(named: "splash_screen"))
             center_image.contentMode = .scaleAspectFit
             self.view.addSubview(center_image)
             center_image.snp.makeConstraints {
@@ -37,7 +37,9 @@ class MainAuthViewController: BaseViewController {
             }
             
             let center_desc = UILabel()
+            center_desc.textAlignment = .center
             center_desc.text = "Access your patient history, lab results, future appointments and more."
+            center_desc.numberOfLines = 0
             self.view.addSubview(center_desc)
             center_desc.snp.makeConstraints {
                 $0.top.equalTo(center_image.snp.bottom).offset(10)
@@ -46,8 +48,7 @@ class MainAuthViewController: BaseViewController {
             }
             
             let sign_in_btn = UIButton()
-            sign_in_btn.backgroundColor = .red
-            sign_in_btn.setTitle("Sign in", for: .normal)
+            sign_in_btn.subButton(title: "Sign in")
             sign_in_btn.addTarget(self, action: #selector(sign_in_action), for: .touchUpInside)
             self.view.addSubview(sign_in_btn)
             sign_in_btn.snp.makeConstraints {
@@ -58,9 +59,8 @@ class MainAuthViewController: BaseViewController {
             }
             
             let sign_up_btn = UIButton()
-            sign_up_btn.backgroundColor = .blue
+            sign_up_btn.successButton(title: "Sign up")
             sign_up_btn.addTarget(self, action: #selector(sign_up_action), for: .touchUpInside)
-            sign_up_btn.setTitle("Sign up", for: .normal)
             self.view.addSubview(sign_up_btn)
             sign_up_btn.snp.makeConstraints {
                 $0.top.equalTo(sign_in_btn.snp.bottom).offset(15)

@@ -18,20 +18,18 @@ class SignInSuccessViewController: BaseViewController {
     //    let vm = AccountViewModel()
 
         override func configUI() {
-            let top_logo = UIImageView(image: UIImage(named: "logo"))
-            top_logo.contentMode = .scaleAspectFit
-            self.view.addSubview(top_logo)
-            top_logo.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(10)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(70)
+            let bg = UIImageView(image: UIImage(named: "bg"))
+            bg.contentMode = .scaleAspectFit
+            self.view.addSubview(bg)
+            bg.snp.makeConstraints {
+                $0.left.right.top.bottom.equalToSuperview()
             }
             
             let center_image = UIImageView(image: UIImage(named: "auth_success"))
             center_image.contentMode = .scaleAspectFit
             self.view.addSubview(center_image)
             center_image.snp.makeConstraints {
-                $0.top.equalTo(top_logo.snp.bottom).offset(30)
+                $0.centerY.equalToSuperview().offset(-50)
                 $0.centerX.equalToSuperview()
                 $0.height.equalTo(50)
             }
@@ -58,8 +56,7 @@ class SignInSuccessViewController: BaseViewController {
             }
             
             let continue_btn = UIButton()
-            continue_btn.backgroundColor = .red
-            continue_btn.setTitle("Continue your journey", for: .normal)
+            continue_btn.successButton(title: "Continue your journey")
             continue_btn.addTarget(self, action: #selector(updateRootVC), for: .touchUpInside)
             self.view.addSubview(continue_btn)
             continue_btn.snp.makeConstraints {
