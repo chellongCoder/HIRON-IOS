@@ -99,6 +99,8 @@
 		B513EBB4285435B0003185AF /* AccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBAF285435B0003185AF /* AccountInfoViewController.swift */; };
 		B513EBB7285437F0003185AF /* MainSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBB6285437F0003185AF /* MainSubscriptionViewController.swift */; };
 		B513EBB928543F75003185AF /* SubscriptionPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */; };
+		B513EBBB285447AE003185AF /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBBA285447AE003185AF /* OrderService.swift */; };
+		B513EBBD28544965003185AF /* VM_Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBBC28544965003185AF /* VM_Order.swift */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 /* End PBXBuildFile section */
 
@@ -220,6 +222,8 @@
 		B513EBAF285435B0003185AF /* AccountInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AccountInfoViewController.swift; path = Heron/ViewControllers/Auth/AccountInfoViewController.swift; sourceTree = SOURCE_ROOT; };
 		B513EBB6285437F0003185AF /* MainSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSubscriptionViewController.swift; sourceTree = "<group>"; };
 		B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaymentViewController.swift; sourceTree = "<group>"; };
+		B513EBBA285447AE003185AF /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
+		B513EBBC28544965003185AF /* VM_Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VM_Order.swift; sourceTree = "<group>"; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -370,6 +374,7 @@
 		933D191E2819943000F1CCC4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				938F7A862820E77500DD60DB /* MyOrderViewController */,
 				B513EBB52854379E003185AF /* SubscriptionViewController */,
 				B513EBAA2854359C003185AF /* AuthViewController */,
 				93AF91EC284BBD100075CD65 /* CheckoutViewController */,
@@ -385,7 +390,6 @@
 			isa = PBXGroup;
 			children = (
 				938F7A892820E7BD00DD60DB /* HomepageViewController */,
-				938F7A862820E77500DD60DB /* MyOrderViewController */,
 				933D194628199DD700F1CCC4 /* ProductListingViewController */,
 				933D19202819944100F1CCC4 /* MainViewController.swift */,
 			);
@@ -457,6 +461,7 @@
 			isa = PBXGroup;
 			children = (
 				938F7A872820E78F00DD60DB /* MyOrderViewController.swift */,
+				B513EBBC28544965003185AF /* VM_Order.swift */,
 			);
 			path = MyOrderViewController;
 			sourceTree = "<group>";
@@ -627,6 +632,7 @@
 				93D73F1328450D0C0015C4FB /* CartServices.swift */,
 				93D73F1528450D7E0015C4FB /* CheckoutServices.swift */,
 				93AF920D284D10BF0075CD65 /* PromotionServices.swift */,
+				B513EBBA285447AE003185AF /* OrderService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -907,6 +913,7 @@
 			files = (
 				93AF9205284BF93A0075CD65 /* AddUserAddressViewController.swift in Sources */,
 				933D19392819946800F1CCC4 /* String_EXT.swift in Sources */,
+				B513EBBD28544965003185AF /* VM_Order.swift in Sources */,
 				930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */,
 				93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */,
 				93D55226282811D20034B2B7 /* Alert_Ext.swift in Sources */,
@@ -919,6 +926,7 @@
 				B55B372D2836425B005245AB /* Utils.swift in Sources */,
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
+				B513EBBB285447AE003185AF /* OrderService.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
 				93AF91F0284BBD580075CD65 /* CheckoutViewModel.swift in Sources */,
 				93D73F1428450D0C0015C4FB /* CartServices.swift in Sources */,

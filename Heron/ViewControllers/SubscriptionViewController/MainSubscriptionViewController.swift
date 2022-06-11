@@ -10,7 +10,7 @@ import UIKit
 class MainSubscriptionViewController: BaseViewController {
 
             var imagePicker = UIImagePickerController()
-            var is_skip = false
+            var is_skip = true
 
 //            let vm = VM_Auth()
 
