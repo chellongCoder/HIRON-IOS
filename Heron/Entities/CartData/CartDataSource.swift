@@ -18,7 +18,6 @@ struct CartDataSource : Mappable {
     var store           : [StoreDataSource] = []  //same as cartDetails - rename for clean flow
     
     // Custome
-    var vouchers        : [VoucherDataSource] = []
     var customSubTotal  : Float = 0.0
     var customGrandTotal : Float = 0.0
     

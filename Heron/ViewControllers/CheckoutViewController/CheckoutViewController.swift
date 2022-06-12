@@ -121,6 +121,24 @@ class CheckoutViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        _CartServices.cartPreCheckoutResponseData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartPreCheckoutDataSource in
+                guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {
+                    self.orderTotalView.subTotalValue.text = "$0.0"
+                    self.orderTotalView.discountValue.text = "$0.0"
+                    self.orderTotalView.shippingAndTaxValue.text = "$0.0"
+                    self.orderTotalView.totalValue.text = "$0.0"
+                    return
+                }
+                
+                self.orderTotalView.subTotalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customeMerchandiseSubtotal ?? 0.0)
+                self.orderTotalView.discountValue.text = String(format: "$%.2f", ((cartPreCheckoutDataSource.checkoutPriceData?.customeMerchandiseSubtotal ?? 0.0) - (cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)))
+                self.orderTotalView.shippingAndTaxValue.text = String(format: "$%.2f", (cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal ?? 0.0) + (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
+                self.orderTotalView.totalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
+            }
+            .disposed(by: disposeBag)
+        
         _CartServices.deliveryAddress
             .observe(on: MainScheduler.instance)
             .subscribe { deliveryAddress in

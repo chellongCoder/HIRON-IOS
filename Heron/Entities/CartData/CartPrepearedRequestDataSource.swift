@@ -96,13 +96,16 @@ struct CartPrepearedResponseCheckoutPriceData: Mappable {
     var customTaxSubtotal : Int = 0
     private var merchandiseSubtotal : Int = 0
     var taxExemption : Int = 0
-    var taxPayable : Int = 0
     private var totalPayable : Int = 0
+    private var shippingSubtotal : Int = 0
+    private var taxPayable : Int = 0
     var vatSubtotal : Int = 0
     
     // Custom
     var customTotalPayable : Float = 0.0
     var customeMerchandiseSubtotal : Float = 0.0
+    var customShippingSubtotal : Float = 0.0
+    var customTaxPayable : Float = 0.0
     
     init?(map: Map) {
         //
@@ -116,8 +119,11 @@ struct CartPrepearedResponseCheckoutPriceData: Mappable {
         taxPayable          <- map["taxPayable"]
         totalPayable        <- map["totalPayable"]
         vatSubtotal         <- map["vatSubtotal"]
+        shippingSubtotal    <- map["shippingSubtotal"]
         
         customTotalPayable = Float(totalPayable)/100.0
         customeMerchandiseSubtotal = Float(merchandiseSubtotal)/100.0
+        customShippingSubtotal = Float(shippingSubtotal)/100.0
+        customTaxPayable = Float(taxPayable)/100.0
     }
 }
