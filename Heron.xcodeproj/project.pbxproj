@@ -101,6 +101,7 @@
 		B513EBB928543F75003185AF /* SubscriptionPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */; };
 		B513EBBB285447AE003185AF /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBBA285447AE003185AF /* OrderService.swift */; };
 		B513EBBD28544965003185AF /* VM_Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBBC28544965003185AF /* VM_Order.swift */; };
+		B554EDD9285602B20010B1D5 /* SubcsriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554EDD8285602B20010B1D5 /* SubcsriptionCell.swift */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 /* End PBXBuildFile section */
 
@@ -224,6 +225,7 @@
 		B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaymentViewController.swift; sourceTree = "<group>"; };
 		B513EBBA285447AE003185AF /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		B513EBBC28544965003185AF /* VM_Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VM_Order.swift; sourceTree = "<group>"; };
+		B554EDD8285602B20010B1D5 /* SubcsriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcsriptionCell.swift; sourceTree = "<group>"; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -664,6 +666,7 @@
 			children = (
 				B513EBB6285437F0003185AF /* MainSubscriptionViewController.swift */,
 				B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */,
+				B554EDD8285602B20010B1D5 /* SubcsriptionCell.swift */,
 			);
 			path = SubscriptionViewController;
 			sourceTree = "<group>";
@@ -953,6 +956,7 @@
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
 				93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
+				B554EDD9285602B20010B1D5 /* SubcsriptionCell.swift in Sources */,
 				B513EBB7285437F0003185AF /* MainSubscriptionViewController.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				B513EBB928543F75003185AF /* SubscriptionPaymentViewController.swift in Sources */,

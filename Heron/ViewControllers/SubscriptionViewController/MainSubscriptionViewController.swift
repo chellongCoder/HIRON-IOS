@@ -6,12 +6,20 @@
 //
 
 import UIKit
+import RxSwift
 
-class MainSubscriptionViewController: BaseViewController {
+class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataSource, UICollectionViewDelegate {
 
-            var imagePicker = UIImagePickerController()
-            var is_skip = true
-
+    var imagePicker = UIImagePickerController()
+    var collectionview: UICollectionView!
+    let sign_in_btn = UIButton()
+    private let viewModel   = ProductFilterViewModel()
+    var selectedIndex       : IndexPath? = nil {
+        didSet {
+                sign_in_btn.successButton(title: selectedIndex == nil ? "Skip":"Confirm")
+        }
+    }
+    private let disposeBag          = DisposeBag()
 //            let vm = VM_Auth()
 
             override func configUI() {
@@ -50,51 +58,36 @@ class MainSubscriptionViewController: BaseViewController {
                 let sign_up_lbl = UILabel()
                 sign_up_lbl.text = "Save up to 15%"
                 
-                
-                let sign_in_btn = UIButton()
-                sign_in_btn.successButton(title: is_skip ? "Skip":"Confirm")
+                sign_in_btn.successButton(title: "Skip")
                 sign_in_btn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
+//
+                let viewWidth = UIScreen.main.bounds.size.width/2 - 20;
+                let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+                layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                layout.itemSize = CGSize(width: viewWidth, height: viewWidth)
+                layout.minimumInteritemSpacing = 0
+                layout.minimumLineSpacing = 0
+                layout.scrollDirection = .horizontal
+
+                collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
+                collectionview.dataSource = self
+                collectionview.delegate = self
+                collectionview.register(SubcriptionCollectionViewCell.self, forCellWithReuseIdentifier: "SubcriptionCollectionViewCell")
+                collectionview.showsVerticalScrollIndicator = false
+                collectionview.backgroundColor = .clear
                 
-                let hstack = UIStackView()
-                hstack.axis  = .horizontal
-                hstack.distribution  = .fillProportionally
-                hstack.alignment = .center
-                hstack.spacing = 10
-                
-                func createCardView() -> UIView {
-                    let view = UIView()
-                    view.backgroundColor = .blue
-                    return view
-                }
-                let card = createCardView()
-                hstack.addArrangedSubview(card)
-                let card2 = createCardView()
-                hstack.addArrangedSubview(card2)
-                card.snp.makeConstraints {
-                    $0.width.height.equalTo(80)
-                }
-                
-                card2.snp.makeConstraints {
-                    $0.width.height.equalTo(80)
-                }
-//                child_vỉew.addSubview(hstack)
-//                stack_view.snp.makeConstraints {
-//                    $0.left.right.equalToSuperview()
-//                    $0.top.equalToSuperview().offset(20)
-//                }
-               
                 stack_view.addArrangedSubview(sign_in_lbl)
                 stack_view.addArrangedSubview(sign_up_lbl)
-                stack_view.addArrangedSubview(hstack)
+                stack_view.addArrangedSubview(collectionview)
                 stack_view.addArrangedSubview(sign_in_btn)
                 
              
                 sign_in_btn.snp.makeConstraints {
                     $0.width.equalToSuperview().multipliedBy(0.5)
                 }
-                
-                hstack.snp.makeConstraints {
-//                    $0.width.equalToSuperview()
+
+                collectionview.snp.makeConstraints {
+                    $0.width.equalToSuperview()
                     $0.height.equalTo(200)
                 }
                
@@ -116,7 +109,7 @@ class MainSubscriptionViewController: BaseViewController {
         }
             
             @objc func continue_action(_ sender: Any) {
-                if is_skip {
+                if selectedIndex == nil {
                     self.dismiss(animated: true, completion: nil)
                 } else {
                     let vc = SubscriptionPaymentViewController()
@@ -125,10 +118,60 @@ class MainSubscriptionViewController: BaseViewController {
             }
             
 
+    override func bindingData() {
+        _CartServices.cartData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartDataSource in
+//                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.grandTotal ?? 0)
+            }
+            .disposed(by: disposeBag)
+    }
     //        override func configObs() {
     //            observeLoading(vm.isLoading)
     //            observeMessage(vm.responseMsg)
     //            observeAuthorized(vm.isAuthorised)
     //        }
+    
+    //MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return viewModel.listCategories.count
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
+        cell.titleLabel.text = "Monthly subcription"
+        cell.priceLabel.text = "$ 10.00/month"
+        cell.footerLabel.text = "Include 14 days free"
+//        let cellData = viewModel.listCategories[indexPath.row]
+//        cell.setDataSource(data: cellData)
+////
+        if selectedIndex?.row == indexPath.row && selectedIndex?.section == indexPath.section {
+            cell.setSelected(true)
+        } else {
+            cell.setSelected(false)
         }
+        
+        return cell
+    }
+    
+    //MARK: - UICollectionViewDelegate
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let tempIndex = self.selectedIndex {
+            if self.selectedIndex == indexPath {
+                self.selectedIndex = nil
+            } else {
+                self.selectedIndex = indexPath
+            }
+            self.collectionview.reloadItems(at: [tempIndex, indexPath])
+            return
+        }
+        
+        
+        self.selectedIndex = indexPath
+        self.collectionview.reloadItems(at: [indexPath])
+    }
+        }
+
+
 

@@ -12,7 +12,7 @@ class VM_Auth {
         func sign_in(email: String, password: String, completion: @escaping ()->Void) {
             _AuthenticationServices.login(username: email, password: password) { isSuccess, errorMessgae in
                 let defaults = UserDefaults.standard
-                defaults.set(true, forKey: "is_login")
+//                defaults.set(true, forKey: "is_login")
                 completion()
             }
         }

@@ -29,7 +29,6 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, ProductCel
             make.top.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -38,7 +37,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, ProductCel
     }
     
     //MARK: - Binding Data
-    private func bindingData() {
+    override func bindingData() {
         vm.orders
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in

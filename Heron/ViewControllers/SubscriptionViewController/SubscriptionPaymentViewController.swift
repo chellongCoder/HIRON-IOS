@@ -90,13 +90,14 @@ class SubscriptionPaymentViewController: BaseViewController {
 //        self.imgAddIDCard.isUserInteractionEnabled = true
     }
 
+
 override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     
 }
     
     @objc func continue_action(_ sender: Any) {
-    
+        self.dismiss(animated: true, completion: nil)
     }
     
 

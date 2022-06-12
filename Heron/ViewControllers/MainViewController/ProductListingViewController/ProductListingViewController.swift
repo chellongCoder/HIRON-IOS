@@ -87,8 +87,7 @@ class ProductListingViewController: BaseViewController,
             make.width.equalToSuperview().offset(-32)
             make.height.equalTo(80)
         }
-        
-        self.bindingData()
+    
         
     }
     
@@ -147,7 +146,7 @@ class ProductListingViewController: BaseViewController,
     }
     
     //MARK: - Binding Data
-    private func bindingData() {
+    override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
