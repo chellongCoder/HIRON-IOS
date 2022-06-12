@@ -66,8 +66,6 @@ class ProductFilterViewController: BaseViewController,
             make.right.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview().offset(-20)
         }
-        
-        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,7 +95,7 @@ class ProductFilterViewController: BaseViewController,
     }
     
     //MARK: - Binding Data
-    private func bindingData() {
+     override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in

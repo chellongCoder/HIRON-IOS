@@ -23,6 +23,7 @@ let _InventoryServices              = InventoryServices.sharedInstance
 let _CartServices                   = CartServices.sharedInstance
 let _DeliveryServices               = DeliveryServices.sharedInstance
 let _PromotionServices              = PromotionServices.sharedInstance
+let _OrderServices                  = OrderService.sharedInstance
 
 // Define key
 let kUserSessionDataSource          = "kUserSessionDataSource"

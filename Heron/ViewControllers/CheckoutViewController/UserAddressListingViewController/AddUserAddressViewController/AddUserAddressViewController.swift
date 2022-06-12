@@ -213,8 +213,6 @@ class AddUserAddressViewController: BaseViewController {
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
-        
-        self.bindingData()
     }
     
     //MARK: - Buttons
@@ -240,7 +238,7 @@ class AddUserAddressViewController: BaseViewController {
     }
     
     //MARK: - Data
-    private func bindingData() {
+     override func bindingData() {
         
         viewModel.contact
             .subscribe { contactDataSource in

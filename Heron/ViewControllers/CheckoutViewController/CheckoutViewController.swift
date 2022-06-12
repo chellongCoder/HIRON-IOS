@@ -77,8 +77,6 @@ class CheckoutViewController: BaseViewController {
             make.top.equalTo(voucherView.snp.bottom).offset(10)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
-        
-        self.bindingData()
     }
     
     //MARK: - Buttons
@@ -110,7 +108,7 @@ class CheckoutViewController: BaseViewController {
     }
     
     //MARK: - BindingData
-    func bindingData() {
+    override func bindingData() {
         viewModel.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
