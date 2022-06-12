@@ -1,13 +1,13 @@
 //
-//  VM_Auth.swift
+//  SubcriptionViewModel.swift
 //  Heron
 //
-//  Created by Triet Nguyen on 05/06/2022.
+//  Created by Triet Nguyen on 12/06/2022.
 //
 
-import UIKit
+import Foundation
 
-class VM_Auth {
+class SubcriptionViewModel {
 
         func sign_in(email: String, password: String, completion: @escaping ()->Void) {
             _AuthenticationServices.login(username: email, password: password) { isSuccess, errorMessgae in

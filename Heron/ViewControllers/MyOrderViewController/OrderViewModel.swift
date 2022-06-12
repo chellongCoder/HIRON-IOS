@@ -1,5 +1,5 @@
 //
-//  VM_Order.swift
+//  OrderViewModel.swift
 //  Heron
 //
 //  Created by Triet Nguyen on 11/06/2022.
@@ -8,7 +8,7 @@
 import RxSwift
 import RxRelay
 
-class VM_Order: NSObject {
+class OrderViewModel: NSObject {
 
     public var cartData             = BehaviorRelay<CartDataSource?>(value: nil)
     public var deliveryAddress      = BehaviorRelay<ContactDataSource?>(value: nil)

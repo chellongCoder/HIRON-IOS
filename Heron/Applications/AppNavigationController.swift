@@ -10,7 +10,7 @@ import UIKit
 
 class AppNavigationController: UINavigationController {
     
-    public static let sharedInstance = AppNavigationController(rootViewController: MainViewController())
+    public static let sharedInstance = AppNavigationController(rootViewController: LaunchScreenViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()

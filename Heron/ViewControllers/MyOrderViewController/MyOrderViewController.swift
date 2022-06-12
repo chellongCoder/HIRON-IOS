@@ -16,7 +16,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, ProductCel
     
     let tableView                   = UITableView(frame: .zero, style: .grouped)
     private let disposeBag          = DisposeBag()
-    let vm = VM_Order()
+    let vm = OrderViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()

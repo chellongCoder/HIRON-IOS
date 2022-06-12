@@ -11,7 +11,7 @@ import RxSwift
 class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataSource, UICollectionViewDelegate {
 
     var imagePicker = UIImagePickerController()
-    var collectionview: UICollectionView!
+    var collectionView: UICollectionView!
     let sign_in_btn = UIButton()
     private let viewModel   = ProductFilterViewModel()
     var selectedIndex       : IndexPath? = nil {
@@ -20,7 +20,7 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
         }
     }
     private let disposeBag          = DisposeBag()
-//            let vm = VM_Auth()
+//            let vm = AuthViewModel()
 
             override func configUI() {
                 let bg = UIImageView(image: UIImage(named: "bg"))
@@ -69,16 +69,16 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
                 layout.minimumLineSpacing = 0
                 layout.scrollDirection = .horizontal
 
-                collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
-                collectionview.dataSource = self
-                collectionview.delegate = self
-                collectionview.register(SubcriptionCollectionViewCell.self, forCellWithReuseIdentifier: "SubcriptionCollectionViewCell")
-                collectionview.showsVerticalScrollIndicator = false
-                collectionview.backgroundColor = .clear
+                collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+                collectionView.dataSource = self
+                collectionView.delegate = self
+                collectionView.register(SubcriptionCollectionViewCell.self, forCellWithReuseIdentifier: "SubcriptionCollectionViewCell")
+                collectionView.showsVerticalScrollIndicator = false
+                collectionView.backgroundColor = .clear
                 
                 stack_view.addArrangedSubview(sign_in_lbl)
                 stack_view.addArrangedSubview(sign_up_lbl)
-                stack_view.addArrangedSubview(collectionview)
+                stack_view.addArrangedSubview(collectionView)
                 stack_view.addArrangedSubview(sign_in_btn)
                 
              
@@ -86,7 +86,7 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
                     $0.width.equalToSuperview().multipliedBy(0.5)
                 }
 
-                collectionview.snp.makeConstraints {
+                collectionView.snp.makeConstraints {
                     $0.width.equalToSuperview()
                     $0.height.equalTo(200)
                 }
@@ -139,7 +139,7 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
         cell.titleLabel.text = "Monthly subcription"
         cell.priceLabel.text = "$ 10.00/month"
         cell.footerLabel.text = "Include 14 days free"
@@ -163,13 +163,13 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
             } else {
                 self.selectedIndex = indexPath
             }
-            self.collectionview.reloadItems(at: [tempIndex, indexPath])
+            self.collectionView.reloadItems(at: [tempIndex, indexPath])
             return
         }
         
         
         self.selectedIndex = indexPath
-        self.collectionview.reloadItems(at: [indexPath])
+        self.collectionView.reloadItems(at: [indexPath])
     }
         }
 

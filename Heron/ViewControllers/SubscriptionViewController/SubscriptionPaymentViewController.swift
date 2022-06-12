@@ -9,7 +9,7 @@ import UIKit
 
 class SubscriptionPaymentViewController: BaseViewController {
     var imagePicker = UIImagePickerController()
-//            let vm = VM_Auth()
+//            let vm = AuthViewModel()
 
     override func configUI() {
         let bg = UIImageView(image: UIImage(named: "bg"))

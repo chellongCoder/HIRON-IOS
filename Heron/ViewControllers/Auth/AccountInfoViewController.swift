@@ -10,7 +10,7 @@ import UIKit
 class AccountInfoViewController: BaseViewController {
 
         var imagePicker = UIImagePickerController()
-        var is_sign = true
+        var isSign = true
         
         let first_name_tf = UITextField()
         let last_name_tf = UITextField()
@@ -21,7 +21,7 @@ class AccountInfoViewController: BaseViewController {
         
         var prev_screen_pass = ""
         
-    //    let vm = VM_Auth()
+    //    let vm = AuthViewModel()
 
         override func configUI() {
             let bg = UIImageView(image: UIImage(named: "bg"))

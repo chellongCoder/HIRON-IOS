@@ -26,12 +26,12 @@ extension UIButton {
 class SignInViewController: BaseViewController {
 
         var imagePicker = UIImagePickerController()
-        var is_sign = true
+        var isSign = true
         
         let email_tf = UITextField()
         let pass_tf = UITextField()
 
-        let vm = VM_Auth()
+        let vm = AuthViewModel()
 
         override func configUI() {
             let bg = UIImageView(image: UIImage(named: "bg"))
@@ -66,10 +66,10 @@ class SignInViewController: BaseViewController {
             }
             
             let sign_in_lbl = UILabel()
-            sign_in_lbl.text = is_sign ? "Sign in" : "Sign up"
+            sign_in_lbl.text = isSign ? "Sign in" : "Sign up"
             
             let sign_up_lbl = UILabel()
-            sign_up_lbl.text = is_sign ? "New to CBIHS? Sign up" : "Already have an account? Sign in"
+            sign_up_lbl.text = isSign ? "New to CBIHS? Sign up" : "Already have an account? Sign in"
             
     //        email_tf.stylingBlueBorder()
             email_tf.placeholder = "Email"
@@ -80,7 +80,7 @@ class SignInViewController: BaseViewController {
             pass_tf.isSecureTextEntry = true
             
             let sign_in_btn = UIButton()
-            sign_in_btn.successButton(title: is_sign ? "Sign in" : "Continue")
+            sign_in_btn.successButton(title: isSign ? "Sign in" : "Continue")
             sign_in_btn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
            
             stack_view.addArrangedSubview(sign_in_lbl)
@@ -118,7 +118,7 @@ class SignInViewController: BaseViewController {
     }
         
         @objc func continue_action(_ sender: Any) {
-            if is_sign {
+            if isSign {
                 vm.sign_in(email: email_tf.text ?? "", password: pass_tf.text ?? "") {
                     let vc = SignInSuccessViewController()
                     self.navigationController?.pushViewController(vc, animated: true)

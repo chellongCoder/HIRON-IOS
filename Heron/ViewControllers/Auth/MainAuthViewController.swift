@@ -89,14 +89,14 @@ class MainAuthViewController: BaseViewController {
 
         @objc func sign_in_action(_ sender: Any) {
             let vc = SignInViewController()
-            vc.is_sign = true
+            vc.isSign = true
             self.navigationController?.pushViewController(vc, animated: true)
     //        self.openChooseOptionSelectImage()
         }
         
         @objc func sign_up_action(_ sender: Any) {
             let vc = SignInViewController()
-            vc.is_sign = false
+            vc.isSign = false
             self.navigationController?.pushViewController(vc, animated: true)
     //        self.openChooseOptionSelectImage()
         }

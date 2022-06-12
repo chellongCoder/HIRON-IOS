@@ -69,7 +69,7 @@ class SignInSuccessViewController: BaseViewController {
         
     //    @objc func sign_in_action(_ sender: Any) {
     //        let vc = VC_SignIn()
-    //        vc.is_sign = true
+    //        vc.isSign = true
     //        self.navigationController?.pushViewController(vc, animated: true)
     ////        self.openChooseOptionSelectImage()
     //    }
