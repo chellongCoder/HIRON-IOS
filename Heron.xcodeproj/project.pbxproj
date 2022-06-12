@@ -103,6 +103,7 @@
 		B513EBBD28544965003185AF /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBBC28544965003185AF /* OrderViewModel.swift */; };
 		B554EDD9285602B20010B1D5 /* SubcsriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554EDD8285602B20010B1D5 /* SubcsriptionCell.swift */; };
 		B554EDDB2856099C0010B1D5 /* SubcriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554EDDA2856099C0010B1D5 /* SubcriptionViewModel.swift */; };
+		B55A3E3F2856109100207244 /* MyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55A3E3E2856109100207244 /* MyOrderCell.swift */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 		B55D4A6828560D0300093F2B /* SubcriptionServives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55D4A6728560D0300093F2B /* SubcriptionServives.swift */; };
 /* End PBXBuildFile section */
@@ -229,6 +230,7 @@
 		B513EBBC28544965003185AF /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
 		B554EDD8285602B20010B1D5 /* SubcsriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcsriptionCell.swift; sourceTree = "<group>"; };
 		B554EDDA2856099C0010B1D5 /* SubcriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcriptionViewModel.swift; sourceTree = "<group>"; };
+		B55A3E3E2856109100207244 /* MyOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderCell.swift; sourceTree = "<group>"; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B55D4A6728560D0300093F2B /* SubcriptionServives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcriptionServives.swift; sourceTree = "<group>"; };
 		E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 			children = (
 				938F7A872820E78F00DD60DB /* MyOrderViewController.swift */,
 				B513EBBC28544965003185AF /* OrderViewModel.swift */,
+				B55A3E3E2856109100207244 /* MyOrderCell.swift */,
 			);
 			path = MyOrderViewController;
 			sourceTree = "<group>";
@@ -981,6 +984,7 @@
 				B513EBB2285435B0003185AF /* SignInSuccessViewController.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
+				B55A3E3F2856109100207244 /* MyOrderCell.swift in Sources */,
 				933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */,
 				933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */,
 				93BB69152830277B00BC2E5E /* CartViewModel.swift in Sources */,

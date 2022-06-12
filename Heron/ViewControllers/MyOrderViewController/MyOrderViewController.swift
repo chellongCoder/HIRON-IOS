@@ -20,6 +20,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, ProductCel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = "My Order"
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
@@ -48,9 +49,9 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, ProductCel
         vm.orders
             .bind(to: tableView.rx.items) {
                 (tableView: UITableView, index: Int, element: ProductDataSource) in
-                let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
-                cell.setDataSource(element)
-                cell.delegate = self
+                let cell = MyOrderCell(style: .default, reuseIdentifier:"MyOrderCell")
+//                cell.setDataSource(element)
+//                cell.delegate = self
                 return cell
             }
             .disposed(by: disposeBag)
