@@ -88,19 +88,19 @@ class CheckoutViewController: BaseViewController {
     
     @objc private func deliveryToTapped() {
         let userAddressesVC = UserAddressListingViewController()
-        userAddressesVC.acceptance = viewModel.deliveryAddress
+        userAddressesVC.acceptance = _CartServices.deliveryAddress
         self.navigationController?.pushViewController(userAddressesVC, animated: true)
     }
     
     @objc private func billingAddressTapped() {
         let userAddressesVC = UserAddressListingViewController()
-        userAddressesVC.acceptance = viewModel.billingAddress
+        userAddressesVC.acceptance = _CartServices.billingAddress
         self.navigationController?.pushViewController(userAddressesVC, animated: true)
     }
     
     @objc private func voucherTapped() {
         let voucherVC = VoucherViewController()
-        voucherVC.acceptance = viewModel.voucherCode
+        voucherVC.acceptance = _CartServices.voucherCode
         self.navigationController?.pushViewController(voucherVC, animated: true)
     }
     
@@ -121,7 +121,7 @@ class CheckoutViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.deliveryAddress
+        _CartServices.deliveryAddress
             .observe(on: MainScheduler.instance)
             .subscribe { deliveryAddress in
                 
@@ -131,7 +131,7 @@ class CheckoutViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.billingAddress
+        _CartServices.billingAddress
             .observe(on: MainScheduler.instance)
             .subscribe { billingAddress in
                 
@@ -141,7 +141,7 @@ class CheckoutViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.voucherCode
+        _CartServices.voucherCode
             .observe(on: MainScheduler.instance)
             .subscribe { voucherDataSource in
                 guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}

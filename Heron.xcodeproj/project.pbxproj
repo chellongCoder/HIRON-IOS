@@ -629,6 +629,7 @@
 		93E520402835ECC700523772 /* CartData */ = {
 			isa = PBXGroup;
 			children = (
+				93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */,
 				93E520412835ED4900523772 /* CartDataSource.swift */,
 				93AF91F8284BE78E0075CD65 /* ContactDataSource.swift */,
 				93AF920B284D06CF0075CD65 /* VoucherDataSource.swift */,
@@ -639,7 +640,6 @@
 		93F776FC28524B8C00ACE16E /* CheckoutDataSources */ = {
 			isa = PBXGroup;
 			children = (
-				93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */,
 			);
 			path = CheckoutDataSources;
 			sourceTree = "<group>";

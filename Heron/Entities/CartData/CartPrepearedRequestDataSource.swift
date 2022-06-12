@@ -13,6 +13,7 @@ struct CartPrepearedRequestDataSource : Mappable {
     
     var cartDetail  : [CartPrepearedRequestCartDetail] = []
     var couponIds   : [String] = []
+    var recipient   : CartPrepearedRequestReceipt?
     
     init?(map: Map) {
         //
@@ -21,6 +22,7 @@ struct CartPrepearedRequestDataSource : Mappable {
     mutating func mapping(map: Map) {
         cartDetail  <- map["cartDetail"]
         couponIds   <- map["couponIds"]
+        recipient   <- map["recipient"]
     }
 }
 
@@ -38,6 +40,39 @@ struct CartPrepearedRequestCartDetail : Mappable {
         selectedCartItems   <- map["selectedCartItems"]
         targetId            <- map["targetId"]
         carrierCode         <- map["carrierCode"]
+    }
+}
+
+struct CartPrepearedRequestReceipt: Mappable {
+    
+    var firstName   : String = ""
+    var lastName    : String = ""
+    var phone       : String = ""
+    var email       : String = ""
+    var address     : String = ""
+    var country     : String = ""
+    var province    : String = ""
+    var postalCode  : String = ""
+    var isDefault   : Bool = false
+    var latitude    : Double = 0.0
+    var longitude   : Double = 0.0
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        firstName   <- map["firstName"]
+        lastName    <- map["lastName"]
+        phone       <- map["phone"]
+        email       <- map["email"]
+        address     <- map["address"]
+        country     <- map["country"]
+        province    <- map["province"]
+        postalCode  <- map["postalCode"]
+        isDefault   <- map["isDefault"]
+        latitude    <- map["latitude"]
+        longitude   <- map["longitude"]
     }
 }
 

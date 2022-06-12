@@ -12,9 +12,12 @@ import RxRelay
 class CartServices : NSObject {
     
     public static let sharedInstance = CartServices()
-    var cartData            = BehaviorRelay<CartDataSource?>(value: nil)
-    var cartPreCheckoutData = BehaviorRelay<CartPrepearedResponseDataSource?>(value: nil)
-    private let disposeBag  = DisposeBag()
+    var cartData                    = BehaviorRelay<CartDataSource?>(value: nil)
+    var cartPreCheckoutResponseData = BehaviorRelay<CartPrepearedResponseDataSource?>(value: nil)
+    var deliveryAddress             = BehaviorRelay<ContactDataSource?>(value: nil)
+    var billingAddress              = BehaviorRelay<ContactDataSource?>(value: nil)
+    var voucherCode                 = BehaviorRelay<VoucherDataSource?>(value: nil)
+    private let disposeBag          = DisposeBag()
 
     override init() {
         super.init()
@@ -51,14 +54,10 @@ class CartServices : NSObject {
         
         let fullURLRequest = kGatwayCartURL + "/carts/pre-checkout"
         _ = _AppDataHandler.post(parameters: newCheckoutRequestDataSource.toJSON(), fullURLRequest: fullURLRequest) { responseData in
-            
-            #warning("API_NEED_MAINTAIN")
-            // API response array nhưng lại kẹp trong data.
-            
             if let data = responseData.responseData?["data"] as? [String:Any] {
                 let cartPrecheckoutData = Mapper<CartPrepearedResponseDataSource>().map(JSON: data)
                 if let cartPrecheckoutData = cartPrecheckoutData {
-                    self.cartPreCheckoutData.accept(cartPrecheckoutData)
+                    self.cartPreCheckoutResponseData.accept(cartPrecheckoutData)
                 }
             }
         }
@@ -146,11 +145,7 @@ class CartServices : NSObject {
             }
             else if responseData.responseCode >= 500 {
                 return
-            } else {
-                
-                #warning("API_NEED_MAINTAIN")
-                // API response array nhưng lại kẹp trong data.
-                
+            } else {                
                 if let data = responseData.responseData?["data"] as? [String:Any] {
                     completion(responseData.responseMessage, Mapper<CartDataSource>().map(JSON: data))
                     if let cartData = Mapper<CartDataSource>().map(JSON: data) {

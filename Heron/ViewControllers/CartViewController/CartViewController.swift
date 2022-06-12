@@ -107,7 +107,7 @@ class CartViewController: BaseViewController,
             }
             .disposed(by: disposeBag)
         
-        _CartServices.cartPreCheckoutData
+        _CartServices.cartPreCheckoutResponseData
             .observe(on: MainScheduler.instance)
             .subscribe { cartPreCheckoutDataSource in
                 guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {return}

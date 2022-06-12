@@ -11,9 +11,6 @@ import RxRelay
 
 class CheckoutViewModel: NSObject {
 
-    public var deliveryAddress      = BehaviorRelay<ContactDataSource?>(value: nil)
-    public var billingAddress       = BehaviorRelay<ContactDataSource?>(value: nil)
-    public var voucherCode          = BehaviorRelay<VoucherDataSource?>(value: nil)
     public var reloadAnimation      = BehaviorRelay<Bool>(value: false)
     
     func checkout() {
