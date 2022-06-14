@@ -15,7 +15,7 @@ class DetailOrderViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    init(_ data: ProductDataSource) {
+    init(_ data: OrderData) {
         super.init(nibName: nil, bundle: nil)
 //        viewModel.productDataSource = data
     }

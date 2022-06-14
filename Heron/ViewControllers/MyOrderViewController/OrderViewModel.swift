@@ -15,14 +15,10 @@ class OrderViewModel: NSObject {
     public var billingAddress       = BehaviorRelay<ContactDataSource?>(value: nil)
     public var voucherCode          = BehaviorRelay<VoucherDataSource?>(value: nil)
     public var reloadAnimation      = BehaviorRelay<Bool>(value: false)
-    public var orders              = BehaviorRelay<[ProductDataSource]>(value: [])
+    public var orders              = BehaviorRelay<[OrderData]>(value: [])
     
-    func getMyOrder()
-    {
-//        self.controller?.startLoadingAnimation()
-        _OrderServices.getMyOrders(param: [:]) { errorMessage, listNewProducts in
-//            self.controller?.endLoadingAnimation()
-            
+    func getMyOrder() {
+        _OrderServices.getMyOrders(param: [:]) { errorMessage, newOrder in
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
@@ -32,8 +28,8 @@ class OrderViewModel: NSObject {
                 return
             }
             
-            if let listNewProducts = listNewProducts {
-                self.orders.accept(listNewProducts)
+            if let data = newOrder {
+                self.orders.accept(data)
             }
         }
     }

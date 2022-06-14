@@ -16,7 +16,7 @@ class OrderService {
  
     private let disposeBag  = DisposeBag()
     
-    func getMyOrders(param: [String:Any], completion:@escaping (String?, [ProductDataSource]?)-> Void) {
+    func getMyOrders(param: [String:Any], completion:@escaping (String?, [OrderData]?)-> Void) {
         
         let fullURLRequest = kGatewayOrderURL + "/orders"
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
@@ -33,7 +33,7 @@ class OrderService {
                 // API response array nhưng lại kẹp trong data.
                 
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                    completion(responseData.responseMessage, Mapper<ProductDataSource>().mapArray(JSONArray: data))
+                    completion(responseData.responseMessage, Mapper<OrderData>().mapArray(JSONArray: data))
                 }
             }
         }

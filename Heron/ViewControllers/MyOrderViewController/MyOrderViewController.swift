@@ -48,23 +48,34 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, ProductCel
         
         vm.orders
             .bind(to: tableView.rx.items) {
-                (tableView: UITableView, index: Int, element: ProductDataSource) in
+                (tableView: UITableView, index: Int, element: OrderData) in
                 let cell = MyOrderCell(style: .default, reuseIdentifier:"MyOrderCell")
+                cell.productTitleLabel.text = element.items?[0].name
+                cell.priceLabel.text = "$\(element.items?[0].regularPrice ?? 0)"
+                cell.priceDiscount.text = "$\(element.items?[0].finalPrice ?? 0)"
+                cell.packageImage.setImage(url: URL(string: element.items?[0].thumbnailUrl ?? "")!, placeholder: UIImage(named: "default-image")!)
 //                cell.setDataSource(element)
 //                cell.delegate = self
                 return cell
             }
             .disposed(by: disposeBag)
         
-        tableView.rx
-            .modelSelected(ProductDataSource.self)
-            .subscribe { model in
-                guard let productData = model.element else {return}
-                let viewDetailsController = DetailOrderViewController.init(productData)
-                self.navigationController?.pushViewController(viewDetailsController, animated: true)
-                
-//                self.dismissKeyboard()
-            }
-            .disposed(by: disposeBag)
+//        tableView.rx
+//            .modelSelected(OrderData.self)
+//            .observe(on: MainScheduler.instance)
+//            .subscribe { model in
+//                guard let orderData = model.element else {return}
+//                let viewDetailsController = DetailOrderViewController.init(orderData)
+//                self.navigationController?.pushViewController(viewDetailsController, animated: true)
+//                
+////                self.dismissKeyboard()
+//            }
+//            .disposed(by: disposeBag)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewDetailsController = DetailOrderViewController.init(self.vm.orders.value[0])
+        self.navigationController?.pushViewController(viewDetailsController, animated: true)
+        
     }
 }
