@@ -17,8 +17,6 @@ class CheckoutViewController: BaseViewController {
     private let billingAddress  = AddressView()
     private let voucherView     = VoucherSelectedView()
     private let orderTotalView  = OrderTotalView()
-
-    private let disposeBag      = DisposeBag()
     
     init(cartData: CartDataSource) {
         super.init(nibName: nil, bundle: nil)

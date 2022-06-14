@@ -19,8 +19,6 @@ class CartViewController: BaseViewController,
     private let totalLabel              = UILabel()
     private let savingLabel             = UILabel()
     private let checkoutBtn             = UIButton()
-    
-    private let disposeBag              = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()

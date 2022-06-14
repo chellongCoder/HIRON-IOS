@@ -19,8 +19,6 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
                 sign_in_btn.successButton(title: selectedIndex == nil ? "Skip":"Confirm")
         }
     }
-    private let disposeBag          = DisposeBag()
-//            let vm = AuthViewModel()
 
             override func configUI() {
                 let bg = UIImageView(image: UIImage(named: "bg"))

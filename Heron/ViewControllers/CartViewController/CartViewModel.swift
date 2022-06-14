@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CartViewModel: NSObject {
+class CartViewModel {
     weak var controller     : CartViewController? = nil
     var cartDataSource      : CartDataSource? = nil
     

@@ -7,17 +7,36 @@
 
 import UIKit
 
-class DetailOrderViewController: BaseViewController {
-
+class DetailOrderViewController: BaseViewController, UITableViewDelegate {
+    let tableView                   = UITableView(frame: .zero, style: .grouped)
+    let vm = OrderViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Detailed order"
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = kBackgroundColor
+        tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductTableViewCell")
+        self.view.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.top.centerX.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
     
     init(_ data: OrderData) {
         super.init(nibName: nil, bundle: nil)
 //        viewModel.productDataSource = data
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        vm.getMyOrder()
+    }
+    
+    override func bindingData() {
+        
     }
     
     required init?(coder: NSCoder) {

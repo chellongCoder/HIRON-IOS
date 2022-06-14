@@ -10,7 +10,7 @@ import RxRelay
 import RxCocoa
 import RxSwift
 
-class UserAddressListingViewController: UIViewController,
+class UserAddressListingViewController: BaseViewController,
                                         UITableViewDelegate,
                                         UserAddressCellDelegate {
     
@@ -19,8 +19,7 @@ class UserAddressListingViewController: UIViewController,
     var acceptance                  : BehaviorRelay<ContactDataSource?>?
     
     private let viewModel           = UserAddressListingViewModel()
-    private let disposeBag          = DisposeBag()
-
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
@@ -74,7 +73,7 @@ class UserAddressListingViewController: UIViewController,
     }
     
     //MARK: - Datas
-    func bindingData() {
+    override func bindingData() {
         viewModel.listUserAddress
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items) { (tableView: UITableView, index: Int, element: ContactDataSource) in
