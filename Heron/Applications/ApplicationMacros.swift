@@ -24,6 +24,7 @@ let _CartServices                   = CartServices.sharedInstance
 let _DeliveryServices               = DeliveryServices.sharedInstance
 let _PromotionServices              = PromotionServices.sharedInstance
 let _OrderServices                  = OrderService.sharedInstance
+let _SubcriptionServices            = SubcriptionServices.sharedInstance
 
 // Define key
 let kUserSessionDataSource          = "kUserSessionDataSource"
@@ -37,6 +38,7 @@ let kGatwayCartURL                          = "https://ehp-api.cbidigital.com/ca
 let kGatewayOrderURL                        = "https://ehp-api.cbidigital.com/order-svc/api"
 let kGatewayDeliveryServicesURL             = "https://ehp-api.cbidigital.com/delivery-svc/api"
 let kGatwayPromotionURL                     = "https://ehp-api.cbidigital.com/promotion-svc/api"
+let kGatewayPaymentURL                      = "https://ehp-api.cbidigital.com/payment-svc/api"
 
 // Define notificationKey
 let kUserLoggedInNotification               = Notification.Name("kUserLoggedInNotification")

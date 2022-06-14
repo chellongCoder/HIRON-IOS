@@ -60,8 +60,8 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, ProductCel
             .modelSelected(ProductDataSource.self)
             .subscribe { model in
                 guard let productData = model.element else {return}
-                let viewDetailsController = ProductDetailsViewController.init(productData)
-                _NavController.pushViewController(viewDetailsController, animated: true)
+                let viewDetailsController = DetailOrderViewController.init(productData)
+                self.navigationController?.pushViewController(viewDetailsController, animated: true)
                 
 //                self.dismissKeyboard()
             }
