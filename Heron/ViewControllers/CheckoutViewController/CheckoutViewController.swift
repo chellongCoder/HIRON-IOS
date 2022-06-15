@@ -9,7 +9,8 @@ import UIKit
 import RxSwift
 import RxRelay
 
-class CheckoutViewController: UIViewController {
+class CheckoutViewController: UIViewController,
+                            UITableViewDataSource, UITableViewDelegate {
     
     private let viewModel   =  CheckoutViewModel()
     
@@ -22,7 +23,7 @@ class CheckoutViewController: UIViewController {
     private let savingLabel     = UILabel()
     private let placeOrderBtn   = UIButton()
     
-    private let tableView       = UITableView()
+    private let tableView       = UITableView.init(frame: .zero)
     
     private let disposeBag      = DisposeBag()
     
@@ -51,9 +52,9 @@ class CheckoutViewController: UIViewController {
         deliveryTo.addressTitle.text = "Delivery To"
         self.view.addSubview(deliveryTo)
         deliveryTo.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.top.equalToSuperview().offset(2)
         }
         
         let billingTouch = UITapGestureRecognizer.init(target: self, action: #selector(billingAddressTapped))
@@ -61,9 +62,9 @@ class CheckoutViewController: UIViewController {
         billingAddress.addressTitle.text = "Billing Address"
         self.view.addSubview(billingAddress)
         billingAddress.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalTo(deliveryTo.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.top.equalTo(deliveryTo.snp.bottom).offset(2)
         }
         
         
@@ -113,21 +114,55 @@ class CheckoutViewController: UIViewController {
         
         self.view.addSubview(orderTotalView)
         orderTotalView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.bottom.equalTo(bottomView.snp.top).offset(-10)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalTo(bottomView.snp.top).offset(-2)
         }
         
         let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
         voucherView.addGestureRecognizer(voucherTouch)
         self.view.addSubview(voucherView)
         voucherView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.bottom.equalTo(orderTotalView.snp.top).offset(-10)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalTo(orderTotalView.snp.top).offset(-2)
         }
         
+        self.view.layoutIfNeeded()
+//
+//        let tableViewContent = UIView()
+//        tableViewContent.backgroundColor = .red
+//        tableViewContent.setContentHuggingPriority(.defaultLow, for: .vertical)
+//        self.view.addSubview(tableViewContent)
+//        tableViewContent.snp.makeConstraints { make in
+//            make.left.right.equalToSuperview()
+//            make.top.greaterThanOrEqualTo(billingAddress.snp.bottom).offset(10)
+//            make.bottom.lessThanOrEqualTo(voucherView.snp.top).offset(-10)
+//        }
+        
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = kBackgroundColor
+        tableView.register(CheckoutItemTableViewCell.self, forCellReuseIdentifier: "CheckoutItemTableViewCell")
+        self.view.addSubview(tableView)
+        //        tableView.snp.makeConstraints { make in
+        //            make.left.right.equalToSuperview()
+        //            make.top.greaterThanOrEqualTo(billingAddress.snp.bottom).offset(10)
+        //            make.height.greaterThanOrEqualTo(100)
+        //            make.bottom.lessThanOrEqualTo(voucherView.snp.top).offset(-10)
+        //        }
+        
+
+        
         self.bindingData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.reloadPrecheckoutData()
+        
+        self.updateTableViewFrame()
     }
     
     // MARK: - UI
@@ -153,6 +188,24 @@ class CheckoutViewController: UIViewController {
         
         placeOrderBtn.isUserInteractionEnabled = true
         placeOrderBtn.backgroundColor = kPrimaryColor
+    }
+    
+    func updateTableViewFrame() {
+        let billingFrame = billingAddress.frame
+        let voucherFrame = voucherView.frame
+        let yPos = billingFrame.origin.y + billingFrame.size.height
+        let height = voucherFrame.origin.y - yPos
+        let width = UIScreen.main.bounds.size.width
+        
+        let tableViewFrame = CGRect(origin: CGPoint(x: 0, y: yPos),
+                                    size: CGSize(width: width, height: height))
+        self.tableView.frame = tableViewFrame
+        self.tableView.reloadData()
+        UIView.animate(withDuration: 0.1, delay: 0, options: []) {
+            
+        } completion: { _ in
+            
+        }
     }
     
     //MARK: - Buttons
@@ -220,6 +273,9 @@ class CheckoutViewController: UIViewController {
                 self.orderTotalView.totalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
                 self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
                 self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
+                
+                self.viewModel.cartPreCheckout = cartPreCheckoutDataSource
+                self.updateTableViewFrame()
             }
             .disposed(by: disposeBag)
         
@@ -269,5 +325,49 @@ class CheckoutViewController: UIViewController {
                 }
             }
             .disposed(by: disposeBag)
+    }
+    
+    // MARK: - UITableViewDataSource
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return viewModel.cartPreCheckout?.cartDetail.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let cartDetail = viewModel.cartPreCheckout?.cartDetail[section]
+        return cartDetail?.cartItems.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "CheckoutItemTableViewCell") as? CheckoutItemTableViewCell
+        
+        if cell == nil {
+            cell = CheckoutItemTableViewCell.init(style: .default, reuseIdentifier: "CheckoutItemTableViewCell")
+        }
+        
+        if let cartDetail = viewModel.cartPreCheckout?.cartDetail[indexPath.section] {
+            let cellData = cartDetail.cartItems[indexPath.row]
+            cell!.setDataSource(itemData: cellData, index: indexPath)
+        }
+        
+        return cell!
+    }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+                
+        if let storeData = viewModel.cartPreCheckout?.cartDetail[section] {
+            let titleSignal = UILabel()
+            titleSignal.text = storeData.storeDetails?.name ?? "Unknow Store Name"
+            headerView.addSubview(titleSignal)
+            titleSignal.snp.makeConstraints { make in
+                make.centerY.equalToSuperview()
+                make.left.equalToSuperview().offset(30)
+                make.height.equalTo(50)
+            }
+        }
+        
+        return headerView
     }
 }

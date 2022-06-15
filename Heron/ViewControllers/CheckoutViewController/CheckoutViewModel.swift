@@ -12,6 +12,7 @@ import RxRelay
 class CheckoutViewModel: NSObject {
 
     public var reloadAnimation      = BehaviorRelay<Bool>(value: false)
+    public var cartPreCheckout      : CartPrepearedResponseDataSource?
     
     func reloadPrecheckoutData() {
         _CheckoutServices.prepearedCheckout()

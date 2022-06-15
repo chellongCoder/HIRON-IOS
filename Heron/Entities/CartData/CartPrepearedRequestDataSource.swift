@@ -80,13 +80,15 @@ struct CartPrepearedRequestReceipt: Mappable {
 struct CartPrepearedResponseDataSource: Mappable {
     
     var checkoutPriceData : CartPrepearedResponseCheckoutPriceData?
+    var cartDetail        : [StoreDataSource] = []
     
     init?(map: Map) {
         //
     }
     
     mutating func mapping(map: Map) {
-        checkoutPriceData <- map["checkoutPriceData"]
+        checkoutPriceData   <- map["checkoutPriceData"]
+        cartDetail          <- map["cartDetail"]
     }
 }
 

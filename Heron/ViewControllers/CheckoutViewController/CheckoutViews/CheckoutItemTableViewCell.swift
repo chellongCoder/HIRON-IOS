@@ -28,10 +28,10 @@ class CheckoutItemTableViewCell: UITableViewCell {
         contentView.setShadow()
         self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalToSuperview().offset(2)
+            make.bottom.equalToSuperview().offset(-2)
         }
         
         packageImage.image = UIImage(named: "default-image")
@@ -82,8 +82,8 @@ class CheckoutItemTableViewCell: UITableViewCell {
         countLabel.textAlignment = .right
         contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { (make) in
-            make.centerY.equalTo(priceLabel)
-            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalTo(packageImage).offset(-20)
+            make.right.equalToSuperview().offset(-20)
         }
     }
 
@@ -102,6 +102,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         }
         
         self.priceLabel.text = String(format: "$%.2f", itemData.product!.customRegularPrice)
-        self.priceDiscount.text = String(format: "$%.2f", itemData.product!.customFinalPrice)        
+        self.priceDiscount.text = String(format: "$%.2f", itemData.product!.customFinalPrice)
+        self.countLabel.text = String(format: "x%ld", itemData.quantity)
     }
 }

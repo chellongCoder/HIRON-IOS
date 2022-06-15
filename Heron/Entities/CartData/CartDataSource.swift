@@ -7,6 +7,7 @@
 
 import UIKit
 import ObjectMapper
+import RxSwift
 
 struct CartDataSource : Mappable {
     
@@ -44,6 +45,7 @@ struct StoreDataSource : Mappable {
     var storeDetails    : StoreDetailsDataSource? = nil
     var targetId        : String = ""
     var cartItems       : [CartItemDataSource] = []
+    var shippingOrder   : CartShippingDataSource?
     
     //custom field
     var isCheckoutSelected : Bool = false
@@ -90,6 +92,39 @@ struct CartItemDataSource: Mappable {
         id          <- map["id"]
         product     <- map["product"]
         quantity    <- map["quantity"]
+    }
+}
+
+struct CartShippingDataSource: Mappable {
+    
+    var carrier     : CartCarrierDataSource?
+    private var qoutes  : [String: Any]?
+    
+    //custom
+    var amount      : Float = 0.0
+    init?(map: Map) {
+            
+    }
+    
+    mutating func mapping(map: Map) {
+        carrier <- map["carrier"]
+        qoutes  <- map["quotes"]
+        
+        let amountSource = (qoutes?["amount"] as? Int) ?? 0
+        amount = Float(amountSource) / 100.0
+    }
+}
+
+struct CartCarrierDataSource: Mappable {
+    
+    var name    : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        name    <- map["name"]
     }
 }
 
