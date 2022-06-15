@@ -66,8 +66,7 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
             make.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        
-        self.bindingData()
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {

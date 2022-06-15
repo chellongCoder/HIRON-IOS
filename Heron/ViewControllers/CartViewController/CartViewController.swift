@@ -89,8 +89,7 @@ class CartViewController: BaseViewController,
             make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
             make.bottom.equalTo(voucherView.snp.top).offset(-10)
         }
-        
-        self.bindingData()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -100,7 +99,7 @@ class CartViewController: BaseViewController,
     }
     
     //MARK: - BindingData
-    private func bindingData() {
+    override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in

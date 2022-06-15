@@ -55,8 +55,6 @@ class UserAddressListingViewController: UIViewController,
             make.top.centerX.width.equalToSuperview()
             make.bottom.equalTo(addNewAddressBtn.snp.top).offset(-10)
         }
-        
-        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
