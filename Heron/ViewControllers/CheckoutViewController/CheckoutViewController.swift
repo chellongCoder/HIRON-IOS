@@ -41,6 +41,8 @@ class CheckoutViewController: UIViewController,
         self.view.backgroundColor = kBackgroundColor
         navigationItem.title = "Checkout"
         
+        self.viewModel.delegate = self
+        
         let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
                                            style: .plain,
                                            target: self,
@@ -416,5 +418,11 @@ class CheckoutViewController: UIViewController,
         }
         
         return footerView
+    }
+}
+
+extension CheckoutViewController : CheckoutViewModelDelegate {
+    func didFinishPlaceOrder() {
+        self.navigationController?.pushViewController(SuccessPlaceOrderViewController(), animated: true)
     }
 }

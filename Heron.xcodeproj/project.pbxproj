@@ -107,6 +107,7 @@
 		93EC90F6285A4DB9009056F6 /* SubcsriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90F2285A4DB9009056F6 /* SubcsriptionCell.swift */; };
 		93EC90F7285A4DB9009056F6 /* MainSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90F3285A4DB9009056F6 /* MainSubscriptionViewController.swift */; };
 		93EC90F9285A4DF4009056F6 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90F8285A4DF4009056F6 /* OrderService.swift */; };
+		93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */; };
 		93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 /* End PBXBuildFile section */
@@ -235,6 +236,7 @@
 		93EC90F2285A4DB9009056F6 /* SubcsriptionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubcsriptionCell.swift; sourceTree = "<group>"; };
 		93EC90F3285A4DB9009056F6 /* MainSubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSubscriptionViewController.swift; sourceTree = "<group>"; };
 		93EC90F8285A4DF4009056F6 /* OrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
+		93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPlaceOrderViewController.swift; sourceTree = "<group>"; };
 		93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPrepearedRequestDataSource.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -536,6 +538,7 @@
 		93AF91EC284BBD100075CD65 /* CheckoutViewController */ = {
 			isa = PBXGroup;
 			children = (
+				93EC90FA285A5962009056F6 /* SuccessPlaceOrderViewController */,
 				93AF91FA284BEDA70075CD65 /* UserAddressListingViewController */,
 				93AF91E7284BB6A30075CD65 /* VoucherViewController */,
 				93AF91F5284BE21C0075CD65 /* CheckoutViews */,
@@ -696,6 +699,14 @@
 				93EC90F1285A4DB9009056F6 /* SubscriptionPaymentViewController.swift */,
 			);
 			path = SubscriptionViewController;
+			sourceTree = "<group>";
+		};
+		93EC90FA285A5962009056F6 /* SuccessPlaceOrderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */,
+			);
+			path = SuccessPlaceOrderViewController;
 			sourceTree = "<group>";
 		};
 		93F776FC28524B8C00ACE16E /* CheckoutDataSources */ = {
@@ -992,6 +1003,7 @@
 				93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93EC90E3285A4D45009056F6 /* OrderViewModel.swift in Sources */,
+				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */,

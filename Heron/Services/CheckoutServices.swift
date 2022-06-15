@@ -92,8 +92,9 @@ class CheckoutServices: NSObject {
         }
     }
     
-    func createOder() {
+    func createOrder(completion:@escaping (String?, String?)-> Void) {
         guard let cartData = _CartServices.cartData.value else {
+            completion("Cart is empty", nil)
             return
         }
         
@@ -113,6 +114,7 @@ class CheckoutServices: NSObject {
         // check empty list
         if newCheckoutRequestDataSource.cartDetail.isEmpty {
             cartPreCheckoutResponseData.accept(nil)
+            completion("Selected list is empty", nil)
             return
         }
         
@@ -141,12 +143,14 @@ class CheckoutServices: NSObject {
                                       "includes":"delivery",
                                       "paymentMethodCode":"cards",
                                       "paymentPlatform":"web_browser"]
-        let fullURLRequest = kGatwayCartURL + "/orders"
+        let fullURLRequest = kGatewayOrderURL + "/orders"
         
         _ = _AppDataHandler.post(parameters: params, fullURLRequest: fullURLRequest) { responseData in
-            
-            print("")
-
+            if responseData.responseCode == 200 {
+                completion(nil, responseData.responseMessage)
+            } else {
+                completion(responseData.responseMessage, nil)
+            }
         }
     }
 }
