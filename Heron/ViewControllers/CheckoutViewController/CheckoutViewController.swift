@@ -228,7 +228,7 @@ class CheckoutViewController: UIViewController,
     }
     
     @objc private func placeOrderTapped() {
-        
+        viewModel.placeOrder()
     }
     
     //MARK: - BindingData

@@ -77,7 +77,7 @@ class UserAddressListingViewController: UIViewController,
     
     //MARK: - Datas
     func bindingData() {
-        viewModel.listUserAddress
+        _DeliveryServices.listUserAddress
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items) { (tableView: UITableView, index: Int, element: ContactDataSource) in
                 let cell = UserAddressCell(style: .default, reuseIdentifier:"UserAddressCell")

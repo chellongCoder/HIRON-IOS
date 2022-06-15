@@ -91,4 +91,62 @@ class CheckoutServices: NSObject {
             }
         }
     }
+    
+    func createOder() {
+        guard let cartData = _CartServices.cartData.value else {
+            return
+        }
+        
+        var newCheckoutRequestDataSource = CartPrepearedRequestDataSource.init(JSONString: "{}", context: nil)!
+        for store in cartData.store {
+            var newCheckoutRequestCartDetail = CartPrepearedRequestCartDetail.init(JSONString: "{}", context: nil)!
+            
+            for cartItem in store.cartItems where cartItem.isSelected {
+                newCheckoutRequestCartDetail.selectedCartItems.append(cartItem.id)
+            }
+            newCheckoutRequestCartDetail.targetId = store.targetId
+            if !newCheckoutRequestCartDetail.selectedCartItems.isEmpty {
+                newCheckoutRequestDataSource.cartDetail.append(newCheckoutRequestCartDetail)
+            }
+        }
+        
+        // check empty list
+        if newCheckoutRequestDataSource.cartDetail.isEmpty {
+            cartPreCheckoutResponseData.accept(nil)
+            return
+        }
+        
+        // Check Vouchers
+        if let voucher = _CartServices.voucherCode.value {
+            newCheckoutRequestDataSource.couponIds.append(voucher.id)
+        }
+        
+        // Check shipping address / receipt
+        if let shippingAddess = self.deliveryAddress.value {
+            newCheckoutRequestDataSource.recipient = CartPrepearedRequestReceipt.init(JSONString: "{}", context: nil)!
+            newCheckoutRequestDataSource.recipient?.firstName = shippingAddess.firstName
+            newCheckoutRequestDataSource.recipient?.lastName = shippingAddess.lastName
+            newCheckoutRequestDataSource.recipient?.email = shippingAddess.email
+            newCheckoutRequestDataSource.recipient?.phone = shippingAddess.phone
+            newCheckoutRequestDataSource.recipient?.address = shippingAddess.address
+            newCheckoutRequestDataSource.recipient?.province = shippingAddess.province
+            newCheckoutRequestDataSource.recipient?.country = shippingAddess.country
+            newCheckoutRequestDataSource.recipient?.postalCode = shippingAddess.postalCode
+            newCheckoutRequestDataSource.recipient?.latitude = shippingAddess.latitude
+            newCheckoutRequestDataSource.recipient?.longitude = shippingAddess.longitude
+            newCheckoutRequestDataSource.recipient?.isDefault = shippingAddess.isDefault
+        }
+        
+        let params : [String: Any] = ["cart" : newCheckoutRequestDataSource.toJSON(),
+                                      "includes":"delivery",
+                                      "paymentMethodCode":"cards",
+                                      "paymentPlatform":"web_browser"]
+        let fullURLRequest = kGatwayCartURL + "/orders"
+        
+        _ = _AppDataHandler.post(parameters: params, fullURLRequest: fullURLRequest) { responseData in
+            
+            print("")
+
+        }
+    }
 }
