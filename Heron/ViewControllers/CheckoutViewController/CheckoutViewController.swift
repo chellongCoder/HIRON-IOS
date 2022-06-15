@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxRelay
 
-class CheckoutViewController: BaseViewController {
+class CheckoutViewController: UIViewController {
     
     private let viewModel   =  CheckoutViewModel()
     
@@ -18,6 +18,12 @@ class CheckoutViewController: BaseViewController {
     private let voucherView     = VoucherSelectedView()
     private let orderTotalView  = OrderTotalView()
 
+    private let totalLabel      = UILabel()
+    private let savingLabel     = UILabel()
+    private let placeOrderBtn   = UIButton()
+    
+    private let tableView       = UITableView()
+    
     private let disposeBag      = DisposeBag()
     
     init(cartData: CartDataSource) {
@@ -43,7 +49,7 @@ class CheckoutViewController: BaseViewController {
         let deliveryTouch = UITapGestureRecognizer.init(target: self, action: #selector(deliveryToTapped))
         deliveryTo.addGestureRecognizer(deliveryTouch)
         deliveryTo.addressTitle.text = "Delivery To"
-        self.pageScroll.addSubview(deliveryTo)
+        self.view.addSubview(deliveryTo)
         deliveryTo.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
@@ -53,31 +59,100 @@ class CheckoutViewController: BaseViewController {
         let billingTouch = UITapGestureRecognizer.init(target: self, action: #selector(billingAddressTapped))
         billingAddress.addGestureRecognizer(billingTouch)
         billingAddress.addressTitle.text = "Billing Address"
-        self.pageScroll.addSubview(billingAddress)
+        self.view.addSubview(billingAddress)
         billingAddress.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
             make.top.equalTo(deliveryTo.snp.bottom).offset(10)
         }
         
-        let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
-        voucherView.addGestureRecognizer(voucherTouch)
-        self.pageScroll.addSubview(voucherView)
-        voucherView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalTo(billingAddress.snp.bottom).offset(10)
+        
+        // MARK: - Bottom
+        let bottomView = UIView()
+        bottomView.backgroundColor = .white
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
         }
         
-        self.pageScroll.addSubview(orderTotalView)
+        savingLabel.text = "Saving: $0.0"
+        savingLabel.textColor = kDefaultTextColor
+        savingLabel.font = .systemFont(ofSize: 16)
+        bottomView.addSubview(savingLabel)
+        savingLabel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(20)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        }
+        
+        totalLabel.text = "Total: $0.0"
+        totalLabel.textColor = kDefaultTextColor
+        totalLabel.font = .systemFont(ofSize: 20)
+        totalLabel.adjustsFontSizeToFitWidth = false
+        totalLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        bottomView.addSubview(totalLabel)
+        totalLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(savingLabel.snp.top).offset(-5)
+            make.left.equalToSuperview().offset(20)
+        }
+        
+        placeOrderBtn.backgroundColor = kPrimaryColor
+        placeOrderBtn.setTitleColor(.white, for: .normal)
+        placeOrderBtn.setTitle("Place Order", for: .normal)
+        placeOrderBtn.layer.cornerRadius = 8
+        placeOrderBtn.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        placeOrderBtn.addTarget(self, action: #selector(placeOrderTapped), for: .touchUpInside)
+        bottomView.addSubview(placeOrderBtn)
+        placeOrderBtn.snp.makeConstraints { make in
+            make.top.equalTo(totalLabel.snp.top)
+            make.bottom.equalTo(savingLabel.snp.bottom)
+            make.right.equalToSuperview().offset(-10)
+            make.left.equalTo(totalLabel.snp.right).offset(15)
+            make.top.equalToSuperview().offset(10)
+        }
+        
+        self.view.addSubview(orderTotalView)
         orderTotalView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
-            make.top.equalTo(voucherView.snp.bottom).offset(10)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.equalTo(bottomView.snp.top).offset(-10)
+        }
+        
+        let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
+        voucherView.addGestureRecognizer(voucherTouch)
+        self.view.addSubview(voucherView)
+        voucherView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.bottom.equalTo(orderTotalView.snp.top).offset(-10)
         }
         
         self.bindingData()
+    }
+    
+    // MARK: - UI
+    
+    func updatePlaceOrderButton() {
+        if _CheckoutServices.billingAddress.value == nil {
+            self.placeOrderBtn.isUserInteractionEnabled = false
+            self.placeOrderBtn.backgroundColor = kDisableColor
+            return
+        }
+        
+        if _CheckoutServices.deliveryAddress.value == nil {
+            self.placeOrderBtn.isUserInteractionEnabled = false
+            self.placeOrderBtn.backgroundColor = kDisableColor
+            return
+        }
+        
+        if _CheckoutServices.cartPreCheckoutResponseData.value == nil {
+            self.placeOrderBtn.isUserInteractionEnabled = false
+            self.placeOrderBtn.backgroundColor = kDisableColor
+            return
+        }
+        
+        placeOrderBtn.isUserInteractionEnabled = true
+        placeOrderBtn.backgroundColor = kPrimaryColor
     }
     
     //MARK: - Buttons
@@ -88,13 +163,13 @@ class CheckoutViewController: BaseViewController {
     
     @objc private func deliveryToTapped() {
         let userAddressesVC = UserAddressListingViewController()
-        userAddressesVC.acceptance = _CartServices.deliveryAddress
+        userAddressesVC.acceptance = _CheckoutServices.deliveryAddress
         self.navigationController?.pushViewController(userAddressesVC, animated: true)
     }
     
     @objc private func billingAddressTapped() {
         let userAddressesVC = UserAddressListingViewController()
-        userAddressesVC.acceptance = _CartServices.billingAddress
+        userAddressesVC.acceptance = _CheckoutServices.billingAddress
         self.navigationController?.pushViewController(userAddressesVC, animated: true)
     }
     
@@ -121,38 +196,48 @@ class CheckoutViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        _CartServices.cartPreCheckoutResponseData
+        _CheckoutServices.cartPreCheckoutResponseData
             .observe(on: MainScheduler.instance)
             .subscribe { cartPreCheckoutDataSource in
+                
+                self.updatePlaceOrderButton()
+                
                 guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {
                     self.orderTotalView.subTotalValue.text = "$0.0"
                     self.orderTotalView.discountValue.text = "$0.0"
                     self.orderTotalView.shippingAndTaxValue.text = "$0.0"
                     self.orderTotalView.totalValue.text = "$0.0"
+                    
+                    self.totalLabel.text = "Total: $0.0"
+                    self.savingLabel.text = "Saving: $0.0"
+                    
                     return
                 }
                 
-                self.orderTotalView.subTotalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customeMerchandiseSubtotal ?? 0.0)
-                self.orderTotalView.discountValue.text = String(format: "$%.2f", ((cartPreCheckoutDataSource.checkoutPriceData?.customeMerchandiseSubtotal ?? 0.0) - (cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)))
+                self.orderTotalView.subTotalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customMerchandiseSubtotal ?? 0.0)
+                self.orderTotalView.discountValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
                 self.orderTotalView.shippingAndTaxValue.text = String(format: "$%.2f", (cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal ?? 0.0) + (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
                 self.orderTotalView.totalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
+                self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
+                self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
             }
             .disposed(by: disposeBag)
         
-        _CartServices.deliveryAddress
+        _CheckoutServices.deliveryAddress
             .observe(on: MainScheduler.instance)
             .subscribe { deliveryAddress in
                 
+                self.updatePlaceOrderButton()
                 guard let deliveryAddress = deliveryAddress.element as? ContactDataSource else {return}
                 self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " | +" + deliveryAddress.phone
                 self.deliveryTo.addressLabel.text = deliveryAddress.address + ", " + deliveryAddress.province + ", " + deliveryAddress.country + ", " + deliveryAddress.postalCode
             }
             .disposed(by: disposeBag)
         
-        _CartServices.billingAddress
+        _CheckoutServices.billingAddress
             .observe(on: MainScheduler.instance)
             .subscribe { billingAddress in
-                
+                self.updatePlaceOrderButton()
                 guard let billingAddress = billingAddress.element as? ContactDataSource else {return}
                 self.billingAddress.contactLabel.text = billingAddress.firstName + billingAddress.phone
                 self.billingAddress.addressLabel.text = billingAddress.address + ", " + billingAddress.province + ", " + billingAddress.country + ", " + billingAddress.postalCode
@@ -165,7 +250,7 @@ class CheckoutViewController: BaseViewController {
                 guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
                 if voucherDataSource.couponRule?.isFixed ?? false {
                     // discount value
-                    self.voucherView.voucherCode.text = String(format: "$%ld", voucherDataSource.couponRule?.discount ?? 0)
+                    self.voucherView.voucherCode.text = String(format: "$%.2f", voucherDataSource.couponRule?.customDiscount ?? 0.0)
                     
                 } else {
                     //discout percent
@@ -184,6 +269,5 @@ class CheckoutViewController: BaseViewController {
                 }
             }
             .disposed(by: disposeBag)
-
     }
 }

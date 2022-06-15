@@ -117,7 +117,7 @@ class CartViewController: BaseViewController,
                 guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
                 if voucherDataSource.couponRule?.isFixed ?? false {
                     // discount value
-                    self.voucherView.voucherCode.text = String(format: "$%ld", voucherDataSource.couponRule?.discount ?? 0)
+                    self.voucherView.voucherCode.text = String(format: "$%.2f", voucherDataSource.couponRule?.customDiscount ?? 0.0)
                     
                 } else {
                     //discout percent
@@ -136,7 +136,7 @@ class CartViewController: BaseViewController,
                 }
                 
                 self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
-                self.savingLabel.text = String(format: "Saving: $%.2f", ((cartPreCheckoutDataSource.checkoutPriceData?.customeMerchandiseSubtotal ?? 0.0) - (cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)))
+                self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
                 
             }
             .disposed(by: disposeBag)

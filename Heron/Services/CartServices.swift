@@ -14,8 +14,6 @@ class CartServices : NSObject {
     public static let sharedInstance = CartServices()
     var cartData                    = BehaviorRelay<CartDataSource?>(value: nil)
     var cartPreCheckoutResponseData = BehaviorRelay<CartPrepearedResponseDataSource?>(value: nil)
-    var deliveryAddress             = BehaviorRelay<ContactDataSource?>(value: nil)
-    var billingAddress              = BehaviorRelay<ContactDataSource?>(value: nil)
     var voucherCode                 = BehaviorRelay<VoucherDataSource?>(value: nil)
     private let disposeBag          = DisposeBag()
 
@@ -25,13 +23,6 @@ class CartServices : NSObject {
         self.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.prepearedCheckout()
-            }
-            .disposed(by: disposeBag)
-        
-        self.deliveryAddress
-            .observe(on: MainScheduler.instance)
-            .subscribe { contactDataSource in
                 self.prepearedCheckout()
             }
             .disposed(by: disposeBag)
@@ -68,25 +59,7 @@ class CartServices : NSObject {
         }
         
         //
-        var fullURLRequest = kGatwayCartURL + "/carts/pre-checkout"
-        
-        // Check shipping address / receipt
-        if let shippingAddess = self.deliveryAddress.value {
-            fullURLRequest = kGatwayCartURL + "/carts/pre-checkout?includes=delivery"
-            newCheckoutRequestDataSource.recipient = CartPrepearedRequestReceipt.init(JSONString: "{}", context: nil)!
-            newCheckoutRequestDataSource.recipient?.firstName = shippingAddess.firstName
-            newCheckoutRequestDataSource.recipient?.lastName = shippingAddess.lastName
-            newCheckoutRequestDataSource.recipient?.email = shippingAddess.email
-            newCheckoutRequestDataSource.recipient?.phone = shippingAddess.phone
-            newCheckoutRequestDataSource.recipient?.address = shippingAddess.address
-            newCheckoutRequestDataSource.recipient?.province = shippingAddess.province
-            newCheckoutRequestDataSource.recipient?.country = shippingAddess.country
-            newCheckoutRequestDataSource.recipient?.postalCode = shippingAddess.postalCode
-            newCheckoutRequestDataSource.recipient?.latitude = shippingAddess.latitude
-            newCheckoutRequestDataSource.recipient?.longitude = shippingAddess.longitude
-            newCheckoutRequestDataSource.recipient?.isDefault = shippingAddess.isDefault
-        }
-        
+        let fullURLRequest = kGatwayCartURL + "/carts/pre-checkout"
         _ = _AppDataHandler.post(parameters: newCheckoutRequestDataSource.toJSON(), fullURLRequest: fullURLRequest) { responseData in
             if let data = responseData.responseData?["data"] as? [String:Any] {
                 let cartPrecheckoutData = Mapper<CartPrepearedResponseDataSource>().map(JSON: data)

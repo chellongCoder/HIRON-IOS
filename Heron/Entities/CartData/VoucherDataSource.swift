@@ -34,6 +34,9 @@ struct VoucherCouponRule: Mappable {
     var startTime   : Int = 0
     var endTime     : Int = 0
     
+    // custom
+    var customDiscount : Float = 0.0
+    
     init?(map: Map) {
         //
     }
@@ -45,5 +48,7 @@ struct VoucherCouponRule: Mappable {
         isFixed     <- map["isFixed"]
         startTime   <- map["startTime"]
         endTime     <- map["endTime"]
+        
+        customDiscount = Float(discount)/100.0
     }
 }

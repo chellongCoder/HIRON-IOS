@@ -13,6 +13,10 @@ class CheckoutViewModel: NSObject {
 
     public var reloadAnimation      = BehaviorRelay<Bool>(value: false)
     
+    func reloadPrecheckoutData() {
+        _CheckoutServices.prepearedCheckout()
+    }
+    
     func checkout() {
 //        reloadAnimation.accept(true)
 //        assert(cartData.value != nil, "Cart empty")
