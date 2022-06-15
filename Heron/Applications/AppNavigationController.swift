@@ -10,7 +10,7 @@ import UIKit
 
 class AppNavigationController: UINavigationController {
     
-    public static let sharedInstance    = AppNavigationController(rootViewController: LunchScreenViewController())
+    public static let sharedInstance    = AppNavigationController(rootViewController: CartViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()

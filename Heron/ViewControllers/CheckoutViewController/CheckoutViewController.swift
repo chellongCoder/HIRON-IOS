@@ -23,7 +23,7 @@ class CheckoutViewController: UIViewController,
     private let savingLabel     = UILabel()
     private let placeOrderBtn   = UIButton()
     
-    private let tableView       = UITableView.init(frame: .zero)
+    private let tableView       = UITableView.init(frame: .zero, style: .grouped)
     
     private let disposeBag      = DisposeBag()
     
@@ -193,19 +193,14 @@ class CheckoutViewController: UIViewController,
     func updateTableViewFrame() {
         let billingFrame = billingAddress.frame
         let voucherFrame = voucherView.frame
-        let yPos = billingFrame.origin.y + billingFrame.size.height
-        let height = voucherFrame.origin.y - yPos
+        let yPos = billingFrame.origin.y + billingFrame.size.height + 5
+        let height = voucherFrame.origin.y - yPos - 10
         let width = UIScreen.main.bounds.size.width
         
         let tableViewFrame = CGRect(origin: CGPoint(x: 0, y: yPos),
                                     size: CGSize(width: width, height: height))
         self.tableView.frame = tableViewFrame
         self.tableView.reloadData()
-        UIView.animate(withDuration: 0.1, delay: 0, options: []) {
-            
-        } completion: { _ in
-            
-        }
     }
     
     //MARK: - Buttons
@@ -364,10 +359,62 @@ class CheckoutViewController: UIViewController,
             titleSignal.snp.makeConstraints { make in
                 make.centerY.equalToSuperview()
                 make.left.equalToSuperview().offset(30)
+                make.top.bottom.equalToSuperview()
                 make.height.equalTo(50)
             }
         }
         
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = UIView()
+        footerView.backgroundColor = kBackgroundColor
+        
+        let contentFooterView = UIView()
+        contentFooterView.backgroundColor = .white
+        footerView.addSubview(contentFooterView)
+        contentFooterView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.top.equalToSuperview().offset(2)
+            make.left.equalToSuperview()
+        }
+        
+        if let storeData = viewModel.cartPreCheckout?.cartDetail[section],
+           let shippingData = storeData.shippingOrder,
+           let carier = shippingData.carrier {
+            
+            let titleSignal = UILabel()
+            titleSignal.text = "Shipping & Handling informations"
+            contentFooterView.addSubview(titleSignal)
+            titleSignal.snp.makeConstraints { make in
+                make.top.right.equalToSuperview()
+                make.left.equalToSuperview().offset(30)
+                make.height.equalTo(50)
+            }
+            
+            let carierView = CarrierView()
+            carierView.carrierName.text = carier.name
+            carierView.shippingFee.text = String(format: "$%.2f", shippingData.amount)
+            carierView.receivedLog.text = String(format: "Received order in %@", carier.updatedAtStr)
+            contentFooterView.addSubview(carierView)
+            carierView.snp.makeConstraints { (make) in
+                make.top.equalTo(titleSignal.snp.bottom).offset(2)
+                make.left.equalToSuperview().offset(10)
+                make.right.equalToSuperview().offset(-10)
+            }
+            
+            let orderSum = OrderSumView()
+            orderSum.orderSumValue.text = String(format: "$%.2f", storeData.customOrderTotal)
+            contentFooterView.addSubview(orderSum)
+            orderSum.snp.makeConstraints { (make) in
+                make.top.equalTo(carierView.snp.bottom).offset(2)
+                make.left.equalToSuperview().offset(10)
+                make.right.equalToSuperview().offset(-10)
+                make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            }
+        }
+        
+        return footerView
     }
 }

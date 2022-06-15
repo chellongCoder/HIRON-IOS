@@ -47,8 +47,11 @@ struct StoreDataSource : Mappable {
     var cartItems       : [CartItemDataSource] = []
     var shippingOrder   : CartShippingDataSource?
     
+    private var orderTotal  : Int = 0
+    
     //custom field
-    var isCheckoutSelected : Bool = false
+    var isCheckoutSelected  : Bool = false
+    var customOrderTotal    : Float = 0.0
     
     init?(map: Map) {
         //
@@ -59,6 +62,10 @@ struct StoreDataSource : Mappable {
         storeDetails    <- map["store"]
         targetId        <- map["targetId"]
         cartItems       <- map["cartItems"]
+        shippingOrder   <- map["shippingOrder"]
+        orderTotal      <- map["orderTotal"]
+        
+        customOrderTotal = Float(orderTotal)/100.0
     }
 }
 
@@ -117,14 +124,22 @@ struct CartShippingDataSource: Mappable {
 
 struct CartCarrierDataSource: Mappable {
     
-    var name    : String = ""
+    var name                : String = ""
+    private var updatedAt   : Int = 0
+    
+    // custom
+    var updatedAtStr        : String = ""
     
     init?(map: Map) {
         //
     }
     
     mutating func mapping(map: Map) {
-        name    <- map["name"]
+        name        <- map["name"]
+        updatedAt   <- map["updatedAt"]
+        
+        let date = Date.init(timeIntervalSince1970: TimeInterval(updatedAt/1000))
+        self.updatedAtStr = date.toString(dateFormat: "MMM dd, yyyy")
     }
 }
 
