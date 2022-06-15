@@ -98,8 +98,8 @@ class MyOrderCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%ld", cellData.product!.regularPrice)
-        self.priceDiscount.text = String(format: "$%ld", cellData.product!.finalPrice)
+        self.priceLabel.text = String(format: "$%ld", cellData.product!.customRegularPrice)
+        self.priceDiscount.text = String(format: "$%ld", cellData.product!.customFinalPrice)
     
     }
     
