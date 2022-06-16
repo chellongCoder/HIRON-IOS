@@ -23,8 +23,8 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = kBackgroundColor
-        tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductTableViewCell")
+        tableView.backgroundColor = .white
+        tableView.register(MyOrderCell.self, forCellReuseIdentifier: "MyOrderCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.centerX.width.equalToSuperview()
@@ -121,7 +121,15 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         headerView.addSubview(title)
         title.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
-            $0.bottom.right.equalToSuperview().offset(-10)
+            $0.bottom.right.equalToSuperview().offset(-15)
+        }
+        
+        let separator = UIView()
+        separator.backgroundColor = .lightGray
+        headerView.addSubview(separator)
+        separator.snp.makeConstraints {
+            $0.left.bottom.right.equalToSuperview()
+            $0.height.equalTo(2)
         }
         return headerView
     }
