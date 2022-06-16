@@ -101,6 +101,7 @@
 		B513EBB928543F75003185AF /* SubscriptionPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */; };
 		B513EBBB285447AE003185AF /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBBA285447AE003185AF /* OrderService.swift */; };
 		B513EBBD28544965003185AF /* OrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B513EBBC28544965003185AF /* OrderViewModel.swift */; };
+		B52461E0285B2013004AF1A8 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52461DF285B2013004AF1A8 /* TrackingTableViewCell.swift */; };
 		B53148C3285881D4004A1F93 /* SubsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148BE285881D4004A1F93 /* SubsItem.swift */; };
 		B53148C4285881D4004A1F93 /* Gateways.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148BF285881D4004A1F93 /* Gateways.swift */; };
 		B53148C5285881D4004A1F93 /* SubcriptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148C0285881D4004A1F93 /* SubcriptionData.swift */; };
@@ -252,6 +253,7 @@
 		B513EBB828543F75003185AF /* SubscriptionPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionPaymentViewController.swift; sourceTree = "<group>"; };
 		B513EBBA285447AE003185AF /* OrderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		B513EBBC28544965003185AF /* OrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewModel.swift; sourceTree = "<group>"; };
+		B52461DF285B2013004AF1A8 /* TrackingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingTableViewCell.swift; sourceTree = "<group>"; };
 		B53148BE285881D4004A1F93 /* SubsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubsItem.swift; path = ../../../../../../../../Downloads/codegen_62a84a284a177/SubsItem.swift; sourceTree = "<group>"; };
 		B53148BF285881D4004A1F93 /* Gateways.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Gateways.swift; path = ../../../../../../../../Downloads/codegen_62a84a284a177/Gateways.swift; sourceTree = "<group>"; };
 		B53148C0285881D4004A1F93 /* SubcriptionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubcriptionData.swift; path = ../../../../../../../../Downloads/codegen_62a84a284a177/SubcriptionData.swift; sourceTree = "<group>"; };
@@ -526,6 +528,7 @@
 				B53148EC2858A34C004A1F93 /* ShippingInfoTableViewCell.swift */,
 				B53148F02858A36E004A1F93 /* PackageTableViewCell.swift */,
 				B53148F22858A37F004A1F93 /* PaymentTableViewCell.swift */,
+				B52461DF285B2013004AF1A8 /* TrackingTableViewCell.swift */,
 			);
 			path = MyOrderViewController;
 			sourceTree = "<group>";
@@ -1095,6 +1098,7 @@
 				B55A3E3F2856109100207244 /* MyOrderCell.swift in Sources */,
 				933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */,
 				933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */,
+				B52461E0285B2013004AF1A8 /* TrackingTableViewCell.swift in Sources */,
 				93BB69152830277B00BC2E5E /* CartViewModel.swift in Sources */,
 				B53148D928588D20004A1F93 /* OrderData.swift in Sources */,
 				B53148DD28588D20004A1F93 /* Unit.swift in Sources */,

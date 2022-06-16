@@ -13,14 +13,15 @@ class ProductStatusTableViewCell: UITableViewCell {
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            self.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+            self.backgroundColor = UIColor(red: 0.094, green: 0.565, blue: 1, alpha: 0.05)
 
             let contentView = UIView()
+            contentView.backgroundColor = .clear
 //            contentView.setShadow()
             self.contentView.addSubview(contentView)
             contentView.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(16)
-                make.right.equalToSuperview().offset(-16)
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
                 make.top.equalToSuperview().offset(8)
                 make.bottom.equalToSuperview().offset(-8)
             }
@@ -33,9 +34,11 @@ class ProductStatusTableViewCell: UITableViewCell {
             
             let descStatusLabel = UILabel()
             descStatusLabel.text = "You will receive the order in Feb 05, 2021. Please keep your phone to get calling from deliver"
+            descStatusLabel.numberOfLines = 0
             contentView.addSubview(descStatusLabel)
             descStatusLabel.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
+                $0.right.equalToSuperview().offset(-10)
                 $0.top.equalTo(statusLabel.snp.bottom).offset(10)
             }
             
@@ -69,6 +72,7 @@ class ProductStatusTableViewCell: UITableViewCell {
             purchasedLabel.snp.makeConstraints {
                 $0.right.equalToSuperview().offset(-10)
                 $0.top.equalTo(orderIdLabel.snp.bottom).offset(10)
+                $0.bottom.equalToSuperview().offset(-10)
             }
         }
 

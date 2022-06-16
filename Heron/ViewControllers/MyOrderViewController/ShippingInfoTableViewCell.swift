@@ -11,16 +11,17 @@ class ShippingInfoTableViewCell: UITableViewCell {
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
-            self.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+            self.contentView.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+
 
             let contentView = UIView()
-//            contentView.setShadow()
+            contentView.backgroundColor = .white
             self.contentView.addSubview(contentView)
             contentView.snp.makeConstraints { (make) in
-                make.left.equalToSuperview().offset(16)
-                make.right.equalToSuperview().offset(-16)
-                make.top.equalToSuperview().offset(8)
-                make.bottom.equalToSuperview().offset(-8)
+                make.left.equalToSuperview()
+                make.right.equalToSuperview()
+                make.top.equalToSuperview().offset(2)
+                make.bottom.equalToSuperview()
             }
             
             statusLabel.text = "Address Information"
@@ -47,6 +48,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
 
             let purchasedId = UILabel()
             purchasedId.text = "Araseli Sanchez \n2559 haas street \nEscondido, California, 92025 \nUnited States"
+            purchasedId.numberOfLines = 0
             contentView.addSubview(purchasedId)
             purchasedId.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
@@ -62,8 +64,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
                 $0.right.equalToSuperview()
                 $0.top.equalTo(purchasedId.snp.bottom).offset(10)
             }
-            
-            
+
             let billingAddressLabel = UILabel()
             billingAddressLabel.text = "Billing Address"
             contentView.addSubview(billingAddressLabel)
@@ -71,21 +72,22 @@ class ShippingInfoTableViewCell: UITableViewCell {
                 $0.left.equalToSuperview().offset(10)
                 $0.top.equalTo(seperate_line.snp.bottom).offset(10)
             }
-            
+
             let billingAddressName = UILabel()
             billingAddressName.text = "Lisa Nguyen | 0332578456"
             contentView.addSubview(billingAddressName)
             billingAddressName.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
-                $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
+                $0.top.equalTo(billingAddressLabel.snp.bottom).offset(10)
             }
 
             let billingAddressEmail = UILabel()
-            billingAddressEmail.text = "billingAddressName"
+            billingAddressEmail.text = "lisanguyen@gmail.com"
             contentView.addSubview(billingAddressEmail)
             billingAddressEmail.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
                 $0.top.equalTo(billingAddressName.snp.bottom).offset(10)
+                $0.bottom.equalToSuperview().offset(-10)
             }
         }
 
