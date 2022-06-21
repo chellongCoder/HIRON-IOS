@@ -120,7 +120,6 @@
 		B53148E328588D20004A1F93 /* OrderPayment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148D328588D20004A1F93 /* OrderPayment.swift */; };
 		B53148E428588D20004A1F93 /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148D428588D20004A1F93 /* Brand.swift */; };
 		B53148E628588D20004A1F93 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148D628588D20004A1F93 /* Card.swift */; };
-		B53148E728588D20004A1F93 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148D728588D20004A1F93 /* Metadata.swift */; };
 		B53148EB2858A311004A1F93 /* ProductStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148EA2858A311004A1F93 /* ProductStatusTableViewCell.swift */; };
 		B53148ED2858A34C004A1F93 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148EC2858A34C004A1F93 /* ShippingInfoTableViewCell.swift */; };
 		B53148F12858A36E004A1F93 /* PackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53148F02858A36E004A1F93 /* PackageTableViewCell.swift */; };
@@ -128,6 +127,7 @@
 		B55461372856511F00BDD003 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55461362856511E00BDD003 /* DetailOrderViewController.swift */; };
 		B554EDD9285602B20010B1D5 /* SubcsriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554EDD8285602B20010B1D5 /* SubcsriptionCell.swift */; };
 		B554EDDB2856099C0010B1D5 /* SubcriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B554EDDA2856099C0010B1D5 /* SubcriptionViewModel.swift */; };
+		B557481C2861E7400011B706 /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B557481B2861E7400011B706 /* Metadata.swift */; };
 		B55A3E3F2856109100207244 /* MyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55A3E3E2856109100207244 /* MyOrderCell.swift */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 		B55D4A6828560D0300093F2B /* SubcriptionServives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55D4A6728560D0300093F2B /* SubcriptionServives.swift */; };
@@ -272,7 +272,6 @@
 		B53148D328588D20004A1F93 /* OrderPayment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderPayment.swift; path = ../../../../../../../../Downloads/codegen_62a8557fea5c4/OrderPayment.swift; sourceTree = "<group>"; };
 		B53148D428588D20004A1F93 /* Brand.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Brand.swift; path = ../../../../../../../../Downloads/codegen_62a8557fea5c4/Brand.swift; sourceTree = "<group>"; };
 		B53148D628588D20004A1F93 /* Card.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Card.swift; path = ../../../../../../../../Downloads/codegen_62a8557fea5c4/Card.swift; sourceTree = "<group>"; };
-		B53148D728588D20004A1F93 /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Metadata.swift; path = ../../../../../../../../Downloads/codegen_62a8557fea5c4/Metadata.swift; sourceTree = "<group>"; };
 		B53148EA2858A311004A1F93 /* ProductStatusTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductStatusTableViewCell.swift; sourceTree = "<group>"; };
 		B53148EC2858A34C004A1F93 /* ShippingInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingInfoTableViewCell.swift; sourceTree = "<group>"; };
 		B53148F02858A36E004A1F93 /* PackageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTableViewCell.swift; sourceTree = "<group>"; };
@@ -280,6 +279,7 @@
 		B55461362856511E00BDD003 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
 		B554EDD8285602B20010B1D5 /* SubcsriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcsriptionCell.swift; sourceTree = "<group>"; };
 		B554EDDA2856099C0010B1D5 /* SubcriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcriptionViewModel.swift; sourceTree = "<group>"; };
+		B557481B2861E7400011B706 /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Metadata.swift; path = ../../../../../../../../Downloads/codegen_62b1afb70170f/Metadata.swift; sourceTree = "<group>"; };
 		B55A3E3E2856109100207244 /* MyOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyOrderCell.swift; sourceTree = "<group>"; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B55D4A6728560D0300093F2B /* SubcriptionServives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubcriptionServives.swift; sourceTree = "<group>"; };
@@ -760,10 +760,10 @@
 				B53148D028588D20004A1F93 /* Category.swift */,
 				B53148C828588D20004A1F93 /* CheckoutPriceData.swift */,
 				B53148D128588D20004A1F93 /* Checks.swift */,
+				B557481B2861E7400011B706 /* Metadata.swift */,
 				B53148CA28588D20004A1F93 /* CSS269.swift */,
 				B53148C928588D20004A1F93 /* OrderData.swift */,
 				B53148CC28588D20004A1F93 /* Items.swift */,
-				B53148D728588D20004A1F93 /* Metadata.swift */,
 				B53148D328588D20004A1F93 /* OrderPayment.swift */,
 				B53148CD28588D20004A1F93 /* Unit.swift */,
 				B53148CF28588D20004A1F93 /* User.swift */,
@@ -1021,6 +1021,7 @@
 				93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */,
 				93D55226282811D20034B2B7 /* Alert_Ext.swift in Sources */,
 				B53148F32858A37F004A1F93 /* PaymentTableViewCell.swift in Sources */,
+				B557481C2861E7400011B706 /* Metadata.swift in Sources */,
 				93AF91F4284BDFE50075CD65 /* VoucherSelectedView.swift in Sources */,
 				B53148C5285881D4004A1F93 /* SubcriptionData.swift in Sources */,
 				B53148E428588D20004A1F93 /* Brand.swift in Sources */,
@@ -1076,7 +1077,6 @@
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				B513EBB928543F75003185AF /* SubscriptionPaymentViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
-				B53148E728588D20004A1F93 /* Metadata.swift in Sources */,
 				B53148EB2858A311004A1F93 /* ProductStatusTableViewCell.swift in Sources */,
 				938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */,
 				93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */,

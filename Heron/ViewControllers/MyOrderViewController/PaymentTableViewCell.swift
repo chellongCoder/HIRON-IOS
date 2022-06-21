@@ -9,6 +9,7 @@ import RxSwift
 
 class PaymentTableViewCell: UITableViewCell {
         let statusLabel = UILabel()
+    let descStatusLabel = UILabel()
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
             self.contentView.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
@@ -29,7 +30,7 @@ class PaymentTableViewCell: UITableViewCell {
                 $0.top.left.equalToSuperview().offset(10)
             }
             
-            let descStatusLabel = UILabel()
+            
             descStatusLabel.text = "Visa | XXXXXXXXXX123  Paid"
             contentView.addSubview(descStatusLabel)
             descStatusLabel.snp.makeConstraints {

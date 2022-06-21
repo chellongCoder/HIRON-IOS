@@ -10,6 +10,9 @@ import UIKit
 
 class ProductStatusTableViewCell: UITableViewCell {
     let statusLabel = UILabel()
+    let descStatusLabel = UILabel()
+    let orderDetailLabel = UILabel()
+    let purchasedLabel = UILabel()
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -32,7 +35,7 @@ class ProductStatusTableViewCell: UITableViewCell {
                 $0.top.left.equalToSuperview().offset(10)
             }
             
-            let descStatusLabel = UILabel()
+            
             descStatusLabel.text = "You will receive the order in Feb 05, 2021. Please keep your phone to get calling from deliver"
             descStatusLabel.numberOfLines = 0
             contentView.addSubview(descStatusLabel)
@@ -58,7 +61,7 @@ class ProductStatusTableViewCell: UITableViewCell {
                 $0.top.equalTo(orderIdLabel.snp.bottom).offset(10)
             }
             
-            let orderDetailLabel = UILabel()
+            
             orderDetailLabel.text = "ORD1234567891CD"
             contentView.addSubview(orderDetailLabel)
             orderDetailLabel.snp.makeConstraints {
@@ -66,7 +69,7 @@ class ProductStatusTableViewCell: UITableViewCell {
                 $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
             }
 
-            let purchasedLabel = UILabel()
+        
             purchasedLabel.text = "Feb 05, 2021  08:28:36 AM"
             contentView.addSubview(purchasedLabel)
             purchasedLabel.snp.makeConstraints {

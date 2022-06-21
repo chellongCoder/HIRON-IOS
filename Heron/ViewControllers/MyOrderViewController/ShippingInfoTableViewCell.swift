@@ -8,6 +8,10 @@ import RxSwift
 
 class ShippingInfoTableViewCell: UITableViewCell {
     let statusLabel = UILabel()
+    let orderIdLabel = UILabel()
+    let purchasedId = UILabel()
+    let billingAddressName = UILabel()
+    let billingAddressEmail = UILabel()
         
         override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
             super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,7 +42,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
                 $0.top.equalTo(statusLabel.snp.bottom).offset(10)
             }
             
-            let orderIdLabel = UILabel()
+            
             orderIdLabel.text = "Lisa Nguyen | 0332578456"
             contentView.addSubview(orderIdLabel)
             orderIdLabel.snp.makeConstraints {
@@ -46,7 +50,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
                 $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
             }
 
-            let purchasedId = UILabel()
+           
             purchasedId.text = "Araseli Sanchez \n2559 haas street \nEscondido, California, 92025 \nUnited States"
             purchasedId.numberOfLines = 0
             contentView.addSubview(purchasedId)
@@ -73,7 +77,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
                 $0.top.equalTo(seperate_line.snp.bottom).offset(10)
             }
 
-            let billingAddressName = UILabel()
+            
             billingAddressName.text = "Lisa Nguyen | 0332578456"
             contentView.addSubview(billingAddressName)
             billingAddressName.snp.makeConstraints {
@@ -81,7 +85,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
                 $0.top.equalTo(billingAddressLabel.snp.bottom).offset(10)
             }
 
-            let billingAddressEmail = UILabel()
+      
             billingAddressEmail.text = "lisanguyen@gmail.com"
             contentView.addSubview(billingAddressEmail)
             billingAddressEmail.snp.makeConstraints {

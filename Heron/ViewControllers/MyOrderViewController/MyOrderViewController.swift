@@ -86,7 +86,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         let status = UILabel()
-        status.text = "Preparing product"
+        status.text = self.vm.orders.value[section].shipmentStatus ?? ""
         status.font = UIFont.systemFont(ofSize: 14)
         status.textColor = UIColor(red: 0.129, green: 0.6, blue: 0.839, alpha: 1)
         headerView.addSubview(status)
@@ -96,7 +96,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         let shippingStatus = UIButton()
-        shippingStatus.setTitle("Receive order  in Feb 05, 2021 ", for: .normal)
+        shippingStatus.setTitle("Receive order in \(TimeConverter().getDateFromInt(self.vm.orders.value[section].createdAt ?? 0))", for: .normal)
         shippingStatus.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         shippingStatus.setTitleColor(.black, for: .normal)
         shippingStatus.contentHorizontalAlignment = .left
@@ -116,7 +116,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         headerView.backgroundColor = .white
         
         let title = UILabel()
-        title.text = "Total (3 products):    $3.00"
+        title.text = "Total (\(self.vm.orders.value[section].items?.count ?? 0) products):   \(self.vm.orders.value[section].orderPayment?.metadata?.checkoutPriceData?.totalPayable ?? 0)"
         title.font = UIFont.systemFont(ofSize: 14)
         headerView.addSubview(title)
         title.snp.makeConstraints {
@@ -143,7 +143,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewDetailsController = DetailOrderViewController.init(self.vm.orders.value[0])
+        let viewDetailsController = DetailOrderViewController.init(self.vm.orders.value[indexPath.section])
         self.navigationController?.pushViewController(viewDetailsController, animated: true)
         
     }
