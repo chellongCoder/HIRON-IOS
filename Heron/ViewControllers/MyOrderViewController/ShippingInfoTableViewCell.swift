@@ -36,6 +36,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
             
             let descStatusLabel = UILabel()
             descStatusLabel.text = "Shipping Address"
+            descStatusLabel.font = .boldSystemFont(ofSize: 14)
             contentView.addSubview(descStatusLabel)
             descStatusLabel.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
@@ -71,6 +72,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
 
             let billingAddressLabel = UILabel()
             billingAddressLabel.text = "Billing Address"
+            billingAddressLabel.font = .boldSystemFont(ofSize: 14)
             contentView.addSubview(billingAddressLabel)
             billingAddressLabel.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)

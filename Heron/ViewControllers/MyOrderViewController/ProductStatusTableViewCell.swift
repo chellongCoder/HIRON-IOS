@@ -8,6 +8,10 @@
 import RxSwift
 import UIKit
 
+extension UILabel {
+    
+}
+
 class ProductStatusTableViewCell: UITableViewCell {
     let statusLabel = UILabel()
     let descStatusLabel = UILabel()
@@ -30,6 +34,7 @@ class ProductStatusTableViewCell: UITableViewCell {
             }
             
             statusLabel.text = "Prepare product to you"
+            statusLabel.font = .boldSystemFont(ofSize: 18)
             contentView.addSubview(statusLabel)
             statusLabel.snp.makeConstraints {
                 $0.top.left.equalToSuperview().offset(10)
@@ -47,6 +52,7 @@ class ProductStatusTableViewCell: UITableViewCell {
             
             let orderIdLabel = UILabel()
             orderIdLabel.text = "Order ID"
+            orderIdLabel.font = .boldSystemFont(ofSize: 14)
             contentView.addSubview(orderIdLabel)
             orderIdLabel.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
@@ -55,6 +61,7 @@ class ProductStatusTableViewCell: UITableViewCell {
 
             let purchasedId = UILabel()
             purchasedId.text = "Purchased date"
+            purchasedId.font = .boldSystemFont(ofSize: 14)
             contentView.addSubview(purchasedId)
             purchasedId.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)

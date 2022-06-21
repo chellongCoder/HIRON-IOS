@@ -25,6 +25,7 @@ class PaymentTableViewCell: UITableViewCell {
             }
             
             statusLabel.text = "Payment method"
+            statusLabel.font = .boldSystemFont(ofSize: 16)
             contentView.addSubview(statusLabel)
             statusLabel.snp.makeConstraints {
                 $0.top.left.equalToSuperview().offset(10)

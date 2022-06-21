@@ -24,6 +24,8 @@ class TrackingTableViewCell: UITableViewCell {
         }
         
         statusLabel.text = "Shipping & Handling Information"
+        statusLabel.font = .boldSystemFont(ofSize: 6)
+        statusLabel.font = .boldSystemFont(ofSize: 16)
         contentView.addSubview(statusLabel)
         statusLabel.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
