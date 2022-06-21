@@ -164,16 +164,16 @@ class ProductListingViewController: BaseViewController,
             }
             .disposed(by: disposeBag)
         
-        tableView.rx
-            .modelSelected(ProductDataSource.self)
-            .subscribe { model in
-                guard let productData = model.element else {return}
-                let viewDetailsController = ProductDetailsViewController.init(productData)
-                _NavController.pushViewController(viewDetailsController, animated: true)
-                
-                self.dismissKeyboard()
-            }
-            .disposed(by: disposeBag)
+//        tableView.rx
+//            .modelSelected(ProductDataSource.self)
+//            .subscribe { model in
+//                guard let productData = model.element else {return}
+//                let viewDetailsController = ProductDetailsViewController.init(productData)
+//                _NavController.pushViewController(viewDetailsController, animated: true)
+//
+//                self.dismissKeyboard()
+//            }
+//            .disposed(by: disposeBag)
     }
     
     //MARK: - UITableViewDelegate
@@ -210,6 +210,16 @@ class ProductListingViewController: BaseViewController,
             make.height.equalTo(15)
         }
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let value = viewModel.listProducts.value
+        let productData = value[indexPath.row]
+        
+        let viewDetailsController = ProductDetailsViewController.init(productData)
+        _NavController.pushViewController(viewDetailsController, animated: true)
+        
+        self.dismissKeyboard()
     }
     
     //MARK: - UIScrollViewDelegate

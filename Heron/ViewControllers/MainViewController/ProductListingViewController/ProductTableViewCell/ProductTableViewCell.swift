@@ -14,12 +14,12 @@ protocol ProductCellDelegate {
 class ProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
-    let discountPercent     = UILabel()
+    let discountValue       = VW_DiscountValue()
     let productTitleLabel   = UILabel()
     let starView            = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
-    let addToCartBtn        = UIButton()
+//    let addToCartBtn        = UIButton()
     
     private var productData : ProductDataSource? = nil
     var delegate            : ProductCellDelegate? = nil
@@ -32,8 +32,8 @@ class ProductTableViewCell: UITableViewCell {
         contentView.setShadow()
         self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.left.equalToSuperview().offset(12)
+            make.right.equalToSuperview().offset(-12)
             make.top.equalToSuperview().offset(8)
             make.bottom.equalToSuperview().offset(-8)
         }
@@ -46,18 +46,14 @@ class ProductTableViewCell: UITableViewCell {
         packageImage.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(24)
             make.left.equalToSuperview().offset(18)
-            make.width.height.equalTo(120)
+            make.width.height.equalTo(80)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        discountPercent.text = "-50%"
-        discountPercent.backgroundColor = .red
-        discountPercent.textColor = .white
-        discountPercent.layer.cornerRadius = 4
-        discountPercent.font = getFontSize(size: 20, weight: .heavy)
-        contentView.addSubview(discountPercent)
-        discountPercent.snp.makeConstraints { make in
-            make.top.equalTo(packageImage.snp.top).offset(-5)
-            make.right.equalTo(packageImage).offset(5)
+        contentView.addSubview(discountValue)
+        discountValue.snp.makeConstraints { make in
+            make.top.equalTo(packageImage.snp.top).offset(5)
+            make.centerX.equalTo(packageImage.snp.right).offset(5)
         }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
@@ -67,7 +63,7 @@ class ProductTableViewCell: UITableViewCell {
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(packageImage.snp.right).offset(15)
+            make.left.equalTo(discountValue.snp.right).offset(10)
             make.top.equalTo(packageImage)
             make.right.equalToSuperview().offset(-16)
         }
@@ -88,6 +84,7 @@ class ProductTableViewCell: UITableViewCell {
         priceDiscount.snp.makeConstraints { (make) in
             make.top.equalTo(starView.snp.bottom).offset(10)
             make.left.equalTo(productTitleLabel)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         priceLabel.text = "$ 20.00"
@@ -100,18 +97,18 @@ class ProductTableViewCell: UITableViewCell {
             make.right.lessThanOrEqualTo(productTitleLabel)
         }
         
-        addToCartBtn.setTitle("Add to cart", for: .normal)
-        addToCartBtn.backgroundColor = kPrimaryColor
-        addToCartBtn.layer.cornerRadius = 8
-        addToCartBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
-        contentView.addSubview(addToCartBtn)
-        addToCartBtn.snp.makeConstraints { make in
-            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(40)
-            make.left.equalTo(productTitleLabel)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
+//        addToCartBtn.setTitle("Add to cart", for: .normal)
+//        addToCartBtn.backgroundColor = kPrimaryColor
+//        addToCartBtn.layer.cornerRadius = 8
+//        addToCartBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
+//        contentView.addSubview(addToCartBtn)
+//        addToCartBtn.snp.makeConstraints { make in
+//            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
+//            make.right.equalToSuperview().offset(-20)
+//            make.height.equalTo(40)
+//            make.left.equalTo(productTitleLabel)
+//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+//        }
     }
 
     required init?(coder: NSCoder) {
@@ -131,10 +128,10 @@ class ProductTableViewCell: UITableViewCell {
         self.priceDiscount.text = String(format: "$%.2f", cellData.customFinalPrice)
         
         if cellData.discountPercent > 0 {
-            self.discountPercent.isHidden = false
-            self.discountPercent.text = String(format: "-%.f%%", cellData.discountPercent )
+            self.discountValue.isHidden = false
+            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
         } else {
-            self.discountPercent.isHidden = true
+            self.discountValue.isHidden = true
         }
     }
     
