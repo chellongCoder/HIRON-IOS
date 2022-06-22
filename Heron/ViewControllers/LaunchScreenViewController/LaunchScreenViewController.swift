@@ -25,14 +25,13 @@ class LaunchScreenViewController: UIViewController {
             make.center.size.equalToSuperview()
         }
         
-        
-        
-//        _AuthenticationServices.login { isSuccess, errorMessgae in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                let homeVC = MainViewController()
-                self.navigationController?.setViewControllers([homeVC], animated: true)
-            }
-//        }
+        let isSigned = UserDefaults.standard.bool(forKey: "is_login")
+        if !isSigned {
+            self.navigationController?.setViewControllers([MainAuthViewController()], animated: true)
+        } else {
+            let homeVC = MainViewController.sharedInstance
+            self.navigationController?.setViewControllers([homeVC], animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -170,8 +170,8 @@ class CartProductTableViewCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%ld", cellData.product!.regularPrice)
-        self.priceDiscount.text = String(format: "$%ld", cellData.product!.finalPrice)
+        self.priceLabel.text = String(format: "$%.2f", cellData.product!.customRegularPrice)
+        self.priceDiscount.text = String(format: "$%.2f", cellData.product!.customFinalPrice)
         
         self.quantityValue = cellData.quantity
         self.quantityTxt.text = String(format: "%ld", cellData.quantity)

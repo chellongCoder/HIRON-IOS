@@ -108,7 +108,8 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             
             @objc func continue_action(_ sender: Any) {
                 if selectedIndex == nil {
-                    self.dismiss(animated: true, completion: nil)
+                    let homeVC = MainViewController.sharedInstance
+                    self.navigationController?.setViewControllers([homeVC], animated: true)
                 } else {
                     let vc = SubscriptionPaymentViewController()
                     self.navigationController?.pushViewController(vc, animated: true)

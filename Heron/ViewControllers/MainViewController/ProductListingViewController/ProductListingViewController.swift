@@ -149,7 +149,7 @@ class ProductListingViewController: BaseViewController,
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.grandTotal ?? 0)
+                self.cartHotInfo.cartPriceValue.text = String(format: "$%.2f", cartDataSource?.customGrandTotal ?? 0.0)
             }
             .disposed(by: disposeBag)
         
@@ -163,16 +163,16 @@ class ProductListingViewController: BaseViewController,
             }
             .disposed(by: disposeBag)
         
-        tableView.rx
-            .modelSelected(ProductDataSource.self)
-            .subscribe { model in
-                guard let productData = model.element else {return}
-                let viewDetailsController = ProductDetailsViewController.init(productData)
-                _NavController.pushViewController(viewDetailsController, animated: true)
-                
-                self.dismissKeyboard()
-            }
-            .disposed(by: disposeBag)
+//        tableView.rx
+//            .modelSelected(ProductDataSource.self)
+//            .subscribe { model in
+//                guard let productData = model.element else {return}
+//                let viewDetailsController = ProductDetailsViewController.init(productData)
+//                _NavController.pushViewController(viewDetailsController, animated: true)
+//
+//                self.dismissKeyboard()
+//            }
+//            .disposed(by: disposeBag)
     }
     
     //MARK: - UITableViewDelegate
@@ -209,6 +209,16 @@ class ProductListingViewController: BaseViewController,
             make.height.equalTo(15)
         }
         return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let value = viewModel.listProducts.value
+        let productData = value[indexPath.row]
+        
+        let viewDetailsController = ProductDetailsViewController.init(productData)
+        _NavController.pushViewController(viewDetailsController, animated: true)
+        
+        self.dismissKeyboard()
     }
     
     //MARK: - UIScrollViewDelegate

@@ -6,25 +6,42 @@
 //
 
 import ObjectMapper
+import RxRelay
+import ObjectiveC
 
-class DeliveryServices {
+class DeliveryServices: NSObject {
     
     public static let sharedInstance = DeliveryServices()
+    public var listUserAddress      = BehaviorRelay<[ContactDataSource]>(value: [])
+    
+    override init() {
+        super.init()
+        
+        // reload user address
+        self.getListUserAddress()
+    }
 
-    func getListUserAddress(completion:@escaping (String?, [ContactDataSource]?)-> Void) {
+    func getListUserAddress() {
                 
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses/users/own"
         
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
             if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
                 return
             }
             else if responseData.responseCode >= 500 {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                    completion(responseData.responseMessage, Mapper<ContactDataSource>().mapArray(JSONArray: data))
+                    let listAddress = Mapper<ContactDataSource>().mapArray(JSONArray: data)
+                    self.listUserAddress.accept(listAddress)
+                    
+                    if let defaultAddress = listAddress.first(where: { contactDataSource in
+                        contactDataSource.isDefault == true
+                    }) {
+                        _CheckoutServices.deliveryAddress.accept(defaultAddress)
+                        _CheckoutServices.billingAddress.accept(defaultAddress)
+                    }
                 }
             }
         }

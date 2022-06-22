@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class ProductDetailsViewController: BaseViewController,
                                     UIScrollViewDelegate {
@@ -22,6 +23,8 @@ class ProductDetailsViewController: BaseViewController,
     private let contentDescView = UIView()
     
     private let addToCartBtn    = UIButton()
+    private let cartHotInfo     = CartHotView()
+    private let disposeBag      = DisposeBag()
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -101,7 +104,7 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(packageTitle)
         }
         
-        priceDiscount.text = String(format: "$%ld", viewModel.productDataSource?.finalPrice ?? 0)
+        priceDiscount.text = String(format: "$%.2f", viewModel.productDataSource?.customFinalPrice ?? 0.0)
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
@@ -110,7 +113,7 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(packageTitle)
         }
         
-        priceLabel.text = String(format: "#%ld", viewModel.productDataSource?.regularPrice ?? 0)
+        priceLabel.text = String(format: "#%.2f", viewModel.productDataSource?.customRegularPrice ?? 0.0)
         priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
@@ -141,11 +144,32 @@ class ProductDetailsViewController: BaseViewController,
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(40)
         }
+        
+        let touchAction = UITapGestureRecognizer.init(target: self, action: #selector(cartButtonTapped))
+        
+        cartHotInfo.backgroundColor = kPrimaryColor
+        cartHotInfo.addGestureRecognizer(touchAction)
+        self.view.addSubview(cartHotInfo)
+        cartHotInfo.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalTo(addToCartBtn.snp.top).offset(-10)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+    }
+    
+    // MARK: - Binding Data
+    override func bindingData() {
+        _CartServices.cartData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartDataSource in
+                self.cartHotInfo.cartPriceValue.text = String(format: "$%.2f", cartDataSource?.customGrandTotal ?? 0.0)
+            }
+            .disposed(by: disposeBag)
     }
     
     //MARK: - Buttons

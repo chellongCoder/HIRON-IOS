@@ -16,6 +16,7 @@ class CartViewController: BaseViewController,
     private let viewModel               = CartViewModel()
     let tableView                       = UITableView(frame: .zero, style: .grouped)
     
+    private let voucherView             = VoucherSelectedView()
     private let totalLabel              = UILabel()
     private let savingLabel             = UILabel()
     private let checkoutBtn             = UIButton()
@@ -33,13 +34,7 @@ class CartViewController: BaseViewController,
                                            action: #selector(backButtonTapped))
         self.navigationItem.leftBarButtonItem = backBtn
         
-//        let checkoutBtn = UIBarButtonItem.init(title: "Checkout",
-//                                               style: .plain,
-//                                               target: self,
-//                                               action: #selector(checkoutButtonTapped))
-//        self.navigationItem.rightBarButtonItem = checkoutBtn
-
-        savingLabel.text = "Saving: $0"
+        savingLabel.text = "Saving: $0.0"
         savingLabel.textColor = kDefaultTextColor
         savingLabel.font = .systemFont(ofSize: 16)
         self.view.addSubview(savingLabel)
@@ -48,7 +43,7 @@ class CartViewController: BaseViewController,
             make.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
         
-        totalLabel.text = "Total: $0"
+        totalLabel.text = "Total: $0.0"
         totalLabel.textColor = kDefaultTextColor
         totalLabel.font = .systemFont(ofSize: 20)
         totalLabel.adjustsFontSizeToFitWidth = false
@@ -73,6 +68,15 @@ class CartViewController: BaseViewController,
             make.left.equalTo(totalLabel.snp.right).offset(15)
         }
         
+        let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
+        voucherView.addGestureRecognizer(voucherTouch)
+        self.view.addSubview(voucherView)
+        voucherView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.bottom.equalTo(checkoutBtn.snp.top).offset(-10)
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -81,7 +85,7 @@ class CartViewController: BaseViewController,
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
-            make.bottom.equalTo(totalLabel.snp.top).offset(-10)
+            make.bottom.equalTo(voucherView.snp.top).offset(-10)
         }
 
     }
@@ -100,11 +104,37 @@ class CartViewController: BaseViewController,
                 
                 guard let cartData = cartDataSource.element as? CartDataSource else {return}
                 self.viewModel.cartDataSource = cartData
-                
-                self.totalLabel.text = String(format: "Total: $%ld", cartData.grandTotal)
-                self.savingLabel.text = String(format: "Saving: $%ld", (cartData.subtotal - cartData.grandTotal))
-                
                 self.tableView.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        _CartServices.voucherCode
+            .observe(on: MainScheduler.instance)
+            .subscribe { voucherDataSource in
+                guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
+                if voucherDataSource.couponRule?.isFixed ?? false {
+                    // discount value
+                    self.voucherView.voucherCode.text = String(format: "$%.2f", voucherDataSource.couponRule?.customDiscount ?? 0.0)
+                    
+                } else {
+                    //discout percent
+                    self.voucherView.voucherCode.text = String(format: "%ld%% OFF", voucherDataSource.couponRule?.discount ?? 0)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        _CartServices.cartPreCheckoutResponseData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartPreCheckoutDataSource in
+                guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {
+                    self.totalLabel.text = "Total: $0.0"
+                    self.savingLabel.text = "Saving: $0.0"
+                    return
+                }
+                
+                self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
+                self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
+                
             }
             .disposed(by: disposeBag)
     }
@@ -131,6 +161,12 @@ class CartViewController: BaseViewController,
         
         cartData.store[section].cartItems = newlistItem
         _CartServices.cartData.accept(cartData)
+    }
+    
+    @objc private func voucherTapped() {
+        let voucherVC = VoucherViewController()
+        voucherVC.acceptance = _CartServices.voucherCode
+        self.navigationController?.pushViewController(voucherVC, animated: true)
     }
     
     @objc private func checkoutButtonTapped() {

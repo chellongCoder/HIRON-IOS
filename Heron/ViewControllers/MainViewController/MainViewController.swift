@@ -49,13 +49,5 @@ class MainViewController: UITabBarController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         _NavController.setNavigationBarHidden(true, animated: true)
-        
-        let isSigned = UserDefaults.standard.bool(forKey: "is_login")
-        if !isSigned {
-            let auth = UINavigationController(rootViewController: MainAuthViewController())
-            auth.modalPresentationStyle = .fullScreen
-            self.present(auth, animated: true, completion: nil)
-        }
-        
     }
 }
