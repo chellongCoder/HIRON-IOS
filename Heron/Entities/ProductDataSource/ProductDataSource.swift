@@ -15,7 +15,7 @@ class ProductDataSource: Mappable, Equatable {
     var name            : String?
     var shortDesc       : String?
     var desc            : [ContentDescription] = []
-    var regularPrice    : Int = 0
+    private var regularPrice    : Int = 0
     var finalPrice      : Int = 0
     var currency        : String?
     var thumbnailUrl    : String?
