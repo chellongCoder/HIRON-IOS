@@ -184,7 +184,7 @@ class AddUserAddressViewController: BaseViewController {
         checkboxButton.addTarget(self, action: #selector(setAsDefaultAddress), for:.touchUpInside)
         self.pageScroll.addSubview(checkboxButton)
         checkboxButton.snp.makeConstraints { make in
-            make.top.equalTo(postCodeTxt.snp.bottom).offset(10)
+            make.top.equalTo(postCodeTxt.snp.bottom).offset(30)
             make.left.equalTo(firstNameTxt)
             make.width.height.equalTo(35)
         }

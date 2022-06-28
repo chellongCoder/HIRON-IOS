@@ -17,9 +17,9 @@ class ProductDetailsViewController: BaseViewController,
     
     private let packageTitle    = UILabel()
 //    private let discountPercent = UILabel()
-    private let starView        = UILabel()
     private let priceDiscount   = UILabel()
     private let priceLabel      = UILabel()
+    private let starView        = UILabel()
     private let contentDescView = UIView()
     
     private let addToCartBtn    = UIButton()
@@ -44,12 +44,6 @@ class ProductDetailsViewController: BaseViewController,
                                            target: self,
                                            action: #selector(backButtonTapped))
         self.navigationItem.leftBarButtonItem = backBtn
-        
-        let cartButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "cart"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(cartButtonTapped))
-        self.navigationItem.rightBarButtonItem = cartButtonItem
         
         let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
         topMediaView.isPagingEnabled = true
@@ -78,7 +72,7 @@ class ProductDetailsViewController: BaseViewController,
         packageTitle.font = getFontSize(size: 20, weight: .medium)
         packageTitle.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         packageTitle.numberOfLines = 0
-        self.contentView.addSubview(packageTitle)
+        contentView.addSubview(packageTitle)
         packageTitle.snp.makeConstraints { make in
             make.top.equalTo(topMediaView.snp.bottom)
             make.centerX.equalToSuperview()
@@ -95,21 +89,12 @@ class ProductDetailsViewController: BaseViewController,
 //            make.left.equalTo(packageTitle)
 //        }
         
-        starView.text = "★★★★★"
-        starView.font = getFontSize(size: 16, weight: .medium)
-        starView.textColor = UIColor.init(hexString: "F1C644")
-        contentView.addSubview(starView)
-        starView.snp.makeConstraints { make in
-            make.top.equalTo(packageTitle.snp.bottom).offset(5)
-            make.left.equalTo(packageTitle)
-        }
-        
         priceDiscount.text = String(format: "$%.2f", viewModel.productDataSource?.customFinalPrice ?? 0.0)
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(starView.snp.bottom).offset(10)
+            make.top.equalTo(packageTitle.snp.bottom).offset(10)
             make.left.equalTo(packageTitle)
         }
         
@@ -118,14 +103,23 @@ class ProductDetailsViewController: BaseViewController,
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(starView.snp.bottom).offset(10)
+            make.top.equalTo(packageTitle.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
+        }
+        
+        starView.text = "★★★★★"
+        starView.font = getFontSize(size: 16, weight: .medium)
+        starView.textColor = UIColor.init(hexString: "F1C644")
+        contentView.addSubview(starView)
+        starView.snp.makeConstraints { make in
+            make.top.equalTo(priceDiscount.snp.bottom).offset(5)
+            make.left.equalTo(packageTitle)
         }
         
         contentView.addSubview(contentDescView)
         contentDescView.snp.makeConstraints { make in
             make.left.equalTo(packageTitle)
-            make.top.equalTo(priceLabel.snp.bottom).offset(15)
+            make.top.equalTo(starView.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-50)
         }

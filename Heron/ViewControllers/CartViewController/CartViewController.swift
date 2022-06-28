@@ -172,12 +172,8 @@ class CartViewController: BaseViewController,
     }
     
     @objc private func checkoutButtonTapped() {
-        //Handle checkout
-//        viewModel.checkout()
-        
-        guard let cartDataSource = viewModel.cartDataSource else {return}
-        
-        let checkoutVC = CheckoutViewController.init(cartData: cartDataSource)
+        // Handle checkout        
+        let checkoutVC = CheckoutViewController()
         self.navigationController?.pushViewController(checkoutVC, animated: true)
     }
     

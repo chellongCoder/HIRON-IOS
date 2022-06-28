@@ -73,7 +73,7 @@ class CartProductTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(24)
             make.left.equalTo(checkboxButton.snp.right).offset(10)
             make.width.height.equalTo(120)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-24)
         }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
@@ -141,6 +141,7 @@ class CartProductTableViewCell: UITableViewCell {
             make.height.equalTo(30)
             make.left.equalTo(minusBtn.snp.right).offset(5)
             make.right.equalTo(plusBtn.snp.left).offset(-5)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
 
         quantityTxt.rx.controlEvent([.editingChanged])
