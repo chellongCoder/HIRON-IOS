@@ -136,7 +136,7 @@
 		B56181A82862B64E009BE6E5 /* Subs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181A32862B64E009BE6E5 /* Subs.swift */; };
 		B56181A92862B64E009BE6E5 /* SubcriptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181A42862B64E009BE6E5 /* SubcriptionData.swift */; };
 		B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181A52862B64E009BE6E5 /* SubsItem.swift */; };
-		B56181AE2862B7C9009BE6E5 /* SubcriptionServives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181AD2862B7C9009BE6E5 /* SubcriptionServives.swift */; };
+		B594E88A286BF7D3004BC088 /* SubcriptionServives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594E889286BF7D3004BC088 /* SubcriptionServives.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -294,7 +294,7 @@
 		B56181A32862B64E009BE6E5 /* Subs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Subs.swift; sourceTree = "<group>"; };
 		B56181A42862B64E009BE6E5 /* SubcriptionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubcriptionData.swift; sourceTree = "<group>"; };
 		B56181A52862B64E009BE6E5 /* SubsItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubsItem.swift; sourceTree = "<group>"; };
-		B56181AD2862B7C9009BE6E5 /* SubcriptionServives.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubcriptionServives.swift; path = ../../../../../../../Desktop/SubcriptionServives.swift; sourceTree = "<group>"; };
+		B594E889286BF7D3004BC088 /* SubcriptionServives.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubcriptionServives.swift; sourceTree = "<group>"; };
 		E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EFB177E120D1345F5BAF7A28 /* Pods-Heron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron.debug.xcconfig"; path = "Target Support Files/Pods-Heron/Pods-Heron.debug.xcconfig"; sourceTree = "<group>"; };
@@ -688,9 +688,9 @@
 			children = (
 				93D73F0D28450CD90015C4FB /* AuthenticationServices.swift */,
 				93D73F0F28450CE80015C4FB /* DeliveryServices.swift */,
+				B594E889286BF7D3004BC088 /* SubcriptionServives.swift */,
 				93D73F1128450CFD0015C4FB /* InventoryServices.swift */,
 				93D73F1328450D0C0015C4FB /* CartServices.swift */,
-				B56181AD2862B7C9009BE6E5 /* SubcriptionServives.swift */,
 				93D73F1528450D7E0015C4FB /* CheckoutServices.swift */,
 				93AF920D284D10BF0075CD65 /* PromotionServices.swift */,
 				93EC90F8285A4DF4009056F6 /* OrderService.swift */,
@@ -1051,7 +1051,6 @@
 				933D1913281993DB00F1CCC4 /* AppDelegate.swift in Sources */,
 				933D19412819947000F1CCC4 /* SessionDataSource.swift in Sources */,
 				B55B372D2836425B005245AB /* Utils.swift in Sources */,
-				B56181AE2862B7C9009BE6E5 /* SubcriptionServives.swift in Sources */,
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
@@ -1124,6 +1123,7 @@
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
 				933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */,
 				933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */,
+				B594E88A286BF7D3004BC088 /* SubcriptionServives.swift in Sources */,
 				B56181A72862B64E009BE6E5 /* Gateways.swift in Sources */,
 				93BB69152830277B00BC2E5E /* CartViewModel.swift in Sources */,
 				93AF9202284BEE8F0075CD65 /* UserAddressCell.swift in Sources */,
