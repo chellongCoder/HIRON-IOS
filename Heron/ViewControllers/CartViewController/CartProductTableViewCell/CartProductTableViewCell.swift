@@ -149,7 +149,6 @@ class CartProductTableViewCell: UITableViewCell {
             .subscribe ({ [unowned self] _ in
                 
                 let number = Int(quantityTxt.text ?? "0") ?? 0
-                if (number == 0) {return}
                 
                 self.quantityValue = number
                 self.updateItemQuanlity()
@@ -191,7 +190,15 @@ class CartProductTableViewCell: UITableViewCell {
     }
     
     @objc private func minusButtonTapped() {
-        if self.quantityValue <= 1 {return}
+        
+        guard let indexPath = indexPath else {
+            return
+        }
+        
+        if self.quantityValue <= 1 {
+            self.delegate?.removeItemFromCart(indexPath)
+            return
+        }
         self.quantityValue -= 1
         quantityTxt.text = String(format: "%ld", self.quantityValue)
         self.updateItemQuanlity()
@@ -208,7 +215,11 @@ class CartProductTableViewCell: UITableViewCell {
         guard let indexPath = indexPath else {
             return
         }
-
-        delegate?.didUpdateItemQuanlity(indexPath, newValue: self.quantityValue)
+        
+        if self.quantityValue == 0 {
+            delegate?.removeItemFromCart(indexPath)
+        } else {
+            delegate?.didUpdateItemQuanlity(indexPath, newValue: self.quantityValue)
+        }
     }
 }
