@@ -28,3 +28,20 @@ struct OrderPayment : Mappable {
 	}
 
 }
+struct PaymentMetadata : Mappable {
+    var checkoutPriceData : CheckoutPriceData?
+    var priceDiscount : Int?
+    var card : Card?
+
+    init?(map: Map) {
+
+    }
+
+    mutating func mapping(map: Map) {
+
+        checkoutPriceData <- map["checkoutPriceData"]
+        priceDiscount <- map["priceDiscount"]
+        card <- map["card"]
+    }
+
+}

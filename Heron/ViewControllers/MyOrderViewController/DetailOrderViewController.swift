@@ -66,9 +66,9 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             return cell
         } else if indexPath.row == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingInfoTableViewCell", for: indexPath) as! ShippingInfoTableViewCell
-            cell.orderIdLabel.text = "\(self.data.value?.metadata?.user?.lastName ?? "") | \(self.data.value?.metadata?.user?.phone ?? "Empty phonenumber")"
-            cell.billingAddressName.text = "\(self.data.value?.metadata?.user?.lastName ?? "") | \(self.data.value?.metadata?.user?.phone ?? "Empty phonenumber")"
-            cell.billingAddressEmail.text = self.data.value?.metadata?.user?.email ?? ""
+            cell.orderIdLabel.text = "\(self.data.value?.metadata?.lastName ?? "") | \(self.data.value?.metadata?.phone ?? "Empty phonenumber")"
+            cell.billingAddressName.text = "\(self.data.value?.metadata?.lastName ?? "") | \(self.data.value?.metadata?.phone ?? "Empty phonenumber")"
+            cell.billingAddressEmail.text = self.data.value?.metadata?.email ?? ""
             return cell
         } else if indexPath.row == 3 + (self.data.value?.items?.count ?? 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell

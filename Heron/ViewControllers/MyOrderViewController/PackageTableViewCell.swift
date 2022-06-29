@@ -97,7 +97,7 @@
                     self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
                 }
                 
-                self.priceLabel.text = String(format: "$%ld", cellData.product!.regularPrice)
+                self.priceLabel.text = String(format: "$%ld", cellData.product!.customFinalPrice)
                 self.priceDiscount.text = String(format: "$%ld", cellData.product!.finalPrice)
             
             }
