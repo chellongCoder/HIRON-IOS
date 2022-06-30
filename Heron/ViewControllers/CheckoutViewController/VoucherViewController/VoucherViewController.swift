@@ -67,6 +67,7 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
             make.bottom.equalToSuperview()
         }
     
+        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -81,8 +82,7 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
     }
     
     //MARK: - Data
-    func bindingData()
-    {
+    func bindingData() {
         viewModel.listUserVouchers
             .bind(to: tableView.rx.items) {
                 (tableView: UITableView, index: Int, element: VoucherDataSource) in
