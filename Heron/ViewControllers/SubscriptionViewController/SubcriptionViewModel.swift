@@ -5,10 +5,28 @@
 //  Created by Triet Nguyen on 12/06/2022.
 //
 
-import Foundation
+import RxSwift
+import RxRelay
 
 class SubcriptionViewModel {
-
+    public var subcriptions              = BehaviorRelay<[SubcriptionData]>(value: [])
+    func getListSubscription()
+    {
+        _SubcriptionServices.getListSubscription { errorMessage, data in
+            if errorMessage != nil {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                    alertVC.dismiss()
+                }))
+                _NavController.showAlert(alertVC)
+                return
+            }
+            
+            if let subcriptionList = data {
+                self.subcriptions.accept(subcriptionList)
+            }
+    }
+    }
         func sign_in(email: String, password: String, completion: @escaping ()->Void) {
             _AuthenticationServices.login(username: email, password: password) { isSuccess, errorMessgae in
                 let defaults = UserDefaults.standard

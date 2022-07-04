@@ -8,19 +8,17 @@
 import UIKit
 import RxSwift
 
-class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataSource, UICollectionViewDelegate {
+class MainSubscriptionViewController: BaseViewController, UICollectionViewDelegate {
 
     var imagePicker = UIImagePickerController()
     var collectionView: UICollectionView!
     let sign_in_btn = UIButton()
-    private let viewModel   = ProductFilterViewModel()
+    private let vm   = SubcriptionViewModel()
     var selectedIndex       : IndexPath? = nil {
         didSet {
                 sign_in_btn.successButton(title: selectedIndex == nil ? "Skip":"Confirm")
         }
     }
-    private let disposeBag          = DisposeBag()
-//            let vm = AuthViewModel()
 
             override func configUI() {
                 let bg = UIImageView(image: UIImage(named: "bg"))
@@ -70,7 +68,6 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
                 layout.scrollDirection = .horizontal
 
                 collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-                collectionView.dataSource = self
                 collectionView.delegate = self
                 collectionView.register(SubcriptionCollectionViewCell.self, forCellWithReuseIdentifier: "SubcriptionCollectionViewCell")
                 collectionView.showsVerticalScrollIndicator = false
@@ -105,6 +102,7 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
+            vm.getListSubscription()
             
         }
             
@@ -120,43 +118,58 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
             
 
     override func bindingData() {
-        _CartServices.cartData
-            .observe(on: MainScheduler.instance)
+        vm.subcriptions.observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
 //                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.grandTotal ?? 0)
             }
             .disposed(by: disposeBag)
+        
+        
+        vm.subcriptions
+            .bind(to: collectionView.rx.items) {
+                (collectionView: UICollectionView, index: Int, element: SubcriptionData) in
+                let indexPath = IndexPath(row: index, section: 0)
+                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
+                cell.titleLabel.text = element.subsItem?.name
+                cell.priceLabel.text = "$\(element.finalPrice!)"
+                cell.footerLabel.text = "\(element.createdAt!)"
+                
+                if self.selectedIndex?.row == indexPath.row && self.selectedIndex?.section == indexPath.section {
+                           cell.setSelected(true)
+                       } else {
+                           cell.setSelected(false)
+                       }
+               
+//                          cell.value?.text = "\(element) @ \(row)"
+                          return cell
+            }
+            .disposed(by: disposeBag)
     }
-    //        override func configObs() {
-    //            observeLoading(vm.isLoading)
-    //            observeMessage(vm.responseMsg)
-    //            observeAuthorized(vm.isAuthorised)
-    //        }
+
     
     //MARK: - UICollectionViewDataSource
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return viewModel.listCategories.count
-        return 10
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
-        cell.titleLabel.text = "Monthly subcription"
-        cell.priceLabel.text = "$ 10.00/month"
-        cell.footerLabel.text = "Include 14 days free"
-//        let cellData = viewModel.listCategories[indexPath.row]
-//        cell.setDataSource(data: cellData)
-////
-        if selectedIndex?.row == indexPath.row && selectedIndex?.section == indexPath.section {
-            cell.setSelected(true)
-        } else {
-            cell.setSelected(false)
-        }
-        
-        return cell
-    }
-    
-    //MARK: - UICollectionViewDelegate
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return vm.subcriptions.value.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
+//        cell.titleLabel.text = "Monthly subcription"
+//        cell.priceLabel.text = "$ 10.00/month"
+//        cell.footerLabel.text = "Include 14 days free"
+////        let cellData = viewModel.listCategories[indexPath.row]
+////        cell.setDataSource(data: cellData)
+//////
+//        if selectedIndex?.row == indexPath.row && selectedIndex?.section == indexPath.section {
+//            cell.setSelected(true)
+//        } else {
+//            cell.setSelected(false)
+//        }
+//
+//        return cell
+//    }
+//
+//    //MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let tempIndex = self.selectedIndex {
             if self.selectedIndex == indexPath {
@@ -167,8 +180,8 @@ class MainSubscriptionViewController: BaseViewController,  UICollectionViewDataS
             self.collectionView.reloadItems(at: [tempIndex, indexPath])
             return
         }
-        
-        
+
+
         self.selectedIndex = indexPath
         self.collectionView.reloadItems(at: [indexPath])
     }

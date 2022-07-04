@@ -26,7 +26,6 @@ class AddUserAddressViewController: BaseViewController {
     private let completeBtn         = UIButton()
     
     let viewModel                   = AddUserAddressViewModel()
-    private let disposeBage         = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -6,15 +6,14 @@
 //
 
 import UIKit
-import Alamofire
 import RxSwift
+import RxCocoa
 
 class BaseViewController: UIViewController {
     
     internal let pageScroll     = UIScrollView()
     let contentView             = UIView()
-    let disposeBage         = DisposeBag()
-    let disposeBag         = DisposeBag()
+    let disposeBag              = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()

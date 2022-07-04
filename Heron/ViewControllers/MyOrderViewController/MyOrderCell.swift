@@ -26,16 +26,16 @@ class MyOrderCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .clear
+        self.backgroundColor = .white
 
         let contentView = UIView()
-        contentView.setShadow()
+//        contentView.setShadow()
         self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
 
    
@@ -98,8 +98,8 @@ class MyOrderCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%ld", cellData.product!.customRegularPrice)
-        self.priceDiscount.text = String(format: "$%ld", cellData.product!.customFinalPrice)
+        self.priceLabel.text = String(format: "$%ld", cellData.product!.customFinalPrice)
+        self.priceDiscount.text = String(format: "$%ld", cellData.product!.finalPrice)
     
     }
     

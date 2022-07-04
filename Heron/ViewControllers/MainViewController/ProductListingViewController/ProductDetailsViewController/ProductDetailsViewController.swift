@@ -24,7 +24,7 @@ class ProductDetailsViewController: BaseViewController,
     
     private let addToCartBtn    = UIButton()
     private let cartHotInfo     = CartHotView()
-    private let disposeBag      = DisposeBag()
+//    private let disposeBag      = DisposeBag()
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)

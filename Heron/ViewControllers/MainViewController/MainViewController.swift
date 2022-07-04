@@ -37,7 +37,10 @@ class MainViewController: UITabBarController {
         productNav.tabBarItem = UITabBarItem(title: "Product", image: UIImage.init(systemName: "cart"), selectedImage: nil)
 
         let myOrderNav = UINavigationController.init(rootViewController: MyOrderViewController())
+        myOrderNav.navigationBar.barTintColor = .white
         myOrderNav.tabBarItem = UITabBarItem(title: "My Order", image: UIImage.init(systemName: "person"), selectedImage: nil)
+        
+        UINavigationBar.appearance().isTranslucent = false
 
         self.viewControllers = [homeNav, productNav, myOrderNav]
         self.selectedIndex = 1
