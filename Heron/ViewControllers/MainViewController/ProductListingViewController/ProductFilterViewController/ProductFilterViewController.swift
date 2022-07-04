@@ -24,6 +24,8 @@ class ProductFilterViewController: BaseViewController,
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.edgesForExtendedLayout = []
+        self.view.backgroundColor = .white
         self.title = "Categories"
         self.viewModel.controller = self
         

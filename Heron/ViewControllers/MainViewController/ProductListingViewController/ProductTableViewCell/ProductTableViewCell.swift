@@ -47,7 +47,7 @@ class ProductTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(24)
             make.left.equalToSuperview().offset(18)
             make.width.height.equalTo(80)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-24)
         }
         
         contentView.addSubview(discountValue)

@@ -73,7 +73,7 @@ class CartProductTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(24)
             make.left.equalTo(checkboxButton.snp.right).offset(10)
             make.width.height.equalTo(120)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-24)
         }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
@@ -141,6 +141,7 @@ class CartProductTableViewCell: UITableViewCell {
             make.height.equalTo(30)
             make.left.equalTo(minusBtn.snp.right).offset(5)
             make.right.equalTo(plusBtn.snp.left).offset(-5)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
 
         quantityTxt.rx.controlEvent([.editingChanged])
@@ -148,7 +149,6 @@ class CartProductTableViewCell: UITableViewCell {
             .subscribe ({ [unowned self] _ in
                 
                 let number = Int(quantityTxt.text ?? "0") ?? 0
-                if (number == 0) {return}
                 
                 self.quantityValue = number
                 self.updateItemQuanlity()
@@ -190,7 +190,15 @@ class CartProductTableViewCell: UITableViewCell {
     }
     
     @objc private func minusButtonTapped() {
-        if self.quantityValue <= 1 {return}
+        
+        guard let indexPath = indexPath else {
+            return
+        }
+        
+        if self.quantityValue <= 1 {
+            self.delegate?.removeItemFromCart(indexPath)
+            return
+        }
         self.quantityValue -= 1
         quantityTxt.text = String(format: "%ld", self.quantityValue)
         self.updateItemQuanlity()
@@ -207,7 +215,11 @@ class CartProductTableViewCell: UITableViewCell {
         guard let indexPath = indexPath else {
             return
         }
-
-        delegate?.didUpdateItemQuanlity(indexPath, newValue: self.quantityValue)
+        
+        if self.quantityValue == 0 {
+            delegate?.removeItemFromCart(indexPath)
+        } else {
+            delegate?.didUpdateItemQuanlity(indexPath, newValue: self.quantityValue)
+        }
     }
 }

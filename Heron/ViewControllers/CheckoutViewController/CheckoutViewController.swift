@@ -27,14 +27,6 @@ class CheckoutViewController: UIViewController,
     
     private let disposeBag      = DisposeBag()
     
-    init(cartData: CartDataSource) {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
@@ -49,25 +41,25 @@ class CheckoutViewController: UIViewController,
                                            action: #selector(backButtonTapped))
         self.navigationItem.leftBarButtonItem = backBtn
         
-        let deliveryTouch = UITapGestureRecognizer.init(target: self, action: #selector(deliveryToTapped))
-        deliveryTo.addGestureRecognizer(deliveryTouch)
-        deliveryTo.addressTitle.text = "Delivery To"
-        self.view.addSubview(deliveryTo)
-        deliveryTo.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(2)
-        }
-        
-        let billingTouch = UITapGestureRecognizer.init(target: self, action: #selector(billingAddressTapped))
-        billingAddress.addGestureRecognizer(billingTouch)
-        billingAddress.addressTitle.text = "Billing Address"
-        self.view.addSubview(billingAddress)
-        billingAddress.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.top.equalTo(deliveryTo.snp.bottom).offset(2)
-        }
+//        let deliveryTouch = UITapGestureRecognizer.init(target: self, action: #selector(deliveryToTapped))
+//        deliveryTo.addGestureRecognizer(deliveryTouch)
+//        deliveryTo.addressTitle.text = "Delivery To"
+//        self.view.addSubview(deliveryTo)
+//        deliveryTo.snp.makeConstraints { (make) in
+//            make.left.equalToSuperview().offset(10)
+//            make.right.equalToSuperview().offset(-10)
+//            make.top.equalToSuperview().offset(2)
+//        }
+//
+//        let billingTouch = UITapGestureRecognizer.init(target: self, action: #selector(billingAddressTapped))
+//        billingAddress.addGestureRecognizer(billingTouch)
+//        billingAddress.addressTitle.text = "Billing Address"
+//        self.view.addSubview(billingAddress)
+//        billingAddress.snp.makeConstraints { (make) in
+//            make.left.equalToSuperview().offset(10)
+//            make.right.equalToSuperview().offset(-10)
+//            make.top.equalTo(deliveryTo.snp.bottom).offset(2)
+//        }
         
         
         // MARK: - Bottom
@@ -148,14 +140,11 @@ class CheckoutViewController: UIViewController,
         tableView.backgroundColor = kBackgroundColor
         tableView.register(CheckoutItemTableViewCell.self, forCellReuseIdentifier: "CheckoutItemTableViewCell")
         self.view.addSubview(tableView)
-        //        tableView.snp.makeConstraints { make in
-        //            make.left.right.equalToSuperview()
-        //            make.top.greaterThanOrEqualTo(billingAddress.snp.bottom).offset(10)
-        //            make.height.greaterThanOrEqualTo(100)
-        //            make.bottom.lessThanOrEqualTo(voucherView.snp.top).offset(-10)
-        //        }
-        
-
+        tableView.snp.makeConstraints { make in
+            make.left.right.equalToSuperview()
+            make.top.equalToSuperview().offset(10)
+            make.bottom.equalTo(voucherView.snp.top).offset(-10)
+        }
         
         self.bindingData()
     }
@@ -163,8 +152,6 @@ class CheckoutViewController: UIViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.reloadPrecheckoutData()
-        
-        self.updateTableViewFrame()
     }
     
     // MARK: - UI
@@ -190,19 +177,6 @@ class CheckoutViewController: UIViewController,
         
         placeOrderBtn.isUserInteractionEnabled = true
         placeOrderBtn.backgroundColor = kPrimaryColor
-    }
-    
-    func updateTableViewFrame() {
-        let billingFrame = billingAddress.frame
-        let voucherFrame = voucherView.frame
-        let yPos = billingFrame.origin.y + billingFrame.size.height + 5
-        let height = voucherFrame.origin.y - yPos - 10
-        let width = UIScreen.main.bounds.size.width
-        
-        let tableViewFrame = CGRect(origin: CGPoint(x: 0, y: yPos),
-                                    size: CGSize(width: width, height: height))
-        self.tableView.frame = tableViewFrame
-        self.tableView.reloadData()
     }
     
     //MARK: - Buttons
@@ -272,7 +246,7 @@ class CheckoutViewController: UIViewController,
                 self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
                 
                 self.viewModel.cartPreCheckout = cartPreCheckoutDataSource
-                self.updateTableViewFrame()
+                self.tableView.reloadData()
             }
             .disposed(by: disposeBag)
         
@@ -284,6 +258,8 @@ class CheckoutViewController: UIViewController,
                 guard let deliveryAddress = deliveryAddress.element as? ContactDataSource else {return}
                 self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " | +" + deliveryAddress.phone
                 self.deliveryTo.addressLabel.text = deliveryAddress.address + ", " + deliveryAddress.province + ", " + deliveryAddress.country + ", " + deliveryAddress.postalCode
+                
+                self.tableView.reloadData()
             }
             .disposed(by: disposeBag)
         
@@ -294,6 +270,8 @@ class CheckoutViewController: UIViewController,
                 guard let billingAddress = billingAddress.element as? ContactDataSource else {return}
                 self.billingAddress.contactLabel.text = billingAddress.firstName + billingAddress.phone
                 self.billingAddress.addressLabel.text = billingAddress.address + ", " + billingAddress.province + ", " + billingAddress.country + ", " + billingAddress.postalCode
+                
+                self.tableView.reloadData()
             }
             .disposed(by: disposeBag)
         
@@ -326,35 +304,77 @@ class CheckoutViewController: UIViewController,
     
     // MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.cartPreCheckout?.cartDetail.count ?? 0
+        return (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let cartDetail = viewModel.cartPreCheckout?.cartDetail[section]
-        return cartDetail?.cartItems.count ?? 0
+        if section == 0 {
+            return 2
+        } else {
+            let cartDetail = viewModel.cartPreCheckout?.cartDetail[section - 1]
+            return cartDetail?.cartItems.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = tableView.dequeueReusableCell(withIdentifier: "CheckoutItemTableViewCell") as? CheckoutItemTableViewCell
-        
-        if cell == nil {
-            cell = CheckoutItemTableViewCell.init(style: .default, reuseIdentifier: "CheckoutItemTableViewCell")
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                // Delivery Address
+                let cell = UITableViewCell.init(style: .default, reuseIdentifier: "UITableViewCell")
+                cell.backgroundColor = kBackgroundColor
+                
+                deliveryTo.addressTitle.text = "Delivery To"
+                cell.addSubview(deliveryTo)
+                deliveryTo.snp.makeConstraints { (make) in
+                    make.left.equalToSuperview().offset(10)
+                    make.top.equalToSuperview().offset(2)
+                    make.center.equalToSuperview()
+                }
+                
+                return cell
+            } else {
+                // Billing Address
+                let cell = UITableViewCell.init(style: .default, reuseIdentifier: "UITableViewCell")
+                cell.backgroundColor = kBackgroundColor
+                
+                billingAddress.addressTitle.text = "Billing Address"
+                cell.addSubview(billingAddress)
+                billingAddress.snp.makeConstraints { (make) in
+                    make.left.equalToSuperview().offset(10)
+                    make.top.equalToSuperview().offset(2)
+                    make.center.equalToSuperview()
+                }
+                
+                return cell
+                
+            }
+        } else {
+            var cell = tableView.dequeueReusableCell(withIdentifier: "CheckoutItemTableViewCell") as? CheckoutItemTableViewCell
+            
+            if cell == nil {
+                cell = CheckoutItemTableViewCell.init(style: .default, reuseIdentifier: "CheckoutItemTableViewCell")
+            }
+            
+            if let cartDetail = viewModel.cartPreCheckout?.cartDetail[indexPath.section - 1] {
+                let cellData = cartDetail.cartItems[indexPath.row]
+                cell!.setDataSource(itemData: cellData, index: indexPath)
+            }
+            
+            return cell!
         }
-        
-        if let cartDetail = viewModel.cartPreCheckout?.cartDetail[indexPath.section] {
-            let cellData = cartDetail.cartItems[indexPath.row]
-            cell!.setDataSource(itemData: cellData, index: indexPath)
-        }
-        
-        return cell!
     }
     
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 0 {
+            return nil
+        }
+        
         let headerView = UIView()
         headerView.backgroundColor = .white
                 
-        if let storeData = viewModel.cartPreCheckout?.cartDetail[section] {
+        if let storeData = viewModel.cartPreCheckout?.cartDetail[section - 1] {
             let titleSignal = UILabel()
             titleSignal.text = storeData.storeDetails?.name ?? "Unknow Store Name"
             headerView.addSubview(titleSignal)
@@ -370,6 +390,11 @@ class CheckoutViewController: UIViewController,
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        if section == 0 {
+            return UIView()
+        }
+        
         let footerView = UIView()
         footerView.backgroundColor = kBackgroundColor
         
@@ -382,7 +407,7 @@ class CheckoutViewController: UIViewController,
             make.left.equalToSuperview()
         }
         
-        if let storeData = viewModel.cartPreCheckout?.cartDetail[section],
+        if let storeData = viewModel.cartPreCheckout?.cartDetail[section - 1],
            let shippingData = storeData.shippingOrder,
            let carier = shippingData.carrier {
             
@@ -418,6 +443,16 @@ class CheckoutViewController: UIViewController,
         }
         
         return footerView
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            if indexPath.row == 0 {
+                self.deliveryToTapped()
+            } else {
+                self.billingAddressTapped()
+            }
+        }
     }
 }
 

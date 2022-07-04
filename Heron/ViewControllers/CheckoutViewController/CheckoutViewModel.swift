@@ -16,7 +16,7 @@ protocol CheckoutViewModelDelegate: NSObject {
 class CheckoutViewModel: NSObject {
 
     public var reloadAnimation      = BehaviorRelay<Bool>(value: false)
-    public var cartPreCheckout      : CartPrepearedResponseDataSource?
+    public var cartPreCheckout      : CartPrepearedResponseDataSource? = _CheckoutServices.cartPreCheckoutResponseData.value
     public var delegate             : CheckoutViewModelDelegate?
     
     func reloadPrecheckoutData() {
@@ -38,6 +38,8 @@ class CheckoutViewModel: NSObject {
                 return
             }
             
+            // clear checkout data
+            _CheckoutServices.cartPreCheckoutResponseData.accept(nil)
             self.delegate?.didFinishPlaceOrder()
         }
     }
