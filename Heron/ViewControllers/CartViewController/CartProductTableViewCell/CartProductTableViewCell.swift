@@ -28,7 +28,6 @@ class CartProductTableViewCell: UITableViewCell {
     let plusBtn             = UIButton()
     
     private var quantityValue   = 0
-    private let disposeBage = DisposeBag()
     
     private var cartItemData : CartItemDataSource? = nil {
         didSet {
@@ -135,6 +134,7 @@ class CartProductTableViewCell: UITableViewCell {
         quantityTxt.layer.borderColor = UIColor.lightGray.cgColor
         quantityTxt.textAlignment = .center
         quantityTxt.keyboardType = .numberPad
+        quantityTxt.delegate = self
         contentView.addSubview(quantityTxt)
         quantityTxt.snp.makeConstraints { make in
             make.centerY.equalTo(minusBtn)
@@ -143,17 +143,6 @@ class CartProductTableViewCell: UITableViewCell {
             make.right.equalTo(plusBtn.snp.left).offset(-5)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
-
-        quantityTxt.rx.controlEvent([.editingChanged])
-            .asObservable()
-            .subscribe ({ [unowned self] _ in
-                
-                let number = Int(quantityTxt.text ?? "0") ?? 0
-                
-                self.quantityValue = number
-                self.updateItemQuanlity()
-            })
-            .disposed(by: disposeBage)
     }
 
     required init?(coder: NSCoder) {
@@ -221,5 +210,14 @@ class CartProductTableViewCell: UITableViewCell {
         } else {
             delegate?.didUpdateItemQuanlity(indexPath, newValue: self.quantityValue)
         }
+    }
+}
+
+extension CartProductTableViewCell : UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        let number = Int(quantityTxt.text ?? "0") ?? 0
+        
+        self.quantityValue = number
+        self.updateItemQuanlity()
     }
 }
