@@ -60,7 +60,10 @@ class ProductFilterViewController: BaseViewController,
             make.bottom.equalToSuperview().offset(-90)
         }
         
+        let touchAction = UITapGestureRecognizer.init(target: self, action: #selector(cartButtonTapped))
+        
         cartHotInfo.backgroundColor = kPrimaryColor
+        cartHotInfo.addGestureRecognizer(touchAction)
         self.view.addSubview(cartHotInfo)
         cartHotInfo.snp.makeConstraints { make in
             make.height.equalTo(50)
@@ -93,6 +96,11 @@ class ProductFilterViewController: BaseViewController,
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.navigationController?.popViewController(animated: true)
         }
+    }
+    
+    @objc private func cartButtonTapped() {
+        let cartVC = CartViewController.sharedInstance
+        _NavController.pushViewController(cartVC, animated: true)
     }
     
     //MARK: - Binding Data
