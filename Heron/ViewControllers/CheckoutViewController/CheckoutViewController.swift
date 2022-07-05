@@ -146,12 +146,12 @@ class CheckoutViewController: UIViewController,
             make.bottom.equalTo(voucherView.snp.top).offset(-10)
         }
         
+        self.viewModel.reloadPrecheckoutData()
         self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.reloadPrecheckoutData()
     }
     
     // MARK: - UI
@@ -256,7 +256,7 @@ class CheckoutViewController: UIViewController,
                 
                 self.updatePlaceOrderButton()
                 guard let deliveryAddress = deliveryAddress.element as? ContactDataSource else {return}
-                self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " | +" + deliveryAddress.phone
+                self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " " + deliveryAddress.lastName + " | +" + deliveryAddress.phone
                 self.deliveryTo.addressLabel.text = deliveryAddress.address + ", " + deliveryAddress.province + ", " + deliveryAddress.country + ", " + deliveryAddress.postalCode
                 
                 self.tableView.reloadData()
@@ -268,8 +268,8 @@ class CheckoutViewController: UIViewController,
             .subscribe { billingAddress in
                 self.updatePlaceOrderButton()
                 guard let billingAddress = billingAddress.element as? ContactDataSource else {return}
-                self.billingAddress.contactLabel.text = billingAddress.firstName + billingAddress.phone
-                self.billingAddress.addressLabel.text = billingAddress.address + ", " + billingAddress.province + ", " + billingAddress.country + ", " + billingAddress.postalCode
+                self.billingAddress.contactLabel.text = billingAddress.firstName + " " + billingAddress.lastName + " | " + billingAddress.phone
+                self.billingAddress.addressLabel.text = billingAddress.email
                 
                 self.tableView.reloadData()
             }
@@ -450,7 +450,9 @@ class CheckoutViewController: UIViewController,
             if indexPath.row == 0 {
                 self.deliveryToTapped()
             } else {
-                self.billingAddressTapped()
+                return
+                // Disable edit billing address
+                // self.billingAddressTapped()
             }
         }
     }
