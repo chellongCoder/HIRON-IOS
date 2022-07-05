@@ -130,10 +130,17 @@ class CartViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { cartPreCheckoutDataSource in
                 guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {
+                    
+                    self.checkoutBtn.backgroundColor = kDisableColor
+                    self.checkoutBtn.isUserInteractionEnabled = false
+                    
                     self.totalLabel.text = "Total: $0.0"
                     self.savingLabel.text = "Saving: $0.0"
                     return
                 }
+                
+                self.checkoutBtn.backgroundColor = kPrimaryColor
+                self.checkoutBtn.isUserInteractionEnabled = true
                 
                 self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
                 self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
@@ -173,7 +180,7 @@ class CartViewController: BaseViewController,
     }
     
     @objc private func checkoutButtonTapped() {
-        // Handle checkout        
+        // Handle checkout
         let checkoutVC = CheckoutViewController()
         self.navigationController?.pushViewController(checkoutVC, animated: true)
     }
