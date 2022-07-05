@@ -56,7 +56,7 @@ class ApplicationCoreData: NSObject {
     }
     
     func getUserDataSource() -> UserDataSource? {
-        //request refresh cache if need
+        // request refresh cache if need
         refreshUserDataCache()
         
         return self.userDataSource
@@ -150,10 +150,10 @@ class ApplicationCoreData: NSObject {
         }
     }
     
-    func isAppAlreadyLaunchedOnce() -> Bool{
+    func isAppAlreadyLaunchedOnce() -> Bool {
         let defaults = UserDefaults.standard
         
-        if let _ = defaults.string(forKey: kAppAlreadyLaunchedOnce){
+        if let _ = defaults.string(forKey: kAppAlreadyLaunchedOnce) {
             return true
         } else {
             defaults.set(true, forKey: kAppAlreadyLaunchedOnce)

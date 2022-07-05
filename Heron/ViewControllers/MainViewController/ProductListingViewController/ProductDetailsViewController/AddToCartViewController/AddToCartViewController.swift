@@ -27,7 +27,7 @@ class AddToCartViewController: UIViewController {
     let quantityTxt         = UITextField()
     let plusBtn             = UIButton()
     
-    var productData         : ProductDataSource? = nil
+    var productData         : ProductDataSource?
     var quantityValue       = 1
     
     private let disposeBage = DisposeBag()
@@ -78,7 +78,7 @@ class AddToCartViewController: UIViewController {
             make.height.width.equalTo(40)
         }
         
-        //Content UI
+        // Content UI
         packageImage.image = UIImage(named: "default-image")
         if let imageURL = URL.init(string: productData?.thumbnailUrl ?? "") {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
@@ -191,7 +191,7 @@ class AddToCartViewController: UIViewController {
         
         quantityTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 let number = Int(quantityTxt.text ?? "0") ?? 0
                 self.quantityValue = number

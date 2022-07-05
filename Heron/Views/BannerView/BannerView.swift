@@ -45,4 +45,3 @@ class BannerView: UIView {
         
     }
 }
-

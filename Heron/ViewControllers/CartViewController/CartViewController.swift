@@ -96,7 +96,7 @@ class CartViewController: BaseViewController,
         self.viewModel.reloadCart()
     }
     
-    //MARK: - BindingData
+    // MARK: - BindingData
     override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
@@ -120,7 +120,7 @@ class CartViewController: BaseViewController,
                     self.voucherView.voucherCode.text = String(format: "$%.2f", voucherDataSource.couponRule?.customDiscount ?? 0.0)
                     
                 } else {
-                    //discout percent
+                    // discout percent
                     self.voucherView.voucherCode.text = String(format: "%ld%% OFF", voucherDataSource.couponRule?.discount ?? 0)
                 }
             }
@@ -149,7 +149,7 @@ class CartViewController: BaseViewController,
             .disposed(by: disposeBag)
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     @objc private func backButtonTapped() {
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -185,13 +185,13 @@ class CartViewController: BaseViewController,
         self.navigationController?.pushViewController(checkoutVC, animated: true)
     }
     
-    //MARK: - Cart
+    // MARK: - Cart
     func addProductToCart(_ data: ProductDataSource) {
         viewModel.addToCart(product: data)
         self.tableView.reloadData()
     }
     
-    //MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.cartDataSource?.store.count ?? 0
     }
@@ -201,17 +201,17 @@ class CartViewController: BaseViewController,
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CartProductTableViewCell") as! CartProductTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CartProductTableViewCell") as? CartProductTableViewCell
         let storeData = viewModel.cartDataSource?.store[indexPath.section]
         if let cellData = storeData?.cartItems[indexPath.row] {
-            cell.setDataSource(cellData, indexPath: indexPath)
+            cell?.setDataSource(cellData, indexPath: indexPath)
         }
         
-        cell.delegate = self
-        return cell
+        cell?.delegate = self
+        return cell!
     }
     
-    //MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
@@ -259,7 +259,7 @@ class CartViewController: BaseViewController,
         }
     }
     
-    //MARK: - CartProductCellDelegate
+    // MARK: - CartProductCellDelegate
     func removeItemFromCart(_ index: IndexPath) {
         guard let store = _CartServices.cartData.value?.store[index.section] else {return}
         let cartItem = store.cartItems[index.row]

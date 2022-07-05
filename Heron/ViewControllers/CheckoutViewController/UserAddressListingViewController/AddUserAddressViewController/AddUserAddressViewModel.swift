@@ -9,7 +9,7 @@ import UIKit
 import RxRelay
 
 class AddUserAddressViewModel: NSObject {
-    weak var controller : AddUserAddressViewController? = nil
+    weak var controller : AddUserAddressViewController?
     public var contact  = BehaviorRelay<ContactDataSource>(value: ContactDataSource.init(JSONString: "{}", context: nil)!)
     public var animation = BehaviorRelay<Bool>(value: false)
     public var isUpdated : Bool = false
@@ -41,7 +41,7 @@ class AddUserAddressViewModel: NSObject {
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)

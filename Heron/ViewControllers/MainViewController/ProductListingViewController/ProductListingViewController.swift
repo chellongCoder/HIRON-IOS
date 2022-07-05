@@ -24,7 +24,6 @@ class ProductListingViewController: BaseViewController,
     let cartHotInfo                 = CartHotView()
     let noDataView                  = UIView()
     
-   
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
@@ -86,8 +85,6 @@ class ProductListingViewController: BaseViewController,
             make.width.equalToSuperview().offset(-32)
             make.height.equalTo(80)
         }
-    
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,7 +95,7 @@ class ProductListingViewController: BaseViewController,
         self.viewModel.reloadCart()
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     @objc private func cartButtonTapped() {
         let cartVC = CartViewController.sharedInstance
         _NavController.pushViewController(cartVC, animated: true)
@@ -114,7 +111,7 @@ class ProductListingViewController: BaseViewController,
         self.searchBar.endEditing(true)
     }
     
-    //MARK: - UI
+    // MARK: - UI
     private func reloadBannerView() {
         // remove all subviews
         for subView in bannerScrollView.subviews {
@@ -126,7 +123,7 @@ class ProductListingViewController: BaseViewController,
         let size = CGSize(width: width, height: height)
         var index = 0
         
-        for bannerData in viewModel.listBanners {
+        for _ in viewModel.listBanners {
             
             let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
             
@@ -144,7 +141,7 @@ class ProductListingViewController: BaseViewController,
         bannerScrollView.setContentOffset(CGPoint(x: CGFloat(current)*view.frame.width, y: 0), animated: true)
     }
     
-    //MARK: - Binding Data
+    // MARK: - Binding Data
     override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
@@ -154,8 +151,7 @@ class ProductListingViewController: BaseViewController,
             .disposed(by: disposeBag)
         
         viewModel.listProducts
-            .bind(to: tableView.rx.items) {
-                (tableView: UITableView, index: Int, element: ProductDataSource) in
+            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
                 let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
                 cell.setDataSource(element)
                 cell.delegate = self
@@ -175,7 +171,7 @@ class ProductListingViewController: BaseViewController,
 //            .disposed(by: disposeBag)
     }
     
-    //MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return (16 + (UIScreen.main.bounds.size.width - 32)*0.5625 + (10+15+10))
     }
@@ -221,7 +217,7 @@ class ProductListingViewController: BaseViewController,
         self.dismissKeyboard()
     }
     
-    //MARK: - UIScrollViewDelegate
+    // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.size.width
         let fractionalPage = scrollView.contentOffset.x / pageWidth
@@ -232,12 +228,12 @@ class ProductListingViewController: BaseViewController,
         self.dismissKeyboard()
     }
     
-    //MARK: - ProductFilterDelegate
+    // MARK: - ProductFilterDelegate
     func didApplyFilter(_ data: CategoryDataSource?) {
         self.viewModel.filterData = data
     }
     
-    //MARK: - ProductCellDelegate
+    // MARK: - ProductCellDelegate
     func addProductToCart(_ data: ProductDataSource) {
         let cartVC = CartViewController.sharedInstance
         cartVC.addProductToCart(data)

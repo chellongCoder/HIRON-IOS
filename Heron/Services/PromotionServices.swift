@@ -11,7 +11,7 @@ import ObjectMapper
 class PromotionServices: NSObject {
     public static let sharedInstance = PromotionServices()
     
-    func getListVouchers(completion:@escaping (String?, [VoucherDataSource]?)-> Void) {
+    func getListVouchers(completion:@escaping (String?, [VoucherDataSource]?) -> Void) {
         #warning("HARD_CODE")
         let fullURLRequest = kGatwayPromotionURL + "/coupons?limit=100&offset=0"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
@@ -19,8 +19,7 @@ class PromotionServices: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {

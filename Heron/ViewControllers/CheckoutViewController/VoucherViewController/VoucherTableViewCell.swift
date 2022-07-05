@@ -88,7 +88,7 @@ class VoucherTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //MARK: - Data
+    // MARK: - Data
     func setDataSource(_ cellData: VoucherDataSource) {
         self.voucherData = cellData
         
@@ -100,7 +100,7 @@ class VoucherTableViewCell: UITableViewCell {
             self.promoValue.text = String(format: "$%.2f", cellData.couponRule?.customDiscount ?? 0.0)
             
         } else {
-            //discout percent
+            // discout percent
             self.promoValue.text = String(format: "%ld%% OFF", cellData.couponRule?.discount ?? 0)
         }
         
@@ -113,7 +113,7 @@ class VoucherTableViewCell: UITableViewCell {
         }
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     @objc private func applyButtonTapped() {
         guard let voucherData = voucherData else {
             return

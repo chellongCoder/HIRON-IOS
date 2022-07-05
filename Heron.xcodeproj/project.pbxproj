@@ -27,7 +27,7 @@
 		933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19172819940B00F1CCC4 /* ApplicationDataHandler.swift */; };
 		933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19182819940B00F1CCC4 /* ApplicationMacros.swift */; };
 		933D19212819944100F1CCC4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19202819944100F1CCC4 /* MainViewController.swift */; };
-		933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */; };
+		933D19272819946000F1CCC4 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19262819946000F1CCC4 /* LoadingAnimationView.swift */; };
 		933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D19292819946800F1CCC4 /* UITextField_EXT.swift */; };
 		933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D192B2819946800F1CCC4 /* UITableView_EXT.swift */; };
 		933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */; };
@@ -104,7 +104,7 @@
 		93EC90F7285A4DB9009056F6 /* MainSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90F3285A4DB9009056F6 /* MainSubscriptionViewController.swift */; };
 		93EC90F9285A4DF4009056F6 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90F8285A4DF4009056F6 /* OrderService.swift */; };
 		93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */; };
-		93EC90FE28622229009056F6 /* VW_DiscountValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FD28622229009056F6 /* VW_DiscountValue.swift */; };
+		93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FD28622229009056F6 /* DiscountValueView.swift */; };
 		93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
@@ -182,7 +182,7 @@
 		933D19172819940B00F1CCC4 /* ApplicationDataHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDataHandler.swift; sourceTree = "<group>"; };
 		933D19182819940B00F1CCC4 /* ApplicationMacros.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationMacros.swift; sourceTree = "<group>"; };
 		933D19202819944100F1CCC4 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VW_LoadingAnimation.swift; sourceTree = "<group>"; };
+		933D19262819946000F1CCC4 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		933D19292819946800F1CCC4 /* UITextField_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextField_EXT.swift; sourceTree = "<group>"; };
 		933D192B2819946800F1CCC4 /* UITableView_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITableView_EXT.swift; sourceTree = "<group>"; };
 		933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageView_EXT.swift; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 		93EC90F3285A4DB9009056F6 /* MainSubscriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainSubscriptionViewController.swift; sourceTree = "<group>"; };
 		93EC90F8285A4DF4009056F6 /* OrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPlaceOrderViewController.swift; sourceTree = "<group>"; };
-		93EC90FD28622229009056F6 /* VW_DiscountValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VW_DiscountValue.swift; sourceTree = "<group>"; };
+		93EC90FD28622229009056F6 /* DiscountValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountValueView.swift; sourceTree = "<group>"; };
 		93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPrepearedRequestDataSource.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -470,9 +470,9 @@
 			isa = PBXGroup;
 			children = (
 				938F7A8F2821119E00DD60DB /* BannerView */,
-				933D19262819946000F1CCC4 /* VW_LoadingAnimation.swift */,
+				933D19262819946000F1CCC4 /* LoadingAnimationView.swift */,
 				931EC25D2846F60E00B72479 /* CartHotView.swift */,
-				93EC90FD28622229009056F6 /* VW_DiscountValue.swift */,
+				93EC90FD28622229009056F6 /* DiscountValueView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -819,6 +819,7 @@
 				933D18D72819935900F1CCC4 /* Frameworks */,
 				933D18D82819935900F1CCC4 /* Resources */,
 				0D0B98E301021DD03AA81D9A /* [CP] Embed Pods Frameworks */,
+				93A3C1A12874E355003A20F1 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -1011,6 +1012,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		93A3C1A12874E355003A20F1 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+		};
 		DA67F540836E541EE4B374E8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1063,8 +1082,8 @@
 				93AF91FE284BEE140075CD65 /* UserAddressListingViewModel.swift in Sources */,
 				93EC90EC285A4D73009056F6 /* AuthViewModel.swift in Sources */,
 				93EC90F6285A4DB9009056F6 /* SubcsriptionCell.swift in Sources */,
-				93EC90FE28622229009056F6 /* VW_DiscountValue.swift in Sources */,
-				933D19272819946000F1CCC4 /* VW_LoadingAnimation.swift in Sources */,
+				93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */,
+				933D19272819946000F1CCC4 /* LoadingAnimationView.swift in Sources */,
 				93EC90CA285A4C03009056F6 /* LaunchScreenViewController.swift in Sources */,
 				B561819A2862B59D009BE6E5 /* Card.swift in Sources */,
 				B561819D2862B59D009BE6E5 /* OrderPayment.swift in Sources */,

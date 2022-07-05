@@ -30,7 +30,7 @@ extension UIView {
         self.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
         UIView.animate(withDuration: duration, delay: 0.0, options: [.curveLinear], animations: { () -> Void in
             self.transform = .identity
-            }) { (_: Bool) -> Void in
+            }) {(_: Bool) -> Void in
         }
     }
 
@@ -38,7 +38,7 @@ extension UIView {
         self.transform = CGAffineTransform.identity
         UIView.animate(withDuration: duration, delay: 0.0, options: [.curveLinear], animations: { () -> Void in
             self.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-        }) { (_: Bool) -> Void in
+        }) {(_: Bool) -> Void in
         }
     }
 
@@ -48,7 +48,7 @@ extension UIView {
         let scalingDuration = duration - easingDuration
         UIView.animate(withDuration: scalingDuration, delay: 0.0, options: .curveEaseIn, animations: { () -> Void in
             self.transform = CGAffineTransform(scaleX: easeScale, y: easeScale)
-            }, completion: { (completed: Bool) -> Void in
+            }, completion: {(completed: Bool) -> Void in
                 UIView.animate(withDuration: easingDuration, delay: 0.0, options: .curveEaseOut, animations: { () -> Void in
                     self.transform = .identity
                     }, completion: { (_: Bool) -> Void in

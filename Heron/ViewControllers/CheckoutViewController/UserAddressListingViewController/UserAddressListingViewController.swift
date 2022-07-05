@@ -64,7 +64,7 @@ class UserAddressListingViewController: UIViewController,
         viewModel.getListUserAddress()
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
@@ -75,7 +75,7 @@ class UserAddressListingViewController: UIViewController,
         self.navigationController?.pushViewController(newAddressVC, animated: true)
     }
     
-    //MARK: - Datas
+    // MARK: - Datas
     func bindingData() {
         _DeliveryServices.listUserAddress
             .observe(on: MainScheduler.instance)
@@ -108,7 +108,7 @@ class UserAddressListingViewController: UIViewController,
             .disposed(by: disposeBag)
     }
     
-    //MARK: - UserAddressCellDelegate
+    // MARK: - UserAddressCellDelegate
     func didEditAddress(_ address: ContactDataSource) {
         let newAddressVC = AddUserAddressViewController()
         newAddressVC.viewModel.contact.accept(address)

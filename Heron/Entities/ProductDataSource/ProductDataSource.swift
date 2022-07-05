@@ -22,7 +22,7 @@ class ProductDataSource: Mappable, Equatable {
     var media           : [ProductMediaDataSource] = []
     var available       : Bool = false
     
-    //custome value
+    // custome value
     var discountPercent : Float = 0.0
     var quantity        : Int = 1
     var customRegularPrice  : Float = 0.0

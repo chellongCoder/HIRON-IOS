@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol CartProductCellDelegate {
+protocol CartProductCellDelegate: AnyObject {
     func removeItemFromCart(_ index: IndexPath)
     func modifyCheckoutList(_ index: IndexPath)
     func didUpdateItemQuanlity(_ index: IndexPath, newValue: Int)
@@ -29,13 +29,13 @@ class CartProductTableViewCell: UITableViewCell {
     
     private var quantityValue   = 0
     
-    private var cartItemData : CartItemDataSource? = nil {
+    private var cartItemData : CartItemDataSource? {
         didSet {
             checkboxButton.isSelected = cartItemData?.isSelected ?? false
         }
     }
-    private var indexPath   : IndexPath? = nil
-    var delegate            : CartProductCellDelegate? = nil
+    private var indexPath   : IndexPath?
+    var delegate            : CartProductCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

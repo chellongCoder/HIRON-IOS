@@ -18,8 +18,8 @@ enum ScreenType: String {
 }
 
 enum Event {
-    case SUCCESS_PURCHASE //done
-    case SUCCESS_VIEW_CART //done
+    case SUCCESS_PURCHASE
+    case SUCCESS_VIEW_CART
     
     case SUCCESS_VIEW_ITEM
     case SUCCESS_CONTACT_SENT
@@ -91,7 +91,7 @@ class ApplicationTracking: NSObject {
             tempData["af_currency"] = "VND"
             tempData["af_customer_user_id"] = _AppCoreData.getUserDataSource()?.userPhoneNum
             // AppsFlyerLib.shared().logEvent("Purchase",
-            //withValues: tempData)
+            // withValues: tempData)
             break
         case .SUCCESS_VIEW_CART:
             // Analytics.logEvent("View_Cart", parameters: nil)
@@ -134,7 +134,7 @@ class ApplicationTracking: NSObject {
         }
     }
     
-    //Batch integration with AppsFlyer
+    // Batch integration with AppsFlyer
     ////https://support.appsflyer.com/hc/en-us/articles/360000833437-Batch-integration-with-AppsFlyer
     
     func setCustomerId(_ phone: String) {
@@ -142,7 +142,7 @@ class ApplicationTracking: NSObject {
     }
 }
 
-//MARK: - send Bugfender Error log
+// MARK: - send Bugfender Error log
 extension ApplicationTracking {
     
     public func sendErrorLog(_ text: String) {
@@ -164,7 +164,7 @@ extension ApplicationTracking {
         self.startTime = Date()
     }
     
-    func screenHidden(completion: @escaping (_ time: Int)->Void) {
+    func screenHidden(completion: @escaping (_ time: Int) -> Void) {
         guard let startTime = self.startTime else { return }
         let time = Date().timeIntervalSince1970 - startTime.timeIntervalSince1970
         

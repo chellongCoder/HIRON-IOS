@@ -40,7 +40,6 @@ class ProductStatusTableViewCell: UITableViewCell {
                 $0.top.left.equalToSuperview().offset(10)
             }
             
-            
             descStatusLabel.text = "You will receive the order in Feb 05, 2021. Please keep your phone to get calling from deliver"
             descStatusLabel.numberOfLines = 0
             contentView.addSubview(descStatusLabel)

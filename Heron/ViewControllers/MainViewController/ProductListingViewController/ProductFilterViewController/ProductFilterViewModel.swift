@@ -8,17 +8,17 @@
 import UIKit
 
 class ProductFilterViewModel: NSObject {
-    weak var controller : ProductFilterViewController? = nil
+    weak var controller : ProductFilterViewController?
     var listCategories  : [CategoryDataSource] = []
     
     func getListCategoris() {
         controller?.startLoadingAnimation()
-        _InventoryServices.getListCategories { errorMessage , listNewCategories in
+        _InventoryServices.getListCategories { errorMessage, listNewCategories in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)

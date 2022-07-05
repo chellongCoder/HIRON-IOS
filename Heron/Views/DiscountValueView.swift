@@ -7,7 +7,7 @@
 
 import UIKit
 
-class VW_DiscountValue: UIView {
+class DiscountValueView: UIView {
     
     public let contentLabel     = UILabel()
     

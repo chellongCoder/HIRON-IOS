@@ -9,7 +9,7 @@ class AuthenticationServices {
     
     public static let sharedInstance = AuthenticationServices()
 
-    func login(username: String, password: String, completion:@escaping (String?, String?)-> Void) {
+    func login(username: String, password: String, completion:@escaping (String?, String?) -> Void) {
                 
         let parametter = ["username": username,
                           "password": password]
@@ -58,7 +58,7 @@ class AuthenticationServices {
         }
     }
     
-    func signUp(username: String, passwd: String, fitst_name: String, last_name: String, gender: String, dob: Int, identityNum: String, phone: String, completion:@escaping (String?, String?)-> Void) {
+    func signUp(username: String, passwd: String, fitst_name: String, last_name: String, gender: String, dob: Int, identityNum: String, phone: String, completion:@escaping (String?, String?) -> Void) {
         let parametter = ["username": username,
                           "password": passwd,
                           "passwordConfirm": passwd,

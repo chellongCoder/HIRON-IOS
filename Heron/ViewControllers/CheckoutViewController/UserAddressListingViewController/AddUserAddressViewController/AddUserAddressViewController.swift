@@ -214,7 +214,7 @@ class AddUserAddressViewController: BaseViewController {
         }
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
@@ -236,7 +236,7 @@ class AddUserAddressViewController: BaseViewController {
         }
     }
     
-    //MARK: - Data
+    // MARK: - Data
      override func bindingData() {
         
         viewModel.contact
@@ -252,10 +252,9 @@ class AddUserAddressViewController: BaseViewController {
             }
             .disposed(by: disposeBage)
 
-        
         firstNameTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (firstNameTxt.text == "") {
                     firstNameTxt.error = "This field can not be empty"
@@ -272,7 +271,7 @@ class AddUserAddressViewController: BaseViewController {
         
         lastNameTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (lastNameTxt.text == "") {
                     lastNameTxt.error = "This field can not be empty"
@@ -289,7 +288,7 @@ class AddUserAddressViewController: BaseViewController {
         
         phoneTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (phoneTxt.text == "") {
                     phoneTxt.error = "This field can not be empty"
@@ -306,7 +305,7 @@ class AddUserAddressViewController: BaseViewController {
         
         emailTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (emailTxt.text == "") {
                     emailTxt.error = "This field can not be empty"
@@ -314,7 +313,7 @@ class AddUserAddressViewController: BaseViewController {
                 } else if (!(emailTxt.text?.isValidEmail() ?? true)) {
                     emailTxt.error = "Email not valid"
                     emailTxt.isErrorRevealed = true
-                }else {
+                } else {
                     emailTxt.isErrorRevealed = false
                     
                     var contact = viewModel.contact.value
@@ -326,7 +325,7 @@ class AddUserAddressViewController: BaseViewController {
         
         addressTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (addressTxt.text == "") {
                     addressTxt.error = "This field can not be empty"
@@ -343,7 +342,7 @@ class AddUserAddressViewController: BaseViewController {
         
         countryTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (countryTxt.text == "") {
                     countryTxt.error = "This field can not be empty"
@@ -360,7 +359,7 @@ class AddUserAddressViewController: BaseViewController {
         
         cityTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (cityTxt.text == "") {
                     cityTxt.error = "This field can not be empty"
@@ -377,7 +376,7 @@ class AddUserAddressViewController: BaseViewController {
         
         postCodeTxt.rx.controlEvent([.editingChanged])
             .asObservable()
-            .subscribe ({ [unowned self] _ in
+            .subscribe({ [unowned self] _ in
                 
                 if (postCodeTxt.text == "") {
                     postCodeTxt.error = "This field can not be empty"

@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-protocol ProductFilterDelegate {
+protocol ProductFilterDelegate: AnyObject {
     func didApplyFilter(_ data: CategoryDataSource?)
 }
 
@@ -18,7 +18,7 @@ class ProductFilterViewController: BaseViewController,
     private let viewModel   = ProductFilterViewModel()
     var collectionview      : UICollectionView!
     var selectedIndex       : IndexPath?
-    var delegate            : ProductFilterDelegate? = nil
+    var delegate            : ProductFilterDelegate?
     
     let cartHotInfo                 = CartHotView()    
    
@@ -41,7 +41,7 @@ class ProductFilterViewController: BaseViewController,
                                             action: #selector(applyButtonTapped))
         self.navigationItem.rightBarButtonItem = applyBtn
         
-        let viewWidth = UIScreen.main.bounds.size.width/3;
+        let viewWidth = UIScreen.main.bounds.size.width/3
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: viewWidth, height: viewWidth)
@@ -78,7 +78,7 @@ class ProductFilterViewController: BaseViewController,
         viewModel.getListCategoris()
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     @objc private func backButtonTapped() {
         delegate?.didApplyFilter(nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -103,7 +103,7 @@ class ProductFilterViewController: BaseViewController,
         _NavController.pushViewController(cartVC, animated: true)
     }
     
-    //MARK: - Binding Data
+    // MARK: - Binding Data
      override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
@@ -113,26 +113,26 @@ class ProductFilterViewController: BaseViewController,
             .disposed(by: disposeBag)
     }
     
-    //MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.listCategories.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as! CategoryCollectionViewCell
+        let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as? CategoryCollectionViewCell
         let cellData = viewModel.listCategories[indexPath.row]
-        cell.setDataSource(data: cellData)
+        cell?.setDataSource(data: cellData)
         
         if selectedIndex?.row == indexPath.row && selectedIndex?.section == indexPath.section {
-            cell.setSelected(true)
+            cell?.setSelected(true)
         } else {
-            cell.setSelected(false)
+            cell?.setSelected(false)
         }
         
-        return cell
+        return cell!
     }
     
-    //MARK: - UICollectionViewDelegate
+    // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let tempIndex = self.selectedIndex {
             self.selectedIndex = indexPath

@@ -12,7 +12,7 @@ class VoucherDataSource: Mappable {
     
     var id      : String = ""
     var code    : String = ""
-    var couponRule  : VoucherCouponRule? = nil
+    var couponRule  : VoucherCouponRule?
     
     // Custom
     var isSelectedVoucher : Bool = false

@@ -44,13 +44,13 @@ class AppNavigationController: UINavigationController {
 
 public let kCompletionActionDefault: (() -> Void) = {_NavController.doneAlert()}
 
-//MARK: - Router
+// MARK: - Router
 extension AppNavigationController {
     
     
 }
 
-//MARK: Force Update
+// MARK: Force Update
 extension AppNavigationController {
     
     func redirectToAppStore() {
@@ -66,11 +66,11 @@ extension AppNavigationController {
     func showAlertWarning(_ title: String,
                           _ message: String,
                           _ okTitle: String,
-                          successCompletion: (()->Void)?) {
+                          successCompletion: (() -> Void)?) {
 
         DispatchQueue.main.async {
             let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction.init(title: okTitle, style: .default) { action in
+            let okAction = UIAlertAction.init(title: okTitle, style: .default) { _ in
                 alert.dismiss(animated: true, completion: nil)
                 successCompletion?()
             }
@@ -87,15 +87,15 @@ extension AppNavigationController {
                                _ message: String,
                                _ okTitle: String,
                                _ cancelTitle: String? = nil,
-                               successCompletion: @escaping ()->Void,
-                               failureCompletion: (()->Void)?) {
+                               successCompletion: @escaping () -> Void,
+                               failureCompletion: (() -> Void)?) {
         DispatchQueue.main.async {
             let alert = UIAlertController.init(title: title, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction.init(title: okTitle, style: .default) { action in
+            let okAction = UIAlertAction.init(title: okTitle, style: .default) { _ in
                 alert.dismiss(animated: true, completion: nil)
                 successCompletion()
             }
-            let cancelAction = UIAlertAction.init(title: cancelTitle, style: .cancel) { action in
+            let cancelAction = UIAlertAction.init(title: cancelTitle, style: .cancel) { _ in
                 alert.dismiss(animated: true, completion: nil)
                 failureCompletion?()
             }

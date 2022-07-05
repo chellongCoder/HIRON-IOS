@@ -13,7 +13,7 @@ let kMenuWidth       = 312.0
 
 class LaunchScreenViewController: UIViewController {
         
-    private let loadingAnimation    = VW_LoadingAnimation()
+    private let loadingAnimation    = LoadingAnimationView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ class LaunchScreenViewController: UIViewController {
         return true
     }
     
-    //Process data
+    // Process data
     private func checkUserLoggedIn() {
         self.startLoadingAnimation()
     }

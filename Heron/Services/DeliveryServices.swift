@@ -28,8 +28,7 @@ class DeliveryServices: NSObject {
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
             if responseData.responseCode == 400 {
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
@@ -47,7 +46,7 @@ class DeliveryServices: NSObject {
         }
     }
     
-    func createNewUserAddress(newContact: ContactDataSource, completion:@escaping (String?, Bool)-> Void) {
+    func createNewUserAddress(newContact: ContactDataSource, completion:@escaping (String?, Bool) -> Void) {
         
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses"
         
@@ -55,8 +54,7 @@ class DeliveryServices: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, false)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else if responseData.responseCode == 201 {
                 // created
@@ -67,7 +65,7 @@ class DeliveryServices: NSObject {
         }
     }
     
-    func updateUserAddress(newContact: ContactDataSource, completion:@escaping (String?, Bool)-> Void) {
+    func updateUserAddress(newContact: ContactDataSource, completion:@escaping (String?, Bool) -> Void) {
         
         let contactID = newContact.id
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses/" + contactID
@@ -76,8 +74,7 @@ class DeliveryServices: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, false)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else if responseData.responseCode == 204 {
                 // created

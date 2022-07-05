@@ -21,7 +21,7 @@ class CheckoutServices: NSObject {
         super.init()
         self.deliveryAddress
             .observe(on: MainScheduler.instance)
-            .subscribe { contactDataSource in
+            .subscribe{ contactDataSource in
                 self.prepearedCheckout()
             }
             .disposed(by: disposeBag)

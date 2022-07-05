@@ -36,7 +36,7 @@ class UserDataSource: Mappable {
     }
 }
 
-struct locationDataSource: Mappable {
+struct LocationDataSource: Mappable {
     
     var id: Int          = 0
     var location: String = ""

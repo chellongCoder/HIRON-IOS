@@ -166,7 +166,7 @@ class ProductDetailsViewController: BaseViewController,
             .disposed(by: disposeBag)
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -183,7 +183,7 @@ class ProductDetailsViewController: BaseViewController,
         self.present(addProductPopup, animated: true, completion: nil)
     }
     
-    //MARK: - Data
+    // MARK: - Data
     private func loadMediaView(_ height: CGFloat) {
         guard let listMedia = viewModel.productDataSource?.media else {return}
         
@@ -218,7 +218,7 @@ class ProductDetailsViewController: BaseViewController,
         
         guard let productData = self.viewModel.productDataSource else {return}
         
-        var lastView: UIView? = nil
+        var lastView: UIView?
         for content in productData.desc {
             let titleLabel = UILabel()
             titleLabel.text = content.title
@@ -262,7 +262,7 @@ class ProductDetailsViewController: BaseViewController,
         self.topMediaView.setContentOffset(CGPoint(x: CGFloat(current)*view.frame.width, y: 0), animated: true)
     }
     
-    //MARK: - UIScrollViewDelegate
+    // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageWidth = scrollView.frame.size.width
         let fractionalPage = scrollView.contentOffset.x / pageWidth

@@ -110,9 +110,7 @@ class AccountInfoViewController: BaseViewController {
             create_account_btn.snp.makeConstraints {
                 $0.width.equalToSuperview().multipliedBy(0.5)
             }
-           
-            
-            
+                       
 //            self.addNavigationBarButton(imageName: "ic-back-navi", direction: .left, action: #selector(back))
     //        self.btnNext.stylingActive(cornerRadius: 5.0)
     //        self.imgAddIDCard.cardStyle(color: AppConfig.Color.blueBlur)

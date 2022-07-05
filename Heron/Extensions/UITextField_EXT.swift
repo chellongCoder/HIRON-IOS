@@ -72,7 +72,7 @@ class SearchBarTxt: UITextField {
         
         self.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
-        self.layer.shadowColor = UIColor.black.cgColor //Any dark color
+        self.layer.shadowColor = UIColor.black.cgColor // Any dark color
       
         addSubview(icon)
         icon.snp.makeConstraints { (make) in
@@ -161,8 +161,7 @@ class TextFieldLimit: UITextField, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange,
-                   replacementString string: String) -> Bool
-    {
+                   replacementString string: String) -> Bool {
         let currentString: NSString = (textField.text ?? "") as NSString
         let newString: NSString =
             currentString.replacingCharacters(in: range, with: string) as NSString
@@ -174,4 +173,3 @@ class TextFieldLimit: UITextField, UITextFieldDelegate {
         return true
     }
 }
-

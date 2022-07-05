@@ -16,7 +16,7 @@ struct CartDataSource : Mappable {
     var totalSaved  : Int = 0
     var totalItemCount  : Int = 0
     var totalQuantity   : Int = 0
-    var store           : [StoreDataSource] = []  //same as cartDetails - rename for clean flow
+    var store           : [StoreDataSource] = []  // same as cartDetails - rename for clean flow
     
     // Custome
     var customSubTotal  : Float = 0.0
@@ -42,14 +42,14 @@ struct CartDataSource : Mappable {
 struct StoreDataSource : Mappable {
     
     var id              : String = ""
-    var storeDetails    : StoreDetailsDataSource? = nil
+    var storeDetails    : StoreDetailsDataSource?
     var targetId        : String = ""
     var cartItems       : [CartItemDataSource] = []
     var shippingOrder   : CartShippingDataSource?
     
     private var orderTotal  : Int = 0
     
-    //custom field
+    // custom field
     var isCheckoutSelected  : Bool = false
     var customOrderTotal    : Float = 0.0
     
@@ -87,7 +87,7 @@ struct StoreDetailsDataSource : Mappable {
 struct CartItemDataSource: Mappable {
     
     var id          : String = ""
-    var product     : ProductDataSource? = nil
+    var product     : ProductDataSource?
     var quantity    : Int = 0
     var isSelected  : Bool = false
     
@@ -107,7 +107,7 @@ struct CartShippingDataSource: Mappable {
     var carrier     : CartCarrierDataSource?
     private var qoutes  : [String: Any]?
     
-    //custom
+    // custom
     var amount      : Float = 0.0
     init?(map: Map) {
             
@@ -142,56 +142,3 @@ struct CartCarrierDataSource: Mappable {
         self.updatedAtStr = date.toString(dateFormat: "MMM dd, yyyy")
     }
 }
-
-
-
-//import Foundation
-//import ObjectMapper
-//
-//struct Cart : Codable {
-//    var cartDetail : [CartDetailForCheckout]?
-//    var couponIds : [String]?
-//    var recipient : Recipient?
-//
-//}
-//
-//struct CartDetailForCheckout : Codable {
-//    var selectedCartItems : [String]?
-//    var targetId : String?
-//    var carrierCode : String?
-//
-//}
-//
-//struct CartDetailReq : Codable {
-//    var cart : Cart?
-//    var includes : String?
-//    var paymentMethodCode : String?
-//    var paymentPlatform : String?
-//
-//   
-//}
-//
-//struct Recipient : Codable {
-//    var id : String?
-//    var createdAt : Int?
-//    var updatedAt : Int?
-//    var userId : String?
-//    var profileId : String?
-//    var firstName : String?
-//    var lastName : String?
-//    var email : String?
-//    var phone : String?
-//    var country : String?
-//    var region : String?
-//    var province : String?
-//    var district : String?
-//    var ward : String?
-//    var address : String?
-//    var postalCode : String?
-//    var latitude : Double?
-//    var longitude : Double?
-//    var isDefault : Bool?
-//
-//
-//}
-

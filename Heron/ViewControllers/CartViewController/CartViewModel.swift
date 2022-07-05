@@ -8,17 +8,17 @@
 import UIKit
 
 class CartViewModel {
-    weak var controller     : CartViewController? = nil
-    var cartDataSource      : CartDataSource? = nil
+    weak var controller     : CartViewController?
+    var cartDataSource      : CartDataSource?
     
     func addToCart(product: ProductDataSource, quantity: Int? = 1) {
         self.controller?.startLoadingAnimation()
-        _CartServices.addToCart(listProducts: [product]) { errorMessage, successMessage in
+        _CartServices.addToCart(listProducts: [product]) { errorMessage, _ in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -33,12 +33,12 @@ class CartViewModel {
 //        guard let productID = item.product?.id else {return}
         
         self.controller?.startLoadingAnimation()
-        _CartServices.removeCartItem(itemID: item.id) { errorMessage, successMessage in
+        _CartServices.removeCartItem(itemID: item.id) { errorMessage, _ in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -52,12 +52,12 @@ class CartViewModel {
     func updateCartItemsQuanlity(_ item: CartItemDataSource, newValue: Int) {
                 
         self.controller?.startLoadingAnimation()
-        _CartServices.updateCartItemQuanlity(itemID: item.id, newValue: newValue) { errorMessage, successMessage in
+        _CartServices.updateCartItemQuanlity(itemID: item.id, newValue: newValue) { errorMessage, _ in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -71,12 +71,12 @@ class CartViewModel {
     func reloadCart() {
         self.controller?.startLoadingAnimation()
         
-        _CartServices.getCartDataSource { errorMessage, cartData in
+        _CartServices.getCartDataSource { errorMessage, _ in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)

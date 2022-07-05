@@ -39,7 +39,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     func setDataSource(data : CategoryDataSource) {
-        self.titleLabel.text = data.name;
+        self.titleLabel.text = data.name
     }
     
     func setSelected(_ isSelected : Bool) {

@@ -19,8 +19,8 @@ class UserAddressCell: UITableViewCell {
     let addressLabel        = UILabel()
     let editButton          = UIButton()
     
-    private var contactData : ContactDataSource? = nil
-    var delegate            : UserAddressCellDelegate? = nil
+    private var contactData : ContactDataSource?
+    var delegate            : UserAddressCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -47,7 +47,6 @@ class UserAddressCell: UITableViewCell {
             make.right.equalToSuperview().offset(-10)
         }
         
-
         fullName.text = "Mike Le"
         fullName.font = getFontSize(size: 14, weight: .medium)
         fullName.textColor = kDefaultTextColor

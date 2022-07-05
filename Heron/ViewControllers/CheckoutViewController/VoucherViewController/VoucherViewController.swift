@@ -75,17 +75,16 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
         viewModel.getListVoucher()
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     
     @objc private func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
     
-    //MARK: - Data
+    // MARK: - Data
     func bindingData() {
         viewModel.listUserVouchers
-            .bind(to: tableView.rx.items) {
-                (tableView: UITableView, index: Int, element: VoucherDataSource) in
+            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: VoucherDataSource) in
                 let cell = VoucherTableViewCell(style: .default, reuseIdentifier:"VoucherTableViewCell")
                 cell.setDataSource(element)
                 cell.delegate = self
@@ -106,7 +105,7 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
             
     }
     
-    //MARK: - VoucherTableViewCellDelegate
+    // MARK: - VoucherTableViewCellDelegate
     func didApplyVoucher(_ voucher: VoucherDataSource) {
         self.acceptance?.accept(voucher)
         self.navigationController?.popViewController(animated: true)

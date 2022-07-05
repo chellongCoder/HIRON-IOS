@@ -14,7 +14,7 @@ class CartHotView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.backgroundColor = .clear//kPrimaryColor
+        self.backgroundColor = .clear
         self.layer.cornerRadius = 8
                 
         let cartIcon = UIImageView(image: UIImage.init(systemName: "cart")?.withRenderingMode(.alwaysTemplate))

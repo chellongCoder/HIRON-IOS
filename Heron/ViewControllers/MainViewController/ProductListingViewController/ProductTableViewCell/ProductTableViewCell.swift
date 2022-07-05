@@ -7,22 +7,22 @@
 
 import UIKit
 
-protocol ProductCellDelegate {
+protocol ProductCellDelegate : AnyObject {
     func addProductToCart(_ data: ProductDataSource)
 }
 
 class ProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
-    let discountValue       = VW_DiscountValue()
+    let discountValue       = DiscountValueView()
     let productTitleLabel   = UILabel()
     let starView            = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
 //    let addToCartBtn        = UIButton()
     
-    private var productData : ProductDataSource? = nil
-    var delegate            : ProductCellDelegate? = nil
+    private var productData : ProductDataSource?
+    var delegate            : ProductCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

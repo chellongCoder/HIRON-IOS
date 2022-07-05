@@ -8,5 +8,5 @@
 import UIKit
 
 class AddToCartViewModel: NSObject {
-    weak var controller : AddToCartViewController? = nil
+    weak var controller : AddToCartViewController?
 }

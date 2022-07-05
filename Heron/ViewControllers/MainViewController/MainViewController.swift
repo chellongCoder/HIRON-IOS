@@ -18,7 +18,6 @@ class MainViewController: UITabBarController {
         self.tabBar.backgroundColor = .white
         self.setNavigationBarAppearance(color: .white)
         
-     
         if #available(iOS 13.0, *) {
             let appearance = UITabBarAppearance()
             appearance.configureWithDefaultBackground()
@@ -28,7 +27,6 @@ class MainViewController: UITabBarController {
 //              self.tabBar.scrollEdgeAppearance = view.standardAppearance
 
         }
-        
         
         let homeNav = UINavigationController.init(rootViewController: HomepageViewController())
         homeNav.tabBarItem = UITabBarItem(title: "Home", image: UIImage.init(systemName: "house"), selectedImage: nil)

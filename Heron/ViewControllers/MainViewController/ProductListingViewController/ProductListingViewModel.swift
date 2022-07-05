@@ -10,13 +10,12 @@ import RxSwift
 import RxRelay
 
 class ProductListingViewModel: NSObject {
-    weak var controller     : ProductListingViewController? = nil
-    var listBanners         : [String] = ["","","","","","","","",""]
-    var filterData          : CategoryDataSource? = nil
+    weak var controller     : ProductListingViewController?
+    var listBanners         : [String] = ["", "", "", "", "", "", "", "", ""]
+    var filterData          : CategoryDataSource?
     var listProducts        = BehaviorRelay<[ProductDataSource]>(value: [])
     
-    func getProductList()
-    {
+    func getProductList() {
         
         var param : [String: Any] = ["filter[featureType][eq]" : "ecom",
                                      "sort[createdAt]" : "desc"]
@@ -34,7 +33,7 @@ class ProductListingViewModel: NSObject {
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -48,10 +47,10 @@ class ProductListingViewModel: NSObject {
     }
     
     func reloadCart() {
-        _CartServices.getCartDataSource { errorMessage, cartData in
+        _CartServices.getCartDataSource { errorMessage, _ in
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)

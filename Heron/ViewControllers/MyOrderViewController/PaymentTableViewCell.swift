@@ -31,7 +31,6 @@ class PaymentTableViewCell: UITableViewCell {
                 $0.top.left.equalToSuperview().offset(10)
             }
             
-            
             descStatusLabel.text = "Visa | XXXXXXXXXX123  Paid"
             contentView.addSubview(descStatusLabel)
             descStatusLabel.snp.makeConstraints {

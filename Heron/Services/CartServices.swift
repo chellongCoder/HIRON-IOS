@@ -70,7 +70,7 @@ class CartServices : NSObject {
         }
     }
     
-    func addToCart(listProducts: [ProductDataSource], completion:@escaping (String?, String?)-> Void) {
+    func addToCart(listProducts: [ProductDataSource], completion:@escaping (String?, String?) -> Void) {
         
         var productsDict : [[String:Any]] = []
         for product in listProducts {
@@ -86,35 +86,29 @@ class CartServices : NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
-            }
-            else if responseData.responseCode == 200, responseData.responseCode == 204 {
+            } else if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
-            }
-            else {
+            } else {
                 completion(responseData.responseMessage, nil)
             }
         })
     }
     
-    func removeCartItem(itemID: String, completion:@escaping (String?, String?)-> Void) {
+    func removeCartItem(itemID: String, completion:@escaping (String?, String?) -> Void) {
                 
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         _ = _AppDataHandler.delete(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode == 200 || responseData.responseCode == 204 {
+            } else if responseData.responseCode == 200 || responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
-            }
-            else {
+            } else {
                 completion(responseData.responseMessage, nil)
             }
         })
@@ -128,29 +122,25 @@ class CartServices : NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode == 200 || responseData.responseCode == 204 {
+            } else if responseData.responseCode == 200 || responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
-            }
-            else {
+            } else {
                 completion(responseData.responseMessage, nil)
             }
         })
     }
     
-    func getCartDataSource(completion:@escaping (String?, CartDataSource?)-> Void) {
+    func getCartDataSource(completion:@escaping (String?, CartDataSource?) -> Void) {
         
         let fullURLRequest = kGatwayCartURL + "/carts"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {                
                 if let data = responseData.responseData?["data"] as? [String:Any] {

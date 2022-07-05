@@ -74,7 +74,6 @@ class SignInViewController: BaseViewController {
     //        email_tf.stylingBlueBorder()
             email_tf.placeholder = "Email"
             
-            
     //        pass_tf.stylingBlueBorder()
             pass_tf.placeholder = "Password"
             pass_tf.isSecureTextEntry = true
@@ -133,11 +132,9 @@ class SignInViewController: BaseViewController {
     //        self.openChooseOptionSelectImage()
         }
         
-
 //        override func configObs() {
 //            observeLoading(vm.isLoading)
 //            observeMessage(vm.responseMsg)
 //            observeAuthorized(vm.isAuthorised)
 //        }
     }
-

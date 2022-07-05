@@ -71,13 +71,12 @@ class ApplicationDataHandler: NSObject {
     }
 }
 
-//MARK: -
+// MARK: -
 extension ApplicationDataHandler {
     
     // MARK: - Helper
     
-    private func handleResponseDict (response:AFDataResponse<Any>) -> ResponseDataSource?
-    {
+    private func handleResponseDict (response:AFDataResponse<Any>) -> ResponseDataSource? {
         if let urlRequest = response.request?.url?.path {
             print(String(format: "Lucas-API-URL-Request: %@", urlRequest))
         }
@@ -109,30 +108,24 @@ extension ApplicationDataHandler {
                 if let responseDict = value as? [String: Any] {
                     responseData.responseMessage = responseDict["message"] as? String
                 }
-            }
-            else if responseData.responseCode == 401 ||
-                        responseData.responseCode == 403
-            {
+            } else if responseData.responseCode == 401 || responseData.responseCode == 403 {
                 if (response.request?.url?.path ?? "").contains("system/session") {
                     
                     // ignored case signout with 401
                     return nil
                 }
                 return nil
-            }
-            else if responseData.responseCode == 404 {
+            } else if responseData.responseCode == 404 {
                 print("API NOT FOUND")
                 return nil
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 
                 responseData.responseMessage = NSLocalizedString("kServerErrorMessage", comment: "")
                 
                 if let responseDict = value as? [String: Any] {
                     responseData.responseMessage = responseDict["message"] as? String
                 }
-            }
-            else {
+            } else {
                 // Don't do anything
                 print(response.response as Any)
             }
@@ -171,16 +164,15 @@ extension ApplicationDataHandler {
     }
 }
 
-
 // MARK: - App Version
 extension ApplicationDataHandler {
     
     func isUpdateAvailable(callback: @escaping (Bool) -> Void) {
-        let bundleId = Bundle.main.infoDictionary!["CFBundleIdentifier"] as! String
+        let bundleId = Bundle.main.infoDictionary!["CFBundleIdentifier"] as? String
         
-        bfprint(String(format:"Lucas-API-Request-URL: %@", "https://itunes.apple.com/lookup?bundleId=\(bundleId)"), tag: "API-Request", level: .default)
+        bfprint(String(format:"Lucas-API-Request-URL: %@", "https://itunes.apple.com/lookup?bundleId=\(bundleId ?? "")"), tag: "API-Request", level: .default)
         
-        self.alamofireManager.request("https://itunes.apple.com/lookup?bundleId=\(bundleId)").responseJSON { response in
+        self.alamofireManager.request("https://itunes.apple.com/lookup?bundleId=\(bundleId ?? "")").responseJSON { response in
             if let json = response.value as? NSDictionary,
                let results = json["results"] as? NSArray,
                let entry = results.firstObject as? NSDictionary,
@@ -196,10 +188,9 @@ extension ApplicationDataHandler {
     }
 }
 
-//MARK: - POST API template request
+// MARK: - POST API template request
 extension ApplicationDataHandler {
-    func get(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
-    {
+    func get(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request? {
                 
         bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
         bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
@@ -270,9 +261,7 @@ extension ApplicationDataHandler {
             }
     }
     
-    func delete(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
-    {
-                
+    func delete(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request? {
         bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
         bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
         
@@ -294,8 +283,7 @@ extension ApplicationDataHandler {
             }
     }
     
-    func patch(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
-    {
+    func patch(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request? {
                 
         bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
         bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)

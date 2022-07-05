@@ -9,7 +9,7 @@
 import UIKit
 import NVActivityIndicatorView
 
-class VW_LoadingAnimation: UIView {
+class LoadingAnimationView: UIView {
 
     var loadingAnimation        = NVActivityIndicatorView(frame: .zero,
                                                           type: .ballScaleRippleMultiple,

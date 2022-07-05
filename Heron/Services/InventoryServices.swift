@@ -34,15 +34,14 @@ class InventoryServices {
         }
     }
     
-    func getListCategories(completion:@escaping (String?, [CategoryDataSource]?)-> Void) {
+    func getListCategories(completion:@escaping (String?, [CategoryDataSource]?) -> Void) {
         
         let fullURLRequest = kGatwayInventoryURL + "/categories"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 

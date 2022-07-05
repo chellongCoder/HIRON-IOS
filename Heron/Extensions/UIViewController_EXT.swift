@@ -21,7 +21,7 @@ extension UIViewController {
 
     func startLoadingAnimation() {
         DispatchQueue.main.async {
-            let loadingAnimation      = VW_LoadingAnimation()
+            let loadingAnimation      = LoadingAnimationView()
             loadingAnimation.isHidden = false
             self.view.addSubview(loadingAnimation)
             loadingAnimation.snp.makeConstraints { (make) in
@@ -31,7 +31,7 @@ extension UIViewController {
     }
 
     func getStartLoadingAnimation() -> UIView {
-        let loadingAnimation      = VW_LoadingAnimation()
+        let loadingAnimation      = LoadingAnimationView()
         loadingAnimation.isHidden = false
         self.view.addSubview(loadingAnimation)
         loadingAnimation.snp.makeConstraints { (make) in
@@ -44,7 +44,7 @@ extension UIViewController {
     func endLoadingAnimation() {
         DispatchQueue.main.async {
             for view in self.view.subviews {
-                if view .isKind(of: VW_LoadingAnimation.self) {
+                if view .isKind(of: LoadingAnimationView.self) {
                     UIView.animate(withDuration: 1.0) {
                         view.alpha = 0.0
                     } completion: { (_) in
@@ -56,7 +56,7 @@ extension UIViewController {
     }
 
     func startLoadingAnimationTimer(duration: Double) {
-        let loadingAnimation      = VW_LoadingAnimation()
+        let loadingAnimation      = LoadingAnimationView()
         loadingAnimation.isHidden = false
         self.view.addSubview(loadingAnimation)
         loadingAnimation.snp.makeConstraints { (make) in
@@ -71,16 +71,14 @@ extension UIViewController {
     }
     
     func setNavigationBarAppearance(color: UIColor) {
-        if #available(iOS 15.0, *){
+        if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithDefaultBackground()
             appearance.backgroundColor = color // The background color.
             
             self.navigationController?.navigationBar.standardAppearance = appearance
             self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
-            
-          
-            
+                      
         } else { // Background color support for older versions
             self.navigationController?.navigationBar.barTintColor = color
             
