@@ -14,6 +14,9 @@ class VoucherDataSource: Mappable {
     var code    : String = ""
     var couponRule  : VoucherCouponRule? = nil
     
+    // Custom
+    var isSelectedVoucher : Bool = false
+    
     required init?(map: Map) {
         //
     }

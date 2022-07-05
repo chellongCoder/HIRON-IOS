@@ -27,6 +27,16 @@ class VoucherViewModel: NSObject {
             }
             
             if let listNewVouchers = listNewVouchers {
+                guard let selectedVoucher = _CartServices.voucherCode.value else {
+                    self.listUserVouchers.accept(listNewVouchers)
+                    return
+                }
+                
+                for voucher in listNewVouchers {
+                    if voucher.id == selectedVoucher.id {
+                        voucher.isSelectedVoucher = true
+                    }
+                }
                 self.listUserVouchers.accept(listNewVouchers)
             }
         }

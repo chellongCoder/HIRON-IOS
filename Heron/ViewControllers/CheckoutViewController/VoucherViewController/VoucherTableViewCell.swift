@@ -9,6 +9,7 @@ import UIKit
 
 protocol VoucherTableViewCellDelegate {
     func didApplyVoucher(_ voucher: VoucherDataSource)
+    func didCancelVoucher()
 }
 
 class VoucherTableViewCell: UITableViewCell {
@@ -102,6 +103,14 @@ class VoucherTableViewCell: UITableViewCell {
             //discout percent
             self.promoValue.text = String(format: "%ld%% OFF", cellData.couponRule?.discount ?? 0)
         }
+        
+        if cellData.isSelectedVoucher {
+            self.applyBtn.setTitle("Cancel", for: .normal)
+            self.applyBtn.backgroundColor = kRedHightLightColor
+        } else {
+            self.applyBtn.setTitle("Apply", for: .normal)
+            self.applyBtn.backgroundColor = kPrimaryColor
+        }
     }
     
     //MARK: - Buttons
@@ -110,6 +119,10 @@ class VoucherTableViewCell: UITableViewCell {
             return
         }
 
-        self.delegate?.didApplyVoucher(voucherData)
+        if voucherData.isSelectedVoucher {
+            self.delegate?.didCancelVoucher()
+        } else {
+            self.delegate?.didApplyVoucher(voucherData)
+        }
     }
 }

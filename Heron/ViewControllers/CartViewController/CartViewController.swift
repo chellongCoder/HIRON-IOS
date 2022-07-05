@@ -111,7 +111,10 @@ class CartViewController: BaseViewController,
         _CartServices.voucherCode
             .observe(on: MainScheduler.instance)
             .subscribe { voucherDataSource in
-                guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
+                guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {
+                    self.voucherView.voucherCode.text = " SALE 0% "
+                    return
+                }
                 if voucherDataSource.couponRule?.isFixed ?? false {
                     // discount value
                     self.voucherView.voucherCode.text = String(format: "$%.2f", voucherDataSource.couponRule?.customDiscount ?? 0.0)

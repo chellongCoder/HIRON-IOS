@@ -111,4 +111,9 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
         self.acceptance?.accept(voucher)
         self.navigationController?.popViewController(animated: true)
     }
+    
+    func didCancelVoucher() {
+        self.acceptance?.accept(nil)
+        self.navigationController?.popViewController(animated: true)
+    }
 }
