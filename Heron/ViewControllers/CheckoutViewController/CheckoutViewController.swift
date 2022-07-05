@@ -198,9 +198,10 @@ class CheckoutViewController: UIViewController,
     }
     
     @objc private func voucherTapped() {
-        let voucherVC = VoucherViewController()
-        voucherVC.acceptance = _CartServices.voucherCode
-        self.navigationController?.pushViewController(voucherVC, animated: true)
+        // Fixing issue: 8336] [App][Checkout] Mục Voucher tại màn hình check out chỉ được view không được chọn voucher
+//        let voucherVC = VoucherViewController()
+//        voucherVC.acceptance = _CartServices.voucherCode
+//        self.navigationController?.pushViewController(voucherVC, animated: true)
     }
     
     @objc private func placeOrderTapped() {
