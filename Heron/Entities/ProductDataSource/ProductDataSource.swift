@@ -48,6 +48,14 @@ class ProductDataSource: Mappable, Equatable {
         self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
         self.customRegularPrice = Float(regularPrice)/100.0
         self.customFinalPrice = Float(finalPrice)/100.0
+        
+        if thumbnailUrl == nil {
+            if let firstMedia = media.first(where: { productMedia in
+                return (productMedia.type == "image") && (productMedia.value != nil)
+            }) {
+                thumbnailUrl = firstMedia.value
+            }
+        }
     }
     
     static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {
