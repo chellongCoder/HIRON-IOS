@@ -24,7 +24,7 @@ class ConfigurationProductVariantView: UIView {
         allConfigView.snp.makeConstraints { make in
             make.top.equalToSuperview()
             make.width.centerX.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview()
         }
     }
     
@@ -70,8 +70,7 @@ class ConfigurationProductVariantView: UIView {
                     make.left.equalTo(configurationTitle.snp.right).offset(5)
                 }
                 
-                #warning("HARD_CODE")
-                if true {//configuration.values.count > 0 {
+                if configuration.values.count > 0 {
                     let scrollView = UIScrollView()
                     allConfigView.addSubview(scrollView)
                     scrollView.snp.makeConstraints { make in
@@ -84,10 +83,11 @@ class ConfigurationProductVariantView: UIView {
                     lastConfig = scrollView
                     
                     var lastBtn : UIButton?
-                    for index in 1...5 {
+                    for value in configuration.values {
                         let chipButton = UIButton()
+                        chipButton.addTarget(self, action: #selector(didSelectTheValue(_:)), for: .touchUpInside)
                         chipButton.layer.cornerRadius = 10
-                        chipButton.setTitle("  Test daiff  ", for: .normal)
+                        chipButton.setTitle(String(format: "  %@  ", value), for: .normal)
                         chipButton.setTitleColor(kDefaultTextColor, for: .normal)
                         chipButton.titleLabel?.font = getFontSize(size: 12, weight: .medium)
                         chipButton.backgroundColor = kDisableColor
@@ -120,5 +120,9 @@ class ConfigurationProductVariantView: UIView {
                 }
             }
         }
+    }
+    
+    @objc private func didSelectTheValue(_ sender: UIButton) {
+        
     }
 }

@@ -115,18 +115,18 @@ class ProductDetailsViewController: BaseViewController,
                 
         contentView.addSubview(variantView)
         variantView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
+            make.left.equalToSuperview()
             make.top.equalTo(starView.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
         }
         
-//        contentView.addSubview(contentDescView)
-//        contentDescView.snp.makeConstraints { make in
-//            make.left.equalTo(packageTitle)
-//            make.top.equalTo(variantView.snp.bottom).offset(15)
-//            make.centerX.equalToSuperview()
-//            make.bottom.lessThanOrEqualToSuperview().offset(-50)
-//        }
+        contentView.addSubview(contentDescView)
+        contentDescView.snp.makeConstraints { make in
+            make.left.equalTo(packageTitle)
+            make.top.equalTo(variantView.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-50)
+        }
         
         addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
