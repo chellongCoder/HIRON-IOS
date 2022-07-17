@@ -21,7 +21,7 @@ class AccountInfoViewController: BaseViewController {
         
         var prev_screen_pass = ""
         
-    //    let vm = AuthViewModel()
+        let vm = AuthViewModel()
 
         override func configUI() {
             let bg = UIImageView(image: UIImage(named: "bg"))
@@ -122,10 +122,10 @@ class AccountInfoViewController: BaseViewController {
         }
         
         @objc func continue_action(_ sender: Any) {
-    //        vm.sign_up(username: email_tf.text ?? "", passwd: prev_screen_pass, fitst_name: first_name_tf.text ?? "", last_name: last_name_tf.text ?? "", gender: gender_tf.text ?? "", dob: Int(dob_tf.text ?? "") ?? 0, identityNum: "1234567889", phone: phone_number_tf.text ?? "") {
-    //            Defaults[.isLogged] = true
+            vm.sign_up(username: email_tf.text ?? "", passwd: prev_screen_pass, fitst_name: first_name_tf.text ?? "", last_name: last_name_tf.text ?? "", gender: gender_tf.text ?? "", dob: Int(dob_tf.text ?? "") ?? 0, identityNum: "1234567889", phone: phone_number_tf.text ?? "") {
                 let vc = SignInSuccessViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             }
     //        self.openChooseOptionSelectImage()
         }
+}

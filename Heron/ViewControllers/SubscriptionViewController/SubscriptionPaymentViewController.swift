@@ -97,7 +97,8 @@ override func viewWillAppear(_ animated: Bool) {
 }
     
     @objc func continue_action(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        let homeVC = MainViewController.sharedInstance
+        self.navigationController?.setViewControllers([homeVC], animated: true)
     }
     
 
