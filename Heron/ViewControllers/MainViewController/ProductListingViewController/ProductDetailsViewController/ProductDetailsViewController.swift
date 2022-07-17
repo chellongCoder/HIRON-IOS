@@ -20,6 +20,7 @@ class ProductDetailsViewController: BaseViewController,
     private let priceDiscount   = UILabel()
     private let priceLabel      = UILabel()
     private let starView        = UILabel()
+    private let variantView     = ConfigurationProductVariantView()
     private let contentDescView = UIView()
     
     private let addToCartBtn    = UIButton()
@@ -28,7 +29,7 @@ class ProductDetailsViewController: BaseViewController,
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
-        viewModel.productDataSource = data
+        viewModel.productDataSource.accept(data)
     }
     
     required init?(coder: NSCoder) {
@@ -55,7 +56,6 @@ class ProductDetailsViewController: BaseViewController,
             make.right.left.equalToSuperview()
             make.bottom.equalTo(topMediaView.snp.top).offset(staticHeight + 50)
         }
-        self.loadMediaView(staticHeight)
         
         pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = kPrimaryColor
@@ -68,7 +68,6 @@ class ProductDetailsViewController: BaseViewController,
             make.height.equalTo(15)
         }
         
-        packageTitle.text = self.viewModel.productDataSource?.name
         packageTitle.font = getFontSize(size: 20, weight: .medium)
         packageTitle.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         packageTitle.numberOfLines = 0
@@ -89,7 +88,6 @@ class ProductDetailsViewController: BaseViewController,
 //            make.left.equalTo(packageTitle)
 //        }
         
-        priceDiscount.text = String(format: "$%.2f", viewModel.productDataSource?.customFinalPrice ?? 0.0)
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
@@ -98,7 +96,6 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(packageTitle)
         }
         
-        priceLabel.text = String(format: "#%.2f", viewModel.productDataSource?.customRegularPrice ?? 0.0)
         priceLabel.textColor = kDisableColor
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
@@ -115,16 +112,21 @@ class ProductDetailsViewController: BaseViewController,
             make.top.equalTo(priceDiscount.snp.bottom).offset(5)
             make.left.equalTo(packageTitle)
         }
-        
-        contentView.addSubview(contentDescView)
-        contentDescView.snp.makeConstraints { make in
-            make.left.equalTo(packageTitle)
+                
+        contentView.addSubview(variantView)
+        variantView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
             make.top.equalTo(starView.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-50)
         }
         
-        self.loadContentDescView()
+//        contentView.addSubview(contentDescView)
+//        contentDescView.snp.makeConstraints { make in
+//            make.left.equalTo(packageTitle)
+//            make.top.equalTo(variantView.snp.bottom).offset(15)
+//            make.centerX.equalToSuperview()
+//            make.bottom.lessThanOrEqualToSuperview().offset(-50)
+//        }
         
         addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
@@ -154,6 +156,7 @@ class ProductDetailsViewController: BaseViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        viewModel.reloadProductDetails()
     }
     
     // MARK: - Binding Data
@@ -162,6 +165,23 @@ class ProductDetailsViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
                 self.cartHotInfo.cartPriceValue.text = String(format: "$%.2f", cartDataSource?.customGrandTotal ?? 0.0)
+            }
+            .disposed(by: disposeBag)
+        viewModel.productDataSource
+            .observe(on: MainScheduler.instance)
+            .subscribe { productDataSource in
+                guard let productData = productDataSource.element else {return}
+                self.packageTitle.text = productData?.name
+                self.priceDiscount.text = String(format: "$%.2f", productData?.customFinalPrice ?? 0.0)
+                self.priceLabel.text = String(format: "#%.2f", productData?.customRegularPrice ?? 0.0)
+                
+                let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
+                self.loadMediaView(staticHeight)
+                
+                self.variantView.configurations = productData?.configurableOptions ?? []
+                self.variantView.reloadUI()
+                
+                self.loadContentDescView()
             }
             .disposed(by: disposeBag)
     }
@@ -177,7 +197,7 @@ class ProductDetailsViewController: BaseViewController,
     }
     
     @objc private func buyNowButtonTapped() {
-        guard let productData = self.viewModel.productDataSource else {return}
+        guard let productData = self.viewModel.productDataSource.value else {return}
         let addProductPopup = AddToCartViewController.init(productData: productData)
         addProductPopup.modalPresentationStyle = .overFullScreen
         self.present(addProductPopup, animated: true, completion: nil)
@@ -185,7 +205,7 @@ class ProductDetailsViewController: BaseViewController,
     
     // MARK: - Data
     private func loadMediaView(_ height: CGFloat) {
-        guard let listMedia = viewModel.productDataSource?.media else {return}
+        guard let listMedia = viewModel.productDataSource.value?.media else {return}
         
         for subView in topMediaView.subviews {
             subView.removeFromSuperview()
@@ -216,7 +236,7 @@ class ProductDetailsViewController: BaseViewController,
             subview.removeFromSuperview()
         }
         
-        guard let productData = self.viewModel.productDataSource else {return}
+        guard let productData = self.viewModel.productDataSource.value else {return}
         
         var lastView: UIView?
         for content in productData.desc {

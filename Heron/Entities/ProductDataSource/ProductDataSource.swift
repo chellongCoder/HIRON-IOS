@@ -8,6 +8,16 @@
 import UIKit
 import ObjectMapper
 
+enum ProductMediaType : String {
+    case IMAGE      = "image"
+    case VIDEO      = "video"
+}
+
+enum ProductType : String {
+    case simple         = "simple"
+    case configurable   = "configurable"
+}
+
 class ProductDataSource: Mappable, Equatable {
     
     var id              : String = ""
@@ -21,6 +31,10 @@ class ProductDataSource: Mappable, Equatable {
     var thumbnailUrl    : String?
     var media           : [ProductMediaDataSource] = []
     var available       : Bool = false
+    
+    // configurable product
+    var type            : ProductType = .simple
+    var configurableOptions : [ConfigurableOption] = []
     
     // custome value
     var discountPercent : Float = 0.0
@@ -45,6 +59,9 @@ class ProductDataSource: Mappable, Equatable {
         media           <- map["media"]
         available       <- map["available"]
         
+        type            <- map["type"]
+        configurableOptions <- map["configurableOptions"]
+        
         self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
         self.customRegularPrice = Float(regularPrice)/100.0
         self.customFinalPrice = Float(finalPrice)/100.0
@@ -61,11 +78,6 @@ class ProductDataSource: Mappable, Equatable {
     static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {
         return lhs.id == rhs.id
     }
-}
-
-enum ProductMediaType : String {
-    case IMAGE      = "image"
-    case VIDEO      = "video"
 }
 
 class ProductMediaDataSource : Mappable {
@@ -99,5 +111,22 @@ struct ContentDescription : Mappable {
         title       <- map["title"]
         content     <- map["content"]
         visibility  <- map["visibility"]
+    }
+}
+
+struct ConfigurableOption : Mappable {
+    
+    var code    : String = ""
+    var label   : String = ""
+    var values  : [String] = []
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        code    <- map["code"]
+        label   <- map["label"]
+        values  <- map["values"]
     }
 }

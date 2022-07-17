@@ -10,6 +10,8 @@
 		5420DFD1ADB514180E443DB8 /* Pods_Heron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */; };
 		5D9629979773B0F0A8EF6E29 /* Pods_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */; };
 		8F44A8CAC79E09534AD07075 /* Pods_HeronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */; };
+		930175752883322A00151A4B /* ConfigurationProductVariantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930175742883322A00151A4B /* ConfigurationProductVariantView.swift */; };
+		9301757828841E2700151A4B /* ChipViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301757728841E2700151A4B /* ChipViewButton.swift */; };
 		930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3031281A05A1003D247A /* ProductListingViewModel.swift */; };
 		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
 		930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3035281A05C7003D247A /* ProductDetailsViewController.swift */; };
@@ -161,6 +163,8 @@
 		2F07810B31D8BE9A038CEA94 /* Pods-HeronTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.release.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.release.xcconfig"; sourceTree = "<group>"; };
 		3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		718D7E879D9BB835A6FFA734 /* Pods-HeronTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.debug.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.debug.xcconfig"; sourceTree = "<group>"; };
+		930175742883322A00151A4B /* ConfigurationProductVariantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationProductVariantView.swift; sourceTree = "<group>"; };
+		9301757728841E2700151A4B /* ChipViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipViewButton.swift; sourceTree = "<group>"; };
 		930F3031281A05A1003D247A /* ProductListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewModel.swift; sourceTree = "<group>"; };
 		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -345,9 +349,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		930175732883320D00151A4B /* ConfigurationProductVariantView */ = {
+			isa = PBXGroup;
+			children = (
+				930175742883322A00151A4B /* ConfigurationProductVariantView.swift */,
+			);
+			path = ConfigurationProductVariantView;
+			sourceTree = "<group>";
+		};
+		9301757628841E0B00151A4B /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				9301757728841E2700151A4B /* ChipViewButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		930F3030281A0577003D247A /* ProductDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				930175732883320D00151A4B /* ConfigurationProductVariantView */,
 				93D5522D282A76790034B2B7 /* AddToCartViewController */,
 				930F3035281A05C7003D247A /* ProductDetailsViewController.swift */,
 				930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */,
@@ -469,6 +490,7 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9301757628841E0B00151A4B /* Buttons */,
 				938F7A8F2821119E00DD60DB /* BannerView */,
 				933D19262819946000F1CCC4 /* LoadingAnimationView.swift */,
 				931EC25D2846F60E00B72479 /* CartHotView.swift */,
@@ -1028,7 +1050,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n${PODS_ROOT}/SwiftLint/swiftlint\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# ${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 		DA67F540836E541EE4B374E8 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1092,6 +1114,7 @@
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */,
 				93AF91F2284BD6570075CD65 /* AddressView.swift in Sources */,
+				930175752883322A00151A4B /* ConfigurationProductVariantView.swift in Sources */,
 				93EC90C8285A382B009056F6 /* OrderSumView.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				B5061C04286BF22700A03271 /* ProductStatusTableViewCell.swift in Sources */,
@@ -1113,6 +1136,7 @@
 				B561819B2862B59D009BE6E5 /* Attribute.swift in Sources */,
 				B561819C2862B59D009BE6E5 /* AttributeValues.swift in Sources */,
 				B56181992862B59D009BE6E5 /* Brand.swift in Sources */,
+				9301757828841E2700151A4B /* ChipViewButton.swift in Sources */,
 				93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
