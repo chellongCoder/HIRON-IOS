@@ -84,13 +84,8 @@ class ConfigurationProductVariantView: UIView {
                     
                     var lastBtn : UIButton?
                     for value in configuration.values {
-                        let chipButton = UIButton()
-                        chipButton.addTarget(self, action: #selector(didSelectTheValue(_:)), for: .touchUpInside)
-                        chipButton.layer.cornerRadius = 10
-                        chipButton.setTitle(String(format: "  %@  ", value), for: .normal)
-                        chipButton.setTitleColor(kDefaultTextColor, for: .normal)
-                        chipButton.titleLabel?.font = getFontSize(size: 12, weight: .medium)
-                        chipButton.backgroundColor = kDisableColor
+                        let chipButton = VariantButton()
+                        chipButton.updateVariant(value)
                         scrollView.addSubview(chipButton)
 
                         if lastBtn != nil {
@@ -120,9 +115,5 @@ class ConfigurationProductVariantView: UIView {
                 }
             }
         }
-    }
-    
-    @objc private func didSelectTheValue(_ sender: UIButton) {
-        
     }
 }

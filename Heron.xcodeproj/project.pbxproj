@@ -11,6 +11,8 @@
 		5D9629979773B0F0A8EF6E29 /* Pods_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */; };
 		8F44A8CAC79E09534AD07075 /* Pods_HeronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */; };
 		930175752883322A00151A4B /* ConfigurationProductVariantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930175742883322A00151A4B /* ConfigurationProductVariantView.swift */; };
+		9301757B2884886A00151A4B /* VariantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301757A2884886A00151A4B /* VariantButton.swift */; };
+		9301757D28848A8D00151A4B /* UIImage_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301757C28848A8D00151A4B /* UIImage_EXT.swift */; };
 		930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3031281A05A1003D247A /* ProductListingViewModel.swift */; };
 		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
 		930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3035281A05C7003D247A /* ProductDetailsViewController.swift */; };
@@ -163,6 +165,8 @@
 		3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		718D7E879D9BB835A6FFA734 /* Pods-HeronTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.debug.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.debug.xcconfig"; sourceTree = "<group>"; };
 		930175742883322A00151A4B /* ConfigurationProductVariantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationProductVariantView.swift; sourceTree = "<group>"; };
+		9301757A2884886A00151A4B /* VariantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariantButton.swift; sourceTree = "<group>"; };
+		9301757C28848A8D00151A4B /* UIImage_EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage_EXT.swift; sourceTree = "<group>"; };
 		930F3031281A05A1003D247A /* ProductListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewModel.swift; sourceTree = "<group>"; };
 		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -355,6 +359,14 @@
 			path = ConfigurationProductVariantView;
 			sourceTree = "<group>";
 		};
+		930175792884885400151A4B /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				9301757A2884886A00151A4B /* VariantButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		930F3030281A0577003D247A /* ProductDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +492,7 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				930175792884885400151A4B /* Buttons */,
 				938F7A8F2821119E00DD60DB /* BannerView */,
 				933D19262819946000F1CCC4 /* LoadingAnimationView.swift */,
 				931EC25D2846F60E00B72479 /* CartHotView.swift */,
@@ -502,6 +515,7 @@
 				933D19302819946800F1CCC4 /* String_EXT.swift */,
 				933D19312819946800F1CCC4 /* UIColor_EXT.swift */,
 				B55B372C2836425B005245AB /* Utils.swift */,
+				9301757C28848A8D00151A4B /* UIImage_EXT.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1162,6 +1176,7 @@
 				933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */,
 				93EC90F4285A4DB9009056F6 /* SubcriptionViewModel.swift in Sources */,
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,
+				9301757D28848A8D00151A4B /* UIImage_EXT.swift in Sources */,
 				93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */,
 				93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */,
 				93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */,
@@ -1181,6 +1196,7 @@
 				B5061C08286BF35F00A03271 /* OrderViewModel.swift in Sources */,
 				B56181902862B59D009BE6E5 /* Attributes.swift in Sources */,
 				933D19422819947000F1CCC4 /* AppVersionDataSource.swift in Sources */,
+				9301757B2884886A00151A4B /* VariantButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

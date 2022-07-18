@@ -200,7 +200,7 @@ class ProductDetailsViewController: BaseViewController,
         guard let productData = self.viewModel.productDataSource.value else {return}
         let addProductPopup = AddToCartViewController.init(productData: productData)
         addProductPopup.modalPresentationStyle = .overFullScreen
-        self.present(addProductPopup, animated: true, completion: nil)
+        self.present(addProductPopup, animated: false, completion: nil)
     }
     
     // MARK: - Data
