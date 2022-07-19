@@ -66,7 +66,7 @@ class AddToCartViewController: UIViewController {
         contentView.alpha = 1.0
         self.view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(300)
             make.centerX.width.equalToSuperview()
         }
         
@@ -189,18 +189,46 @@ class AddToCartViewController: UIViewController {
             make.bottom.lessThanOrEqualToSuperview().offset(-50)
         }
         
-        quantityTxt.rx.controlEvent([.editingChanged])
-            .asObservable()
-            .subscribe({ [unowned self] _ in
-                
-                let number = Int(quantityTxt.text ?? "0") ?? 0
+//        quantityTxt.rx.controlEvent([.editingChanged])
+//            .asObservable()
+//            .subscribe({ [unowned self] _ in
+//
+//                let number = Int(quantityTxt.text ?? "0") ?? 0
+//                self.quantityValue = number
+//            })
+//            .disposed(by: disposeBage)
+        
+        quantityTxt.rx.controlEvent(.editingChanged)
+            .withLatestFrom(quantityTxt.rx.text.orEmpty)
+            .subscribe(onNext: { (text) in
+                let number = Int(text) ?? 0
                 self.quantityValue = number
             })
             .disposed(by: disposeBage)
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.5) {
+            self.contentView.snp.updateConstraints { make in
+                make.bottom.equalToSuperview()
+            }
+            self.view.layoutIfNeeded()
+        }
     }
     
     @objc func closeButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.5) {
+            self.contentView.snp.updateConstraints { make in
+                make.bottom.equalToSuperview().offset(300)
+            }
+            self.view.layoutIfNeeded()
+        } completion: { isSuccess in
+            self.dismiss(animated: false, completion: nil)
+        }
     }
     
     @objc private func minusButtonTapped() {
