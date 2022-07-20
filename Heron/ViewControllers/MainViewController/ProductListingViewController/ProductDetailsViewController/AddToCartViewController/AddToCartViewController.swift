@@ -21,6 +21,9 @@ class AddToCartViewController: UIViewController {
     let productTitleLabel   = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
+    
+    private let variantView     = ConfigurationProductVariantView()
+    
     let addToCartBtn        = UIButton()
     
     let minusBtn            = UIButton()
@@ -28,6 +31,7 @@ class AddToCartViewController: UIViewController {
     let plusBtn             = UIButton()
     
     var productData         : ProductDataSource?
+    var simpleProductData   : ProductDataSource?
     var quantityValue       = 1
     
     private let disposeBage = DisposeBag()
@@ -35,6 +39,11 @@ class AddToCartViewController: UIViewController {
     init(productData: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
         self.productData = productData
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.variantView.delegate = self
+            self.variantView.setConfigurationProduct(productData, isAllowToChange: true)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -66,7 +75,7 @@ class AddToCartViewController: UIViewController {
         contentView.alpha = 1.0
         self.view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(300)
             make.centerX.width.equalToSuperview()
         }
         
@@ -140,6 +149,25 @@ class AddToCartViewController: UIViewController {
             make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
+                
+        contentView.addSubview(variantView)
+        variantView.snp.makeConstraints { make in
+            make.top.greaterThanOrEqualTo(priceLabel.snp.bottom).offset(15)
+            make.top.greaterThanOrEqualTo(packageImage.snp.bottom).offset(15)
+            make.left.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+        
+        let quantityLabel = UILabel()
+        quantityLabel.text = "Quantity :"
+        quantityLabel.font = getFontSize(size: 16, weight: .medium)
+        quantityLabel.textColor = kDefaultTextColor
+        contentView.addSubview(quantityLabel)
+        quantityLabel.snp.makeConstraints { make in
+            make.top.equalTo(variantView.snp.bottom).offset(15)
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.left.equalToSuperview().offset(20)
+        }
         
         minusBtn.setBackgroundImage(UIImage.init(systemName: "minus.circle"), for: .normal)
         minusBtn.layer.cornerRadius = 15
@@ -147,10 +175,11 @@ class AddToCartViewController: UIViewController {
         minusBtn.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         contentView.addSubview(minusBtn)
         minusBtn.snp.makeConstraints { make in
-            make.top.equalTo(priceLabel.snp.bottom).offset(5)
-            make.left.equalTo(productTitleLabel)
+            make.centerY.equalTo(quantityLabel)
+            make.left.equalTo(quantityLabel.snp.right)
             make.height.width.equalTo(30)
         }
+        
         
         plusBtn.setBackgroundImage(UIImage.init(systemName: "plus.circle"), for: .normal)
         plusBtn.layer.cornerRadius = 15
@@ -158,7 +187,7 @@ class AddToCartViewController: UIViewController {
         plusBtn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         contentView.addSubview(plusBtn)
         plusBtn.snp.makeConstraints { make in
-            make.top.equalTo(priceLabel.snp.bottom).offset(5)
+            make.centerY.equalTo(quantityLabel)
             make.right.equalTo(productTitleLabel)
             make.height.width.equalTo(30)
         }
@@ -170,7 +199,7 @@ class AddToCartViewController: UIViewController {
         quantityTxt.keyboardType = .numberPad
         contentView.addSubview(quantityTxt)
         quantityTxt.snp.makeConstraints { make in
-            make.centerY.equalTo(minusBtn)
+            make.centerY.equalTo(quantityLabel)
             make.height.equalTo(40)
             make.left.equalTo(minusBtn.snp.right).offset(5)
             make.right.equalTo(plusBtn.snp.left).offset(-5)
@@ -184,23 +213,42 @@ class AddToCartViewController: UIViewController {
         addToCartBtn.snp.makeConstraints { make in
             make.top.equalTo(quantityTxt.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-20)
+            make.left.equalToSuperview().offset(20)
             make.height.equalTo(40)
-            make.left.equalTo(productTitleLabel)
             make.bottom.lessThanOrEqualToSuperview().offset(-50)
         }
         
-        quantityTxt.rx.controlEvent([.editingChanged])
-            .asObservable()
-            .subscribe({ [unowned self] _ in
-                
-                let number = Int(quantityTxt.text ?? "0") ?? 0
+        quantityTxt.rx.controlEvent(.editingChanged)
+            .withLatestFrom(quantityTxt.rx.text.orEmpty)
+            .subscribe(onNext: { (text) in
+                let number = Int(text) ?? 0
                 self.quantityValue = number
             })
             .disposed(by: disposeBage)
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.5) {
+            self.contentView.snp.updateConstraints { make in
+                make.bottom.equalToSuperview()
+            }
+            self.view.layoutIfNeeded()
+        }
     }
     
     @objc func closeButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+        UIView.animate(withDuration: 0.5) {
+            self.contentView.snp.updateConstraints { make in
+                make.bottom.equalToSuperview().offset(300)
+            }
+            self.view.layoutIfNeeded()
+        } completion: { isSuccess in
+            self.dismiss(animated: false, completion: nil)
+        }
     }
     
     @objc private func minusButtonTapped() {
@@ -216,14 +264,52 @@ class AddToCartViewController: UIViewController {
     }
     
     @objc func addCartButtonTapped() {
-        guard let productData = productData else {
+        
+        if let simpleProductData = simpleProductData {
+            simpleProductData.quantity = self.quantityValue
+            
+            let cartVC = CartViewController.sharedInstance
+            cartVC.addProductToCart(simpleProductData)
+            self.dismiss(animated: true, completion: nil)
+            
             return
         }
-
-        productData.quantity = self.quantityValue
         
-        let cartVC = CartViewController.sharedInstance
-        cartVC.addProductToCart(productData)
-        self.dismiss(animated: true, completion: nil)
+        if let productData = productData {
+            productData.quantity = self.quantityValue
+            
+            let cartVC = CartViewController.sharedInstance
+            cartVC.addProductToCart(productData)
+            self.dismiss(animated: true, completion: nil)
+            
+            return
+        }
+    }
+}
+
+extension AddToCartViewController : ProductVariantDelegate {
+    func didSelectVariant(variants: [SelectedVariant]) {
+        guard let listChilren : [ProductDataSource] = self.productData?.children else {return}
+        
+        if self.productData?.type == .simple {
+            return
+        }
+        
+        if let matchedSimpleProduct = listChilren.first(where: { simpleProduct in
+            return simpleProduct.isMatchingWithVariants(variants)
+        }) {
+            // Load new UI
+            self.productTitleLabel.text = matchedSimpleProduct.name
+            self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
+            self.priceLabel.text = String(format: "#%.2f", matchedSimpleProduct.customRegularPrice)
+            
+            self.addToCartBtn.isUserInteractionEnabled = true
+            self.addToCartBtn.backgroundColor = kPrimaryColor
+            self.simpleProductData = matchedSimpleProduct
+        } else {
+            self.addToCartBtn.isUserInteractionEnabled = false
+            self.addToCartBtn.backgroundColor = kDisableColor
+            self.simpleProductData = nil
+        }
     }
 }

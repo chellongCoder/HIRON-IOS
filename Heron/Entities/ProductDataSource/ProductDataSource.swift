@@ -8,6 +8,21 @@
 import UIKit
 import ObjectMapper
 
+enum ProductMediaType : String {
+    case IMAGE      = "image"
+    case VIDEO      = "video"
+}
+
+enum ProductType : String {
+    case simple         = "simple"
+    case configurable   = "configurable"
+}
+
+enum ProductFeatureType : String {
+    case ecom           = "ecom"
+    case ecom_booking   = "ecom_booking"
+}
+
 class ProductDataSource: Mappable, Equatable {
     
     var id              : String = ""
@@ -21,6 +36,15 @@ class ProductDataSource: Mappable, Equatable {
     var thumbnailUrl    : String?
     var media           : [ProductMediaDataSource] = []
     var available       : Bool = false
+    var featureType     : ProductFeatureType = .ecom
+    var unit            : ProductUnit?
+    var brand           : ProductBrand?
+    
+    // configurable product
+    var type            : ProductType = .simple
+    var configurableOptions : [ConfigurableOption] = []
+    var children        : [ProductDataSource] = []
+    var attributeValues : [ProductAttributeValue] = []
     
     // custome value
     var discountPercent : Float = 0.0
@@ -44,6 +68,14 @@ class ProductDataSource: Mappable, Equatable {
         thumbnailUrl    <- map["thumbnailUrl"]
         media           <- map["media"]
         available       <- map["available"]
+        featureType     <- map["featureType"]
+        unit            <- map["unit"]
+        brand           <- map["brand"]
+        
+        type            <- map["type"]
+        configurableOptions <- map["configurableOptions"]
+        children        <- map["children"]
+        attributeValues <- map["attributeValues"]
         
         self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
         self.customRegularPrice = Float(regularPrice)/100.0
@@ -61,11 +93,44 @@ class ProductDataSource: Mappable, Equatable {
     static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {
         return lhs.id == rhs.id
     }
-}
-
-enum ProductMediaType : String {
-    case IMAGE      = "image"
-    case VIDEO      = "video"
+    
+    func isMatchingWithVariants(_ variants: [SelectedVariant]) -> Bool {
+        var isMatched = false
+        for variant in variants {
+            if self.attributeValues.contains(where: { productAttributeValue in
+                return productAttributeValue.attributeCode == variant.attributeCode && productAttributeValue.value == variant.value
+            }) {
+                isMatched = true
+            } else {
+                return false
+            }
+        }
+        
+        return isMatched
+    }
+    
+    func getMatchedChilProductWithVariants(_ variants: [SelectedVariant]) -> ProductDataSource? {
+        
+        for chilProduct in self.children {
+            var isMatched = false
+            for variant in variants {
+                if self.attributeValues.contains(where: { productAttributeValue in
+                    return productAttributeValue.attributeCode == variant.attributeCode && productAttributeValue.value == variant.value
+                }) {
+                    isMatched = true
+                } else {
+                    break
+                }
+            }
+            
+            if isMatched {
+                // all variant matched
+                return chilProduct
+            }
+        }
+        
+        return nil
+    }
 }
 
 class ProductMediaDataSource : Mappable {
@@ -99,5 +164,68 @@ struct ContentDescription : Mappable {
         title       <- map["title"]
         content     <- map["content"]
         visibility  <- map["visibility"]
+    }
+}
+
+struct ConfigurableOption : Mappable {
+    
+    var code    : String = ""
+    var label   : String = ""
+    var values  : [String] = []
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        code    <- map["code"]
+        label   <- map["label"]
+        values  <- map["values"]
+    }
+}
+
+struct ProductAttributeValue : Mappable {
+    var id      : String = ""
+    var value   : String = ""
+    var attributeCode   : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id              <- map["id"]
+        value           <- map["value"]
+        attributeCode   <- map["attributeCode"]
+    }
+}
+
+struct ProductUnit : Mappable {
+    
+    var id      : String = ""
+    var name    : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id      <- map["id"]
+        name    <- map["name"]
+    }
+}
+
+struct ProductBrand : Mappable {
+    
+    var id      : String = ""
+    var name    : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id      <- map["id"]
+        name    <- map["name"]
     }
 }

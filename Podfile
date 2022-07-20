@@ -19,6 +19,7 @@ target 'Heron' do
   pod 'IQKeyboardManagerSwift',   '6.5.6'
   pod 'SkeletonView',             '1.11.0'
   pod 'Material',                 '3.1.8'
+  pod 'MaterialComponents/Chips', '119.1.3'
   
   pod 'RxSwift',                  '6.5.0'
   pod 'RxCocoa',                  '6.5.0'

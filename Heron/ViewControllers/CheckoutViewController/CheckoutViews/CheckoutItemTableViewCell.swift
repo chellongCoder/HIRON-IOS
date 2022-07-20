@@ -11,6 +11,7 @@ import RxRelay
 class CheckoutItemTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
+    let tagsContent         = UILabel()
     let productTitleLabel   = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
@@ -58,12 +59,24 @@ class CheckoutItemTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-16)
         }
         
+        tagsContent.text = ""
+        tagsContent.numberOfLines = 0
+        tagsContent.font = getFontSize(size: 12, weight: .regular)
+        tagsContent.textColor = kDefaultTextColor
+        contentView.addSubview(tagsContent)
+        tagsContent.snp.makeConstraints { (make) in
+            make.left.equalTo(packageImage.snp.right).offset(15)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(5)
+            make.right.equalToSuperview().offset(-16)
+        }
+
+        
         priceDiscount.text = "$ 10.00"
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(tagsContent.snp.bottom).offset(10)
             make.left.equalTo(productTitleLabel)
         }
         
@@ -72,7 +85,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(tagsContent.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
@@ -104,5 +117,24 @@ class CheckoutItemTableViewCell: UITableViewCell {
         self.priceLabel.text = String(format: "$%.2f", itemData.product!.customRegularPrice)
         self.priceDiscount.text = String(format: "$%.2f", itemData.product!.customFinalPrice)
         self.countLabel.text = String(format: "x%ld", itemData.quantity)
+        
+        guard let productData = itemData.product else {return}
+        var contentText = ""
+        switch productData.featureType {
+        case .ecom:
+            contentText = "Physical Product"
+        case .ecom_booking:
+            contentText = "Virtual Product"
+        }
+        
+        if let unitName = productData.unit?.name {
+            contentText = String(format: "%@, %@", contentText, unitName)
+        }
+        
+        if let brandName = productData.brand?.name {
+            contentText = String(format: "%@, %@", contentText, brandName)
+        }
+        
+        self.tagsContent.text = contentText
     }
 }
