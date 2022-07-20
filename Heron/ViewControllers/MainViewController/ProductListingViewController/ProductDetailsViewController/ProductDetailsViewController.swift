@@ -113,6 +113,7 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(packageTitle)
         }
                 
+        variantView.delegate = self
         contentView.addSubview(variantView)
         variantView.snp.makeConstraints { make in
             make.left.equalToSuperview()
@@ -178,10 +179,9 @@ class ProductDetailsViewController: BaseViewController,
                 let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
                 self.loadMediaView(staticHeight)
                 
-                self.variantView.configurations = productData?.configurableOptions ?? []
-                self.variantView.reloadUI()
+                self.variantView.setConfigurations(productData?.configurableOptions ?? [])
                 
-                self.loadContentDescView()
+                self.loadContentDescView(productData?.desc ?? [])
             }
             .disposed(by: disposeBag)
     }
@@ -231,15 +231,13 @@ class ProductDetailsViewController: BaseViewController,
         topMediaView.contentSize = CGSize.init(width: CGFloat(listMedia.count)*(size.width), height: size.height)
     }
     
-    private func loadContentDescView() {
+    private func loadContentDescView(_ contents: [ContentDescription]) {
         for subview in contentDescView.subviews {
             subview.removeFromSuperview()
         }
-        
-        guard let productData = self.viewModel.productDataSource.value else {return}
-        
+                
         var lastView: UIView?
-        for content in productData.desc {
+        for content in contents {
             let titleLabel = UILabel()
             titleLabel.text = content.title
             titleLabel.textColor = UIColor.init(hexString: "172B4D")
@@ -289,5 +287,26 @@ class ProductDetailsViewController: BaseViewController,
         
         let page = lroundf(Float(fractionalPage))
         self.pageControl.currentPage = page
+    }
+}
+
+extension ProductDetailsViewController : ProductVariantDelegate {
+    func didSelectVariant(variants: [SelectedVariant]) {
+        guard let listChilren : [ProductDataSource] = self.viewModel.productDataSource.value?.children else {return}
+        
+        if let matchedSimpleProduct = listChilren.first(where: { simpleProduct in
+            return simpleProduct.isMatchingWithVariants(variants)
+        }) {
+            // Load new UI
+            self.packageTitle.text = matchedSimpleProduct.name
+            self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
+            self.priceLabel.text = String(format: "#%.2f", matchedSimpleProduct.customRegularPrice)
+            
+            let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
+            self.loadMediaView(staticHeight)
+            self.loadContentDescView(matchedSimpleProduct.desc)
+        } else {
+
+        }
     }
 }

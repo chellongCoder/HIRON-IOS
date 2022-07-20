@@ -8,13 +8,22 @@
 import UIKit
 
 protocol ProductVariantDelegate {
-    func didSelectVariant(id: [String])
+    func didSelectVariant(variants: [SelectedVariant])
+}
+
+struct SelectedVariant {
+    var attributeCode   : String
+    var value           : String
 }
 
 class ConfigurationProductVariantView: UIView {
     
-    var configurations  : [ConfigurableOption] = []
-    var allConfigView   = UIView()
+    private var configurations  : [ConfigurableOption] = []
+    private var selectedConfig  : [SelectedVariant] = []
+    private var allConfigView   = UIView()
+    private var listAllChipButtons : [VariantButton] = []
+    
+    var delegate    : ProductVariantDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,10 +41,24 @@ class ConfigurationProductVariantView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func reloadUI() {
+    func setConfigurations(_ configurations : [ConfigurableOption]) {
+        self.configurations = configurations
+        self.selectedConfig.removeAll()
+        for config in configurations {
+            let newSelectedVariant = SelectedVariant(attributeCode: config.code, value: config.values.first ?? "")
+            self.selectedConfig.append(newSelectedVariant)
+        }
+        
+        self.reloadUI()
+        self.delegate?.didSelectVariant(variants: self.selectedConfig)
+    }
+    
+    private func reloadUI() {
         for view in allConfigView.subviews {
             view.removeFromSuperview()
         }
+        
+        listAllChipButtons.removeAll()
         
         var lastConfig : UIView?
         for configuration in configurations {
@@ -85,7 +108,19 @@ class ConfigurationProductVariantView: UIView {
                     var lastBtn : UIButton?
                     for value in configuration.values {
                         let chipButton = VariantButton()
-                        chipButton.updateVariant(value)
+                        chipButton.addTarget(self, action: #selector(didSelectVariant(_:)), for: .touchUpInside)
+                        chipButton.updateVariant(SelectedVariant(attributeCode: configuration.code, value: value))
+                        self.listAllChipButtons.append(chipButton)
+                        
+                        let code = configuration.code
+                        if let selectedConfig = self.selectedConfig.first(where: { selectedConfig in
+                            return selectedConfig.attributeCode == code
+                        }) {
+                            if selectedConfig.value == value {
+                                chipButton.setState(.selected)
+                            }
+                        }
+                        
                         scrollView.addSubview(chipButton)
 
                         if lastBtn != nil {
@@ -114,6 +149,25 @@ class ConfigurationProductVariantView: UIView {
                     }
                 }
             }
+        }
+    }
+    
+    @objc private func didSelectVariant(_ sender: VariantButton) {
+        guard let newVariant = sender.variantValue else { return }
+        
+        for variantButton in self.listAllChipButtons {
+            if variantButton.variantValue?.attributeCode == newVariant.attributeCode {
+                variantButton.setState(.normmal)
+            }
+        }
+        
+        if let index = self.selectedConfig.firstIndex(where: { variantValue in
+            return variantValue.attributeCode == newVariant.attributeCode
+        }) {
+            self.selectedConfig[index] = newVariant
+            sender.setState(.selected)
+            
+            delegate?.didSelectVariant(variants: self.selectedConfig)
         }
     }
 }

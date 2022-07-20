@@ -7,32 +7,57 @@
 
 import UIKit
 
+enum VariantButtonState {
+    case normmal
+    case selected
+    case disable
+}
+
 class VariantButton: UIButton {
     
-    private var variantValue    : String = ""
+    var variantValue    : SelectedVariant?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
-        
-        self.setTitle(String(format: "  %@  ", variantValue), for: .normal)
-        self.setTitle(String(format: "  %@  ", variantValue), for: .selected)
-        self.setTitleColor(kDefaultTextColor, for: .normal)
+        self.layer.borderWidth = 1
+                
         self.setTitleColor(.white, for: .selected)
-        self.setBackgroundImage(UIImage(color: kDisableColor), for: .normal)
-        self.setBackgroundImage(UIImage(color: kPrimaryColor), for: .selected)
         self.titleLabel?.font = getFontSize(size: 12, weight: .medium)
+        self.setTitle(String(format: "  %@  ", variantValue?.value ?? ""), for: .normal)
+        self.setTitleColor(kDefaultTextColor, for: .normal)
+        
+        self.setState(.normmal)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func updateVariant(_ newValue: String) {
+    func updateVariant(_ newValue: SelectedVariant) {
         self.variantValue = newValue
-        self.setTitle(String(format: "  %@  ", variantValue), for: .normal)
-        self.setTitle(String(format: "  %@  ", variantValue), for: .selected)
+        self.setTitle(String(format: "  %@  ", variantValue?.value ?? ""), for: .normal)
+    }
+    
+    func setState(_ state: VariantButtonState) {
+        switch state {
+        case .normmal:
+            self.isUserInteractionEnabled = true
+            self.layer.borderColor = kDefaultTextColor.cgColor
+            self.backgroundColor = .white
+            self.setTitleColor(kDefaultTextColor, for: .normal)
+        case .selected:
+            self.isUserInteractionEnabled = true
+            self.layer.borderColor = kPrimaryColor.cgColor
+            self.backgroundColor = .white
+            self.setTitleColor(kPrimaryColor, for: .normal)
+        case .disable:
+            self.isUserInteractionEnabled = false
+            self.layer.borderColor = UIColor.lightGray.cgColor
+            self.backgroundColor = .lightGray
+            self.setTitleColor(kDisableColor, for: .normal)
+        }
     }
 }

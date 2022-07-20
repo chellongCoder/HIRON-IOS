@@ -35,6 +35,8 @@ class ProductDataSource: Mappable, Equatable {
     // configurable product
     var type            : ProductType = .simple
     var configurableOptions : [ConfigurableOption] = []
+    var children        : [ProductDataSource] = []
+    var attributeValues : [ProductAttributeValue] = []
     
     // custome value
     var discountPercent : Float = 0.0
@@ -61,6 +63,8 @@ class ProductDataSource: Mappable, Equatable {
         
         type            <- map["type"]
         configurableOptions <- map["configurableOptions"]
+        children        <- map["children"]
+        attributeValues <- map["attributeValues"]
         
         self.discountPercent = Float(regularPrice - finalPrice)/Float(regularPrice) * 100
         self.customRegularPrice = Float(regularPrice)/100.0
@@ -77,6 +81,21 @@ class ProductDataSource: Mappable, Equatable {
     
     static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    func isMatchingWithVariants(_ variants: [SelectedVariant]) -> Bool {
+        var isMatched = false
+        for variant in variants {
+            if self.attributeValues.contains(where: { productAttributeValue in
+                return productAttributeValue.attributeCode == variant.attributeCode && productAttributeValue.value == variant.value
+            }) {
+                isMatched = true
+            } else {
+                return false
+            }
+        }
+        
+        return isMatched
     }
 }
 
@@ -128,5 +147,21 @@ struct ConfigurableOption : Mappable {
         code    <- map["code"]
         label   <- map["label"]
         values  <- map["values"]
+    }
+}
+
+struct ProductAttributeValue : Mappable {
+    var id      : String = ""
+    var value   : String = ""
+    var attributeCode   : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id              <- map["id"]
+        value           <- map["value"]
+        attributeCode   <- map["attributeCode"]
     }
 }
