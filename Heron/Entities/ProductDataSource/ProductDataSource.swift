@@ -97,6 +97,29 @@ class ProductDataSource: Mappable, Equatable {
         
         return isMatched
     }
+    
+    func getMatchedChilProductWithVariants(_ variants: [SelectedVariant]) -> ProductDataSource? {
+        
+        for chilProduct in self.children {
+            var isMatched = false
+            for variant in variants {
+                if self.attributeValues.contains(where: { productAttributeValue in
+                    return productAttributeValue.attributeCode == variant.attributeCode && productAttributeValue.value == variant.value
+                }) {
+                    isMatched = true
+                } else {
+                    break
+                }
+            }
+            
+            if isMatched {
+                // all variant matched
+                return chilProduct
+            }
+        }
+        
+        return nil
+    }
 }
 
 class ProductMediaDataSource : Mappable {

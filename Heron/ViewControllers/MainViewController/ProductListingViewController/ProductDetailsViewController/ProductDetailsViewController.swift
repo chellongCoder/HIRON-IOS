@@ -168,20 +168,22 @@ class ProductDetailsViewController: BaseViewController,
                 self.cartHotInfo.cartPriceValue.text = String(format: "$%.2f", cartDataSource?.customGrandTotal ?? 0.0)
             }
             .disposed(by: disposeBag)
+        
         viewModel.productDataSource
             .observe(on: MainScheduler.instance)
             .subscribe { productDataSource in
-                guard let productData = productDataSource.element else {return}
-                self.packageTitle.text = productData?.name
-                self.priceDiscount.text = String(format: "$%.2f", productData?.customFinalPrice ?? 0.0)
-                self.priceLabel.text = String(format: "#%.2f", productData?.customRegularPrice ?? 0.0)
+                guard let productDataA = productDataSource.element else {return}
+                guard let productData = productDataA else {return}
+                
+                self.packageTitle.text = productData.name
+                self.priceDiscount.text = String(format: "$%.2f", productData.customFinalPrice)
+                self.priceLabel.text = String(format: "#%.2f", productData.customRegularPrice)
                 
                 let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
                 self.loadMediaView(staticHeight)
                 
-                self.variantView.setConfigurations(productData?.configurableOptions ?? [])
-                
-                self.loadContentDescView(productData?.desc ?? [])
+                self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
+                self.loadContentDescView()
             }
             .disposed(by: disposeBag)
     }
@@ -231,13 +233,15 @@ class ProductDetailsViewController: BaseViewController,
         topMediaView.contentSize = CGSize.init(width: CGFloat(listMedia.count)*(size.width), height: size.height)
     }
     
-    private func loadContentDescView(_ contents: [ContentDescription]) {
+    private func loadContentDescView() {
         for subview in contentDescView.subviews {
             subview.removeFromSuperview()
         }
+        
+        guard let productDataSource = self.viewModel.productDataSource.value else {return}
                 
         var lastView: UIView?
-        for content in contents {
+        for content in productDataSource.desc {
             let titleLabel = UILabel()
             titleLabel.text = content.title
             titleLabel.textColor = UIColor.init(hexString: "172B4D")
@@ -304,9 +308,6 @@ extension ProductDetailsViewController : ProductVariantDelegate {
             
             let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
             self.loadMediaView(staticHeight)
-            self.loadContentDescView(matchedSimpleProduct.desc)
-        } else {
-
         }
     }
 }

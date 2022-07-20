@@ -27,7 +27,7 @@ class ProductDetailsViewModel: NSObject {
                 _NavController.showAlert(alertVC)
                 return
             }
-            
+
             if let newProductDetails = newProductDetails {
                 self.productDataSource.accept(newProductDetails)
             }

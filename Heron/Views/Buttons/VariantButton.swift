@@ -8,6 +8,7 @@
 import UIKit
 
 enum VariantButtonState {
+    case showOnly
     case normmal
     case selected
     case disable
@@ -29,7 +30,7 @@ class VariantButton: UIButton {
         self.setTitle(String(format: "  %@  ", variantValue?.value ?? ""), for: .normal)
         self.setTitleColor(kDefaultTextColor, for: .normal)
         
-        self.setState(.normmal)
+        self.setState(.showOnly)
     }
     
     required init?(coder: NSCoder) {
@@ -43,6 +44,11 @@ class VariantButton: UIButton {
     
     func setState(_ state: VariantButtonState) {
         switch state {
+        case .showOnly:
+            self.isUserInteractionEnabled = false
+            self.layer.borderColor = kDefaultTextColor.cgColor
+            self.backgroundColor = .white
+            self.setTitleColor(kDefaultTextColor, for: .normal)
         case .normmal:
             self.isUserInteractionEnabled = true
             self.layer.borderColor = kDefaultTextColor.cgColor

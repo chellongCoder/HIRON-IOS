@@ -18,6 +18,8 @@ struct SelectedVariant {
 
 class ConfigurationProductVariantView: UIView {
     
+    private var isAllowToChanged        : Bool = false
+    private var configurationProduct    : ProductDataSource?
     private var configurations  : [ConfigurableOption] = []
     private var selectedConfig  : [SelectedVariant] = []
     private var allConfigView   = UIView()
@@ -41,12 +43,18 @@ class ConfigurationProductVariantView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setConfigurations(_ configurations : [ConfigurableOption]) {
-        self.configurations = configurations
+    func setConfigurationProduct(_ product : ProductDataSource, isAllowToChange: Bool) {
+        self.configurationProduct = product
+        self.configurations = product.configurableOptions
+        self.isAllowToChanged = isAllowToChange
+        
         self.selectedConfig.removeAll()
-        for config in configurations {
-            let newSelectedVariant = SelectedVariant(attributeCode: config.code, value: config.values.first ?? "")
-            self.selectedConfig.append(newSelectedVariant)
+        
+        if self.isAllowToChanged {
+            for config in configurations {
+                let newSelectedVariant = SelectedVariant(attributeCode: config.code, value: config.values.first ?? "")
+                self.selectedConfig.append(newSelectedVariant)
+            }
         }
         
         self.reloadUI()
@@ -118,6 +126,8 @@ class ConfigurationProductVariantView: UIView {
                         }) {
                             if selectedConfig.value == value {
                                 chipButton.setState(.selected)
+                            } else {
+                                chipButton.setState(.normmal)
                             }
                         }
                         
@@ -170,4 +180,20 @@ class ConfigurationProductVariantView: UIView {
             delegate?.didSelectVariant(variants: self.selectedConfig)
         }
     }
+    
+//    private func isNewConfigAvailable(_ newSelect: SelectedVariant) -> Bool {
+//        var newSelectedVariants = selectedConfig
+//
+//        var index = 0
+//        for variant in newSelectedVariants {
+//            if variant.attributeCode == newSelect.attributeCode {
+//                newSelectedVariants[index] = newSelect
+//                return self.configurationProduct?.isMatchingWithVariants(newSelectedVariants) ?? false
+//            }
+//
+//            index += 1
+//        }
+//
+//        return false
+//    }
 }
