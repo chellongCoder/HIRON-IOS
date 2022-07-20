@@ -20,6 +20,7 @@ class CartProductTableViewCell: UITableViewCell {
     let checkboxButton      = UIButton()
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
+    let tagsContent         = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
     
@@ -87,12 +88,23 @@ class CartProductTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-16)
         }
         
+        tagsContent.text = ""
+        tagsContent.numberOfLines = 0
+        tagsContent.font = getFontSize(size: 12, weight: .regular)
+        tagsContent.textColor = kDefaultTextColor
+        contentView.addSubview(tagsContent)
+        tagsContent.snp.makeConstraints { (make) in
+            make.left.equalTo(packageImage.snp.right).offset(15)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(5)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
         priceDiscount.text = "$ 10.00"
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(tagsContent.snp.bottom).offset(10)
             make.left.equalTo(productTitleLabel)
         }
         
@@ -101,7 +113,7 @@ class CartProductTableViewCell: UITableViewCell {
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(tagsContent.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
@@ -164,6 +176,25 @@ class CartProductTableViewCell: UITableViewCell {
         
         self.quantityValue = cellData.quantity
         self.quantityTxt.text = String(format: "%ld", cellData.quantity)
+        
+        guard let productData = cellData.product else {return}
+        var contentText = ""
+        switch productData.featureType {
+        case .ecom:
+            contentText = "Physical Product"
+        case .ecom_booking:
+            contentText = "Virtual Product"
+        }
+        
+        if let unitName = productData.unit?.name {
+            contentText = String(format: "%@, %@", contentText, unitName)
+        }
+        
+        if let brandName = productData.brand?.name {
+            contentText = String(format: "%@, %@", contentText, brandName)
+        }
+        
+        self.tagsContent.text = contentText
     }
     
     @objc private func removeButtonTapped() {
