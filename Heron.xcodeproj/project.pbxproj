@@ -109,6 +109,7 @@
 		93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */; };
 		93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FD28622229009056F6 /* DiscountValueView.swift */; };
 		93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */; };
+		9AA92B15288859F400606082 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA92B14288859F400606082 /* ChipView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
 		B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */; };
@@ -268,6 +269,7 @@
 		93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPlaceOrderViewController.swift; sourceTree = "<group>"; };
 		93EC90FD28622229009056F6 /* DiscountValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountValueView.swift; sourceTree = "<group>"; };
 		93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPrepearedRequestDataSource.swift; sourceTree = "<group>"; };
+		9AA92B14288859F400606082 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 				930175792884885400151A4B /* Buttons */,
 				938F7A8F2821119E00DD60DB /* BannerView */,
 				933D19262819946000F1CCC4 /* LoadingAnimationView.swift */,
+				9AA92B14288859F400606082 /* ChipView.swift */,
 				931EC25D2846F60E00B72479 /* CartHotView.swift */,
 				93EC90FD28622229009056F6 /* DiscountValueView.swift */,
 			);
@@ -1140,6 +1143,7 @@
 				B561819C2862B59D009BE6E5 /* AttributeValues.swift in Sources */,
 				B56181992862B59D009BE6E5 /* Brand.swift in Sources */,
 				93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */,
+				9AA92B15288859F400606082 /* ChipView.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubcriptionData.swift in Sources */,

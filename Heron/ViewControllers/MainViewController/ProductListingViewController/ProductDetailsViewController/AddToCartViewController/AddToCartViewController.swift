@@ -291,6 +291,10 @@ extension AddToCartViewController : ProductVariantDelegate {
     func didSelectVariant(variants: [SelectedVariant]) {
         guard let listChilren : [ProductDataSource] = self.productData?.children else {return}
         
+        if self.productData?.type == .simple {
+            return
+        }
+        
         if let matchedSimpleProduct = listChilren.first(where: { simpleProduct in
             return simpleProduct.isMatchingWithVariants(variants)
         }) {

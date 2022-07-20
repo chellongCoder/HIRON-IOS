@@ -16,6 +16,7 @@ class ProductDetailsViewController: BaseViewController,
     private let pageControl     = UIPageControl()
     
     private let packageTitle    = UILabel()
+    private let tagsViewStack   = UIStackView()
 //    private let discountPercent = UILabel()
     private let priceDiscount   = UILabel()
     private let priceLabel      = UILabel()
@@ -88,11 +89,23 @@ class ProductDetailsViewController: BaseViewController,
 //            make.left.equalTo(packageTitle)
 //        }
         
+        tagsViewStack.axis  = .horizontal
+        tagsViewStack.distribution  = .fillProportionally
+        tagsViewStack.alignment = .center
+        tagsViewStack.spacing = 10
+        contentView.addSubview(tagsViewStack)
+        tagsViewStack.snp.makeConstraints { make in
+            make.top.equalTo(packageTitle.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
+        
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(packageTitle.snp.bottom).offset(10)
+            make.top.equalTo(tagsViewStack.snp.bottom).offset(10)
             make.left.equalTo(packageTitle)
         }
         
@@ -100,7 +113,7 @@ class ProductDetailsViewController: BaseViewController,
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(packageTitle.snp.bottom).offset(10)
+            make.top.equalTo(tagsViewStack.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
@@ -184,6 +197,7 @@ class ProductDetailsViewController: BaseViewController,
                 
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
                 self.loadContentDescView()
+                self.loadTagsContents()
             }
             .disposed(by: disposeBag)
     }
@@ -231,6 +245,38 @@ class ProductDetailsViewController: BaseViewController,
         }
         self.pageControl.numberOfPages = listMedia.count
         topMediaView.contentSize = CGSize.init(width: CGFloat(listMedia.count)*(size.width), height: size.height)
+    }
+    
+    private func loadTagsContents() {
+        for arrangedSubview in tagsViewStack.arrangedSubviews {
+            arrangedSubview.removeFromSuperview()
+        }
+        
+        guard let productDataSource = self.viewModel.productDataSource.value else {return}
+        
+        switch productDataSource.featureType {
+        case .ecom:
+            let newChipView = ChipView()
+            newChipView.setTitle("Physical Product")
+            tagsViewStack.addArrangedSubview(newChipView)
+        case .ecom_booking:
+            let newChipView = ChipView()
+            newChipView.setTitle("Virtual Product")
+            tagsViewStack.addArrangedSubview(newChipView)
+        }
+        
+        if let unitName = productDataSource.unit?.name {
+            let newChipView = ChipView()
+            newChipView.setTitle(unitName)
+            tagsViewStack.addArrangedSubview(newChipView)
+        }
+        
+        if let brandName = productDataSource.brand?.name {
+            let newChipView = ChipView()
+            newChipView.setTitle(brandName)
+            tagsViewStack.addArrangedSubview(newChipView)
+        }
+        
     }
     
     private func loadContentDescView() {

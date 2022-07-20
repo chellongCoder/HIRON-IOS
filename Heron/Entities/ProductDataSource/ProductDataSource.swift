@@ -18,6 +18,11 @@ enum ProductType : String {
     case configurable   = "configurable"
 }
 
+enum ProductFeatureType : String {
+    case ecom           = "ecom"
+    case ecom_booking   = "ecom_booking"
+}
+
 class ProductDataSource: Mappable, Equatable {
     
     var id              : String = ""
@@ -31,6 +36,9 @@ class ProductDataSource: Mappable, Equatable {
     var thumbnailUrl    : String?
     var media           : [ProductMediaDataSource] = []
     var available       : Bool = false
+    var featureType     : ProductFeatureType = .ecom
+    var unit            : ProductUnit?
+    var brand           : ProductBrand?
     
     // configurable product
     var type            : ProductType = .simple
@@ -60,6 +68,9 @@ class ProductDataSource: Mappable, Equatable {
         thumbnailUrl    <- map["thumbnailUrl"]
         media           <- map["media"]
         available       <- map["available"]
+        featureType     <- map["featureType"]
+        unit            <- map["unit"]
+        brand           <- map["brand"]
         
         type            <- map["type"]
         configurableOptions <- map["configurableOptions"]
@@ -186,5 +197,35 @@ struct ProductAttributeValue : Mappable {
         id              <- map["id"]
         value           <- map["value"]
         attributeCode   <- map["attributeCode"]
+    }
+}
+
+struct ProductUnit : Mappable {
+    
+    var id      : String = ""
+    var name    : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id      <- map["id"]
+        name    <- map["name"]
+    }
+}
+
+struct ProductBrand : Mappable {
+    
+    var id      : String = ""
+    var name    : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id      <- map["id"]
+        name    <- map["name"]
     }
 }
