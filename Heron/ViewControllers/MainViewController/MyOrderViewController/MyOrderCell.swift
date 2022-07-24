@@ -14,7 +14,7 @@ class MyOrderCell: UITableViewCell {
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
     
-    private let disposeBage = DisposeBag()
+    private let disposeBag  = DisposeBag()
     
     private var cartItemData : CartItemDataSource? = nil {
         didSet {
