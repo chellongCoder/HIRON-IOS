@@ -109,6 +109,9 @@
 		93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */; };
 		93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FD28622229009056F6 /* DiscountValueView.swift */; };
 		93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */; };
+		9A88B760288DB24500BE1E05 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B75F288DB24500BE1E05 /* BookingViewController.swift */; };
+		9A88B762288DB25C00BE1E05 /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */; };
+		9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */; };
 		9AA92B15288859F400606082 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA92B14288859F400606082 /* ChipView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
@@ -269,6 +272,9 @@
 		93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPlaceOrderViewController.swift; sourceTree = "<group>"; };
 		93EC90FD28622229009056F6 /* DiscountValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountValueView.swift; sourceTree = "<group>"; };
 		93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPrepearedRequestDataSource.swift; sourceTree = "<group>"; };
+		9A88B75F288DB24500BE1E05 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
+		9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
+		9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		9AA92B14288859F400606082 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -463,7 +469,6 @@
 			children = (
 				93EC90EF285A4DA6009056F6 /* SubscriptionViewController */,
 				93EC90E4285A4D57009056F6 /* Auth */,
-				93EC90DD285A4D20009056F6 /* MyOrderViewController */,
 				93AF91EC284BBD100075CD65 /* CheckoutViewController */,
 				93D55227282A73550034B2B7 /* CartViewController */,
 				B561813F2862B195009BE6E5 /* BaseViewController */,
@@ -478,6 +483,8 @@
 			children = (
 				938F7A892820E7BD00DD60DB /* HomepageViewController */,
 				933D194628199DD700F1CCC4 /* ProductListingViewController */,
+				9AD70C61288DB1C80079BFB1 /* BookingViewController */,
+				93EC90DD285A4D20009056F6 /* MyOrderViewController */,
 				933D19202819944100F1CCC4 /* MainViewController.swift */,
 			);
 			path = MainViewController;
@@ -784,10 +791,20 @@
 			path = SuccessPlaceOrderViewController;
 			sourceTree = "<group>";
 		};
+		9AD70C61288DB1C80079BFB1 /* BookingViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B75F288DB24500BE1E05 /* BookingViewController.swift */,
+				9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */,
+			);
+			path = BookingViewController;
+			sourceTree = "<group>";
+		};
 		B561813F2862B195009BE6E5 /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
 				B56181402862B195009BE6E5 /* BaseViewController.swift */,
+				9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */,
 			);
 			path = BaseViewController;
 			sourceTree = "<group>";
@@ -1146,6 +1163,7 @@
 				9AA92B15288859F400606082 /* ChipView.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
+				9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubcriptionData.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
@@ -1189,7 +1207,9 @@
 				93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */,
 				93EC90EA285A4D73009056F6 /* MainAuthViewController.swift in Sources */,
 				93AF91E9284BB7210075CD65 /* VoucherViewController.swift in Sources */,
+				9A88B762288DB25C00BE1E05 /* BookingViewModel.swift in Sources */,
 				93EC90F7285A4DB9009056F6 /* MainSubscriptionViewController.swift in Sources */,
+				9A88B760288DB24500BE1E05 /* BookingViewController.swift in Sources */,
 				B56181962862B59D009BE6E5 /* Checks.swift in Sources */,
 				B56181982862B59D009BE6E5 /* User.swift in Sources */,
 				B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */,

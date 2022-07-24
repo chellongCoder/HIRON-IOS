@@ -34,7 +34,7 @@ class AddToCartViewController: UIViewController {
     var simpleProductData   : ProductDataSource?
     var quantityValue       = 1
     
-    private let disposeBage = DisposeBag()
+    private let disposeBag  = DisposeBag()
     
     init(productData: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -224,7 +224,7 @@ class AddToCartViewController: UIViewController {
                 let number = Int(text) ?? 0
                 self.quantityValue = number
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         self.view.layoutIfNeeded()
     }

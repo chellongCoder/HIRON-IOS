@@ -250,7 +250,7 @@ class AddUserAddressViewController: BaseViewController {
                     self.completeBtn.isUserInteractionEnabled = false
                 }
             }
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
 
         firstNameTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -267,7 +267,7 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         lastNameTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -284,7 +284,7 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         phoneTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -301,7 +301,7 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         emailTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -321,7 +321,7 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         addressTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -338,7 +338,7 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         countryTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -355,7 +355,7 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         cityTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -372,7 +372,7 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
         
         postCodeTxt.rx.controlEvent([.editingChanged])
             .asObservable()
@@ -389,6 +389,6 @@ class AddUserAddressViewController: BaseViewController {
                     viewModel.contact.accept(contact)
                 }
             })
-            .disposed(by: disposeBage)
+            .disposed(by: disposeBag)
     }
 }
