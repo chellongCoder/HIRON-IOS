@@ -112,6 +112,12 @@
 		9A88B760288DB24500BE1E05 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B75F288DB24500BE1E05 /* BookingViewController.swift */; };
 		9A88B762288DB25C00BE1E05 /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */; };
 		9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */; };
+		9A88B766288DB76100BE1E05 /* BookingServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B765288DB76100BE1E05 /* BookingServices.swift */; };
+		9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B768288DB7A800BE1E05 /* EHealthDataSource.swift */; };
+		9A88B76C288DBB7400BE1E05 /* SelectDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B76B288DBB7400BE1E05 /* SelectDoctorViewController.swift */; };
+		9A88B76E288DBBBC00BE1E05 /* SelectDoctorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */; };
+		9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */; };
+		9A88B773288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */; };
 		9AA92B15288859F400606082 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA92B14288859F400606082 /* ChipView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
@@ -275,6 +281,12 @@
 		9A88B75F288DB24500BE1E05 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
 		9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
 		9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		9A88B765288DB76100BE1E05 /* BookingServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingServices.swift; sourceTree = "<group>"; };
+		9A88B768288DB7A800BE1E05 /* EHealthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHealthDataSource.swift; sourceTree = "<group>"; };
+		9A88B76B288DBB7400BE1E05 /* SelectDoctorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorViewController.swift; sourceTree = "<group>"; };
+		9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorViewModel.swift; sourceTree = "<group>"; };
+		9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDataSource.swift; sourceTree = "<group>"; };
+		9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorTableViewCell.swift; sourceTree = "<group>"; };
 		9AA92B14288859F400606082 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -533,6 +545,8 @@
 		933D193B2819947000F1CCC4 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				9A88B76F288DBD3700BE1E05 /* Booking */,
+				9A88B767288DB78B00BE1E05 /* EHealthDataSource */,
 				B56181A02862B643009BE6E5 /* Subcription */,
 				B561816B2862B1F0009BE6E5 /* MyOrder */,
 				93E520402835ECC700523772 /* CartData */,
@@ -729,6 +743,7 @@
 				93D73F1528450D7E0015C4FB /* CheckoutServices.swift */,
 				93AF920D284D10BF0075CD65 /* PromotionServices.swift */,
 				93EC90F8285A4DF4009056F6 /* OrderService.swift */,
+				9A88B765288DB76100BE1E05 /* BookingServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -791,9 +806,36 @@
 			path = SuccessPlaceOrderViewController;
 			sourceTree = "<group>";
 		};
+		9A88B767288DB78B00BE1E05 /* EHealthDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B768288DB7A800BE1E05 /* EHealthDataSource.swift */,
+			);
+			path = EHealthDataSource;
+			sourceTree = "<group>";
+		};
+		9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B76B288DBB7400BE1E05 /* SelectDoctorViewController.swift */,
+				9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */,
+				9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */,
+			);
+			path = SelectDoctorViewController;
+			sourceTree = "<group>";
+		};
+		9A88B76F288DBD3700BE1E05 /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */,
+			);
+			path = Booking;
+			sourceTree = "<group>";
+		};
 		9AD70C61288DB1C80079BFB1 /* BookingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */,
 				9A88B75F288DB24500BE1E05 /* BookingViewController.swift */,
 				9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */,
 			);
@@ -1123,6 +1165,7 @@
 				93D73F1428450D0C0015C4FB /* CartServices.swift in Sources */,
 				93BB690F2830033000BC2E5E /* CategoryCollectionViewCell.swift in Sources */,
 				93D73F1028450CE80015C4FB /* DeliveryServices.swift in Sources */,
+				9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */,
 				B5061C06286BF22700A03271 /* PaymentTableViewCell.swift in Sources */,
 				93AF91FE284BEE140075CD65 /* UserAddressListingViewModel.swift in Sources */,
 				93EC90EC285A4D73009056F6 /* AuthViewModel.swift in Sources */,
@@ -1145,11 +1188,13 @@
 				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
+				9A88B766288DB76100BE1E05 /* BookingServices.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* Items.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* Category.swift in Sources */,
 				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
 				B56181942862B59D009BE6E5 /* CSS269.swift in Sources */,
+				9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */,
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
 				93E520422835ED4900523772 /* CartDataSource.swift in Sources */,
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
@@ -1168,6 +1213,8 @@
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */,
+				9A88B76C288DBB7400BE1E05 /* SelectDoctorViewController.swift in Sources */,
+				9A88B76E288DBBBC00BE1E05 /* SelectDoctorViewModel.swift in Sources */,
 				B5061C0A286BF37000A03271 /* MyOrderCell.swift in Sources */,
 				938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */,
 				93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */,
@@ -1205,6 +1252,7 @@
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,
 				93AF9210284D158C0075CD65 /* VoucherTableViewCell.swift in Sources */,
 				93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */,
+				9A88B773288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift in Sources */,
 				93EC90EA285A4D73009056F6 /* MainAuthViewController.swift in Sources */,
 				93AF91E9284BB7210075CD65 /* VoucherViewController.swift in Sources */,
 				9A88B762288DB25C00BE1E05 /* BookingViewModel.swift in Sources */,

@@ -7,11 +7,27 @@
 
 import UIKit
 
-class BookingViewController: UIViewController {
+class BookingViewController: BaseViewController {
+    
+    private let viewModel = BookingViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.edgesForExtendedLayout = []
+        self.view.backgroundColor = .white
+        navigationItem.title = "Booking"
+        
+        viewModel.controller = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.getUserEHealthProfiles()
+    }
+    
+    func didSelectedUserProfileButtonTapped() {
+        let selectDoctorVC = SelectDoctorViewController()
+        self.navigationController?.pushViewController(selectDoctorVC, animated: true)
     }
 }

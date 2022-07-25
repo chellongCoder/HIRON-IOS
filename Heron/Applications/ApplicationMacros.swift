@@ -26,6 +26,7 @@ let _PromotionServices              = PromotionServices.sharedInstance
 let _CheckoutServices               = CheckoutServices.sharedInstance
 let _OrderServices                  = OrderService.sharedInstance
 let _SubcriptionServices            = SubcriptionServices.sharedInstance
+let _BookingServices                = BookingServices.sharedInstance
 
 // Define key
 let kUserSessionDataSource          = "kUserSessionDataSource"
@@ -40,6 +41,9 @@ let kGatewayOrderURL                        = "https://ehp-api.cbidigital.com/or
 let kGatewayDeliveryServicesURL             = "https://ehp-api.cbidigital.com/delivery-svc/api"
 let kGatwayPromotionURL                     = "https://ehp-api.cbidigital.com/promotion-svc/api"
 let kGatewayPaymentURL                      = "https://ehp-api.cbidigital.com/payment-svc/api"
+let kGatewayEHealthProfileURL               = "https://ehp-api.cbidigital.com/eprofile-svc/api"
+let kGatewayOganizationURL                  = "https://ehp-api.cbidigital.com/organization-svc/api"
+let kGatewayBookingURL                      = "https://ehp-api.cbidigital.com/booking-svc/api"
 
 // Define notificationKey
 let kUserLoggedInNotification               = Notification.Name("kUserLoggedInNotification")
