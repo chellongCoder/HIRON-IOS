@@ -35,6 +35,18 @@ class BaseViewController: UIViewController {
         
     }
     
+    func showBackBtn() {
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(backButtonTapped))
+        self.navigationItem.leftBarButtonItem = backBtn
+    }
+    
+    @objc func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func configUI() {}
     
     func bindingData() {}

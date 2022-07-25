@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxRelay
 
-class CheckoutViewController: UIViewController,
+class CheckoutViewController: BaseViewController,
                             UITableViewDataSource, UITableViewDelegate {
     
     private let viewModel   =  CheckoutViewModel()
@@ -24,9 +24,7 @@ class CheckoutViewController: UIViewController,
     private let placeOrderBtn   = UIButton()
     
     private let tableView       = UITableView.init(frame: .zero, style: .grouped)
-    
-    private let disposeBag      = DisposeBag()
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         self.edgesForExtendedLayout = []
@@ -34,12 +32,7 @@ class CheckoutViewController: UIViewController,
         navigationItem.title = "Checkout"
         
         self.viewModel.delegate = self
-        
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+        self.showBackBtn()
         
 //        let deliveryTouch = UITapGestureRecognizer.init(target: self, action: #selector(deliveryToTapped))
 //        deliveryTo.addGestureRecognizer(deliveryTouch)
@@ -181,10 +174,6 @@ class CheckoutViewController: UIViewController,
     
     //MARK: - Buttons
     
-    @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @objc private func deliveryToTapped() {
         let userAddressesVC = UserAddressListingViewController()
         userAddressesVC.acceptance = _CheckoutServices.deliveryAddress
@@ -209,7 +198,7 @@ class CheckoutViewController: UIViewController,
     }
     
     //MARK: - BindingData
-    func bindingData() {
+    override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in

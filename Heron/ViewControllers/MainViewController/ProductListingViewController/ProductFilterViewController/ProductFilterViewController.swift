@@ -28,12 +28,7 @@ class ProductFilterViewController: BaseViewController,
         self.view.backgroundColor = .white
         self.title = "Categories"
         self.viewModel.controller = self
-        
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+        self.showBackBtn()
         
         let applyBtn = UIBarButtonItem.init(title: "Apply",
                                             style: .plain,
@@ -79,7 +74,7 @@ class ProductFilterViewController: BaseViewController,
     }
     
     // MARK: - Buttons
-    @objc private func backButtonTapped() {
+    override func backButtonTapped() {
         delegate?.didApplyFilter(nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.navigationController?.popViewController(animated: true)

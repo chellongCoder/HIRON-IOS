@@ -16,10 +16,8 @@ class PromotionServices: NSObject {
         let fullURLRequest = kGatwayPromotionURL + "/coupons?limit=100&offset=0"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
                         
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode >= 500 {
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {

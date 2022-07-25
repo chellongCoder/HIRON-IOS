@@ -10,7 +10,7 @@ import RxRelay
 import RxCocoa
 import RxSwift
 
-class UserAddressListingViewController: UIViewController,
+class UserAddressListingViewController: BaseViewController,
                                         UITableViewDelegate,
                                         UserAddressCellDelegate {
     
@@ -19,7 +19,6 @@ class UserAddressListingViewController: UIViewController,
     var acceptance                  : BehaviorRelay<ContactDataSource?>?
     
     private let viewModel           = UserAddressListingViewModel()
-    private let disposeBag          = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,11 +26,7 @@ class UserAddressListingViewController: UIViewController,
         self.view.backgroundColor = .white
         navigationItem.title = "User's Address"
         
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+        self.showBackBtn()
         
         addNewAddressBtn.backgroundColor = kPrimaryColor
         addNewAddressBtn.setTitle("ADD NEW ADDRESS", for: .normal)
@@ -66,17 +61,13 @@ class UserAddressListingViewController: UIViewController,
     
     // MARK: - Buttons
     
-    @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @objc private func addNewAddressButtonTapped() {
         let newAddressVC = AddUserAddressViewController()
         self.navigationController?.pushViewController(newAddressVC, animated: true)
     }
     
     // MARK: - Datas
-    func bindingData() {
+    override func bindingData() {
         _DeliveryServices.listUserAddress
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items) { (tableView: UITableView, index: Int, element: ContactDataSource) in

@@ -40,12 +40,7 @@ class ProductDetailsViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Product Details"
-        
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+        self.showBackBtn()
         
         let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
         topMediaView.isPagingEnabled = true
@@ -203,10 +198,6 @@ class ProductDetailsViewController: BaseViewController,
     }
     
     // MARK: - Buttons
-    @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @objc private func cartButtonTapped() {
         let cartVC = CartViewController.sharedInstance
         _NavController.pushViewController(cartVC, animated: true)

@@ -27,12 +27,7 @@ class CartViewController: BaseViewController,
         self.view.backgroundColor = .white
         navigationItem.title = "Cart"
         self.viewModel.controller = self
-        
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+        self.showBackBtn()
         
         savingLabel.text = "Saving: $0.0"
         savingLabel.textColor = kDefaultTextColor
@@ -150,10 +145,6 @@ class CartViewController: BaseViewController,
     }
     
     // MARK: - Buttons
-    @objc private func backButtonTapped() {
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
     @objc private func storeCheckboxButtonTapped(button: UIButton) {
         
         button.isSelected = !button.isSelected

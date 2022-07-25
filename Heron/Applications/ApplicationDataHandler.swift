@@ -76,13 +76,18 @@ extension ApplicationDataHandler {
     
     // MARK: - Helper
     
-    private func handleResponseDict (response:AFDataResponse<Any>) -> ResponseDataSource? {
+    private func handleResponseDict (response:AFDataResponse<Any>,
+                                     requestParam: [String: Any]? = nil) -> ResponseDataSource? {
         if let urlRequest = response.request?.url?.path {
-            print(String(format: "Lucas-API-URL-Request: %@", urlRequest))
+            print("API-URL-Request: %@", urlRequest)
+        }
+        
+        if requestParam != nil {
+            print("API-Request-Param: %@", requestParam!)
         }
         
         if let header = response.request?.allHTTPHeaderFields {
-            print(String(format: "Lucas-API-Header-Request: %@", header))
+            print("API-Header-Request: %@", header)
         }
         
         var responseData = ResponseDataSource()
@@ -92,6 +97,14 @@ extension ApplicationDataHandler {
         case .success(let value):
             
             print(String(format:"Lucas-API-Reponse: %@", "Did get \(response.response!.statusCode) code"))
+            if response.response!.statusCode < 300 {
+                print("Reponse-Success: %@", "Did get \(response.response!.statusCode) success code")
+                
+            } else if response.response!.statusCode < 400 {
+                bfprint("Reponse-Error: %@", "Did get \(response.response!.statusCode) error code")
+                
+            }
+            
             if responseData.responseCode == 200 ||
                 responseData.responseCode == 204 ||
                 responseData.responseCode == 400
@@ -108,20 +121,29 @@ extension ApplicationDataHandler {
                 if let responseDict = value as? [String: Any] {
                     responseData.responseMessage = responseDict["message"] as? String
                 }
-            } else if responseData.responseCode == 401 || responseData.responseCode == 403 {
+            } else if responseData.responseCode == 401 {
                 if (response.request?.url?.path ?? "").contains("system/session") {
                     
                     // ignored case signout with 401
                     return nil
                 }
                 return nil
+            } else if responseData.responseCode == 403 {
+                guard let responseDict = value as? [String: Any] else {
+                    var tempResponse = ResponseDataSource.init()
+                    tempResponse.responseMessage = "Phiên đăng nhập của bạn đã hết hạn, vui lòng đăng nhập lại."
+                    return tempResponse
+                }
+                
+                var tempResponse = ResponseDataSource.init()
+                tempResponse.responseMessage = responseDict["error"] as? String
+                return tempResponse
             } else if responseData.responseCode == 404 {
                 print("API NOT FOUND")
                 return nil
             } else if responseData.responseCode >= 500 {
                 
                 responseData.responseMessage = NSLocalizedString("kServerErrorMessage", comment: "")
-                
                 if let responseDict = value as? [String: Any] {
                     responseData.responseMessage = responseDict["message"] as? String
                 }
@@ -135,7 +157,7 @@ extension ApplicationDataHandler {
 //            responseData.responseMessage = error.localizedDescription
             
             if error._code == NSURLErrorCancelled {
-                responseData.responseMessage = "kAPICanceled"// kAPICancelled
+                return nil
             } else if error.localizedDescription.contains("cancelled") {
                 responseData.responseMessage = "kAPICanceled"// kAPICancelled
             } else if error._code == NSURLErrorNotConnectedToInternet {
@@ -204,6 +226,8 @@ extension ApplicationDataHandler {
                 guard let responseData = self.handleResponseDict(response: response) else {
                     return
                 }
+                
+                
                 
                 if responseData.responseMessage == "kAPICanceled" {
                     return
