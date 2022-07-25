@@ -26,9 +26,8 @@ class DeliveryServices: NSObject {
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses/users/own"
         
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
-            if responseData.responseCode == 400 {
-                return
-            } else if responseData.responseCode >= 500 {
+            if let responseMessage = responseData.responseMessage {
+                print("Got error messgae %@", responseMessage)
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
@@ -51,16 +50,12 @@ class DeliveryServices: NSObject {
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses"
         
         _ = _AppDataHandler.post(parameters: newContact.toJSON(), fullURLRequest: fullURLRequest) { responseData in
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, false)
-                return
-            } else if responseData.responseCode >= 500 {
-                return
+            if let responseMessage = responseData.responseMessage {
+                print("Got error messgae %@", responseMessage)
+                completion(responseMessage, false)
             } else if responseData.responseCode == 201 {
                 // created
                 completion(nil, true)
-            } else {
-                completion(responseData.responseMessage, false)
             }
         }
     }
@@ -71,10 +66,8 @@ class DeliveryServices: NSObject {
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses/" + contactID
         
         _ = _AppDataHandler.patch(parameters: newContact.toJSON(), fullURLRequest: fullURLRequest) { responseData in
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, false)
-                return
-            } else if responseData.responseCode >= 500 {
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, false)
                 return
             } else if responseData.responseCode == 204 {
                 // created

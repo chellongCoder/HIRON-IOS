@@ -16,17 +16,10 @@ class InventoryServices {
         let fullURLRequest = kGatwayInventoryURL + "/products"
         _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
                         
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            }
-            else if responseData.responseCode >= 500 {
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
                 return
             } else {
-                
-                #warning("API_NEED_MAINTAIN")
-                // API response array nhưng lại kẹp trong data.
-                
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     completion(responseData.responseMessage, Mapper<ProductDataSource>().mapArray(JSONArray: data))
                 }
@@ -38,16 +31,10 @@ class InventoryServices {
         
         let fullURLRequest = kGatwayInventoryURL + "/categories"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode >= 500 {
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
                 return
             } else {
-                
-                #warning("API_NEED_MAINTAIN")
-                // API response array nhưng lại kẹp trong data.
-                
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     completion(responseData.responseMessage,
                                Mapper<CategoryDataSource>().mapArray(JSONArray: data))
@@ -62,17 +49,10 @@ class InventoryServices {
         let fullURLRequest = kGatwayInventoryURL + "/products/" + productID
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
                         
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            }
-            else if responseData.responseCode >= 500 {
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
                 return
             } else {
-                
-                #warning("API_NEED_MAINTAIN")
-                // API response array nhưng lại kẹp trong data.
-                
                 if let data = responseData.responseData?["data"] as? [String:Any] {
                     completion(responseData.responseMessage, Mapper<ProductDataSource>().map(JSON: data))
                     return

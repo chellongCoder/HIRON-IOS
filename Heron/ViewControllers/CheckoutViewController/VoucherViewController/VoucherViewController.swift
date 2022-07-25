@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import Material
 
-class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
+class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate {
     
     let codeTxt         = ErrorTextField()
     let applyBtn        = UIButton()
@@ -18,7 +18,6 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
     let tableView       = UITableView()
     
     private let viewModel   = VoucherViewModel()
-    private let disposeBag  = DisposeBag()
     var acceptance          : BehaviorRelay<VoucherDataSource?>?
 
     override func viewDidLoad() {
@@ -27,11 +26,7 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
         self.view.backgroundColor = .white
         navigationItem.title = "Vouchers"
         
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+        self.showBackBtn()
         
         applyBtn.backgroundColor = kPrimaryColor
         applyBtn.setTitleColor(.white, for: .normal)
@@ -75,14 +70,8 @@ class VoucherViewController: UIViewController, VoucherTableViewCellDelegate {
         viewModel.getListVoucher()
     }
     
-    // MARK: - Buttons
-    
-    @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     // MARK: - Data
-    func bindingData() {
+    override func bindingData() {
         viewModel.listUserVouchers
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: VoucherDataSource) in
                 let cell = VoucherTableViewCell(style: .default, reuseIdentifier:"VoucherTableViewCell")

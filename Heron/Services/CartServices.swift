@@ -83,13 +83,9 @@ class CartServices : NSObject {
         let fullURLRequest = kGatwayCartURL + "/carts/add-to-cart"
         
         _ = _AppDataHandler.post(parameters: param, fullURLRequest: fullURLRequest, completion: { responseData in
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode >= 500 {
-                return
-            } else if responseData.responseCode == 200, responseData.responseCode == 204 {
+            if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
+                return
             } else {
                 completion(responseData.responseMessage, nil)
             }
@@ -100,14 +96,9 @@ class CartServices : NSObject {
                 
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         _ = _AppDataHandler.delete(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode >= 500 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode == 200 || responseData.responseCode == 204 {
+            if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
+                return
             } else {
                 completion(responseData.responseMessage, nil)
             }
@@ -119,14 +110,9 @@ class CartServices : NSObject {
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         let params : [String: Any] = ["quantity": newValue]
         _ = _AppDataHandler.patch(parameters: params, fullURLRequest: fullURLRequest, completion: { responseData in
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode >= 500 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode == 200 || responseData.responseCode == 204 {
+            if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
+                return
             } else {
                 completion(responseData.responseMessage, nil)
             }
@@ -137,10 +123,8 @@ class CartServices : NSObject {
         
         let fullURLRequest = kGatwayCartURL + "/carts"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode >= 500 {
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
                 return
             } else {                
                 if let data = responseData.responseData?["data"] as? [String:Any] {
