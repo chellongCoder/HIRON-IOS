@@ -27,10 +27,6 @@ class OrderService {
             } else if responseData.responseCode >= 500 {
                 return
             } else {
-                
-                #warning("API_NEED_MAINTAIN")
-                // API response array nhưng lại kẹp trong data.
-                
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     completion(responseData.responseMessage, Mapper<OrderData>().mapArray(JSONArray: data))
                 }
