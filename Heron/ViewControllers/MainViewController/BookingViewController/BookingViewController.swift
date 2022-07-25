@@ -13,7 +13,6 @@ class BookingViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         self.view.backgroundColor = .white
         navigationItem.title = "Booking"
         
@@ -27,7 +26,7 @@ class BookingViewController: BaseViewController {
     }
     
     func didSelectedUserProfileButtonTapped() {
-        let selectDoctorVC = SelectDoctorViewController()
-        self.navigationController?.pushViewController(selectDoctorVC, animated: true)
+        let selectDepartmentVC = SelectDepartmentViewController()
+        self.navigationController?.pushViewController(selectDepartmentVC, animated: true)
     }
 }

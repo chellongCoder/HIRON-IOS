@@ -8,26 +8,17 @@
 import UIKit
 import RxSwift
 
-class SelectDoctorViewController: UIViewController {
+class SelectDoctorViewController: BaseViewController {
     
     private let viewModel   = SelectDoctorViewModel()
     private let tableView   = UITableView()
     
-    private let disposeBag  = DisposeBag()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
-        self.view.backgroundColor = .white
         navigationItem.title = "Select Doctors"
-        
         viewModel.controller = self
-
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+        
+        self.showBackBtn()
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
@@ -36,8 +27,6 @@ class SelectDoctorViewController: UIViewController {
         tableView.snp.makeConstraints { (make) in
             make.top.bottom.centerX.width.equalTo(self.view.safeAreaLayoutGuide)
         }
-        
-        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,13 +35,8 @@ class SelectDoctorViewController: UIViewController {
         self.viewModel.getListDoctor()
     }
     
-    // MARK: - Buttons
-    @objc private func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     // MARK: - Data
-    private func bindingData() {
+    override func bindingData() {
         viewModel.listDoctor
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: DoctorDataSource) in
                 let cell = SelectDoctorTableViewCell(style: .default, reuseIdentifier:"SelectDoctorTableViewCell")

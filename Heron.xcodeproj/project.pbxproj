@@ -118,6 +118,10 @@
 		9A88B76E288DBBBC00BE1E05 /* SelectDoctorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */; };
 		9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */; };
 		9A88B773288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */; };
+		9A88B778288E499B00BE1E05 /* SelectDepartmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */; };
+		9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */; };
+		9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */; };
+		9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */; };
 		9AA92B15288859F400606082 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA92B14288859F400606082 /* ChipView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
@@ -287,6 +291,10 @@
 		9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorViewModel.swift; sourceTree = "<group>"; };
 		9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDataSource.swift; sourceTree = "<group>"; };
 		9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorTableViewCell.swift; sourceTree = "<group>"; };
+		9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentViewController.swift; sourceTree = "<group>"; };
+		9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentViewModel.swift; sourceTree = "<group>"; };
+		9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentDataSource.swift; sourceTree = "<group>"; };
+		9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentsTableViewCell.swift; sourceTree = "<group>"; };
 		9AA92B14288859F400606082 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -828,13 +836,25 @@
 			isa = PBXGroup;
 			children = (
 				9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */,
+				9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */,
 			);
 			path = Booking;
+			sourceTree = "<group>";
+		};
+		9A88B776288E494400BE1E05 /* SelectDepartmentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */,
+				9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */,
+				9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */,
+			);
+			path = SelectDepartmentViewController;
 			sourceTree = "<group>";
 		};
 		9AD70C61288DB1C80079BFB1 /* BookingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9A88B776288E494400BE1E05 /* SelectDepartmentViewController */,
 				9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */,
 				9A88B75F288DB24500BE1E05 /* BookingViewController.swift */,
 				9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */,
@@ -1175,12 +1195,14 @@
 				93EC90CA285A4C03009056F6 /* LaunchScreenViewController.swift in Sources */,
 				B561819A2862B59D009BE6E5 /* Card.swift in Sources */,
 				B561819D2862B59D009BE6E5 /* OrderPayment.swift in Sources */,
+				9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */,
 				93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */,
 				93EC90F9285A4DF4009056F6 /* OrderService.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */,
 				93AF91F2284BD6570075CD65 /* AddressView.swift in Sources */,
 				930175752883322A00151A4B /* ConfigurationProductVariantView.swift in Sources */,
+				9A88B778288E499B00BE1E05 /* SelectDepartmentViewController.swift in Sources */,
 				93EC90C8285A382B009056F6 /* OrderSumView.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				B5061C04286BF22700A03271 /* ProductStatusTableViewCell.swift in Sources */,
@@ -1208,6 +1230,7 @@
 				9AA92B15288859F400606082 /* ChipView.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
+				9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */,
 				9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubcriptionData.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
@@ -1220,6 +1243,7 @@
 				93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */,
 				93AF91EB284BBA750075CD65 /* VoucherViewModel.swift in Sources */,
 				93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */,
+				9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */,
 				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				93EC90F5285A4DB9009056F6 /* SubscriptionPaymentViewController.swift in Sources */,
 				93AF91F7284BE2410075CD65 /* OrderTotalView.swift in Sources */,

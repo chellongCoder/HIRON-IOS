@@ -26,7 +26,6 @@ class ProductListingViewController: BaseViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         self.view.backgroundColor = .white
         navigationItem.title = "Products"
         

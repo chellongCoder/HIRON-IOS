@@ -52,7 +52,6 @@ class AddToCartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         self.view.backgroundColor = .clear
         
         self.viewModel.controller = self

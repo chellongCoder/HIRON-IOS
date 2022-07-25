@@ -226,9 +226,7 @@ extension ApplicationDataHandler {
                 guard let responseData = self.handleResponseDict(response: response) else {
                     return
                 }
-                
-                
-                
+                                
                 if responseData.responseMessage == "kAPICanceled" {
                     return
                 }
