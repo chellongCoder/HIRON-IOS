@@ -122,6 +122,7 @@
 		9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */; };
 		9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */; };
 		9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */; };
+		9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBooking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBooking.swift */; };
 		9AA92B15288859F400606082 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA92B14288859F400606082 /* ChipView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
@@ -295,6 +296,7 @@
 		9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentViewModel.swift; sourceTree = "<group>"; };
 		9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentDataSource.swift; sourceTree = "<group>"; };
 		9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentsTableViewCell.swift; sourceTree = "<group>"; };
+		9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBooking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBooking.swift; sourceTree = "<group>"; };
 		9AA92B14288859F400606082 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -851,9 +853,18 @@
 			path = SelectDepartmentViewController;
 			sourceTree = "<group>";
 		};
+		9A88B77F288E5B2A00BE1E05 /* SelectDateAndTimeBooking */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBooking.swift */,
+			);
+			path = SelectDateAndTimeBooking;
+			sourceTree = "<group>";
+		};
 		9AD70C61288DB1C80079BFB1 /* BookingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9A88B77F288E5B2A00BE1E05 /* SelectDateAndTimeBooking */,
 				9A88B776288E494400BE1E05 /* SelectDepartmentViewController */,
 				9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */,
 				9A88B75F288DB24500BE1E05 /* BookingViewController.swift */,
@@ -1232,6 +1243,7 @@
 				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
 				9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */,
 				9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */,
+				9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBooking.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubcriptionData.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
