@@ -68,7 +68,12 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         cell.productTitleLabel.text = element?.name
        cell.priceLabel.text = "$\(element?.regularPrice ?? 0)"
        cell.priceDiscount.text = "$\(element?.finalPrice ?? 0)"
-       cell.packageImage.setImage(url: URL(string: element?.thumbnailUrl ?? "")!, placeholder: UIImage(named: "default-image")!)
+        if let url = URL(string: element?.thumbnailUrl ?? "") {
+            cell.packageImage.setImage(url: url, placeholder: UIImage(named: "default-image")!)
+        } else {
+            cell.packageImage.image = UIImage(named: "default-image")
+        }
+        
        return cell
     }
     
