@@ -42,7 +42,7 @@ class SelectDepartmentViewController: BaseViewController {
     
     // MARK: - Buttons
     @objc private func nextButtonTapped() {
-        let selectDoctorVC = SelectDoctorViewController()
+        let selectDoctorVC = SelectDateAndTimeBookingViewController()
         self.navigationController?.pushViewController(selectDoctorVC, animated: true)
     }
     
