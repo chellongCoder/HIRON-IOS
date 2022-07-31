@@ -27,7 +27,6 @@ class CheckoutViewController: BaseViewController,
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         self.view.backgroundColor = kBackgroundColor
         navigationItem.title = "Checkout"
         

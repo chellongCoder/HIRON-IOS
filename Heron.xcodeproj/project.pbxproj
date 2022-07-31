@@ -112,7 +112,23 @@
 		9A88B760288DB24500BE1E05 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B75F288DB24500BE1E05 /* BookingViewController.swift */; };
 		9A88B762288DB25C00BE1E05 /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */; };
 		9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */; };
+		9A88B766288DB76100BE1E05 /* BookingServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B765288DB76100BE1E05 /* BookingServices.swift */; };
+		9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B768288DB7A800BE1E05 /* EHealthDataSource.swift */; };
+		9A88B76C288DBB7400BE1E05 /* SelectDoctorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B76B288DBB7400BE1E05 /* SelectDoctorViewController.swift */; };
+		9A88B76E288DBBBC00BE1E05 /* SelectDoctorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */; };
+		9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */; };
+		9A88B773288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */; };
+		9A88B778288E499B00BE1E05 /* SelectDepartmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */; };
+		9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */; };
+		9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */; };
+		9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */; };
+		9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift */; };
 		9AA92B15288859F400606082 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA92B14288859F400606082 /* ChipView.swift */; };
+		9AC54E592892F575006312D6 /* SelectDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */; };
+		9AC54E5B28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */; };
+		9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */; };
+		9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */; };
+		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
 		B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */; };
@@ -275,7 +291,23 @@
 		9A88B75F288DB24500BE1E05 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
 		9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
 		9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		9A88B765288DB76100BE1E05 /* BookingServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingServices.swift; sourceTree = "<group>"; };
+		9A88B768288DB7A800BE1E05 /* EHealthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHealthDataSource.swift; sourceTree = "<group>"; };
+		9A88B76B288DBB7400BE1E05 /* SelectDoctorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorViewController.swift; sourceTree = "<group>"; };
+		9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorViewModel.swift; sourceTree = "<group>"; };
+		9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDataSource.swift; sourceTree = "<group>"; };
+		9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDoctorTableViewCell.swift; sourceTree = "<group>"; };
+		9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentViewController.swift; sourceTree = "<group>"; };
+		9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentViewModel.swift; sourceTree = "<group>"; };
+		9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentDataSource.swift; sourceTree = "<group>"; };
+		9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentsTableViewCell.swift; sourceTree = "<group>"; };
+		9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBookingViewController.swift; sourceTree = "<group>"; };
 		9AA92B14288859F400606082 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
+		9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateCollectionViewCell.swift; sourceTree = "<group>"; };
+		9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBookingViewModel.swift; sourceTree = "<group>"; };
+		9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeableDataSource.swift; sourceTree = "<group>"; };
+		9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewController.swift; sourceTree = "<group>"; };
+		9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewModel.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
@@ -533,6 +565,8 @@
 		933D193B2819947000F1CCC4 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				9A88B76F288DBD3700BE1E05 /* Booking */,
+				9A88B767288DB78B00BE1E05 /* EHealthDataSource */,
 				B56181A02862B643009BE6E5 /* Subcription */,
 				B561816B2862B1F0009BE6E5 /* MyOrder */,
 				93E520402835ECC700523772 /* CartData */,
@@ -729,6 +763,7 @@
 				93D73F1528450D7E0015C4FB /* CheckoutServices.swift */,
 				93AF920D284D10BF0075CD65 /* PromotionServices.swift */,
 				93EC90F8285A4DF4009056F6 /* OrderService.swift */,
+				9A88B765288DB76100BE1E05 /* BookingServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -791,9 +826,70 @@
 			path = SuccessPlaceOrderViewController;
 			sourceTree = "<group>";
 		};
+		9A88B767288DB78B00BE1E05 /* EHealthDataSource */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B768288DB7A800BE1E05 /* EHealthDataSource.swift */,
+			);
+			path = EHealthDataSource;
+			sourceTree = "<group>";
+		};
+		9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B76B288DBB7400BE1E05 /* SelectDoctorViewController.swift */,
+				9A88B76D288DBBBC00BE1E05 /* SelectDoctorViewModel.swift */,
+				9A88B772288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift */,
+			);
+			path = SelectDoctorViewController;
+			sourceTree = "<group>";
+		};
+		9A88B76F288DBD3700BE1E05 /* Booking */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B770288DBD4A00BE1E05 /* DoctorDataSource.swift */,
+				9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */,
+				9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */,
+			);
+			path = Booking;
+			sourceTree = "<group>";
+		};
+		9A88B776288E494400BE1E05 /* SelectDepartmentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */,
+				9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */,
+				9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */,
+			);
+			path = SelectDepartmentViewController;
+			sourceTree = "<group>";
+		};
+		9A88B77F288E5B2A00BE1E05 /* SelectDateAndTimeBooking */ = {
+			isa = PBXGroup;
+			children = (
+				9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift */,
+				9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */,
+				9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */,
+			);
+			path = SelectDateAndTimeBooking;
+			sourceTree = "<group>";
+		};
+		9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */,
+				9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */,
+			);
+			path = DoctorDetailsViewController;
+			sourceTree = "<group>";
+		};
 		9AD70C61288DB1C80079BFB1 /* BookingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */,
+				9A88B776288E494400BE1E05 /* SelectDepartmentViewController */,
+				9A88B77F288E5B2A00BE1E05 /* SelectDateAndTimeBooking */,
+				9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */,
 				9A88B75F288DB24500BE1E05 /* BookingViewController.swift */,
 				9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */,
 			);
@@ -1114,6 +1210,7 @@
 				933D193A2819946800F1CCC4 /* UIColor_EXT.swift in Sources */,
 				933D1913281993DB00F1CCC4 /* AppDelegate.swift in Sources */,
 				933D19412819947000F1CCC4 /* SessionDataSource.swift in Sources */,
+				9AC54E592892F575006312D6 /* SelectDateCollectionViewCell.swift in Sources */,
 				B55B372D2836425B005245AB /* Utils.swift in Sources */,
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
@@ -1123,21 +1220,25 @@
 				93D73F1428450D0C0015C4FB /* CartServices.swift in Sources */,
 				93BB690F2830033000BC2E5E /* CategoryCollectionViewCell.swift in Sources */,
 				93D73F1028450CE80015C4FB /* DeliveryServices.swift in Sources */,
+				9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */,
 				B5061C06286BF22700A03271 /* PaymentTableViewCell.swift in Sources */,
 				93AF91FE284BEE140075CD65 /* UserAddressListingViewModel.swift in Sources */,
 				93EC90EC285A4D73009056F6 /* AuthViewModel.swift in Sources */,
 				93EC90F6285A4DB9009056F6 /* SubcsriptionCell.swift in Sources */,
+				9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */,
 				93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */,
 				933D19272819946000F1CCC4 /* LoadingAnimationView.swift in Sources */,
 				93EC90CA285A4C03009056F6 /* LaunchScreenViewController.swift in Sources */,
 				B561819A2862B59D009BE6E5 /* Card.swift in Sources */,
 				B561819D2862B59D009BE6E5 /* OrderPayment.swift in Sources */,
+				9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */,
 				93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */,
 				93EC90F9285A4DF4009056F6 /* OrderService.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */,
 				93AF91F2284BD6570075CD65 /* AddressView.swift in Sources */,
 				930175752883322A00151A4B /* ConfigurationProductVariantView.swift in Sources */,
+				9A88B778288E499B00BE1E05 /* SelectDepartmentViewController.swift in Sources */,
 				93EC90C8285A382B009056F6 /* OrderSumView.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				B5061C04286BF22700A03271 /* ProductStatusTableViewCell.swift in Sources */,
@@ -1145,11 +1246,13 @@
 				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
+				9A88B766288DB76100BE1E05 /* BookingServices.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* Items.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* Category.swift in Sources */,
 				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
 				B56181942862B59D009BE6E5 /* CSS269.swift in Sources */,
+				9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */,
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
 				93E520422835ED4900523772 /* CartDataSource.swift in Sources */,
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
@@ -1163,22 +1266,30 @@
 				9AA92B15288859F400606082 /* ChipView.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
+				9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */,
 				9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */,
+				9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubcriptionData.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */,
+				9A88B76C288DBB7400BE1E05 /* SelectDoctorViewController.swift in Sources */,
+				9A88B76E288DBBBC00BE1E05 /* SelectDoctorViewModel.swift in Sources */,
 				B5061C0A286BF37000A03271 /* MyOrderCell.swift in Sources */,
 				938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */,
 				93D5522C282A75040034B2B7 /* ProductFilterViewController.swift in Sources */,
+				9AC54E5B28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift in Sources */,
 				93AF91EB284BBA750075CD65 /* VoucherViewModel.swift in Sources */,
 				93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */,
+				9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */,
 				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				93EC90F5285A4DB9009056F6 /* SubscriptionPaymentViewController.swift in Sources */,
 				93AF91F7284BE2410075CD65 /* OrderTotalView.swift in Sources */,
 				93EC90C6285A2D85009056F6 /* CarrierView.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */,
+				9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */,
+				9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */,
 				B56181A82862B64E009BE6E5 /* Subs.swift in Sources */,
 				931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */,
 				93AF91F9284BE78E0075CD65 /* ContactDataSource.swift in Sources */,
@@ -1205,6 +1316,7 @@
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,
 				93AF9210284D158C0075CD65 /* VoucherTableViewCell.swift in Sources */,
 				93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */,
+				9A88B773288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift in Sources */,
 				93EC90EA285A4D73009056F6 /* MainAuthViewController.swift in Sources */,
 				93AF91E9284BB7210075CD65 /* VoucherViewController.swift in Sources */,
 				9A88B762288DB25C00BE1E05 /* BookingViewModel.swift in Sources */,
@@ -1405,6 +1517,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1441,6 +1554,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

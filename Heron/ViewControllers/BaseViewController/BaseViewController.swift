@@ -18,6 +18,7 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.edgesForExtendedLayout = []
         
         self.view.addSubview(pageScroll)
         pageScroll.snp.makeConstraints { (make) in

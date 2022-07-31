@@ -29,7 +29,6 @@ class AddUserAddressViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         self.view.backgroundColor = .white
         navigationItem.title = "Add new address"
         self.showBackBtn()

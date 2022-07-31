@@ -22,7 +22,6 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         self.view.backgroundColor = .white
         navigationItem.title = "Vouchers"
         

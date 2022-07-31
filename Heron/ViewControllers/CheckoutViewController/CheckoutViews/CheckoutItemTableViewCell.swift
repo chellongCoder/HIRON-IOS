@@ -47,7 +47,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
+        productTitleLabel.text = ""
         productTitleLabel.numberOfLines = 0
         productTitleLabel.font = getFontSize(size: 16, weight: .medium)
         productTitleLabel.textColor = kDefaultTextColor

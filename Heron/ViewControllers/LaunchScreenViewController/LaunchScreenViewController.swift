@@ -11,13 +11,12 @@ import SWRevealViewController
 
 let kMenuWidth       = 312.0
 
-class LaunchScreenViewController: UIViewController {
+class LaunchScreenViewController: BaseViewController {
         
     private let loadingAnimation    = LoadingAnimationView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.edgesForExtendedLayout = []
         self.view.backgroundColor = .white
         
         self.view.addSubview(loadingAnimation)
