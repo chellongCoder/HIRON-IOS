@@ -42,16 +42,18 @@ class SelectDepartmentViewController: BaseViewController {
     
     // MARK: - Buttons
     @objc private func nextButtonTapped() {
-        let selectDoctorVC = SelectDateAndTimeBookingViewController()
+        let selectDoctorVC = SelectDoctorViewController()
         self.navigationController?.pushViewController(selectDoctorVC, animated: true)
     }
     
     // MARK: - Data
     override func bindingData() {
         viewModel.listDepartments
-            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: DepartmentDataSource) in
+            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: TeamDataSource) in
                 let cell = SelectDepartmentsTableViewCell(style: .default, reuseIdentifier:"SelectDoctorTableViewCell")
-                cell.setDataSource(element)
+                if let department = element.department {
+                    cell.setDataSource(department)
+                }
                 cell.setIsSelected(element.id == _BookingServices.selectedDepartment.value?.id)
                 return cell
             }

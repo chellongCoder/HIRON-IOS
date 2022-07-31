@@ -10,7 +10,7 @@ import RxRelay
 
 class SelectDepartmentViewModel: NSObject {
     weak var controller     : SelectDepartmentViewController?
-    var listDepartments     = BehaviorRelay<[DepartmentDataSource]>(value: [])
+    var listDepartments     = BehaviorRelay<[TeamDataSource]>(value: [])
     
     func getListDepartments() {
         self.controller?.startLoadingAnimation()

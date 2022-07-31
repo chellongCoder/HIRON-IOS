@@ -14,8 +14,9 @@ class BookingServices {
     public static let sharedInstance    = BookingServices()
     
     var selectedProfile                 = BehaviorRelay<EHealthDataSource?>(value: nil)
-    var selectedDepartment              = BehaviorRelay<DepartmentDataSource?>(value: nil)
+    var selectedDepartment              = BehaviorRelay<TeamDataSource?>(value: nil)
     var selectedDoctor                  = BehaviorRelay<DoctorDataSource?>(value: nil)
+    var selectedTimeable                = BehaviorRelay<TimeableDataSource?>(value: nil)
     private let disposeBag              = DisposeBag()
     
     #warning("HARD_CODE")
@@ -41,10 +42,42 @@ class BookingServices {
         }
     }
     
+    func getListDepartments(completion:@escaping (String?, [TeamDataSource]?) -> Void) {
+        
+        let fullURLRequest = kGatewayOganizationURL + "/teams"
+        _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
+                        
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
+                return
+            } else {
+                
+                if let data = responseData.responseData?["data"] as? [[String:Any]] {
+                    completion(responseData.responseMessage, Mapper<TeamDataSource>().mapArray(JSONArray: data))
+                }
+            }
+        }
+    }
+    
     func getListDoctors(completion:@escaping (String?, [DoctorDataSource]?) -> Void) {
         
-        let fullURLRequest = kGatewayOganizationURL + "/members?page=1&offset=0&limit=10&sort[createdAt]=desc&filter[type][eq]=doctor&filter[deletedAt][eq]=null"
-        _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
+        #warning("HARD_CODE")
+        guard let selectedDepartmentID = self.selectedDepartment.value?.departmentID else {
+            completion("Required to select department", [])
+            return
+        }
+        
+        let param : [String:Any] = ["page" : 1,
+                                    "offset": 0,
+                                    "limit": 100,
+                                    "sort[createdAt]":"desc",
+                                    "filter[type][eq]":"doctor",
+                                    "filter[deletedAt][eq]":"null"]
+//                                    "filter[deletedAt][eq]":"null",
+//                                    "filter[teamMemberPosition][memberId][eq]":selectedDepartmentID]
+        
+        let fullURLRequest = kGatewayOganizationURL + "/members"
+        _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
                         
             if let responseMessage = responseData.responseMessage {
                 completion(responseMessage, nil)
@@ -58,9 +91,17 @@ class BookingServices {
         }
     }
     
-    func getListDepartments(completion:@escaping (String?, [DepartmentDataSource]?) -> Void) {
+    func getListTimeables(completion:@escaping (String?, [TimeableDataSource]?) -> Void) {
         
-        let fullURLRequest = kGatewayOganizationURL + "/departments?sort[createdAt]=desc&filter[type][eq]=specialty&filter[deletedAt][isNull]=true&limit=10&offset=0"
+        #warning("HARD_CODE")
+        guard let selecteDoctorID = self.selectedDoctor.value?.id else {
+            completion("Required to select department", [])
+            return
+        }
+
+        let param : [String:Any] = ["filter[hostId][eq]":selecteDoctorID]
+        
+        let fullURLRequest = kGatewayBookingURL + "/timetable"
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
                         
             if let responseMessage = responseData.responseMessage {
@@ -69,7 +110,7 @@ class BookingServices {
             } else {
                 
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                    completion(responseData.responseMessage, Mapper<DepartmentDataSource>().mapArray(JSONArray: data))
+                    completion(responseData.responseMessage, Mapper<TimeableDataSource>().mapArray(JSONArray: data))
                 }
             }
         }

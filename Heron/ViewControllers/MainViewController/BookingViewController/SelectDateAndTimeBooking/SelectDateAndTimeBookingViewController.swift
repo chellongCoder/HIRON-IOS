@@ -7,29 +7,28 @@
 
 import UIKit
 import FSCalendar
+import RxSwift
 
 class SelectDateAndTimeBookingViewController: BaseViewController,
-                                FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+                                              FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
 
+    private let viewModel           = SelectDateAndTimeBookingViewModel()
+    
     let calendar                    = FSCalendar()
-    var collectionView: UICollectionView!
+    var collectionView              : UICollectionView?
+    let confirmBtn                  = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Select Date"
+        self.viewModel.controller = self
 
         let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward")?.withRenderingMode(.alwaysOriginal),
                                            style: .plain,
                                            target: self,
                                            action: #selector(backButtonTapped))
         self.navigationItem.leftBarButtonItem = backBtn
-        
-        let nextBtn = UIBarButtonItem.init(title: "Next",
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(nextButtonTapped))
-        self.navigationItem.rightBarButtonItem = nextBtn
-        
+                
         calendar.dataSource = self
         calendar.delegate = self
         self.view.addSubview(calendar)
@@ -50,6 +49,25 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
             $0.left.equalToSuperview().offset(16)
             $0.right.equalToSuperview().offset(-16)
         }
+        
+        let bottomView = UIView()
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(80)
+        }
+        
+        confirmBtn.setTitle("Continue", for: .normal)
+        confirmBtn.isUserInteractionEnabled = false
+        confirmBtn.layer.cornerRadius = 8
+        confirmBtn.backgroundColor = kDisableColor
+        confirmBtn.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        bottomView.addSubview(self.confirmBtn)
+        confirmBtn.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
 
         let layout = SelectDateCalendarFlowLayout()
         layout.minimumInteritemSpacing = 0
@@ -65,11 +83,11 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         self.collectionView?.dataSource = self
         self.collectionView?.delegate = self
         
-        self.view.addSubview(collectionView)
-        collectionView.snp.makeConstraints({ (make) in
+        self.view.addSubview(collectionView!)
+        collectionView!.snp.makeConstraints({ (make) in
             make.top.equalTo(chooseTime.snp.bottom).offset(10)
             make.centerX.width.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.equalTo(bottomView.snp.top).offset(-10)
         })
     }
     
@@ -77,6 +95,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         super.viewWillAppear(animated)
         _NavController.setNavigationBarHidden(true, animated: true)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.viewModel.getListTimeable()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -90,7 +109,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     }
     
     @objc private func cancelBtnTapped() {
-        collectionView.reloadData()
+        collectionView!.reloadData()
     }
     
 //    @objc func prevButtonTapped() {
@@ -108,12 +127,36 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     }
     
     @objc func nextButtonTapped() {
-        let chooseDoctorVC = SelectDoctorViewController()
-        self.navigationController?.pushViewController(chooseDoctorVC, animated: true)
+        
+    }
+    
+    // MARK: - Mapping Data
+    override func bindingData() {
+        viewModel.listTimeables
+            .observe(on: MainScheduler.instance)
+            .subscribe { listTimeables in
+                self.collectionView?.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        _BookingServices.selectedTimeable
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                if _BookingServices.selectedTimeable.value != nil {
+                    self.confirmBtn.isUserInteractionEnabled = true
+                    self.confirmBtn.backgroundColor = kPrimaryColor
+                }  else {
+                    self.confirmBtn.isUserInteractionEnabled = false
+                    self.confirmBtn.backgroundColor = kDisableColor
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - UICalendar
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        viewModel.selectedDate = date
+        self.collectionView?.reloadData()
     }
     
     func minimumDate(for calendar: FSCalendar) -> Date {
@@ -125,12 +168,30 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
 extension SelectDateAndTimeBookingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 40
+        return viewModel.getListTimeableByDate().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectDateCollectionViewCell", for: indexPath) as! SelectDateCollectionViewCell
         
+        let cellData = viewModel.getListTimeableByDate()[indexPath.row]
+        if cellData == _BookingServices.selectedTimeable.value {
+            cell.layoutView.layer.borderWidth = 0
+            cell.layoutView.backgroundColor = kPrimaryColor
+            cell.selectOption.textColor = .white
+        } else {
+            cell.layoutView.layer.borderWidth = 1
+            cell.layoutView.backgroundColor = .white
+            cell.selectOption.textColor = kDefaultTextColor
+        }
+        
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm"
+        timeFormatter.locale = Locale(identifier: "en_US")
+        let startTimeStr = timeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(cellData.startTime / 1000)))
+        let endTimeStr = timeFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(cellData.endTime / 1000)))
+        cell.selectOption.text = startTimeStr + "-" + endTimeStr
+        cell.layoutSubviews()
         
         return cell
     }
@@ -150,8 +211,8 @@ extension SelectDateAndTimeBookingViewController: UICollectionViewDataSource {
 extension SelectDateAndTimeBookingViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let cellData = viewModel.getListTimeableByDate()[indexPath.row]
+        _BookingServices.selectedTimeable.accept(cellData)
         collectionView.reloadData()
-        
     }
 }

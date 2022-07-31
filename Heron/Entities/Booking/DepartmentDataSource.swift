@@ -8,22 +8,36 @@
 import UIKit
 import ObjectMapper
 
-class DepartmentDataSource: Mappable {
+class TeamDataSource: Mappable {
     
-    var id          : String = ""
-    var name        : String = ""
-    var code        : String = ""
+    var id              : String = ""
+    var departmentID    : String = ""
+    var department      : DepartmentDataSource?
     
     required init?(map: Map) {
         //
     }
     
     func mapping(map: Map) {
-        id          <- map["id"]
-        name        <- map["name"]
-        code        <- map["code"]
+        id              <- map["id"]
+        department      <- map["department"]
+        departmentID    <- map["departmentId"]
     }
 }
 
-
-// https://ehp-api.cbidigital.com/organization-svc/api/departments?sort[createdAt]=desc&filter[type][eq]=specialty&filter[deletedAt][isNull]=true&limit=10&offset=0
+struct DepartmentDataSource : Mappable {
+    
+    var id              : String = ""
+    var name            : String = ""
+    var code            : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id              <- map["id"]
+        name            <- map["name"]
+        code            <- map["code"]
+    }
+}

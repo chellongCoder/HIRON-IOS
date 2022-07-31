@@ -20,6 +20,12 @@ class SelectDoctorViewController: BaseViewController {
         
         self.showBackBtn()
         
+        let nextBtn = UIBarButtonItem.init(title: "Next",
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(nextButtonTapped))
+        self.navigationItem.rightBarButtonItem = nextBtn
+        
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
         tableView.register(SelectDoctorTableViewCell.self, forCellReuseIdentifier: "SelectDoctorTableViewCell")
@@ -35,6 +41,12 @@ class SelectDoctorViewController: BaseViewController {
         self.viewModel.getListDoctor()
     }
     
+    // MARK: - Buttons
+    @objc private func nextButtonTapped() {
+        let selectDateVC = SelectDateAndTimeBookingViewController()
+        self.navigationController?.pushViewController(selectDateVC, animated: true)
+    }
+    
     // MARK: - Data
     override func bindingData() {
         viewModel.listDoctor
@@ -48,7 +60,12 @@ class SelectDoctorViewController: BaseViewController {
         
         tableView.rx.itemSelected
           .subscribe(onNext: { [weak self] indexPath in
-              self?.tableView.deselectRow(at: indexPath, animated: true)
+              
+              let elementData = self?.viewModel.listDoctor.value[indexPath.row]
+              _BookingServices.selectedDoctor.accept(elementData)
+              
+              self?.tableView.reloadData()
+              
           }).disposed(by: disposeBag)
 
     }
