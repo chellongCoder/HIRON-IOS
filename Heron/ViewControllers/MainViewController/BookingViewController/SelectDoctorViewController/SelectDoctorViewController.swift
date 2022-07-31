@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class SelectDoctorViewController: BaseViewController {
+class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
     
     private let viewModel   = SelectDoctorViewModel()
     private let tableView   = UITableView()
@@ -19,12 +19,6 @@ class SelectDoctorViewController: BaseViewController {
         viewModel.controller = self
         
         self.showBackBtn()
-        
-        let nextBtn = UIBarButtonItem.init(title: "Next",
-                                           style: .plain,
-                                           target: self,
-                                           action: #selector(nextButtonTapped))
-        self.navigationItem.rightBarButtonItem = nextBtn
         
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
@@ -41,19 +35,15 @@ class SelectDoctorViewController: BaseViewController {
         self.viewModel.getListDoctor()
     }
     
-    // MARK: - Buttons
-    @objc private func nextButtonTapped() {
-        let selectDateVC = SelectDateAndTimeBookingViewController()
-        self.navigationController?.pushViewController(selectDateVC, animated: true)
-    }
-    
     // MARK: - Data
     override func bindingData() {
         viewModel.listDoctor
-            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: DoctorDataSource) in
+            .bind(to: tableView.rx.items) { (_: UITableView, index: Int, element: DoctorDataSource) in
                 let cell = SelectDoctorTableViewCell(style: .default, reuseIdentifier:"SelectDoctorTableViewCell")
                 cell.setDataSource(element)
                 cell.setIsSelected(element.id == _BookingServices.selectedDoctor.value?.id)
+                cell.delegate = self
+                cell.setIndexPath(index)
                 return cell
             }
             .disposed(by: disposeBag)
@@ -61,12 +51,18 @@ class SelectDoctorViewController: BaseViewController {
         tableView.rx.itemSelected
           .subscribe(onNext: { [weak self] indexPath in
               
-              let elementData = self?.viewModel.listDoctor.value[indexPath.row]
-              _BookingServices.selectedDoctor.accept(elementData)
-              
-              self?.tableView.reloadData()
-              
+              if let cellData = self?.viewModel.listDoctor.value[indexPath.row] {
+                  let doctorDetailsVC = DoctorDetailsViewController()
+                  doctorDetailsVC.setDoctorDataSource(cellData)
+                  self?.navigationController?.pushViewController(doctorDetailsVC, animated: true)
+              }
           }).disposed(by: disposeBag)
 
+    }
+    
+    // MARK: - SelectDoctorCellDelegate
+    func bookNow(_ indexPath: Int) {
+        let selectDateVC = SelectDateAndTimeBookingViewController()
+        self.navigationController?.pushViewController(selectDateVC, animated: true)
     }
 }

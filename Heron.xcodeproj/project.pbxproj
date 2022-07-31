@@ -127,6 +127,8 @@
 		9AC54E592892F575006312D6 /* SelectDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */; };
 		9AC54E5B28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */; };
 		9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */; };
+		9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */; };
+		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
 		B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */; };
@@ -304,6 +306,8 @@
 		9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBookingViewModel.swift; sourceTree = "<group>"; };
 		9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeableDataSource.swift; sourceTree = "<group>"; };
+		9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewController.swift; sourceTree = "<group>"; };
+		9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewModel.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
@@ -870,9 +874,19 @@
 			path = SelectDateAndTimeBooking;
 			sourceTree = "<group>";
 		};
+		9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */,
+				9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */,
+			);
+			path = DoctorDetailsViewController;
+			sourceTree = "<group>";
+		};
 		9AD70C61288DB1C80079BFB1 /* BookingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */,
 				9A88B776288E494400BE1E05 /* SelectDepartmentViewController */,
 				9A88B77F288E5B2A00BE1E05 /* SelectDateAndTimeBooking */,
 				9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */,
@@ -1274,6 +1288,8 @@
 				93EC90C6285A2D85009056F6 /* CarrierView.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */,
+				9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */,
+				9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */,
 				B56181A82862B64E009BE6E5 /* Subs.swift in Sources */,
 				931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */,
 				93AF91F9284BE78E0075CD65 /* ContactDataSource.swift in Sources */,
