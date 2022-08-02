@@ -11,14 +11,15 @@ class ChipView: UIView {
     
     private let textLabel   = UILabel()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(title: String) {
+        super.init(frame: .zero)
         
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
         self.layer.borderWidth = 1
         self.layer.borderColor = kDefaultTextColor.cgColor
                 
+        self.textLabel.text = title
         self.textLabel.textColor = .white
         self.textLabel.font = getFontSize(size: 12, weight: .medium)
         self.textLabel.textColor = kDefaultTextColor
@@ -32,9 +33,5 @@ class ChipView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setTitle(_ newTitle: String) {
-        self.textLabel.text = String(format: "  %@  ", newTitle)
     }
 }

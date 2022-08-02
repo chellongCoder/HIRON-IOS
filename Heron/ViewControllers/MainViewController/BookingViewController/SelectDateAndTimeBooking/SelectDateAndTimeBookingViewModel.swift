@@ -37,13 +37,20 @@ class SelectDateAndTimeBookingViewModel: NSObject {
         if self.listTimeables.value.count == 0 {
             return []
         }
-        
-        guard let selectedDate = selectedDate else {
-            return []
-        }
-
-        
+        let selectedDate = selectedDate ?? Date()
         let dateString = selectedDate.toString(dateFormat: "dd-MM-yyyy")
+        
+        let listFiltered = self.listTimeables.value.filter { timeableData in
+            let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))
+            return date.toString(dateFormat: "dd-MM-yyyy") == dateString
+        }
+        
+        return listFiltered
+    }
+    
+    func getListTimeableByDate(_ date: Date) -> [TimeableDataSource] {
+        if self.listTimeables.value.count == 0 { return [] }
+        let dateString = date.toString(dateFormat: "dd-MM-yyyy")
         
         let listFiltered = self.listTimeables.value.filter { timeableData in
             let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))

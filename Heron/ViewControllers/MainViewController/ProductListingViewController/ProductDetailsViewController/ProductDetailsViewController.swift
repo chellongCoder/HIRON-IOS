@@ -247,24 +247,20 @@ class ProductDetailsViewController: BaseViewController,
         
         switch productDataSource.featureType {
         case .ecom:
-            let newChipView = ChipView()
-            newChipView.setTitle("Physical Product")
+            let newChipView = ChipView.init(title: "Physical Product")
             tagsViewStack.addArrangedSubview(newChipView)
         case .ecom_booking:
-            let newChipView = ChipView()
-            newChipView.setTitle("Virtual Product")
+            let newChipView = ChipView.init(title: "Virtual Product")
             tagsViewStack.addArrangedSubview(newChipView)
         }
         
         if let unitName = productDataSource.unit?.name {
-            let newChipView = ChipView()
-            newChipView.setTitle(unitName)
+            let newChipView = ChipView.init(title: unitName)
             tagsViewStack.addArrangedSubview(newChipView)
         }
         
         if let brandName = productDataSource.brand?.name {
-            let newChipView = ChipView()
-            newChipView.setTitle(brandName)
+            let newChipView = ChipView.init(title: brandName)
             tagsViewStack.addArrangedSubview(newChipView)
         }
         

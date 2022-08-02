@@ -102,7 +102,7 @@ class BookingServices {
         let param : [String:Any] = ["filter[hostId][eq]":selecteDoctorID]
         
         let fullURLRequest = kGatewayBookingURL + "/timetable"
-        _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
+        _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
                         
             if let responseMessage = responseData.responseMessage {
                 completion(responseMessage, nil)

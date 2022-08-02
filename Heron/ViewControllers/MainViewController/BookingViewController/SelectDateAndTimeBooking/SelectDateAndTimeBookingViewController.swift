@@ -136,6 +136,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { listTimeables in
                 self.collectionView?.reloadData()
+                self.calendar.reloadData()
             }
             .disposed(by: disposeBag)
         
@@ -161,6 +162,20 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     
     func minimumDate(for calendar: FSCalendar) -> Date {
         return Date()
+    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        let listEvents = viewModel.getListTimeableByDate(date)
+        
+        if listEvents.count == 0 {
+            return 0
+        } else if listEvents.count == 1 {
+            return 1
+        } else if listEvents.count > 1 && listEvents.count < 5 {
+            return 2
+        } else {
+            return 3
+        }
     }
 }
 

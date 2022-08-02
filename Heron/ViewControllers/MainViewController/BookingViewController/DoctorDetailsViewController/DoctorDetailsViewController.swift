@@ -14,7 +14,12 @@ class DoctorDetailsViewController: BaseViewController {
     private let topMediaView    = UIImageView()
     private let doctorTitle     = UILabel()
     private let starView        = UILabel()
-    private let tagsViewStack   = UIStackView()
+    private let tagsViewScroll  = UIScrollView()
+    private let tagsContentView = UIView()
+    
+    private let aboutContents   = UILabel()
+    private let workExpContents = UILabel()
+    private let certContents    = UILabel()
     
     private let confirmBtn      = UIButton()
     
@@ -53,26 +58,106 @@ class DoctorDetailsViewController: BaseViewController {
             make.left.equalTo(doctorTitle)
         }
         
-        tagsViewStack.axis  = .horizontal
-        tagsViewStack.distribution  = .fillProportionally
-        tagsViewStack.alignment = .center
-        tagsViewStack.spacing = 10
-        contentView.addSubview(tagsViewStack)
-        tagsViewStack.snp.makeConstraints { make in
+        tagsViewScroll.showsHorizontalScrollIndicator = false
+        contentView.addSubview(tagsViewScroll)
+        tagsViewScroll.snp.makeConstraints { make in
             make.top.equalTo(starView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
+            make.height.equalTo(40)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+
+        tagsContentView.backgroundColor = .white
+        tagsViewScroll.addSubview(tagsContentView)
+        tagsContentView.snp.makeConstraints { (make) in
+            make.left.top.right.bottom.height.equalToSuperview()
         }
         
+        let aboutTitle = UILabel()
+        aboutTitle.text = "About"
+        aboutTitle.textColor = kDefaultTextColor
+        aboutTitle.font = getFontSize(size: 16, weight: .medium)
+        contentView.addSubview(aboutTitle)
+        aboutTitle.snp.makeConstraints { make in
+            make.top.equalTo(tagsViewScroll.snp.bottom).offset(50)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        aboutContents.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
+        aboutContents.textColor = kDefaultTextColor
+        aboutContents.font = getFontSize(size: 14, weight: .regular)
+        aboutContents.numberOfLines = 0
+        contentView.addSubview(aboutContents)
+        aboutContents.snp.makeConstraints { make in
+            make.top.equalTo(aboutTitle.snp.bottom).offset(15)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        let workExpTitle = UILabel()
+        workExpTitle.text = "Work Experience"
+        workExpTitle.textColor = kDefaultTextColor
+        workExpTitle.font = getFontSize(size: 16, weight: .medium)
+        contentView.addSubview(workExpTitle)
+        workExpTitle.snp.makeConstraints { make in
+            make.top.equalTo(aboutContents.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        workExpContents.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
+        workExpContents.textColor = kDefaultTextColor
+        workExpContents.font = getFontSize(size: 14, weight: .regular)
+        workExpContents.numberOfLines = 0
+        contentView.addSubview(workExpContents)
+        workExpContents.snp.makeConstraints { make in
+            make.top.equalTo(workExpTitle.snp.bottom).offset(15)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        let certificateTitle = UILabel()
+        certificateTitle.text = "Certificate"
+        certificateTitle.textColor = kDefaultTextColor
+        certificateTitle.font = getFontSize(size: 16, weight: .medium)
+        contentView.addSubview(certificateTitle)
+        certificateTitle.snp.makeConstraints { make in
+            make.top.equalTo(workExpContents.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        certContents.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
+        certContents.textColor = kDefaultTextColor
+        certContents.font = getFontSize(size: 14, weight: .regular)
+        certContents.numberOfLines = 0
+        contentView.addSubview(certContents)
+        certContents.snp.makeConstraints { make in
+            make.top.equalTo(certificateTitle.snp.bottom).offset(15)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-60)
+        }
+        
+        let bottomView = UIView()
+        bottomView.backgroundColor = .white
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(50)
+        }
+
         confirmBtn.setTitle("Make Appointment Now", for: .normal)
         confirmBtn.backgroundColor = kPrimaryColor
         confirmBtn.layer.cornerRadius = 8
         confirmBtn.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        self.view.addSubview(confirmBtn)
+        bottomView.addSubview(confirmBtn)
         confirmBtn.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
-            make.centerX.equalToSuperview()
+            make.center.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
@@ -105,16 +190,38 @@ class DoctorDetailsViewController: BaseViewController {
     }
     
     private func loadTagsContents() {
-        for arrangedSubview in tagsViewStack.arrangedSubviews {
-            arrangedSubview.removeFromSuperview()
+//        for arrangedSubview in tagsViewStack.arrangedSubviews {
+//            arrangedSubview.removeFromSuperview()
+//        }
+        
+        for subView in tagsContentView.subviews {
+            subView.removeFromSuperview()
         }
         
         guard let doctorData = self.viewModel.doctorData.value else {return}
         
+        var lastView : UIView?
         for attribute in doctorData.attributeValues {
-            let newChipView = ChipView()
-            newChipView.setTitle(attribute.attributeCode)
-            tagsViewStack.addArrangedSubview(newChipView)
+            let newChipView = ChipView.init(title: attribute.attributeCode)
+            tagsContentView.addSubview(newChipView)
+            
+            if let lastView = lastView {
+                newChipView.snp.makeConstraints { make in
+                    make.centerY.top.bottom.equalToSuperview()
+                    make.left.equalTo(lastView.snp.right).offset(10)
+                }
+            } else {
+                newChipView.snp.makeConstraints { make in
+                    make.centerY.top.bottom.equalToSuperview()
+                    make.left.equalToSuperview().offset(10)
+                }
+            }
+            
+            lastView = newChipView
         }
+        
+        lastView?.snp.makeConstraints({ make in
+            make.right.lessThanOrEqualToSuperview().offset(-10)
+        })
     }
 }

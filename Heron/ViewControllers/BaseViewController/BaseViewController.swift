@@ -20,6 +20,7 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = .white
         self.edgesForExtendedLayout = []
         
+        pageScroll.showsVerticalScrollIndicator = false
         self.view.addSubview(pageScroll)
         pageScroll.snp.makeConstraints { (make) in
             make.left.top.right.bottom.equalToSuperview()
