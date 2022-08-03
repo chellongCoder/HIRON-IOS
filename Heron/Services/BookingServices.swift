@@ -53,7 +53,11 @@ class BookingServices {
             } else {
                 
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                    completion(responseData.responseMessage, Mapper<TeamDataSource>().mapArray(JSONArray: data))
+                    let listDepartments = Mapper<TeamDataSource>().mapArray(JSONArray: data)
+                    let filteredDepartment = listDepartments.filter { teamData in
+                        return teamData.isDefault == true
+                    }
+                    completion(responseData.responseMessage, filteredDepartment)
                 }
             }
         }
@@ -61,7 +65,6 @@ class BookingServices {
     
     func getListDoctors(completion:@escaping (String?, [DoctorDataSource]?) -> Void) {
         
-        #warning("HARD_CODE")
         guard let selectedDepartmentID = self.selectedDepartment.value?.departmentID else {
             completion("Required to select department", [])
             return
@@ -72,9 +75,8 @@ class BookingServices {
                                     "limit": 100,
                                     "sort[createdAt]":"desc",
                                     "filter[type][eq]":"doctor",
-                                    "filter[deletedAt][eq]":"null"]
-//                                    "filter[deletedAt][eq]":"null",
-//                                    "filter[teamMemberPosition][memberId][eq]":selectedDepartmentID]
+                                    "filter[deletedAt][eq]":"null",
+                                    "filter[teamMemberPosition][team][departmentId][eq]": selectedDepartmentID]
         
         let fullURLRequest = kGatewayOganizationURL + "/members"
         _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
@@ -93,7 +95,6 @@ class BookingServices {
     
     func getListTimeables(completion:@escaping (String?, [TimeableDataSource]?) -> Void) {
         
-        #warning("HARD_CODE")
         guard let selecteDoctorID = self.selectedDoctor.value?.id else {
             completion("Required to select department", [])
             return

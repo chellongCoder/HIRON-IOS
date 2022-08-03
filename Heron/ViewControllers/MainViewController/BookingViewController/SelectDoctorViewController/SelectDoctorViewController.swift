@@ -52,6 +52,9 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
           .subscribe(onNext: { [weak self] indexPath in
               
               if let cellData = self?.viewModel.listDoctor.value[indexPath.row] {
+                  
+                  _BookingServices.selectedDoctor.accept(cellData)
+                  
                   let doctorDetailsVC = DoctorDetailsViewController()
                   doctorDetailsVC.setDoctorDataSource(cellData)
                   self?.navigationController?.pushViewController(doctorDetailsVC, animated: true)

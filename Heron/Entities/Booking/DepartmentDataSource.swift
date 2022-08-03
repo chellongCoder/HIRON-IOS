@@ -12,6 +12,7 @@ class TeamDataSource: Mappable {
     
     var id              : String = ""
     var departmentID    : String = ""
+    var isDefault       : Bool = false
     var department      : DepartmentDataSource?
     
     required init?(map: Map) {
@@ -22,6 +23,7 @@ class TeamDataSource: Mappable {
         id              <- map["id"]
         department      <- map["department"]
         departmentID    <- map["departmentId"]
+        isDefault       <- map["isDefault"]
     }
 }
 
