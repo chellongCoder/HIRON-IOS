@@ -104,7 +104,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
         self.doctorNameLabel.text = (doctorData.user?.firstName ?? "") + " " + (doctorData.user?.lastName ?? "")
         var tagSting = ""
         for attrubute in doctorData.attributeValues {
-            tagSting = tagSting + ", " + attrubute.attributeCode
+            tagSting = tagSting + ", " + (attrubute.attribute?.label ?? "")
         }
         self.tagsContent.text = tagSting
     }

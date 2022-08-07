@@ -85,7 +85,12 @@ class DoctorDetailsViewController: BaseViewController {
             make.centerX.equalToSuperview()
         }
         
-        aboutContents.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
+        // About
+        if let aboutAttribute = viewModel.doctorData.value?.attributeValues.first(where: { doctorAttribute in
+            return doctorAttribute.attributeCode == .About
+        }) {
+            self.aboutContents.text = aboutAttribute.attribute?.label ?? "About"
+        }
         aboutContents.textColor = kDefaultTextColor
         aboutContents.font = getFontSize(size: 14, weight: .regular)
         aboutContents.numberOfLines = 0
@@ -107,7 +112,12 @@ class DoctorDetailsViewController: BaseViewController {
             make.centerX.equalToSuperview()
         }
         
-        workExpContents.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
+        // Work Expreience
+        if let workExperienceAttribute = viewModel.doctorData.value?.attributeValues.first(where: { doctorAttribute in
+            return doctorAttribute.attributeCode == .WorkExperience
+        }) {
+            self.workExpContents.text = workExperienceAttribute.attribute?.label ?? "WorkExperience"
+        }
         workExpContents.textColor = kDefaultTextColor
         workExpContents.font = getFontSize(size: 14, weight: .regular)
         workExpContents.numberOfLines = 0
@@ -129,7 +139,12 @@ class DoctorDetailsViewController: BaseViewController {
             make.centerX.equalToSuperview()
         }
         
-        certContents.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
+        // Certificates
+        if let certificateAttribute = viewModel.doctorData.value?.attributeValues.first(where: { doctorAttribute in
+            return doctorAttribute.attributeCode == .Certificate
+        }) {
+            self.certContents.text = certificateAttribute.attribute?.label ?? "Certificate"
+        }
         certContents.textColor = kDefaultTextColor
         certContents.font = getFontSize(size: 14, weight: .regular)
         certContents.numberOfLines = 0
@@ -185,14 +200,32 @@ class DoctorDetailsViewController: BaseViewController {
                     self.doctorTitle.text = user.firstName + " " + user.lastName
                 }
                 self.loadTagsContents()
+                
+                // About
+                if let aboutAttribute = doctorData.attributeValues.first(where: { doctorAttribute in
+                    return doctorAttribute.attributeCode == .About
+                }) {
+                    self.aboutContents.text = aboutAttribute.attribute?.label ?? "About"
+                }
+                
+                // Work Expreience
+                if let workExperienceAttribute = doctorData.attributeValues.first(where: { doctorAttribute in
+                    return doctorAttribute.attributeCode == .WorkExperience
+                }) {
+                    self.workExpContents.text = workExperienceAttribute.attribute?.label ?? "WorkExperience"
+                }
+                
+                // Certificates
+                if let certificateAttribute = doctorData.attributeValues.first(where: { doctorAttribute in
+                    return doctorAttribute.attributeCode == .Certificate
+                }) {
+                    self.certContents.text = certificateAttribute.attribute?.label ?? "Certificate"
+                }
             }
             .disposed(by: disposeBag)
     }
     
     private func loadTagsContents() {
-//        for arrangedSubview in tagsViewStack.arrangedSubviews {
-//            arrangedSubview.removeFromSuperview()
-//        }
         
         for subView in tagsContentView.subviews {
             subView.removeFromSuperview()
@@ -201,8 +234,56 @@ class DoctorDetailsViewController: BaseViewController {
         guard let doctorData = self.viewModel.doctorData.value else {return}
         
         var lastView : UIView?
-        for attribute in doctorData.attributeValues {
-            let newChipView = ChipView.init(title: attribute.attributeCode)
+        
+        // Name deparment
+        for teamMemberPosition in doctorData.teamMemberPosition {
+            if let deparment = teamMemberPosition.team?.department {
+                let newChipView = ChipView.init(title: deparment.name)
+                tagsContentView.addSubview(newChipView)
+                
+                if let lastView = lastView {
+                    newChipView.snp.makeConstraints { make in
+                        make.centerY.top.bottom.equalToSuperview()
+                        make.left.equalTo(lastView.snp.right).offset(10)
+                    }
+                } else {
+                    newChipView.snp.makeConstraints { make in
+                        make.centerY.top.bottom.equalToSuperview()
+                        make.left.equalToSuperview().offset(10)
+                    }
+                }
+                
+                lastView = newChipView
+            }
+        }
+        
+        // Experience
+        if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
+            return doctorAttribute.attributeCode == .Experience
+        }) {
+            let newChipView = ChipView.init(title: expAtribute.attribute?.label ?? "Experience")
+            tagsContentView.addSubview(newChipView)
+            
+            if let lastView = lastView {
+                newChipView.snp.makeConstraints { make in
+                    make.centerY.top.bottom.equalToSuperview()
+                    make.left.equalTo(lastView.snp.right).offset(10)
+                }
+            } else {
+                newChipView.snp.makeConstraints { make in
+                    make.centerY.top.bottom.equalToSuperview()
+                    make.left.equalToSuperview().offset(10)
+                }
+            }
+            
+            lastView = newChipView
+        }
+        
+        // Dean
+        if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
+            return doctorAttribute.attributeCode == .Dean
+        }) {
+            let newChipView = ChipView.init(title: expAtribute.attribute?.label ?? "Dean")
             tagsContentView.addSubview(newChipView)
             
             if let lastView = lastView {
