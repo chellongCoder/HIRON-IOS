@@ -42,7 +42,8 @@ class SelectDateAndTimeBookingViewModel: NSObject {
         
         let listFiltered = self.listTimeables.value.filter { timeableData in
             let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))
-            return date.toString(dateFormat: "dd-MM-yyyy") == dateString
+            let currentDateInt = Int(Date().timeIntervalSince1970*1000)
+            return (date.toString(dateFormat: "dd-MM-yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))
         }
         
         return listFiltered
@@ -54,7 +55,8 @@ class SelectDateAndTimeBookingViewModel: NSObject {
         
         let listFiltered = self.listTimeables.value.filter { timeableData in
             let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))
-            return date.toString(dateFormat: "dd-MM-yyyy") == dateString
+            let currentDateInt = Int(Date().timeIntervalSince1970*1000)
+            return (date.toString(dateFormat: "dd-MM-yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))
         }
         
         return listFiltered

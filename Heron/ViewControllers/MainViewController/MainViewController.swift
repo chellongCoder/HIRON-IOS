@@ -35,7 +35,7 @@ class MainViewController: UITabBarController {
         productNav.tabBarItem = UITabBarItem(title: "Product", image: UIImage.init(systemName: "cart"), selectedImage: nil)
         
         let bookingNav = UINavigationController.init(rootViewController: BookingViewController())
-        bookingNav.tabBarItem = UITabBarItem(title: "Product", image: UIImage.init(systemName: "ticket"), selectedImage: nil)
+        bookingNav.tabBarItem = UITabBarItem(title: "Booking", image: UIImage.init(systemName: "ticket"), selectedImage: nil)
 
         let myOrderNav = UINavigationController.init(rootViewController: MyOrderViewController())
         myOrderNav.navigationBar.barTintColor = .white

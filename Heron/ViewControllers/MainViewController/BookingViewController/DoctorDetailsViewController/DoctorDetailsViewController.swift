@@ -11,7 +11,7 @@ import RxSwift
 class DoctorDetailsViewController: BaseViewController {
 
     private let viewModel       = DoctorDetailsViewModel()
-    private let topMediaView    = UIImageView()
+    private let doctorAvatar    = UIImageView()
     private let doctorTitle     = UILabel()
     private let starView        = UILabel()
     private let tagsViewScroll  = UIScrollView()
@@ -30,13 +30,16 @@ class DoctorDetailsViewController: BaseViewController {
         self.viewModel.controller = self
                 
         let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
-        topMediaView.contentMode = .scaleAspectFit
-        topMediaView.image = UIImage(named: "default-image")
-        contentView.addSubview(topMediaView)
-        topMediaView.snp.makeConstraints { (make) in
+        
+        if let avatarURL = URL(string: viewModel.doctorData.value?.user?.avatar ?? "") {
+            self.doctorAvatar.setImage(url: avatarURL, placeholder: UIImage(named: "default-image")!)
+        }
+        doctorAvatar.contentMode = .scaleAspectFit
+        contentView.addSubview(doctorAvatar)
+        doctorAvatar.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.right.left.equalToSuperview()
-            make.bottom.equalTo(topMediaView.snp.top).offset(staticHeight + 50)
+            make.bottom.equalTo(doctorAvatar.snp.top).offset(staticHeight + 50)
         }
         
         doctorTitle.font = getFontSize(size: 20, weight: .medium)
@@ -44,7 +47,7 @@ class DoctorDetailsViewController: BaseViewController {
         doctorTitle.numberOfLines = 0
         contentView.addSubview(doctorTitle)
         doctorTitle.snp.makeConstraints { make in
-            make.top.equalTo(topMediaView.snp.bottom)
+            make.top.equalTo(doctorAvatar.snp.bottom)
             make.left.equalToSuperview().offset(30)
             make.right.equalToSuperview().offset(-30)
         }
@@ -196,6 +199,10 @@ class DoctorDetailsViewController: BaseViewController {
                 guard let doctorDataA = doctorData.element else {return}
                 guard let doctorData = doctorDataA else {return}
                 
+                if let avatarURL = URL(string: doctorData.user?.avatar ?? "") {
+                    self.doctorAvatar.setImage(url: avatarURL, placeholder: UIImage(named: "default-image")!)
+                }
+                
                 if let user = doctorData.user {
                     self.doctorTitle.text = user.firstName + " " + user.lastName
                 }
@@ -239,6 +246,9 @@ class DoctorDetailsViewController: BaseViewController {
         for teamMemberPosition in doctorData.teamMemberPosition {
             if let deparment = teamMemberPosition.team?.department {
                 let newChipView = ChipView.init(title: deparment.name)
+                newChipView.backgroundColor = kRedHightLightColor
+                newChipView.borderColor = kRedHightLightColor
+                newChipView.textLabel.textColor = .white
                 tagsContentView.addSubview(newChipView)
                 
                 if let lastView = lastView {
@@ -262,6 +272,9 @@ class DoctorDetailsViewController: BaseViewController {
             return doctorAttribute.attributeCode == .Experience
         }) {
             let newChipView = ChipView.init(title: expAtribute.attribute?.label ?? "Experience")
+            newChipView.backgroundColor = kPrimaryColor
+            newChipView.borderColor = kPrimaryColor
+            newChipView.textLabel.textColor = .white
             tagsContentView.addSubview(newChipView)
             
             if let lastView = lastView {
@@ -284,6 +297,9 @@ class DoctorDetailsViewController: BaseViewController {
             return doctorAttribute.attributeCode == .Dean
         }) {
             let newChipView = ChipView.init(title: expAtribute.attribute?.label ?? "Dean")
+            newChipView.backgroundColor = kPrimaryColor
+            newChipView.borderColor = kPrimaryColor
+            newChipView.textLabel.textColor = .white
             tagsContentView.addSubview(newChipView)
             
             if let lastView = lastView {

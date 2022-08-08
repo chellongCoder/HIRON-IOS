@@ -36,6 +36,7 @@ struct DoctorUser : Mappable {
     var firstName   : String = ""
     var lastName    : String = ""
     var email       : String = ""
+    var avatar      : String = ""
     
     init?(map: Map) {
         //
@@ -47,6 +48,7 @@ struct DoctorUser : Mappable {
         firstName   <- map["firstName"]
         lastName    <- map["lastName"]
         email       <- map["email"]
+        avatar      <- map["avatar"]
     }
 }
 

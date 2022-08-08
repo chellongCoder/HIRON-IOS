@@ -9,7 +9,7 @@ import UIKit
 
 class ChipView: UIView {
     
-    private let textLabel   = UILabel()
+    let textLabel   = UILabel()
     
     init(title: String) {
         super.init(frame: .zero)
