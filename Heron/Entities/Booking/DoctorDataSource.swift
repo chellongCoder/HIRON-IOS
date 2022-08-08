@@ -64,6 +64,7 @@ struct DoctorAttributeValues : Mappable {
     
     var id              : String = ""
     var attributeCode   : DoctorAttributeCode = .About
+    var value           : String = ""
     var attribute       : DoctorAttribute?
     
     init?(map: Map) {
@@ -73,6 +74,7 @@ struct DoctorAttributeValues : Mappable {
     mutating func mapping(map: Map) {
         id              <- map["id"]
         attributeCode   <- map["attributeCode"]
+        value           <- map["value"]
         attribute       <- map["attribute"]
     }
 }

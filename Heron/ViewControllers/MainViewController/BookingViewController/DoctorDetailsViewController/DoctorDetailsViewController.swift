@@ -92,7 +92,7 @@ class DoctorDetailsViewController: BaseViewController {
         if let aboutAttribute = viewModel.doctorData.value?.attributeValues.first(where: { doctorAttribute in
             return doctorAttribute.attributeCode == .About
         }) {
-            self.aboutContents.text = aboutAttribute.attribute?.label ?? "About"
+            self.aboutContents.text = aboutAttribute.value
         }
         aboutContents.textColor = kDefaultTextColor
         aboutContents.font = getFontSize(size: 14, weight: .regular)
@@ -119,7 +119,7 @@ class DoctorDetailsViewController: BaseViewController {
         if let workExperienceAttribute = viewModel.doctorData.value?.attributeValues.first(where: { doctorAttribute in
             return doctorAttribute.attributeCode == .WorkExperience
         }) {
-            self.workExpContents.text = workExperienceAttribute.attribute?.label ?? "WorkExperience"
+            self.workExpContents.text = workExperienceAttribute.value
         }
         workExpContents.textColor = kDefaultTextColor
         workExpContents.font = getFontSize(size: 14, weight: .regular)
@@ -146,7 +146,7 @@ class DoctorDetailsViewController: BaseViewController {
         if let certificateAttribute = viewModel.doctorData.value?.attributeValues.first(where: { doctorAttribute in
             return doctorAttribute.attributeCode == .Certificate
         }) {
-            self.certContents.text = certificateAttribute.attribute?.label ?? "Certificate"
+            self.certContents.text = certificateAttribute.value
         }
         certContents.textColor = kDefaultTextColor
         certContents.font = getFontSize(size: 14, weight: .regular)
@@ -212,21 +212,21 @@ class DoctorDetailsViewController: BaseViewController {
                 if let aboutAttribute = doctorData.attributeValues.first(where: { doctorAttribute in
                     return doctorAttribute.attributeCode == .About
                 }) {
-                    self.aboutContents.text = aboutAttribute.attribute?.label ?? "About"
+                    self.aboutContents.text = aboutAttribute.value
                 }
                 
                 // Work Expreience
                 if let workExperienceAttribute = doctorData.attributeValues.first(where: { doctorAttribute in
                     return doctorAttribute.attributeCode == .WorkExperience
                 }) {
-                    self.workExpContents.text = workExperienceAttribute.attribute?.label ?? "WorkExperience"
+                    self.workExpContents.text = workExperienceAttribute.value
                 }
                 
                 // Certificates
                 if let certificateAttribute = doctorData.attributeValues.first(where: { doctorAttribute in
                     return doctorAttribute.attributeCode == .Certificate
                 }) {
-                    self.certContents.text = certificateAttribute.attribute?.label ?? "Certificate"
+                    self.certContents.text = certificateAttribute.value
                 }
             }
             .disposed(by: disposeBag)
