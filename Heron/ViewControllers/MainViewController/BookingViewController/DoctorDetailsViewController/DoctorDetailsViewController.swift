@@ -25,7 +25,7 @@ class DoctorDetailsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Doctos Details"
+        self.title = "Doctor Details"
         self.showBackBtn()
         self.viewModel.controller = self
                 
