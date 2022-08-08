@@ -61,7 +61,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         confirmBtn.isUserInteractionEnabled = false
         confirmBtn.layer.cornerRadius = 8
         confirmBtn.backgroundColor = kDisableColor
-        confirmBtn.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        confirmBtn.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         bottomView.addSubview(self.confirmBtn)
         confirmBtn.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -105,7 +105,8 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     
     // MARK: - UIButton Action
     @objc private func continueButtonTapped() {
-
+//        let confirmBooking = ConfirmBookingViewController()
+//        self.navigationController?.pushViewController(confirmBooking, animated: true)
     }
     
     @objc private func cancelBtnTapped() {
@@ -124,10 +125,6 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     
     override func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func nextButtonTapped() {
-        
     }
     
     // MARK: - Mapping Data
