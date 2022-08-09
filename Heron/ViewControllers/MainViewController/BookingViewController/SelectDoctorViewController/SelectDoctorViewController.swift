@@ -65,6 +65,8 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
     
     // MARK: - SelectDoctorCellDelegate
     func bookNow(_ indexPath: Int) {
+        let cellData = self.viewModel.listDoctor.value[indexPath]
+        _BookingServices.selectedDoctor.accept(cellData)
         let selectDateVC = SelectDateAndTimeBookingViewController()
         self.navigationController?.pushViewController(selectDateVC, animated: true)
     }

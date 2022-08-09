@@ -271,7 +271,7 @@ class DoctorDetailsViewController: BaseViewController {
         if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
             return doctorAttribute.attributeCode == .Experience
         }) {
-            let newChipView = ChipView.init(title: expAtribute.attribute?.label ?? "Experience")
+            let newChipView = ChipView.init(title: expAtribute.value)
             newChipView.backgroundColor = kPrimaryColor
             newChipView.borderColor = kPrimaryColor
             newChipView.textLabel.textColor = .white
@@ -296,7 +296,7 @@ class DoctorDetailsViewController: BaseViewController {
         if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
             return doctorAttribute.attributeCode == .Dean
         }) {
-            let newChipView = ChipView.init(title: expAtribute.attribute?.label ?? "Dean")
+            let newChipView = ChipView.init(title: expAtribute.value)
             newChipView.backgroundColor = kPrimaryColor
             newChipView.borderColor = kPrimaryColor
             newChipView.textLabel.textColor = .white

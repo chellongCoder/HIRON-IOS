@@ -13,6 +13,7 @@ class EHealthDataSource: Mappable {
     var id          : String = ""
     var firstName   : String = ""
     var lastName    : String = ""
+    var phone       : String = ""
     var email       : String = ""
     
     required init?(map: Map) {
@@ -23,6 +24,7 @@ class EHealthDataSource: Mappable {
         id          <- map["id"]
         firstName   <- map["firstName"]
         lastName    <- map["lastName"]
+        phone       <- map["phone"]
         email       <- map["email"]
     }
 }

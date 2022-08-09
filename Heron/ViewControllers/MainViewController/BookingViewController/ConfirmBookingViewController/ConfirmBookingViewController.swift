@@ -11,6 +11,8 @@ class ConfirmBookingViewController: BaseViewController,
                                     UITableViewDataSource, UITableViewDelegate {
     
     private let tableView   = UITableView()
+    private let bookNowBtn  = UIButton()
+    private let priceLabel  = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +20,37 @@ class ConfirmBookingViewController: BaseViewController,
         
         self.showBackBtn()
         
+        let bottomView = UIView()
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.left.right.bottom.equalToSuperview()
+            make.height.equalTo(80)
+        }
+        
+        bookNowBtn.setTitle("Book Now", for: .normal)
+        bookNowBtn.backgroundColor = kPrimaryColor
+        bookNowBtn.layer.cornerRadius = 8
+        bottomView.addSubview(bookNowBtn)
+        bookNowBtn.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().offset(-30)
+            make.height.equalTo(50)
+            make.width.equalTo(110)
+        }
+        
+        priceLabel.text = "Total: $150"
+        priceLabel.textColor = kDefaultTextColor
+        priceLabel.font = getFontSize(size: 16, weight: .medium)
+        bottomView.addSubview(priceLabel)
+        priceLabel.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(30)
+            make.height.equalTo(50)
+            make.right.equalTo(bookNowBtn.snp.left).offset(-5)
+        }
+        
         tableView.delegate = self
+        tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
         tableView.register(BookingInfoTableViewCell.self, forCellReuseIdentifier: "BookingInfoTableViewCell")
@@ -28,7 +60,7 @@ class ConfirmBookingViewController: BaseViewController,
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.centerX.width.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(bottomView.snp.top)
         }
     }
     

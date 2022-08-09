@@ -105,8 +105,8 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     
     // MARK: - UIButton Action
     @objc private func continueButtonTapped() {
-//        let confirmBooking = ConfirmBookingViewController()
-//        self.navigationController?.pushViewController(confirmBooking, animated: true)
+        let confirmBooking = ConfirmBookingViewController()
+        self.navigationController?.pushViewController(confirmBooking, animated: true)
     }
     
     @objc private func cancelBtnTapped() {
