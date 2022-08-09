@@ -12,7 +12,7 @@ class DoctorDataSource: Mappable {
     
     var id              : String = ""
     var userId          : String = ""
-    var attributeValues : [DoctorAttributeValues] = []
+    var attributeValues : [AttributeValues] = []
     var user            : DoctorUser?
     var teamMemberPosition  : [DoctorTeamMemberPosition] = []
     
@@ -49,48 +49,6 @@ struct DoctorUser : Mappable {
         lastName    <- map["lastName"]
         email       <- map["email"]
         avatar      <- map["avatar"]
-    }
-}
-
-enum DoctorAttributeCode : String {
-    case About          = "About"
-    case WorkExperience = "WorkExperience"
-    case Certificate    = "Certificate"
-    case Dean           = "Dean"
-    case Experience     = "Experience"
-}
-
-struct DoctorAttributeValues : Mappable {
-    
-    var id              : String = ""
-    var attributeCode   : DoctorAttributeCode = .About
-    var value           : String = ""
-    var attribute       : DoctorAttribute?
-    
-    init?(map: Map) {
-        //
-    }
-    
-    mutating func mapping(map: Map) {
-        id              <- map["id"]
-        attributeCode   <- map["attributeCode"]
-        value           <- map["value"]
-        attribute       <- map["attribute"]
-    }
-}
-
-struct DoctorAttribute : Mappable {
-    
-    var code        : DoctorAttributeCode = .About
-    var label       : String = ""
-    
-    init?(map: Map) {
-        //
-    }
-    
-    mutating func mapping(map: Map) {
-        code        <- map["code"]
-        label       <- map["label"]
     }
 }
 

@@ -10,19 +10,35 @@ import RxSwift
 import RxRelay
 import ObjectMapper
 
-class BookingServices {
+class BookingServices : NSObject {
     public static let sharedInstance    = BookingServices()
     
     var selectedProfile                 = BehaviorRelay<EHealthDataSource?>(value: nil)
     var selectedDepartment              = BehaviorRelay<TeamDataSource?>(value: nil)
+    var selectedOrganization            = BehaviorRelay<Organization?>(value: nil)
     var selectedDoctor                  = BehaviorRelay<DoctorDataSource?>(value: nil)
     var selectedTimeable                = BehaviorRelay<TimeableDataSource?>(value: nil)
     private let disposeBag              = DisposeBag()
     
+    override init() {
+        super.init()
+        
+        self.selectedDepartment
+            .observe(on: MainScheduler.instance)
+            .subscribe { selectedDepartment in
+                self.getListOrganization { _, listAttribute in
+                    if let firstOrganization = listAttribute?.first {
+                        self.selectedOrganization.accept(firstOrganization)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
     #warning("HARD_CODE")
     func getListEHProfile(completion:@escaping (String?, [EHealthDataSource]?) -> Void) {
         
-        let fullURLRequest = kGatewayEHealthProfileURL + "/profiles/users/own"
+        let fullURLRequest = kGatewayEHealthProfileURL + "/profiles?filter[typeId][eq]=null"
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
                         
             if responseData.responseCode == 400 {
@@ -112,6 +128,30 @@ class BookingServices {
                 
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     completion(responseData.responseMessage, Mapper<TimeableDataSource>().mapArray(JSONArray: data))
+                }
+            }
+        }
+    }
+    
+    func getListOrganization(completion:@escaping (String?, [Organization]?) -> Void) {
+        
+        guard let selectedDepartmentID = self.selectedDepartment.value?.departmentID else {
+            completion("Required to select department", [])
+            return
+        }
+        
+        let param : [String:Any] = ["filter[id][eq]": selectedDepartmentID]
+        
+        let fullURLRequest = kGatewayOganizationURL + "/admin/organizations"
+        _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
+                        
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
+                return
+            } else {
+                
+                if let data = responseData.responseData?["data"] as? [[String:Any]] {
+                    completion(responseData.responseMessage, Mapper<Organization>().mapArray(JSONArray: data))
                 }
             }
         }

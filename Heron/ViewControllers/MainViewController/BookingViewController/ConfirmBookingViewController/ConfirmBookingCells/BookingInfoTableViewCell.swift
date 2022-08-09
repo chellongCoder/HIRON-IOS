@@ -64,6 +64,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         }
         
         let bookingInfoLocations = UILabel()
+        bookingInfoLocations.text = String(format: "Locations: HARD_CODE")
         bookingInfoLocations.textColor = kDefaultTextColor
         bookingInfoLocations.font = getFontSize(size: 16, weight: .regular)
         contentView.addSubview(bookingInfoLocations)
@@ -81,9 +82,8 @@ class BookingInfoTableViewCell: UITableViewCell {
             bookingInfoTime.text = String(format: "Time: %@", date.toString(dateFormat: "HH:mm"))
         }
         
-        if let selectDerpartment = _BookingServices.selectedDepartment.value {
-            bookingInfoLocations.text = "Locations: HARD_CODE"
-//            bookingInfoLocations.text = String(format: "Locations: %@", selectDerpartment.department.)
+        if let selectOrganization = _BookingServices.selectedOrganization.value {
+            bookingInfoLocations.text = String(format: "Locations: %@", selectOrganization.name)
         }
     }
     
