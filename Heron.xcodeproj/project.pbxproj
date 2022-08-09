@@ -17,6 +17,7 @@
 		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
 		930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3035281A05C7003D247A /* ProductDetailsViewController.swift */; };
 		931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EC25D2846F60E00B72479 /* CartHotView.swift */; };
+		932AC4CD28A21CEE0060338B /* BookingSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932AC4CC28A21CEE0060338B /* BookingSuccessViewController.swift */; };
 		933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 933D18E62819935900F1CCC4 /* Heron.xcdatamodeld */; };
 		933D18EA2819935E00F1CCC4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933D18E92819935E00F1CCC4 /* Assets.xcassets */; };
 		933D18ED2819935E00F1CCC4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 933D18EB2819935E00F1CCC4 /* LaunchScreen.storyboard */; };
@@ -197,6 +198,7 @@
 		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
 		931EC25D2846F60E00B72479 /* CartHotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHotView.swift; sourceTree = "<group>"; };
+		932AC4CC28A21CEE0060338B /* BookingSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingSuccessViewController.swift; sourceTree = "<group>"; };
 		933D18DA2819935900F1CCC4 /* Heron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933D18E72819935900F1CCC4 /* Heron.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Heron.xcdatamodel; sourceTree = "<group>"; };
 		933D18E92819935E00F1CCC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -428,6 +430,14 @@
 				930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */,
 			);
 			path = ProductDetailsViewController;
+			sourceTree = "<group>";
+		};
+		932AC4CB28A21CD00060338B /* BookingSuccessViewController */ = {
+			isa = PBXGroup;
+			children = (
+				932AC4CC28A21CEE0060338B /* BookingSuccessViewController.swift */,
+			);
+			path = BookingSuccessViewController;
 			sourceTree = "<group>";
 		};
 		933D18D12819935900F1CCC4 = {
@@ -919,6 +929,7 @@
 		9AD70C61288DB1C80079BFB1 /* BookingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				932AC4CB28A21CD00060338B /* BookingSuccessViewController */,
 				934D729D28A024BA00E4255F /* ConfirmBookingViewController */,
 				9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */,
 				9A88B776288E494400BE1E05 /* SelectDepartmentViewController */,
@@ -1324,6 +1335,7 @@
 				93AF91F7284BE2410075CD65 /* OrderTotalView.swift in Sources */,
 				93EC90C6285A2D85009056F6 /* CarrierView.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
+				932AC4CD28A21CEE0060338B /* BookingSuccessViewController.swift in Sources */,
 				B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */,
 				9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */,
 				9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */,
