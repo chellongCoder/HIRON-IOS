@@ -12,8 +12,8 @@ import NVActivityIndicatorView
 class LoadingAnimationView: UIView {
 
     var loadingAnimation        = NVActivityIndicatorView(frame: .zero,
-                                                          type: .ballScaleRippleMultiple,
-                                                          color: UIColor.blue)
+                                                          type: .ballScaleMultiple,
+                                                          color: kPrimaryColor)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
