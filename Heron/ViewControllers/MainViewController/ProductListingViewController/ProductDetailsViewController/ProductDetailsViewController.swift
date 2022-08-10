@@ -19,7 +19,7 @@ class ProductDetailsViewController: BaseViewController,
     private let tagsViewStack   = UIStackView()
 //    private let discountPercent = UILabel()
     private let priceDiscount   = UILabel()
-    private let priceLabel      = UILabel()
+    private let priceLabel      = DiscountLabel()
     private let starView        = UILabel()
     private let variantView     = ConfigurationProductVariantView()
     private let contentDescView = UIView()
@@ -104,7 +104,7 @@ class ProductDetailsViewController: BaseViewController,
             make.left.equalTo(packageTitle)
         }
         
-        priceLabel.textColor = kDisableColor
+        priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
@@ -185,7 +185,7 @@ class ProductDetailsViewController: BaseViewController,
                 
                 self.packageTitle.text = productData.name
                 self.priceDiscount.text = String(format: "$%.2f", productData.customFinalPrice)
-                self.priceLabel.text = String(format: "#%.2f", productData.customRegularPrice)
+                self.priceLabel.text = String(format: "$%.2f", productData.customRegularPrice)
                 
                 let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
                 self.loadMediaView(staticHeight)

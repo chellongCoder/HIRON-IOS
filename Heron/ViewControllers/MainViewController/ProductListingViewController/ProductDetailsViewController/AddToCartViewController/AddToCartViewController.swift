@@ -298,6 +298,11 @@ extension AddToCartViewController : ProductVariantDelegate {
             return simpleProduct.isMatchingWithVariants(variants)
         }) {
             // Load new UI
+            
+            if let imageURL = URL.init(string: matchedSimpleProduct.thumbnailUrl ?? "") {
+                self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+            }
+            
             self.productTitleLabel.text = matchedSimpleProduct.name
             self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
             self.priceLabel.text = String(format: "#%.2f", matchedSimpleProduct.customRegularPrice)
