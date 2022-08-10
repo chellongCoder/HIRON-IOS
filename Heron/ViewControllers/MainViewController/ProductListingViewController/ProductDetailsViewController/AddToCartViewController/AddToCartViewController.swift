@@ -306,6 +306,7 @@ extension AddToCartViewController : ProductVariantDelegate {
             self.productTitleLabel.text = matchedSimpleProduct.name
             self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
             self.priceLabel.text = String(format: "#%.2f", matchedSimpleProduct.customRegularPrice)
+            self.priceLabel.isHidden = (matchedSimpleProduct.customRegularPrice == matchedSimpleProduct.customFinalPrice)
             
             self.addToCartBtn.isUserInteractionEnabled = true
             self.addToCartBtn.backgroundColor = kPrimaryColor

@@ -186,6 +186,7 @@ class ProductDetailsViewController: BaseViewController,
                 self.packageTitle.text = productData.name
                 self.priceDiscount.text = String(format: "$%.2f", productData.customFinalPrice)
                 self.priceLabel.text = String(format: "$%.2f", productData.customRegularPrice)
+                self.priceLabel.isHidden = (productData.customRegularPrice == productData.customFinalPrice)
                 
                 let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
                 self.loadMediaView(staticHeight)

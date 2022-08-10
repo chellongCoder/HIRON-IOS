@@ -126,6 +126,7 @@ class ProductTableViewCell: UITableViewCell {
         
         self.priceLabel.text = String(format: "$%.2f", cellData.customRegularPrice)
         self.priceDiscount.text = String(format: "$%.2f", cellData.customFinalPrice)
+        self.priceLabel.isHidden = (cellData.customRegularPrice == cellData.customFinalPrice)
         
         if cellData.discountPercent > 0 {
             self.discountValue.isHidden = false

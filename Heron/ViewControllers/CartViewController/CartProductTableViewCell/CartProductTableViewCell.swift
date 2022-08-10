@@ -21,7 +21,7 @@ class CartProductTableViewCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
     let tagsContent         = UILabel()
-    let priceLabel          = UILabel()
+    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
     
     let minusBtn            = UIButton()
@@ -109,7 +109,7 @@ class CartProductTableViewCell: UITableViewCell {
         }
         
         priceLabel.text = "$ 20.00"
-        priceLabel.textColor = kDisableColor
+        priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
@@ -173,6 +173,7 @@ class CartProductTableViewCell: UITableViewCell {
         
         self.priceLabel.text = String(format: "$%.2f", cellData.product!.customRegularPrice)
         self.priceDiscount.text = String(format: "$%.2f", cellData.product!.customFinalPrice)
+        self.priceLabel.isHidden = (cellData.product!.customRegularPrice == cellData.product!.customFinalPrice)
         
         self.quantityValue = cellData.quantity
         self.quantityTxt.text = String(format: "%ld", cellData.quantity)

@@ -13,7 +13,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
     let packageImage        = UIImageView()
     let tagsContent         = UILabel()
     let productTitleLabel   = UILabel()
-    let priceLabel          = UILabel()
+    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
     
     let countLabel          = UILabel()
@@ -81,7 +81,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         }
         
         priceLabel.text = "$ 20.00"
-        priceLabel.textColor = kDisableColor
+        priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
@@ -116,6 +116,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         
         self.priceLabel.text = String(format: "$%.2f", itemData.product!.customRegularPrice)
         self.priceDiscount.text = String(format: "$%.2f", itemData.product!.customFinalPrice)
+        self.priceLabel.isHidden = (itemData.product!.customRegularPrice == itemData.product!.customFinalPrice)
         self.countLabel.text = String(format: "x%ld", itemData.quantity)
         
         guard let productData = itemData.product else {return}
