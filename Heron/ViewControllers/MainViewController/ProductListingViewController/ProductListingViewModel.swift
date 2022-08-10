@@ -30,7 +30,7 @@ class ProductListingViewModel: NSObject {
         self.controller?.startLoadingAnimation()
         _InventoryServices.getListProducts(param: param) { errorMessage, listNewProducts in
             self.controller?.endLoadingAnimation()
-            
+            self.controller?.refreshControl.endRefreshing()
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in

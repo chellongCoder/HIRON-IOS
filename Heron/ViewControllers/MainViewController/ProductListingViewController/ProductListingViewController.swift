@@ -45,6 +45,10 @@ class ProductListingViewController: BaseViewController,
                                               action: #selector(filterButtonTapped))
         self.navigationItem.rightBarButtonItems = [filterButtonItem]// [filterButtonItem, cartButtonItem]
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
@@ -108,6 +112,10 @@ class ProductListingViewController: BaseViewController,
     
     private func dismissKeyboard() {
         self.searchBar.endEditing(true)
+    }
+    
+    override func reloadData() {
+        self.viewModel.getProductList()
     }
     
     // MARK: - UI

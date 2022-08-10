@@ -28,7 +28,11 @@ class DoctorDetailsViewController: BaseViewController {
         self.title = "Doctor Details"
         self.showBackBtn()
         self.viewModel.controller = self
-                
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        self.pageScroll.addSubview(refreshControl)
+        
         let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
         
         if let avatarURL = URL(string: viewModel.doctorData.value?.user?.avatar ?? "") {
@@ -190,6 +194,10 @@ class DoctorDetailsViewController: BaseViewController {
     // MARK: - Data
     func setDoctorDataSource(_ doctorData: DoctorDataSource) {
         self.viewModel.doctorData.accept(doctorData)
+    }
+    
+    override func reloadData() {
+        self.refreshControl.endRefreshing()
     }
     
     override func bindingData() {

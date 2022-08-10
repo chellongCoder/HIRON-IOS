@@ -20,6 +20,10 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
         
         self.showBackBtn()
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
         tableView.register(SelectDoctorTableViewCell.self, forCellReuseIdentifier: "SelectDoctorTableViewCell")
@@ -36,6 +40,10 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
     }
     
     // MARK: - Data
+    override func reloadData() {
+        viewModel.getListDoctor()
+    }
+    
     override func bindingData() {
         viewModel.listDoctor
             .bind(to: tableView.rx.items) { (_: UITableView, index: Int, element: DoctorDataSource) in

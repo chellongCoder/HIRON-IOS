@@ -41,6 +41,11 @@ class ProductDetailsViewController: BaseViewController,
         super.viewDidLoad()
         self.title = "Product Details"
         self.showBackBtn()
+        self.viewModel.controller = self
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        pageScroll.addSubview(refreshControl)
         
         let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
         topMediaView.isPagingEnabled = true
@@ -169,6 +174,10 @@ class ProductDetailsViewController: BaseViewController,
     }
     
     // MARK: - Binding Data
+    override func reloadData() {
+        viewModel.reloadProductDetails()
+    }
+    
     override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)

@@ -25,6 +25,10 @@ class SelectDepartmentViewController: BaseViewController {
                                            action: #selector(nextButtonTapped))
         self.navigationItem.rightBarButtonItem = nextBtn
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
         tableView.register(SelectDepartmentsTableViewCell.self, forCellReuseIdentifier: "SelectDepartmentsTableViewCell")
@@ -47,6 +51,11 @@ class SelectDepartmentViewController: BaseViewController {
     }
     
     // MARK: - Data
+    
+    override func reloadData() {
+        viewModel.getListDepartments()
+    }
+    
     override func bindingData() {
         viewModel.listDepartments
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: TeamDataSource) in
@@ -66,6 +75,7 @@ class SelectDepartmentViewController: BaseViewController {
               _BookingServices.selectedDepartment.accept(elementData)
               
               self?.tableView.reloadData()
+              self?.nextButtonTapped()
               
           }).disposed(by: disposeBag)
 

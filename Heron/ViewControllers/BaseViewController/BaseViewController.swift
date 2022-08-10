@@ -11,6 +11,7 @@ import RxSwift
 
 class BaseViewController: UIViewController {
     
+    let refreshControl          = UIRefreshControl()
     internal let pageScroll     = UIScrollView()
     let contentView             = UIView()
     let disposeBag              = DisposeBag()
@@ -52,4 +53,6 @@ class BaseViewController: UIViewController {
     func configUI() {}
     
     func bindingData() {}
+    
+    @objc func reloadData() {}
 }

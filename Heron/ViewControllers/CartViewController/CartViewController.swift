@@ -71,6 +71,10 @@ class CartViewController: BaseViewController,
             make.bottom.equalTo(checkoutBtn.snp.top).offset(-10)
         }
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -98,6 +102,11 @@ class CartViewController: BaseViewController,
     }
     
     // MARK: - BindingData
+    override func reloadData() {
+        self.tableView.reloadData()
+        self.refreshControl.endRefreshing()
+    }
+    
     override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
