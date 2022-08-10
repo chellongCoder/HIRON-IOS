@@ -225,6 +225,51 @@ class AddUserAddressViewController: BaseViewController {
         }
     }
     
+    private func validateButton() {
+        if self.firstNameTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        if self.lastNameTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        if self.phoneTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        if self.emailTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        if self.addressTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        if self.countryTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        if self.cityTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        if self.postCodeTxt.isErrorRevealed {
+            self.completeBtn.isUserInteractionEnabled = false
+            self.completeBtn.backgroundColor = kDisableColor
+            return
+        }
+        completeBtn.isUserInteractionEnabled = true
+        completeBtn.backgroundColor = kPrimaryColor
+    }
+    
     // MARK: - Data
      override func bindingData() {
         
@@ -255,6 +300,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.firstName = firstNameTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -272,6 +318,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.lastName = lastNameTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -289,6 +336,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.phone = phoneTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -309,6 +357,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.email = emailTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -326,6 +375,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.address = addressTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -343,6 +393,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.country = countryTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -360,6 +411,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.province = cityTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -377,6 +429,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.postalCode = postCodeTxt.text!
                     viewModel.contact.accept(contact)
                 }
+                self.validateButton()
             })
             .disposed(by: disposeBag)
     }
