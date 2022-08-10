@@ -232,6 +232,7 @@ class CartViewController: BaseViewController,
             }
             
             checkboxButton.isSelected = storeData.isCheckoutSelected
+            
         }
         
         return headerView
@@ -251,9 +252,18 @@ class CartViewController: BaseViewController,
     
     // MARK: - CartProductCellDelegate
     func removeItemFromCart(_ index: IndexPath) {
-        guard let store = _CartServices.cartData.value?.store[index.section] else {return}
-        let cartItem = store.cartItems[index.row]
-        viewModel.removeItemFromCart(cartItem)
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Confirm", comment: ""),
+                                             message: "Are you sure to remove this product?", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+            alertVC.dismiss()
+            guard let store = _CartServices.cartData.value?.store[index.section] else {return}
+            let cartItem = store.cartItems[index.row]
+            self.viewModel.removeItemFromCart(cartItem)
+        }))
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
     }
     
     func modifyCheckoutList(_ index: IndexPath) {
@@ -262,6 +272,14 @@ class CartViewController: BaseViewController,
         
         var cartData = _CartServices.cartData.value
         cartData?.store[index.section].cartItems[index.row].isSelected = !isSelected
+        
+        var isAllSelected = true
+        if let _ = cartData?.store[index.section].cartItems.first(where: { cartItem in
+            return cartItem.isSelected == false
+        }) {
+            isAllSelected = false
+        }
+        cartData?.store[index.section].isCheckoutSelected = isAllSelected
         
         _CartServices.cartData.accept(cartData)
         self.tableView.reloadData()
