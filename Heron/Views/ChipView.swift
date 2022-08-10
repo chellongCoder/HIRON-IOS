@@ -27,7 +27,8 @@ class ChipView: UIView {
         self.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.bottom.right.equalToSuperview().offset(-10)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview().offset(-4)
         }
     }
     

@@ -77,10 +77,14 @@ class BookingInfoTableViewCell: UITableViewCell {
         }
         
         if let selectedTime = _BookingServices.selectedTimeable.value {
-            let dateInterval = TimeInterval(selectedTime.startTime/1000)
-            let date = Date.init(timeIntervalSince1970: dateInterval)
-            bookingInfoDate.text = String(format: "Date: %@", date.toString(dateFormat: "dd MMM, yyyy"))
-            bookingInfoTime.text = String(format: "Time: %@", date.toString(dateFormat: "HH:mm"))
+            let startTimeInterval = TimeInterval(selectedTime.startTime/1000)
+            let startTime = Date.init(timeIntervalSince1970: startTimeInterval)
+            
+            let endTimeInterval = TimeInterval(selectedTime.endTime/1000)
+            let endTime = Date.init(timeIntervalSince1970: endTimeInterval)
+            
+            bookingInfoDate.text = String(format: "Date: %@", startTime.toString(dateFormat: "dd MMM, yyyy"))
+            bookingInfoTime.text = String(format: "Time: %@ - %@", startTime.toString(dateFormat: "HH:mm"), endTime.toString(dateFormat: "HH:mm"))
         }
         
         if let selectOrganization = _BookingServices.selectedOrganization.value {
