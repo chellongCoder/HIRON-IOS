@@ -435,6 +435,7 @@ class CheckoutViewController: BaseViewController,
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.section == 0 {
             if indexPath.row == 0 {
                 self.deliveryToTapped()

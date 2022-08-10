@@ -37,8 +37,14 @@ class DeliveryServices: NSObject {
                     if let defaultAddress = listAddress.first(where: { contactDataSource in
                         contactDataSource.isDefault == true
                     }) {
-                        _CheckoutServices.deliveryAddress.accept(defaultAddress)
-                        _CheckoutServices.billingAddress.accept(defaultAddress)
+                        
+                        if _CheckoutServices.deliveryAddress.value == nil {
+                            _CheckoutServices.deliveryAddress.accept(defaultAddress)
+                        }
+                        
+                        if _CheckoutServices.billingAddress.value == nil {
+                            _CheckoutServices.billingAddress.accept(defaultAddress)
+                        }
                     }
                 }
             }

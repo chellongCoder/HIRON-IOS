@@ -40,7 +40,6 @@ class UserAddressListingViewController: BaseViewController,
             make.height.equalTo(50)
         }
         
-        tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
         tableView.register(UserAddressCell.self, forCellReuseIdentifier: "UserAddressCell")
@@ -49,8 +48,6 @@ class UserAddressListingViewController: BaseViewController,
             make.top.centerX.width.equalToSuperview()
             make.bottom.equalTo(addNewAddressBtn.snp.top).offset(-10)
         }
-        
-        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
