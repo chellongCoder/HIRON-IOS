@@ -43,7 +43,7 @@ class ConfirmBookingViewController: BaseViewController,
             make.width.equalTo(110)
         }
         
-        priceLabel.text = "Total: $150"
+        priceLabel.text = "Total: $0.00"
         priceLabel.textColor = kDefaultTextColor
         priceLabel.font = getFontSize(size: 16, weight: .medium)
         bottomView.addSubview(priceLabel)

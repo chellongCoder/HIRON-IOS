@@ -15,13 +15,13 @@ class ConfirmBookingViewModel: BaseViewModel {
     
     func getProductList() {
         
-        guard let selectedDepartmentID = _BookingServices.selectedDepartment.value?.id else {return}
+        guard let selectedDepartmentID = _BookingServices.selectedDepartment.value?.departmentID else {return}
         
         let param : [String: Any] = ["filter[featureType][eq]" : "booking",
                                      "sort[createdAt]" : "desc",
                                      "filter[available][eq]":true,
                                      "filter[type][eq]":"simple",
-                                     "filter[attributeValues][value][eq]":selectedDepartmentID]
+                                     "eavFilter[department_id][eq]":selectedDepartmentID]
         self.controller?.startLoadingAnimation()
         _InventoryServices.getListProducts(param: param) { errorMessage, listNewProducts in
             self.controller?.endLoadingAnimation()

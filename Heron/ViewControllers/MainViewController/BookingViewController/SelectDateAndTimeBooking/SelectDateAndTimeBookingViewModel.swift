@@ -27,7 +27,10 @@ class SelectDateAndTimeBookingViewModel: NSObject {
             }
             
             if let listTimeables = listTimeables {
-                self.listTimeables.accept(listTimeables)
+                let filteredTimeable = listTimeables.filter { timeableData in
+                    return( timeableData.totalSlots - timeableData.totalUsage >= 1)
+                }
+                self.listTimeables.accept(filteredTimeable)
             }
         }
     }
