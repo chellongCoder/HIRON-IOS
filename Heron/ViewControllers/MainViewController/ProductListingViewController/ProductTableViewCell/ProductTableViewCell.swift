@@ -17,7 +17,7 @@ class ProductTableViewCell: UITableViewCell {
     let discountValue       = DiscountValueView()
     let productTitleLabel   = UILabel()
     let starView            = UILabel()
-    let priceLabel          = UILabel()
+    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
 //    let addToCartBtn        = UIButton()
     
@@ -88,7 +88,7 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         priceLabel.text = "$ 20.00"
-        priceLabel.textColor = kDisableColor
+        priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in

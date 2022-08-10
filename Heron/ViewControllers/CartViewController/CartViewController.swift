@@ -90,6 +90,13 @@ class CartViewController: BaseViewController,
         self.viewModel.reloadCart()
     }
     
+    override func backButtonTapped() {
+        self.navigationController?.popViewController(animated: true)
+        
+        // Clear vouchers
+        _CartServices.voucherCode.accept(nil)
+    }
+    
     // MARK: - BindingData
     override func bindingData() {
         _CartServices.cartData
@@ -128,11 +135,17 @@ class CartViewController: BaseViewController,
                     self.checkoutBtn.backgroundColor = kDisableColor
                     self.checkoutBtn.isUserInteractionEnabled = false
                     
+                    self.voucherView.isUserInteractionEnabled = false
+                    
+                    // Clear vouchers
+                    _CartServices.voucherCode.accept(nil)
+                    
                     self.totalLabel.text = "Total: $0.0"
                     self.savingLabel.text = "Saving: $0.0"
                     return
                 }
                 
+                self.voucherView.isUserInteractionEnabled = true
                 self.checkoutBtn.backgroundColor = kPrimaryColor
                 self.checkoutBtn.isUserInteractionEnabled = true
                 

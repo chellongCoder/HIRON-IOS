@@ -82,6 +82,9 @@ class SuccessPlaceOrderViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        // Clear cart Data
+        _CartServices.voucherCode.accept(nil)
     }
     
     //MARK: - Buttons

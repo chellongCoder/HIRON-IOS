@@ -10,7 +10,8 @@ import RxSwift
 import RxCocoa
 import Material
 
-class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate {
+class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
+                             UITableViewDataSource {
     
     let codeTxt         = ErrorTextField()
     let applyBtn        = UIButton()
@@ -51,6 +52,7 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate {
             make.height.equalTo(50)
         }
         
+        tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
         tableView.register(VoucherTableViewCell.self, forCellReuseIdentifier: "VoucherTableViewCell")
@@ -72,11 +74,9 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate {
     // MARK: - Data
     override func bindingData() {
         viewModel.listUserVouchers
-            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: VoucherDataSource) in
-                let cell = VoucherTableViewCell(style: .default, reuseIdentifier:"VoucherTableViewCell")
-                cell.setDataSource(element)
-                cell.delegate = self
-                return cell
+            .observe(on: MainScheduler.instance)
+            .subscribe { listUserVouchers in
+                self.tableView.reloadData()
             }
             .disposed(by: disposeBag)
         
@@ -102,5 +102,19 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate {
     func didCancelVoucher() {
         self.acceptance?.accept(nil)
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    // MARK: - UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel.listUserVouchers.value.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = VoucherTableViewCell(style: .default, reuseIdentifier:"VoucherTableViewCell")
+        
+        let cellData = viewModel.listUserVouchers.value[indexPath.row]
+        cell.setDataSource(cellData)
+        cell.delegate = self
+        return cell
     }
 }

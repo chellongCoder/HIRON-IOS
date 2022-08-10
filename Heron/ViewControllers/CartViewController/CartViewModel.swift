@@ -69,6 +69,11 @@ class CartViewModel {
     }
     
     func reloadCart() {
+        
+        if _CartServices.cartPreCheckoutResponseData.value != nil {
+            return
+        }
+        
         self.controller?.startLoadingAnimation()
         
         _CartServices.getCartDataSource { errorMessage, _ in
