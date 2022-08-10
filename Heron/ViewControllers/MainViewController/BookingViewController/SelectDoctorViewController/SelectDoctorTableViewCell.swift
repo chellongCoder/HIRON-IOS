@@ -117,6 +117,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
                 newChipView.backgroundColor = kRedHightLightColor
                 newChipView.borderColor = kRedHightLightColor
                 newChipView.textLabel.textColor = .white
+                newChipView.textLabel.font = getFontSize(size: 11, weight: .semibold)
                 tagsContent.addSubview(newChipView)
                 
                 if let lastView = lastView {
@@ -143,6 +144,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
             newChipView.backgroundColor = kPrimaryColor
             newChipView.borderColor = kPrimaryColor
             newChipView.textLabel.textColor = .white
+            newChipView.textLabel.font = getFontSize(size: 11, weight: .semibold)
             tagsContent.addSubview(newChipView)
             
             if let lastView = lastView {
