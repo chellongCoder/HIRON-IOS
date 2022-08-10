@@ -135,12 +135,12 @@ class BookingServices : NSObject {
     
     func getListOrganization(completion:@escaping (String?, [Organization]?) -> Void) {
         
-        guard let selectedDepartmentID = self.selectedDepartment.value?.departmentID else {
+        guard let selectedOrganizationID = self.selectedDepartment.value?.department?.organizationId else {
             completion("Required to select department", [])
             return
         }
         
-        let param : [String:Any] = ["filter[id][eq]": selectedDepartmentID]
+        let param : [String:Any] = ["filter[id][eq]": selectedOrganizationID]
         
         let fullURLRequest = kGatewayOganizationURL + "/admin/organizations"
         _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in

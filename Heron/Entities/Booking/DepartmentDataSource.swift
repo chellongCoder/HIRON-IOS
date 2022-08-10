@@ -32,6 +32,7 @@ struct DepartmentDataSource : Mappable {
     var id              : String = ""
     var name            : String = ""
     var code            : String = ""
+    var organizationId  : String = ""
     
     init?(map: Map) {
         //
@@ -41,5 +42,6 @@ struct DepartmentDataSource : Mappable {
         id              <- map["id"]
         name            <- map["name"]
         code            <- map["code"]
+        organizationId  <- map["organizationId"]
     }
 }

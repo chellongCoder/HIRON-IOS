@@ -35,7 +35,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         let bookingInfoTitle = UILabel()
         bookingInfoTitle.text = "Booking Information"
         bookingInfoTitle.textColor = kDefaultTextColor
-        bookingInfoTitle.font = getFontSize(size: 16, weight: .regular)
+        bookingInfoTitle.font = getFontSize(size: 16, weight: .medium)
         contentView.addSubview(bookingInfoTitle)
         bookingInfoTitle.snp.makeConstraints { make in
             make.centerY.equalTo(infoIcon)
@@ -67,6 +67,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         bookingInfoLocations.text = String(format: "Locations: HARD_CODE")
         bookingInfoLocations.textColor = kDefaultTextColor
         bookingInfoLocations.font = getFontSize(size: 16, weight: .regular)
+        bookingInfoLocations.numberOfLines = 0
         contentView.addSubview(bookingInfoLocations)
         bookingInfoLocations.snp.makeConstraints { make in
             make.top.equalTo(bookingInfoTime.snp.bottom)
@@ -83,7 +84,11 @@ class BookingInfoTableViewCell: UITableViewCell {
         }
         
         if let selectOrganization = _BookingServices.selectedOrganization.value {
-            bookingInfoLocations.text = String(format: "Locations: %@", selectOrganization.name)
+            if let attribute = selectOrganization.attributeValues.first(where: { attribute in
+                return attribute.attributeCode == .Address
+            }) {
+                bookingInfoLocations.text = String(format: "Locations: %@", attribute.value)
+            }
         }
     }
     

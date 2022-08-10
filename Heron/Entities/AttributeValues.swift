@@ -14,6 +14,7 @@ enum AttributeCode : String {
     case Certificate    = "Certificate"
     case Dean           = "Dean"
     case Experience     = "Experience"
+    case Address        = "address"
 }
 
 struct AttributeValues: Mappable {
