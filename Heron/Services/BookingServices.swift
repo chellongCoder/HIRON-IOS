@@ -60,8 +60,13 @@ class BookingServices : NSObject {
     
     func getListDepartments(completion:@escaping (String?, [TeamDataSource]?) -> Void) {
         
+        let param : [String:Any] = ["page" : 1,
+                                    "offset": 0,
+                                    "limit": 100,
+                                    "filter[isDefault][eq]" : true,
+                                    "filter[visibility][eq]" : true]
         let fullURLRequest = kGatewayOganizationURL + "/teams"
-        _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
+        _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
                         
             if let responseMessage = responseData.responseMessage {
                 completion(responseMessage, nil)

@@ -27,7 +27,9 @@ class BookingViewModel: BaseViewModel {
             
             if let listEHProfiles = listEHProfiles {
                 if listEHProfiles.isEmpty {
-                    let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                    let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                         message: "User do not have any EHP",
+                                                         preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                         alertVC.dismiss()
                     }))

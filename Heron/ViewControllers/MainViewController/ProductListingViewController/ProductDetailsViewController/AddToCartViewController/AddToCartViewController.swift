@@ -19,7 +19,8 @@ class AddToCartViewController: UIViewController {
     let packageImage        = UIImageView()
     let discountPercent     = UILabel()
     let productTitleLabel   = UILabel()
-    let priceLabel          = UILabel()
+    let tagsViewStack       = UIStackView()
+    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
     
     private let variantView     = ConfigurationProductVariantView()
@@ -141,12 +142,23 @@ class AddToCartViewController: UIViewController {
         }
         
         priceLabel.text = String(format: "$%.2f", productData?.customRegularPrice ?? 0.0)
-        priceLabel.textColor = kDisableColor
+        priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
             make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
+        }
+        
+        tagsViewStack.axis  = .horizontal
+        tagsViewStack.distribution  = .fillProportionally
+        tagsViewStack.alignment = .center
+        tagsViewStack.spacing = 10
+        contentView.addSubview(tagsViewStack)
+        tagsViewStack.snp.makeConstraints { make in
+            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
+            make.left.right.equalTo(productTitleLabel)
+            make.height.equalTo(50)
         }
                 
         contentView.addSubview(variantView)
@@ -239,6 +251,34 @@ class AddToCartViewController: UIViewController {
         }
     }
     
+    private func loadTagsContents() {
+        for arrangedSubview in tagsViewStack.arrangedSubviews {
+            arrangedSubview.removeFromSuperview()
+        }
+        
+        guard let productDataSource = self.simpleProductData else {return}
+        
+        switch productDataSource.featureType {
+        case .ecom:
+            let newChipView = ChipView.init(title: "Physical Product")
+            tagsViewStack.addArrangedSubview(newChipView)
+        case .ecom_booking:
+            let newChipView = ChipView.init(title: "Virtual Product")
+            tagsViewStack.addArrangedSubview(newChipView)
+        }
+        
+        if let unitName = productDataSource.unit?.name {
+            let newChipView = ChipView.init(title: unitName)
+            tagsViewStack.addArrangedSubview(newChipView)
+        }
+        
+        if let brandName = productDataSource.brand?.name {
+            let newChipView = ChipView.init(title: brandName)
+            tagsViewStack.addArrangedSubview(newChipView)
+        }
+        
+    }
+    
     @objc func closeButtonTapped() {
         UIView.animate(withDuration: 0.5) {
             self.contentView.snp.updateConstraints { make in
@@ -303,6 +343,13 @@ extension AddToCartViewController : ProductVariantDelegate {
                 self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
             }
             
+            if (matchedSimpleProduct.discountPercent) > 0 {
+                self.discountPercent.isHidden = false
+                self.discountPercent.text = String(format: "-%.f%%", matchedSimpleProduct.discountPercent)
+            } else {
+                self.discountPercent.isHidden = true
+            }
+            
             self.productTitleLabel.text = matchedSimpleProduct.name
             self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
             self.priceLabel.text = String(format: "#%.2f", matchedSimpleProduct.customRegularPrice)
@@ -311,10 +358,13 @@ extension AddToCartViewController : ProductVariantDelegate {
             self.addToCartBtn.isUserInteractionEnabled = true
             self.addToCartBtn.backgroundColor = kPrimaryColor
             self.simpleProductData = matchedSimpleProduct
+            self.loadTagsContents()
         } else {
+            self.discountPercent.isHidden = true
             self.addToCartBtn.isUserInteractionEnabled = false
             self.addToCartBtn.backgroundColor = kDisableColor
             self.simpleProductData = nil
+            self.loadTagsContents()
         }
     }
 }

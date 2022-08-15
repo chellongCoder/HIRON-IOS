@@ -145,7 +145,7 @@ class ProductDetailsViewController: BaseViewController,
         addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
         addToCartBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
-        addToCartBtn.setTitle("Buy Now", for: .normal)
+        addToCartBtn.setTitle("Add to Cart", for: .normal)
         addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
         self.view.addSubview(addToCartBtn)
         addToCartBtn.snp.makeConstraints { (make) in
