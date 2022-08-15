@@ -47,7 +47,7 @@ class ProductListingViewModel: NSObject {
     }
     
     func reloadCart() {
-        _CartServices.getCartDataSource { errorMessage, _ in
+        _CartServices.getCartDataSource { errorMessage in
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in

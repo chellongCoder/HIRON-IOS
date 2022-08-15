@@ -8,6 +8,7 @@
 import ObjectMapper
 import RxSwift
 import RxRelay
+import Foundation
 
 class CartServices : NSObject {
     
@@ -23,6 +24,17 @@ class CartServices : NSObject {
         self.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
+                if self.isCartEmptySelection() && self.voucherCode.value != nil {
+                    self.voucherCode.accept(nil)
+                    return
+                }
+                self.prepearedCheckout()
+            }
+            .disposed(by: disposeBag)
+        
+        self.voucherCode
+            .observe(on: MainScheduler.instance)
+            .subscribe { voucherData in
                 self.prepearedCheckout()
             }
             .disposed(by: disposeBag)
@@ -58,7 +70,6 @@ class CartServices : NSObject {
             newCheckoutRequestDataSource.couponIds.append(voucher.id)
         }
         
-        //
         let fullURLRequest = kGatwayCartURL + "/carts/pre-checkout"
         _ = _AppDataHandler.post(parameters: newCheckoutRequestDataSource.toJSON(), fullURLRequest: fullURLRequest) { responseData in
             if let data = responseData.responseData?["data"] as? [String:Any] {
@@ -119,21 +130,58 @@ class CartServices : NSObject {
         })
     }
     
-    func getCartDataSource(completion:@escaping (String?, CartDataSource?) -> Void) {
+    func getCartDataSource(completion:@escaping (String?) -> Void) {
         
         let fullURLRequest = kGatwayCartURL + "/carts"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
             if let responseMessage = responseData.responseMessage {
-                completion(responseMessage, nil)
+                completion(responseMessage)
                 return
             } else {                
                 if let data = responseData.responseData?["data"] as? [String:Any] {
-                    completion(responseData.responseMessage, Mapper<CartDataSource>().map(JSON: data))
-                    if let cartData = Mapper<CartDataSource>().map(JSON: data) {
-                        self.cartData.accept(cartData)
+                    completion(nil)
+                    if var newCartData = Mapper<CartDataSource>().map(JSON: data) {
+                        if let oldCartData = self.cartData.value {
+                            newCartData = self.matchingCheckoutSelectedOfStore(newCartData, oldCartData: oldCartData)
+                        }
+                        
+                        self.cartData.accept(newCartData)
                     }
                 }
             }
         })
+    }
+    
+    private func matchingCheckoutSelectedOfStore(_ newCartData: CartDataSource, oldCartData: CartDataSource) -> CartDataSource {
+        var returnCartData = newCartData
+        for (storeIndex, storeData) in newCartData.store.enumerated() {
+            if let match = oldCartData.store.first( where: {storeData.id == $0.id} ) {
+                returnCartData.store[storeIndex] = self.matchingCheckoutSelectedOfItem(returnCartData.store[storeIndex], oldStore: match)
+                returnCartData.store[storeIndex].isCheckoutSelected = match.isCheckoutSelected
+            }
+        }
+        
+        return returnCartData
+    }
+    
+    private func matchingCheckoutSelectedOfItem(_ newStore: StoreDataSource, oldStore: StoreDataSource) -> StoreDataSource {
+        var returnStore = newStore
+        for (itemIndex, itemData) in newStore.cartItems.enumerated() {
+            if let match = oldStore.cartItems.first( where: { itemData.id == $0.id} ) {
+                returnStore.cartItems[itemIndex].isSelected = match.isSelected
+            }
+        }
+        
+        return returnStore
+    }
+    
+    func isCartEmptySelection() -> Bool{
+        for store in self.cartData.value?.store ?? [] {
+            for cartItem in store.cartItems where cartItem.isSelected {
+                return false
+            }
+        }
+        
+        return true
     }
 }

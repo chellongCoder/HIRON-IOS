@@ -147,7 +147,7 @@ class BookingServices : NSObject {
         
         let param : [String:Any] = ["filter[id][eq]": selectedOrganizationID]
         
-        let fullURLRequest = kGatewayOganizationURL + "/admin/organizations"
+        let fullURLRequest = kGatewayOganizationURL + "/organizations"
         _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
                         
             if let responseMessage = responseData.responseMessage {

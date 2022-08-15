@@ -14,7 +14,7 @@ class CartViewController: BaseViewController,
     
     public static let sharedInstance    = CartViewController()
     private let viewModel               = CartViewModel()
-    let tableView                       = UITableView(frame: .zero, style: .grouped)
+    let tableView                       = UITableView(frame: .zero, style: .plain)
     
     private let voucherView             = VoucherSelectedView()
     private let totalLabel              = UILabel()
@@ -69,12 +69,12 @@ class CartViewController: BaseViewController,
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
             make.bottom.equalTo(checkoutBtn.snp.top).offset(-10)
+            make.height.equalTo(50)
         }
         
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
-        tableView.addSubview(refreshControl)
-        
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0
+        }
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -82,10 +82,13 @@ class CartViewController: BaseViewController,
         tableView.register(CartProductTableViewCell.self, forCellReuseIdentifier: "CartProductTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.left.right.equalTo(self.view)
             make.bottom.equalTo(voucherView.snp.top).offset(-10)
         }
-
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        tableView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,7 +106,7 @@ class CartViewController: BaseViewController,
     
     // MARK: - BindingData
     override func reloadData() {
-        self.tableView.reloadData()
+        self.viewModel.reloadCart()
         self.refreshControl.endRefreshing()
     }
     
@@ -143,11 +146,7 @@ class CartViewController: BaseViewController,
                     
                     self.checkoutBtn.backgroundColor = kDisableColor
                     self.checkoutBtn.isUserInteractionEnabled = false
-                    
                     self.voucherView.isUserInteractionEnabled = false
-                    
-                    // Clear vouchers
-                    _CartServices.voucherCode.accept(nil)
                     
                     self.totalLabel.text = "Total: $0.0"
                     self.savingLabel.text = "Saving: $0.0"
@@ -200,7 +199,6 @@ class CartViewController: BaseViewController,
     // MARK: - Cart
     func addProductToCart(_ data: ProductDataSource) {
         viewModel.addToCart(product: data)
-        self.tableView.reloadData()
     }
     
     // MARK: - UITableViewDataSource
@@ -264,14 +262,6 @@ class CartViewController: BaseViewController,
         return 50
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            tableView.beginUpdates()
-            self.removeItemFromCart(indexPath)
-            tableView.endUpdates()
-        }
-    }
-    
     // MARK: - CartProductCellDelegate
     func removeItemFromCart(_ index: IndexPath) {
         let alertVC = UIAlertController.init(title: NSLocalizedString("Confirm", comment: ""),
@@ -303,8 +293,12 @@ class CartViewController: BaseViewController,
         }
         cartData?.store[index.section].isCheckoutSelected = isAllSelected
         
-        _CartServices.cartData.accept(cartData)
-        self.tableView.reloadData()
+        // Fake loading animation
+        self.startLoadingAnimation()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.endLoadingAnimation()
+            _CartServices.cartData.accept(cartData)
+        }
     }
     
     func didUpdateItemQuanlity(_ index: IndexPath, newValue: Int) {

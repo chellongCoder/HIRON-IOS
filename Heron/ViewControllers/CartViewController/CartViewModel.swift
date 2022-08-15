@@ -70,13 +70,8 @@ class CartViewModel {
     
     func reloadCart() {
         
-        if _CartServices.cartPreCheckoutResponseData.value != nil {
-            return
-        }
-        
         self.controller?.startLoadingAnimation()
-        
-        _CartServices.getCartDataSource { errorMessage, _ in
+        _CartServices.getCartDataSource { errorMessage in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {
@@ -87,13 +82,6 @@ class CartViewModel {
                 _NavController.showAlert(alertVC)
                 return
             }
-            
-//            if let cartData = cartData {
-//                DispatchQueue.main.async {
-//                    self.cartDataSource = cartData
-//                    self.controller?.tableView.reloadData()
-//                }
-//            }
         }
     }
 }
