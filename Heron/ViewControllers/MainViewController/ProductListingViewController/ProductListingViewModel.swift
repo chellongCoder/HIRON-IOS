@@ -24,6 +24,7 @@ class ProductListingViewModel: NSObject {
                      "filter[categoryId][eq]" : filterData.id,
                      "filter[quantity][not]" : "null",
                      "filter[visibility][eq]" : "true",
+                     "sort[media][sortOrder]": "asc",
                      "sort[createdAt]" : "desc"]
         }
         

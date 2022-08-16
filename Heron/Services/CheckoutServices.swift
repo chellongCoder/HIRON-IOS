@@ -26,6 +26,13 @@ class CheckoutServices: NSObject {
             }
             .disposed(by: disposeBag)
         
+        _CartServices.cartData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartData in
+                self.prepearedCheckout()
+            }
+            .disposed(by: disposeBag)
+        
         _CartServices.voucherCode
             .observe(on: MainScheduler.instance)
             .subscribe { voucherDataSource in

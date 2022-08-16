@@ -12,7 +12,6 @@ class InventoryServices {
     public static let sharedInstance = InventoryServices()
     
     func getListProducts(param: [String:Any], completion:@escaping (String?, [ProductDataSource]?)-> Void) {
-        
         let fullURLRequest = kGatwayInventoryURL + "/products"
         _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
                         

@@ -49,7 +49,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         contentView.addSubview(bookingInfoDate)
         bookingInfoDate.snp.makeConstraints { make in
             make.top.equalTo(bookingInfoTitle.snp.bottom).offset(5)
-            make.left.equalToSuperview().offset(19)
+            make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-10)
         }
         
