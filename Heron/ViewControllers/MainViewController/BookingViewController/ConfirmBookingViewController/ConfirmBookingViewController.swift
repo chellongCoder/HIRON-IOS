@@ -97,6 +97,9 @@ class ConfirmBookingViewController: BaseViewController,
             let bookingSuccessVC = BookingSuccessViewController()
             self.navigationController?.pushViewController(bookingSuccessVC, animated: true)
         }))
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
+            alertVC.dismiss()
+        }))
         _NavController.showAlert(alertVC)
     }
     

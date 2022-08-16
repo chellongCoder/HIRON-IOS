@@ -17,7 +17,7 @@ class AddUserAddressViewModel: NSObject {
     func createNewAddress() {
         self.animation.accept(true)
         _DeliveryServices.createNewUserAddress(newContact: contact.value) { errorMessage, isSuccess in
-            self.animation.accept(true)
+            self.animation.accept(false)
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
@@ -37,7 +37,7 @@ class AddUserAddressViewModel: NSObject {
     func updateAddress() {
         self.animation.accept(true)
         _DeliveryServices.updateUserAddress(newContact: contact.value) { errorMessage, isSuccess in
-            self.animation.accept(true)
+            self.animation.accept(false)
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)

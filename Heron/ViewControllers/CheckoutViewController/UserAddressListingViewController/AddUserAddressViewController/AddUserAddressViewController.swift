@@ -265,6 +265,13 @@ class AddUserAddressViewController: BaseViewController {
             } else {
                 viewModel.createNewAddress()
             }
+        } else {
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                 message: "Some field required to input", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.dismiss()
+            }))
+            _NavController.showAlert(alertVC)
         }
     }
     
@@ -329,6 +336,17 @@ class AddUserAddressViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
 
+         viewModel.animation
+             .subscribe { animation in
+                 if animation.element ?? false {
+                     self.startLoadingAnimation()
+                 } else {
+                     self.endLoadingAnimation()
+                 }
+             }
+             .disposed(by: disposeBag)
+
+         
         firstNameTxt.rx.controlEvent([.editingChanged])
             .asObservable()
             .subscribe({ [unowned self] _ in
@@ -338,12 +356,10 @@ class AddUserAddressViewController: BaseViewController {
                     firstNameTxt.isErrorRevealed = true
                 } else {
                     firstNameTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.firstName = firstNameTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+                var contact = viewModel.contact.value
+                contact.firstName = firstNameTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
         
@@ -356,12 +372,11 @@ class AddUserAddressViewController: BaseViewController {
                     lastNameTxt.isErrorRevealed = true
                 } else {
                     lastNameTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.lastName = lastNameTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+
+                var contact = viewModel.contact.value
+                contact.lastName = lastNameTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
         
@@ -374,12 +389,10 @@ class AddUserAddressViewController: BaseViewController {
                     phoneTxt.isErrorRevealed = true
                 } else {
                     phoneTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.phone = phoneTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+                var contact = viewModel.contact.value
+                contact.phone = phoneTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
         
@@ -395,12 +408,10 @@ class AddUserAddressViewController: BaseViewController {
                     emailTxt.isErrorRevealed = true
                 } else {
                     emailTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.email = emailTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+                var contact = viewModel.contact.value
+                contact.email = emailTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
         
@@ -413,12 +424,10 @@ class AddUserAddressViewController: BaseViewController {
                     addressTxt.isErrorRevealed = true
                 } else {
                     addressTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.address = addressTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+                var contact = viewModel.contact.value
+                contact.address = addressTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
         
@@ -431,12 +440,11 @@ class AddUserAddressViewController: BaseViewController {
                     countryTxt.isErrorRevealed = true
                 } else {
                     countryTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.country = countryTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+                
+                var contact = viewModel.contact.value
+                contact.country = countryTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
         
@@ -449,12 +457,11 @@ class AddUserAddressViewController: BaseViewController {
                     cityTxt.isErrorRevealed = true
                 } else {
                     cityTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.province = cityTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+                
+                var contact = viewModel.contact.value
+                contact.province = cityTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
         
@@ -467,12 +474,11 @@ class AddUserAddressViewController: BaseViewController {
                     postCodeTxt.isErrorRevealed = true
                 } else {
                     postCodeTxt.isErrorRevealed = false
-                    
-                    var contact = viewModel.contact.value
-                    contact.postalCode = postCodeTxt.text!
-                    viewModel.contact.accept(contact)
                 }
-//                self.validateButton()
+                
+                var contact = viewModel.contact.value
+                contact.postalCode = postCodeTxt.text!
+                viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
     }
