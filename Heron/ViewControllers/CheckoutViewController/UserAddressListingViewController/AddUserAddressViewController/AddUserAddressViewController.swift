@@ -218,57 +218,100 @@ class AddUserAddressViewController: BaseViewController {
     }
     
     @objc private func completeButtonTapped() {
-        if viewModel.isUpdated {
-            viewModel.updateAddress()
-        } else {
-            viewModel.createNewAddress()
+        
+        if (self.firstNameTxt.text ?? "").isEmpty {
+            self.firstNameTxt.isErrorRevealed = true
+            self.firstNameTxt.error = "This field can not be empty"
+        }
+        
+        if (self.lastNameTxt.text ?? "").isEmpty {
+            self.lastNameTxt.isErrorRevealed = true
+            self.lastNameTxt.error = "This field can not be empty"
+        }
+        
+        if (self.phoneTxt.text ?? "").isEmpty {
+            self.phoneTxt.isErrorRevealed = true
+            self.phoneTxt.error = "This field can not be empty"
+        }
+        
+        if (self.emailTxt.text ?? "").isEmpty {
+            self.emailTxt.isErrorRevealed = true
+            self.emailTxt.error = "This field can not be empty"
+        }
+        
+        if (self.addressTxt.text ?? "").isEmpty {
+            self.addressTxt.isErrorRevealed = true
+            self.addressTxt.error = "This field can not be empty"
+        }
+        
+        if (self.countryTxt.text ?? "").isEmpty {
+            self.countryTxt.isErrorRevealed = true
+            self.countryTxt.error = "This field can not be empty"
+        }
+        
+        if (self.cityTxt.text ?? "").isEmpty {
+            self.cityTxt.isErrorRevealed = true
+            self.cityTxt.error = "This field can not be empty"
+        }
+        
+        if (self.postCodeTxt.text ?? "").isEmpty {
+            self.postCodeTxt.isErrorRevealed = true
+            self.postCodeTxt.error = "This field can not be empty"
+        }
+        
+        if self.viewModel.contact.value.isValidContact() {
+            if viewModel.isUpdated {
+                viewModel.updateAddress()
+            } else {
+                viewModel.createNewAddress()
+            }
         }
     }
     
-    private func validateButton() {
-        if self.firstNameTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        if self.lastNameTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        if self.phoneTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        if self.emailTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        if self.addressTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        if self.countryTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        if self.cityTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        if self.postCodeTxt.isErrorRevealed {
-            self.completeBtn.isUserInteractionEnabled = false
-            self.completeBtn.backgroundColor = kDisableColor
-            return
-        }
-        completeBtn.isUserInteractionEnabled = true
-        completeBtn.backgroundColor = kPrimaryColor
-    }
+//    private func validateButton() {
+//        if self.firstNameTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        if self.lastNameTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        if self.phoneTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        if self.emailTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        if self.addressTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        if self.countryTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        if self.cityTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        if self.postCodeTxt.isErrorRevealed {
+//            self.completeBtn.isUserInteractionEnabled = false
+//            self.completeBtn.backgroundColor = kDisableColor
+//            return
+//        }
+//        completeBtn.isUserInteractionEnabled = true
+//        completeBtn.backgroundColor = kPrimaryColor
+//    }
     
     // MARK: - Data
      override func bindingData() {
@@ -276,13 +319,13 @@ class AddUserAddressViewController: BaseViewController {
         viewModel.contact
             .subscribe { contactDataSource in
                 guard let contact = contactDataSource.element else {return}
-                if contact.isValidContact() {
+//                if contact.isValidContact() {
                     self.completeBtn.backgroundColor = kPrimaryColor
                     self.completeBtn.isUserInteractionEnabled = true
-                } else {
-                    self.completeBtn.backgroundColor = kDisableColor
-                    self.completeBtn.isUserInteractionEnabled = false
-                }
+//                } else {
+//                    self.completeBtn.backgroundColor = kDisableColor
+//                    self.completeBtn.isUserInteractionEnabled = false
+//                }
             }
             .disposed(by: disposeBag)
 
@@ -300,7 +343,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.firstName = firstNameTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -318,7 +361,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.lastName = lastNameTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -336,7 +379,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.phone = phoneTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -357,7 +400,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.email = emailTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -375,7 +418,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.address = addressTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -393,7 +436,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.country = countryTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -411,7 +454,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.province = cityTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
         
@@ -429,7 +472,7 @@ class AddUserAddressViewController: BaseViewController {
                     contact.postalCode = postCodeTxt.text!
                     viewModel.contact.accept(contact)
                 }
-                self.validateButton()
+//                self.validateButton()
             })
             .disposed(by: disposeBag)
     }

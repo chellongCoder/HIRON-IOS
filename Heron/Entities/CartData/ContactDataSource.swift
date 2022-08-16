@@ -17,9 +17,9 @@ struct ContactDataSource: Mappable {
     var phone           : String = ""
     var email           : String = ""
     var address         : String = ""
-    var country         : String = "Việt Nam"
-    var province        : String = "HCM"
-    var postalCode      : String = "70000"
+    var country         : String = ""
+    var province        : String = ""
+    var postalCode      : String = ""
     var isDefault       : Bool = false
     var latitude        : Double = 0.0
     var longitude       : Double = 0.0
