@@ -11,7 +11,7 @@ import RxRelay
 
 class ProductListingViewModel: NSObject {
     weak var controller     : ProductListingViewController?
-    var listBanners         : [String] = ["", "", "", "", "", "", "", "", ""]
+    var listBanners         : [String] = ["banner_image1", "banner_image2", "banner_image3"]
     var filterData          : CategoryDataSource?
     var listProducts        = BehaviorRelay<[ProductDataSource]>(value: [])
     

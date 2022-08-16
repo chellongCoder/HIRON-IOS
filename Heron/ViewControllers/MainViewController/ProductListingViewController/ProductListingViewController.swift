@@ -49,6 +49,10 @@ class ProductListingViewController: BaseViewController,
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
         
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
+        
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
@@ -126,15 +130,15 @@ class ProductListingViewController: BaseViewController,
         }
         
         let width = UIScreen.main.bounds.size.width
-        let height = (width-32)*0.5625
+        let height = (width-32)*1.2
         let size = CGSize(width: width, height: height)
         var index = 0
         
-        for _ in viewModel.listBanners {
+        for imageName in viewModel.listBanners {
             
             let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
-            
             let cell = BannerView.init(frame: frame)
+            cell.bannerImage.image = UIImage.init(named: imageName)
             bannerScrollView.addSubview(cell)
             
             index += 1
@@ -180,7 +184,7 @@ class ProductListingViewController: BaseViewController,
     
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (16 + (UIScreen.main.bounds.size.width - 32)*0.5625 + (10+15+10))
+        return (16 + (UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -188,7 +192,7 @@ class ProductListingViewController: BaseViewController,
         let headerView = UIView()
         headerView.backgroundColor = kBackgroundColor
         
-        let staticHeight = (UIScreen.main.bounds.size.width - 32)*0.5625
+        let staticHeight = (UIScreen.main.bounds.size.width - 32)*1.2
         
         bannerScrollView.isPagingEnabled = true
         bannerScrollView.delegate = self

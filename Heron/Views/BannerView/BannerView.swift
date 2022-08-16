@@ -24,8 +24,8 @@ class BannerView: UIView {
         self.addSubview(bannerImage)
         bannerImage.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.height.equalToSuperview()
             make.width.equalToSuperview().offset(-32)
+            make.height.equalTo(bannerImage.snp.width).multipliedBy(1.2)
         }
         
         let button = UIButton()
