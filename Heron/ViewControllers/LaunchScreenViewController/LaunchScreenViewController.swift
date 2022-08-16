@@ -30,6 +30,7 @@ class LaunchScreenViewController: BaseViewController {
         } else {
             let homeVC = MainViewController.sharedInstance
             self.navigationController?.setViewControllers([homeVC], animated: true)
+            _UserServices.getUserProfile()
         }
     }
     

@@ -19,6 +19,7 @@ let _AppCoreData                    = ApplicationCoreData.sharedInstance
 
 // MARK: - Services
 let _AuthenticationServices         = AuthenticationServices.sharedInstance
+let _UserServices                   = UserServices.sharedInstance
 let _InventoryServices              = InventoryServices.sharedInstance
 let _CartServices                   = CartServices.sharedInstance
 let _DeliveryServices               = DeliveryServices.sharedInstance
@@ -35,6 +36,7 @@ let kUserProfileDataSource          = "kUserProfileDataSource"
 
 // Base URL
 let kGatewayAuthenticationURL               = "https://ehp-api.cbidigital.com/authentication-svc/api"
+let kGatewayUserServicesURL                 = "https://ehp-api.cbidigital.com/user-svc/api"
 let kGatwayInventoryURL                     = "https://ehp-api.cbidigital.com/inventory-svc/api"
 let kGatwayCartURL                          = "https://ehp-api.cbidigital.com/cart-svc/api"
 let kGatewayOrderURL                        = "https://ehp-api.cbidigital.com/order-svc/api"

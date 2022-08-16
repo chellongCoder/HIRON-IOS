@@ -41,10 +41,6 @@ class DeliveryServices: NSObject {
                         if _CheckoutServices.deliveryAddress.value == nil {
                             _CheckoutServices.deliveryAddress.accept(defaultAddress)
                         }
-                        
-                        if _CheckoutServices.billingAddress.value == nil {
-                            _CheckoutServices.billingAddress.accept(defaultAddress)
-                        }
                     }
                 }
             }

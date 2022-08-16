@@ -13,7 +13,7 @@ class CheckoutServices: NSObject {
     public static let sharedInstance = CheckoutServices()
     
     var deliveryAddress             = BehaviorRelay<ContactDataSource?>(value: nil)
-    var billingAddress              = BehaviorRelay<ContactDataSource?>(value: nil)
+    var billingAddress              = BehaviorRelay<UserDataSource?>(value: nil)
     var cartPreCheckoutResponseData = BehaviorRelay<CartPrepearedResponseDataSource?>(value: nil)
     private let disposeBag          = DisposeBag()
     

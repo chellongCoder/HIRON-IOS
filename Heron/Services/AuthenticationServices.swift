@@ -26,6 +26,7 @@ class AuthenticationServices {
                 }
                 
                 _AppCoreData.setUserSession(sessionToken)
+                _UserServices.getUserProfile()
                 
                 completion(nil, responseData.responseMessage)
             } else {

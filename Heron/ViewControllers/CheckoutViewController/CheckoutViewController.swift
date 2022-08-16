@@ -180,9 +180,7 @@ class CheckoutViewController: BaseViewController,
     }
     
     @objc private func billingAddressTapped() {
-        let userAddressesVC = UserAddressListingViewController()
-        userAddressesVC.acceptance = _CheckoutServices.billingAddress
-        self.navigationController?.pushViewController(userAddressesVC, animated: true)
+        
     }
     
     @objc private func voucherTapped() {
@@ -256,9 +254,9 @@ class CheckoutViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { billingAddress in
                 self.updatePlaceOrderButton()
-                guard let billingAddress = billingAddress.element as? ContactDataSource else {return}
-                self.billingAddress.contactLabel.text = billingAddress.firstName + " " + billingAddress.lastName + " | " + billingAddress.phone
-                self.billingAddress.addressLabel.text = billingAddress.email
+                guard let billingAddress = billingAddress.element as? UserDataSource else { return }
+                self.billingAddress.contactLabel.text = billingAddress.userFullName + " | " + billingAddress.userPhoneNum
+                self.billingAddress.addressLabel.text = billingAddress.userEmail
                 
                 self.tableView.reloadData()
             }
