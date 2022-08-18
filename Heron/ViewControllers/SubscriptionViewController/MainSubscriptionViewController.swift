@@ -16,7 +16,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     private let vm   = SubcriptionViewModel()
     var selectedIndex       : IndexPath? = nil {
         didSet {
-                sign_in_btn.successButton(title: selectedIndex == nil ? "Skip":"Confirm")
+            sign_in_btn.setTitle(selectedIndex == nil ? "Skip":"Confirm", for: .normal)
         }
     }
 
@@ -56,7 +56,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
                 let sign_up_lbl = UILabel()
                 sign_up_lbl.text = "Save up to 15%"
                 
-                sign_in_btn.successButton(title: "Skip")
+                sign_in_btn.setTitle("Skip", for: .normal)
                 sign_in_btn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
 //
                 let viewWidth = UIScreen.main.bounds.size.width/2 - 20;
@@ -108,8 +108,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             
             @objc func continue_action(_ sender: Any) {
                 if selectedIndex == nil {
-                    let homeVC = MainViewController.sharedInstance
-                    self.navigationController?.setViewControllers([homeVC], animated: true)
+                    _NavController.gotoHomepage()
                 } else {
                     let vc = SubscriptionPaymentViewController()
                     self.navigationController?.pushViewController(vc, animated: true)

@@ -53,7 +53,7 @@ class SubscriptionPaymentViewController: BaseViewController {
         
         
         let sign_in_btn = UIButton()
-        sign_in_btn.successButton(title: "Pay")
+        sign_in_btn.setTitle("Pay", for: .normal)
         sign_in_btn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
         
         let hstack = UIStackView()
@@ -97,8 +97,7 @@ override func viewWillAppear(_ animated: Bool) {
 }
     
     @objc func continue_action(_ sender: Any) {
-        let homeVC = MainViewController.sharedInstance
-        self.navigationController?.setViewControllers([homeVC], animated: true)
+        _NavController.gotoHomepage()
     }
     
 

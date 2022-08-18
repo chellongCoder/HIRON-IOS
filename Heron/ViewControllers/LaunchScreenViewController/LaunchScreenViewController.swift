@@ -28,8 +28,7 @@ class LaunchScreenViewController: BaseViewController {
         if !isSigned {
             self.navigationController?.setViewControllers([MainAuthViewController()], animated: true)
         } else {
-            let homeVC = MainViewController.sharedInstance
-            self.navigationController?.setViewControllers([homeVC], animated: true)
+            _NavController.gotoHomepage()
             _UserServices.getUserProfile()
         }
     }

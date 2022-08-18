@@ -56,7 +56,7 @@ class SignInSuccessViewController: BaseViewController {
             }
             
             let continue_btn = UIButton()
-            continue_btn.successButton(title: "Continue your journey")
+            continue_btn.setTitle("Continue your journey", for: .normal)
             continue_btn.addTarget(self, action: #selector(updateRootVC), for: .touchUpInside)
             self.view.addSubview(continue_btn)
             continue_btn.snp.makeConstraints {

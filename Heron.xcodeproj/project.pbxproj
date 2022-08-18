@@ -89,6 +89,7 @@
 		93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB69122830050D00BC2E5E /* CategoryDataSource.swift */; };
 		93BB69152830277B00BC2E5E /* CartViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB69142830277B00BC2E5E /* CartViewModel.swift */; };
 		93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BB691728302B4500BC2E5E /* CartProductTableViewCell.swift */; };
+		93C2EA3428AE8A9700371DFE /* SideBarMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA3328AE8A9700371DFE /* SideBarMenuViewController.swift */; };
 		93CA16DE28A3F7C6008CC897 /* DiscountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CA16DD28A3F7C6008CC897 /* DiscountLabel.swift */; };
 		93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D552202827FA800034B2B7 /* ProductDataSource.swift */; };
 		93D55226282811D20034B2B7 /* Alert_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55225282811D20034B2B7 /* Alert_Ext.swift */; };
@@ -277,6 +278,7 @@
 		93BB69122830050D00BC2E5E /* CategoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryDataSource.swift; sourceTree = "<group>"; };
 		93BB69142830277B00BC2E5E /* CartViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewModel.swift; sourceTree = "<group>"; };
 		93BB691728302B4500BC2E5E /* CartProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartProductTableViewCell.swift; sourceTree = "<group>"; };
+		93C2EA3328AE8A9700371DFE /* SideBarMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarMenuViewController.swift; sourceTree = "<group>"; };
 		93CA16DD28A3F7C6008CC897 /* DiscountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountLabel.swift; sourceTree = "<group>"; };
 		93D552202827FA800034B2B7 /* ProductDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataSource.swift; sourceTree = "<group>"; };
 		93D55225282811D20034B2B7 /* Alert_Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert_Ext.swift; sourceTree = "<group>"; };
@@ -525,6 +527,8 @@
 		933D191E2819943000F1CCC4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				93C2EA3528AE9AD100371DFE /* MainAuthViewController */,
+				93C2EA3228AE8A8A00371DFE /* SideBarMenuViewController */,
 				93EC90EF285A4DA6009056F6 /* SubscriptionViewController */,
 				93EC90E4285A4D57009056F6 /* Auth */,
 				93AF91EC284BBD100075CD65 /* CheckoutViewController */,
@@ -763,6 +767,22 @@
 			path = CartProductTableViewCell;
 			sourceTree = "<group>";
 		};
+		93C2EA3228AE8A8A00371DFE /* SideBarMenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93C2EA3328AE8A9700371DFE /* SideBarMenuViewController.swift */,
+			);
+			path = SideBarMenuViewController;
+			sourceTree = "<group>";
+		};
+		93C2EA3528AE9AD100371DFE /* MainAuthViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93EC90E5285A4D73009056F6 /* MainAuthViewController.swift */,
+			);
+			path = MainAuthViewController;
+			sourceTree = "<group>";
+		};
 		93D5521F2827FA690034B2B7 /* ProductDataSource */ = {
 			isa = PBXGroup;
 			children = (
@@ -850,7 +870,6 @@
 			children = (
 				93EC90E6285A4D73009056F6 /* AccountInfoViewController.swift */,
 				93EC90E7285A4D73009056F6 /* AuthViewModel.swift */,
-				93EC90E5285A4D73009056F6 /* MainAuthViewController.swift */,
 				93EC90E8285A4D73009056F6 /* SignInSuccessViewController.swift */,
 				93EC90E9285A4D73009056F6 /* SignInViewController.swift */,
 			);
@@ -1356,6 +1375,7 @@
 				93EC90EB285A4D73009056F6 /* AccountInfoViewController.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
+				93C2EA3428AE8A9700371DFE /* SideBarMenuViewController.swift in Sources */,
 				933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */,
 				933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */,
 				B594E88A286BF7D3004BC088 /* SubcriptionServives.swift in Sources */,

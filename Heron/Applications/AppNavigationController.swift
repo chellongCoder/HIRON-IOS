@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SWRevealViewController
 
 class AppNavigationController: UINavigationController {
     
@@ -46,8 +47,13 @@ public let kCompletionActionDefault: (() -> Void) = {_NavController.doneAlert()}
 
 // MARK: - Router
 extension AppNavigationController {
+    func gotoHomepage() {
+        _NavController.setViewControllers([MainViewController.sharedInstance], animated: true)
+    }
     
-    
+    func gotoLoginPage() {
+        _NavController.setViewControllers([MainAuthViewController()], animated: true)
+    }
 }
 
 // MARK: Force Update

@@ -7,22 +7,6 @@
 
 import UIKit
 
-extension UIButton {
-    func successButton(title: String) -> Self {
-        self.setTitle(title, for: .normal)
-       self.backgroundColor = kPrimaryColor
-       self.layer.cornerRadius = 8
-        return self
-    }
-    
-    func subButton(title: String) -> Self {
-        self.setTitle(title, for: .normal)
-        self.backgroundColor = .lightGray
-       self.layer.cornerRadius = 8
-        return self
-    }
-}
-
 class SignInViewController: BaseViewController {
 
         var imagePicker = UIImagePickerController()
@@ -79,7 +63,7 @@ class SignInViewController: BaseViewController {
             pass_tf.isSecureTextEntry = true
             
             let sign_in_btn = UIButton()
-            sign_in_btn.successButton(title: isSign ? "Sign in" : "Continue")
+            sign_in_btn.setTitle(isSign ? "Sign in" : "Continue", for: .normal)
             sign_in_btn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
            
             stack_view.addArrangedSubview(sign_in_lbl)
