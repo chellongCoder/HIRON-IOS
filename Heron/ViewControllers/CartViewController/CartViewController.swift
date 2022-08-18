@@ -303,7 +303,7 @@ class CartViewController: BaseViewController,
         
         // Fake loading animation
         self.startLoadingAnimation()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
             self.endLoadingAnimation()
             _CartServices.cartData.accept(cartData)
         }

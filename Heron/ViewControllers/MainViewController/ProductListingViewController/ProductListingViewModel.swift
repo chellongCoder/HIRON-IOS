@@ -18,13 +18,13 @@ class ProductListingViewModel: NSObject {
     func getProductList() {
         
         var param : [String: Any] = ["filter[featureType][eq]" : "ecom",
+                                     "sort[media][sortOrder]": "asc",
                                      "sort[createdAt]" : "desc"]
         if let filterData = filterData {
             param = ["filter[featureType][eq]" : "ecom",
                      "filter[categoryId][eq]" : filterData.id,
                      "filter[quantity][not]" : "null",
                      "filter[visibility][eq]" : "true",
-                     "sort[media][sortOrder]": "asc",
                      "sort[createdAt]" : "desc"]
         }
         

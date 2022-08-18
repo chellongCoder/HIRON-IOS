@@ -255,7 +255,7 @@ class CheckoutViewController: BaseViewController,
             .subscribe { billingAddress in
                 self.updatePlaceOrderButton()
                 guard let billingAddress = billingAddress.element as? UserDataSource else { return }
-                self.billingAddress.contactLabel.text = billingAddress.userFullName + " | " + billingAddress.userPhoneNum
+                self.billingAddress.contactLabel.text = String(format: "%@ %@ | %@%@", billingAddress.userFirstName, billingAddress.userLastName, billingAddress.userPhoneCode, billingAddress.userPhoneNum)//billingAddress.userFullName + " | " + billingAddress.userPhoneNum
                 self.billingAddress.addressLabel.text = billingAddress.userEmail
                 
                 self.tableView.reloadData()

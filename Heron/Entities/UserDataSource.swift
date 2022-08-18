@@ -11,14 +11,16 @@ import ObjectMapper
 
 class UserDataSource: Mappable {
 
-    var userID: String! = ""
-    var userName: String! = ""
-    var userFullName: String  = ""
-    var userPhoneNum: String  = ""
-    var userEmail: String  = ""
-    var userDOB: Int  = 0
-    var userGender: String  = "male"
-    var userAvatarURL: String  = ""
+    var userID :        String! = ""
+    var userName :      String! = ""
+    var userFirstName : String  = ""
+    var userLastName :  String  = ""
+    var userPhoneNum :  String  = ""
+    var userPhoneCode : String  = ""
+    var userEmail :     String  = ""
+    var userDOB :       Int  = 0
+    var userGender :    String  = "male"
+    var userAvatarURL : String  = ""
 
     required init?(map: Map) {
         //
@@ -27,8 +29,10 @@ class UserDataSource: Mappable {
     func mapping(map: Map) {
         userID          <- map["id"]
         userName        <- map["username"]
-        userFullName    <- map["fullname"]
-        userPhoneNum    <- map["phone"]
+        userFirstName   <- map["firstName"]
+        userLastName    <- map["lastName"]
+        userPhoneNum    <- map["phoneNumber"]
+        userPhoneCode   <- map["phoneCountryCode"]
         userEmail       <- map["email"]
         userDOB         <- map["dob"]
         userGender      <- map["gender"]

@@ -12,7 +12,7 @@ import NVActivityIndicatorView
 class LoadingAnimationView: UIView {
 
     var loadingAnimation        = NVActivityIndicatorView(frame: .zero,
-                                                          type: .ballScaleMultiple,
+                                                          type: .ballPulseSync,
                                                           color: kPrimaryColor)
 
     override init(frame: CGRect) {
@@ -31,17 +31,17 @@ class LoadingAnimationView: UIView {
         self.addSubview(loadingAnimation)
         loadingAnimation.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.size.equalToSuperview().multipliedBy(0.5)
+            make.height.width.equalTo(50)
         }
 
-        let logoImage = UIImageView(image: UIImage(named: "AppIcon_HighDimension"))
-        logoImage.layer.cornerRadius = 40
-        logoImage.layer.masksToBounds = true
-        self.addSubview(logoImage)
-        logoImage.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-            make.width.height.equalTo(80)
-        }
+//        let logoImage = UIImageView(image: UIImage(named: "AppIcon_HighDimension"))
+//        logoImage.layer.cornerRadius = 40
+//        logoImage.layer.masksToBounds = true
+//        self.addSubview(logoImage)
+//        logoImage.snp.makeConstraints { (make) in
+//            make.center.equalToSuperview()
+//            make.width.height.equalTo(80)
+//        }
     }
 
     required init?(coder: NSCoder) {
