@@ -18,10 +18,10 @@ class SignInSuccessViewController: BaseViewController {
     //    let vm = AccountViewModel()
 
         override func configUI() {
-            let bg = UIImageView(image: UIImage(named: "bg"))
-            bg.contentMode = .scaleAspectFit
-            self.view.addSubview(bg)
-            bg.snp.makeConstraints {
+            let backgroundImage = UIImageView(image: UIImage(named: "bg"))
+            backgroundImage.contentMode = .scaleAspectFit
+            self.view.addSubview(backgroundImage)
+            backgroundImage.snp.makeConstraints {
                 $0.left.right.top.bottom.equalToSuperview()
             }
             

@@ -18,13 +18,24 @@ class SignInViewController: BaseViewController {
         let vm = AuthViewModel()
 
         override func configUI() {
-            let bg = UIImageView(image: UIImage(named: "bg"))
-            bg.contentMode = .scaleAspectFit
-            self.view.addSubview(bg)
-            bg.snp.makeConstraints {
+            let backgroundImage = UIImageView(image: UIImage(named: "bg"))
+            backgroundImage.contentMode = .scaleAspectFit
+            self.view.addSubview(backgroundImage)
+            backgroundImage.snp.makeConstraints {
                 $0.left.right.top.bottom.equalToSuperview()
             }
             
+            let backBtn = UIButton()
+            backBtn.setBackgroundImage(UIImage.init(systemName: "chevron.backward"), for: .normal)
+            backBtn.tintColor = kPrimaryColor
+            backBtn.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+            self.view.addSubview(backBtn)
+            backBtn.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(20)
+                make.left.equalToSuperview().offset(16)
+                make.width.equalTo(30)
+                make.width.equalTo(40)
+            }
             
             let child_vỉew = UIView()
             self.view.addSubview(child_vỉew)
