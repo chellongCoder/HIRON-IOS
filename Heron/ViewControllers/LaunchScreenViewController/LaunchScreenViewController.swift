@@ -24,8 +24,7 @@ class LaunchScreenViewController: BaseViewController {
             make.center.size.equalToSuperview()
         }
         
-        let isSigned = UserDefaults.standard.bool(forKey: "is_login")
-        if !isSigned {
+        if _AppCoreData.getUserSession() == nil {
             self.navigationController?.setViewControllers([MainAuthViewController()], animated: true)
         } else {
             _NavController.gotoHomepage()

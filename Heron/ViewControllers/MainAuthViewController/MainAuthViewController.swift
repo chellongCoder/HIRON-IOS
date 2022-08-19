@@ -16,7 +16,7 @@ class MainAuthViewController: BaseViewController {
             topLogo.contentMode = .scaleAspectFit
             self.view.addSubview(topLogo)
             topLogo.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(50)
+                $0.top.equalToSuperview().offset(70)
                 $0.centerX.equalToSuperview()
                 $0.height.equalTo(70)
             }
@@ -27,7 +27,7 @@ class MainAuthViewController: BaseViewController {
             centerImage.snp.makeConstraints {
                 $0.top.equalTo(topLogo.snp.bottom).offset(30)
                 $0.centerX.equalToSuperview()
-                $0.height.equalTo(270)
+                $0.width.equalToSuperview().offset(-40)
             }
             
             let centerDesc = UILabel()
@@ -37,9 +37,9 @@ class MainAuthViewController: BaseViewController {
             centerDesc.numberOfLines = 0
             self.view.addSubview(centerDesc)
             centerDesc.snp.makeConstraints {
-                $0.top.equalTo(centerImage.snp.bottom).offset(10)
+                $0.top.equalTo(centerImage.snp.bottom).offset(20)
                 $0.centerX.equalToSuperview()
-                $0.width.equalToSuperview().multipliedBy(0.6)
+                $0.width.equalToSuperview().offset(-40)
             }
             
             let signInBtn = UIButton()
@@ -51,12 +51,13 @@ class MainAuthViewController: BaseViewController {
             signInBtn.snp.makeConstraints {
                 $0.top.equalTo(centerDesc.snp.bottom).offset(15)
                 $0.centerX.equalToSuperview()
-                $0.width.equalToSuperview().multipliedBy(0.6)
-                $0.height.equalTo(40)
+                $0.width.equalToSuperview().offset(-60)
+                $0.height.equalTo(50)
             }
             
             let signUpBtn = UIButton()
             signUpBtn.setTitle("Sign Up", for: .normal)
+            signUpBtn.setTitleColor(kDefaultTextColor, for: .normal)
             signUpBtn.backgroundColor = UIColor.init(hexString: "E5E5E5")
             signUpBtn.layer.cornerRadius = 8
             signUpBtn.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
@@ -64,8 +65,8 @@ class MainAuthViewController: BaseViewController {
             signUpBtn.snp.makeConstraints {
                 $0.top.equalTo(signInBtn.snp.bottom).offset(15)
                 $0.centerX.equalToSuperview()
-                $0.width.equalToSuperview().multipliedBy(0.6)
-                $0.height.equalTo(40)
+                $0.width.equalToSuperview().offset(-60)
+                $0.height.equalTo(50)
             }
         }
 
