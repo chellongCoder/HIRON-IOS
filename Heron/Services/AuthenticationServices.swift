@@ -59,19 +59,10 @@ class AuthenticationServices {
         }
     }
     
-    func signUp(username: String, passwd: String, fitst_name: String, last_name: String, gender: String, dob: Int, identityNum: String, phone: String, completion:@escaping (String?, String?) -> Void) {
-        let parametter = ["username": username,
-                          "password": passwd,
-                          "passwordConfirm": passwd,
-                          "firstName": fitst_name,
-                          "lastName": last_name,
-                          "gender": gender,
-                          "dob": dob,
-                          "identityNum": identityNum,
-                          "phone": phone] as [String : Any]
-        let fullURLRequest = kGatewayAuthenticationURL+"/users/register"
+    func signUp(userInfo: UserDataSource, completion:@escaping (String?, String?) -> Void) {
+        let fullURLRequest = "https://ehp-api.cbidigital.com/user-svc/api/users/register"
         
-        _ = _AppDataHandler.post(parameters: parametter, fullURLRequest: fullURLRequest) { responseData in
+        _ = _AppDataHandler.post(parameters: userInfo.toJSON(), fullURLRequest: fullURLRequest) { responseData in
             if let responseDict = responseData.responseData?["data"] as? [String : Any] {
                 let sessionToken = SessionDataSource.init(JSONString: "{}")!
                 if let accessToken = responseDict["accessToken"] as? String {

@@ -9,18 +9,26 @@
 import UIKit
 import ObjectMapper
 
+enum UserGender : String {
+    case male   = "male"
+    case female = "female"
+}
+
 class UserDataSource: Mappable {
 
     var userID :        String! = ""
     var userName :      String! = ""
+    var password :      String  = ""
+    var passwordConfirm :   String = ""
     var userFirstName : String  = ""
     var userLastName :  String  = ""
     var userPhoneNum :  String  = ""
-    var userPhoneCode : String  = ""
+    var userPhoneCode : String  = "+84"
     var userEmail :     String  = ""
     var userDOB :       Int  = 0
-    var userGender :    String  = "male"
-    var userAvatarURL : String  = ""
+    var userGender :    UserGender = .male
+    var identityNum :   String  = "1234567889"
+    var userAvatarURL : String  = "https://sgp1.digitaloceanspaces.com/dev.storage/6bab1242-88c5-4705-81e9-3a9e13c47d41.png"
 
     required init?(map: Map) {
         //
@@ -29,6 +37,8 @@ class UserDataSource: Mappable {
     func mapping(map: Map) {
         userID          <- map["id"]
         userName        <- map["username"]
+        password        <- map["password"]
+        passwordConfirm <- map["passwordConfirm"]
         userFirstName   <- map["firstName"]
         userLastName    <- map["lastName"]
         userPhoneNum    <- map["phoneNumber"]
@@ -36,6 +46,7 @@ class UserDataSource: Mappable {
         userEmail       <- map["email"]
         userDOB         <- map["dob"]
         userGender      <- map["gender"]
+        identityNum     <- map["identityNum"]
         userAvatarURL   <- map["avatar"]
     }
 }

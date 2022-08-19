@@ -54,7 +54,7 @@ class SubscriptionPaymentViewController: BaseViewController {
         
         let sign_in_btn = UIButton()
         sign_in_btn.setTitle("Pay", for: .normal)
-        sign_in_btn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
+        sign_in_btn.addTarget(self, action: #selector(continueActionTapped), for: .touchUpInside)
         
         let hstack = UIStackView()
         hstack.axis  = .horizontal
@@ -96,7 +96,7 @@ override func viewWillAppear(_ animated: Bool) {
     
 }
     
-    @objc func continue_action(_ sender: Any) {
+    @objc func continueActionTapped(_ sender: Any) {
         _NavController.gotoHomepage()
     }
     

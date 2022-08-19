@@ -181,7 +181,8 @@ extension ApplicationDataHandler {
             return header
         }
         
-        let headerFull: HTTPHeaders = ["Authorization": "Bearer " + accessTk]
+        let headerFull: HTTPHeaders = ["Authorization": "Bearer " + accessTk,
+                                       "x-tenant-id": "e2e050c2-a5cf-485b-b8b1-93b84de046e3"]
         return headerFull
     }
 }

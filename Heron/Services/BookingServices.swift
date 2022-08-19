@@ -117,11 +117,17 @@ class BookingServices : NSObject {
     func getListTimeables(completion:@escaping (String?, [TimeableDataSource]?) -> Void) {
         
         guard let selecteDoctorID = self.selectedDoctor.value?.id else {
+            completion("Required to select doctor", [])
+            return
+        }
+        
+        guard let selectedDepartmentID = self.selectedDepartment.value?.departmentID else {
             completion("Required to select department", [])
             return
         }
 
-        let param : [String:Any] = ["filter[hostId][eq]":selecteDoctorID]
+        let param : [String:Any] = ["filter[hostId][eq]" : selecteDoctorID,
+                                    "filter[targetId][eq]" :selectedDepartmentID]
         
         let fullURLRequest = kGatewayBookingURL + "/timetable"
         _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in

@@ -10,7 +10,7 @@ import Material
 
 class SignInViewController: BaseViewController {
     
-    private let viewModel   = AuthViewModel()
+    private let viewModel   = SignInViewModel()
     let emailTxt            = ErrorTextField()
     let passwordTxt         = ErrorTextField()
     
@@ -74,6 +74,7 @@ class SignInViewController: BaseViewController {
         emailTxt.dividerNormalColor = kPrimaryColor
         emailTxt.errorColor = .red
         emailTxt.textColor = kDefaultTextColor
+        emailTxt.keyboardType = .emailAddress
         
         passwordTxt.placeholder = "Password"
         passwordTxt.isSecureTextEntry = true
@@ -84,7 +85,7 @@ class SignInViewController: BaseViewController {
         
         let signInBtn = UIButton()
         signInBtn.setTitle(isSign ? "Sign in" : "Continue", for: .normal)
-        signInBtn.addTarget(self, action: #selector(continue_action), for: .touchUpInside)
+        signInBtn.addTarget(self, action: #selector(continueActionTapped), for: .touchUpInside)
         signInBtn.backgroundColor = kPrimaryColor
         signInBtn.layer.cornerRadius = 8
         
@@ -110,20 +111,32 @@ class SignInViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        emailTxt.text = "administrator"
+        emailTxt.text = "administrator@gmail.com"
         passwordTxt.text = "super_admin@123./"
     }
     
-    @objc func continue_action(_ sender: Any) {
+    @objc func continueActionTapped(_ sender: Any) {
+        
+        if !(emailTxt.text ?? "").isValidEmail() {
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                 message: "Email do not valid, please check it again", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                alertVC.dismiss()
+            }))
+            _NavController.showAlert(alertVC)
+            return
+        }
+        
         if isSign {
-            viewModel.sign_in(email: emailTxt.text ?? "", password: passwordTxt.text ?? "") {
+            viewModel.signIn(email: emailTxt.text ?? "", password: passwordTxt.text ?? "") {
                 let vc = SignInSuccessViewController()
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         } else {
-            viewModel.check_exists(email: emailTxt.text ?? "", password: passwordTxt.text ?? "") {
+            viewModel.checkExists(email: emailTxt.text ?? "", password: passwordTxt.text ?? "") {
                 let vc = AccountInfoViewController()
-                vc.prev_screen_pass = self.passwordTxt.text ?? ""
+                vc.prevScreenPass = self.passwordTxt.text ?? ""
+                vc.prevEmail = self.emailTxt.text ?? ""
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
