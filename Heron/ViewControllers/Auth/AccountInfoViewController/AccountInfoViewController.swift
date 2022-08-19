@@ -19,6 +19,7 @@ class AccountInfoViewController: BaseViewController,
     let genderTxt           = ErrorTextField()
     let dobTxt              = ErrorTextField()
     let emailTxt            = ErrorTextField()
+    let phoneNumberCodeTxt  = ErrorTextField()
     let phoneNumberTxt      = ErrorTextField()
     
     var prevScreenPass      = ""
@@ -26,6 +27,7 @@ class AccountInfoViewController: BaseViewController,
     
     private let datePicker  = UIDatePicker()
     private let genderPicker = UIPickerView()
+    private let codePicker  = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,16 +108,12 @@ class AccountInfoViewController: BaseViewController,
             make.width.equalTo(self.view).offset(-40)
         }
         
-        genderPicker.delegate = self
-        genderPicker.dataSource = self
-        
         genderTxt.text = "Male"
         genderTxt.placeholder = "Gender *"
         genderTxt.dividerNormalHeight = 0.5
         genderTxt.dividerNormalColor = kPrimaryColor
         genderTxt.errorColor = .red
         genderTxt.textColor = kDefaultTextColor
-        genderTxt.inputView = genderPicker
         contentScrollView.addSubview(genderTxt)
         genderTxt.snp.makeConstraints { make in
             make.top.equalTo(lastNameTxt.snp.bottom).offset(50)
@@ -152,6 +150,20 @@ class AccountInfoViewController: BaseViewController,
             make.centerX.equalToSuperview()
             make.width.equalTo(self.view).offset(-40)
         }
+                
+        phoneNumberCodeTxt.text = "84"
+        phoneNumberCodeTxt.placeholder = "Phone Code *"
+        phoneNumberCodeTxt.dividerNormalHeight = 0.5
+        phoneNumberCodeTxt.dividerNormalColor = kPrimaryColor
+        phoneNumberCodeTxt.errorColor = .red
+        phoneNumberCodeTxt.textColor = kDefaultTextColor
+        phoneNumberCodeTxt.keyboardType = .phonePad
+        contentScrollView.addSubview(phoneNumberCodeTxt)
+        phoneNumberCodeTxt.snp.makeConstraints { make in
+            make.top.equalTo(emailTxt.snp.bottom).offset(50)
+            make.left.equalToSuperview().offset(20)
+            make.width.equalTo(self.view).multipliedBy(0.3)
+        }
         
         phoneNumberTxt.placeholder = "Phone number *"
         phoneNumberTxt.dividerNormalHeight = 0.5
@@ -162,8 +174,8 @@ class AccountInfoViewController: BaseViewController,
         contentScrollView.addSubview(phoneNumberTxt)
         phoneNumberTxt.snp.makeConstraints { make in
             make.top.equalTo(emailTxt.snp.bottom).offset(50)
-            make.centerX.equalToSuperview()
-            make.width.equalTo(self.view).offset(-40)
+            make.left.equalTo(phoneNumberCodeTxt.snp.right).offset(10)
+            make.right.equalTo(self.view).offset(-20)
         }
         
         let createAccountBtn = UIButton()
@@ -211,6 +223,14 @@ class AccountInfoViewController: BaseViewController,
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         dobTxt.inputView = datePicker
         dobTxt.inputAccessoryView = doneToolbar
+        
+        genderPicker.delegate = self
+        genderPicker.dataSource = self
+        genderTxt.inputView = genderPicker
+        
+        codePicker.dataSource = self
+        codePicker.delegate = self
+        phoneNumberCodeTxt.inputView = codePicker
     }
     
     @objc private func doneDatePicker() {
@@ -285,10 +305,17 @@ class AccountInfoViewController: BaseViewController,
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if row == 0 {
-            return "Male"
+        if pickerView == genderPicker {
+            if row == 0 {
+                return "Male"
+            }
+            return "Female"
+        } else {
+            if row == 0 {
+                return "01"
+            }
+            return "84"
         }
-        return "Female"
     }
     
     // MARK: - UIPickerViewDelegate
@@ -296,12 +323,24 @@ class AccountInfoViewController: BaseViewController,
         
         let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
         
-        if row == 0 {
-            genderTxt.text = "Male"
-            userData.userGender = .male
+        if pickerView == genderPicker {
+            if row == 0 {
+                genderTxt.text = "Male"
+                userData.userGender = .male
+            } else {
+                genderTxt.text = "Female"
+                userData.userGender = .female
+            }
         } else {
-            genderTxt.text = "Female"
-            userData.userGender = .female
+            if row == 0 {
+                phoneNumberCodeTxt.text = "01"
+                userData.userPhoneCode = "01"
+            } else {
+                phoneNumberCodeTxt.text = "84"
+                userData.userPhoneCode = "84"
+            }
         }
+        
+        viewModel.userData.accept(userData)
     }
 }
