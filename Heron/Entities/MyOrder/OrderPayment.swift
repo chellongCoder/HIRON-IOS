@@ -6,12 +6,12 @@ import Foundation
 import ObjectMapper
 
 struct OrderPayment : Mappable {
-	var id : String?
-	var paymentId : String?
-	var methodCode : String?
-	var type : String?
+	var id          : String?
+	var paymentId   : String?
+	var methodCode  : String?
+	var type        : String?
 	var completedAt : Int?
-	var metadata : PaymentMetadata?
+	var metadata    : PaymentMetadata?
 
 	init?(map: Map) {
 
@@ -19,19 +19,19 @@ struct OrderPayment : Mappable {
 
 	mutating func mapping(map: Map) {
 
-		id <- map["id"]
-		paymentId <- map["paymentId"]
-		methodCode <- map["methodCode"]
-		type <- map["type"]
+		id          <- map["id"]
+		paymentId   <- map["paymentId"]
+		methodCode  <- map["methodCode"]
+		type        <- map["type"]
 		completedAt <- map["completedAt"]
-		metadata <- map["metadata"]
+		metadata    <- map["metadata"]
 	}
 
 }
 struct PaymentMetadata : Mappable {
-    var checkoutPriceData : CheckoutPriceData?
-    var priceDiscount : Int?
-    var card : Card?
+    var checkoutPriceData   : CheckoutPriceData?
+    var priceDiscount       : Int?
+    var card                : OrderCard?
 
     init?(map: Map) {
 
@@ -39,9 +39,9 @@ struct PaymentMetadata : Mappable {
 
     mutating func mapping(map: Map) {
 
-        checkoutPriceData <- map["checkoutPriceData"]
-        priceDiscount <- map["priceDiscount"]
-        card <- map["card"]
+        checkoutPriceData   <- map["checkoutPriceData"]
+        priceDiscount       <- map["priceDiscount"]
+        card                <- map["card"]
     }
 
 }

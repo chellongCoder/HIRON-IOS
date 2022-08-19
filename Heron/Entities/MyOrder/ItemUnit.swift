@@ -5,11 +5,9 @@
 import Foundation
 import ObjectMapper
 
-struct Brand : Mappable {
+struct ItemUnit : Mappable {
 	var id : String?
-	var code : String?
 	var name : String?
-	var thumbnailUrl : String?
 
 	init?(map: Map) {
 
@@ -18,9 +16,7 @@ struct Brand : Mappable {
 	mutating func mapping(map: Map) {
 
 		id <- map["id"]
-		code <- map["code"]
 		name <- map["name"]
-		thumbnailUrl <- map["thumbnailUrl"]
 	}
 
 }

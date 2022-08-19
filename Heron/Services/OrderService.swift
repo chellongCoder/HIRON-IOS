@@ -16,10 +16,10 @@ class OrderService {
  
     private let disposeBag  = DisposeBag()
     
-    func getMyOrders(param: [String:Any], completion:@escaping (String?, [OrderData]?) -> Void) {
+    func getMyOrders(param: [String:Any], completion:@escaping (String?, [OrderDataSource]?) -> Void) {
         
         let fullURLRequest = kGatewayOrderURL + "/orders"
-        _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
+        _ = _AppDataHandler.get(parameters:param, fullURLRequest: fullURLRequest) { responseData in
                         
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
@@ -28,7 +28,7 @@ class OrderService {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                    completion(responseData.responseMessage, Mapper<OrderData>().mapArray(JSONArray: data))
+                    completion(responseData.responseMessage, Mapper<OrderDataSource>().mapArray(JSONArray: data))
                 }
             }
         }

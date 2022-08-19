@@ -24,7 +24,7 @@ class LaunchScreenViewController: BaseViewController {
             make.center.size.equalToSuperview()
         }
         
-        if _AppCoreData.getUserSession() == nil {
+        if _AppCoreData.userSession.value == nil {
             self.navigationController?.setViewControllers([MainAuthViewController()], animated: true)
         } else {
             _NavController.gotoHomepage()

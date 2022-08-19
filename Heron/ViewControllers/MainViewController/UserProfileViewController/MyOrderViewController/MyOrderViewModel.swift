@@ -8,17 +8,32 @@
 import RxSwift
 import RxRelay
 
-class OrderViewModel: NSObject {
+class MyOrderViewModel: NSObject {
 
-    public var cartData             = BehaviorRelay<CartDataSource?>(value: nil)
-    public var deliveryAddress      = BehaviorRelay<ContactDataSource?>(value: nil)
-    public var billingAddress       = BehaviorRelay<ContactDataSource?>(value: nil)
-    public var voucherCode          = BehaviorRelay<VoucherDataSource?>(value: nil)
-    public var reloadAnimation      = BehaviorRelay<Bool>(value: false)
-    public var orders              = BehaviorRelay<[OrderData]>(value: [])
+    weak var controller             : MyOrderViewController?
+    //public var cartData             = BehaviorRelay<CartDataSource?>(value: nil)
+    //public var deliveryAddress      = BehaviorRelay<ContactDataSource?>(value: nil)
+    //public var billingAddress       = BehaviorRelay<ContactDataSource?>(value: nil)
+    //public var voucherCode          = BehaviorRelay<VoucherDataSource?>(value: nil)
+    public let filter               = BehaviorRelay<String>(value:"pending")
+    public var orders               = BehaviorRelay<[OrderDataSource]>(value: [])
+    private let disposeBag          = DisposeBag()
     
-    func getMyOrder() {
-        _OrderServices.getMyOrders(param: [:]) { errorMessage, newOrder in
+    override init() {
+        super.init()
+        self.filter
+            .observe(on: MainScheduler.instance)
+            .subscribe { filterStr in
+                self.getMyOrder()
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func getMyOrder() {
+        self.controller?.startLoadingAnimation()
+        _OrderServices.getMyOrders(param: ["filter[status][eq]": filter.value]) { errorMessage, newOrder in
+            self.controller?.endLoadingAnimation()
+            
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in

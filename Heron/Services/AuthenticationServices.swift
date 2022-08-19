@@ -25,7 +25,7 @@ class AuthenticationServices {
                     sessionToken.refreshToken = refreshToken
                 }
                 
-                _AppCoreData.setUserSession(sessionToken)
+                _AppCoreData.userSession.accept(sessionToken)
                 _UserServices.getUserProfile()
                 
                 completion(nil, responseData.responseMessage)
@@ -50,8 +50,7 @@ class AuthenticationServices {
                     sessionToken.refreshToken = refreshToken
                 }
                 
-                _AppCoreData.setUserSession(sessionToken)
-                
+                _AppCoreData.userSession.accept(sessionToken)
                 completion(nil, responseData.responseMessage)
             } else {
                 completion(responseData.responseMessage, nil)
@@ -72,7 +71,7 @@ class AuthenticationServices {
                     sessionToken.refreshToken = refreshToken
                 }
                 
-                _AppCoreData.setUserSession(sessionToken)
+                _AppCoreData.userSession.accept(sessionToken)
                 
                 completion(nil, responseData.responseMessage)
             } else {

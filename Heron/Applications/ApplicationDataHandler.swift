@@ -176,7 +176,7 @@ extension ApplicationDataHandler {
     
     func getHeadHeader() -> HTTPHeaders {
         
-        guard let accessTk = _AppCoreData.getUserSession()?.accessToken else {
+        guard let accessTk = _AppCoreData.userSession.value?.accessToken else {
             let header: HTTPHeaders = [:]
             return header
         }

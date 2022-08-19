@@ -11,6 +11,7 @@ import RxSwift
 class MyOrderCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
+    let tagContentLabel     = UILabel()
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
     
@@ -29,7 +30,6 @@ class MyOrderCell: UITableViewCell {
         self.backgroundColor = .white
 
         let contentView = UIView()
-//        contentView.setShadow()
         self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
@@ -38,7 +38,6 @@ class MyOrderCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
 
-   
         packageImage.image = UIImage(named: "default-image")
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
@@ -53,7 +52,7 @@ class MyOrderCell: UITableViewCell {
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getFontSize(size: 16, weight: .medium)
+        productTitleLabel.font = getFontSize(size: 14, weight: .regular)
         productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
@@ -63,12 +62,22 @@ class MyOrderCell: UITableViewCell {
             make.right.equalToSuperview().offset(-16)
         }
         
+        tagContentLabel.backgroundColor = UIColor.init(hexString: "F0F0F0")
+        tagContentLabel.textColor = kDefaultTextColor
+        tagContentLabel.font = getFontSize(size: 12, weight: .regular)
+        tagContentLabel.numberOfLines = 0
+        contentView.addSubview(tagContentLabel)
+        tagContentLabel.snp.makeConstraints { make in
+            make.top.equalTo(productTitleLabel.snp.bottom)
+            make.left.right.equalTo(productTitleLabel)
+        }
+        
         priceDiscount.text = "$ 10.00"
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(tagContentLabel.snp.bottom).offset(10)
             make.left.equalTo(productTitleLabel)
         }
         
@@ -77,11 +86,9 @@ class MyOrderCell: UITableViewCell {
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(tagContentLabel.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
-        
-      
     }
 
     required init?(coder: NSCoder) {
@@ -98,9 +105,27 @@ class MyOrderCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%ld", cellData.product!.customFinalPrice)
-        self.priceDiscount.text = String(format: "$%ld", cellData.product!.finalPrice)
+        self.priceLabel.text = String(format: "$%ld", cellData.product?.customFinalPrice ?? 0.0)
+        self.priceDiscount.text = String(format: "$%ld", cellData.product?.finalPrice ?? 0.0)
     
+    }
+    
+    func setDataSource(_ cellData: OrderItems, indexPath: IndexPath) {
+        
+        self.indexPath = indexPath
+        
+        self.productTitleLabel.text = cellData.name
+        if let imageURL = URL.init(string: cellData.thumbnailUrl ?? "") {
+            self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+        }
+        
+        self.priceLabel.text = String(format: "$%ld", cellData.regularPrice ?? 0.0)
+        self.priceDiscount.text = String(format: "$%ld", cellData.finalPrice ?? 0.0)
+        
+        let attributeID : [String] = (cellData.attributes ?? []).filter({ attribute in
+            return attribute.key == "Color" || attribute.key == "Size" || attribute.key == "weight"
+        }).map { $0.value ?? "" }
+        self.tagContentLabel.text = attributeID.joined(separator:" - ")
     }
     
     @objc private func removeButtonTapped() {

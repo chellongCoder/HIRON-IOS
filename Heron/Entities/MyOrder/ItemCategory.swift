@@ -5,7 +5,7 @@
 import Foundation
 import ObjectMapper
 
-struct Category : Mappable {
+struct ItemCategory : Mappable {
 	var id : String?
 	var code : String?
 	var name : String?

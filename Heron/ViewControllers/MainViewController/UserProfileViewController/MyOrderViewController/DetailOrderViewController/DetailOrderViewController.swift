@@ -9,12 +9,14 @@ import UIKit
 import RxRelay
 
 class DetailOrderViewController: BaseViewController {
-    let tableView                   = UITableView(frame: .zero, style: .grouped)
-    let vm = OrderViewModel()
-    let data = BehaviorRelay<OrderData?>(value: nil)
+    let tableView       = UITableView(frame: .zero, style: .grouped)
+    let viewModel       = DetailOrderViewModel()
+    let data            = BehaviorRelay<OrderDataSource?>(value: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.controller = self
+        
         navigationItem.title = "Detailed order"
         tableView.delegate = self
         tableView.dataSource = self
@@ -33,15 +35,15 @@ class DetailOrderViewController: BaseViewController {
         }
     }
     
-    init(_ data: OrderData) {
+    init(_ data: OrderDataSource) {
         super.init(nibName: nil, bundle: nil)
         self.data.accept(data)
-//        viewModel.productDataSource = data
+        //        viewModel.productDataSource = data
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        vm.getMyOrder()
+        viewModel.getMyOrder()
     }
     
     override func bindingData() {
@@ -78,7 +80,7 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         
         let item_cell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
         return item_cell
-      
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

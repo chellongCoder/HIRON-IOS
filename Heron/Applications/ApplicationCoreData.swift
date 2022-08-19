@@ -10,14 +10,17 @@ import UIKit
 import CoreData
 import Alamofire
 import ObjectMapper
+import RxRelay
+import RxSwift
 
 @_exported import BugfenderSDK
 class ApplicationCoreData: NSObject {
     
     public static let sharedInstance    = ApplicationCoreData()
     
-    private var userSession: SessionDataSource?
-    private var userDataSource: UserDataSource?
+    public var userSession             = BehaviorRelay<SessionDataSource?>(value: nil)
+    public var userDataSource          = BehaviorRelay<UserDataSource?>(value: nil)
+    private let disposeBag             = DisposeBag()
     
     private var timerRefeshToken: Timer?
     
@@ -28,21 +31,20 @@ class ApplicationCoreData: NSObject {
     }
     
     func startContext() {
-        
-    }
-    
-    private func refreshUserDataCache() {
-        if let countRefresh = UserDefaults.standard.value(forKey: kAppRefreshUserDataCacheTime) as? Int {
-            let currentTime = Int(Date().timeIntervalSince1970)
-            
-            if currentTime < countRefresh + kAppRefresTime {
-                return
+        self.userSession
+            .observe(on: MainScheduler.instance)
+            .subscribe { userSession in
+                self.syncDown()
             }
-        }
+            .disposed(by: disposeBag)
         
-        UserDefaults.standard.setValue(Int(Date().timeIntervalSince1970), forKey: kAppRefreshUserDataCacheTime)
+        self.userDataSource
+            .observe(on: MainScheduler.instance)
+            .subscribe { userDataSource in
+                self.syncDown()
+            }
+            .disposed(by: disposeBag)
     }
-    
     
     private class func getContext() -> NSManagedObjectContext {
         let delegate = UIApplication.shared.delegate as? AppDelegate
@@ -50,55 +52,16 @@ class ApplicationCoreData: NSObject {
         return (delegate?.persistentContainer.viewContext)!
     }
     
-    // MARK: - Getter
-    func getUserSession() -> SessionDataSource? {
-        return self.userSession
-    }
-    
-    func getUserDataSource() -> UserDataSource? {
-        // request refresh cache if need
-        refreshUserDataCache()
-        
-        return self.userDataSource
-    }
-    
-    // MARK: Setter
-    func setUserSession(_ newUserSession: SessionDataSource) {
-        self.userSession = newUserSession
-        self.refreshTokenActive()
-        self.syncDown()
-    }
-    
-    func setUserDataSource(_ newUserDataSource: UserDataSource) {
-        self.userDataSource = newUserDataSource
-        self.syncDown()
-        
-        // OneSignal config
-        if let userID = self.userDataSource?.userID {
-            if !userID.isEmpty {
-//                _AppDataHandler.setExternalUserId(id: userID)
-            }
-        }
-        
-        if let userEmail = self.userDataSource?.userEmail {
-            Bugfender.setDeviceString(userEmail, forKey: "user_Iden")
-        }
-
-        NotificationCenter.default.post(name: kUserLoggedInNotification, object: nil)
-    }
     
     func signOut() {
-        self.userSession = nil
-        self.userDataSource = nil
-        // OneSignal config
-//        _AppDataHandler.removeExternalUserId()
+        self.userSession.accept(nil)
+        self.userDataSource.accept(nil)
         
         // Stop Refresh token
         self.timerRefeshToken?.invalidate()
         self.timerRefeshToken = nil
         
         self.syncDown()
-        NotificationCenter.default.post(name: kUserSignOutNotification, object: nil)
     }
     
     // MARK: - CoreData
@@ -108,7 +71,7 @@ class ApplicationCoreData: NSObject {
             if let data = UserDefaults.standard.object(forKey: kUserSessionDataSource) as? String {
                 let sessionData = SessionDataSource.init(JSONString: data)
                 if sessionData != nil {
-                    self.userSession = sessionData
+                    self.userSession.accept(sessionData)
                 } else {
                     UserDefaults.standard.removeObject(forKey: kUserSessionDataSource)
                 }
@@ -122,7 +85,7 @@ class ApplicationCoreData: NSObject {
             if let data = UserDefaults.standard.object(forKey: kUserProfileDataSource) as? String {
                 let userData = UserDataSource.init(JSONString: data)
                 if userData != nil {
-                    self.userDataSource = userData
+                    self.userDataSource.accept(userData)
                 } else {
                     UserDefaults.standard.removeObject(forKey: kUserProfileDataSource)
                 }
@@ -134,19 +97,23 @@ class ApplicationCoreData: NSObject {
     
     private func syncDown() {
         // Sync SessionDataSource
-        if self.userSession == nil {
+        if self.userSession.value == nil {
             UserDefaults.standard.removeObject(forKey: kUserSessionDataSource)
         } else {
-            let data = self.userSession?.toJSONString()
+            let data = self.userSession.value?.toJSONString()
             UserDefaults.standard.setValue(data, forKey: kUserSessionDataSource)
         }
         
         // Sync UserDataSource
-        if self.userDataSource == nil {
+        if self.userDataSource.value == nil {
             UserDefaults.standard.removeObject(forKey: kUserProfileDataSource)
         } else {
-            let data = self.userDataSource?.toJSONString()
+            let data = self.userDataSource.value?.toJSONString()
             UserDefaults.standard.setValue(data, forKey: kUserProfileDataSource)
+        }
+        
+        if let userEmail = self.userDataSource.value?.userEmail {
+            Bugfender.setDeviceString(userEmail, forKey: "user_Iden")
         }
     }
     
@@ -173,28 +140,5 @@ extension NSManagedObject {
             return reqJSONStr
         } catch {}
         return nil
-    }
-}
-
-extension ApplicationCoreData {
-    func refreshTokenActive() {
-        self.timerRefeshToken?.invalidate()
-        self.timerRefeshToken = nil
-        self.timerRefeshToken = Timer.scheduledTimer(timeInterval: 10*60,
-                                                     target: self,
-                                                     selector: #selector(processRefreshToken),
-                                                     userInfo: nil,
-                                                     repeats: true)
-    }
-    
-    @objc private func processRefreshToken() {
-//        _ =  _AppDataHandler.refreshToken {(isSuccess, _) in
-//            
-//            if isSuccess {
-//                print("success refreshToken")
-//            } else {
-//                print("fail refreshToken")
-//            }
-//        }
     }
 }

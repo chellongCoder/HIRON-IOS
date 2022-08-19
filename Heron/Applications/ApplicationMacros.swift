@@ -48,8 +48,6 @@ let kGatewayOganizationURL                  = "https://ehp-api.cbidigital.com/or
 let kGatewayBookingURL                      = "https://ehp-api.cbidigital.com/booking-svc/api"
 
 // Define notificationKey
-let kUserLoggedInNotification               = Notification.Name("kUserLoggedInNotification")
-let kUserSignOutNotification                = Notification.Name("kUserSignOutNotification")
 let kInternetNotificationAlive              = Notification.Name("kInternetNotificationAlive")
 let kNeedReloadNotificationBagde            = Notification.Name("kNeedReloadNotificationBagde")
 
@@ -60,5 +58,4 @@ let kOneSignalAppID                         = ""
 // AppStore Release URL
 let kAppStoreReleaseURL                     = "https://apps.apple.com/vn/app/danh-y/xxxxxx"
 let kAppAlreadyLaunchedOnce                 = "AppAlreadyLaunchedOnce"
-let kAppRefreshUserDataCacheTime            = "kAppRefreshUserDataCacheTime"
 let kAppRefresTime                          = 7 * 24 * 3600

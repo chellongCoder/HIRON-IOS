@@ -111,7 +111,7 @@ class SignInViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        emailTxt.text = "administrator@gmail.com"
+        emailTxt.text = "admin@gmail.com"
         passwordTxt.text = "super_admin@123./"
     }
     

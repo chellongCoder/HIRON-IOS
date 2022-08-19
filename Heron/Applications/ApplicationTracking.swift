@@ -89,7 +89,7 @@ class ApplicationTracking: NSObject {
             guard var tempData = data as? [String:Any] else { return }
             tempData["af_revenue"] = tempData["chi_phi"]
             tempData["af_currency"] = "VND"
-            tempData["af_customer_user_id"] = _AppCoreData.getUserDataSource()?.userPhoneNum
+            tempData["af_customer_user_id"] = _AppCoreData.userDataSource.value?.userPhoneNum
             // AppsFlyerLib.shared().logEvent("Purchase",
             // withValues: tempData)
             break

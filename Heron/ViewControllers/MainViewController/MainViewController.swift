@@ -37,13 +37,13 @@ class MainViewController: UITabBarController {
         let bookingNav = UINavigationController.init(rootViewController: BookingViewController())
         bookingNav.tabBarItem = UITabBarItem(title: "Booking", image: UIImage.init(systemName: "ticket"), selectedImage: nil)
 
-        let myOrderNav = UINavigationController.init(rootViewController: MyOrderViewController())
-        myOrderNav.navigationBar.barTintColor = .white
-        myOrderNav.tabBarItem = UITabBarItem(title: "My Order", image: UIImage.init(systemName: "person"), selectedImage: nil)
+        let myProfileNav = UINavigationController.init(rootViewController: UserProfileViewController())
+        myProfileNav.navigationBar.barTintColor = .white
+        myProfileNav.tabBarItem = UITabBarItem(title: "Profile", image: UIImage.init(systemName: "person"), selectedImage: nil)
         
         UINavigationBar.appearance().isTranslucent = false
 
-        self.viewControllers = [homeNav, productNav, bookingNav, myOrderNav]
+        self.viewControllers = [homeNav, productNav, bookingNav, myProfileNav]
         self.selectedIndex = 1
     }
 

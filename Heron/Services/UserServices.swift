@@ -16,7 +16,7 @@ class UserServices {
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
             if let data = responseData.responseData?["data"] as? [String:Any] {
                 if let newUserData = Mapper<UserDataSource>().map(JSON: data) {
-                    _AppCoreData.setUserDataSource(newUserData)
+                    _AppCoreData.userDataSource.accept(newUserData)
                     _CheckoutServices.billingAddress.accept(newUserData)
                 }
             }
