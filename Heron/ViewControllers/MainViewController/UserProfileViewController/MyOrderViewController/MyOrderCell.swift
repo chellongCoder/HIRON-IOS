@@ -12,16 +12,11 @@ class MyOrderCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
     let tagContentLabel     = UILabel()
-    let priceLabel          = UILabel()
+    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
+    let countLabel          = UILabel()
     
     private let disposeBag  = DisposeBag()
-    
-    private var cartItemData : CartItemDataSource? = nil {
-        didSet {
-//            checkboxButton.isSelected = cartItemData?.isSelected ?? false
-        }
-    }
     private var indexPath   : IndexPath? = nil
     var delegate            : CartProductCellDelegate? = nil
     
@@ -72,42 +67,37 @@ class MyOrderCell: UITableViewCell {
             make.left.right.equalTo(productTitleLabel)
         }
         
-        priceDiscount.text = "$ 10.00"
-        priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getFontSize(size: 14, weight: .regular)
-        contentView.addSubview(priceDiscount)
-        priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(tagContentLabel.snp.bottom).offset(10)
-            make.left.equalTo(productTitleLabel)
-        }
-        
-        priceLabel.text = "$ 20.00"
-        priceLabel.textColor = kDisableColor
+        priceLabel.text = "$0.00"
+        priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
             make.top.equalTo(tagContentLabel.snp.bottom).offset(10)
-            make.left.equalTo(priceDiscount.snp.right).offset(5)
+            make.left.equalTo(productTitleLabel)
+        }
+        
+        priceDiscount.text = "$0.00"
+        priceDiscount.textColor = kRedHightLightColor
+        priceDiscount.font = getFontSize(size: 14, weight: .regular)
+        contentView.addSubview(priceDiscount)
+        priceDiscount.snp.makeConstraints { (make) in
+            make.top.equalTo(priceLabel.snp.bottom)
+            make.left.equalTo(productTitleLabel)
+        }
+        
+        countLabel.text = "x0"
+        countLabel.textColor = kDefaultTextColor
+        countLabel.font = getFontSize(size: 12, weight: .regular)
+        countLabel.textAlignment = .right
+        contentView.addSubview(countLabel)
+        countLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(priceDiscount)
+            make.right.equalTo(productTitleLabel)
         }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setDataSource(_ cellData: CartItemDataSource, indexPath: IndexPath) {
-        
-        self.cartItemData = cellData
-        self.indexPath = indexPath
-        
-        self.productTitleLabel.text = cellData.product?.name
-        if let imageURL = URL.init(string: cellData.product?.thumbnailUrl ?? "") {
-            self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
-        }
-        
-        self.priceLabel.text = String(format: "$%ld", cellData.product?.customFinalPrice ?? 0.0)
-        self.priceDiscount.text = String(format: "$%ld", cellData.product?.finalPrice ?? 0.0)
-    
     }
     
     func setDataSource(_ cellData: OrderItems, indexPath: IndexPath) {
@@ -119,13 +109,14 @@ class MyOrderCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%ld", cellData.regularPrice ?? 0.0)
-        self.priceDiscount.text = String(format: "$%ld", cellData.finalPrice ?? 0.0)
+        self.priceLabel.text = String(format: "$%.2f", cellData.customRegularPrice)
+        self.priceDiscount.text = String(format: "$%.2f", cellData.customFinalPrice)
         
         let attributeID : [String] = (cellData.attributes ?? []).filter({ attribute in
             return attribute.key == "Color" || attribute.key == "Size" || attribute.key == "weight"
         }).map { $0.value ?? "" }
         self.tagContentLabel.text = attributeID.joined(separator:" - ")
+        self.countLabel.text = String(format: "x%ld", cellData.quantity)
     }
     
     @objc private func removeButtonTapped() {
@@ -139,6 +130,4 @@ class MyOrderCell: UITableViewCell {
             delegate?.modifyCheckoutList(indexPath)
         }
     }
-    
- 
 }

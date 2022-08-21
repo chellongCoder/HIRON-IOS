@@ -184,7 +184,7 @@ class ProductListingViewController: BaseViewController,
     
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return (16 + (UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10))
+        return UITableView.automaticDimension//(UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -199,7 +199,7 @@ class ProductListingViewController: BaseViewController,
         bannerScrollView.showsHorizontalScrollIndicator = false
         headerView.addSubview(bannerScrollView)
         bannerScrollView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(16)
+            make.top.equalToSuperview()
             make.right.left.equalToSuperview()
             make.height.equalTo(staticHeight)
         }
@@ -214,6 +214,7 @@ class ProductListingViewController: BaseViewController,
             make.top.equalTo(bannerScrollView.snp.bottom).offset(10)
             make.centerX.equalToSuperview()
             make.height.equalTo(15)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         return headerView
     }

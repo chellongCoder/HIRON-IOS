@@ -24,14 +24,14 @@ class TrackingTableViewCell: UITableViewCell {
         }
         
         statusLabel.text = "Shipping & Handling Information"
-        statusLabel.font = .boldSystemFont(ofSize: 6)
-        statusLabel.font = .boldSystemFont(ofSize: 16)
+        statusLabel.font = getFontSize(size: 16, weight: .medium)
         contentView.addSubview(statusLabel)
         statusLabel.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
         }
         
         let descStatusLabel = UILabel()
+        descStatusLabel.font = getFontSize(size: 14, weight: .regular)
         descStatusLabel.text = "Express - 52452123325545414"
         contentView.addSubview(descStatusLabel)
         descStatusLabel.snp.makeConstraints {
@@ -39,20 +39,9 @@ class TrackingTableViewCell: UITableViewCell {
             $0.top.equalTo(statusLabel.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().offset(-10)
         }
-        
-//        let orderIdLabel = UILabel()
-//        orderIdLabel.text = "Lisa Nguyen | 0332578456"
-//        contentView.addSubview(orderIdLabel)
-//        orderIdLabel.snp.makeConstraints {
-//            $0.left.equalToSuperview().offset(10)
-//            $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
-//        }
-
-        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

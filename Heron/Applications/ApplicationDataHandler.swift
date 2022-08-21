@@ -41,9 +41,9 @@ class ApplicationDataHandler: NSObject {
             let timer = Timer.scheduledTimer(withTimeInterval: 10, repeats: true) { timer in
                 if !self.isConnectedToInternet() {
                     DispatchQueue.main.async {
-                        _NavController.showAlertConfirmation(NSLocalizedString("kAlertTitle", comment: ""),
-                                                 "Kết nối internet của bạn không ổn định, vui lòng kiểm tra lại.",
-                                                 NSLocalizedString("kOkAction", comment: ""),
+                        _NavController.showAlertConfirmation(NSLocalizedString("Error", comment: ""),
+                                                 "Your internet connection not stable, please check again.",
+                                                 "OK",
                                                  "Settings") {
                             self.checkConnectionRepeatedly()
                         } failureCompletion: {

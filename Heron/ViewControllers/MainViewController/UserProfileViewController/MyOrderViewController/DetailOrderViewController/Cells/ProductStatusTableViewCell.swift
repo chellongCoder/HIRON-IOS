@@ -24,7 +24,6 @@ class ProductStatusTableViewCell: UITableViewCell {
 
             let contentView = UIView()
             contentView.backgroundColor = .clear
-//            contentView.setShadow()
             self.contentView.addSubview(contentView)
             contentView.snp.makeConstraints { (make) in
                 make.left.equalToSuperview()
@@ -34,6 +33,8 @@ class ProductStatusTableViewCell: UITableViewCell {
             }
             
             statusLabel.text = "Prepare product to you"
+            statusLabel.textColor = kPrimaryColor
+            statusLabel.font = getFontSize(size: 18, weight: .bold)
             statusLabel.font = .boldSystemFont(ofSize: 18)
             contentView.addSubview(statusLabel)
             statusLabel.snp.makeConstraints {
@@ -41,6 +42,8 @@ class ProductStatusTableViewCell: UITableViewCell {
             }
             
             descStatusLabel.text = "You will receive the order in Feb 05, 2021. Please keep your phone to get calling from deliver"
+            descStatusLabel.font = getFontSize(size: 14, weight: .regular)
+            descStatusLabel.textColor = kDefaultTextColor
             descStatusLabel.numberOfLines = 0
             contentView.addSubview(descStatusLabel)
             descStatusLabel.snp.makeConstraints {
@@ -51,7 +54,7 @@ class ProductStatusTableViewCell: UITableViewCell {
             
             let orderIdLabel = UILabel()
             orderIdLabel.text = "Order ID"
-            orderIdLabel.font = .boldSystemFont(ofSize: 14)
+            orderIdLabel.font = getFontSize(size: 14, weight: .medium)
             contentView.addSubview(orderIdLabel)
             orderIdLabel.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
@@ -60,23 +63,23 @@ class ProductStatusTableViewCell: UITableViewCell {
 
             let purchasedId = UILabel()
             purchasedId.text = "Purchased date"
-            purchasedId.font = .boldSystemFont(ofSize: 14)
+            purchasedId.font = getFontSize(size: 14, weight: .medium)
             contentView.addSubview(purchasedId)
             purchasedId.snp.makeConstraints {
                 $0.left.equalToSuperview().offset(10)
                 $0.top.equalTo(orderIdLabel.snp.bottom).offset(10)
             }
             
-            
             orderDetailLabel.text = "ORD1234567891CD"
+            orderDetailLabel.font = getFontSize(size: 14, weight: .regular)
             contentView.addSubview(orderDetailLabel)
             orderDetailLabel.snp.makeConstraints {
                 $0.right.equalToSuperview().offset(-10)
                 $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
             }
 
-        
             purchasedLabel.text = "Feb 05, 2021  08:28:36 AM"
+            purchasedLabel.font = getFontSize(size: 14, weight: .regular)
             contentView.addSubview(purchasedLabel)
             purchasedLabel.snp.makeConstraints {
                 $0.right.equalToSuperview().offset(-10)

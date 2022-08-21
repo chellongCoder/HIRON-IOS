@@ -15,7 +15,7 @@ struct OrderDataSource : Mappable {
 	var status          : String?
 	var shipmentStatus  : String?
 	var isPaid          : Bool?
-	var amount          : Int?
+	private var amount  : Int?
 	var metadata        : OrderUserMetadata?
 	var createdAt       : Int?
 	var updatedAt       : Int?
@@ -25,6 +25,9 @@ struct OrderDataSource : Mappable {
 	var coupons         : [String]?
 	var paymentCoupons  : [String]?
 	var attributeValues : [AttributeValues]?
+    
+    // custom
+    var customAmount    : Float = 0.0
 
 	init?(map: Map) {
 
@@ -51,6 +54,8 @@ struct OrderDataSource : Mappable {
 		coupons         <- map["coupons"]
 		paymentCoupons  <- map["paymentCoupons"]
 		attributeValues <- map["attributeValues"]
+        
+        self.customAmount = Float(amount ?? 0)/1000.0
 	}
 
 }

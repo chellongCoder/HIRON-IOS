@@ -14,15 +14,19 @@ struct OrderItems : Mappable {
 	var sku             : String?
 	var name            : String?
 	var shortDesc       : String?
-	var regularPrice    : Int?
-	var finalPrice      : Int?
+	private var regularPrice    : Int?
+	private var finalPrice      : Int?
 	var currency        : String?
 	var thumbnailUrl    : String?
-	var quantity        : Int?
+	var quantity        : Int = 0
 	var metadata        : ItemMetadata?
 	var attributes      : [ItemAttributes]?
 	var createdAt       : Int?
 	var updatedAt       : String?
+    
+    // Custom
+    var customRegularPrice  : Float = 0.0
+    var customFinalPrice    : Float = 0.0
 
 	init?(map: Map) {
 
@@ -47,6 +51,9 @@ struct OrderItems : Mappable {
 		attributes      <- map["attributes"]
 		createdAt       <- map["createdAt"]
 		updatedAt       <- map["updatedAt"]
+        
+        self.customFinalPrice = Float(self.finalPrice ?? 0)/1000.0
+        self.customRegularPrice = Float(self.regularPrice ?? 0)/1000.0
 	}
 
 }

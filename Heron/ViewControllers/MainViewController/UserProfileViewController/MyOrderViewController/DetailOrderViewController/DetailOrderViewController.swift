@@ -9,15 +9,21 @@ import UIKit
 import RxRelay
 
 class DetailOrderViewController: BaseViewController {
-    let tableView       = UITableView(frame: .zero, style: .grouped)
+    let tableView       = UITableView(frame: .zero, style: .plain)
     let viewModel       = DetailOrderViewModel()
     let data            = BehaviorRelay<OrderDataSource?>(value: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.controller = self
+        self.title = "Detailed order"
         
-        navigationItem.title = "Detailed order"
+        self.showBackBtn()
+        
+        if #available(iOS 15.0, *) {
+            tableView.sectionHeaderTopPadding = 0.0
+        }
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
@@ -27,6 +33,7 @@ class DetailOrderViewController: BaseViewController {
         tableView.register(TrackingTableViewCell.self, forCellReuseIdentifier: "TrackingTableViewCell")
         tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "PaymentTableViewCell")
         tableView.register(MyOrderCell.self, forCellReuseIdentifier: "MyOrderCell")
+        tableView.register(TotalOrderTableViewCell.self, forCellReuseIdentifier: "TotalOrderTableViewCell")
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -73,17 +80,23 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             cell.billingAddressEmail.text = self.data.value?.metadata?.email ?? ""
             return cell
         } else if indexPath.row == 3 + (self.data.value?.items?.count ?? 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TotalOrderTableViewCell", for: indexPath) as! TotalOrderTableViewCell
+            cell.title.text = String(format: "Total (%ld products):  $%.2f", (self.data.value?.items?.count ?? 0), self.data.value?.customAmount ?? 0.0)
+            return cell
+        } else if indexPath.row == 4 + (self.data.value?.items?.count ?? 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell
             cell.descStatusLabel.text = "\(self.data.value?.orderPayment?.metadata?.card?.brand ?? "Empty brand") | \(String(repeating: "X", count: 10))\(self.data.value?.orderPayment?.metadata?.card?.last4 ?? "")"
             return cell
+        } else {
+            let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
+            if let cellData = self.data.value?.items?[indexPath.row - 3] {
+                orderItemCell.setDataSource(cellData, indexPath: indexPath)
+            }
+            return orderItemCell
         }
-        
-        let item_cell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
-        return item_cell
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4 + (self.data.value?.items?.count ?? 0)
+        5 + (self.data.value?.items?.count ?? 0)
     }
 }
