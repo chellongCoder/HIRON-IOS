@@ -1,17 +1,17 @@
 //
-//  UserProfileViewController.swift
+//  UpdateEHealthProfileViewController.swift
 //  Heron
 //
-//  Created by Luu Luc on 19/08/2022.
+//  Created by Luu Luc on 22/08/2022.
 //
 
 import UIKit
 import RxSwift
+import Material
 
-class UserProfileViewController: BaseViewController {
-    
-    private let viewModel   = UserProfileViewModel()
-    
+class UpdateUserProfileViewController: BaseViewController {
+
+    private let viewModel   = UpdateUserProfileViewModel()
     let avatar              = UIImageView()
     let nameLabel           = UILabel()
     let dobLabel            = UILabel()
@@ -19,22 +19,25 @@ class UserProfileViewController: BaseViewController {
     let phoneLabel          = UILabel()
     let emailLabel          = UILabel()
     
-    private let myOrderBtn  = UIButton()
-    private let myAppointmentBtn    = UIButton()
-    private let updateUserBtn = UIButton()
-    private let signOutBtn  = UIButton()
+    private let addressTxt      = ErrorTextField()
+    private let countryTxt      = ErrorTextField()
+    private let cityTxt         = ErrorTextField()
+    private let postCodeTxt     = ErrorTextField()
+    private let professionTxt   = ErrorTextField()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Profile"
-        viewModel.controller = self
+        self.title = "Update E-Health Profile"
+        self.viewModel.controller = self
+        
+        self.showBackBtn()
         
         avatar.image = UIImage.init(named: "default-image")
         avatar.contentMode = .scaleAspectFit
         avatar.layer.borderWidth = 1
         avatar.layer.cornerRadius = 8
         avatar.layer.borderColor = UIColor.gray.cgColor
-        self.view.addSubview(avatar)
+        self.pageScroll.addSubview(avatar)
         avatar.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(60)
             make.centerX.equalToSuperview()
@@ -43,7 +46,7 @@ class UserProfileViewController: BaseViewController {
         
         let contentView = UIView()
         contentView.backgroundColor = UIColor.init(hexString: "F0F0F0")
-        self.view.addSubview(contentView)
+        self.pageScroll.addSubview(contentView)
         contentView.snp.makeConstraints { make in
             make.top.equalTo(avatar.snp.bottom).offset(35)
             make.centerX.equalToSuperview()
@@ -110,58 +113,84 @@ class UserProfileViewController: BaseViewController {
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        myOrderBtn.setTitle("My Order", for: .normal)
-        myOrderBtn.setTitleColor(kPrimaryColor, for: .normal)
-        myOrderBtn.layer.borderColor = kPrimaryColor.cgColor
-        myOrderBtn.layer.cornerRadius = 8
-        myOrderBtn.layer.borderWidth = 1
-        myOrderBtn.addTarget(self, action: #selector(myOrderButtonTapped), for: .touchUpInside)
-        self.view.addSubview(myOrderBtn)
-        myOrderBtn.snp.makeConstraints { make in
+        addressTxt.placeholder = "Address"
+        addressTxt.dividerNormalHeight = 0.5
+        addressTxt.dividerNormalColor = kPrimaryColor
+        addressTxt.errorColor = .red
+        addressTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(addressTxt)
+        addressTxt.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(20)
-            make.height.equalTo(50)
-            make.right.equalTo(self.view.snp.centerX).offset(-10)
-        }
-        
-        myAppointmentBtn.setTitle("My Appointment", for: .normal)
-        myAppointmentBtn.setTitleColor(kPrimaryColor, for: .normal)
-        myAppointmentBtn.layer.borderColor = kPrimaryColor.cgColor
-        myAppointmentBtn.layer.cornerRadius = 8
-        myAppointmentBtn.layer.borderWidth = 1
-        myAppointmentBtn.addTarget(self, action: #selector(myAppointmentButtonTapped), for: .touchUpInside)
-        self.view.addSubview(myAppointmentBtn)
-        myAppointmentBtn.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(50)
-            make.left.equalTo(self.view.snp.centerX).offset(10)
-        }
-        
-        updateUserBtn.setTitle("Update User Profile", for: .normal)
-        updateUserBtn.setTitleColor(.white, for: .normal)
-        updateUserBtn.backgroundColor = kPrimaryColor
-        updateUserBtn.layer.cornerRadius = 8
-        updateUserBtn.addTarget(self, action: #selector(updateUserProfileButtonTapped), for: .touchUpInside)
-        self.view.addSubview(updateUserBtn)
-        updateUserBtn.snp.makeConstraints { make in
-            make.top.equalTo(myOrderBtn.snp.bottom).offset(20)
+            make.left.equalTo(contentView)
             make.width.equalToSuperview().offset(-40)
-            make.centerX.equalToSuperview()
             make.height.equalTo(50)
         }
         
-        signOutBtn.setTitle("Sign Out", for: .normal)
-        signOutBtn.setTitleColor(.white, for: .normal)
-        signOutBtn.backgroundColor = kRedHightLightColor
-        signOutBtn.layer.cornerRadius = 8
-        signOutBtn.addTarget(self, action: #selector(signoutButtonTapped), for: .touchUpInside)
-        self.view.addSubview(signOutBtn)
-        signOutBtn.snp.makeConstraints { make in
-            make.top.equalTo(updateUserBtn.snp.bottom).offset(20)
+        countryTxt.placeholder = "Country"
+        countryTxt.dividerNormalHeight = 0.5
+        countryTxt.dividerNormalColor = kPrimaryColor
+        countryTxt.errorColor = .red
+        countryTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(countryTxt)
+        countryTxt.snp.makeConstraints { make in
+            make.top.equalTo(addressTxt.snp.bottom).offset(40)
+            make.left.equalTo(contentView)
             make.width.equalToSuperview().offset(-40)
-            make.centerX.equalToSuperview()
             make.height.equalTo(50)
+        }
+        
+        cityTxt.placeholder = "City"
+        cityTxt.dividerNormalHeight = 0.5
+        cityTxt.dividerNormalColor = kPrimaryColor
+        cityTxt.errorColor = .red
+        cityTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(cityTxt)
+        cityTxt.snp.makeConstraints { make in
+            make.top.equalTo(countryTxt.snp.bottom).offset(40)
+            make.left.equalTo(contentView)
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
+        
+        postCodeTxt.placeholder = "Post Code"
+        postCodeTxt.dividerNormalHeight = 0.5
+        postCodeTxt.dividerNormalColor = kPrimaryColor
+        postCodeTxt.errorColor = .red
+        postCodeTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(postCodeTxt)
+        postCodeTxt.snp.makeConstraints { make in
+            make.top.equalTo(cityTxt.snp.bottom).offset(40)
+            make.left.equalTo(contentView)
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
+        
+        professionTxt.placeholder = "Profession"
+        professionTxt.dividerNormalHeight = 0.5
+        professionTxt.dividerNormalColor = kPrimaryColor
+        professionTxt.errorColor = .red
+        professionTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(professionTxt)
+        professionTxt.snp.makeConstraints { make in
+            make.top.equalTo(postCodeTxt.snp.bottom).offset(40)
+            make.left.equalTo(contentView)
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
+        
+        let completeBtn = UIButton()
+        completeBtn.backgroundColor = kPrimaryColor
+        completeBtn.layer.cornerRadius = 8
+        completeBtn.setTitle("Complete", for: .normal)
+        completeBtn.setTitleColor(.white, for: .normal)
+        completeBtn.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
+        self.pageScroll.addSubview(completeBtn)
+        completeBtn.snp.makeConstraints { make in
+            make.top.equalTo(professionTxt.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+            make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
     }
     
@@ -192,31 +221,10 @@ class UserProfileViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
-    // MARK: - Buttons
-    @objc private func myOrderButtonTapped() {
-        let myOrderVC = MyOrderViewController()
-        self.navigationController?.pushViewController(myOrderVC, animated: true)
-    }
-    
-    @objc private func myAppointmentButtonTapped() {
-        let myAppointmentVC = MyApoitmentViewController()
-        self.navigationController?.pushViewController(myAppointmentVC, animated: true)
-    }
-    
-    @objc private func updateUserProfileButtonTapped() {
-        let updateEHProfileVC = UpdateUserProfileViewController()
-        self.navigationController?.pushViewController(updateEHProfileVC, animated: true)
-    }
-    
-    @objc private func signoutButtonTapped() {
-        let alertVC = UIAlertController.init(title: NSLocalizedString("Sign out", comment: ""),
-                                             message: "Are you sure to sign out?", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-            alertVC.dismiss()
-            _AppCoreData.signOut()
-            _NavController.gotoLoginPage()
-        }))
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
+    @objc private func completeButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature do not available right now.\nPlease try again in next build", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Gotcha", comment: ""), style: .default, handler: { _ in
             alertVC.dismiss()
         }))
         _NavController.showAlert(alertVC)

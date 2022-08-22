@@ -96,6 +96,12 @@
 		93C2EA4228AF9F9700371DFE /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4128AF9F9700371DFE /* UserProfileViewModel.swift */; };
 		93C2EA4528AFD27900371DFE /* DetailOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4428AFD27900371DFE /* DetailOrderViewModel.swift */; };
 		93C2EA4828B282B800371DFE /* TotalOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4728B282B800371DFE /* TotalOrderTableViewCell.swift */; };
+		93C2EA4B28B2893700371DFE /* MyApoitmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4A28B2893700371DFE /* MyApoitmentViewController.swift */; };
+		93C2EA4D28B28B5E00371DFE /* MyApoitmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4C28B28B5E00371DFE /* MyApoitmentViewModel.swift */; };
+		93C2EA4F28B318B800371DFE /* MyAppoitmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4E28B318B800371DFE /* MyAppoitmentTableViewCell.swift */; };
+		93C2EA5228B3234100371DFE /* UpdateUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA5128B3234100371DFE /* UpdateUserProfileViewController.swift */; };
+		93C2EA5428B326DA00371DFE /* UpdateUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA5328B326DA00371DFE /* UpdateUserProfileViewModel.swift */; };
+		93C2EA5628B32B6500371DFE /* EHProfileServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA5528B32B6500371DFE /* EHProfileServices.swift */; };
 		93CA16DE28A3F7C6008CC897 /* DiscountLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CA16DD28A3F7C6008CC897 /* DiscountLabel.swift */; };
 		93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D552202827FA800034B2B7 /* ProductDataSource.swift */; };
 		93D55226282811D20034B2B7 /* Alert_Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93D55225282811D20034B2B7 /* Alert_Ext.swift */; };
@@ -288,6 +294,12 @@
 		93C2EA4128AF9F9700371DFE /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		93C2EA4428AFD27900371DFE /* DetailOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOrderViewModel.swift; sourceTree = "<group>"; };
 		93C2EA4728B282B800371DFE /* TotalOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalOrderTableViewCell.swift; sourceTree = "<group>"; };
+		93C2EA4A28B2893700371DFE /* MyApoitmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApoitmentViewController.swift; sourceTree = "<group>"; };
+		93C2EA4C28B28B5E00371DFE /* MyApoitmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyApoitmentViewModel.swift; sourceTree = "<group>"; };
+		93C2EA4E28B318B800371DFE /* MyAppoitmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppoitmentTableViewCell.swift; sourceTree = "<group>"; };
+		93C2EA5128B3234100371DFE /* UpdateUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileViewController.swift; sourceTree = "<group>"; };
+		93C2EA5328B326DA00371DFE /* UpdateUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileViewModel.swift; sourceTree = "<group>"; };
+		93C2EA5528B32B6500371DFE /* EHProfileServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHProfileServices.swift; sourceTree = "<group>"; };
 		93CA16DD28A3F7C6008CC897 /* DiscountLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountLabel.swift; sourceTree = "<group>"; };
 		93D552202827FA800034B2B7 /* ProductDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDataSource.swift; sourceTree = "<group>"; };
 		93D55225282811D20034B2B7 /* Alert_Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert_Ext.swift; sourceTree = "<group>"; };
@@ -809,6 +821,8 @@
 		93C2EA3E28AF9E7E00371DFE /* UserProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
+				93C2EA5028B3232100371DFE /* UpdateUserProfileViewController */,
+				93C2EA4928B2891800371DFE /* MyApoitmentViewController */,
 				93EC90DD285A4D20009056F6 /* MyOrderViewController */,
 				93C2EA3F28AF9EA800371DFE /* UserProfileViewController.swift */,
 				93C2EA4128AF9F9700371DFE /* UserProfileViewModel.swift */,
@@ -837,6 +851,25 @@
 				93C2EA4728B282B800371DFE /* TotalOrderTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		93C2EA4928B2891800371DFE /* MyApoitmentViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93C2EA4A28B2893700371DFE /* MyApoitmentViewController.swift */,
+				93C2EA4C28B28B5E00371DFE /* MyApoitmentViewModel.swift */,
+				93C2EA4E28B318B800371DFE /* MyAppoitmentTableViewCell.swift */,
+			);
+			path = MyApoitmentViewController;
+			sourceTree = "<group>";
+		};
+		93C2EA5028B3232100371DFE /* UpdateUserProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				93C2EA5128B3234100371DFE /* UpdateUserProfileViewController.swift */,
+				93C2EA5328B326DA00371DFE /* UpdateUserProfileViewModel.swift */,
+			);
+			path = UpdateUserProfileViewController;
 			sourceTree = "<group>";
 		};
 		93D5521F2827FA690034B2B7 /* ProductDataSource */ = {
@@ -890,6 +923,7 @@
 				93AF920D284D10BF0075CD65 /* PromotionServices.swift */,
 				93EC90F8285A4DF4009056F6 /* OrderService.swift */,
 				9A88B765288DB76100BE1E05 /* BookingServices.swift */,
+				93C2EA5528B32B6500371DFE /* EHProfileServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1375,6 +1409,7 @@
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* ItemCategory.swift in Sources */,
+				93C2EA4D28B28B5E00371DFE /* MyApoitmentViewModel.swift in Sources */,
 				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
 				9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */,
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
@@ -1396,6 +1431,7 @@
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */,
+				93C2EA5428B326DA00371DFE /* UpdateUserProfileViewModel.swift in Sources */,
 				9A88B76C288DBB7400BE1E05 /* SelectDoctorViewController.swift in Sources */,
 				9A88B76E288DBBBC00BE1E05 /* SelectDoctorViewModel.swift in Sources */,
 				B5061C0A286BF37000A03271 /* MyOrderCell.swift in Sources */,
@@ -1441,10 +1477,13 @@
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,
 				9301757D28848A8D00151A4B /* UIImage_EXT.swift in Sources */,
 				93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */,
+				93C2EA5628B32B6500371DFE /* EHProfileServices.swift in Sources */,
 				93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */,
 				93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */,
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,
+				93C2EA4F28B318B800371DFE /* MyAppoitmentTableViewCell.swift in Sources */,
 				93AF9210284D158C0075CD65 /* VoucherTableViewCell.swift in Sources */,
+				93C2EA4B28B2893700371DFE /* MyApoitmentViewController.swift in Sources */,
 				93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */,
 				9A88B773288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift in Sources */,
 				93C2EA4028AF9EA800371DFE /* UserProfileViewController.swift in Sources */,
@@ -1459,6 +1498,7 @@
 				93EC90ED285A4D73009056F6 /* SignInSuccessViewController.swift in Sources */,
 				B5061C05286BF22700A03271 /* MyOrderViewController.swift in Sources */,
 				934D729F28A024DB00E4255F /* ConfirmBookingViewController.swift in Sources */,
+				93C2EA5228B3234100371DFE /* UpdateUserProfileViewController.swift in Sources */,
 				93AF91FC284BEDCB0075CD65 /* UserAddressListingViewController.swift in Sources */,
 				93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */,
 				B5061C08286BF35F00A03271 /* MyOrderViewModel.swift in Sources */,
