@@ -8,11 +8,11 @@
 import UIKit
 import RxSwift
 
-class MyApoitmentViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     private let stackView       = UIStackView()
     let tableView               = UITableView(frame: .zero, style: .plain)
-    let viewModel               = MyApoitmentViewModel()
+    let viewModel               = MyAppointmentViewModel()
     private let pendingBtn      = UIButton()
     private let confirmedBtn    = UIButton()
     private let completeBtn     = UIButton()

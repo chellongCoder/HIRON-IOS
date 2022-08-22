@@ -167,4 +167,21 @@ class BookingServices : NSObject {
             }
         }
     }
+    
+    func getListAppointments(_ filter: String, completion:@escaping (String?, [BookingAppointmentDataSource]?) -> Void) {
+        let param : [String: Any] = ["filter[status][eq]" : filter]
+        let fullURLRequest = kGatewayOganizationURL + "/bookings"
+        _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
+            
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
+                return
+            } else {
+                
+                if let data = responseData.responseData?["data"] as? [[String:Any]] {
+                    completion(responseData.responseMessage, Mapper<BookingAppointmentDataSource>().mapArray(JSONArray: data))
+                }
+            }
+        }
+    }
 }

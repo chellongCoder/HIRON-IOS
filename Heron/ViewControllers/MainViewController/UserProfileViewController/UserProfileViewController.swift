@@ -199,7 +199,7 @@ class UserProfileViewController: BaseViewController {
     }
     
     @objc private func myAppointmentButtonTapped() {
-        let myAppointmentVC = MyApoitmentViewController()
+        let myAppointmentVC = MyAppointmentViewController()
         self.navigationController?.pushViewController(myAppointmentVC, animated: true)
     }
     
