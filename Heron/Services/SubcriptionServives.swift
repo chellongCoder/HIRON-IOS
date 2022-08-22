@@ -8,8 +8,8 @@
 import UIKit
 import ObjectMapper
 
-class SubcriptionServices: NSObject {
-    public static let sharedInstance =  SubcriptionServices()
+class PaymentServices: NSObject {
+    public static let sharedInstance =  PaymentServices()
     
     func getListSubscription(completion:@escaping (String?, [SubcriptionData]?)-> Void) {
         #warning("HARD_CODE")

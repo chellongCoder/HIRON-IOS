@@ -26,7 +26,7 @@ let _DeliveryServices               = DeliveryServices.sharedInstance
 let _PromotionServices              = PromotionServices.sharedInstance
 let _CheckoutServices               = CheckoutServices.sharedInstance
 let _OrderServices                  = OrderService.sharedInstance
-let _SubcriptionServices            = SubcriptionServices.sharedInstance
+let _PaymentServices                = PaymentServices.sharedInstance
 let _BookingServices                = BookingServices.sharedInstance
 
 // Define key

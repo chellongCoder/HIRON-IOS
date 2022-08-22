@@ -124,7 +124,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
                 let indexPath = IndexPath(row: index, section: 0)
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
                 cell.titleLabel.text = element.subsItem?.name
-                cell.priceLabel.text = "$\(element.finalPrice!)"
+                cell.priceLabel.text = "$\(element.customFinalPrice)"
                 cell.footerLabel.text = "\(element.createdAt!)"
                 
                 if self.selectedIndex?.row == indexPath.row && self.selectedIndex?.section == indexPath.section {
