@@ -10,14 +10,19 @@ import RxSwift
 
 class MainSubscriptionViewController: BaseViewController, UICollectionViewDelegate {
     
-    var imagePicker     = UIImagePickerController()
-    var collectionView  : UICollectionView!
-    let skipBtn         = UIButton()
-    private let vm      = SubcriptionViewModel()
+    var imagePicker         = UIImagePickerController()
+    var collectionView      : UICollectionView!
+    let skipBtn             = UIButton()
+    private let viewModel   = MainSubscriptionViewModel()
     var selectedIndex       : IndexPath? = nil {
         didSet {
             skipBtn.setTitle(selectedIndex == nil ? "Skip":"Confirm", for: .normal)
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.controller = self
     }
     
     override func configUI() {
@@ -96,36 +101,27 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        vm.getListSubscription()
-        
+        viewModel.getListSubscription()
     }
     
     @objc func continueActionTapped(_ sender: Any) {
-        if selectedIndex == nil {
-            _NavController.gotoHomepage()
+        if let selectedIndex = selectedIndex {
+            let selectedSubsciptionPlan = self.viewModel.subcriptions.value[selectedIndex.row]
+            let viewController = SubscriptionPaymentViewController()
+            viewController.viewModel.subscriptionPlan.accept(selectedSubsciptionPlan)
+            self.navigationController?.pushViewController(viewController, animated: true)
         } else {
-            let vc = SubscriptionPaymentViewController()
-            self.navigationController?.pushViewController(vc, animated: true)
+            _NavController.gotoHomepage()
         }
     }
     
-    
     override func bindingData() {
-        vm.subcriptions.observe(on: MainScheduler.instance)
-            .subscribe { cartDataSource in
-                //                self.cartHotInfo.cartPriceValue.text = String(format: "$%ld", cartDataSource?.grandTotal ?? 0)
-            }
-            .disposed(by: disposeBag)
-        
-        
-        vm.subcriptions
+        viewModel.subcriptions
             .bind(to: collectionView.rx.items) {
-                (collectionView: UICollectionView, index: Int, element: SubcriptionData) in
+                (collectionView: UICollectionView, index: Int, element: SubscriptionData) in
                 let indexPath = IndexPath(row: index, section: 0)
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
-                cell.titleLabel.text = element.subsItem?.name
-                cell.priceLabel.text = "$\(element.customFinalPrice)"
-                cell.footerLabel.text = "\(element.createdAt!)"
+                cell.setDataSource(data: element)
                 
                 if self.selectedIndex?.row == indexPath.row && self.selectedIndex?.section == indexPath.section {
                     cell.setSelected(true)
@@ -164,6 +160,9 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     //
     //    //MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let selectedSubscriptionData = viewModel.subcriptions.value[indexPath.row]
+        
         if let tempIndex = self.selectedIndex {
             if self.selectedIndex == indexPath {
                 self.selectedIndex = nil

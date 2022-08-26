@@ -8,12 +8,13 @@
 import RxSwift
 import RxRelay
 
-class SubcriptionViewModel {
-    public var subcriptions              = BehaviorRelay<[SubcriptionData]>(value: [])
+class MainSubscriptionViewModel {
+    weak var controller     : MainSubscriptionViewController?
+    var subcriptions        = BehaviorRelay<[SubscriptionData]>(value: [])
     
     func getListSubscription()
     {
-        _PaymentServices.getListSubscription { errorMessage, data in
+        _SubscriptionService.getListSubscription { errorMessage, data in
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in

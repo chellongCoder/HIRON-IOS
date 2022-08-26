@@ -5,7 +5,7 @@
 import Foundation
 import ObjectMapper
 
-struct Gateways : Mappable {
+struct SubscriptionGateways : Mappable {
 	var id              : String?
 	var subsPlanId      : String?
 	var gateway         : String?

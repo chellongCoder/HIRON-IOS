@@ -10,9 +10,10 @@ import UIKit
 class SubcriptionCollectionViewCell: UICollectionViewCell {
     
     private let cardView = UIView()
-    let titleLabel  = UILabel()
-    let priceLabel  = UILabel()
-    let footerLabel = UILabel()
+    let titleLabel      = UILabel()
+    let priceLabel      = UILabel()
+    let intervalLabel   = UILabel()
+    let footerLabel     = DiscountLabel()
    
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,7 +39,7 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
         }
         
         priceLabel.textAlignment = .center
-        priceLabel.numberOfLines = 0
+        priceLabel.numberOfLines = 1
         priceLabel.textColor = .white
         priceLabel.font = getFontSize(size: 24, weight: .bold)
         cardView.addSubview(priceLabel)
@@ -46,14 +47,22 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
             make.center.equalToSuperview()
         }
         
+        intervalLabel.textAlignment = .center
+        intervalLabel.textColor = .white
+        intervalLabel.font = getFontSize(size: 12, weight: .bold)
+        cardView.addSubview(intervalLabel)
+        intervalLabel.snp.makeConstraints { make in
+            make.top.equalTo(priceLabel.snp.bottom)
+            make.centerX.equalToSuperview()
+        }
+        
         footerLabel.textAlignment = .center
         footerLabel.numberOfLines = 0
-        footerLabel.textColor = .white
+        footerLabel.setTextColor(.white)
         footerLabel.font = getFontSize(size: 12, weight: .medium)
         cardView.addSubview(footerLabel)
         footerLabel.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-10)
-            make.width.equalToSuperview().multipliedBy(0.9)
             make.centerX.equalToSuperview()
         }
     }
@@ -62,8 +71,16 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataSource(data : CategoryDataSource) {
-        self.titleLabel.text = data.name;
+    func setDataSource(data : SubscriptionData) {
+        self.titleLabel.text = data.subsItem?.name
+        self.priceLabel.text = String(format: "$%.2f", data.customFinalPrice)
+        if data.interval_count == 1 {
+            self.intervalLabel.text = String(format: "per %ld %@", data.interval_count, data.interval.rawValue)
+        } else {
+            self.intervalLabel.text = String(format: "per %ld %@s", data.interval_count, data.interval.rawValue)
+        }
+        
+        self.footerLabel.text = String(format: "From: $%.2f", data.customRegularPrice)
     }
     
     func setSelected(_ isSelected : Bool) {

@@ -9,6 +9,14 @@ import UIKit
 
 class SignInSuccessViewController: BaseViewController {
     
+    private let viewModel       = SignInSuccessViewModel()
+    private let continueBtn     = UIButton()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.controller = self
+    }
+    
     override func configUI() {
         let backgroundImage = UIImageView(image: UIImage(named: "bg"))
         backgroundImage.contentMode = .scaleAspectFit
@@ -50,7 +58,6 @@ class SignInSuccessViewController: BaseViewController {
             $0.width.equalToSuperview().offset(-70)
         }
         
-        let continueBtn = UIButton()
         continueBtn.setTitle("Continue your journey", for: .normal)
         continueBtn.addTarget(self, action: #selector(updateRootVC), for: .touchUpInside)
         continueBtn.backgroundColor = kPrimaryColor
@@ -64,9 +71,9 @@ class SignInSuccessViewController: BaseViewController {
         }
     }
     
-    @objc func updateRootVC() {
-        let vc = MainSubscriptionViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+    @objc private func updateRootVC() {
+        self.continueBtn.isUserInteractionEnabled = false
+        self.viewModel.checkUserSubscriptionPlan()
     }
 }
 
