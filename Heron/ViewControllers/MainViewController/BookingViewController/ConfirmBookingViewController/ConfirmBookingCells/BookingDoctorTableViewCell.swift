@@ -66,7 +66,6 @@ class BookingDoctorTableViewCell: UITableViewCell {
         if let selectedDoctor = _BookingServices.selectedDoctor.value {
             doctorInforName.text = String(format: "%@ %@", selectedDoctor.user?.firstName ?? "", selectedDoctor.user?.lastName ?? "")
             
-            
             var tagContentStr = ""
             for teamMemberPosition in selectedDoctor.teamMemberPosition {
                 if let deparment = teamMemberPosition.team?.department {
@@ -77,7 +76,7 @@ class BookingDoctorTableViewCell: UITableViewCell {
             if let expAtribute = selectedDoctor.attributeValues.first(where: { doctorAttribute in
                 return doctorAttribute.attributeCode == .Experience
             }) {
-                tagContentStr = tagContentStr + " | " + expAtribute.value
+                tagContentStr = String(format: "%@ | %@", tagContentStr, expAtribute.value)
             }
             
             doctorInfoTags.text = tagContentStr

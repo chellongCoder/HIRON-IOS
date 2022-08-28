@@ -35,7 +35,7 @@ class AuthenticationServices {
         }
     }
     
-    func checkExist(username: String, password: String, completion:@escaping (String?, String?)-> Void) {
+    func checkExist(username: String, password: String, completion:@escaping (String?, String?) -> Void) {
         let parametter = ["username": username,
                           "password": password]
         let fullURLRequest = kGatewayAuthenticationURL+"/users/check-exist"

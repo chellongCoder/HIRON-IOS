@@ -325,7 +325,7 @@ class AddUserAddressViewController: BaseViewController {
         
         viewModel.contact
             .subscribe { contactDataSource in
-                guard let contact = contactDataSource.element else {return}
+//                guard let contact = contactDataSource.element else {return}
 //                if contact.isValidContact() {
                     self.completeBtn.backgroundColor = kPrimaryColor
                     self.completeBtn.isUserInteractionEnabled = true
@@ -346,7 +346,6 @@ class AddUserAddressViewController: BaseViewController {
              }
              .disposed(by: disposeBag)
 
-         
         firstNameTxt.rx.controlEvent([.editingChanged])
             .asObservable()
             .subscribe({ [unowned self] _ in

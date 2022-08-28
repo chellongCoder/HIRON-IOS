@@ -12,7 +12,7 @@ import ObjectMapper
 struct ResponseDataSource {
     
     var responseCode        : Int = 0
-    var responseMessage     : String? = nil
+    var responseMessage     : String?
     var responseData        : [String:Any]?
     var responseList        : [[String:Any]] = []
 }

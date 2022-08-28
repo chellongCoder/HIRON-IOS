@@ -160,7 +160,6 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
         layout.scrollDirection = .vertical
         
-        
         self.collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
         self.collectionView?.isScrollEnabled = true
         self.collectionView?.backgroundColor = .white
@@ -217,8 +216,7 @@ extension SelectDateAndTimeBookingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectDateCollectionViewCell", for: indexPath) as! SelectDateCollectionViewCell
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectDateCollectionViewCell", for: indexPath) as? SelectDateCollectionViewCell
         
         return cell
     }

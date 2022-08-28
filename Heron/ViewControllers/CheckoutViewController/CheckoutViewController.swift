@@ -53,7 +53,6 @@ class CheckoutViewController: BaseViewController,
 //            make.top.equalTo(deliveryTo.snp.bottom).offset(2)
 //        }
         
-        
         // MARK: - Bottom
         let bottomView = UIView()
         bottomView.backgroundColor = .white
@@ -171,7 +170,7 @@ class CheckoutViewController: BaseViewController,
         placeOrderBtn.backgroundColor = kPrimaryColor
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     
     @objc private func deliveryToTapped() {
         let userAddressesVC = UserAddressListingViewController()
@@ -194,7 +193,7 @@ class CheckoutViewController: BaseViewController,
         viewModel.placeOrder()
     }
     
-    //MARK: - BindingData
+    // MARK: - BindingData
     override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
@@ -255,7 +254,8 @@ class CheckoutViewController: BaseViewController,
             .subscribe { billingAddress in
                 self.updatePlaceOrderButton()
                 guard let billingAddress = billingAddress.element as? UserDataSource else { return }
-                self.billingAddress.contactLabel.text = String(format: "%@ %@ | %@%@", billingAddress.userFirstName, billingAddress.userLastName, billingAddress.userPhoneCode, billingAddress.userPhoneNum)//billingAddress.userFullName + " | " + billingAddress.userPhoneNum
+                self.billingAddress.contactLabel.text = String(format: "%@ %@ | %@%@", billingAddress.userFirstName, billingAddress.userLastName, billingAddress.userPhoneCode, billingAddress.userPhoneNum)
+                // billingAddress.userFullName + " | " + billingAddress.userPhoneNum
                 self.billingAddress.addressLabel.text = billingAddress.userEmail
                 
                 self.tableView.reloadData()
@@ -271,7 +271,7 @@ class CheckoutViewController: BaseViewController,
                     self.voucherView.voucherCode.text = String(format: "$%.2f", voucherDataSource.couponRule?.customDiscount ?? 0.0)
                     
                 } else {
-                    //discout percent
+                    // discout percent
                     self.voucherView.voucherCode.text = String(format: "%ld%% OFF", voucherDataSource.couponRule?.discount ?? 0)
                 }
             }

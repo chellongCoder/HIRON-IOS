@@ -19,8 +19,8 @@ class VoucherTableViewCell: UITableViewCell {
     private let dateAvailableLabel  = UILabel()
     private let applyBtn        = UIButton()
     
-    private var voucherData     : VoucherDataSource? = nil
-    var delegate                : VoucherTableViewCellDelegate? = nil
+    private var voucherData     : VoucherDataSource?
+    var delegate                : VoucherTableViewCellDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

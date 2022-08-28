@@ -20,7 +20,7 @@ class MyAppointmentViewModel: NSObject {
         super.init()
         self.filter
             .observe(on: MainScheduler.instance)
-            .subscribe { filterStr in
+            .subscribe { _ in
                 self.getMyAppointments()
             }
             .disposed(by: disposeBag)

@@ -103,7 +103,7 @@ class ConfirmBookingViewController: BaseViewController,
         _NavController.showAlert(alertVC)
     }
     
-    //MARK: - Data
+    // MARK: - Data
     override func bindingData() {
         viewModel.bookingProduct
             .observe(on: MainScheduler.instance)

@@ -24,6 +24,6 @@ class UserServices {
     }
     
     func updateUserProfile(_ newUserProfile: UserDataSource, completion:@escaping (String?, Bool) -> Void) {
-        let fullURLRequest = kGatewayUserServicesURL + "/users/profile"
+//        let fullURLRequest = kGatewayUserServicesURL + "/users/profile"
     }
 }

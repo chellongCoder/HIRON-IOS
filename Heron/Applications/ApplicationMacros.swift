@@ -51,7 +51,6 @@ let kGatewayBookingURL                      = "https://ehp-api.cbidigital.com/bo
 let kInternetNotificationAlive              = Notification.Name("kInternetNotificationAlive")
 let kNeedReloadNotificationBagde            = Notification.Name("kNeedReloadNotificationBagde")
 
-
 // One Signal Key
 let kOneSignalAppID                         = ""
 

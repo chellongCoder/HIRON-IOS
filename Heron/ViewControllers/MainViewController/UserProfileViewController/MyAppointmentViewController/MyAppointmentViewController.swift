@@ -119,23 +119,23 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
         switch sender {
         case self.pendingBtn:
             self.viewModel.filter.accept("pending")
-            //tableViewIsScrolling = true
+//            tableViewIsScrolling = true
         case self.confirmedBtn:
             self.viewModel.filter.accept("confirmed")
-            //tableViewIsScrolling = true
+//            tableViewIsScrolling = true
         case self.completeBtn:
             self.viewModel.filter.accept("completed")
-            //tableViewIsScrolling = true
+//            tableViewIsScrolling = true
         default:
             break
         }
     }
     
-    //MARK: - Binding Data
+    // MARK: - Binding Data
     override func bindingData() {
         viewModel.listAppoitments
             .observe(on: MainScheduler.instance)
-            .subscribe { data in
+            .subscribe { _ in
                 self.tableView.reloadData()
             }
             .disposed(by: disposeBag)
@@ -147,6 +147,7 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // swiftlint:disable force_cast 
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyAppoitmentTableViewCell") as! MyAppoitmentTableViewCell
         return cell
     }

@@ -70,7 +70,7 @@ class ConfigurationProductVariantView: UIView {
         
         var lastConfig : UIView?
         for configuration in configurations {
-            if configuration.values.count > 0 {
+            if !configuration.values.isEmpty {
                 let configurationTitle = UILabel()
                 configurationTitle.text = configuration.label
                 configurationTitle.textColor = kDefaultTextColor
@@ -101,7 +101,7 @@ class ConfigurationProductVariantView: UIView {
                     make.left.equalTo(configurationTitle.snp.right).offset(5)
                 }
                 
-                if configuration.values.count > 0 {
+                if !configuration.values.isEmpty {
                     let scrollView = UIScrollView()
                     allConfigView.addSubview(scrollView)
                     scrollView.snp.makeConstraints { make in

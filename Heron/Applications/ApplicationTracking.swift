@@ -6,7 +6,7 @@
 //  Copyright © 2021 Luu Lucas. All rights reserved.
 //
 
-//import Branch
+// import Branch
 import AppTrackingTransparency
 
 enum ScreenName: String {
@@ -92,7 +92,6 @@ class ApplicationTracking: NSObject {
             tempData["af_customer_user_id"] = _AppCoreData.userDataSource.value?.userPhoneNum
             // AppsFlyerLib.shared().logEvent("Purchase",
             // withValues: tempData)
-            break
         case .SUCCESS_VIEW_CART:
             // Analytics.logEvent("View_Cart", parameters: nil)
             // AppsFlyerLib.shared().logEvent("View_Cart", withValues: nil)

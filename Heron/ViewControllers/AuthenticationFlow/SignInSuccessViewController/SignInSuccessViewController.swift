@@ -76,5 +76,3 @@ class SignInSuccessViewController: BaseViewController {
         self.viewModel.checkUserSubscriptionPlan()
     }
 }
-
-

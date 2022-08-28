@@ -25,7 +25,7 @@ class BookingServices : NSObject {
         
         self.selectedDepartment
             .observe(on: MainScheduler.instance)
-            .subscribe { selectedDepartment in
+            .subscribe { _ in
                 self.getListOrganization { _, listAttribute in
                     if let firstOrganization = listAttribute?.first {
                         self.selectedOrganization.accept(firstOrganization)

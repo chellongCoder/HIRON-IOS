@@ -23,7 +23,7 @@ class CartServices : NSObject {
         
         self.cartData
             .observe(on: MainScheduler.instance)
-            .subscribe { cartDataSource in
+            .subscribe { _ in
                 if self.isCartEmptySelection() && self.voucherCode.value != nil {
                     self.voucherCode.accept(nil)
                     return
@@ -34,7 +34,7 @@ class CartServices : NSObject {
         
         self.voucherCode
             .observe(on: MainScheduler.instance)
-            .subscribe { voucherData in
+            .subscribe { _ in
                 self.prepearedCheckout()
             }
             .disposed(by: disposeBag)
@@ -116,7 +116,7 @@ class CartServices : NSObject {
         })
     }
     
-    func updateCartItemQuanlity(itemID: String, newValue: Int, completion:@escaping (String?, String?)-> Void) {
+    func updateCartItemQuanlity(itemID: String, newValue: Int, completion:@escaping (String?, String?) -> Void) {
                 
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         let params : [String: Any] = ["quantity": newValue]
@@ -167,7 +167,7 @@ class CartServices : NSObject {
     private func matchingCheckoutSelectedOfItem(_ newStore: StoreDataSource, oldStore: StoreDataSource) -> StoreDataSource {
         var returnStore = newStore
         for (itemIndex, itemData) in newStore.cartItems.enumerated() {
-            if let match = oldStore.cartItems.first( where: { itemData.id == $0.id} ) {
+            if let match = oldStore.cartItems.first( where: { itemData.id == $0.id }) {
                 returnStore.cartItems[itemIndex].isSelected = match.isSelected
             }
         }
@@ -175,7 +175,7 @@ class CartServices : NSObject {
         return returnStore
     }
     
-    func isCartEmptySelection() -> Bool{
+    func isCartEmptySelection() -> Bool {
         for store in self.cartData.value?.store ?? [] {
             for cartItem in store.cartItems where cartItem.isSelected {
                 return false

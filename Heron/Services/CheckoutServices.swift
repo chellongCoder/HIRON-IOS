@@ -21,21 +21,21 @@ class CheckoutServices: NSObject {
         super.init()
         self.deliveryAddress
             .observe(on: MainScheduler.instance)
-            .subscribe{ contactDataSource in
+            .subscribe{ _ in
                 self.prepearedCheckout()
             }
             .disposed(by: disposeBag)
         
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
-            .subscribe { cartData in
+            .subscribe { _ in
                 self.prepearedCheckout()
             }
             .disposed(by: disposeBag)
         
         _CartServices.voucherCode
             .observe(on: MainScheduler.instance)
-            .subscribe { voucherDataSource in
+            .subscribe { _ in
                 self.prepearedCheckout()
             }
             .disposed(by: disposeBag)
@@ -99,7 +99,7 @@ class CheckoutServices: NSObject {
         }
     }
     
-    func createOrder(completion:@escaping (String?, String?)-> Void) {
+    func createOrder(completion:@escaping (String?, String?) -> Void) {
         guard let cartData = _CartServices.cartData.value else {
             completion("Cart is empty", nil)
             return
@@ -163,7 +163,7 @@ class CheckoutServices: NSObject {
     
     // MARK: - HARD CODE
     func forceCheckoutSubscriptionPlan(_ transactionID: String,
-                                       completion:@escaping (String?, String?)-> Void) {
+                                       completion:@escaping (String?, String?) -> Void) {
         let fullURLRequest = kGatewayPaymentURL + "/payments/confirm/" + transactionID
         
         _ = _AppDataHandler.post(parameters: nil, fullURLRequest: fullURLRequest) { responseData in

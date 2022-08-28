@@ -14,7 +14,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     var imagePicker         = UIImagePickerController()
     var collectionView      : UICollectionView!
     let skipBtn             = UIButton()
-    var selectedIndex       : IndexPath? = nil {
+    var selectedIndex       : IndexPath? {
         didSet {
             skipBtn.setTitle(selectedIndex == nil ? "Skip":"Confirm", for: .normal)
         }
@@ -32,7 +32,6 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         backgroundImage.snp.makeConstraints {
             $0.left.right.top.bottom.equalToSuperview()
         }
-        
         
         let childView = UIView()
         self.view.addSubview(childView)
@@ -68,7 +67,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         skipBtn.backgroundColor = kPrimaryColor
         skipBtn.layer.cornerRadius = 8
         
-        let viewWidth = UIScreen.main.bounds.size.width/2 - 20;
+        let viewWidth = UIScreen.main.bounds.size.width/2 - 20
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: viewWidth, height: viewWidth)
@@ -86,7 +85,6 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         stackView.addArrangedSubview(subcriptionLabel2)
         stackView.addArrangedSubview(collectionView)
         stackView.addArrangedSubview(skipBtn)
-        
         
         skipBtn.snp.makeConstraints {
             $0.width.equalToSuperview().offset(-40)
@@ -120,6 +118,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             .bind(to: collectionView.rx.items) {
                 (collectionView: UICollectionView, index: Int, element: SubscriptionData) in
                 let indexPath = IndexPath(row: index, section: 0)
+                // swiftlint:disable force_cast 
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
                 cell.setDataSource(data: element)
                 
@@ -135,8 +134,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             .disposed(by: disposeBag)
     }
     
-    
-    //MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     //        return vm.subcriptions.value.count
     //    }
@@ -158,11 +156,9 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     //        return cell
     //    }
     //
-    //    //MARK: - UICollectionViewDelegate
+    //    // MARK: - UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let selectedSubscriptionData = viewModel.subcriptions.value[indexPath.row]
-        
+                
         if let tempIndex = self.selectedIndex {
             if self.selectedIndex == indexPath {
                 self.selectedIndex = nil
@@ -172,7 +168,6 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             self.collectionView.reloadItems(at: [tempIndex, indexPath])
             return
         }
-        
         
         self.selectedIndex = indexPath
         self.collectionView.reloadItems(at: [indexPath])

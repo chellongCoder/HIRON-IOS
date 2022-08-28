@@ -184,7 +184,8 @@ class ProductListingViewController: BaseViewController,
     
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension//(UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10)
+        return UITableView.automaticDimension
+        // (UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

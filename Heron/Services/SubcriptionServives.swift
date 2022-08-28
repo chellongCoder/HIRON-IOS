@@ -18,8 +18,7 @@ class SubscriptionService: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
@@ -36,8 +35,7 @@ class SubscriptionService: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
@@ -59,8 +57,7 @@ class SubscriptionService: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [String:Any] {
@@ -82,8 +79,7 @@ class SubscriptionService: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 completion(nil, responseData.responseMessage)
@@ -103,8 +99,7 @@ class SubscriptionService: NSObject {
             if responseData.responseCode == 400 {
                 completion(responseData.responseMessage, nil)
                 return
-            }
-            else if responseData.responseCode >= 500 {
+            } else if responseData.responseCode >= 500 {
                 return
             } else {
                 completion(nil, responseData.responseMessage)

@@ -120,28 +120,27 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         switch sender {
         case self.pendingBtn:
             self.viewModel.filter.accept("pending")
-            //tableViewIsScrolling = true
+//            tableViewIsScrolling = true
         case self.confirmedBtn:
             self.viewModel.filter.accept("confirmed")
-            //tableViewIsScrolling = true
+//            tableViewIsScrolling = true
         case self.completeBtn:
             self.viewModel.filter.accept("completed")
-            //tableViewIsScrolling = true
+//            tableViewIsScrolling = true
         default:
             break
         }
     }
     
-    //MARK: - Binding Data
+    // MARK: - Binding Data
     override func bindingData() {
         viewModel.orders
             .observe(on: MainScheduler.instance)
-            .subscribe { data in
+            .subscribe { _ in
                 self.tableView.reloadData()
             }
             .disposed(by: disposeBag)
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MyOrderCell(style: .default, reuseIdentifier:"MyOrderCell")

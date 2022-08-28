@@ -52,7 +52,6 @@ class ApplicationCoreData: NSObject {
         return (delegate?.persistentContainer.viewContext)!
     }
     
-    
     func signOut() {
         self.userSession.accept(nil)
         self.userDataSource.accept(nil)

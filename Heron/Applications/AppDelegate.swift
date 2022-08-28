@@ -13,6 +13,7 @@ import BugfenderSDK
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    // swiftlint:disable force_cast 
     static let sharedInstance       = UIApplication.shared.delegate as! AppDelegate
     var window: UIWindow?
 
@@ -44,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-
 
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {

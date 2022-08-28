@@ -107,8 +107,7 @@ extension ApplicationDataHandler {
             
             if responseData.responseCode == 200 ||
                 responseData.responseCode == 204 ||
-                responseData.responseCode == 400
-            {
+                responseData.responseCode == 400 {
                 // Process to responseData
                 if let responseDict = value as? [String: Any] {
                     responseData.responseData = responseDict
@@ -238,9 +237,8 @@ extension ApplicationDataHandler {
             }
     }
     
-    func post(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
-    {
-                
+    func post(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request? {
+        
         bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
         bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)
         
@@ -262,8 +260,7 @@ extension ApplicationDataHandler {
             }
     }
     
-    func put(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request?
-    {
+    func put(parameters: [String: Any]?, fullURLRequest: String, completion:@escaping (ResponseDataSource) -> Void) -> Request? {
                 
         bfprint(String(format:"Lucas-API-Request-URL: %@", fullURLRequest), tag: "API-Request", level: .default)
         bfprint(String(format:"Lucas-API-Request-Param: %@", parameters ?? "nil"), tag: "API-Request", level: .default)

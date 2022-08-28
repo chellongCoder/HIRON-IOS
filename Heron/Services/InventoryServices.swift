@@ -42,8 +42,7 @@ class InventoryServices {
         }
     }
     
-    func getProductDetails(productID: String, completion:@escaping (String?, ProductDataSource?)-> Void) {
-        
+    func getProductDetails(productID: String, completion:@escaping (String?, ProductDataSource?) -> Void) {
         
         let fullURLRequest = kGatwayInventoryURL + "/products/" + productID
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in

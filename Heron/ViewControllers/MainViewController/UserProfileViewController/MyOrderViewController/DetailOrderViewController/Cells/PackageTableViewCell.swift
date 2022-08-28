@@ -13,7 +13,7 @@ class PackageTableViewCell: UITableViewCell {
     let priceLabel          = UILabel()
     let priceDiscount       = UILabel()
     
-    private var orderItem   : OrderItems? = nil
+    private var orderItem   : OrderItems?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -85,7 +85,6 @@ class PackageTableViewCell: UITableViewCell {
         
         self.priceLabel.text = String(format: "$%.2f", cellData.customRegularPrice)
         self.priceDiscount.text = String(format: "$%.2f", cellData.customFinalPrice)
-        
         
     }
 }

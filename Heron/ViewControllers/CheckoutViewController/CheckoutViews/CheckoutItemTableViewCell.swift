@@ -70,7 +70,6 @@ class CheckoutItemTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-16)
         }
 
-        
         priceDiscount.text = "$ 10.00"
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)

@@ -194,7 +194,7 @@ class UserProfileViewController: BaseViewController {
                     if let avatarImageURL = URL(string: userData?.userAvatarURL ?? "") {
                         self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
                     }
-                    self.nameLabel.text = String(format: "Name: %@ %@", userData?.userFirstName ?? "",userData?.userLastName ?? "")
+                    self.nameLabel.text = String(format: "Name: %@ %@", userData?.userFirstName ?? "", userData?.userLastName ?? "")
                     let dateDob = Date.init(timeIntervalSince1970: TimeInterval((userData?.userDOB ?? 0) / 1000))
                     self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "dd/MM/yyyy"))
                     self.genderLabel.text = String(format: "Gender: %@", (userData?.userGender == .male) ? "Male" : "Female")

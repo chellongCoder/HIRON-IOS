@@ -85,7 +85,7 @@ class BookingSuccessViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    //MARK: - Buttons
+    // MARK: - Buttons
     @objc private func viewMyOrderButtonTapped() {
         
     }

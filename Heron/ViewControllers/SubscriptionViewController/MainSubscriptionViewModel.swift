@@ -33,13 +33,12 @@ class MainSubscriptionViewModel : NSObject {
     
     private func cancelSubscription(_ userSubs: UserRegisteredSubscription) {
         _SubscriptionService.cancelImmediatelySubscription(userSubs) { errorMessage, successMessage in
-            print(errorMessage)
-            print(successMessage)
+            print(errorMessage ?? "")
+            print(successMessage ?? "")
         }
     }
     
-    func getListSubscription()
-    {
+    func getListSubscription() {
         _SubscriptionService.getListSubscription { errorMessage, data in
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)

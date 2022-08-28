@@ -17,8 +17,8 @@ class MyOrderCell: UITableViewCell {
     let countLabel          = UILabel()
     
     private let disposeBag  = DisposeBag()
-    private var indexPath   : IndexPath? = nil
-    var delegate            : CartProductCellDelegate? = nil
+    private var indexPath   : IndexPath?
+    var delegate            : CartProductCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

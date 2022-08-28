@@ -37,7 +37,7 @@ class SelectDateAndTimeBookingViewModel: NSObject {
     
     // MARK: - Untils
     func getListTimeableByDate() -> [TimeableDataSource] {
-        if self.listTimeables.value.count == 0 {
+        if self.listTimeables.value.isEmpty {
             return []
         }
         let selectedDate = selectedDate ?? Date()
@@ -53,7 +53,7 @@ class SelectDateAndTimeBookingViewModel: NSObject {
     }
     
     func getListTimeableByDate(_ date: Date) -> [TimeableDataSource] {
-        if self.listTimeables.value.count == 0 { return [] }
+        if self.listTimeables.value.isEmpty { return [] }
         let dateString = date.toString(dateFormat: "dd-MM-yyyy")
         
         let listFiltered = self.listTimeables.value.filter { timeableData in

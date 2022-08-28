@@ -22,7 +22,7 @@ class AppNavigationController: UINavigationController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    private weak var currentAlertVC : UIAlertController? = nil
+    private weak var currentAlertVC : UIAlertController?
     func showAlert(_ alert: UIAlertController) {
         if let currentAlert = self.currentAlertVC {
             currentAlert.dismiss(animated: true) {

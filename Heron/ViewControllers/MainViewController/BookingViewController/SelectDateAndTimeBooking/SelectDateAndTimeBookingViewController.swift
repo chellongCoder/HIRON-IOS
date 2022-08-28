@@ -38,7 +38,6 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
             make.height.equalTo(calendar.snp.width).multipliedBy(0.85)
         }
         
-        
         let chooseTime = UILabel()
         chooseTime.text = NSLocalizedString("Select time", comment: "")
         chooseTime.textColor = .lightGray
@@ -74,7 +73,6 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         layout.minimumLineSpacing = 0
         layout.sectionInset = UIEdgeInsets(top: 20, left: 0, bottom: 10, right: 0)
         layout.scrollDirection = .vertical
-        
         
         self.collectionView = UICollectionView.init(frame: .zero, collectionViewLayout: layout)
         self.collectionView?.isScrollEnabled = true
@@ -131,7 +129,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     override func bindingData() {
         viewModel.listTimeables
             .observe(on: MainScheduler.instance)
-            .subscribe { listTimeables in
+            .subscribe { _ in
                 self.collectionView?.reloadData()
                 self.calendar.reloadData()
             }
@@ -143,7 +141,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
                 if _BookingServices.selectedTimeable.value != nil {
                     self.confirmBtn.isUserInteractionEnabled = true
                     self.confirmBtn.backgroundColor = kPrimaryColor
-                }  else {
+                } else {
                     self.confirmBtn.isUserInteractionEnabled = false
                     self.confirmBtn.backgroundColor = kDisableColor
                 }
@@ -164,7 +162,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let listEvents = viewModel.getListTimeableByDate(date)
         
-        if listEvents.count == 0 {
+        if listEvents.isEmpty {
             return 0
         } else if listEvents.count == 1 {
             return 1
@@ -184,6 +182,7 @@ extension SelectDateAndTimeBookingViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // swiftlint:disable force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectDateCollectionViewCell", for: indexPath) as! SelectDateCollectionViewCell
         
         let cellData = viewModel.getListTimeableByDate()[indexPath.row]

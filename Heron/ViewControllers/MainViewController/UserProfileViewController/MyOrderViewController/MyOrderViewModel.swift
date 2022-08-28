@@ -11,10 +11,6 @@ import RxRelay
 class MyOrderViewModel: NSObject {
 
     weak var controller             : MyOrderViewController?
-    //public var cartData             = BehaviorRelay<CartDataSource?>(value: nil)
-    //public var deliveryAddress      = BehaviorRelay<ContactDataSource?>(value: nil)
-    //public var billingAddress       = BehaviorRelay<ContactDataSource?>(value: nil)
-    //public var voucherCode          = BehaviorRelay<VoucherDataSource?>(value: nil)
     public let filter               = BehaviorRelay<String>(value:"pending")
     public var orders               = BehaviorRelay<[OrderDataSource]>(value: [])
     private let disposeBag          = DisposeBag()
@@ -23,7 +19,7 @@ class MyOrderViewModel: NSObject {
         super.init()
         self.filter
             .observe(on: MainScheduler.instance)
-            .subscribe { filterStr in
+            .subscribe { _ in
                 self.getMyOrder()
             }
             .disposed(by: disposeBag)
@@ -67,7 +63,7 @@ class MyOrderViewModel: NSObject {
 //                return
 //            }
 //            
-//            //TODO: Clear cart
+//            // TODO: Clear cart
 //            let alertVC = UIAlertController.init(title: NSLocalizedString("Alert", comment: ""), message: "Checkout success", preferredStyle: .alert)
 //            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
 //                alertVC.dismiss()

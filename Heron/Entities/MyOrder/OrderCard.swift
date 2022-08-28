@@ -7,7 +7,7 @@ import ObjectMapper
 
 struct OrderCard : Mappable {
 	var brand       : String?
-	//var checks      : Checks?
+	// var checks      : Checks?
 	var country     : String?
 	var exp_month   : Int?
 	var exp_year    : Int?
@@ -27,7 +27,7 @@ struct OrderCard : Mappable {
 	mutating func mapping(map: Map) {
 
 		brand           <- map["brand"]
-		//checks <- map["checks"]
+		// checks <- map["checks"]
 		country         <- map["country"]
 		exp_month       <- map["exp_month"]
 		exp_year        <- map["exp_year"]
