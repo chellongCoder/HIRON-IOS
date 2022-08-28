@@ -7,10 +7,36 @@
 
 import RxSwift
 import RxRelay
+import RxCocoa
 
-class MainSubscriptionViewModel {
+class MainSubscriptionViewModel : NSObject {
     weak var controller     : MainSubscriptionViewController?
     var subcriptions        = BehaviorRelay<[SubscriptionData]>(value: [])
+    var pendingSubscription = BehaviorRelay<[UserRegisteredSubscription]>(value: [])
+    private let disposeBag  = DisposeBag()
+    
+    override init() {
+        super.init()
+        
+        self.pendingSubscription
+            .observe(on: MainScheduler.instance)
+            .subscribe { pendingSubscription in
+                DispatchQueue.global().async {
+                    for sub in pendingSubscription.element ?? [] {
+                        self.cancelSubscription(sub)
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
+
+    }
+    
+    private func cancelSubscription(_ userSubs: UserRegisteredSubscription) {
+        _SubscriptionService.cancelImmediatelySubscription(userSubs) { errorMessage, successMessage in
+            print(errorMessage)
+            print(successMessage)
+        }
+    }
     
     func getListSubscription()
     {

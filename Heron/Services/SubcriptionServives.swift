@@ -48,7 +48,7 @@ class SubscriptionService: NSObject {
     }
     
     func registerSubscriptionPlan(_ subscriptionData: SubscriptionData,
-                                  completion:@escaping (String?, String?) -> Void) {
+                                  completion:@escaping (String?, UserRegisteredSubscription?) -> Void) {
         let param : [String: Any] = ["subsPlanId" : subscriptionData.id,
                                      "gateway":subscriptionData.gateways?.first?.gateway ?? "stripe",
                                      "paymentMethodCode": "subscription",
@@ -63,9 +63,30 @@ class SubscriptionService: NSObject {
             else if responseData.responseCode >= 500 {
                 return
             } else {
-//                if let data = responseData.responseData?["data"] as? [[String:Any]] {
-//                    completion(responseData.responseMessage, Mapper<SubscriptionData>().mapArray(JSONArray: data))
-//                }
+                if let data = responseData.responseData?["data"] as? [String:Any] {
+                    completion(responseData.responseMessage, Mapper<UserRegisteredSubscription>().map(JSON: data))
+                }
+            }
+        }
+    }
+    
+    func cancelImmediatelySubscription(_ subscriptionData: UserRegisteredSubscription, completion:@escaping (String?, String?) -> Void) {
+        let param : [String: Any] = ["subsPlanId" : subscriptionData.subsPlanId,
+                                     "gateway": "stripe",
+                                     "paymentMethodCode": "subscription",
+                                     "paymentPlatform": "web_browser",
+                                     "immediately": true]
+        let fullURLRequest = String(format: "%@%@%@", kGatewayPaymentURL, "/user-subs/cancel/", subscriptionData.id)
+        _ = _AppDataHandler.post(parameters: param, fullURLRequest: fullURLRequest) { responseData in
+                        
+            if responseData.responseCode == 400 {
+                completion(responseData.responseMessage, nil)
+                return
+            }
+            else if responseData.responseCode >= 500 {
+                return
+            } else {
+                completion(nil, responseData.responseMessage)
             }
         }
     }

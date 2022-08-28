@@ -160,4 +160,18 @@ class CheckoutServices: NSObject {
             }
         }
     }
+    
+    // MARK: - HARD CODE
+    func forceCheckoutSubscriptionPlan(_ transactionID: String,
+                                       completion:@escaping (String?, String?)-> Void) {
+        let fullURLRequest = kGatewayPaymentURL + "/payments/confirm/" + transactionID
+        
+        _ = _AppDataHandler.post(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
+            if responseData.responseCode == 200 {
+                completion(nil, responseData.responseMessage)
+            } else {
+                completion(responseData.responseMessage, nil)
+            }
+        }
+    }
 }

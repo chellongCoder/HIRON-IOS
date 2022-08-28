@@ -20,16 +20,22 @@ class SignInSuccessViewModel: NSObject {
             }
             
             if let plans = plans {
-                let filteredPlan = plans.filter { userSuscription in
-                    return (userSuscription.status == .ENABLED || userSuscription.status == .PENDING)
+                
+                if plans.first(where: { userSubscription in
+                    return userSubscription.status == .ENABLED
+                }) != nil {
+                    // User already subscrible and plan
+                    _NavController.gotoHomepage()
+                    return
                 }
                 
-                if filteredPlan.isEmpty {
-                    let viewController = MainSubscriptionViewController()
-                    self.controller?.navigationController?.pushViewController(viewController, animated: true)
-                } else {
-                    _NavController.gotoHomepage()
+                let pendingPlans = plans.filter { userSubscription in
+                    return (userSubscription.status == .PENDING)
                 }
+                
+                let viewController = MainSubscriptionViewController()
+                viewController.viewModel.pendingSubscription.accept(pendingPlans)
+                self.controller?.navigationController?.pushViewController(viewController, animated: true)
             }
         }
     }

@@ -16,6 +16,8 @@ class UserRegisteredSubscription: Mappable {
     var subsPlanId      : String = ""
     var interval        : SubscriptionInterval?
     var interval_count  : Int = 1
+    var payment         : UserRegisteredSubPayment?
+    var paymentId       : String = ""
     
     // custom
     var customPrice     : Float = 0.0
@@ -32,7 +34,60 @@ class UserRegisteredSubscription: Mappable {
         subsPlanId  <- map["subsPlanId"]
         interval    <- map["interval"]
         interval_count  <- map["interval_count"]
+        payment     <- map["payment"]
+        paymentId   <- map["paymentId"]
         
         self.customPrice = Float(self.price)/1000.0
+    }
+}
+
+struct UserRegisteredSubPayment: Mappable {
+    
+    var transaction     : UserRegisteredSubTransaction?
+    var metadata        : UserRegisteredSubMetadata?
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        transaction     <- map["transaction"]
+        metadata        <- map["metadata"]
+    }
+}
+
+struct UserRegisteredSubTransaction: Mappable {
+    
+    var id          : String = ""
+    var status      : SubscriptionStatus = .PENDING
+    var methodCode  : String = "subscription"
+    var type        : String = "register_subscription"
+    var source      : [String : Any] = [:]
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        id          <- map["id"]
+        status      <- map["status"]
+        methodCode  <- map["methodCode"]
+        type        <- map["type"]
+        source      <- map["source"]
+    }
+}
+
+struct UserRegisteredSubMetadata: Mappable {
+    
+    var clientSecret    : String = ""
+    var customerId      : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        clientSecret        <- map["clientSecret"]
+        customerId          <- map["customerId"]
     }
 }

@@ -181,8 +181,10 @@ extension ApplicationDataHandler {
             return header
         }
         
+        #warning("HARD_CODE")
         let headerFull: HTTPHeaders = ["Authorization": "Bearer " + accessTk,
-                                       "x-tenant-id": "e2e050c2-a5cf-485b-b8b1-93b84de046e3"]
+                                       "x-tenant-id": "e2e050c2-a5cf-485b-b8b1-93b84de046e3",
+                                       "internal-api-key": "token123"]
         return headerFull
     }
 }

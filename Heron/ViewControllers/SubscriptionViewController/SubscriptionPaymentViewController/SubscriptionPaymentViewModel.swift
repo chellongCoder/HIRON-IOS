@@ -25,9 +25,36 @@ class SubscriptionPaymentViewModel: NSObject {
         }
         
         self.controller?.startLoadingAnimation()
-        _SubscriptionService.registerSubscriptionPlan(selectedPlan) { errorMessgae, value in
+        _SubscriptionService.registerSubscriptionPlan(selectedPlan) { errorMessage, userSubscription in
             self.controller?.endLoadingAnimation()
-            print("")
+            #warning("HARD_CODE")
+            if errorMessage != nil {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                    alertVC.dismiss()
+                }))
+                _NavController.showAlert(alertVC)
+                return
+            }
+            
+            if let userSubscription = userSubscription {
+                guard let transactionID = userSubscription.payment?.transaction?.id else {
+                    _NavController.gotoHomepage()
+                    return
+                }
+                _CheckoutServices.forceCheckoutSubscriptionPlan(transactionID) { errorMessage, successMessage in
+                    if errorMessage != nil {
+                        let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                            alertVC.dismiss()
+                        }))
+                        _NavController.showAlert(alertVC)
+                        return
+                    }
+                    
+                    _NavController.gotoHomepage()
+                }
+            }
         }
     }
 }

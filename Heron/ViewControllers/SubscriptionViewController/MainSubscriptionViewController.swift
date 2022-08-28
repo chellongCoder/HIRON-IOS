@@ -10,10 +10,10 @@ import RxSwift
 
 class MainSubscriptionViewController: BaseViewController, UICollectionViewDelegate {
     
+    let viewModel           = MainSubscriptionViewModel()
     var imagePicker         = UIImagePickerController()
     var collectionView      : UICollectionView!
     let skipBtn             = UIButton()
-    private let viewModel   = MainSubscriptionViewModel()
     var selectedIndex       : IndexPath? = nil {
         didSet {
             skipBtn.setTitle(selectedIndex == nil ? "Skip":"Confirm", for: .normal)
