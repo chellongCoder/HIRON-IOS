@@ -19,10 +19,11 @@ class UserProfileViewController: BaseViewController {
     let phoneLabel          = UILabel()
     let emailLabel          = UILabel()
     
-    private let myOrderBtn  = UIButton()
+    private let myOrderBtn          = UIButton()
     private let myAppointmentBtn    = UIButton()
-    private let updateUserBtn = UIButton()
-    private let signOutBtn  = UIButton()
+    private let updateUserBtn       = UIButton()
+    private let userSubscriptions   = UIButton()
+    private let signOutBtn          = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +152,19 @@ class UserProfileViewController: BaseViewController {
             make.height.equalTo(50)
         }
         
+        userSubscriptions.setTitle("User Subscriptions", for: .normal)
+        userSubscriptions.setTitleColor(.white, for: .normal)
+        userSubscriptions.backgroundColor = kPrimaryColor
+        userSubscriptions.layer.cornerRadius = 8
+        userSubscriptions.addTarget(self, action: #selector(userSubscriptionButtonTapped), for: .touchUpInside)
+        self.view.addSubview(userSubscriptions)
+        userSubscriptions.snp.makeConstraints { make in
+            make.top.equalTo(updateUserBtn.snp.bottom).offset(5)
+            make.width.equalToSuperview().offset(-40)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
         signOutBtn.setTitle("Sign Out", for: .normal)
         signOutBtn.setTitleColor(.white, for: .normal)
         signOutBtn.backgroundColor = kRedHightLightColor
@@ -158,7 +172,7 @@ class UserProfileViewController: BaseViewController {
         signOutBtn.addTarget(self, action: #selector(signoutButtonTapped), for: .touchUpInside)
         self.view.addSubview(signOutBtn)
         signOutBtn.snp.makeConstraints { make in
-            make.top.equalTo(updateUserBtn.snp.bottom).offset(20)
+            make.top.equalTo(userSubscriptions.snp.bottom).offset(20)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
@@ -206,6 +220,11 @@ class UserProfileViewController: BaseViewController {
     @objc private func updateUserProfileButtonTapped() {
         let updateEHProfileVC = UpdateUserProfileViewController()
         self.navigationController?.pushViewController(updateEHProfileVC, animated: true)
+    }
+    
+    @objc private func userSubscriptionButtonTapped() {
+        let listUserSubscriptionVC = UserSubscriptionViewController()
+        self.navigationController?.pushViewController(listUserSubscriptionVC, animated: true)
     }
     
     @objc private func signoutButtonTapped() {

@@ -16,6 +16,9 @@
 		930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3031281A05A1003D247A /* ProductListingViewModel.swift */; };
 		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
 		930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3035281A05C7003D247A /* ProductDetailsViewController.swift */; };
+		9311710728BB6DE700A6338D /* UserSubscriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311710628BB6DE700A6338D /* UserSubscriptionViewController.swift */; };
+		9311710928BB90DC00A6338D /* UserSubscriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311710828BB90DC00A6338D /* UserSubscriptionViewModel.swift */; };
+		9311710B28BBC4DB00A6338D /* OrderedSubscriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9311710A28BBC4DB00A6338D /* OrderedSubscriptionCell.swift */; };
 		931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931EC25D2846F60E00B72479 /* CartHotView.swift */; };
 		932AC4CD28A21CEE0060338B /* BookingSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932AC4CC28A21CEE0060338B /* BookingSuccessViewController.swift */; };
 		933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 933D18E62819935900F1CCC4 /* Heron.xcdatamodeld */; };
@@ -213,6 +216,9 @@
 		930F3031281A05A1003D247A /* ProductListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewModel.swift; sourceTree = "<group>"; };
 		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
+		9311710628BB6DE700A6338D /* UserSubscriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSubscriptionViewController.swift; sourceTree = "<group>"; };
+		9311710828BB90DC00A6338D /* UserSubscriptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSubscriptionViewModel.swift; sourceTree = "<group>"; };
+		9311710A28BBC4DB00A6338D /* OrderedSubscriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSubscriptionCell.swift; sourceTree = "<group>"; };
 		931EC25D2846F60E00B72479 /* CartHotView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartHotView.swift; sourceTree = "<group>"; };
 		932AC4CC28A21CEE0060338B /* BookingSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingSuccessViewController.swift; sourceTree = "<group>"; };
 		933D18DA2819935900F1CCC4 /* Heron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Heron.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -464,6 +470,16 @@
 			path = ProductDetailsViewController;
 			sourceTree = "<group>";
 		};
+		9311710528BB6DB100A6338D /* UserSubscriptionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9311710628BB6DE700A6338D /* UserSubscriptionViewController.swift */,
+				9311710828BB90DC00A6338D /* UserSubscriptionViewModel.swift */,
+				9311710A28BBC4DB00A6338D /* OrderedSubscriptionCell.swift */,
+			);
+			path = UserSubscriptionViewController;
+			sourceTree = "<group>";
+		};
 		932AC4CB28A21CD00060338B /* BookingSuccessViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,7 +571,7 @@
 			children = (
 				93C2EA3228AE8A8A00371DFE /* SideBarMenuViewController */,
 				93EC90EF285A4DA6009056F6 /* SubscriptionViewController */,
-				93EC90E4285A4D57009056F6 /* Auth */,
+				93EC90E4285A4D57009056F6 /* AuthenticationFlow */,
 				93AF91EC284BBD100075CD65 /* CheckoutViewController */,
 				93D55227282A73550034B2B7 /* CartViewController */,
 				B561813F2862B195009BE6E5 /* BaseViewController */,
@@ -976,7 +992,7 @@
 			path = MyOrderViewController;
 			sourceTree = "<group>";
 		};
-		93EC90E4285A4D57009056F6 /* Auth */ = {
+		93EC90E4285A4D57009056F6 /* AuthenticationFlow */ = {
 			isa = PBXGroup;
 			children = (
 				93E24E0D28B883F200E53835 /* SignInSuccessViewController */,
@@ -984,12 +1000,13 @@
 				93C2EA3628AF3F8800371DFE /* SignInViewController */,
 				93C2EA3B28AF41BA00371DFE /* AccountInfoViewController */,
 			);
-			path = Auth;
+			path = AuthenticationFlow;
 			sourceTree = "<group>";
 		};
 		93EC90EF285A4DA6009056F6 /* SubscriptionViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9311710528BB6DB100A6338D /* UserSubscriptionViewController */,
 				93E1B18D28B70905005796AA /* SubscriptionPaymentViewController */,
 				93EC90F3285A4DB9009056F6 /* MainSubscriptionViewController.swift */,
 				93EC90F0285A4DB9009056F6 /* MainSubscriptionViewModel.swift */,
@@ -1420,6 +1437,7 @@
 				B561819D2862B59D009BE6E5 /* OrderPayment.swift in Sources */,
 				9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */,
 				93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */,
+				9311710B28BBC4DB00A6338D /* OrderedSubscriptionCell.swift in Sources */,
 				93EC90F9285A4DF4009056F6 /* OrderService.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */,
@@ -1461,6 +1479,7 @@
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */,
+				9311710728BB6DE700A6338D /* UserSubscriptionViewController.swift in Sources */,
 				93C2EA5428B326DA00371DFE /* UpdateUserProfileViewModel.swift in Sources */,
 				9A88B76C288DBB7400BE1E05 /* SelectDoctorViewController.swift in Sources */,
 				9A88B76E288DBBBC00BE1E05 /* SelectDoctorViewModel.swift in Sources */,
@@ -1536,6 +1555,7 @@
 				B5061C08286BF35F00A03271 /* MyOrderViewModel.swift in Sources */,
 				B56181902862B59D009BE6E5 /* ItemAttributes.swift in Sources */,
 				933D19422819947000F1CCC4 /* AppVersionDataSource.swift in Sources */,
+				9311710928BB90DC00A6338D /* UserSubscriptionViewModel.swift in Sources */,
 				9301757B2884886A00151A4B /* VariantButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

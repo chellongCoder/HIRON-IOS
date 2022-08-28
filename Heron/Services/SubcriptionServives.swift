@@ -90,4 +90,25 @@ class SubscriptionService: NSObject {
             }
         }
     }
+    
+    func cancelAutoRenewableSubscription(_ subscriptionData: UserRegisteredSubscription, completion:@escaping (String?, String?) -> Void) {
+        let param : [String: Any] = ["subsPlanId" : subscriptionData.subsPlanId,
+                                     "gateway": "stripe",
+                                     "paymentMethodCode": "subscription",
+                                     "paymentPlatform": "web_browser",
+                                     "immediately": false]
+        let fullURLRequest = String(format: "%@%@%@", kGatewayPaymentURL, "/user-subs/cancel/", subscriptionData.id)
+        _ = _AppDataHandler.post(parameters: param, fullURLRequest: fullURLRequest) { responseData in
+                        
+            if responseData.responseCode == 400 {
+                completion(responseData.responseMessage, nil)
+                return
+            }
+            else if responseData.responseCode >= 500 {
+                return
+            } else {
+                completion(nil, responseData.responseMessage)
+            }
+        }
+    }
 }

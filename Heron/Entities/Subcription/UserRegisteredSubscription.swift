@@ -18,6 +18,8 @@ class UserRegisteredSubscription: Mappable {
     var interval_count  : Int = 1
     var payment         : UserRegisteredSubPayment?
     var paymentId       : String = ""
+    var enabledAt       : Int = 0
+    var disabledAt      : Int = 0
     
     // custom
     var customPrice     : Float = 0.0
@@ -36,8 +38,30 @@ class UserRegisteredSubscription: Mappable {
         interval_count  <- map["interval_count"]
         payment     <- map["payment"]
         paymentId   <- map["paymentId"]
+        enabledAt   <- map["enabledAt"]
+        disabledAt  <- map["disabledAt"]
         
         self.customPrice = Float(self.price)/1000.0
+    }
+    
+    func isCurrentlyApplied() -> Bool {
+        let currentMilisecond = Int(Date().timeIntervalSince1970)*1000
+        if self.enabledAt <= currentMilisecond && self.disabledAt > currentMilisecond {
+            return true
+        }
+        
+        return false
+    }
+    
+    func getStatusText() -> String {
+        switch self.status {
+        case .PENDING:
+            return "Under Payment"
+        case .ENABLED:
+            return "Activated"
+        case .CANCELLED:
+            return "Cancelled"
+        }
     }
 }
 
