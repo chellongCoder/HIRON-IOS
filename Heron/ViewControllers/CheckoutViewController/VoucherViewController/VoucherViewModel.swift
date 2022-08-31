@@ -14,12 +14,12 @@ class VoucherViewModel: NSObject {
     
     func getListVoucher() {
         self.animation.accept(true)
-        _PromotionServices.getListVouchers() { errorMessage, listNewVouchers in
+        _PromotionServices.getListVouchers { errorMessage, listNewVouchers in
             self.animation.accept(false)
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -32,10 +32,8 @@ class VoucherViewModel: NSObject {
                     return
                 }
                 
-                for voucher in listNewVouchers {
-                    if voucher.id == selectedVoucher.id {
-                        voucher.isSelectedVoucher = true
-                    }
+                for voucher in listNewVouchers where voucher.id == selectedVoucher.id {
+                    voucher.isSelectedVoucher = true
                 }
                 self.listUserVouchers.accept(listNewVouchers)
             }

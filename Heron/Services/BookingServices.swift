@@ -35,7 +35,6 @@ class BookingServices : NSObject {
             .disposed(by: disposeBag)
     }
     
-    #warning("HARD_CODE")
     func getListEHProfile(completion:@escaping (String?, [EHealthDataSource]?) -> Void) {
         
         let fullURLRequest = kGatewayEHealthProfileURL + "/profiles?filter[typeId][eq]=null"
@@ -48,9 +47,7 @@ class BookingServices : NSObject {
                 return
             } else {
                 
-                #warning("API_NEED_MAINTAIN")
                 // API response array nhưng lại kẹp trong data.
-                
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     completion(responseData.responseMessage, Mapper<EHealthDataSource>().mapArray(JSONArray: data))
                 }

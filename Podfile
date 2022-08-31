@@ -32,6 +32,9 @@ target 'Heron' do
   # pod 'Firebase/Analytics'
   # pod 'Mixpanel-swift',           '2.9.3'
 
+  #Payment
+  pod 'Stripe',                   '22.7.0'
+  
   target 'HeronTests' do
     inherit! :search_paths
     # Pods for testing

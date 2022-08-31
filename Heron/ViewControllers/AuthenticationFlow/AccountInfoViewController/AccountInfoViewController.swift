@@ -288,7 +288,7 @@ class AccountInfoViewController: BaseViewController,
         }
         userData.userPhoneNum = phoneNumberTxt.text!
         viewModel.userData.accept(userData)
-        viewModel.signUp() {
+        viewModel.signUp {
             let vc = SignInSuccessViewController()
             self.navigationController?.pushViewController(vc, animated: true)
         }

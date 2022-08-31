@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxRelay
 
-protocol CheckoutViewModelDelegate: NSObject {
+protocol CheckoutViewModelDelegate : AnyObject {
     func didFinishPlaceOrder()
 }
 

@@ -226,7 +226,9 @@ class CheckoutViewController: BaseViewController,
                 
                 self.orderTotalView.subTotalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customMerchandiseSubtotal ?? 0.0)
                 self.orderTotalView.discountValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
-                self.orderTotalView.shippingAndTaxValue.text = String(format: "$%.2f", (cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal ?? 0.0) + (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
+                self.orderTotalView.shippingAndTaxValue.text = String(format: "$%.2f",
+                                                                      (cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal ?? 0.0) +
+                                                                      (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
                 self.orderTotalView.totalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
                 self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
                 self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
@@ -254,7 +256,11 @@ class CheckoutViewController: BaseViewController,
             .subscribe { billingAddress in
                 self.updatePlaceOrderButton()
                 guard let billingAddress = billingAddress.element as? UserDataSource else { return }
-                self.billingAddress.contactLabel.text = String(format: "%@ %@ | %@%@", billingAddress.userFirstName, billingAddress.userLastName, billingAddress.userPhoneCode, billingAddress.userPhoneNum)
+                self.billingAddress.contactLabel.text = String(format: "%@ %@ | %@%@",
+                                                               billingAddress.userFirstName,
+                                                               billingAddress.userLastName,
+                                                               billingAddress.userPhoneCode,
+                                                               billingAddress.userPhoneNum)
                 // billingAddress.userFullName + " | " + billingAddress.userPhoneNum
                 self.billingAddress.addressLabel.text = billingAddress.userEmail
                 

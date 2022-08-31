@@ -66,7 +66,7 @@ class UserAddressListingViewController: BaseViewController,
     override func bindingData() {
         _DeliveryServices.listUserAddress
             .observe(on: MainScheduler.instance)
-            .bind(to: tableView.rx.items) { (tableView: UITableView, index: Int, element: ContactDataSource) in
+            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ContactDataSource) in
                 let cell = UserAddressCell(style: .default, reuseIdentifier:"UserAddressCell")
                 cell.setDataSource(element)
                 cell.delegate = self

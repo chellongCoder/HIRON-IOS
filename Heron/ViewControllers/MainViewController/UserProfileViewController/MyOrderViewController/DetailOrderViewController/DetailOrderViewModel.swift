@@ -15,8 +15,12 @@ class DetailOrderViewModel: NSObject {
     func getMyOrder() {
         _OrderServices.getMyOrders(param: [:]) { errorMessage, newOrder in
             if errorMessage != nil {
-                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                     message: errorMessage,
+                                                     preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                                     style: .default,
+                                                     handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)

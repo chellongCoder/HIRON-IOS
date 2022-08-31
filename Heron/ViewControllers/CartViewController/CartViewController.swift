@@ -294,9 +294,9 @@ class CartViewController: BaseViewController,
         cartData?.store[index.section].cartItems[index.row].isSelected = !isSelected
         
         var isAllSelected = true
-        if let _ = cartData?.store[index.section].cartItems.first(where: { cartItem in
+        if (cartData?.store[index.section].cartItems.first(where: { cartItem in
             return cartItem.isSelected == false
-        }) {
+        })) != nil {
             isAllSelected = false
         }
         cartData?.store[index.section].isCheckoutSelected = isAllSelected

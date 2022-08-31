@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SelectDoctorCellDelegate {
+protocol SelectDoctorCellDelegate : AnyObject {
     func bookNow(_ indexPath: Int)
 }
 

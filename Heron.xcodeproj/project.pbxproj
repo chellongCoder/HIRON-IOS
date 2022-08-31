@@ -138,6 +138,7 @@
 		93EC90F9285A4DF4009056F6 /* OrderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90F8285A4DF4009056F6 /* OrderService.swift */; };
 		93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */; };
 		93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FD28622229009056F6 /* DiscountValueView.swift */; };
+		93F3CD6328BF3F0D0010ACB8 /* PaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F3CD6228BF3F0D0010ACB8 /* PaymentServices.swift */; };
 		93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */; };
 		9A88B760288DB24500BE1E05 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B75F288DB24500BE1E05 /* BookingViewController.swift */; };
 		9A88B762288DB25C00BE1E05 /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */; };
@@ -343,6 +344,7 @@
 		93EC90F8285A4DF4009056F6 /* OrderService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderService.swift; sourceTree = "<group>"; };
 		93EC90FB285A59C6009056F6 /* SuccessPlaceOrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessPlaceOrderViewController.swift; sourceTree = "<group>"; };
 		93EC90FD28622229009056F6 /* DiscountValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountValueView.swift; sourceTree = "<group>"; };
+		93F3CD6228BF3F0D0010ACB8 /* PaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServices.swift; sourceTree = "<group>"; };
 		93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPrepearedRequestDataSource.swift; sourceTree = "<group>"; };
 		9A88B75F288DB24500BE1E05 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
 		9A88B761288DB25C00BE1E05 /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
@@ -948,6 +950,7 @@
 				93EC90F8285A4DF4009056F6 /* OrderService.swift */,
 				9A88B765288DB76100BE1E05 /* BookingServices.swift */,
 				93C2EA5528B32B6500371DFE /* EHProfileServices.swift */,
+				93F3CD6228BF3F0D0010ACB8 /* PaymentServices.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1544,6 +1547,7 @@
 				9A88B760288DB24500BE1E05 /* BookingViewController.swift in Sources */,
 				B56181982862B59D009BE6E5 /* OrderUserMetadata.swift in Sources */,
 				934D72A828A02A6000E4255F /* BookingProfileTableViewCell.swift in Sources */,
+				93F3CD6328BF3F0D0010ACB8 /* PaymentServices.swift in Sources */,
 				B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */,
 				93EC90ED285A4D73009056F6 /* SignInSuccessViewController.swift in Sources */,
 				B5061C05286BF22700A03271 /* MyOrderViewController.swift in Sources */,

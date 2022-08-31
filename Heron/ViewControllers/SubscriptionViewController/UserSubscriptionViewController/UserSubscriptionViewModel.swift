@@ -16,7 +16,7 @@ class UserSubscriptionViewModel: NSObject {
         _SubscriptionService.getUserRegisteredSubscriptionPlan { errorMessage, plans in
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -45,7 +45,7 @@ class UserSubscriptionViewModel: NSObject {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
                                                      message: "Your subscription is currently cancelled",
                                                      preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -60,7 +60,7 @@ class UserSubscriptionViewModel: NSObject {
                     
                     if errorMessage != nil {
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
                         }))
                         _NavController.showAlert(alertVC)
@@ -77,7 +77,7 @@ class UserSubscriptionViewModel: NSObject {
                     
                     if errorMessage != nil {
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
                         }))
                         _NavController.showAlert(alertVC)

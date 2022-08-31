@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol UserAddressCellDelegate {
+protocol UserAddressCellDelegate : AnyObject {
     func didEditAddress(_ address: ContactDataSource)
 }
 

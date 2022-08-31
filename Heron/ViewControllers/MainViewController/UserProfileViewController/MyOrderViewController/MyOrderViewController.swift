@@ -206,8 +206,12 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         let headerView = UIView()
         headerView.backgroundColor = .white
         
+        let sessionData = self.viewModel.orders.value[section]
+        
         let title = UILabel()
-        title.text = "Total (\(self.viewModel.orders.value[section].items?.count ?? 0) products):   $\(self.viewModel.orders.value[section].orderPayment?.metadata?.checkoutPriceData?.customTotalPayable ?? 0)"
+        title.text = String(format: "Total (%ld products): $%.2f",
+                            sessionData.items?.count ?? 0,
+                            sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable ?? 0.0)
         title.font = UIFont.systemFont(ofSize: 14)
         headerView.addSubview(title)
         title.snp.makeConstraints {

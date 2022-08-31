@@ -90,7 +90,10 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.row == 4 + (self.data.value?.items?.count ?? 0) {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell
-            cell.descStatusLabel.text = "\(self.data.value?.orderPayment?.metadata?.card?.brand ?? "Empty brand") | \(String(repeating: "X", count: 10))\(self.data.value?.orderPayment?.metadata?.card?.last4 ?? "")"
+            cell.descStatusLabel.text = String(format: "%@ | %@%@",
+                                               self.data.value?.orderPayment?.metadata?.card?.brand ?? "Empty brand",
+                                               String(repeating: "X", count: 10),
+                                               self.data.value?.orderPayment?.metadata?.card?.last4 ?? "")
             return cell
         } else {
             // swiftlint:disable force_cast

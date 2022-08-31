@@ -268,7 +268,7 @@ class AddUserAddressViewController: BaseViewController {
         } else {
             let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
                                                  message: "Some field required to input", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                 alertVC.dismiss()
             }))
             _NavController.showAlert(alertVC)
@@ -324,7 +324,7 @@ class AddUserAddressViewController: BaseViewController {
      override func bindingData() {
         
         viewModel.contact
-            .subscribe { contactDataSource in
+            .subscribe { _ in
 //                guard let contact = contactDataSource.element else {return}
 //                if contact.isValidContact() {
                     self.completeBtn.backgroundColor = kPrimaryColor

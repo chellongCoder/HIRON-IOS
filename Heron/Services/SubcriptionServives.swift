@@ -11,7 +11,7 @@ import ObjectMapper
 class SubscriptionService: NSObject {
     public static let sharedInstance =  SubscriptionService()
     
-    func getUserRegisteredSubscriptionPlan(completion:@escaping (String?, [UserRegisteredSubscription]?)-> Void) {
+    func getUserRegisteredSubscriptionPlan(completion:@escaping (String?, [UserRegisteredSubscription]?) -> Void) {
         let fullURLRequest = kGatewayPaymentURL + "/user-subs"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
                         
@@ -28,7 +28,7 @@ class SubscriptionService: NSObject {
         }
     }
     
-    func getListSubscription(completion:@escaping (String?, [SubscriptionData]?)-> Void) {
+    func getListSubscription(completion:@escaping (String?, [SubscriptionData]?) -> Void) {
         let fullURLRequest = kGatewayPaymentURL + "/subs-plans?filter[trialPrice][eq]=null"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
                         

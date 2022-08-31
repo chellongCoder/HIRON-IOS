@@ -284,7 +284,7 @@ class AddToCartViewController: UIViewController {
                 make.bottom.equalToSuperview().offset(300)
             }
             self.view.layoutIfNeeded()
-        } completion: { isSuccess in
+        } completion: { _ in
             self.dismiss(animated: false, completion: nil)
         }
     }

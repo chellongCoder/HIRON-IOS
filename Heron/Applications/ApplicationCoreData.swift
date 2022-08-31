@@ -33,14 +33,14 @@ class ApplicationCoreData: NSObject {
     func startContext() {
         self.userSession
             .observe(on: MainScheduler.instance)
-            .subscribe { userSession in
+            .subscribe { _ in
                 self.syncDown()
             }
             .disposed(by: disposeBag)
         
         self.userDataSource
             .observe(on: MainScheduler.instance)
-            .subscribe { userDataSource in
+            .subscribe { _ in
                 self.syncDown()
             }
             .disposed(by: disposeBag)
@@ -119,7 +119,7 @@ class ApplicationCoreData: NSObject {
     func isAppAlreadyLaunchedOnce() -> Bool {
         let defaults = UserDefaults.standard
         
-        if let _ = defaults.string(forKey: kAppAlreadyLaunchedOnce) {
+        if defaults.string(forKey: kAppAlreadyLaunchedOnce) != nil {
             return true
         } else {
             defaults.set(true, forKey: kAppAlreadyLaunchedOnce)

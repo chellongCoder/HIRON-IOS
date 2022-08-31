@@ -28,11 +28,11 @@ let _CheckoutServices               = CheckoutServices.sharedInstance
 let _OrderServices                  = OrderService.sharedInstance
 let _SubscriptionService            = SubscriptionService.sharedInstance
 let _BookingServices                = BookingServices.sharedInstance
+let _PaymentServices                = PaymentServices.sharedInstance
 
 // Define key
 let kUserSessionDataSource          = "kUserSessionDataSource"
 let kUserProfileDataSource          = "kUserProfileDataSource"
-
 
 // Base URL
 let kGatewayAuthenticationURL               = "https://ehp-api.cbidigital.com/authentication-svc/api"
@@ -53,6 +53,7 @@ let kNeedReloadNotificationBagde            = Notification.Name("kNeedReloadNoti
 
 // One Signal Key
 let kOneSignalAppID                         = ""
+let kStripePublishableKey                   = "pk_test_51Jex8JIub2RNmWLMzutVV6fT10rlNXOnjk1YxfjaPKsO1KciL5Fl26YvcK3X17rkgN2bwaB7BzP0f78tIjG3RhVV00yYDfcNnh"
 
 // AppStore Release URL
 let kAppStoreReleaseURL                     = "https://apps.apple.com/vn/app/danh-y/xxxxxx"

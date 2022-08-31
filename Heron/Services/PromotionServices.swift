@@ -12,7 +12,6 @@ class PromotionServices: NSObject {
     public static let sharedInstance = PromotionServices()
     
     func getListVouchers(completion:@escaping (String?, [VoucherDataSource]?) -> Void) {
-        #warning("HARD_CODE")
         let fullURLRequest = kGatwayPromotionURL + "/coupons?limit=100&offset=0"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
                         

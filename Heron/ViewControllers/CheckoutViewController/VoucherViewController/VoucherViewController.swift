@@ -75,7 +75,7 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
     override func bindingData() {
         viewModel.listUserVouchers
             .observe(on: MainScheduler.instance)
-            .subscribe { listUserVouchers in
+            .subscribe { _ in
                 self.tableView.reloadData()
             }
             .disposed(by: disposeBag)

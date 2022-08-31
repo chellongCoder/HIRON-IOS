@@ -115,8 +115,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     
     override func bindingData() {
         viewModel.subcriptions
-            .bind(to: collectionView.rx.items) {
-                (collectionView: UICollectionView, index: Int, element: SubscriptionData) in
+            .bind(to: collectionView.rx.items) { (collectionView: UICollectionView, index: Int, element: SubscriptionData) in
                 let indexPath = IndexPath(row: index, section: 0)
                 // swiftlint:disable force_cast 
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
@@ -144,9 +143,9 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     //        cell.titleLabel.text = "Monthly subcription"
     //        cell.priceLabel.text = "$ 10.00/month"
     //        cell.footerLabel.text = "Include 14 days free"
-    ////        let cellData = viewModel.listCategories[indexPath.row]
-    ////        cell.setDataSource(data: cellData)
-    //////
+    //        let cellData = viewModel.listCategories[indexPath.row]
+    //        cell.setDataSource(data: cellData)
+    //
     //        if selectedIndex?.row == indexPath.row && selectedIndex?.section == indexPath.section {
     //            cell.setSelected(true)
     //        } else {

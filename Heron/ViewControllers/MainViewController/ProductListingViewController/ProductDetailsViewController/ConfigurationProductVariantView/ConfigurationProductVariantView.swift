@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol ProductVariantDelegate {
+protocol ProductVariantDelegate : AnyObject {
     func didSelectVariant(variants: [SelectedVariant])
 }
 
@@ -69,93 +69,91 @@ class ConfigurationProductVariantView: UIView {
         listAllChipButtons.removeAll()
         
         var lastConfig : UIView?
-        for configuration in configurations {
+        for configuration in configurations where configuration.values.isEmpty == false {
+            let configurationTitle = UILabel()
+            configurationTitle.text = configuration.label
+            configurationTitle.textColor = kDefaultTextColor
+            configurationTitle.font = getFontSize(size: 16, weight: .medium)
+            allConfigView.addSubview(configurationTitle)
+            
+            if lastConfig != nil {
+                configurationTitle.snp.makeConstraints { make in
+                    make.top.equalTo(lastConfig!.snp.bottom).offset(20)
+                    make.left.equalToSuperview().offset(17)
+                    make.bottom.lessThanOrEqualToSuperview().offset(-10)
+                }
+            } else {
+                configurationTitle.snp.makeConstraints { make in
+                    make.top.equalToSuperview().offset(20)
+                    make.left.equalToSuperview().offset(17)
+                    make.bottom.lessThanOrEqualToSuperview().offset(-10)
+                }
+            }
+            
+            let countLabel = UILabel()
+            countLabel.text = String(format: "(%ld types)", configuration.values.count)
+            countLabel.textColor = kDefaultTextColor
+            countLabel.font = getFontSize(size: 14, weight: .regular)
+            allConfigView.addSubview(countLabel)
+            countLabel.snp.makeConstraints { make in
+                make.centerY.equalTo(configurationTitle)
+                make.left.equalTo(configurationTitle.snp.right).offset(5)
+            }
+            
             if !configuration.values.isEmpty {
-                let configurationTitle = UILabel()
-                configurationTitle.text = configuration.label
-                configurationTitle.textColor = kDefaultTextColor
-                configurationTitle.font = getFontSize(size: 16, weight: .medium)
-                allConfigView.addSubview(configurationTitle)
-                
-                if lastConfig != nil {
-                    configurationTitle.snp.makeConstraints { make in
-                        make.top.equalTo(lastConfig!.snp.bottom).offset(20)
-                        make.left.equalToSuperview().offset(17)
-                        make.bottom.lessThanOrEqualToSuperview().offset(-10)
-                    }
-                } else {
-                    configurationTitle.snp.makeConstraints { make in
-                        make.top.equalToSuperview().offset(20)
-                        make.left.equalToSuperview().offset(17)
-                        make.bottom.lessThanOrEqualToSuperview().offset(-10)
-                    }
+                let scrollView = UIScrollView()
+                allConfigView.addSubview(scrollView)
+                scrollView.snp.makeConstraints { make in
+                    make.top.equalTo(configurationTitle.snp.bottom).offset(5)
+                    make.left.right.equalToSuperview()
+                    make.bottom.equalTo(configurationTitle.snp.bottom).offset(55)
+                    make.bottom.lessThanOrEqualToSuperview().offset(-10)
                 }
                 
-                let countLabel = UILabel()
-                countLabel.text = String(format: "(%ld types)", configuration.values.count)
-                countLabel.textColor = kDefaultTextColor
-                countLabel.font = getFontSize(size: 14, weight: .regular)
-                allConfigView.addSubview(countLabel)
-                countLabel.snp.makeConstraints { make in
-                    make.centerY.equalTo(configurationTitle)
-                    make.left.equalTo(configurationTitle.snp.right).offset(5)
-                }
+                lastConfig = scrollView
                 
-                if !configuration.values.isEmpty {
-                    let scrollView = UIScrollView()
-                    allConfigView.addSubview(scrollView)
-                    scrollView.snp.makeConstraints { make in
-                        make.top.equalTo(configurationTitle.snp.bottom).offset(5)
-                        make.left.right.equalToSuperview()
-                        make.bottom.equalTo(configurationTitle.snp.bottom).offset(55)
-                        make.bottom.lessThanOrEqualToSuperview().offset(-10)
-                    }
+                var lastBtn : UIButton?
+                for value in configuration.values {
+                    let chipButton = VariantButton()
+                    chipButton.addTarget(self, action: #selector(didSelectVariant(_:)), for: .touchUpInside)
+                    chipButton.updateVariant(SelectedVariant(attributeCode: configuration.code, value: value))
+                    self.listAllChipButtons.append(chipButton)
                     
-                    lastConfig = scrollView
-                    
-                    var lastBtn : UIButton?
-                    for value in configuration.values {
-                        let chipButton = VariantButton()
-                        chipButton.addTarget(self, action: #selector(didSelectVariant(_:)), for: .touchUpInside)
-                        chipButton.updateVariant(SelectedVariant(attributeCode: configuration.code, value: value))
-                        self.listAllChipButtons.append(chipButton)
-                        
-                        let code = configuration.code
-                        if let selectedConfig = self.selectedConfig.first(where: { selectedConfig in
-                            return selectedConfig.attributeCode == code
-                        }) {
-                            if selectedConfig.value == value {
-                                chipButton.setState(.selected)
-                            } else {
-                                chipButton.setState(.normmal)
-                            }
-                        }
-                        
-                        scrollView.addSubview(chipButton)
-
-                        if lastBtn != nil {
-                            chipButton.snp.makeConstraints { make in
-                                make.left.equalTo(lastBtn!.snp.right).offset(14)
-                                make.top.equalToSuperview().offset(10)
-                                make.centerY.equalToSuperview()
-                                make.height.equalTo(24)
-                            }
+                    let code = configuration.code
+                    if let selectedConfig = self.selectedConfig.first(where: { selectedConfig in
+                        return selectedConfig.attributeCode == code
+                    }) {
+                        if selectedConfig.value == value {
+                            chipButton.setState(.selected)
                         } else {
-                            chipButton.snp.makeConstraints { make in
-                                make.left.equalToSuperview().offset(14)
-                                make.top.equalToSuperview().offset(10)
-                                make.centerY.equalToSuperview()
-                                make.height.equalTo(50)
-                            }
+                            chipButton.setState(.normmal)
                         }
-
-                        lastBtn = chipButton
                     }
                     
-                    if let lastBtn = lastBtn {
-                        lastBtn.snp.makeConstraints { make in
-                            make.right.lessThanOrEqualToSuperview().offset(-14)
+                    scrollView.addSubview(chipButton)
+                    
+                    if lastBtn != nil {
+                        chipButton.snp.makeConstraints { make in
+                            make.left.equalTo(lastBtn!.snp.right).offset(14)
+                            make.top.equalToSuperview().offset(10)
+                            make.centerY.equalToSuperview()
+                            make.height.equalTo(24)
                         }
+                    } else {
+                        chipButton.snp.makeConstraints { make in
+                            make.left.equalToSuperview().offset(14)
+                            make.top.equalToSuperview().offset(10)
+                            make.centerY.equalToSuperview()
+                            make.height.equalTo(50)
+                        }
+                    }
+                    
+                    lastBtn = chipButton
+                }
+                
+                if let lastBtn = lastBtn {
+                    lastBtn.snp.makeConstraints { make in
+                        make.right.lessThanOrEqualToSuperview().offset(-14)
                     }
                 }
             }
@@ -165,10 +163,8 @@ class ConfigurationProductVariantView: UIView {
     @objc private func didSelectVariant(_ sender: VariantButton) {
         guard let newVariant = sender.variantValue else { return }
         
-        for variantButton in self.listAllChipButtons {
-            if variantButton.variantValue?.attributeCode == newVariant.attributeCode {
-                variantButton.setState(.normmal)
-            }
+        for variantButton in self.listAllChipButtons where variantButton.variantValue?.attributeCode == newVariant.attributeCode {
+            variantButton.setState(.normmal)
         }
         
         if let index = self.selectedConfig.firstIndex(where: { variantValue in

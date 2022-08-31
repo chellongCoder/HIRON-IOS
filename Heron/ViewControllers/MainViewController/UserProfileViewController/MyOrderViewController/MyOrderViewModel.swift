@@ -32,7 +32,7 @@ class MyOrderViewModel: NSObject {
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
@@ -44,31 +44,4 @@ class MyOrderViewModel: NSObject {
             }
         }
     }
-    
-//    func checkout() {
-//        reloadAnimation.accept(true)
-//        assert(cartData.value != nil, "Cart empty")
-//        
-//        guard let cartData = self.cartData.value else {return}
-//        
-//        _CartServices.checkout(cart: cartData) { errorMessage, successMessage in
-//            self.reloadAnimation.accept(false)
-//            
-//            if errorMessage != nil {
-//                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-//                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
-//                    alertVC.dismiss()
-//                }))
-//                _NavController.showAlert(alertVC)
-//                return
-//            }
-//            
-//            // TODO: Clear cart
-//            let alertVC = UIAlertController.init(title: NSLocalizedString("Alert", comment: ""), message: "Checkout success", preferredStyle: .alert)
-//            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { action in
-//                alertVC.dismiss()
-//            }))
-//            _NavController.showAlert(alertVC)
-//        }
-//    }
 }

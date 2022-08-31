@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol VoucherTableViewCellDelegate {
+protocol VoucherTableViewCellDelegate : AnyObject {
     func didApplyVoucher(_ voucher: VoucherDataSource)
     func didCancelVoucher()
 }

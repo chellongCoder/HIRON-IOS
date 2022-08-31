@@ -155,7 +155,7 @@ class CartServices : NSObject {
     private func matchingCheckoutSelectedOfStore(_ newCartData: CartDataSource, oldCartData: CartDataSource) -> CartDataSource {
         var returnCartData = newCartData
         for (storeIndex, storeData) in newCartData.store.enumerated() {
-            if let match = oldCartData.store.first( where: {storeData.id == $0.id} ) {
+            if let match = oldCartData.store.first( where: {storeData.id == $0.id }) {
                 returnCartData.store[storeIndex] = self.matchingCheckoutSelectedOfItem(returnCartData.store[storeIndex], oldStore: match)
                 returnCartData.store[storeIndex].isCheckoutSelected = match.isCheckoutSelected
             }
