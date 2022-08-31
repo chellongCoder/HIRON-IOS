@@ -41,7 +41,7 @@ class UserRegisteredSubscription: Mappable {
         enabledAt   <- map["enabledAt"]
         disabledAt  <- map["disabledAt"]
         
-        self.customPrice = Float(self.price)/1000.0
+        self.customPrice = Float(self.price)/100.0
     }
     
     func isCurrentlyApplied() -> Bool {

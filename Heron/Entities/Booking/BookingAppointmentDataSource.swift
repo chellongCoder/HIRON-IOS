@@ -44,6 +44,6 @@ class BookingAppointmentDataSource: Mappable {
         startTime   <- map["startTime"]
         endTime     <- map["endTime"]
         
-        self.customAmount = Float(amount)/1000.0
+        self.customAmount = Float(amount)/100.0
     }
 }

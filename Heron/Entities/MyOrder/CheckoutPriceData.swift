@@ -42,6 +42,6 @@ struct CheckoutPriceData : Mappable {
 		totalPayable                <- map["totalPayable"]
 		vatSubtotal                 <- map["vatSubtotal"]
         
-        customTotalPayable = Float(self.totalPayable)/1000.0
+        customTotalPayable = Float(self.totalPayable)/100.0
 	}
 }

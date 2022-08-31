@@ -52,8 +52,8 @@ struct OrderItems : Mappable {
 		createdAt       <- map["createdAt"]
 		updatedAt       <- map["updatedAt"]
         
-        self.customFinalPrice = Float(self.finalPrice ?? 0)/1000.0
-        self.customRegularPrice = Float(self.regularPrice ?? 0)/1000.0
+        self.customFinalPrice = Float(self.finalPrice ?? 0)/100.0
+        self.customRegularPrice = Float(self.regularPrice ?? 0)/100.0
 	}
 
 }

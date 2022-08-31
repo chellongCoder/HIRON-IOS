@@ -55,7 +55,7 @@ struct OrderDataSource : Mappable {
 		paymentCoupons  <- map["paymentCoupons"]
 		attributeValues <- map["attributeValues"]
         
-        self.customAmount = Float(amount ?? 0)/1000.0
+        self.customAmount = Float(amount ?? 0)/100.0
 	}
 
 }

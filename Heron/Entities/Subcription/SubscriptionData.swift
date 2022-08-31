@@ -53,7 +53,7 @@ struct SubscriptionData : Mappable {
 		subsItem        <- map["subsItem"]
 //		gateways        <- map["gateways"]
         
-        self.customFinalPrice = Float(self.finalPrice)/1000.0
-        self.customRegularPrice = Float(self.regularPrice)/1000.0
+        self.customFinalPrice = Float(self.finalPrice)/100.0
+        self.customRegularPrice = Float(self.regularPrice)/100.0
 	}
 }

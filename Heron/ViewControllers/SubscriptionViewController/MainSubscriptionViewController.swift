@@ -173,6 +173,3 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         self.collectionView.reloadItems(at: [indexPath])
     }
 }
-
-
-
