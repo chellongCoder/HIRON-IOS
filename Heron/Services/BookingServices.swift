@@ -18,6 +18,7 @@ class BookingServices : NSObject {
     var selectedOrganization            = BehaviorRelay<Organization?>(value: nil)
     var selectedDoctor                  = BehaviorRelay<DoctorDataSource?>(value: nil)
     var selectedTimeable                = BehaviorRelay<TimeableDataSource?>(value: nil)
+    var bookingProduct                  = BehaviorRelay<ProductDataSource?>(value: nil)
     private let disposeBag              = DisposeBag()
     
     override init() {
@@ -178,6 +179,43 @@ class BookingServices : NSObject {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     completion(responseData.responseMessage, Mapper<BookingAppointmentDataSource>().mapArray(JSONArray: data))
                 }
+            }
+        }
+    }
+    
+    func createBookingOrder(completion:@escaping (String?, String?) -> Void) {
+        
+        // productID of booking product
+        guard let itemID = self.bookingProduct.value?.id else {
+            completion("Not valid booking ID", nil)
+            return
+        }
+        
+        // timetableId
+        guard let timetableId = self.selectedTimeable.value?.id else {
+            completion("Not valid time block", nil)
+            return
+        }
+        
+        let params : [String: Any] = ["itemId" : itemID,
+                                      "paymentMethodCode": "cards",
+                                      "paymentPlatform": "web_browser",
+                                      "timetableId":timetableId,
+                                      "attributes":[]]
+        let fullURLRequest = kGatewayBookingURL + "/bookings"
+        
+        _ = _AppDataHandler.post(parameters: params, fullURLRequest: fullURLRequest) { responseData in
+            if responseData.responseCode == 200 {
+                if let dataDict = responseData.responseData?["data"] as? [String: Any],
+                let paymentData = dataDict["payment"]  as? [String: Any],
+                   let metaData = paymentData["metadata"] as? [String: Any],
+                   let clientSecret = metaData["clientSecret"] as? String {
+                    completion(nil, clientSecret)
+                    return
+                }
+                completion(responseData.responseMessage, nil)
+            } else {
+                completion(responseData.responseMessage, nil)
             }
         }
     }

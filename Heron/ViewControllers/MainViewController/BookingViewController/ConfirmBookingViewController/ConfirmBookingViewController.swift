@@ -90,22 +90,12 @@ class ConfirmBookingViewController: BaseViewController,
     }
     
     @objc private func bookNowButtonTapped() {
-        let alertVC = UIAlertController.init(title: NSLocalizedString("HARD_CODE", comment: ""),
-                                             message: "Booking Payment not yet developed. This is hard code process", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-            alertVC.dismiss()
-            let bookingSuccessVC = BookingSuccessViewController()
-            self.navigationController?.pushViewController(bookingSuccessVC, animated: true)
-        }))
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
-            alertVC.dismiss()
-        }))
-        _NavController.showAlert(alertVC)
+        viewModel.booking()
     }
     
     // MARK: - Data
     override func bindingData() {
-        viewModel.bookingProduct
+        _BookingServices.bookingProduct
             .observe(on: MainScheduler.instance)
             .subscribe { bookingData in
                 guard let bookingData = bookingData.element as? ProductDataSource else {return}

@@ -87,7 +87,7 @@ class BookingSuccessViewController: UIViewController {
     
     // MARK: - Buttons
     @objc private func viewMyOrderButtonTapped() {
-        
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @objc private func continueButtonTapped() {

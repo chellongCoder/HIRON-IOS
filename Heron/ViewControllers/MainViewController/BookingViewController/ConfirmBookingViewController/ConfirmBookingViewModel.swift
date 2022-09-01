@@ -11,7 +11,6 @@ import RxRelay
 class ConfirmBookingViewModel: BaseViewModel {
     
     weak var controller     : ConfirmBookingViewController?
-    var bookingProduct      = BehaviorRelay<ProductDataSource?>(value: nil)
     
     func getProductList() {
         
@@ -36,8 +35,59 @@ class ConfirmBookingViewModel: BaseViewModel {
             }
             
             if let newProduct = listNewProducts?.first {
-                self.bookingProduct.accept(newProduct)
+                _BookingServices.bookingProduct.accept(newProduct)
             }
+        }
+    }
+    
+    func booking() {
+        self.controller?.startLoadingAnimation()
+        _BookingServices.createBookingOrder { errorMessage, clientSecret in
+            
+            if errorMessage != nil {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    alertVC.dismiss()
+                }))
+                _NavController.showAlert(alertVC)
+                self.controller?.endLoadingAnimation()
+                return
+            }
+            
+            if let clientSecret = clientSecret {
+                
+                _PaymentServices.payment(clientSecret) { paymentResult in
+                    self.controller?.endLoadingAnimation()
+                    
+                    switch paymentResult {
+                    case .completed:
+                        let bookingSuccessVC = BookingSuccessViewController()
+                        self.controller?.navigationController?.pushViewController(bookingSuccessVC, animated: true)
+                    case .canceled:
+                        let alertVC = UIAlertController.init(title: NSLocalizedString("Cancelled", comment: ""),
+                                                             message: "You has cancelled booking", preferredStyle: .alert)
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                            alertVC.dismiss()
+                            
+                            self.controller?.navigationController?.popToRootViewController(animated: true)
+                        }))
+                        _NavController.showAlert(alertVC)
+                    case .failed(let error):
+                        let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                             message: error.localizedDescription ,
+                                                             preferredStyle: .alert)
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                            alertVC.dismiss()
+                        }))
+                        _NavController.showAlert(alertVC)
+                    }
+                }
+                
+                return
+            }
+            
+            self.controller?.endLoadingAnimation()
+            _NavController.gotoHomepage()
         }
     }
 }
