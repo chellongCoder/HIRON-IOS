@@ -99,9 +99,9 @@ class CheckoutServices: NSObject {
         }
     }
     
-    func createOrder(completion:@escaping (String?, String?) -> Void) {
+    func createOrder(completion:@escaping (String?, PaymentDataSource?, [OrderDataSource]) -> Void) {
         guard let cartData = _CartServices.cartData.value else {
-            completion("Cart is empty", nil)
+            completion("Cart is empty", nil, [])
             return
         }
         
@@ -121,7 +121,7 @@ class CheckoutServices: NSObject {
         // check empty list
         if newCheckoutRequestDataSource.cartDetail.isEmpty {
             cartPreCheckoutResponseData.accept(nil)
-            completion("Selected list is empty", nil)
+            completion("Selected list is empty", nil, [])
             return
         }
         
@@ -154,9 +154,18 @@ class CheckoutServices: NSObject {
         
         _ = _AppDataHandler.post(parameters: params, fullURLRequest: fullURLRequest) { responseData in
             if responseData.responseCode == 200 {
-                completion(nil, responseData.responseMessage)
+                if let dataDict = responseData.responseData?["data"] as? [String: Any],
+                let paymentData = dataDict["payment"]  as? [String: Any],
+                let orderDicts = dataDict["orders"]  as? [[String: Any]] {
+                    if let paymentData = Mapper<PaymentDataSource>().map(JSON: paymentData) {
+                        let listOrders = Mapper<OrderDataSource>().mapArray(JSONArray: orderDicts)
+                        completion(responseData.responseMessage, paymentData, listOrders)
+                        return
+                    }
+                }
+                completion(responseData.responseMessage, nil, [])
             } else {
-                completion(responseData.responseMessage, nil)
+                completion(responseData.responseMessage, nil, [])
             }
         }
     }

@@ -10,8 +10,8 @@ import Stripe
 
 class PaymentServices: NSObject {
     public static let sharedInstance    = PaymentServices()
-    var paymentSheet                    : PaymentSheet?
-    var configuration                   = PaymentSheet.Configuration()
+    private var paymentSheet            : PaymentSheet?
+    private var configuration           = PaymentSheet.Configuration()
     
     override init() {
         super.init()

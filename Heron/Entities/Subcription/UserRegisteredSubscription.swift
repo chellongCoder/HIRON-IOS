@@ -16,7 +16,7 @@ class UserRegisteredSubscription: Mappable {
     var subsPlanId      : String = ""
     var interval        : SubscriptionInterval?
     var interval_count  : Int = 1
-    var payment         : UserRegisteredSubPayment?
+    var payment         : PaymentDataSource?
     var paymentId       : String = ""
     var enabledAt       : Int = 0
     var disabledAt      : Int = 0
@@ -65,7 +65,7 @@ class UserRegisteredSubscription: Mappable {
     }
 }
 
-struct UserRegisteredSubPayment: Mappable {
+struct PaymentDataSource: Mappable {
     
     var transaction     : UserRegisteredSubTransaction?
     var metadata        : UserRegisteredSubMetadata?

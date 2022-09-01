@@ -8,6 +8,8 @@
 import UIKit
 
 class SuccessPlaceOrderViewController: UIViewController {
+    
+    var listOrders  : [OrderDataSource] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +91,7 @@ class SuccessPlaceOrderViewController: UIViewController {
     
     // MARK: - Buttons
     @objc private func viewMyOrderButtonTapped() {
-        
+        _NavController.gotoHomepage()
     }
     
     @objc private func continueButtonTapped() {

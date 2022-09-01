@@ -454,6 +454,8 @@ class CheckoutViewController: BaseViewController,
 
 extension CheckoutViewController : CheckoutViewModelDelegate {
     func didFinishPlaceOrder() {
-        self.navigationController?.pushViewController(SuccessPlaceOrderViewController(), animated: true)
+        let successVC = SuccessPlaceOrderViewController()
+        successVC.listOrders = self.viewModel.listOrders
+        self.navigationController?.pushViewController(successVC, animated: true)
     }
 }
