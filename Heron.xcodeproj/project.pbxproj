@@ -1733,11 +1733,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Heron/Heron.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Heron;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App using camera to easy input card when checkout.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Request Location to checking your privacies";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -1770,11 +1771,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Heron/Heron.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5592AK55J4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Heron/SupportingFiles/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Heron;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App using camera to easy input card when checkout.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Request Location to checking your privacies";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
