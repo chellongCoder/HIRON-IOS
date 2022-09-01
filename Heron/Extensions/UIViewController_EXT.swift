@@ -20,6 +20,12 @@ extension UIViewController {
     }
 
     func startLoadingAnimation() {
+        
+        // remove old animations
+        for sub in self.view.subviews where sub is LoadingAnimationView {
+            sub.removeFromSuperview()
+        }
+        
         DispatchQueue.main.async {
             let loadingAnimation      = LoadingAnimationView()
             loadingAnimation.isHidden = false

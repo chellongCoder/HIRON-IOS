@@ -36,26 +36,6 @@ class BookingServices : NSObject {
             .disposed(by: disposeBag)
     }
     
-    func getListEHProfile(completion:@escaping (String?, [EHealthDataSource]?) -> Void) {
-        
-        let fullURLRequest = kGatewayEHealthProfileURL + "/profiles?filter[typeId][eq]=null"
-        _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
-                        
-            if responseData.responseCode == 400 {
-                completion(responseData.responseMessage, nil)
-                return
-            } else if responseData.responseCode >= 500 {
-                return
-            } else {
-                
-                // API response array nhưng lại kẹp trong data.
-                if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                    completion(responseData.responseMessage, Mapper<EHealthDataSource>().mapArray(JSONArray: data))
-                }
-            }
-        }
-    }
-    
     func getListDepartments(completion:@escaping (String?, [TeamDataSource]?) -> Void) {
         
         let param : [String:Any] = ["page" : 1,

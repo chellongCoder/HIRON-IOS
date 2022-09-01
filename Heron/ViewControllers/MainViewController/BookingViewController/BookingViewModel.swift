@@ -14,7 +14,8 @@ class BookingViewModel: BaseViewModel {
 
     func getUserEHealthProfiles() {
         self.controller?.startLoadingAnimation()
-        _BookingServices.getListEHProfile { errorMessage, listEHProfiles in
+        
+        _EHProfileServices.getListEHProfile { errorMessage in
             self.controller?.endLoadingAnimation()
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
@@ -25,21 +26,16 @@ class BookingViewModel: BaseViewModel {
                 return
             }
             
-            if let listEHProfiles = listEHProfiles {
-                if listEHProfiles.isEmpty {
-                    let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
-                                                         message: "User do not have any EHP",
-                                                         preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-                        alertVC.dismiss()
-                    }))
-                    _NavController.showAlert(alertVC)
-                    return
-                }
-                
-                _BookingServices.selectedProfile.accept(listEHProfiles[0])
-                self.controller?.didSelectedUserProfileButtonTapped()
-            }
+            if _EHProfileServices.listProfiles.value.isEmpty {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                     message: "User do not have any EHP",
+                                                     preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    alertVC.dismiss()
+                }))
+                _NavController.showAlert(alertVC)
+                return
+            }   
         }
     }
 }

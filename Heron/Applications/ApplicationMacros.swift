@@ -29,6 +29,7 @@ let _OrderServices                  = OrderService.sharedInstance
 let _SubscriptionService            = SubscriptionService.sharedInstance
 let _BookingServices                = BookingServices.sharedInstance
 let _PaymentServices                = PaymentServices.sharedInstance
+let _EHProfileServices              = EHProfileServices.sharedInstance
 
 // Define key
 let kUserSessionDataSource          = "kUserSessionDataSource"
