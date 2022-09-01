@@ -36,6 +36,15 @@ class BookingServices : NSObject {
             .disposed(by: disposeBag)
     }
     
+    func cleanData() {
+        selectedProfile.accept(nil)
+        selectedDepartment.accept(nil)
+        selectedOrganization.accept(nil)
+        selectedDoctor.accept(nil)
+        selectedTimeable.accept(nil)
+        bookingProduct.accept(nil)
+    }
+    
     func getListDepartments(completion:@escaping (String?, [TeamDataSource]?) -> Void) {
         
         let param : [String:Any] = ["page" : 1,

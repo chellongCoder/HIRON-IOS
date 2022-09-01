@@ -20,6 +20,10 @@ class DeliveryServices: NSObject {
         // reload user address
         self.getListUserAddress()
     }
+    
+    func cleanData() {
+        self.listUserAddress.accept([])
+    }
 
     func getListUserAddress() {
                 

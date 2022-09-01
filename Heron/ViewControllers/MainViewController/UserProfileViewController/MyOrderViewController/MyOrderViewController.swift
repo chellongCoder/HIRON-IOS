@@ -167,7 +167,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         let orderData = self.viewModel.orders.value[section]
         
         let title = UILabel()
-        title.text = "CBI healthcare center"
+        title.text = ""
         title.textColor = kDefaultTextColor
         title.font = getFontSize(size: 16, weight: .bold)
         

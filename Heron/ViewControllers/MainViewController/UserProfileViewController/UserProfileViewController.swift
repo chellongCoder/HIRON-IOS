@@ -21,7 +21,7 @@ class UserProfileViewController: BaseViewController {
     
     private let myOrderBtn          = UIButton()
     private let myAppointmentBtn    = UIButton()
-    private let updateUserBtn       = UIButton()
+    private let updateEHPBtn        = UIButton()
     private let userSubscriptions   = UIButton()
     private let signOutBtn          = UIButton()
     
@@ -139,13 +139,13 @@ class UserProfileViewController: BaseViewController {
             make.left.equalTo(self.view.snp.centerX).offset(10)
         }
         
-        updateUserBtn.setTitle("Update User Profile", for: .normal)
-        updateUserBtn.setTitleColor(.white, for: .normal)
-        updateUserBtn.backgroundColor = kPrimaryColor
-        updateUserBtn.layer.cornerRadius = 8
-        updateUserBtn.addTarget(self, action: #selector(updateUserProfileButtonTapped), for: .touchUpInside)
-        self.view.addSubview(updateUserBtn)
-        updateUserBtn.snp.makeConstraints { make in
+        updateEHPBtn.setTitle("Update E-Health Profile", for: .normal)
+        updateEHPBtn.setTitleColor(.white, for: .normal)
+        updateEHPBtn.backgroundColor = kPrimaryColor
+        updateEHPBtn.layer.cornerRadius = 8
+        updateEHPBtn.addTarget(self, action: #selector(updateUserProfileButtonTapped), for: .touchUpInside)
+        self.view.addSubview(updateEHPBtn)
+        updateEHPBtn.snp.makeConstraints { make in
             make.top.equalTo(myOrderBtn.snp.bottom).offset(20)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
@@ -159,7 +159,7 @@ class UserProfileViewController: BaseViewController {
         userSubscriptions.addTarget(self, action: #selector(userSubscriptionButtonTapped), for: .touchUpInside)
         self.view.addSubview(userSubscriptions)
         userSubscriptions.snp.makeConstraints { make in
-            make.top.equalTo(updateUserBtn.snp.bottom).offset(5)
+            make.top.equalTo(updateEHPBtn.snp.bottom).offset(5)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)

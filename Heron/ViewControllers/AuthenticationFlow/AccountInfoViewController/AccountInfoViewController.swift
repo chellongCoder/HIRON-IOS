@@ -290,6 +290,7 @@ class AccountInfoViewController: BaseViewController,
         viewModel.userData.accept(userData)
         viewModel.signUp {
             let vc = SignInSuccessViewController()
+            vc.centerDescInfo.text = "Congratulations,You have signed up successfully. Wish you have a nice experience."
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

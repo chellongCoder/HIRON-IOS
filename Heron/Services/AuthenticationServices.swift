@@ -35,26 +35,19 @@ class AuthenticationServices {
         }
     }
     
-    func checkExist(username: String, password: String, completion:@escaping (String?, String?) -> Void) {
-        let parametter = ["username": username,
-                          "password": password]
-        let fullURLRequest = kGatewayAuthenticationURL+"/users/check-exist"
+    func checkExist(username: String, completion:@escaping (Bool) -> Void) {
+        let parametter = ["username": username]
+        let fullURLRequest = kGatewayUserServicesURL+"/users/check-exist"
         
         _ = _AppDataHandler.post(parameters: parametter, fullURLRequest: fullURLRequest) { responseData in
-            if let responseDict = responseData.responseData?["data"] as? [String : Any] {
-                let sessionToken = SessionDataSource.init(JSONString: "{}")!
-                if let accessToken = responseDict["accessToken"] as? String {
-                    sessionToken.accessToken = accessToken
-                }
-                if let refreshToken = responseDict["refreshToken"] as? String {
-                    sessionToken.refreshToken = refreshToken
-                }
-                
-                _AppCoreData.userSession.accept(sessionToken)
-                completion(nil, responseData.responseMessage)
-            } else {
-                completion(responseData.responseMessage, nil)
+            if let data = responseData.responseData?["data"] as? [String : Any] ,
+               let isExist = data["isExist"] as? Bool {
+                completion(isExist)
+                return
             }
+            
+            // safety
+            completion(true)
         }
     }
     
@@ -72,6 +65,7 @@ class AuthenticationServices {
                 }
                 
                 _AppCoreData.userSession.accept(sessionToken)
+                _UserServices.getUserProfile()
                 
                 completion(nil, responseData.responseMessage)
             } else {

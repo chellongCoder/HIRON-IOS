@@ -11,6 +11,7 @@ class SignInSuccessViewController: BaseViewController {
     
     private let viewModel       = SignInSuccessViewModel()
     private let continueBtn     = UIButton()
+    let centerDescInfo          = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,9 +47,7 @@ class SignInSuccessViewController: BaseViewController {
             $0.width.equalToSuperview()
         }
         
-        let centerDescInfo = UILabel()
         centerDescInfo.numberOfLines = 0
-        centerDescInfo.text = "Congratulations,You have signed up successfully. Wish you have a nice experience."
         centerDescInfo.textAlignment = .center
         centerDescInfo.font = getFontSize(size: 14, weight: .regular)
         self.view.addSubview(centerDescInfo)

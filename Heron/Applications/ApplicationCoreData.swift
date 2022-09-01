@@ -55,6 +55,12 @@ class ApplicationCoreData: NSObject {
     func signOut() {
         self.userSession.accept(nil)
         self.userDataSource.accept(nil)
+        _EHProfileServices.cleanData()
+        _BookingServices.cleanData()
+        _DeliveryServices.cleanData()
+        _CartServices.cleanData()
+        _CheckoutServices.cleanData()
+        _OrderServices.cleanData()
         
         // Stop Refresh token
         self.timerRefeshToken?.invalidate()

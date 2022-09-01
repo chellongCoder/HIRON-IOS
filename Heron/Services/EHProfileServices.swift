@@ -21,6 +21,10 @@ class EHProfileServices: NSObject {
         }
     }
     
+    func cleanData() {
+        self.listProfiles.accept([])
+    }
+    
     func getListEHProfile(completion:@escaping (String?) -> Void) {
         
         let fullURLRequest = kGatewayEHealthProfileURL + "/profiles?filter[typeId][eq]=null"

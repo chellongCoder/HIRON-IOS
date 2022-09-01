@@ -68,7 +68,7 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             // swiftlint:disable force_cast 
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductStatusTableViewCell", for: indexPath) as! ProductStatusTableViewCell
             cell.descStatusLabel.text = "You will receive the order in \(TimeConverter().getDateFromInt(self.data.value?.createdAt ?? 0)). Please keep your phone to get calling from deliver"
-            cell.orderDetailLabel.text = self.data.value?.orderPaymentId?.shortenID() ?? ""
+            cell.orderDetailLabel.text = self.data.value?.code ?? ""
             cell.purchasedLabel.text = TimeConverter().getDateFromInt(self.data.value?.orderPayment?.completedAt ?? 0)
             return cell
         } else if indexPath.row == 1 {

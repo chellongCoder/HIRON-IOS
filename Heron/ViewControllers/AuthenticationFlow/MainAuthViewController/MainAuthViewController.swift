@@ -70,13 +70,13 @@ class MainAuthViewController: BaseViewController {
 
         @objc func signInButtonTapped(_ sender: Any) {
             let vc = SignInViewController()
-            vc.isSign = true
+            vc.isSignIn = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
         @objc func signUpButtonTapped(_ sender: Any) {
             let vc = SignInViewController()
-            vc.isSign = false
+            vc.isSignIn = false
             self.navigationController?.pushViewController(vc, animated: true)
         }
 }

@@ -8,13 +8,18 @@
 import UIKit
 import Material
 
-class SignInViewController: BaseViewController {
+class SignInViewController: BaseViewController, UITextFieldDelegate {
     
     private let viewModel   = SignInViewModel()
     let emailTxt            = ErrorTextField()
     let passwordTxt         = ErrorTextField()
     
-    var isSign              = true
+    var isSignIn            = true
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.controller = self
+    }
     
     override func configUI() {
         let backgroundImage = UIImageView(image: UIImage(named: "bg"))
@@ -60,21 +65,43 @@ class SignInViewController: BaseViewController {
         }
         
         let signInLabel = UILabel()
+        signInLabel.textAlignment = .center
         signInLabel.font = getFontSize(size: 24, weight: .bold)
         signInLabel.textColor = kDefaultTextColor
-        signInLabel.text = isSign ? "Sign in" : "Sign up"
+        signInLabel.text = isSignIn ? "Sign in" : "Sign up"
+        childVỉew.addSubview(signInLabel)
+        signInLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.centerX.equalToSuperview()
+        }
         
-        let signUpLabel = UILabel()
-        signUpLabel.textColor = kDefaultTextColor
-        signUpLabel.font = getFontSize(size: 16, weight: .medium)
-        signUpLabel.text = isSign ? "New to CBIHS? Sign up" : "Already have an account? Sign in"
+        let signInSubLabel = UILabel()
+        signInSubLabel.textAlignment = .center
+        signInSubLabel.textColor = kDefaultTextColor
+        signInSubLabel.font = getFontSize(size: 16, weight: .medium)
+        signInSubLabel.text = isSignIn ? "New to CBIHS? Sign up" : "Already have an account? Sign in"
+        childVỉew.addSubview(signInSubLabel)
+        signInSubLabel.snp.makeConstraints { make in
+            make.top.equalTo(signInLabel.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+        }
         
+        emailTxt.delegate = self
         emailTxt.placeholder = "Email"
         emailTxt.dividerNormalHeight = 0.5
         emailTxt.dividerNormalColor = kPrimaryColor
         emailTxt.errorColor = .red
         emailTxt.textColor = kDefaultTextColor
         emailTxt.keyboardType = .emailAddress
+        emailTxt.autocapitalizationType = .none
+        emailTxt.autocorrectionType = .no
+        childVỉew.addSubview(emailTxt)
+        emailTxt.snp.makeConstraints {
+            $0.top.equalTo(signInSubLabel.snp.bottom).offset(30)
+            $0.width.equalToSuperview().multipliedBy(0.8)
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+        }
         
         passwordTxt.placeholder = "Password"
         passwordTxt.isSecureTextEntry = true
@@ -82,40 +109,31 @@ class SignInViewController: BaseViewController {
         passwordTxt.dividerNormalColor = kPrimaryColor
         passwordTxt.errorColor = .red
         passwordTxt.textColor = kDefaultTextColor
+        childVỉew.addSubview(passwordTxt)
+        passwordTxt.snp.makeConstraints {
+            $0.top.equalTo(emailTxt.snp.bottom).offset(50)
+            $0.width.equalToSuperview().multipliedBy(0.8)
+            $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
+        }
         
         let signInBtn = UIButton()
-        signInBtn.setTitle(isSign ? "Sign in" : "Continue", for: .normal)
+        signInBtn.setTitle(isSignIn ? "Sign in" : "Continue", for: .normal)
         signInBtn.addTarget(self, action: #selector(continueActionTapped), for: .touchUpInside)
         signInBtn.backgroundColor = kPrimaryColor
         signInBtn.layer.cornerRadius = 8
-        
-        stackView.addArrangedSubview(signInLabel)
-        stackView.addArrangedSubview(signUpLabel)
-        stackView.addArrangedSubview(emailTxt)
-        stackView.addArrangedSubview(passwordTxt)
-        stackView.addArrangedSubview(signInBtn)
-        
-        emailTxt.snp.makeConstraints {
-            $0.width.equalToSuperview().multipliedBy(0.8)
-            $0.height.equalTo(50)
-        }
-        passwordTxt.snp.makeConstraints {
-            $0.width.equalToSuperview().multipliedBy(0.8)
-            $0.height.equalTo(50)
-        }
+        childVỉew.addSubview(signInBtn)
         signInBtn.snp.makeConstraints {
+            $0.top.equalTo(passwordTxt.snp.bottom).offset(50)
             $0.width.equalToSuperview().offset(-40)
             $0.height.equalTo(50)
+            $0.centerX.equalToSuperview()
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        emailTxt.text = "admin@gmail.com"
-        passwordTxt.text = "super_admin@123./"
     }
     
     @objc func continueActionTapped(_ sender: Any) {
+        
+        self.view.endEditing(true)
         
         if !(emailTxt.text ?? "").isValidEmail() {
             let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
@@ -127,17 +145,40 @@ class SignInViewController: BaseViewController {
             return
         }
         
-        if isSign {
+        if ((passwordTxt.text?.count ?? 0) < 6) {
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                 message: "Password do not valid, please check it again", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                alertVC.dismiss()
+            }))
+            _NavController.showAlert(alertVC)
+            return
+        }
+        
+        if isSignIn {
             viewModel.signIn(email: emailTxt.text ?? "", password: passwordTxt.text ?? "") {
                 let vc = SignInSuccessViewController()
+                vc.centerDescInfo.text = "Congratulations,You have signed in successfully. Wish you have a nice experience."
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         } else {
-            viewModel.checkExists(email: emailTxt.text ?? "", password: passwordTxt.text ?? "") {
+            viewModel.checkExists(email: emailTxt.text ?? "") {
                 let vc = AccountInfoViewController()
                 vc.prevScreenPass = self.passwordTxt.text ?? ""
                 vc.prevEmail = self.emailTxt.text ?? ""
                 self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == emailTxt {
+            if !(emailTxt.text ?? "").isValidEmail() {
+                emailTxt.isErrorRevealed = true
+                emailTxt.error = "This email is not valid"
+            } else {
+                emailTxt.isErrorRevealed = false
             }
         }
     }

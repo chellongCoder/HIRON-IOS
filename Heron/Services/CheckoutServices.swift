@@ -41,6 +41,12 @@ class CheckoutServices: NSObject {
             .disposed(by: disposeBag)
     }
     
+    func cleanData() {
+        deliveryAddress.accept(nil)
+        billingAddress.accept(nil)
+        cartPreCheckoutResponseData.accept(nil)
+    }
+    
     func prepearedCheckout() {
         guard let cartData = _CartServices.cartData.value else {
             return

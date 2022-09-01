@@ -16,6 +16,10 @@ class OrderService {
  
     private let disposeBag  = DisposeBag()
     
+    func cleanData() {
+        orders.accept(nil)
+    }
+    
     func getMyOrders(param: [String:Any], completion:@escaping (String?, [OrderDataSource]?) -> Void) {
         
         let fullURLRequest = kGatewayOrderURL + "/orders"
