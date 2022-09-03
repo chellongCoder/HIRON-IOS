@@ -33,7 +33,7 @@ class PaymentTableViewCell: UITableViewCell {
             $0.top.left.equalToSuperview().offset(10)
         }
         
-        descStatusLabel.text = "Visa | XXXXXXXXXX123  Paid"
+        descStatusLabel.text = "Paid without cards"
         contentView.addSubview(descStatusLabel)
         descStatusLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
