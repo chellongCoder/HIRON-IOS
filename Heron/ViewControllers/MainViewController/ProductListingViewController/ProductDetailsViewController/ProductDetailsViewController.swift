@@ -347,7 +347,7 @@ extension ProductDetailsViewController : ProductVariantDelegate {
             // Load new UI
             self.packageTitle.text = matchedSimpleProduct.name
             self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
-            self.priceLabel.text = String(format: "#%.2f", matchedSimpleProduct.customRegularPrice)
+            self.priceLabel.text = String(format: "$%.2f", matchedSimpleProduct.customRegularPrice)
             
             let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
             self.loadMediaView(staticHeight)

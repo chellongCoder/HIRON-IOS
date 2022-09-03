@@ -167,7 +167,10 @@ class BookingServices : NSObject {
                 
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     completion(responseData.responseMessage, Mapper<BookingAppointmentDataSource>().mapArray(JSONArray: data))
+                    return
                 }
+                
+                completion(responseData.responseMessage, nil)
             }
         }
     }

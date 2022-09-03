@@ -160,10 +160,12 @@ class AddToCartViewController: UIViewController {
             make.left.right.equalTo(productTitleLabel)
             make.height.equalTo(50)
         }
+        
+        self.loadTagsContents()
                 
         contentView.addSubview(variantView)
         variantView.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(priceLabel.snp.bottom).offset(15)
+            make.top.greaterThanOrEqualTo(tagsViewStack.snp.bottom).offset(15)
             make.top.greaterThanOrEqualTo(packageImage.snp.bottom).offset(15)
             make.left.equalToSuperview()
             make.centerX.equalToSuperview()
@@ -255,7 +257,7 @@ class AddToCartViewController: UIViewController {
             arrangedSubview.removeFromSuperview()
         }
         
-        guard let productDataSource = self.simpleProductData else {return}
+        guard let productDataSource = self.productData ?? self.simpleProductData else {return}
         
         switch productDataSource.featureType {
         case .ecom:
@@ -351,7 +353,7 @@ extension AddToCartViewController : ProductVariantDelegate {
             
             self.productTitleLabel.text = matchedSimpleProduct.name
             self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
-            self.priceLabel.text = String(format: "#%.2f", matchedSimpleProduct.customRegularPrice)
+            self.priceLabel.text = String(format: "$%.2f", matchedSimpleProduct.customRegularPrice)
             self.priceLabel.isHidden = (matchedSimpleProduct.customRegularPrice == matchedSimpleProduct.customFinalPrice)
             
             self.addToCartBtn.isUserInteractionEnabled = true
