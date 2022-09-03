@@ -10,7 +10,7 @@ struct OrderPayment : Mappable {
 	var paymentId   : String?
 	var methodCode  : String?
 	var type        : String?
-	var completedAt : Int?
+	var completedAt : Int = 0
 	var metadata    : PaymentMetadata?
 
 	init?(map: Map) {
@@ -23,7 +23,7 @@ struct OrderPayment : Mappable {
 		paymentId   <- map["paymentId"]
 		methodCode  <- map["methodCode"]
 		type        <- map["type"]
-		completedAt <- map["completedAt"]
+        completedAt <- map["completedAt"]
 		metadata    <- map["metadata"]
 	}
 

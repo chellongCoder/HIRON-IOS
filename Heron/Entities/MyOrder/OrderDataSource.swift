@@ -16,7 +16,7 @@ struct OrderDataSource : Mappable {
 	var shipmentStatus  : String?
 	var isPaid          : Bool?
 	private var amount  : Int?
-	var metadata        : OrderUserMetadata?
+	var userData        : OrderUserMetadata?
 	var createdAt       : Int?
 	var updatedAt       : Int?
 	var orderPayment    : OrderPayment?
@@ -45,7 +45,6 @@ struct OrderDataSource : Mappable {
 		shipmentStatus  <- map["shipmentStatus"]
 		isPaid          <- map["isPaid"]
 		amount          <- map["amount"]
-		metadata        <- map["metadata"]["user"]
 		createdAt       <- map["createdAt"]
 		updatedAt       <- map["updatedAt"]
 		orderPayment    <- map["orderPayment"]
@@ -54,6 +53,11 @@ struct OrderDataSource : Mappable {
 		coupons         <- map["coupons"]
 		paymentCoupons  <- map["paymentCoupons"]
 		attributeValues <- map["attributeValues"]
+        
+        if let metaData = map.JSON["metadata"] as? [String: Any],
+           let userData = metaData["user"] as? [String: Any] {
+            self.userData = Mapper<OrderUserMetadata>().map(JSON: userData)
+        }
         
         self.customAmount = Float(amount ?? 0)/100.0
 	}

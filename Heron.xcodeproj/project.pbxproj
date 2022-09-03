@@ -124,6 +124,7 @@
 		93E520422835ED4900523772 /* CartDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E520412835ED4900523772 /* CartDataSource.swift */; };
 		93E7A8AE28A2A52F008371D1 /* AttributeValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E7A8AD28A2A52F008371D1 /* AttributeValues.swift */; };
 		93E7A8B028A2B516008371D1 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E7A8AF28A2B516008371D1 /* Organization.swift */; };
+		93E7BE1B28C109000037D82A /* OrderShippingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E7BE1A28C109000037D82A /* OrderShippingData.swift */; };
 		93EC90C6285A2D85009056F6 /* CarrierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90C5285A2D85009056F6 /* CarrierView.swift */; };
 		93EC90C8285A382B009056F6 /* OrderSumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90C7285A382B009056F6 /* OrderSumView.swift */; };
 		93EC90CA285A4C03009056F6 /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90C9285A4C03009056F6 /* LaunchScreenViewController.swift */; };
@@ -330,6 +331,7 @@
 		93E520412835ED4900523772 /* CartDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartDataSource.swift; sourceTree = "<group>"; };
 		93E7A8AD28A2A52F008371D1 /* AttributeValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeValues.swift; sourceTree = "<group>"; };
 		93E7A8AF28A2B516008371D1 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		93E7BE1A28C109000037D82A /* OrderShippingData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderShippingData.swift; sourceTree = "<group>"; };
 		93EC90C5285A2D85009056F6 /* CarrierView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarrierView.swift; sourceTree = "<group>"; };
 		93EC90C7285A382B009056F6 /* OrderSumView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderSumView.swift; sourceTree = "<group>"; };
 		93EC90C9285A4C03009056F6 /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -1123,6 +1125,7 @@
 				B56181822862B59C009BE6E5 /* OrderItems.swift */,
 				B561818D2862B59D009BE6E5 /* OrderPayment.swift */,
 				B56181872862B59D009BE6E5 /* ItemUnit.swift */,
+				93E7BE1A28C109000037D82A /* OrderShippingData.swift */,
 			);
 			path = MyOrder;
 			sourceTree = "<group>";
@@ -1531,6 +1534,7 @@
 				9301757D28848A8D00151A4B /* UIImage_EXT.swift in Sources */,
 				93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */,
 				93C2EA5628B32B6500371DFE /* EHProfileServices.swift in Sources */,
+				93E7BE1B28C109000037D82A /* OrderShippingData.swift in Sources */,
 				93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */,
 				93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */,
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,

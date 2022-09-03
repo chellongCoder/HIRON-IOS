@@ -9,28 +9,31 @@ import UIKit
 import RxRelay
 
 class DetailOrderViewModel: NSObject {
-    weak var controller : DetailOrderViewController?
-    public var orders               = BehaviorRelay<[OrderDataSource]>(value: [])
     
-    func getMyOrder() {
-        _OrderServices.getMyOrders(param: [:]) { errorMessage, newOrder in
+    weak var controller             : DetailOrderViewController?
+    public let orderData            = BehaviorRelay<OrderDataSource?>(value: nil)
+    public let shippingData         = BehaviorRelay<OrderShippingData?>(value: nil)
+    
+    func getOrderShippingInfo() {
+        
+        guard let orderID = self.orderData.value?.id else {return}
+        
+        self.controller?.startLoadingAnimation()
+        _DeliveryServices.getShippingInfor(orderID: orderID) { errorMessage, shippingData in
+            self.controller?.endLoadingAnimation()
+            
             if errorMessage != nil {
-                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
-                                                     message: errorMessage,
-                                                     preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
-                                                     style: .default,
-                                                     handler: { _ in
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
                 return
             }
             
-            if let data = newOrder {
-                self.orders.accept(data)
+            if let shippingData = shippingData {
+                self.shippingData.accept(shippingData)
             }
         }
     }
-    
 }

@@ -8,7 +8,9 @@
 import UIKit
 
 class TrackingTableViewCell: UITableViewCell {
-    let statusLabel = UILabel()
+    let statusLabel         = UILabel()
+    let descStatusLabel     = UILabel()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.contentView.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
@@ -30,9 +32,8 @@ class TrackingTableViewCell: UITableViewCell {
             $0.top.left.equalToSuperview().offset(10)
         }
         
-        let descStatusLabel = UILabel()
         descStatusLabel.font = getFontSize(size: 14, weight: .regular)
-        descStatusLabel.text = "Express - 52452123325545414"
+        descStatusLabel.text = "Express"
         contentView.addSubview(descStatusLabel)
         descStatusLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)

@@ -7,11 +7,11 @@
 
 import UIKit
 import RxRelay
+import RxSwift
 
 class DetailOrderViewController: BaseViewController {
     let tableView       = UITableView(frame: .zero, style: .plain)
     let viewModel       = DetailOrderViewModel()
-    let data            = BehaviorRelay<OrderDataSource?>(value: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,17 +44,28 @@ class DetailOrderViewController: BaseViewController {
     
     init(_ data: OrderDataSource) {
         super.init(nibName: nil, bundle: nil)
-        self.data.accept(data)
-        //        viewModel.productDataSource = data
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.getMyOrder()
+        self.viewModel.orderData.accept(data)
     }
     
     override func bindingData() {
+        self.viewModel.orderData
+            .observe(on: MainScheduler.instance)
+            .subscribe { orderData in
+                
+                if orderData.element == nil {return}
+                self.viewModel.getOrderShippingInfo()
+                self.tableView.reloadData()
+            }
+            .disposed(by: self.disposeBag)
         
+        self.viewModel.shippingData
+            .observe(on: MainScheduler.instance)
+            .subscribe { shippingData in
+                if shippingData.element == nil {return}
+                self.tableView.reloadData()
+            }
+            .disposed(by: self.disposeBag)
+
     }
     
     required init?(coder: NSCoder) {
@@ -63,42 +74,55 @@ class DetailOrderViewController: BaseViewController {
 }
 
 extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let orderData = self.viewModel.orderData.value
+        
         if indexPath.row == 0 {
             // swiftlint:disable force_cast 
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProductStatusTableViewCell", for: indexPath) as! ProductStatusTableViewCell
-            cell.descStatusLabel.text = "You will receive the order in \(TimeConverter().getDateFromInt(self.data.value?.createdAt ?? 0)). Please keep your phone to get calling from deliver"
-            cell.orderDetailLabel.text = self.data.value?.code ?? ""
-            cell.purchasedLabel.text = TimeConverter().getDateFromInt(self.data.value?.orderPayment?.completedAt ?? 0)
+            cell.descStatusLabel.text = "You will receive the order in \(TimeConverter().getDateFromInt(orderData?.createdAt ?? 0)). Please keep your phone to get calling from deliver"
+            cell.orderDetailLabel.text = orderData?.code ?? ""
+            cell.purchasedLabel.text = TimeConverter().getDateFromInt(orderData?.createdAt ?? 0)
             return cell
         } else if indexPath.row == 1 {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "TrackingTableViewCell", for: indexPath) as! TrackingTableViewCell
+            cell.descStatusLabel.text = String(format: "Express - %@", self.viewModel.shippingData.value?.trackingNumber ?? "Unknow")
             return cell
         } else if indexPath.row == 2 {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingInfoTableViewCell", for: indexPath) as! ShippingInfoTableViewCell
-            cell.orderIdLabel.text = "\(self.data.value?.metadata?.lastName ?? "") | \(self.data.value?.metadata?.phone ?? "Empty phonenumber")"
-            cell.billingAddressName.text = "\(self.data.value?.metadata?.lastName ?? "") | \(self.data.value?.metadata?.phone ?? "Empty phonenumber")"
-            cell.billingAddressEmail.text = self.data.value?.metadata?.email ?? ""
+            cell.orderIdLabel.text = String(format: "%@ %@ | %@%@",
+                                            orderData?.userData?.firstName ?? "",
+                                            orderData?.userData?.lastName ?? "",
+                                            orderData?.userData?.phoneCountryCode ?? "",
+                                            orderData?.userData?.phoneNumber ?? "")
+            cell.billingAddressName.text = String(format: "%@ %@ | %@%@",
+                                                  orderData?.userData?.firstName ?? "",
+                                                  orderData?.userData?.lastName ?? "",
+                                                  orderData?.userData?.phoneCountryCode ?? "",
+                                                  orderData?.userData?.phoneNumber ?? "")
+            cell.billingAddressEmail.text = orderData?.userData?.email ?? ""
             return cell
-        } else if indexPath.row == 3 + (self.data.value?.items?.count ?? 0) {
+        } else if indexPath.row == 3 + (orderData?.items?.count ?? 0) {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "TotalOrderTableViewCell", for: indexPath) as! TotalOrderTableViewCell
-            cell.title.text = String(format: "Total (%ld products):  $%.2f", (self.data.value?.items?.count ?? 0), self.data.value?.customAmount ?? 0.0)
+            cell.title.text = String(format: "Total (%ld products):  $%.2f", (orderData?.items?.count ?? 0), orderData?.customAmount ?? 0.0)
             return cell
-        } else if indexPath.row == 4 + (self.data.value?.items?.count ?? 0) {
+        } else if indexPath.row == 4 + (orderData?.items?.count ?? 0) {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell
             cell.descStatusLabel.text = String(format: "%@ | %@%@",
-                                               self.data.value?.orderPayment?.metadata?.card?.brand ?? "Empty brand",
+                                               orderData?.orderPayment?.metadata?.card?.brand ?? "Empty brand",
                                                String(repeating: "X", count: 10),
-                                               self.data.value?.orderPayment?.metadata?.card?.last4 ?? "")
+                                               orderData?.orderPayment?.metadata?.card?.last4 ?? "")
             return cell
         } else {
             // swiftlint:disable force_cast
             let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
-            if let cellData = self.data.value?.items?[indexPath.row - 3] {
+            if let cellData = orderData?.items?[indexPath.row - 3] {
                 orderItemCell.setDataSource(cellData, indexPath: indexPath)
             }
             return orderItemCell
@@ -106,6 +130,6 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5 + (self.data.value?.items?.count ?? 0)
+        5 + (self.viewModel.orderData.value?.items?.count ?? 0)
     }
 }

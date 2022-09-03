@@ -83,5 +83,23 @@ class DeliveryServices: NSObject {
             }
         }
     }
+    
+    func getShippingInfor(orderID: String, completion:@escaping (String?, OrderShippingData?) -> Void) {
+        
+        let fullURLRequest = kGatewayDeliveryServicesURL + "/shipments/orders/" + orderID
+        _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
+                        
+            if responseData.responseCode == 400 {
+                completion(responseData.responseMessage, nil)
+                return
+            } else if responseData.responseCode >= 500 {
+                return
+            } else {
+                if let data = responseData.responseData?["data"] as? [String:Any] {
+                    completion(responseData.responseMessage, Mapper<OrderShippingData>().map(JSON: data))
+                }
+            }
+        }
+    }
 
 }
