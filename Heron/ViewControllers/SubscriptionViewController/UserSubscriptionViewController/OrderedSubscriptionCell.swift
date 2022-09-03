@@ -84,13 +84,13 @@ class OrderedSubscriptionCell: UITableViewCell {
     }
     
     func setDataSource(_ data: UserRegisteredSubscription) {
-        let createdDate = Date.init(timeIntervalSince1970: TimeInterval(data.subsPlan?.createdAt ?? 0))
-        self.orderCreatedAtLabel.text = String(format: "Ordered on %@", createdDate.toString(dateFormat: "MMM ddd yyyy"))
+        let createdDate = Date.init(timeIntervalSince1970: TimeInterval(data.subsPlan?.createdAt ?? 0)/1000)
+        self.orderCreatedAtLabel.text = String(format: "Ordered on %@", createdDate.toString(dateFormat: "MMM dd yyyy"))
         
         self.amountLabel.text = String(format: "Amount $%.2f", data.customPrice)
         
         self.subsNameLabel.text = String(format: "Type: %@", data.subsPlan?.subsItem?.name ?? "")
         
-        self.orderNumberLabel.text = String(format: "Order #%@", data.id)
+        self.orderNumberLabel.text = String(format: "Order #%@", data.id.shortenID())
     }
 }

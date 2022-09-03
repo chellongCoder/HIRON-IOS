@@ -19,8 +19,6 @@ class SubscriptionPaymentViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
-        
-        self.showBackBtn()
     }
     
     override func configUI() {
@@ -29,6 +27,18 @@ class SubscriptionPaymentViewController: BaseViewController {
         self.view.addSubview(backgroundImage)
         backgroundImage.snp.makeConstraints {
             $0.left.right.top.bottom.equalToSuperview()
+        }
+        
+        let backBtn = UIButton()
+        backBtn.setBackgroundImage(UIImage.init(systemName: "chevron.backward"), for: .normal)
+        backBtn.tintColor = .white
+        backBtn.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        self.view.addSubview(backBtn)
+        backBtn.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(70)
+            make.left.equalToSuperview().offset(20)
+            make.width.equalTo(30)
+            make.width.equalTo(20)
         }
         
         let childVỉew = UIView()

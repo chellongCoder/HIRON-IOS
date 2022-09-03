@@ -13,7 +13,6 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
     let titleLabel      = UILabel()
     let priceLabel      = UILabel()
     let intervalLabel   = UILabel()
-    let footerLabel     = DiscountLabel()
    
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -56,9 +55,11 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
+        let footerLabel = UILabel()
+        footerLabel.text = "Include 14 days Free"
         footerLabel.textAlignment = .center
         footerLabel.numberOfLines = 0
-        footerLabel.setTextColor(.white)
+        footerLabel.textColor = .white
         footerLabel.font = getFontSize(size: 12, weight: .medium)
         cardView.addSubview(footerLabel)
         footerLabel.snp.makeConstraints { make in
@@ -80,7 +81,7 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
             self.intervalLabel.text = String(format: "per %ld %@s", data.interval_count, data.interval.rawValue)
         }
         
-        self.footerLabel.text = String(format: "From: $%.2f", data.customRegularPrice)
+        // self.footerLabel.text = String(format: "From: $%.2f", data.customRegularPrice)
     }
     
     func setSelected(_ isSelected : Bool) {

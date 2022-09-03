@@ -135,6 +135,18 @@ class CheckoutItemTableViewCell: UITableViewCell {
             contentText = String(format: "%@, %@", contentText, brandName)
         }
         
+        if let sizeName = productData.attributeValues.first(where: { attribute in
+            return attribute.attributeCode == "Size"
+        }) {
+            contentText = String(format: "%@, Size = %@", contentText, sizeName.value)
+        }
+        
+        if let colorName = productData.attributeValues.first(where: { attribute in
+            return attribute.attributeCode == "Color"
+        }) {
+            contentText = String(format: "%@, Color = %@", contentText, colorName.value)
+        }
+        
         self.tagsContent.text = contentText
     }
 }

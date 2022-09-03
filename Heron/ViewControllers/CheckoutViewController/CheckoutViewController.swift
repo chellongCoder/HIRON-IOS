@@ -243,7 +243,11 @@ class CheckoutViewController: BaseViewController,
             .subscribe { deliveryAddress in
                 
                 self.updatePlaceOrderButton()
-                guard let deliveryAddress = deliveryAddress.element as? ContactDataSource else {return}
+                guard let deliveryAddress = deliveryAddress.element as? ContactDataSource else {
+                    self.deliveryTo.contactLabel.text = "Please select your Delivery Address"
+                    self.deliveryTo.addressLabel.text = nil
+                    return
+                }
                 self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " " + deliveryAddress.lastName + " | +" + deliveryAddress.phone
                 self.deliveryTo.addressLabel.text = deliveryAddress.address + ", " + deliveryAddress.province + ", " + deliveryAddress.country + ", " + deliveryAddress.postalCode
                 
