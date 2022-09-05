@@ -139,7 +139,7 @@ class UserProfileViewController: BaseViewController {
             make.left.equalTo(self.view.snp.centerX).offset(10)
         }
         
-        updateEHPBtn.setTitle("Update E-Health Profile", for: .normal)
+        updateEHPBtn.setTitle("Update Profile", for: .normal)
         updateEHPBtn.setTitleColor(.white, for: .normal)
         updateEHPBtn.backgroundColor = kPrimaryColor
         updateEHPBtn.layer.cornerRadius = 8

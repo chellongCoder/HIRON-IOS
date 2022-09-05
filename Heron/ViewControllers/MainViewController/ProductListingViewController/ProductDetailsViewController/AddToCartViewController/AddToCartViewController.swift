@@ -19,7 +19,7 @@ class AddToCartViewController: UIViewController {
     let packageImage        = UIImageView()
     let discountPercent     = UILabel()
     let productTitleLabel   = UILabel()
-    let tagsViewStack       = UIStackView()
+    let tagsContent       = UILabel()
     let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
     
@@ -150,22 +150,21 @@ class AddToCartViewController: UIViewController {
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
         
-        tagsViewStack.axis  = .horizontal
-        tagsViewStack.distribution  = .fillProportionally
-        tagsViewStack.alignment = .center
-        tagsViewStack.spacing = 10
-        contentView.addSubview(tagsViewStack)
-        tagsViewStack.snp.makeConstraints { make in
+        tagsContent.text = ""
+        tagsContent.numberOfLines = 0
+        tagsContent.font = getFontSize(size: 12, weight: .regular)
+        tagsContent.textColor = kDefaultTextColor
+        contentView.addSubview(tagsContent)
+        tagsContent.snp.makeConstraints { make in
             make.top.equalTo(priceDiscount.snp.bottom).offset(10)
             make.left.right.equalTo(productTitleLabel)
-            make.height.equalTo(50)
         }
         
         self.loadTagsContents()
                 
         contentView.addSubview(variantView)
         variantView.snp.makeConstraints { make in
-            make.top.greaterThanOrEqualTo(tagsViewStack.snp.bottom).offset(15)
+            make.top.greaterThanOrEqualTo(tagsContent.snp.bottom).offset(15)
             make.top.greaterThanOrEqualTo(packageImage.snp.bottom).offset(15)
             make.left.equalToSuperview()
             make.centerX.equalToSuperview()
@@ -253,30 +252,37 @@ class AddToCartViewController: UIViewController {
     }
     
     private func loadTagsContents() {
-        for arrangedSubview in tagsViewStack.arrangedSubviews {
-            arrangedSubview.removeFromSuperview()
-        }
+        guard let productData = self.productData ?? self.simpleProductData else {return}
         
-        guard let productDataSource = self.productData ?? self.simpleProductData else {return}
-        
-        switch productDataSource.featureType {
+        var contentText = ""
+        switch productData.featureType {
         case .ecom:
-            let newChipView = ChipView.init(title: "Physical Product")
-            tagsViewStack.addArrangedSubview(newChipView)
+            contentText = "Physical Product"
         case .ecom_booking:
-            let newChipView = ChipView.init(title: "Virtual Product")
-            tagsViewStack.addArrangedSubview(newChipView)
+            contentText = "Virtual Product"
         }
         
-        if let unitName = productDataSource.unit?.name {
-            let newChipView = ChipView.init(title: unitName)
-            tagsViewStack.addArrangedSubview(newChipView)
+        if let unitName = productData.unit?.name {
+            contentText = String(format: "%@, %@", contentText, unitName)
         }
         
-        if let brandName = productDataSource.brand?.name {
-            let newChipView = ChipView.init(title: brandName)
-            tagsViewStack.addArrangedSubview(newChipView)
+        if let brandName = productData.brand?.name {
+            contentText = String(format: "%@, %@", contentText, brandName)
         }
+        
+        if let sizeName = productData.attributeValues.first(where: { attribute in
+            return attribute.attributeCode == "Size"
+        }) {
+            contentText = String(format: "%@, Size = %@", contentText, sizeName.value)
+        }
+        
+        if let colorName = productData.attributeValues.first(where: { attribute in
+            return attribute.attributeCode == "Color"
+        }) {
+            contentText = String(format: "%@, Color = %@", contentText, colorName.value)
+        }
+        
+        self.tagsContent.text = contentText
         
     }
     

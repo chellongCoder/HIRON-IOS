@@ -313,9 +313,9 @@ class AccountInfoViewController: BaseViewController,
             return "Female"
         } else {
             if row == 0 {
-                return "01"
+                return "+01"
             }
-            return "84"
+            return "+84"
         }
     }
     
