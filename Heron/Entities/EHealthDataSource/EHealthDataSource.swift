@@ -24,7 +24,6 @@ class EHealthDataSource: Mappable {
     var addressInfo : ContactDataSource?
     
     var children    : [EHealthDataSource] = []
-    var parentId    : String = ""
     
     required init?(map: Map) {
         //
@@ -45,6 +44,5 @@ class EHealthDataSource: Mappable {
         addressInfo <- map["addressInfo"]
         
         children    <- map["children"]
-        parentId    <- map["parentId"]
     }
 }

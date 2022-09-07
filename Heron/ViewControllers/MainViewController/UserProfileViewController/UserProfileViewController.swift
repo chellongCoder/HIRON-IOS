@@ -21,7 +21,8 @@ class UserProfileViewController: BaseViewController {
     
     private let myOrderBtn          = UIButton()
     private let myAppointmentBtn    = UIButton()
-    private let updateEHPBtn        = UIButton()
+    private let updateProfileBtn    = UIButton()
+    private let updateEHProfileBtn  = UIButton()
     private let userSubscriptions   = UIButton()
     private let signOutBtn          = UIButton()
     
@@ -37,7 +38,7 @@ class UserProfileViewController: BaseViewController {
         avatar.layer.borderColor = UIColor.gray.cgColor
         self.view.addSubview(avatar)
         avatar.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(60)
+            make.top.equalToSuperview().offset(120)
             make.centerX.equalToSuperview()
             make.height.width.equalTo(100)
         }
@@ -139,14 +140,27 @@ class UserProfileViewController: BaseViewController {
             make.left.equalTo(self.view.snp.centerX).offset(10)
         }
         
-        updateEHPBtn.setTitle("Update Profile", for: .normal)
-        updateEHPBtn.setTitleColor(.white, for: .normal)
-        updateEHPBtn.backgroundColor = kPrimaryColor
-        updateEHPBtn.layer.cornerRadius = 8
-        updateEHPBtn.addTarget(self, action: #selector(updateUserProfileButtonTapped), for: .touchUpInside)
-        self.view.addSubview(updateEHPBtn)
-        updateEHPBtn.snp.makeConstraints { make in
+        updateProfileBtn.setTitle("Update User Profile", for: .normal)
+        updateProfileBtn.setTitleColor(.white, for: .normal)
+        updateProfileBtn.backgroundColor = kPrimaryColor
+        updateProfileBtn.layer.cornerRadius = 8
+        updateProfileBtn.addTarget(self, action: #selector(updateUserProfileButtonTapped), for: .touchUpInside)
+        self.view.addSubview(updateProfileBtn)
+        updateProfileBtn.snp.makeConstraints { make in
             make.top.equalTo(myOrderBtn.snp.bottom).offset(20)
+            make.width.equalToSuperview().offset(-40)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
+        updateEHProfileBtn.setTitle("Update E-Health Profile", for: .normal)
+        updateEHProfileBtn.setTitleColor(.white, for: .normal)
+        updateEHProfileBtn.backgroundColor = kPrimaryColor
+        updateEHProfileBtn.layer.cornerRadius = 8
+        updateEHProfileBtn.addTarget(self, action: #selector(updateEHProfileButtonTapped), for: .touchUpInside)
+        self.view.addSubview(updateEHProfileBtn)
+        updateEHProfileBtn.snp.makeConstraints { make in
+            make.top.equalTo(updateProfileBtn.snp.bottom).offset(5)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
@@ -159,7 +173,7 @@ class UserProfileViewController: BaseViewController {
         userSubscriptions.addTarget(self, action: #selector(userSubscriptionButtonTapped), for: .touchUpInside)
         self.view.addSubview(userSubscriptions)
         userSubscriptions.snp.makeConstraints { make in
-            make.top.equalTo(updateEHPBtn.snp.bottom).offset(5)
+            make.top.equalTo(updateEHProfileBtn.snp.bottom).offset(5)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
@@ -181,7 +195,8 @@ class UserProfileViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        _NavController.setNavigationBarHidden(true, animated: true)
         viewModel.getUserProfile()
     }
     
@@ -214,7 +229,7 @@ class UserProfileViewController: BaseViewController {
     
     @objc private func myAppointmentButtonTapped() {
         let myAppointmentVC = MyAppointmentViewController()
-        self.navigationController?.pushViewController(myAppointmentVC, animated: true)
+        _NavController.pushViewController(myAppointmentVC, animated: true)
     }
     
     @objc private func updateUserProfileButtonTapped() {
@@ -222,9 +237,14 @@ class UserProfileViewController: BaseViewController {
         self.navigationController?.pushViewController(updateEHProfileVC, animated: true)
     }
     
+    @objc private func updateEHProfileButtonTapped() {
+        let updateEHProfileVC = UpdateEHProfileViewController()
+        self.navigationController?.pushViewController(updateEHProfileVC, animated: true)
+    }
+    
     @objc private func userSubscriptionButtonTapped() {
         let listUserSubscriptionVC = UserSubscriptionViewController()
-        self.navigationController?.pushViewController(listUserSubscriptionVC, animated: true)
+        _NavController.pushViewController(listUserSubscriptionVC, animated: true)
     }
     
     @objc private func signoutButtonTapped() {

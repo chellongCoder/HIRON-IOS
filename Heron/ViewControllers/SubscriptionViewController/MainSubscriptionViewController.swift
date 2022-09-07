@@ -111,6 +111,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel.getListSubscription()
     }
     

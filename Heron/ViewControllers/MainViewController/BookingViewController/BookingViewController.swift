@@ -20,6 +20,7 @@ class BookingViewController: BaseViewController {
     
     let makeBookingBtn      = UIButton()
     let updateEHPBtn        = UIButton()
+    let myBookingBtn        = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ class BookingViewController: BaseViewController {
         avatar.layer.borderColor = UIColor.gray.cgColor
         self.view.addSubview(avatar)
         avatar.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(60)
+            make.top.equalToSuperview().offset(120)
             make.centerX.equalToSuperview()
             make.height.width.equalTo(100)
         }
@@ -187,10 +188,28 @@ class BookingViewController: BaseViewController {
             $0.width.equalToSuperview().offset(-40)
             $0.height.equalTo(50)
         }
+        
+        myBookingBtn.setTitle("My Bookings", for: .normal)
+        myBookingBtn.addTarget(self, action: #selector(viewMyBookingsButtonTapped), for: .touchUpInside)
+        myBookingBtn.setTitleColor(kPrimaryColor, for: .normal)
+        myBookingBtn.backgroundColor = .white
+        myBookingBtn.layer.borderColor = kPrimaryColor.cgColor
+        myBookingBtn.layer.borderWidth = 1
+        myBookingBtn.layer.cornerRadius = 8
+        self.view.addSubview(myBookingBtn)
+        myBookingBtn.snp.makeConstraints {
+            $0.top.equalTo(updateEHPBtn.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().offset(-40)
+            $0.height.equalTo(50)
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        _NavController.setNavigationBarHidden(true, animated: false)
         viewModel.getUserEHealthProfiles()
     }
     
@@ -229,7 +248,7 @@ class BookingViewController: BaseViewController {
     
     @objc private func makeBookingButtonTapped() {
         let selectDepartmentVC = SelectDepartmentViewController()
-        self.navigationController?.pushViewController(selectDepartmentVC, animated: true)
+        _NavController.pushViewController(selectDepartmentVC, animated: true)
     }
     
     @objc private func updateEHPButtonTapped() {
@@ -240,5 +259,10 @@ class BookingViewController: BaseViewController {
             alertVC.dismiss()
         }))
         _NavController.showAlert(alertVC)
+    }
+    
+    @objc private func viewMyBookingsButtonTapped() {
+        let myAppoimentVC = MyAppointmentViewController()
+        _NavController.pushViewController(myAppoimentVC, animated: true)
     }
 }

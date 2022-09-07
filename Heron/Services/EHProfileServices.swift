@@ -45,4 +45,27 @@ class EHProfileServices: NSObject {
             }
         }
     }
+    
+    func updateEHProfile(_ ehProfile: EHealthDataSource, completion:@escaping (String?, String?) -> Void) {
+        
+        let fullURLRequest = kGatewayEHealthProfileURL + "/profiles/" + ehProfile.id
+        
+        _ = _AppDataHandler.patch(parameters: ehProfile.toJSON(), fullURLRequest: fullURLRequest) { responseData in
+                        
+            if responseData.responseCode == 400 {
+                completion(responseData.responseMessage, nil)
+                return
+            } else if responseData.responseCode >= 500 {
+                return
+            } else {
+                if let data = responseData.responseData?["data"] as? [String:Any] {
+                    if let updatedEHProfile = Mapper<EHealthDataSource>().map(JSON: data) {
+                        self.listProfiles.accept([updatedEHProfile])
+                        _BookingServices.selectedProfile.accept(updatedEHProfile)
+                        completion(nil, nil)
+                    }
+                }
+            }
+        }
+    }
 }

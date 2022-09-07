@@ -60,6 +60,7 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         viewModel.filter.accept("confirmed")
     }
     

@@ -27,7 +27,7 @@ class UpdateUserProfileViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Update E-Health Profile"
+        self.title = "Update User Profile"
         self.viewModel.controller = self
         
         self.showBackBtn()

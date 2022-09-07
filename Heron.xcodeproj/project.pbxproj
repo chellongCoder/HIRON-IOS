@@ -66,6 +66,8 @@
 		938F7AA9282112B300DD60DB /* SFProText-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9D282112B300DD60DB /* SFProText-SemiboldItalic.ttf */; };
 		938F7AAA282112B300DD60DB /* SFProText-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A9E282112B300DD60DB /* SFProText-Bold.ttf */; };
 		938F7AAC28220DD600DD60DB /* BannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7AAB28220DD600DD60DB /* BannerView.swift */; };
+		9393CCCF28C6422E00DF6C50 /* UpdateEHProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9393CCCE28C6422E00DF6C50 /* UpdateEHProfileViewController.swift */; };
+		9393CCD128C64F4300DF6C50 /* UpdateEHProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9393CCD028C64F4300DF6C50 /* UpdateEHProfileViewModel.swift */; };
 		939BB57528AB2395001D582F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939BB57428AB2395001D582F /* UserServices.swift */; };
 		939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E6631285650A3009CD64D /* CheckoutItemTableViewCell.swift */; };
 		93AF91E9284BB7210075CD65 /* VoucherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF91E8284BB7210075CD65 /* VoucherViewController.swift */; };
@@ -273,6 +275,8 @@
 		938F7A9D282112B300DD60DB /* SFProText-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-SemiboldItalic.ttf"; sourceTree = "<group>"; };
 		938F7A9E282112B300DD60DB /* SFProText-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.ttf"; sourceTree = "<group>"; };
 		938F7AAB28220DD600DD60DB /* BannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BannerView.swift; sourceTree = "<group>"; };
+		9393CCCE28C6422E00DF6C50 /* UpdateEHProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEHProfileViewController.swift; sourceTree = "<group>"; };
+		9393CCD028C64F4300DF6C50 /* UpdateEHProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEHProfileViewModel.swift; sourceTree = "<group>"; };
 		939BB57428AB2395001D582F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		939E6631285650A3009CD64D /* CheckoutItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutItemTableViewCell.swift; sourceTree = "<group>"; };
 		93AF91E8284BB7210075CD65 /* VoucherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherViewController.swift; sourceTree = "<group>"; };
@@ -732,6 +736,15 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		9393CCCD28C6420E00DF6C50 /* UpdateEHProfileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9393CCCE28C6422E00DF6C50 /* UpdateEHProfileViewController.swift */,
+				9393CCD028C64F4300DF6C50 /* UpdateEHProfileViewModel.swift */,
+			);
+			path = UpdateEHProfileViewController;
+			sourceTree = "<group>";
+		};
 		93AF91E7284BB6A30075CD65 /* VoucherViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -849,6 +862,7 @@
 		93C2EA3E28AF9E7E00371DFE /* UserProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9393CCCD28C6420E00DF6C50 /* UpdateEHProfileViewController */,
 				93C2EA5028B3232100371DFE /* UpdateUserProfileViewController */,
 				93C2EA4928B2891800371DFE /* MyAppointmentViewController */,
 				93EC90DD285A4D20009056F6 /* MyOrderViewController */,
@@ -1422,6 +1436,7 @@
 				B55B372D2836425B005245AB /* Utils.swift in Sources */,
 				93C2EA3D28AF41E100371DFE /* AccountInfoViewModel.swift in Sources */,
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
+				9393CCD128C64F4300DF6C50 /* UpdateEHProfileViewModel.swift in Sources */,
 				93C2EA4528AFD27900371DFE /* DetailOrderViewModel.swift in Sources */,
 				93E7BE2528C3A8D20037D82A /* SubscriptionPaymentViewModel.swift in Sources */,
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
@@ -1554,6 +1569,7 @@
 				934D72A828A02A6000E4255F /* BookingProfileTableViewCell.swift in Sources */,
 				93F3CD6328BF3F0D0010ACB8 /* PaymentServices.swift in Sources */,
 				B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */,
+				9393CCCF28C6422E00DF6C50 /* UpdateEHProfileViewController.swift in Sources */,
 				93EC90ED285A4D73009056F6 /* SignInSuccessViewController.swift in Sources */,
 				B5061C05286BF22700A03271 /* MyOrderViewController.swift in Sources */,
 				93C2EA5828B33B5000371DFE /* BookingAppointmentDataSource.swift in Sources */,
