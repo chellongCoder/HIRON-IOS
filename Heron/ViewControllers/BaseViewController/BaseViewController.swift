@@ -46,8 +46,20 @@ class BaseViewController: UIViewController {
         self.navigationItem.leftBarButtonItem = backBtn
     }
     
+    func showCloseBtn() {
+        let closeBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "xmark"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(closeButtonTapped))
+        self.navigationItem.leftBarButtonItem = closeBtn
+    }
+    
     @objc func backButtonTapped() {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func closeButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     func configUI() {}

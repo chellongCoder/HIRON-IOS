@@ -8,9 +8,9 @@
 import UIKit
 import RxSwift
 
-class BookingViewController: BaseViewController {
+class SelectEHPViewController: UIViewController {
     
-    private let viewModel   = BookingViewModel()
+    private let viewModel   = SelectEHPViewModel()
     let avatar              = UIImageView()
     let nameValueLabel      = UILabel()
     let genderValueLabel    = UILabel()
@@ -19,15 +19,22 @@ class BookingViewController: BaseViewController {
     let dobValueLabel       = UILabel()
     
     let makeBookingBtn      = UIButton()
-    let updateEHPBtn        = UIButton()
-    let myBookingBtn        = UIButton()
+    
+    private let disposeBag  = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        navigationItem.title = "Booking"
+        self.edgesForExtendedLayout = []
+        navigationItem.title = "My E-Health Profile"
         
         viewModel.controller = self
+        
+        let closeBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "xmark"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(closeButtonTapped))
+        self.navigationItem.leftBarButtonItem = closeBtn
         
         avatar.image = UIImage.init(named: "default-image")
         avatar.contentMode = .scaleAspectFit
@@ -168,53 +175,27 @@ class BookingViewController: BaseViewController {
         makeBookingBtn.layer.cornerRadius = 8
         self.view.addSubview(makeBookingBtn)
         makeBookingBtn.snp.makeConstraints {
-            $0.top.equalTo(dobValueLabel.snp.bottom).offset(30)
+            $0.top.greaterThanOrEqualTo(dobValueLabel.snp.bottom).offset(30)
+            $0.bottom.lessThanOrEqualToSuperview().offset(-30)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().offset(-40)
             $0.height.equalTo(50)
         }
         
-        updateEHPBtn.setTitle("Update E-Health Profile", for: .normal)
-        updateEHPBtn.addTarget(self, action: #selector(updateEHPButtonTapped), for: .touchUpInside)
-        updateEHPBtn.setTitleColor(kPrimaryColor, for: .normal)
-        updateEHPBtn.backgroundColor = .white
-        updateEHPBtn.layer.borderColor = kPrimaryColor.cgColor
-        updateEHPBtn.layer.borderWidth = 1
-        updateEHPBtn.layer.cornerRadius = 8
-        self.view.addSubview(updateEHPBtn)
-        updateEHPBtn.snp.makeConstraints {
-            $0.top.equalTo(makeBookingBtn.snp.bottom).offset(10)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().offset(-40)
-            $0.height.equalTo(50)
-        }
-        
-        myBookingBtn.setTitle("My Bookings", for: .normal)
-        myBookingBtn.addTarget(self, action: #selector(viewMyBookingsButtonTapped), for: .touchUpInside)
-        myBookingBtn.setTitleColor(kPrimaryColor, for: .normal)
-        myBookingBtn.backgroundColor = .white
-        myBookingBtn.layer.borderColor = kPrimaryColor.cgColor
-        myBookingBtn.layer.borderWidth = 1
-        myBookingBtn.layer.cornerRadius = 8
-        self.view.addSubview(myBookingBtn)
-        myBookingBtn.snp.makeConstraints {
-            $0.top.equalTo(updateEHPBtn.snp.bottom).offset(10)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().offset(-40)
-            $0.height.equalTo(50)
-        }
-
+        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        _NavController.setNavigationBarHidden(true, animated: false)
         viewModel.getUserEHealthProfiles()
     }
     
+    @objc func closeButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     // MARK: - Binding Data
-    override func bindingData() {
+    func bindingData() {
         _EHProfileServices.listProfiles
             .observe(on: MainScheduler.instance)
             .subscribe { listEHProfile in
@@ -248,7 +229,7 @@ class BookingViewController: BaseViewController {
     
     @objc private func makeBookingButtonTapped() {
         let selectDepartmentVC = SelectDepartmentViewController()
-        _NavController.pushViewController(selectDepartmentVC, animated: true)
+        self.navigationController?.pushViewController(selectDepartmentVC, animated: true)
     }
     
     @objc private func updateEHPButtonTapped() {
@@ -259,10 +240,5 @@ class BookingViewController: BaseViewController {
             alertVC.dismiss()
         }))
         _NavController.showAlert(alertVC)
-    }
-    
-    @objc private func viewMyBookingsButtonTapped() {
-        let myAppoimentVC = MyAppointmentViewController()
-        _NavController.pushViewController(myAppoimentVC, animated: true)
     }
 }

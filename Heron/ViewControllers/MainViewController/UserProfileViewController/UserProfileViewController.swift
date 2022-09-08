@@ -19,8 +19,6 @@ class UserProfileViewController: BaseViewController {
     let phoneLabel          = UILabel()
     let emailLabel          = UILabel()
     
-    private let myOrderBtn          = UIButton()
-    private let myAppointmentBtn    = UIButton()
     private let updateProfileBtn    = UIButton()
     private let updateEHProfileBtn  = UIButton()
     private let userSubscriptions   = UIButton()
@@ -111,35 +109,7 @@ class UserProfileViewController: BaseViewController {
             make.right.equalToSuperview().offset(-10)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
-        
-        myOrderBtn.setTitle("My Order", for: .normal)
-        myOrderBtn.setTitleColor(kPrimaryColor, for: .normal)
-        myOrderBtn.layer.borderColor = kPrimaryColor.cgColor
-        myOrderBtn.layer.cornerRadius = 8
-        myOrderBtn.layer.borderWidth = 1
-        myOrderBtn.addTarget(self, action: #selector(myOrderButtonTapped), for: .touchUpInside)
-        self.view.addSubview(myOrderBtn)
-        myOrderBtn.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(20)
-            make.height.equalTo(50)
-            make.right.equalTo(self.view.snp.centerX).offset(-10)
-        }
-        
-        myAppointmentBtn.setTitle("My Appointment", for: .normal)
-        myAppointmentBtn.setTitleColor(kPrimaryColor, for: .normal)
-        myAppointmentBtn.layer.borderColor = kPrimaryColor.cgColor
-        myAppointmentBtn.layer.cornerRadius = 8
-        myAppointmentBtn.layer.borderWidth = 1
-        myAppointmentBtn.addTarget(self, action: #selector(myAppointmentButtonTapped), for: .touchUpInside)
-        self.view.addSubview(myAppointmentBtn)
-        myAppointmentBtn.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(50)
-            make.left.equalTo(self.view.snp.centerX).offset(10)
-        }
-        
+                
         updateProfileBtn.setTitle("Update User Profile", for: .normal)
         updateProfileBtn.setTitleColor(.white, for: .normal)
         updateProfileBtn.backgroundColor = kPrimaryColor
@@ -147,7 +117,7 @@ class UserProfileViewController: BaseViewController {
         updateProfileBtn.addTarget(self, action: #selector(updateUserProfileButtonTapped), for: .touchUpInside)
         self.view.addSubview(updateProfileBtn)
         updateProfileBtn.snp.makeConstraints { make in
-            make.top.equalTo(myOrderBtn.snp.bottom).offset(20)
+            make.top.equalTo(contentView.snp.bottom).offset(20)
             make.width.equalToSuperview().offset(-40)
             make.centerX.equalToSuperview()
             make.height.equalTo(50)
@@ -228,7 +198,7 @@ class UserProfileViewController: BaseViewController {
     }
     
     @objc private func myAppointmentButtonTapped() {
-        let myAppointmentVC = MyAppointmentViewController()
+        let myAppointmentVC = MyBookingsViewController()
         _NavController.pushViewController(myAppointmentVC, animated: true)
     }
     

@@ -47,6 +47,13 @@ public let kCompletionActionDefault: (() -> Void) = {_NavController.doneAlert()}
 
 // MARK: - Router
 extension AppNavigationController {
+    
+    func gotoMyOrderPage() {
+        let homePage = MainViewController.sharedInstance
+        homePage.selectedIndex = 0
+        _NavController.setViewControllers([MainViewController.sharedInstance], animated: true)
+    }
+    
     func gotoHomepage() {
         let homePage = MainViewController.sharedInstance
         homePage.selectedIndex = 1

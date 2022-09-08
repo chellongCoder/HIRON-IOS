@@ -30,7 +30,7 @@ class CheckoutViewController: BaseViewController,
         self.view.backgroundColor = kBackgroundColor
         navigationItem.title = "Checkout"
         
-        self.viewModel.delegate = self
+        self.viewModel.controller = self
         self.showBackBtn()
         
 //        let deliveryTouch = UITapGestureRecognizer.init(target: self, action: #selector(deliveryToTapped))
@@ -193,6 +193,12 @@ class CheckoutViewController: BaseViewController,
         viewModel.placeOrder()
     }
     
+    func didFinishPlaceOrder() {
+        let successVC = SuccessPlaceOrderViewController()
+        successVC.listOrders = self.viewModel.listOrders
+        self.navigationController?.pushViewController(successVC, animated: true)
+    }
+    
     // MARK: - BindingData
     override func bindingData() {
         _CartServices.cartData
@@ -283,17 +289,6 @@ class CheckoutViewController: BaseViewController,
                 } else {
                     // discout percent
                     self.voucherView.voucherCode.text = String(format: "%ld%% OFF", voucherDataSource.couponRule?.discount ?? 0)
-                }
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.reloadAnimation
-            .observe(on: MainScheduler.instance)
-            .subscribe { isLoading in
-                if (isLoading.element ?? false) {
-                    self.startLoadingAnimation()
-                } else {
-                    self.endLoadingAnimation()
                 }
             }
             .disposed(by: disposeBag)
@@ -453,13 +448,5 @@ class CheckoutViewController: BaseViewController,
                 // self.billingAddressTapped()
             }
         }
-    }
-}
-
-extension CheckoutViewController : CheckoutViewModelDelegate {
-    func didFinishPlaceOrder() {
-        let successVC = SuccessPlaceOrderViewController()
-        successVC.listOrders = self.viewModel.listOrders
-        self.navigationController?.pushViewController(successVC, animated: true)
     }
 }

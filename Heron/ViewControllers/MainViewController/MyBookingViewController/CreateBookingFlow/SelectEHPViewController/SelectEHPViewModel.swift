@@ -8,9 +8,9 @@
 import UIKit
 import RxCocoa
 
-class BookingViewModel: BaseViewModel {
+class SelectEHPViewModel: BaseViewModel {
     
-    weak var controller     : BookingViewController?
+    weak var controller     : SelectEHPViewController?
 
     func getUserEHealthProfiles() {
         self.controller?.startLoadingAnimation()

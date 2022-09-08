@@ -1,18 +1,19 @@
 //
-//  MyApoitmentViewController.swift
+//  MyOrderViewController.swift
 //  Heron
 //
-//  Created by Luu Luc on 21/08/2022.
+//  Created by Luu Luc on 03/05/2022.
 //
 
 import UIKit
 import RxSwift
+import RxCocoa
 
-class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
-
+class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+    
     private let stackView       = UIStackView()
-    let tableView               = UITableView(frame: .zero, style: .plain)
-    let viewModel               = MyAppointmentViewModel()
+    let tableView               = UITableView(frame: .zero, style: .grouped)
+    let viewModel               = MyOrderViewModel()
     private let pendingBtn      = UIButton()
     private let confirmedBtn    = UIButton()
     private let completeBtn     = UIButton()
@@ -22,11 +23,9 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "My Appointments"
         self.viewModel.controller = self
-        
-        self.showBackBtn()
-        
+        self.title = "Orders"
+                
         stackView.axis = .horizontal
         stackView.distribution = .fillProportionally
         stackView.alignment = .center
@@ -50,7 +49,7 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
-        tableView.register(MyAppoitmentTableViewCell.self, forCellReuseIdentifier: "MyAppoitmentTableViewCell")
+        tableView.register(MyOrderCell.self, forCellReuseIdentifier: "MyOrderCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(stackView.snp.bottom).offset(8)
@@ -60,7 +59,6 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
         viewModel.filter.accept("confirmed")
     }
     
@@ -134,7 +132,7 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
     
     // MARK: - Binding Data
     override func bindingData() {
-        viewModel.listAppoitments
+        viewModel.orders
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
                 self.tableView.reloadData()
@@ -142,14 +140,104 @@ class MyAppointmentViewController: BaseViewController, UITableViewDelegate, UITa
             .disposed(by: disposeBag)
     }
     
-    // MARK: - UITableViewDataSource
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.listAppoitments.value.count
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = MyOrderCell(style: .default, reuseIdentifier:"MyOrderCell")
+        if let element = viewModel.orders.value[indexPath.section].items?[indexPath.row] {
+            cell.setDataSource(element, indexPath: indexPath)
+        }
+        
+//        cell.productTitleLabel.text = element?.name
+//        cell.priceLabel.text = "$\(element?.regularPrice ?? 0)"
+//        cell.priceDiscount.text = "$\(element?.finalPrice ?? 0)"
+//        if let url = URL(string: element?.thumbnailUrl ?? "") {
+//            cell.packageImage.setImage(url: url, placeholder: UIImage(named: "default-image")!)
+//        } else {
+//            cell.packageImage.image = UIImage(named: "default-image")
+//        }
+        
+        return cell
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // swiftlint:disable force_cast 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyAppoitmentTableViewCell") as! MyAppoitmentTableViewCell
-        return cell
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+        
+        let orderData = self.viewModel.orders.value[section]
+        
+        let title = UILabel()
+        title.text = "HARD_CODE"
+        title.textColor = kDefaultTextColor
+        title.font = getFontSize(size: 16, weight: .bold)
+        
+        headerView.addSubview(title)
+        title.snp.makeConstraints {
+            $0.top.left.equalToSuperview().offset(10)
+        }
+        
+        let status = UILabel()
+        status.text = orderData.status ?? ""
+        status.font = UIFont.systemFont(ofSize: 14)
+        status.textColor = UIColor(red: 0.129, green: 0.6, blue: 0.839, alpha: 1)
+        headerView.addSubview(status)
+        status.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.right.equalToSuperview().offset(-10)
+        }
+        
+        let shippingStatus = UIButton()
+        shippingStatus.setTitle("Receive order in \(TimeConverter().getDateFromInt(orderData.createdAt ?? 0))", for: .normal)
+        shippingStatus.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        shippingStatus.setTitleColor(.black, for: .normal)
+        shippingStatus.contentHorizontalAlignment = .left
+        headerView.addSubview(shippingStatus)
+        shippingStatus.snp.makeConstraints {
+            $0.top.equalTo(title.snp.bottom).offset(10)
+            $0.left.equalToSuperview().offset(10)
+            $0.right.equalToSuperview().offset(-10)
+            $0.bottom.equalToSuperview().offset(-10)
+        }
+        
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .white
+        
+        let sessionData = self.viewModel.orders.value[section]
+        
+        let title = UILabel()
+        title.text = String(format: "Total (%ld products): $%.2f",
+                            sessionData.items?.count ?? 0,
+                            sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable ?? 0.0)
+        title.font = UIFont.systemFont(ofSize: 14)
+        headerView.addSubview(title)
+        title.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(10)
+            $0.bottom.right.equalToSuperview().offset(-15)
+        }
+        
+        let separator = UIView()
+        separator.backgroundColor = .lightGray
+        headerView.addSubview(separator)
+        separator.snp.makeConstraints {
+            $0.left.bottom.right.equalToSuperview()
+            $0.height.equalTo(2)
+        }
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        viewModel.orders.value[section].items?.count ?? 0
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        viewModel.orders.value.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewDetailsController = DetailOrderViewController.init(self.viewModel.orders.value[indexPath.section])
+        self.navigationController?.pushViewController(viewDetailsController, animated: true)
+        
     }
 }

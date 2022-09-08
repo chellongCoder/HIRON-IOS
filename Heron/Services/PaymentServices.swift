@@ -7,6 +7,7 @@
 
 import UIKit
 import Stripe
+import StripeCore
 
 class PaymentServices: NSObject {
     public static let sharedInstance    = PaymentServices()
@@ -18,14 +19,15 @@ class PaymentServices: NSObject {
         
         STPAPIClient.shared.publishableKey = kStripePublishableKey
         configuration.merchantDisplayName = "Heron Inc."
-        configuration.allowsDelayedPaymentMethods = false
+        configuration.allowsDelayedPaymentMethods = false        
     }
     
     func payment(_ paymentIntentClientSecret: String,
+                 fromViewController: UIViewController,
                  completion: @escaping (PaymentSheetResult) -> Void ) {
         
         self.paymentSheet = PaymentSheet(paymentIntentClientSecret: paymentIntentClientSecret, configuration: self.configuration)
-        self.paymentSheet?.present(from: _NavController, completion: { paymentResult in
+        self.paymentSheet?.present(from: fromViewController, completion: { paymentResult in
             // MARK: Handle the payment result
             completion(paymentResult)
         })

@@ -10,7 +10,7 @@ import RxRelay
 import RxSwift
 
 class MyAppointmentViewModel: NSObject {
-    weak var controller : MyAppointmentViewController?
+    weak var controller : MyBookingsViewController?
     public let filter               = BehaviorRelay<String>(value:"pending")
     public let listAppoitments      = BehaviorRelay<[BookingAppointmentDataSource]>(value: [])
     

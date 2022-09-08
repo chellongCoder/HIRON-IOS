@@ -76,21 +76,6 @@ extension UIViewController {
         })
     }
     
-    func setNavigationBarAppearance(color: UIColor) {
-        if #available(iOS 15.0, *) {
-            let appearance = UINavigationBarAppearance()
-            appearance.configureWithDefaultBackground()
-            appearance.backgroundColor = color // The background color.
-            
-            self.navigationController?.navigationBar.standardAppearance = appearance
-            self.navigationController?.navigationBar.scrollEdgeAppearance = self.navigationController?.navigationBar.standardAppearance
-                      
-        } else { // Background color support for older versions
-            self.navigationController?.navigationBar.barTintColor = color
-            
-        }
-    }
-    
     func presentViewController(_ vc : UIViewController) {
         if self.presentedViewController is UIAlertController {
             if let vc = self.presentedViewController as? UIAlertController {

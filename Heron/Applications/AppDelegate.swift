@@ -34,6 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = AppNavigationController.sharedInstance
         window?.makeKeyAndVisible()
         
+        if #available(iOS 15, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            UINavigationBar.appearance().standardAppearance = appearance
+            UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        }
+        
         // Disable dark mode
         if #available(iOS 13.0, *) {
             window?.overrideUserInterfaceStyle = .light

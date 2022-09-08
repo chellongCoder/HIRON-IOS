@@ -41,7 +41,10 @@ class SubscriptionPaymentViewModel: NSObject {
                     _NavController.gotoHomepage()
                     return
                 }
-                _PaymentServices.payment(paymentIntentClientSecret) { paymentResult in
+                
+                guard let controller = self.controller else { return }
+
+                _PaymentServices.payment(paymentIntentClientSecret, fromViewController: controller) { paymentResult in
                     // Check payment status
                     switch paymentResult {
                     case .completed:

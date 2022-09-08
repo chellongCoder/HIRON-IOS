@@ -56,7 +56,9 @@ class ConfirmBookingViewModel: BaseViewModel {
             
             if let clientSecret = clientSecret {
                 
-                _PaymentServices.payment(clientSecret) { paymentResult in
+                guard let controller = self.controller else { return }
+
+                _PaymentServices.payment(clientSecret, fromViewController: controller) { paymentResult in
                     self.controller?.endLoadingAnimation()
                     
                     switch paymentResult {
