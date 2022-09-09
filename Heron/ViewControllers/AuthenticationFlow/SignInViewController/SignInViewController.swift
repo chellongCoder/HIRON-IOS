@@ -13,6 +13,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     private let viewModel   = SignInViewModel()
     let emailTxt            = ErrorTextField()
     let passwordTxt         = ErrorTextField()
+    let checkboxBtn         = UIButton()
     
     var isSignIn            = true
     
@@ -117,6 +118,38 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
             $0.centerX.equalToSuperview()
         }
         
+        var lastView : UIView = passwordTxt
+        if isSignIn {
+            
+            let userDefault = UserDefaults.standard
+            self.emailTxt.text = userDefault.value(forKey: "savedEmail") as? String
+            self.passwordTxt.text = userDefault.value(forKey: "savedPassword") as? String
+            
+            checkboxBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+            checkboxBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square"), for: .selected)
+            checkboxBtn.addTarget(self, action: #selector(rememberPasswordButtonTapped), for: .touchUpInside)
+            childVỉew.addSubview(checkboxBtn)
+            checkboxBtn.snp.makeConstraints { make in
+                make.top.equalTo(passwordTxt.snp.bottom).offset(30)
+                make.height.width.equalTo(30)
+                make.left.equalTo(passwordTxt)
+            }
+            
+            let rememberPassword = UILabel()
+            rememberPassword.text = "Remember password?"
+            rememberPassword.textColor = kDefaultTextColor
+            rememberPassword.numberOfLines = 0
+            rememberPassword.font = getFontSize(size: 14, weight: .regular)
+            childVỉew.addSubview(rememberPassword)
+            rememberPassword.snp.makeConstraints { make in
+                make.left.equalTo(checkboxBtn.snp.right).offset(8)
+                make.centerY.equalTo(checkboxBtn)
+                make.right.equalToSuperview().offset(-20)
+            }
+            
+            lastView = checkboxBtn
+        }
+        
         let signInBtn = UIButton()
         signInBtn.setTitle(isSignIn ? "Sign in" : "Continue", for: .normal)
         signInBtn.addTarget(self, action: #selector(continueActionTapped), for: .touchUpInside)
@@ -124,11 +157,15 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         signInBtn.layer.cornerRadius = 8
         childVỉew.addSubview(signInBtn)
         signInBtn.snp.makeConstraints {
-            $0.top.equalTo(passwordTxt.snp.bottom).offset(50)
+            $0.top.equalTo(lastView.snp.bottom).offset(20)
             $0.width.equalToSuperview().offset(-40)
             $0.height.equalTo(50)
             $0.centerX.equalToSuperview()
         }
+    }
+    
+    @objc func rememberPasswordButtonTapped() {
+        self.checkboxBtn.isSelected = !self.checkboxBtn.isSelected
     }
     
     @objc func continueActionTapped(_ sender: Any) {
@@ -157,6 +194,17 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         
         if isSignIn {
             viewModel.signIn(email: emailTxt.text ?? "", password: passwordTxt.text ?? "") {
+                
+                if self.checkboxBtn.isSelected {
+                    let userDefault = UserDefaults.standard
+                    userDefault.set(self.emailTxt.text!, forKey: "savedEmail")
+                    userDefault.set(self.passwordTxt.text!, forKey: "savedPassword")
+                } else {
+                    let userDefault = UserDefaults.standard
+                    userDefault.removeObject(forKey: "savedEmail")
+                    userDefault.removeObject(forKey: "savedPassword")
+                }
+                
                 let vc = SignInSuccessViewController()
                 vc.centerDescInfo.text = "Congratulations,You have signed in successfully. Wish you have a nice experience."
                 self.navigationController?.pushViewController(vc, animated: true)
