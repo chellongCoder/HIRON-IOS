@@ -9,7 +9,8 @@ import UIKit
 import RxSwift
 import Material
 
-class UpdateUserProfileViewController: BaseViewController {
+class UpdateUserProfileViewController: BaseViewController ,
+                                       UIPickerViewDelegate, UIPickerViewDataSource {
 
     private let viewModel   = UpdateUserProfileViewModel()
     let avatar              = UIImageView()
@@ -19,11 +20,16 @@ class UpdateUserProfileViewController: BaseViewController {
     let phoneLabel          = UILabel()
     let emailLabel          = UILabel()
     
-    private let addressTxt      = ErrorTextField()
-    private let countryTxt      = ErrorTextField()
-    private let cityTxt         = ErrorTextField()
-    private let postCodeTxt     = ErrorTextField()
-    private let professionTxt   = ErrorTextField()
+    let firstNameTxt        = ErrorTextField()
+    let lastNameTxt         = ErrorTextField()
+    let genderTxt           = ErrorTextField()
+    let dobTxt              = ErrorTextField()
+    let phoneNumberCodeTxt  = ErrorTextField()
+    let phoneNumberTxt      = ErrorTextField()
+    
+    private let datePicker  = UIDatePicker()
+    private let genderPicker = UIPickerView()
+    private let codePicker  = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,69 +119,84 @@ class UpdateUserProfileViewController: BaseViewController {
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        addressTxt.placeholder = "Address"
-        addressTxt.dividerNormalHeight = 0.5
-        addressTxt.dividerNormalColor = kPrimaryColor
-        addressTxt.errorColor = .red
-        addressTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(addressTxt)
-        addressTxt.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(20)
-            make.left.equalTo(contentView)
+        firstNameTxt.placeholder = "First Name"
+        firstNameTxt.dividerNormalHeight = 0.5
+        firstNameTxt.dividerNormalColor = kPrimaryColor
+        firstNameTxt.errorColor = .red
+        firstNameTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(firstNameTxt)
+        firstNameTxt.snp.makeConstraints { make in
+            make.top.equalTo(contentView.snp.bottom).offset(40)
+            make.left.equalToSuperview().offset(20)
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
         
-        countryTxt.placeholder = "Country"
-        countryTxt.dividerNormalHeight = 0.5
-        countryTxt.dividerNormalColor = kPrimaryColor
-        countryTxt.errorColor = .red
-        countryTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(countryTxt)
-        countryTxt.snp.makeConstraints { make in
-            make.top.equalTo(addressTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
+        lastNameTxt.placeholder = "Last Name"
+        lastNameTxt.dividerNormalHeight = 0.5
+        lastNameTxt.dividerNormalColor = kPrimaryColor
+        lastNameTxt.errorColor = .red
+        lastNameTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(lastNameTxt)
+        lastNameTxt.snp.makeConstraints { make in
+            make.top.equalTo(firstNameTxt.snp.bottom).offset(40)
+            make.left.equalToSuperview().offset(20)
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
         
-        cityTxt.placeholder = "City"
-        cityTxt.dividerNormalHeight = 0.5
-        cityTxt.dividerNormalColor = kPrimaryColor
-        cityTxt.errorColor = .red
-        cityTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(cityTxt)
-        cityTxt.snp.makeConstraints { make in
-            make.top.equalTo(countryTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
+        genderTxt.placeholder = "Gender"
+        genderTxt.dividerNormalHeight = 0.5
+        genderTxt.dividerNormalColor = kPrimaryColor
+        genderTxt.errorColor = .red
+        genderTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(genderTxt)
+        genderTxt.snp.makeConstraints { make in
+            make.top.equalTo(lastNameTxt.snp.bottom).offset(40)
+            make.left.equalToSuperview().offset(20)
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
         
-        postCodeTxt.placeholder = "Post Code"
-        postCodeTxt.dividerNormalHeight = 0.5
-        postCodeTxt.dividerNormalColor = kPrimaryColor
-        postCodeTxt.errorColor = .red
-        postCodeTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(postCodeTxt)
-        postCodeTxt.snp.makeConstraints { make in
-            make.top.equalTo(cityTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
+        dobTxt.placeholder = "DOB"
+        dobTxt.dividerNormalHeight = 0.5
+        dobTxt.dividerNormalColor = kPrimaryColor
+        dobTxt.errorColor = .red
+        dobTxt.inputView = self.datePicker
+        dobTxt.textColor = kDefaultTextColor
+        self.pageScroll.addSubview(dobTxt)
+        dobTxt.snp.makeConstraints { make in
+            make.top.equalTo(genderTxt.snp.bottom).offset(40)
+            make.left.equalToSuperview().offset(20)
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
         
-        professionTxt.placeholder = "Profession"
-        professionTxt.dividerNormalHeight = 0.5
-        professionTxt.dividerNormalColor = kPrimaryColor
-        professionTxt.errorColor = .red
-        professionTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(professionTxt)
-        professionTxt.snp.makeConstraints { make in
-            make.top.equalTo(postCodeTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
+        phoneNumberCodeTxt.text = "+84"
+        phoneNumberCodeTxt.placeholder = "Phone Code *"
+        phoneNumberCodeTxt.dividerNormalHeight = 0.5
+        phoneNumberCodeTxt.dividerNormalColor = kPrimaryColor
+        phoneNumberCodeTxt.errorColor = .red
+        phoneNumberCodeTxt.textColor = kDefaultTextColor
+        phoneNumberCodeTxt.keyboardType = .phonePad
+        self.pageScroll.addSubview(phoneNumberCodeTxt)
+        phoneNumberCodeTxt.snp.makeConstraints { make in
+            make.top.equalTo(dobTxt.snp.bottom).offset(50)
+            make.left.equalToSuperview().offset(20)
+            make.width.equalTo(self.view).multipliedBy(0.3)
+        }
+        
+        phoneNumberTxt.placeholder = "Phone number *"
+        phoneNumberTxt.dividerNormalHeight = 0.5
+        phoneNumberTxt.dividerNormalColor = kPrimaryColor
+        phoneNumberTxt.errorColor = .red
+        phoneNumberTxt.textColor = kDefaultTextColor
+        phoneNumberTxt.keyboardType = .phonePad
+        self.pageScroll.addSubview(phoneNumberTxt)
+        phoneNumberTxt.snp.makeConstraints { make in
+            make.top.equalTo(dobTxt.snp.bottom).offset(50)
+            make.left.equalTo(phoneNumberCodeTxt.snp.right).offset(10)
+            make.right.equalTo(self.view).offset(-20)
         }
         
         let completeBtn = UIButton()
@@ -186,12 +207,14 @@ class UpdateUserProfileViewController: BaseViewController {
         completeBtn.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         self.pageScroll.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { make in
-            make.top.equalTo(professionTxt.snp.bottom).offset(30)
+            make.top.equalTo(phoneNumberCodeTxt.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
             make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
+        
+        self.loadPickerView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -200,9 +223,61 @@ class UpdateUserProfileViewController: BaseViewController {
         viewModel.getUserProfile()
     }
     
+    private func loadPickerView() {
+        let calendar = Calendar(identifier: .gregorian)
+        let currentDate = Date()
+        var components = DateComponents()
+        components.calendar = calendar
+        components.day = -1
+        let maxDate = calendar.date(byAdding: components, to: currentDate)!
+        datePicker.datePickerMode = .date
+        datePicker.locale = .current
+        datePicker.maximumDate = maxDate
+        if #available(iOS 14, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.sizeToFit()
+        }
+
+        let doneToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done",
+                                   style: .done,
+                                   target: self,
+                                   action: #selector(doneDatePicker))
+
+        doneToolbar.setItems([flexSpace, done], animated: true)
+        doneToolbar.sizeToFit()
+
+        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        dobTxt.inputView = datePicker
+        dobTxt.inputAccessoryView = doneToolbar
+        
+        genderPicker.delegate = self
+        genderPicker.dataSource = self
+        genderTxt.inputView = genderPicker
+        
+        codePicker.dataSource = self
+        codePicker.delegate = self
+        phoneNumberCodeTxt.inputView = codePicker
+    }
+    
+    @objc private func doneDatePicker() {
+        dobTxt.text = datePicker.date.toString(dateFormat: "dd/MM/yyyy")
+        self.view.endEditing(true)
+    }
+    
+    @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
+        dobTxt.text = datePicker.date.toString(dateFormat: "dd/MM/yyyy")
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+        userData.userDOB = Int(sender.date.timeIntervalSince1970)*1000
+        viewModel.userData.accept(userData)
+    }
+    
     // MARK: Binding Data
     override func bindingData() {
-        _AppCoreData.userDataSource
+        viewModel.userData
             .observe(on: MainScheduler.instance)
             .subscribe { userDataSource in
                 if let userData = userDataSource.element {
@@ -215,6 +290,13 @@ class UpdateUserProfileViewController: BaseViewController {
                     self.genderLabel.text = String(format: "Gender: %@", (userData?.userGender == .male) ? "Male" : "Female")
                     self.phoneLabel.text = String(format: "Phone number: %@%@", userData?.userPhoneCode ?? "", userData?.userPhoneNum ?? "")
                     self.emailLabel.text = String(format: "Email : %@", userData?.userEmail ?? "")
+                    
+                    self.firstNameTxt.text = userData?.userFirstName
+                    self.lastNameTxt.text = userData?.userLastName
+                    self.genderTxt.text = (userData?.userGender == .male) ? "Male" : "Female"
+                    self.dobTxt.text = dateDob.toString(dateFormat: "dd/MM/yyyy")
+                    self.phoneNumberCodeTxt.text = userData?.userPhoneCode
+                    self.phoneNumberTxt.text = userData?.userPhoneNum
                 }
                 
             }
@@ -222,11 +304,92 @@ class UpdateUserProfileViewController: BaseViewController {
     }
     
     @objc private func completeButtonTapped() {
-        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
-                                             message: "This feature do not available right now.\nPlease try again in next build", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Gotcha", comment: ""), style: .default, handler: { _ in
-            alertVC.dismiss()
-        }))
-        _NavController.showAlert(alertVC)
+        
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+                
+        if (firstNameTxt.text ?? "").isEmpty {
+            firstNameTxt.isErrorRevealed = true
+            firstNameTxt.error = "This field can not be empty"
+            return
+        }
+        userData.userFirstName = firstNameTxt.text!
+        
+        if (lastNameTxt.text ?? "").isEmpty {
+            lastNameTxt.isErrorRevealed = true
+            lastNameTxt.error = "This field can not be empty"
+            return
+        }
+        userData.userLastName = lastNameTxt.text!
+        
+        if (genderTxt.text ?? "").isEmpty {
+            genderTxt.isErrorRevealed = true
+            genderTxt.error = "This field can not be empty"
+            return
+        }
+        
+        if (dobTxt.text ?? "").isEmpty {
+            dobTxt.isErrorRevealed = true
+            dobTxt.error = "This field can not be empty"
+            return
+        }
+                
+        if (phoneNumberTxt.text ?? "").isEmpty {
+            phoneNumberTxt.isErrorRevealed = true
+            phoneNumberTxt.error = "This field can not be empty"
+            return
+        }
+        userData.userPhoneNum = phoneNumberTxt.text!
+        
+        viewModel.updateUserProfile(userData)
+    }
+    
+    // MARK: - UIPickerViewDataSource
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == genderPicker {
+            if row == 0 {
+                return "Male"
+            }
+            return "Female"
+        } else {
+            if row == 0 {
+                return "+01"
+            }
+            return "+84"
+        }
+    }
+    
+    // MARK: - UIPickerViewDelegate
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+        
+        if pickerView == genderPicker {
+            if row == 0 {
+                genderTxt.text = "Male"
+                userData.userGender = .male
+            } else {
+                genderTxt.text = "Female"
+                userData.userGender = .female
+            }
+        } else {
+            if row == 0 {
+                phoneNumberCodeTxt.text = "01"
+                userData.userPhoneCode = "01"
+            } else {
+                phoneNumberCodeTxt.text = "84"
+                userData.userPhoneCode = "84"
+            }
+        }
+        
+        viewModel.userData.accept(userData)
     }
 }

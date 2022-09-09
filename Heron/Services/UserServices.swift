@@ -24,6 +24,13 @@ class UserServices {
     }
     
     func updateUserProfile(_ newUserProfile: UserDataSource, completion:@escaping (String?, Bool) -> Void) {
-//        let fullURLRequest = kGatewayUserServicesURL + "/users/profile"
+        let fullURLRequest = kGatewayUserServicesURL + "/users/profile"
+        _ = _AppDataHandler.patch(parameters: newUserProfile.toJSON(), fullURLRequest: fullURLRequest, completion: { responseData in
+            if responseData.responseCode == 204 {
+                completion(nil, true)
+            } else {
+                completion(responseData.responseMessage, false)
+            }
+        })
     }
 }

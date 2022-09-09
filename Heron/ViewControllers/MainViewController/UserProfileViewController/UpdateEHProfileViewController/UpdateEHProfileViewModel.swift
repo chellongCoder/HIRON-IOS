@@ -47,6 +47,8 @@ class UpdateEHProfileViewModel: NSObject {
                 _NavController.showAlert(alertVC)
                 return
             }
+            
+            self.getUserEHProfile()
         }
     }
 }

@@ -21,7 +21,7 @@ class EHealthDataSource: Mappable {
     var dob         : String = ""
     var identityNum : String = ""
     var profession  : String = ""
-    var addressInfo : ContactDataSource?
+    var addressInfo : EHProfileAddress?
     
     var children    : [EHealthDataSource] = []
     
@@ -44,5 +44,30 @@ class EHealthDataSource: Mappable {
         addressInfo <- map["addressInfo"]
         
         children    <- map["children"]
+    }
+}
+
+struct EHProfileAddress: Mappable {
+    
+    var country     : String = ""
+    var region      : String = ""
+    var province    : String = ""
+    var district    : String = ""
+    var ward        : String = ""
+    var address     : String = ""
+    var postalCode  : String = ""
+    
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        country     <- map["country"]
+        region      <- map["region"]
+        province    <- map["province"]
+        district    <- map["district"]
+        ward        <- map["ward"]
+        address     <- map["address"]
+        postalCode  <- map["postalCode"]
     }
 }

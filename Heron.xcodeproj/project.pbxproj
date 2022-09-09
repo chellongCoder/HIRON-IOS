@@ -885,8 +885,8 @@
 		93C2EA3E28AF9E7E00371DFE /* UserProfileViewController */ = {
 			isa = PBXGroup;
 			children = (
-				9393CCCD28C6420E00DF6C50 /* UpdateEHProfileViewController */,
 				93C2EA5028B3232100371DFE /* UpdateUserProfileViewController */,
+				9393CCCD28C6420E00DF6C50 /* UpdateEHProfileViewController */,
 				93C2EA3F28AF9EA800371DFE /* UserProfileViewController.swift */,
 				93C2EA4128AF9F9700371DFE /* UserProfileViewModel.swift */,
 			);
