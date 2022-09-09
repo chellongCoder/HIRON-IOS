@@ -155,9 +155,12 @@ class BookingServices : NSObject {
         }
     }
     
-    func getListAppointments(_ filter: String, completion:@escaping (String?, [BookingAppointmentDataSource]?) -> Void) {
-        let param : [String: Any] = ["filter[status][eq]" : filter]
-        let fullURLRequest = kGatewayOganizationURL + "/bookings"
+    func getListBookings(_ filterStatus: String?, completion:@escaping (String?, [BookingAppointmentDataSource]?) -> Void) {
+        var param : [String: Any] = ["sort[createdAt]": "desc"]
+        if let filterStatus = filterStatus {
+            param["filter[status][eq]"] = filterStatus
+        }
+        let fullURLRequest = kGatewayBookingURL + "/bookings"
         _ = _AppDataHandler.get(parameters: param, fullURLRequest: fullURLRequest) { responseData in
             
             if let responseMessage = responseData.responseMessage {

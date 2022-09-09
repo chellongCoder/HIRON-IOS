@@ -12,8 +12,8 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
 
     private let stackView       = UIStackView()
     let tableView               = UITableView(frame: .zero, style: .plain)
-    let viewModel               = MyAppointmentViewModel()
-    private let pendingBtn      = UIButton()
+    let viewModel               = MyBookingViewModel()
+    private let allBtn          = UIButton()
     private let confirmedBtn    = UIButton()
     private let completeBtn     = UIButton()
     private var separatorView   = UIView()
@@ -54,7 +54,7 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = .white
-        tableView.register(MyAppoitmentTableViewCell.self, forCellReuseIdentifier: "MyAppoitmentTableViewCell")
+        tableView.register(MyBookingTableViewCell.self, forCellReuseIdentifier: "MyAppoitmentTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(stackView.snp.bottom).offset(8)
@@ -66,7 +66,7 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         _NavController.setNavigationBarHidden(true, animated: false)
-        viewModel.filter.accept("confirmed")
+        self.segmentBtnTapped(sender: self.allBtn)
     }
     
     @objc private func addNewBooking() {
@@ -76,17 +76,17 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
     }
     
     private func loadHeaderView(stackView: UIStackView) {
-        pendingBtn.isSelected = true
-        self.selectedSegmentBtn = pendingBtn
-        pendingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        pendingBtn.setTitle("Pending", for: .normal)
-        pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
-        pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
-        pendingBtn.snp.makeConstraints { (make) in
+        allBtn.isSelected = true
+        self.selectedSegmentBtn = allBtn
+        allBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        allBtn.setTitle("All", for: .normal)
+        allBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        allBtn.setTitleColor(kPrimaryColor, for: .selected)
+        allBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        allBtn.snp.makeConstraints { (make) in
             make.height.equalTo(46)
         }
-        stackView.addArrangedSubview(pendingBtn)
+        stackView.addArrangedSubview(allBtn)
         
         confirmedBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
         confirmedBtn.setTitle("Confirmed", for: .normal)
@@ -111,7 +111,7 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
     
     @objc private func segmentBtnTapped(sender: UIButton) {
         
-        if selectedSegmentBtn == sender {
+        if selectedSegmentBtn == sender && sender != self.allBtn {
             return
         }
         
@@ -129,8 +129,8 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
         }
         
         switch sender {
-        case self.pendingBtn:
-            self.viewModel.filter.accept("pending")
+        case self.allBtn:
+            self.viewModel.filter.accept(nil)
 //            tableViewIsScrolling = true
         case self.confirmedBtn:
             self.viewModel.filter.accept("confirmed")
@@ -145,7 +145,7 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
     
     // MARK: - Binding Data
     override func bindingData() {
-        viewModel.listAppoitments
+        viewModel.listBookings
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
                 self.tableView.reloadData()
@@ -155,12 +155,23 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.viewModel.listAppoitments.value.count
+        return self.viewModel.listBookings.value.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // swiftlint:disable force_cast 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MyAppoitmentTableViewCell") as! MyAppoitmentTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MyAppoitmentTableViewCell") as! MyBookingTableViewCell
+        let cellData = viewModel.listBookings.value[indexPath.row]
+        cell.setDataSource(cellData)
         return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cellData = viewModel.listBookings.value[indexPath.row]
+        let bookingDetailsVC = BookingDetailViewController()
+        self.navigationController?.pushViewController(bookingDetailsVC, animated: true)
+        
+        bookingDetailsVC.viewModel.bookingData.accept(cellData)
     }
 }

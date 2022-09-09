@@ -51,6 +51,8 @@
 		934D72A628A02A4600E4255F /* BookingDoctorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934D72A528A02A4600E4255F /* BookingDoctorTableViewCell.swift */; };
 		934D72A828A02A6000E4255F /* BookingProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934D72A728A02A6000E4255F /* BookingProfileTableViewCell.swift */; };
 		934D72AA28A02A8700E4255F /* BookingPaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934D72A928A02A8700E4255F /* BookingPaymentTableViewCell.swift */; };
+		9361911D28CB2B58000B6131 /* BookingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361911C28CB2B58000B6131 /* BookingDetailViewController.swift */; };
+		9361911F28CB2B74000B6131 /* BookingDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9361911E28CB2B74000B6131 /* BookingDetailViewModel.swift */; };
 		938F7A8B2820E7DC00DD60DB /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7A8A2820E7DC00DD60DB /* HomepageViewController.swift */; };
 		938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938F7A8D28210F3100DD60DB /* ProductTableViewCell.swift */; };
 		938F7A9F282112B300DD60DB /* SFProText-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 938F7A93282112B300DD60DB /* SFProText-Medium.ttf */; };
@@ -99,8 +101,8 @@
 		93C2EA4528AFD27900371DFE /* DetailOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4428AFD27900371DFE /* DetailOrderViewModel.swift */; };
 		93C2EA4828B282B800371DFE /* TotalOrderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4728B282B800371DFE /* TotalOrderTableViewCell.swift */; };
 		93C2EA4B28B2893700371DFE /* MyBookingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4A28B2893700371DFE /* MyBookingsViewController.swift */; };
-		93C2EA4D28B28B5E00371DFE /* MyAppointmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4C28B28B5E00371DFE /* MyAppointmentViewModel.swift */; };
-		93C2EA4F28B318B800371DFE /* MyAppoitmentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4E28B318B800371DFE /* MyAppoitmentTableViewCell.swift */; };
+		93C2EA4D28B28B5E00371DFE /* MyBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4C28B28B5E00371DFE /* MyBookingViewModel.swift */; };
+		93C2EA4F28B318B800371DFE /* MyBookingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA4E28B318B800371DFE /* MyBookingTableViewCell.swift */; };
 		93C2EA5228B3234100371DFE /* UpdateUserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA5128B3234100371DFE /* UpdateUserProfileViewController.swift */; };
 		93C2EA5428B326DA00371DFE /* UpdateUserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA5328B326DA00371DFE /* UpdateUserProfileViewModel.swift */; };
 		93C2EA5628B32B6500371DFE /* EHProfileServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93C2EA5528B32B6500371DFE /* EHProfileServices.swift */; };
@@ -260,6 +262,8 @@
 		934D72A528A02A4600E4255F /* BookingDoctorTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDoctorTableViewCell.swift; sourceTree = "<group>"; };
 		934D72A728A02A6000E4255F /* BookingProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingProfileTableViewCell.swift; sourceTree = "<group>"; };
 		934D72A928A02A8700E4255F /* BookingPaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingPaymentTableViewCell.swift; sourceTree = "<group>"; };
+		9361911C28CB2B58000B6131 /* BookingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailViewController.swift; sourceTree = "<group>"; };
+		9361911E28CB2B74000B6131 /* BookingDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailViewModel.swift; sourceTree = "<group>"; };
 		938F7A8A2820E7DC00DD60DB /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		938F7A8D28210F3100DD60DB /* ProductTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductTableViewCell.swift; sourceTree = "<group>"; };
 		938F7A93282112B300DD60DB /* SFProText-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Medium.ttf"; sourceTree = "<group>"; };
@@ -308,8 +312,8 @@
 		93C2EA4428AFD27900371DFE /* DetailOrderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailOrderViewModel.swift; sourceTree = "<group>"; };
 		93C2EA4728B282B800371DFE /* TotalOrderTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalOrderTableViewCell.swift; sourceTree = "<group>"; };
 		93C2EA4A28B2893700371DFE /* MyBookingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingsViewController.swift; sourceTree = "<group>"; };
-		93C2EA4C28B28B5E00371DFE /* MyAppointmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppointmentViewModel.swift; sourceTree = "<group>"; };
-		93C2EA4E28B318B800371DFE /* MyAppoitmentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppoitmentTableViewCell.swift; sourceTree = "<group>"; };
+		93C2EA4C28B28B5E00371DFE /* MyBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingViewModel.swift; sourceTree = "<group>"; };
+		93C2EA4E28B318B800371DFE /* MyBookingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingTableViewCell.swift; sourceTree = "<group>"; };
 		93C2EA5128B3234100371DFE /* UpdateUserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileViewController.swift; sourceTree = "<group>"; };
 		93C2EA5328B326DA00371DFE /* UpdateUserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateUserProfileViewModel.swift; sourceTree = "<group>"; };
 		93C2EA5528B32B6500371DFE /* EHProfileServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHProfileServices.swift; sourceTree = "<group>"; };
@@ -694,6 +698,15 @@
 			path = ConfirmBookingCells;
 			sourceTree = "<group>";
 		};
+		9361911B28CB2B35000B6131 /* BookingDetailViewController */ = {
+			isa = PBXGroup;
+			children = (
+				9361911C28CB2B58000B6131 /* BookingDetailViewController.swift */,
+				9361911E28CB2B74000B6131 /* BookingDetailViewModel.swift */,
+			);
+			path = BookingDetailViewController;
+			sourceTree = "<group>";
+		};
 		938F7A892820E7BD00DD60DB /* HomepageViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -906,10 +919,11 @@
 		93C2EA4928B2891800371DFE /* MyBookingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				9361911B28CB2B35000B6131 /* BookingDetailViewController */,
 				9AD70C61288DB1C80079BFB1 /* CreateBookingFlow */,
 				93C2EA4A28B2893700371DFE /* MyBookingsViewController.swift */,
-				93C2EA4C28B28B5E00371DFE /* MyAppointmentViewModel.swift */,
-				93C2EA4E28B318B800371DFE /* MyAppoitmentTableViewCell.swift */,
+				93C2EA4C28B28B5E00371DFE /* MyBookingViewModel.swift */,
+				93C2EA4E28B318B800371DFE /* MyBookingTableViewCell.swift */,
 			);
 			path = MyBookingViewController;
 			sourceTree = "<group>";
@@ -1486,7 +1500,7 @@
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* ItemCategory.swift in Sources */,
-				93C2EA4D28B28B5E00371DFE /* MyAppointmentViewModel.swift in Sources */,
+				93C2EA4D28B28B5E00371DFE /* MyBookingViewModel.swift in Sources */,
 				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
 				9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */,
 				933D191D2819940B00F1CCC4 /* ApplicationMacros.swift in Sources */,
@@ -1562,11 +1576,12 @@
 				93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */,
 				93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */,
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,
-				93C2EA4F28B318B800371DFE /* MyAppoitmentTableViewCell.swift in Sources */,
+				93C2EA4F28B318B800371DFE /* MyBookingTableViewCell.swift in Sources */,
 				93AF9210284D158C0075CD65 /* VoucherTableViewCell.swift in Sources */,
 				93C2EA4B28B2893700371DFE /* MyBookingsViewController.swift in Sources */,
 				93BB691828302B4500BC2E5E /* CartProductTableViewCell.swift in Sources */,
 				9A88B773288DC2CC00BE1E05 /* SelectDoctorTableViewCell.swift in Sources */,
+				9361911D28CB2B58000B6131 /* BookingDetailViewController.swift in Sources */,
 				93C2EA4028AF9EA800371DFE /* UserProfileViewController.swift in Sources */,
 				93EC90EA285A4D73009056F6 /* MainAuthViewController.swift in Sources */,
 				93AF91E9284BB7210075CD65 /* VoucherViewController.swift in Sources */,
@@ -1585,6 +1600,7 @@
 				93C2EA5228B3234100371DFE /* UpdateUserProfileViewController.swift in Sources */,
 				93AF91FC284BEDCB0075CD65 /* UserAddressListingViewController.swift in Sources */,
 				93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */,
+				9361911F28CB2B74000B6131 /* BookingDetailViewModel.swift in Sources */,
 				B5061C08286BF35F00A03271 /* MyOrderViewModel.swift in Sources */,
 				B56181902862B59D009BE6E5 /* ItemAttributes.swift in Sources */,
 				933D19422819947000F1CCC4 /* AppVersionDataSource.swift in Sources */,

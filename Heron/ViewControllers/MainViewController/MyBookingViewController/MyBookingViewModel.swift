@@ -9,10 +9,10 @@ import UIKit
 import RxRelay
 import RxSwift
 
-class MyAppointmentViewModel: NSObject {
+class MyBookingViewModel: NSObject {
     weak var controller : MyBookingsViewController?
-    public let filter               = BehaviorRelay<String>(value:"pending")
-    public let listAppoitments      = BehaviorRelay<[BookingAppointmentDataSource]>(value: [])
+    public let filter               = BehaviorRelay<String?>(value:nil)
+    public let listBookings         = BehaviorRelay<[BookingAppointmentDataSource]>(value: [])
     
     private let disposeBag          = DisposeBag()
     
@@ -21,14 +21,14 @@ class MyAppointmentViewModel: NSObject {
         self.filter
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
-                self.getMyAppointments()
+                self.getMyBookings()
             }
             .disposed(by: disposeBag)
     }
     
-    private func getMyAppointments() {
+    private func getMyBookings() {
         self.controller?.startLoadingAnimation()
-        _BookingServices.getListAppointments(filter.value) { errorMessage, listAppointments in
+        _BookingServices.getListBookings(filter.value) { errorMessage, listBookings in
             self.controller?.endLoadingAnimation()
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
@@ -41,8 +41,8 @@ class MyAppointmentViewModel: NSObject {
                 return
             }
             
-            if let data = listAppointments {
-                self.listAppoitments.accept(data)
+            if let data = listBookings {
+                self.listBookings.accept(data)
             }
         }
     }

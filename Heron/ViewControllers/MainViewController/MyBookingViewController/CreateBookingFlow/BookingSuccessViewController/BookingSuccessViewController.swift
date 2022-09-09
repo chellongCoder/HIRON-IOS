@@ -49,16 +49,16 @@ class BookingSuccessViewController: UIViewController {
             make.width.equalToSuperview().offset(-60)
         }
         
-        let viewMyOrderBtn = UIButton()
-        viewMyOrderBtn.setTitle("View  My Order", for: .normal)
-        viewMyOrderBtn.setTitleColor(kPrimaryColor, for: .normal)
-        viewMyOrderBtn.backgroundColor = .white
-        viewMyOrderBtn.layer.cornerRadius = 8
-        viewMyOrderBtn.layer.borderColor = kPrimaryColor.cgColor
-        viewMyOrderBtn.layer.borderWidth = 1
-        viewMyOrderBtn.addTarget(self, action: #selector(viewMyOrderButtonTapped), for: .touchUpInside)
-        self.view.addSubview(viewMyOrderBtn)
-        viewMyOrderBtn.snp.makeConstraints { make in
+        let viewMyBookingBtn = UIButton()
+        viewMyBookingBtn.setTitle("View  My Bookings", for: .normal)
+        viewMyBookingBtn.setTitleColor(kPrimaryColor, for: .normal)
+        viewMyBookingBtn.backgroundColor = .white
+        viewMyBookingBtn.layer.cornerRadius = 8
+        viewMyBookingBtn.layer.borderColor = kPrimaryColor.cgColor
+        viewMyBookingBtn.layer.borderWidth = 1
+        viewMyBookingBtn.addTarget(self, action: #selector(viewMyBookingButtonTapped), for: .touchUpInside)
+        self.view.addSubview(viewMyBookingBtn)
+        viewMyBookingBtn.snp.makeConstraints { make in
             make.top.equalTo(orderplacedMessage.snp.bottom).offset(50)
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
@@ -73,7 +73,7 @@ class BookingSuccessViewController: UIViewController {
         continueBtn.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         self.view.addSubview(continueBtn)
         continueBtn.snp.makeConstraints { make in
-            make.top.equalTo(viewMyOrderBtn.snp.bottom).offset(15)
+            make.top.equalTo(viewMyBookingBtn.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
             make.width.equalToSuperview().offset(-100)
@@ -86,9 +86,8 @@ class BookingSuccessViewController: UIViewController {
     }
     
     // MARK: - Buttons
-    @objc private func viewMyOrderButtonTapped() {
+    @objc private func viewMyBookingButtonTapped() {
         self.navigationController?.dismiss(animated: true, completion: nil)
-        _NavController.gotoMyOrderPage()
     }
     
     @objc private func continueButtonTapped() {

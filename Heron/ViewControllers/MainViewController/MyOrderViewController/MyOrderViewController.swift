@@ -14,7 +14,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
     private let stackView       = UIStackView()
     let tableView               = UITableView(frame: .zero, style: .grouped)
     let viewModel               = MyOrderViewModel()
-    private let pendingBtn      = UIButton()
+    private let allBtn          = UIButton()
     private let confirmedBtn    = UIButton()
     private let completeBtn     = UIButton()
     private var separatorView   = UIView()
@@ -59,21 +59,21 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.filter.accept("confirmed")
+        self.segmentBtnTapped(sender: self.allBtn)
     }
     
     private func loadHeaderView(stackView: UIStackView) {
-        pendingBtn.isSelected = true
-        self.selectedSegmentBtn = pendingBtn
-        pendingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        pendingBtn.setTitle("Pending", for: .normal)
-        pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
-        pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
-        pendingBtn.snp.makeConstraints { (make) in
+        allBtn.isSelected = true
+        self.selectedSegmentBtn = allBtn
+        allBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        allBtn.setTitle("All", for: .normal)
+        allBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        allBtn.setTitleColor(kPrimaryColor, for: .selected)
+        allBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        allBtn.snp.makeConstraints { (make) in
             make.height.equalTo(46)
         }
-        stackView.addArrangedSubview(pendingBtn)
+        stackView.addArrangedSubview(allBtn)
         
         confirmedBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
         confirmedBtn.setTitle("Confirmed", for: .normal)
@@ -98,7 +98,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     @objc private func segmentBtnTapped(sender: UIButton) {
         
-        if selectedSegmentBtn == sender {
+        if selectedSegmentBtn == sender && sender != self.allBtn {
             return
         }
         
@@ -116,8 +116,8 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         switch sender {
-        case self.pendingBtn:
-            self.viewModel.filter.accept("pending")
+        case self.allBtn:
+            self.viewModel.filter.accept(nil)
 //            tableViewIsScrolling = true
         case self.confirmedBtn:
             self.viewModel.filter.accept("confirmed")

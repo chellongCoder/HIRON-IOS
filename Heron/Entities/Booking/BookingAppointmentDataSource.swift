@@ -27,6 +27,7 @@ class BookingAppointmentDataSource: Mappable {
     private var amount  : Int = 0
     var startTime   : Int = 0
     var endTime     : Int = 0
+    var profile     : EHealthDataSource?
     
     // custom
     var customAmount    : Float = 0.0
@@ -43,7 +44,27 @@ class BookingAppointmentDataSource: Mappable {
         amount      <- map["amount"]
         startTime   <- map["startTime"]
         endTime     <- map["endTime"]
+        profile     <- map["profile"]
         
         self.customAmount = Float(amount)/100.0
+    }
+    
+    func getStatusLabel() -> String {
+        switch self.status {
+        case .PENDING:
+            return "PENDING"
+        case .CONFIRMED:
+            return "CONFIRMED"
+        case .PROCESSING:
+            return "PROCESSING"
+        case .COMPLETED:
+            return "COMPLETED"
+        case .CANCELED:
+            return "CANCELED"
+        case .REJECTED:
+            return "REJECTED"
+        case .EXPIRED:
+            return "EXPIRED"
+        }
     }
 }

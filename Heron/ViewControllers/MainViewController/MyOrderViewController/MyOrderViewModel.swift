@@ -11,7 +11,7 @@ import RxRelay
 class MyOrderViewModel: NSObject {
 
     weak var controller             : MyOrderViewController?
-    public let filter               = BehaviorRelay<String>(value:"pending")
+    public let filter               = BehaviorRelay<String?>(value:nil)
     public var orders               = BehaviorRelay<[OrderDataSource]>(value: [])
     private let disposeBag          = DisposeBag()
     
@@ -27,7 +27,14 @@ class MyOrderViewModel: NSObject {
     
     private func getMyOrder() {
         self.controller?.startLoadingAnimation()
-        _OrderServices.getMyOrders(param: ["filter[status][eq]": filter.value]) { errorMessage, newOrder in
+        
+        var param : [String:Any] = [:]
+        
+        if let filter = self.filter.value {
+            param["filter[status][eq]"] = filter
+        }
+        
+        _OrderServices.getMyOrders(param: param) { errorMessage, newOrder in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {

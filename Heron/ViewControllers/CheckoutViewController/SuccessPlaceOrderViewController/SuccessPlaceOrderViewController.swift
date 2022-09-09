@@ -55,7 +55,7 @@ class SuccessPlaceOrderViewController: UIViewController {
         viewMyOrderBtn.setTitle("View  My Order", for: .normal)
         viewMyOrderBtn.backgroundColor = kPrimaryColor
         viewMyOrderBtn.layer.cornerRadius = 8
-        viewMyOrderBtn.addTarget(self, action: #selector(viewMyOrderButtonTapped), for: .touchUpInside)
+        viewMyOrderBtn.addTarget(self, action: #selector(viewMyBookingButtonTapped), for: .touchUpInside)
         self.view.addSubview(viewMyOrderBtn)
         viewMyOrderBtn.snp.makeConstraints { make in
             make.top.equalTo(orderplacedMessage.snp.bottom).offset(50)
@@ -90,8 +90,8 @@ class SuccessPlaceOrderViewController: UIViewController {
     }
     
     // MARK: - Buttons
-    @objc private func viewMyOrderButtonTapped() {
-        _NavController.gotoHomepage()
+    @objc private func viewMyBookingButtonTapped() {
+        _NavController.gotoMyOrderPage()
     }
     
     @objc private func continueButtonTapped() {
