@@ -41,7 +41,14 @@ class UpdateUserProfileViewModel: NSObject {
             }
             
             if isSuccess {
-                self.controller?.navigationController?.popToRootViewController(animated: true)
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Done", comment: ""),
+                                                     message: "User profile has updated !",
+                                                     preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    alertVC.dismiss()
+                    self.controller?.navigationController?.popToRootViewController(animated: true)
+                }))
+                _NavController.showAlert(alertVC)
             }
         }
     }

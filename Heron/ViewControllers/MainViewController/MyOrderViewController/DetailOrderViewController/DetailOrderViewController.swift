@@ -117,7 +117,7 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             
             if let cards = orderData?.orderPayment?.metadata?.card {
                 cell.descStatusLabel.text = String(format: "%@ | %@%@",
-                                                   cards.brand ?? "NONE", String(repeating: "X", count: 10),
+                                                   cards.getBrandName() , String(repeating: "X", count: 10),
                                                    cards.last4 ?? "")
             }
             

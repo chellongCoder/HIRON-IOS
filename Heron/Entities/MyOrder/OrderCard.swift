@@ -41,4 +41,13 @@ struct OrderCard : Mappable {
 		wallet          <- map["wallet"]
 	}
 
+    func getBrandName() -> String {
+        if self.brand == "visa" {
+            return "Visa"
+        } else if self.brand == "mastercard" {
+            return "MasterCard"
+        } else {
+            return self.brand?.localizedUppercase ?? ""
+        }
+    }
 }

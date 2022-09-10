@@ -11,7 +11,7 @@ import ObjectMapper
 class OrderShippingData: Mappable {
     
     var id              : String = ""
-    var trackingNumber  : String = "Unknow"
+    var trackingNumber  : String = ""
     
     required init?(map: Map) {
         //

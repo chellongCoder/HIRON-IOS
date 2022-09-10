@@ -122,8 +122,12 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         if isSignIn {
             
             let userDefault = UserDefaults.standard
-            self.emailTxt.text = userDefault.value(forKey: "savedEmail") as? String
-            self.passwordTxt.text = userDefault.value(forKey: "savedPassword") as? String
+            if let email = userDefault.value(forKey: "savedEmail") as? String,
+               let password = userDefault.value(forKey: "savedPassword") as? String {
+                self.emailTxt.text = email
+                self.passwordTxt.text = password
+                self.checkboxBtn.isSelected = true
+            }
             
             checkboxBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
             checkboxBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square"), for: .selected)
