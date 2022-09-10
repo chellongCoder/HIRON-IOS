@@ -46,6 +46,20 @@ class CartServices : NSObject {
         voucherCode.accept(nil)
     }
     
+    func cartUpdateFailed() {
+        // disable all selected items
+        // clear voucher code
+        // clear cartPreCheckoutResponseData
+        self.voucherCode.accept(nil)
+        self.cartPreCheckoutResponseData.accept(nil)
+        
+        if let cartData = self.cartData.value {
+            let emptyCart = CartDataSource.init(JSONString: "{}")!
+            let newCartData = self.matchingCheckoutSelectedOfStore(cartData, oldCartData: emptyCart)
+            self.cartData.accept(newCartData)
+        }
+    }
+    
     func prepearedCheckout() {
         guard let cartData = cartData.value else {
             cartPreCheckoutResponseData.accept(nil)
@@ -78,10 +92,24 @@ class CartServices : NSObject {
         
         let fullURLRequest = kGatwayCartURL + "/carts/pre-checkout"
         _ = _AppDataHandler.post(parameters: newCheckoutRequestDataSource.toJSON(), fullURLRequest: fullURLRequest) { responseData in
+            
+            if responseData.responseCode == 400 && !(responseData.responseMessage ?? "").isEmpty {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
+                                                     message: responseData.responseMessage ?? "",
+                                                     preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    alertVC.dismiss()
+                }))
+                _NavController.showAlert(alertVC)
+                self.cartUpdateFailed()
+                return
+            }
+            
             if let data = responseData.responseData?["data"] as? [String:Any] {
                 let cartPrecheckoutData = Mapper<CartPrepearedResponseDataSource>().map(JSON: data)
                 if let cartPrecheckoutData = cartPrecheckoutData {
                     self.cartPreCheckoutResponseData.accept(cartPrecheckoutData)
+                    return
                 }
             }
         }
