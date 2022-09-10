@@ -20,6 +20,9 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
+        
+        let dissmissKeyboardGesture = UITapGestureRecognizer.init(target: self, action: #selector(dissmissKeyboard))
+        self.view.addGestureRecognizer(dissmissKeyboardGesture)
     }
     
     override func configUI() {
@@ -166,6 +169,10 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
             $0.height.equalTo(50)
             $0.centerX.equalToSuperview()
         }
+    }
+    
+    @objc private func dissmissKeyboard() {
+        self.view.endEditing(true)
     }
     
     @objc func rememberPasswordButtonTapped() {

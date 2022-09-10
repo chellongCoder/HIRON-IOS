@@ -35,7 +35,6 @@ class BaseViewController: UIViewController {
         self.configUI()
         self.bindingData()
         self.view.layoutIfNeeded()
-        
     }
     
     func showBackBtn() {

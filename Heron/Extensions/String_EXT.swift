@@ -41,6 +41,12 @@ extension String {
        char : "*"
        })
     }
+    
+    // remove duplicate space, first and last space
+    func formatString() -> String {
+        let components = self.components(separatedBy: .whitespacesAndNewlines)
+        return components.filter { !$0.isEmpty }.joined(separator: " ")
+    }
 }
 
 extension Date {

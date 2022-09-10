@@ -112,11 +112,25 @@ class MyOrderCell: UITableViewCell {
         self.priceLabel.text = String(format: "$%.2f", cellData.customRegularPrice)
         self.priceDiscount.text = String(format: "$%.2f", cellData.customFinalPrice)
         
-        let attributeID : [String] = (cellData.attributes ?? []).filter({ attribute in
-            return attribute.key == "Color" || attribute.key == "Size" || attribute.key == "weight"
-        }).map { $0.value ?? "" }
-        self.tagContentLabel.text = attributeID.joined(separator:" - ")
         self.countLabel.text = String(format: "x%ld", cellData.quantity)
+        
+        var contentText = ""
+        if let sizeName = cellData.attributes?.first(where: { attribute in
+            return attribute.key == "Size"
+        }) {
+            contentText = String(format: "Size = %@", sizeName.value ?? "")
+        }
+        
+        if let colorName = cellData.attributes?.first(where: { attribute in
+            return attribute.key == "Color"
+        }) {
+            if contentText.isEmpty {
+                contentText = String(format: "Color = %@", contentText, colorName.value ?? "")
+            } else {
+                contentText = String(format: "%@, Color = %@", contentText, colorName.value ?? "")
+            }
+        }
+        self.tagContentLabel.text = contentText
     }
     
     @objc private func removeButtonTapped() {
