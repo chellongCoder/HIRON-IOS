@@ -121,10 +121,17 @@ extension ApplicationDataHandler {
                     responseData.responseMessage = responseDict["message"] as? String
                 }
             } else if responseData.responseCode == 401 {
-                if (response.request?.url?.path ?? "").contains("system/session") {
-                    
-                    // ignored case signout with 401
-                    return nil
+                DispatchQueue.main.async {
+                    let alertVC = UIAlertController.init(title: NSLocalizedString("Authentication Error", comment: ""),
+                                                         message: "User need to sign in again.\n(Error: 401)", preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                        alertVC.dismiss()
+                    }))
+                    alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Sign out", comment: ""), style: .default, handler: { _ in
+                        alertVC.dismiss()
+                        _NavController.gotoLoginPage()
+                    }))
+                    _NavController.showAlert(alertVC)
                 }
                 return nil
             } else if responseData.responseCode == 403 {

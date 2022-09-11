@@ -7,9 +7,24 @@
 
 import UIKit
 import ObjectMapper
+import RxSwift
 
-class UserServices {
+class UserServices : NSObject {
     public static let sharedInstance = UserServices()
+    private let disposeBag           = DisposeBag()
+    
+    override init() {
+        super.init()
+        _AppCoreData.userSession
+            .observe(on: MainScheduler.instance)
+            .subscribe { newSessionData in
+                guard let newSessionData = newSessionData.element else { return }
+                guard let newToken = newSessionData?.accessToken else { return }
+                self.getUserProfile()
+            }
+            .disposed(by: disposeBag)
+
+    }
     
     func getUserProfile() {
         let fullURLRequest = kGatewayUserServicesURL + "/users/profile"

@@ -19,6 +19,7 @@ class SubscriptionService: NSObject {
                 completion(responseData.responseMessage, nil)
                 return
             } else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
@@ -36,6 +37,7 @@ class SubscriptionService: NSObject {
                 completion(responseData.responseMessage, nil)
                 return
             } else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
@@ -58,6 +60,7 @@ class SubscriptionService: NSObject {
                 completion(responseData.responseMessage, nil)
                 return
             } else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [String:Any] {
@@ -80,6 +83,7 @@ class SubscriptionService: NSObject {
                 completion(responseData.responseMessage, nil)
                 return
             } else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
                 return
             } else {
                 completion(nil, responseData.responseMessage)
@@ -100,6 +104,7 @@ class SubscriptionService: NSObject {
                 completion(responseData.responseMessage, nil)
                 return
             } else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
                 return
             } else {
                 completion(nil, responseData.responseMessage)

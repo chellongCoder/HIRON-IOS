@@ -25,9 +25,7 @@ class AuthenticationServices {
                     sessionToken.refreshToken = refreshToken
                 }
                 
-                _AppCoreData.userSession.accept(sessionToken)
-                _UserServices.getUserProfile()
-                
+                _AppCoreData.userSession.accept(sessionToken)                
                 completion(nil, responseData.responseMessage)
             } else {
                 completion(responseData.responseMessage, nil)
