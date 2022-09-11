@@ -155,7 +155,7 @@ class AddUserAddressViewController: BaseViewController {
             make.height.equalTo(50)
         }
         
-        postCodeTxt.placeholder = "Post Code"
+        postCodeTxt.placeholder = "Zip Code"
         postCodeTxt.text = viewModel.contact.value.postalCode
         postCodeTxt.dividerNormalHeight = 0.5
         postCodeTxt.dividerNormalColor = kPrimaryColor

@@ -196,7 +196,7 @@ class UpdateEHProfileViewController: BaseViewController {
             make.height.equalTo(50)
         }
         
-        postCodeTxt.placeholder = "Post Code"
+        postCodeTxt.placeholder = "Zip Code"
         postCodeTxt.dividerNormalHeight = 0.5
         postCodeTxt.dividerNormalColor = kPrimaryColor
         postCodeTxt.errorColor = .red
