@@ -42,22 +42,11 @@ class CartServices : NSObject {
     
     func cleanData() {
         cartData.accept(nil)
-        cartPreCheckoutResponseData.accept(nil)
-        voucherCode.accept(nil)
     }
     
-    func cartUpdateFailed() {
+    private func cartUpdateFailed() {
         // disable all selected items
-        // clear voucher code
-        // clear cartPreCheckoutResponseData
-        self.voucherCode.accept(nil)
-        self.cartPreCheckoutResponseData.accept(nil)
-        
-        if let cartData = self.cartData.value {
-            let emptyCart = CartDataSource.init(JSONString: "{}")!
-            let newCartData = self.matchingCheckoutSelectedOfStore(cartData, oldCartData: emptyCart)
-            self.cartData.accept(newCartData)
-        }
+        self.cartData.accept(self.uncheckAll(cartData: self.cartData.value))
     }
     
     func prepearedCheckout() {
@@ -196,6 +185,30 @@ class CartServices : NSObject {
         }
         
         return returnCartData
+    }
+    
+    private func uncheckAll(cartData: CartDataSource?) -> CartDataSource? {
+        
+        guard let cartData = cartData else {
+            return nil
+        }
+
+        var newStore : [StoreDataSource] = []
+        for var store in cartData.store {
+            
+            store.isCheckoutSelected = false
+            var newItems : [CartItemDataSource] = []
+            for var item in store.cartItems {
+                item.isSelected = false
+                newItems.append(item)
+            }
+            store.cartItems = newItems
+            newStore.append(store)
+        }
+        
+        var newCart = cartData
+        newCart.store = newStore
+        return newCart
     }
     
     private func matchingCheckoutSelectedOfItem(_ newStore: StoreDataSource, oldStore: StoreDataSource) -> StoreDataSource {

@@ -86,7 +86,7 @@ class SuccessPlaceOrderViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         // Clear cart Data
-        _CartServices.voucherCode.accept(nil)
+        _CartServices.cleanData()
     }
     
     // MARK: - Buttons
