@@ -61,6 +61,7 @@ extension AppNavigationController {
     }
     
     func gotoLoginPage() {
+        _AppCoreData.signOut()
         _NavController.setViewControllers([MainAuthViewController()], animated: true)
     }
 }
