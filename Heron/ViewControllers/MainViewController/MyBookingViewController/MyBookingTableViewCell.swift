@@ -166,7 +166,10 @@ class MyBookingTableViewCell: UITableViewCell {
         
         let startTime = Date.init(timeIntervalSince1970: TimeInterval(data.startTime/1000))
         let endTime = Date.init(timeIntervalSince1970: TimeInterval(data.endTime/1000))
-        self.timeableLabel.text = String(format: "From: %@ - To: %@", startTime.toString(dateFormat: "MMM dd, yyyy"), endTime.toString(dateFormat: "MMM dd, yyyy"))
+        self.timeableLabel.text = String(format: "From: %@ - To: %@. At %@",
+                                         startTime.toString(dateFormat: "HH: mm"),
+                                         endTime.toString(dateFormat: "HH: mm"),
+                                         endTime.toString(dateFormat: "MMM dd, yyyy"))
         
         self.patientInfoLabel.text = String(format: "Customer: %@ %@ | Gender: %@",
                                             data.profile?.firstName ?? "",

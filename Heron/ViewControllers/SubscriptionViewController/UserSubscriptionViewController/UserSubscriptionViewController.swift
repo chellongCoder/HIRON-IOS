@@ -136,7 +136,7 @@ class UserSubscriptionViewController: BaseViewController {
                     
                     let startDateLabel = UILabel()
                     let startDate = Date.init(timeIntervalSince1970: TimeInterval(currentSubs.enabledAt / 1000))
-                    startDateLabel.text = String(format: "From: %@", startDate.toString(dateFormat: "dd, MMM yyyy"))
+                    startDateLabel.text = String(format: "From: %@", startDate.toString(dateFormat: "MMM dd, yyyy"))
                     startDateLabel.textColor = kDefaultTextColor
                     startDateLabel.numberOfLines = 0
                     startDateLabel.textColor = UIColor.init(hexString: "444444")
@@ -150,7 +150,7 @@ class UserSubscriptionViewController: BaseViewController {
                     
                     let endDateLabel = UILabel()
                     let endDate = Date.init(timeIntervalSince1970: TimeInterval(currentSubs.disabledAt / 1000))
-                    endDateLabel.text = String(format: "Expiry at: %@", endDate.toString(dateFormat: "dd, MMM yyyy"))
+                    endDateLabel.text = String(format: "Expiry at: %@", endDate.toString(dateFormat: "MMM dd, yyyy"))
                     endDateLabel.textColor = kDefaultTextColor
                     endDateLabel.numberOfLines = 0
                     endDateLabel.textColor = UIColor.init(hexString: "444444")

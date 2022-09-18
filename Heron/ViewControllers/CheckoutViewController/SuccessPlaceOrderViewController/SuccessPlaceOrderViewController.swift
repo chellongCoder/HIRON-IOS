@@ -39,7 +39,7 @@ class SuccessPlaceOrderViewController: UIViewController {
         }
         
         let orderplacedMessage = UILabel()
-        orderplacedMessage.text = "Your order has been received and is being processed. Please check the delivery status at My Orther page"
+        orderplacedMessage.text = String(format: "Your order: #%@ has been received and is being processed. Please check the delivery status at My Orther page", self.listOrders.first?.code ?? "" )
         orderplacedMessage.textAlignment = .center
         orderplacedMessage.textColor = kDefaultTextColor
         orderplacedMessage.font = getFontSize(size: 14, weight: .regular)

@@ -35,7 +35,7 @@ class CheckoutViewModel: NSObject {
             }
             
             // clear checkout data
-            _CheckoutServices.cleanData()
+            _CheckoutServices.checkoutSucess()
             
             self.listOrders = listOrders
             

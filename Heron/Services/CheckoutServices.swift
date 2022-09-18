@@ -47,6 +47,11 @@ class CheckoutServices: NSObject {
         cartPreCheckoutResponseData.accept(nil)
     }
     
+    func checkoutSucess() {
+        deliveryAddress.accept(nil)
+        cartPreCheckoutResponseData.accept(nil)
+    }
+    
     func prepearedCheckout() {
         guard let cartData = _CartServices.cartData.value else {
             return

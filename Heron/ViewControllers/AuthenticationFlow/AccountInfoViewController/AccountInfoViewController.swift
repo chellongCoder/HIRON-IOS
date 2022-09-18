@@ -151,7 +151,7 @@ class AccountInfoViewController: BaseViewController,
             make.width.equalTo(self.view).offset(-40)
         }
                 
-        phoneNumberCodeTxt.text = "+84"
+        phoneNumberCodeTxt.text = "+1"
         phoneNumberCodeTxt.placeholder = "Phone Code *"
         phoneNumberCodeTxt.dividerNormalHeight = 0.5
         phoneNumberCodeTxt.dividerNormalColor = kPrimaryColor
@@ -234,12 +234,12 @@ class AccountInfoViewController: BaseViewController,
     }
     
     @objc private func doneDatePicker() {
-        dobTxt.text = datePicker.date.toString(dateFormat: "dd/MM/yyyy")
+        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd yyyy")
         self.view.endEditing(true)
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
-        dobTxt.text = datePicker.date.toString(dateFormat: "dd/MM/yyyy")
+        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
         let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
         userData.userDOB = Int(sender.date.timeIntervalSince1970)*1000
         viewModel.userData.accept(userData)

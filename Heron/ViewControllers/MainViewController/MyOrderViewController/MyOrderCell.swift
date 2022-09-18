@@ -125,7 +125,7 @@ class MyOrderCell: UITableViewCell {
             return attribute.key == "Color"
         }) {
             if contentText.isEmpty {
-                contentText = String(format: "Color = %@", contentText, colorName.value ?? "")
+                contentText = String(format: "Color = %@", colorName.value ?? "")
             } else {
                 contentText = String(format: "%@, Color = %@", contentText, colorName.value ?? "")
             }

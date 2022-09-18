@@ -41,12 +41,12 @@ class SelectDateAndTimeBookingViewModel: NSObject {
             return []
         }
         let selectedDate = selectedDate ?? Date()
-        let dateString = selectedDate.toString(dateFormat: "dd-MM-yyyy")
+        let dateString = selectedDate.toString(dateFormat: "MMM dd, yyyy")
         
         let listFiltered = self.listTimeables.value.filter { timeableData in
             let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))
             let currentDateInt = Int(Date().timeIntervalSince1970*1000)
-            return (date.toString(dateFormat: "dd-MM-yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))
+            return (date.toString(dateFormat: "MMM dd, yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))
         }
         
         return listFiltered
@@ -54,12 +54,12 @@ class SelectDateAndTimeBookingViewModel: NSObject {
     
     func getListTimeableByDate(_ date: Date) -> [TimeableDataSource] {
         if self.listTimeables.value.isEmpty { return [] }
-        let dateString = date.toString(dateFormat: "dd-MM-yyyy")
+        let dateString = date.toString(dateFormat: "MMM dd, yyyy")
         
         let listFiltered = self.listTimeables.value.filter { timeableData in
             let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))
             let currentDateInt = Int(Date().timeIntervalSince1970*1000)
-            return (date.toString(dateFormat: "dd-MM-yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))
+            return (date.toString(dateFormat: "MMM dd, yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))
         }
         
         return listFiltered

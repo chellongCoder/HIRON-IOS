@@ -29,7 +29,7 @@ class DictionaryDecoder {
 class TimeConverter {
     func getDateFromInt(_ int: Int) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.yyyy"
+        dateFormatter.dateFormat = "MMM dd, yyyy"
         
         let date = Date.init(timeIntervalSince1970: TimeInterval(int/1000))
         

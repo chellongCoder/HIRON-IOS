@@ -5,6 +5,16 @@
 import Foundation
 import ObjectMapper
 
+enum OrderStatus: String {
+    case PENDING    = "pending"
+    case CONFIRMED  = "confirmed"
+    case PROCESSING = "processing"
+    case COMPLETED  = "completed"
+    case CANCELED   = "canceled"
+    case REJECTED   = "rejected"
+    case EXPIRED    = "expired"
+}
+
 struct OrderDataSource : Mappable {
 	var id              : String = ""
 	var code            : String = ""
@@ -12,7 +22,7 @@ struct OrderDataSource : Mappable {
 	var targetId        : String?
 	var orderPaymentId  : String?
 	var featureType     : String?
-	var status          : String?
+    private var status  : OrderStatus = .PENDING
 	var shipmentStatus  : String?
 	var isPaid          : Bool?
 	private var amount  : Int?
@@ -62,4 +72,22 @@ struct OrderDataSource : Mappable {
         self.customAmount = Float(amount ?? 0)/100.0
 	}
 
+    func getOrderStatusValue() -> String {
+        switch self.status {
+        case .PENDING:
+            return "PENDING"
+        case .CONFIRMED:
+            return "CONFIRMED"
+        case .PROCESSING:
+            return "PROCESSING"
+        case .COMPLETED:
+            return "COMPLETED"
+        case .CANCELED:
+            return "CANCELED"
+        case .REJECTED:
+            return "REJECTED"
+        case .EXPIRED:
+            return "EXPIRED"
+        }
+    }
 }

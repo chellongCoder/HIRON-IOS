@@ -264,12 +264,12 @@ class UpdateUserProfileViewController: BaseViewController ,
     }
     
     @objc private func doneDatePicker() {
-        dobTxt.text = datePicker.date.toString(dateFormat: "dd/MM/yyyy")
+        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
         self.view.endEditing(true)
     }
     
     @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
-        dobTxt.text = datePicker.date.toString(dateFormat: "dd/MM/yyyy")
+        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
         let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
         userData.userDOB = Int(sender.date.timeIntervalSince1970)*1000
         viewModel.userData.accept(userData)
@@ -286,7 +286,7 @@ class UpdateUserProfileViewController: BaseViewController ,
                     }
                     self.nameLabel.text = String(format: "Name: %@ %@", userData?.userFirstName ?? "", userData?.userLastName ?? "")
                     let dateDob = Date.init(timeIntervalSince1970: TimeInterval((userData?.userDOB ?? 0) / 1000))
-                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "dd/MM/yyyy"))
+                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
                     self.genderLabel.text = String(format: "Gender: %@", (userData?.userGender == .male) ? "Male" : "Female")
                     self.phoneLabel.text = String(format: "Phone number: %@%@", userData?.userPhoneCode ?? "", userData?.userPhoneNum ?? "")
                     self.emailLabel.text = String(format: "Email : %@", userData?.userEmail ?? "")
@@ -294,7 +294,7 @@ class UpdateUserProfileViewController: BaseViewController ,
                     self.firstNameTxt.text = userData?.userFirstName
                     self.lastNameTxt.text = userData?.userLastName
                     self.genderTxt.text = (userData?.userGender == .male) ? "Male" : "Female"
-                    self.dobTxt.text = dateDob.toString(dateFormat: "dd/MM/yyyy")
+                    self.dobTxt.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
                     self.phoneNumberCodeTxt.text = userData?.userPhoneCode
                     self.phoneNumberTxt.text = userData?.userPhoneNum
                 }

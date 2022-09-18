@@ -181,7 +181,7 @@ class UserProfileViewController: BaseViewController {
                     }
                     self.nameLabel.text = String(format: "Name: %@ %@", userData?.userFirstName ?? "", userData?.userLastName ?? "")
                     let dateDob = Date.init(timeIntervalSince1970: TimeInterval((userData?.userDOB ?? 0) / 1000))
-                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "dd/MM/yyyy"))
+                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
                     self.genderLabel.text = String(format: "Gender: %@", (userData?.userGender == .male) ? "Male" : "Female")
                     self.phoneLabel.text = String(format: "Phone number: %@%@", userData?.userPhoneCode ?? "", userData?.userPhoneNum ?? "")
                     self.emailLabel.text = String(format: "Email : %@", userData?.userEmail ?? "")

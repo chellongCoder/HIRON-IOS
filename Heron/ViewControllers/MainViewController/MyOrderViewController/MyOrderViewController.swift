@@ -175,9 +175,11 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         let status = UILabel()
-        status.text = orderData.status ?? ""
-        status.font = UIFont.systemFont(ofSize: 14)
-        status.textColor = UIColor(red: 0.129, green: 0.6, blue: 0.839, alpha: 1)
+        status.text = String(format: " %@ ", orderData.getOrderStatusValue())
+        status.textColor = kPrimaryColor
+        status.font = getFontSize(size: 14, weight: .regular)
+        status.layer.borderWidth = 1
+        status.layer.borderColor = kPrimaryColor.cgColor
         headerView.addSubview(status)
         status.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)

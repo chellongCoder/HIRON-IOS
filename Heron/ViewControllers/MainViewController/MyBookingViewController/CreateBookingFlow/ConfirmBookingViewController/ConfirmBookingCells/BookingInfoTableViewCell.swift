@@ -83,7 +83,7 @@ class BookingInfoTableViewCell: UITableViewCell {
             let endTimeInterval = TimeInterval(selectedTime.endTime/1000)
             let endTime = Date.init(timeIntervalSince1970: endTimeInterval)
             
-            bookingInfoDate.text = String(format: "Date: %@", startTime.toString(dateFormat: "dd MMM, yyyy"))
+            bookingInfoDate.text = String(format: "Date: %@", startTime.toString(dateFormat: "MMM dd, yyyy"))
             bookingInfoTime.text = String(format: "Time: %@ - %@", startTime.toString(dateFormat: "HH:mm"), endTime.toString(dateFormat: "HH:mm"))
         }
         
