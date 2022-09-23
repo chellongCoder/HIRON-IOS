@@ -13,6 +13,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     private let stackView       = UIStackView()
     let tableView               = UITableView(frame: .zero, style: .grouped)
+    let emptyView               = EmptyView()
     let viewModel               = MyOrderViewModel()
     private let allBtn          = UIButton()
     private let confirmedBtn    = UIButton()
@@ -54,6 +55,14 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(stackView.snp.bottom).offset(8)
             make.left.bottom.right.equalToSuperview()
+        }
+        
+        emptyView.titleLabel.text = "Your order list is empty"
+        emptyView.messageLabel.text = "Filtered order will be available here"
+        emptyView.isHidden = true
+        self.view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.center.size.equalTo(tableView)
         }
     }
     
@@ -134,8 +143,16 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
     override func bindingData() {
         viewModel.orders
             .observe(on: MainScheduler.instance)
-            .subscribe { _ in
-                self.tableView.reloadData()
+            .subscribe { listOrder in
+                
+                if listOrder.element?.isEmpty ?? false {
+                    self.tableView.isHidden = true
+                    self.emptyView.isHidden = false
+                } else {
+                    self.tableView.isHidden = false
+                    self.emptyView.isHidden = true
+                    self.tableView.reloadData()
+                }
             }
             .disposed(by: disposeBag)
     }
