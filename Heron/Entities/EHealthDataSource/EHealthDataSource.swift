@@ -18,7 +18,7 @@ class EHealthDataSource: Mappable {
     var email       : String = ""
     var avatar      : String = ""
     var gender      : UserGender = .male
-    var dob         : String = ""
+    var dob         : Int = 0
     var identityNum : String = ""
     var profession  : String = ""
     var addressInfo : EHProfileAddress?

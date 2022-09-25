@@ -214,7 +214,8 @@ class SelectEHPViewController: UIViewController {
                 }
                 self.emailValueLabel.text = firstEHProfile.email
                 self.phoneValueLabel.text = firstEHProfile.phone
-                self.dobValueLabel.text = firstEHProfile.dob
+                let dateDob = Date.init(timeIntervalSince1970: TimeInterval(firstEHProfile.dob / 1000))
+                self.dobValueLabel.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
                 
             } onError: { error in
                 print("onError: %@", error.localizedDescription)

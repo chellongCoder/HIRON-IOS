@@ -253,7 +253,8 @@ class UpdateEHProfileViewController: BaseViewController {
                         self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
                     }
                     self.nameLabel.text = String(format: "Name: %@ %@", mainProfile.firstName, mainProfile.lastName)
-                    self.dobLabel.text = String(format: "DOB: %@", mainProfile.dob)
+                    let dateDob = Date.init(timeIntervalSince1970: TimeInterval(mainProfile.dob / 1000))
+                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
                     self.genderLabel.text = String(format: "Gender: %@", (mainProfile.gender == .male) ? "Male" : "Female")
                     self.phoneLabel.text = String(format: "Phone number: %@", mainProfile.phone)
                     self.emailLabel.text = String(format: "Email : %@", mainProfile.email)
