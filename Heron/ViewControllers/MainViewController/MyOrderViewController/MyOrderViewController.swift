@@ -29,19 +29,6 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
-        self.title = "Orders"
-                
-//        stackView.axis = .horizontal
-//        stackView.distribution = .fillProportionally
-//        stackView.alignment = .center
-//        stackView.spacing = 1
-//        stackView.backgroundColor = .white
-//        self.loadHeaderView(stackView: stackView)
-//        self.view.addSubview(stackView)
-//        stackView.snp.makeConstraints { (make) in
-//            make.left.top.right.equalToSuperview()
-//            make.height.equalTo(46)
-//        }
         
         topScrollView.showsHorizontalScrollIndicator = false
         self.view.addSubview(topScrollView)
@@ -96,7 +83,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         allBtn.isSelected = true
         self.selectedSegmentBtn = allBtn
         allBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        allBtn.setTitle("  ALL  ", for: .normal)
+        allBtn.setTitle("   ALL   ", for: .normal)
         allBtn.setTitleColor(kDefaultTextColor, for: .normal)
         allBtn.setTitleColor(kPrimaryColor, for: .selected)
         allBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
@@ -107,7 +94,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         pendingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        pendingBtn.setTitle("  PENDING  ", for: .normal)
+        pendingBtn.setTitle("   PENDING   ", for: .normal)
         pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
         pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
         pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
@@ -119,7 +106,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         confirmedBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        confirmedBtn.setTitle("  CONFIRMED  ", for: .normal)
+        confirmedBtn.setTitle("   CONFIRMED   ", for: .normal)
         confirmedBtn.setTitleColor(kDefaultTextColor, for: .normal)
         confirmedBtn.setTitleColor(kPrimaryColor, for: .selected)
         confirmedBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
@@ -131,7 +118,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         processingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        processingBtn.setTitle("  ON-DELIVERY  ", for: .normal)
+        processingBtn.setTitle("   ON-DELIVERY   ", for: .normal)
         processingBtn.setTitleColor(kDefaultTextColor, for: .normal)
         processingBtn.setTitleColor(kPrimaryColor, for: .selected)
         processingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
@@ -144,7 +131,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         completeBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        completeBtn.setTitle("  RECEIVED  ", for: .normal)
+        completeBtn.setTitle("   RECEIVED   ", for: .normal)
         completeBtn.setTitleColor(kDefaultTextColor, for: .normal)
         completeBtn.setTitleColor(kPrimaryColor, for: .selected)
         completeBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
@@ -156,7 +143,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         }
         
         canceledBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        canceledBtn.setTitle("  CANCELED  ", for: .normal)
+        canceledBtn.setTitle("   CANCELED   ", for: .normal)
         canceledBtn.setTitleColor(kDefaultTextColor, for: .normal)
         canceledBtn.setTitleColor(kPrimaryColor, for: .selected)
         canceledBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)

@@ -26,7 +26,6 @@ class UserProfileViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Profile"
         viewModel.controller = self
         
         avatar.image = UIImage.init(named: "default-image")
@@ -165,8 +164,6 @@ class UserProfileViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
-        _NavController.setNavigationBarHidden(true, animated: true)
         viewModel.getUserProfile()
     }
     

@@ -28,7 +28,12 @@ class MyBookingViewModel: NSObject {
     
     private func getMyBookings() {
         self.controller?.startLoadingAnimation()
-        _BookingServices.getListBookings(filter.value) { errorMessage, listBookings in
+        var param : [String:Any] = ["sort[createdAt" : "desc"]
+        
+        if let filter = self.filter.value {
+            param["filter[status][eq]"] = filter
+        }
+        _BookingServices.getListBookings(param) { errorMessage, listBookings in
             self.controller?.endLoadingAnimation()
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
