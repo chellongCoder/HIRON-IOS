@@ -56,6 +56,7 @@ class EmptyView: UIView {
         }
         
         actionButon.backgroundColor = kPrimaryColor
+        actionButon.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         actionButon.setTitle("OK", for: .normal)
         actionButon.layer.cornerRadius = 8
         self.addSubview(actionButon)
@@ -71,7 +72,7 @@ class EmptyView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func okButtonTapped() {
+    @objc private func okButtonTapped() {
         delegate?.didSelectEmptyButton()
     }
 }

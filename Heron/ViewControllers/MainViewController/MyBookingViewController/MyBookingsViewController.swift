@@ -8,11 +8,14 @@
 import UIKit
 import RxSwift
 
-class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MyBookingsViewController: BaseViewController,
+                                UITableViewDelegate, UITableViewDataSource,
+                                EmptyViewDelegate {
 
     private let topScrollView   = UIScrollView()
     private let stackView       = UIView()
     let tableView               = UITableView(frame: .zero, style: .plain)
+    let emptyView               = EmptyView()
     let viewModel               = MyBookingViewModel()
     private let allBtn          = UIButton()
     private let pendingBtn      = UIButton()
@@ -66,6 +69,16 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
         tableView.snp.makeConstraints { (make) in
             make.top.equalTo(stackView.snp.bottom).offset(8)
             make.left.bottom.right.equalToSuperview()
+        }
+        
+        emptyView.titleLabel.text = "Your booking list is empty"
+        emptyView.messageLabel.text = "You can make complete new booking here"
+        emptyView.actionButon.setTitle("Create new Booking", for: .normal)
+        emptyView.delegate = self
+        emptyView.isHidden = true
+        self.view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.center.size.equalTo(tableView)
         }
     }
     
@@ -184,8 +197,16 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
     override func bindingData() {
         viewModel.listBookings
             .observe(on: MainScheduler.instance)
-            .subscribe { _ in
-                self.tableView.reloadData()
+            .subscribe { listBooking in
+                
+                if listBooking.element?.isEmpty ?? false {
+                    self.tableView.isHidden = true
+                    self.emptyView.isHidden = false
+                } else {
+                    self.tableView.isHidden = false
+                    self.emptyView.isHidden = true
+                    self.tableView.reloadData()
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -210,5 +231,10 @@ class MyBookingsViewController: BaseViewController, UITableViewDelegate, UITable
         self.navigationController?.pushViewController(bookingDetailsVC, animated: true)
         
         bookingDetailsVC.viewModel.bookingData.accept(cellData)
+    }
+    
+    // MARK: - EmptyViewDelegate
+    func didSelectEmptyButton() {
+        self.addNewBooking()
     }
 }

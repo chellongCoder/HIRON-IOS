@@ -64,6 +64,12 @@ extension AppNavigationController {
         _AppCoreData.signOut()
         _NavController.setViewControllers([MainAuthViewController()], animated: true)
     }
+    
+    func presentCartPage() {
+        let newNavController = UINavigationController.init(rootViewController: CartViewController.sharedInstance)
+        newNavController.modalPresentationStyle = .fullScreen
+        self.present(newNavController, animated: true)
+    }
 }
 
 // MARK: Force Update

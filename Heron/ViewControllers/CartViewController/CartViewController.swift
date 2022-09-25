@@ -26,7 +26,12 @@ class CartViewController: BaseViewController,
         self.view.backgroundColor = .white
         navigationItem.title = "Cart"
         self.viewModel.controller = self
-        self.showBackBtn()
+        
+        let closeBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "xmark"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(closeButtonTapped))
+        self.navigationItem.leftBarButtonItem = closeBtn
         
         savingLabel.text = "Saving: $0.0"
         savingLabel.textColor = kDefaultTextColor
@@ -97,8 +102,9 @@ class CartViewController: BaseViewController,
         self.viewModel.reloadCart()
     }
     
-    override func backButtonTapped() {
-        self.navigationController?.popViewController(animated: true)
+    override func closeButtonTapped() {
+        
+        self.dismiss(animated: true)
         
         // Clear vouchers
         _CartServices.voucherCode.accept(nil)

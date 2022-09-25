@@ -9,7 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class MyOrderViewController: BaseViewController,
+                             UITableViewDelegate, UITableViewDataSource,
+                             EmptyViewDelegate {
     
     private let topScrollView   = UIScrollView()
     private let stackView       = UIView()
@@ -67,6 +69,7 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         emptyView.titleLabel.text = "Your order list is empty"
         emptyView.messageLabel.text = "Filtered order will be available here"
+        emptyView.delegate = self
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
         emptyView.snp.makeConstraints { make in
@@ -313,5 +316,10 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         let viewDetailsController = DetailOrderViewController.init(self.viewModel.orders.value[indexPath.section])
         self.navigationController?.pushViewController(viewDetailsController, animated: true)
         
+    }
+    
+    // MARK: - EmptyViewDelegate
+    func didSelectEmptyButton() {
+        _NavController.presentCartPage()
     }
 }

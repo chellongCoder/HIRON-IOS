@@ -93,8 +93,7 @@ class ProductFilterViewController: BaseViewController,
     }
     
     @objc private func cartButtonTapped() {
-        let cartVC = CartViewController.sharedInstance
-        _NavController.pushViewController(cartVC, animated: true)
+        _NavController.presentCartPage()
     }
     
     // MARK: - Binding Data

@@ -209,8 +209,7 @@ class ProductDetailsViewController: BaseViewController,
     
     // MARK: - Buttons
     @objc private func cartButtonTapped() {
-        let cartVC = CartViewController.sharedInstance
-        _NavController.pushViewController(cartVC, animated: true)
+        _NavController.presentCartPage()
     }
     
     @objc private func buyNowButtonTapped() {
