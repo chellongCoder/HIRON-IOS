@@ -117,7 +117,7 @@ class SubscriptionPaymentViewController: BaseViewController {
                 guard let trueSubscriptionPlan = subscriptionPlan else {return}
                 self.selectedPlanName.text = trueSubscriptionPlan.subsItem?.name
                 if trueSubscriptionPlan.interval_count == 1 {
-                    self.pricelbl.text = String(format: "$%.2f per %ld %@", trueSubscriptionPlan.customFinalPrice, trueSubscriptionPlan.interval_count, trueSubscriptionPlan.interval.rawValue)
+                    self.pricelbl.text = String(format: "$%.2f / %@", trueSubscriptionPlan.customFinalPrice, trueSubscriptionPlan.interval.rawValue)
                 } else {
                     self.pricelbl.text = String(format: "$%.2f per %ld %@s", trueSubscriptionPlan.customFinalPrice, trueSubscriptionPlan.interval_count, trueSubscriptionPlan.interval.rawValue)
                 }

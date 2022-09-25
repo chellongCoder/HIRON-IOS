@@ -52,9 +52,12 @@ class SubscriptionPaymentViewModel: NSObject {
                     case .canceled:
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Cancelled", comment: ""),
                                                              message: "You has cancelled payment, you can continue buy subscription in User Profile page", preferredStyle: .alert)
-                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Skip", comment: ""), style: .cancel, handler: { _ in
                             alertVC.dismiss()
                             _NavController.gotoHomepage()
+                        }))
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Try again", comment: ""), style: .default, handler: { _ in
+                            alertVC.dismiss()
                         }))
                         _NavController.showAlert(alertVC)
                     case .failed(let error):

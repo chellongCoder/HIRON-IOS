@@ -33,17 +33,17 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             $0.left.right.top.bottom.equalToSuperview()
         }
         
-        let backBtn = UIButton()
-        backBtn.setBackgroundImage(UIImage.init(systemName: "chevron.backward"), for: .normal)
-        backBtn.tintColor = .white
-        backBtn.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        self.view.addSubview(backBtn)
-        backBtn.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(70)
-            make.left.equalToSuperview().offset(20)
-            make.width.equalTo(30)
-            make.width.equalTo(20)
-        }
+//        let backBtn = UIButton()
+//        backBtn.setBackgroundImage(UIImage.init(systemName: "chevron.backward"), for: .normal)
+//        backBtn.tintColor = .white
+//        backBtn.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+//        self.view.addSubview(backBtn)
+//        backBtn.snp.makeConstraints { make in
+//            make.top.equalToSuperview().offset(70)
+//            make.left.equalToSuperview().offset(20)
+//            make.width.equalTo(30)
+//            make.width.equalTo(20)
+//        }
         
         let childView = UIView()
         self.view.addSubview(childView)

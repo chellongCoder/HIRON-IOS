@@ -55,17 +55,17 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
-        let footerLabel = UILabel()
-        footerLabel.text = "Include 14 days Free"
-        footerLabel.textAlignment = .center
-        footerLabel.numberOfLines = 0
-        footerLabel.textColor = .white
-        footerLabel.font = getFontSize(size: 12, weight: .medium)
-        cardView.addSubview(footerLabel)
-        footerLabel.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-10)
-            make.centerX.equalToSuperview()
-        }
+//        let footerLabel = UILabel()
+//        footerLabel.text = "Include 14 days Free"
+//        footerLabel.textAlignment = .center
+//        footerLabel.numberOfLines = 0
+//        footerLabel.textColor = .white
+//        footerLabel.font = getFontSize(size: 12, weight: .medium)
+//        cardView.addSubview(footerLabel)
+//        footerLabel.snp.makeConstraints { make in
+//            make.bottom.equalToSuperview().offset(-10)
+//            make.centerX.equalToSuperview()
+//        }
     }
     
     required init?(coder: NSCoder) {
@@ -76,9 +76,9 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
         self.titleLabel.text = data.subsItem?.name
         self.priceLabel.text = String(format: "$%.2f", data.customFinalPrice)
         if data.interval_count == 1 {
-            self.intervalLabel.text = String(format: "per %ld %@", data.interval_count, data.interval.rawValue)
+            self.intervalLabel.text = String(format: "/%@", data.interval.rawValue)
         } else {
-            self.intervalLabel.text = String(format: "per %ld %@s", data.interval_count, data.interval.rawValue)
+            self.intervalLabel.text = String(format: "/%ld %@s", data.interval_count, data.interval.rawValue)
         }
         
         // self.footerLabel.text = String(format: "From: $%.2f", data.customRegularPrice)

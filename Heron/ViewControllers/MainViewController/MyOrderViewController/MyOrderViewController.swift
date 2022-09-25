@@ -11,13 +11,17 @@ import RxCocoa
 
 class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
-    private let stackView       = UIStackView()
+    private let topScrollView   = UIScrollView()
+    private let stackView       = UIView()
     let tableView               = UITableView(frame: .zero, style: .grouped)
     let emptyView               = EmptyView()
     let viewModel               = MyOrderViewModel()
     private let allBtn          = UIButton()
+    private let pendingBtn      = UIButton()
     private let confirmedBtn    = UIButton()
+    private let processingBtn   = UIButton()
     private let completeBtn     = UIButton()
+    private let canceledBtn     = UIButton()
     private var separatorView   = UIView()
     
     private var selectedSegmentBtn      : UIButton?
@@ -27,17 +31,34 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         self.viewModel.controller = self
         self.title = "Orders"
                 
-        stackView.axis = .horizontal
-        stackView.distribution = .fillProportionally
-        stackView.alignment = .center
-        stackView.spacing = 1
-        stackView.backgroundColor = .white
-        self.loadHeaderView(stackView: stackView)
-        self.view.addSubview(stackView)
-        stackView.snp.makeConstraints { (make) in
+//        stackView.axis = .horizontal
+//        stackView.distribution = .fillProportionally
+//        stackView.alignment = .center
+//        stackView.spacing = 1
+//        stackView.backgroundColor = .white
+//        self.loadHeaderView(stackView: stackView)
+//        self.view.addSubview(stackView)
+//        stackView.snp.makeConstraints { (make) in
+//            make.left.top.right.equalToSuperview()
+//            make.height.equalTo(46)
+//        }
+        
+        topScrollView.showsHorizontalScrollIndicator = false
+        self.view.addSubview(topScrollView)
+        topScrollView.snp.makeConstraints { (make) in
             make.left.top.right.equalToSuperview()
             make.height.equalTo(46)
         }
+        
+        stackView.backgroundColor = .white
+        self.topScrollView.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
+            make.top.bottom.height.equalToSuperview()
+            make.right.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        self.loadHeaderView(stackView: stackView)
         
         separatorView.backgroundColor = kPrimaryColor
         self.view.addSubview(separatorView)
@@ -71,38 +92,81 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         self.segmentBtnTapped(sender: self.allBtn)
     }
     
-    private func loadHeaderView(stackView: UIStackView) {
+    private func loadHeaderView(stackView: UIView) {
         allBtn.isSelected = true
         self.selectedSegmentBtn = allBtn
         allBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        allBtn.setTitle("All", for: .normal)
+        allBtn.setTitle("  ALL  ", for: .normal)
         allBtn.setTitleColor(kDefaultTextColor, for: .normal)
         allBtn.setTitleColor(kPrimaryColor, for: .selected)
         allBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        stackView.addSubview(allBtn)
         allBtn.snp.makeConstraints { (make) in
+            make.left.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }
-        stackView.addArrangedSubview(allBtn)
+        
+        pendingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        pendingBtn.setTitle("  PENDING  ", for: .normal)
+        pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
+        pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        stackView.addSubview(pendingBtn)
+        pendingBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(allBtn.snp.right).offset(2)
+            make.top.bottom.equalToSuperview()
+            make.height.equalTo(46)
+        }
         
         confirmedBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        confirmedBtn.setTitle("Confirmed", for: .normal)
+        confirmedBtn.setTitle("  CONFIRMED  ", for: .normal)
         confirmedBtn.setTitleColor(kDefaultTextColor, for: .normal)
         confirmedBtn.setTitleColor(kPrimaryColor, for: .selected)
         confirmedBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        stackView.addSubview(confirmedBtn)
         confirmedBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(pendingBtn.snp.right).offset(2)
+            make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }
-        stackView.addArrangedSubview(confirmedBtn)
+        
+        processingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        processingBtn.setTitle("  ON-DELIVERY  ", for: .normal)
+        processingBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        processingBtn.setTitleColor(kPrimaryColor, for: .selected)
+        processingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        stackView.addSubview(processingBtn)
+        processingBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(confirmedBtn.snp.right).offset(2)
+            make.top.bottom.equalToSuperview()
+            make.height.equalTo(46)
+            make.right.lessThanOrEqualToSuperview()
+        }
         
         completeBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        completeBtn.setTitle("Complete", for: .normal)
+        completeBtn.setTitle("  RECEIVED  ", for: .normal)
         completeBtn.setTitleColor(kDefaultTextColor, for: .normal)
         completeBtn.setTitleColor(kPrimaryColor, for: .selected)
         completeBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        stackView.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(processingBtn.snp.right).offset(2)
+            make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }
-        stackView.addArrangedSubview(completeBtn)
+        
+        canceledBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        canceledBtn.setTitle("  CANCELED  ", for: .normal)
+        canceledBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        canceledBtn.setTitleColor(kPrimaryColor, for: .selected)
+        canceledBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        stackView.addSubview(canceledBtn)
+        canceledBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(completeBtn.snp.right).offset(2)
+            make.top.bottom.equalToSuperview()
+            make.height.equalTo(46)
+            make.right.lessThanOrEqualToSuperview()
+        }
     }
     
     @objc private func segmentBtnTapped(sender: UIButton) {
@@ -128,12 +192,16 @@ class MyOrderViewController: BaseViewController, UITableViewDelegate, UITableVie
         case self.allBtn:
             self.viewModel.filter.accept(nil)
 //            tableViewIsScrolling = true
+        case self.pendingBtn:
+            self.viewModel.filter.accept("pending")
         case self.confirmedBtn:
             self.viewModel.filter.accept("confirmed")
-//            tableViewIsScrolling = true
+        case self.processingBtn:
+            self.viewModel.filter.accept("processing")
         case self.completeBtn:
             self.viewModel.filter.accept("completed")
-//            tableViewIsScrolling = true
+        case self.canceledBtn:
+            self.viewModel.filter.accept("canceled")
         default:
             break
         }
