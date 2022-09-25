@@ -70,8 +70,6 @@ class ConfirmBookingViewModel: BaseViewModel {
                                                              message: "You has cancelled booking", preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
-                            
-                            self.controller?.navigationController?.popToRootViewController(animated: true)
                         }))
                         _NavController.showAlert(alertVC)
                     case .failed(let error):

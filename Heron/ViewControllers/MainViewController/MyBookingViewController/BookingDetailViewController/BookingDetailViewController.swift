@@ -202,7 +202,7 @@ class BookingDetailViewController: BaseViewController {
                     self.bookingStatus.text = "Booking Expired!"
                 }
                 
-                self.bookingDescriptions.text = String(format: "You’re having a appointment with %@.\nYour bookingID #%@",
+                self.bookingDescriptions.text = String(format: "You’re having an appointment with %@.\nYour bookingID #%@",
                                                        "HARD_CODE",
                                                        trueBookingData.code)
                 

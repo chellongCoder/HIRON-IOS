@@ -91,6 +91,7 @@ class BookingSuccessViewController: UIViewController {
     }
     
     @objc private func continueButtonTapped() {
-        self.navigationController?.popToRootViewController(animated: true)
+        self.navigationController?.dismiss(animated: true, completion: nil)
+        _NavController.gotoHomepage()
     }
 }
