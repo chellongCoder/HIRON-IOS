@@ -43,7 +43,7 @@ class ConfirmBookingViewController: BaseViewController,
             make.width.equalTo(110)
         }
         
-        priceLabel.text = "Total: $0.00"
+        priceLabel.text = "Total: $0.00/ section"
         priceLabel.textColor = kDefaultTextColor
         priceLabel.font = getFontSize(size: 16, weight: .medium)
         bottomView.addSubview(priceLabel)
@@ -99,7 +99,7 @@ class ConfirmBookingViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { bookingData in
                 guard let bookingData = bookingData.element as? ProductDataSource else {return}
-                self.priceLabel.text = String(format: "Total: $%.2f", bookingData.customFinalPrice)
+                self.priceLabel.text = String(format: "Total: $%.2f /section", bookingData.customFinalPrice)
             }
             .disposed(by: disposeBag)
     }
@@ -110,7 +110,7 @@ class ConfirmBookingViewController: BaseViewController,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

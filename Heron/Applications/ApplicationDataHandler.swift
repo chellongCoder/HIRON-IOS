@@ -79,15 +79,15 @@ extension ApplicationDataHandler {
     private func handleResponseDict (response:AFDataResponse<Any>,
                                      requestParam: [String: Any]? = nil) -> ResponseDataSource? {
         if let urlRequest = response.request?.url?.path {
-            print("API-URL-Request: %@", urlRequest)
+            bfprint("API-URL-Request: ", urlRequest)
         }
         
         if requestParam != nil {
-            print("API-Request-Param: %@", requestParam!)
+            bfprint("API-Request-Param: ", requestParam!)
         }
         
         if let header = response.request?.allHTTPHeaderFields {
-            print("API-Header-Request: %@", header)
+            bfprint("API-Header-Request: ", header)
         }
         
         var responseData = ResponseDataSource()
@@ -96,12 +96,12 @@ extension ApplicationDataHandler {
         switch response.result {
         case .success(let value):
             
-            print(String(format:"Lucas-API-Reponse: %@", "Did get \(response.response!.statusCode) code"))
+            print(String(format:"Lucas-API-Reponse: ", "Did get \(response.response!.statusCode) code"))
             if response.response!.statusCode < 300 {
-                print("Reponse-Success: %@", "Did get \(response.response!.statusCode) success code")
+                bfprint("Reponse-Success: ", "Did get \(response.response!.statusCode) success code")
                 
             } else if response.response!.statusCode < 400 {
-                bfprint("Reponse-Error: %@", "Did get \(response.response!.statusCode) error code")
+                bfprint("Reponse-Error: ", "Did get \(response.response!.statusCode) error code")
                 
             }
             
@@ -145,7 +145,7 @@ extension ApplicationDataHandler {
                 tempResponse.responseMessage = responseDict["error"] as? String
                 return tempResponse
             } else if responseData.responseCode == 404 {
-                print("API NOT FOUND")
+                bfprint("API NOT FOUND")
                 return nil
             } else if responseData.responseCode >= 500 {
                 
@@ -155,7 +155,7 @@ extension ApplicationDataHandler {
                 }
             } else {
                 // Don't do anything
-                print(response.response as Any)
+                bfprint(response.response as Any)
             }
             
         case .failure(let error):
@@ -174,7 +174,7 @@ extension ApplicationDataHandler {
                 responseData.responseCode = 500
             }
             
-            print(String(format:"Lucas API Response: %@", responseData.responseMessage ?? ""))
+            bfprint(String(format:"Lucas API Response: %@", responseData.responseMessage ?? ""))
         }
         
         return responseData

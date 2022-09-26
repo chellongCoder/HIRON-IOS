@@ -15,6 +15,7 @@ class MyBookingTableViewCell: UITableViewCell {
     let patientInfoLabel    = UILabel()
     let doctorInfoLabel     = UILabel()
     let totalPaymentLabel   = UILabel()
+    let bookingIDLabel      = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -153,6 +154,27 @@ class MyBookingTableViewCell: UITableViewCell {
             make.top.equalTo(doctorInfoLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+        }
+        
+        let bookingIDIcon = UIImageView()
+        bookingIDIcon.image = UIImage.init(systemName: "calendar")
+        bookingIDIcon.tintColor = kDefaultTextColor
+        contentView.addSubview(bookingIDIcon)
+        bookingIDIcon.snp.makeConstraints { make in
+            make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
+            make.left.equalTo(titleLabel)
+            make.height.width.equalTo(13)
+        }
+        
+        bookingIDLabel.text = "HARD_CODE"
+        bookingIDLabel.numberOfLines = 0
+        bookingIDLabel.textColor = kDefaultTextColor
+        bookingIDLabel.font = getFontSize(size: 14, weight: .regular)
+        contentView.addSubview(bookingIDLabel)
+        bookingIDLabel.snp.makeConstraints { make in
+            make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
+            make.left.equalTo(timeableIcon.snp.right).offset(8)
+            make.right.equalToSuperview().offset(-16)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
@@ -175,8 +197,9 @@ class MyBookingTableViewCell: UITableViewCell {
                                             data.profile?.firstName ?? "",
                                             data.profile?.lastName ?? "",
                                             data.profile?.gender == .male ? "Male" : "Female")
-        self.totalPaymentLabel.text = String(format: "Total: %.2f. BookingID: #%@",
-                                             data.customAmount,
-                                             data.code)
+        self.totalPaymentLabel.text = String(format: "Total: $%.2f",
+                                             data.customAmount)
+        self.bookingIDLabel.text = String(format: " BookingID: #%@",
+                                          data.code)
     }
 }
