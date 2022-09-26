@@ -231,7 +231,8 @@ class UpdateUserProfileViewController: BaseViewController ,
         components.day = -1
         let maxDate = calendar.date(byAdding: components, to: currentDate)!
         datePicker.datePickerMode = .date
-        datePicker.locale = .current
+//        datePicker.locale = .current
+        datePicker.timeZone = TimeZone.init(identifier: "UTC")
         datePicker.maximumDate = maxDate
         if #available(iOS 14, *) {
             datePicker.preferredDatePickerStyle = .wheels

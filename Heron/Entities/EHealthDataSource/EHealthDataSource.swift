@@ -19,7 +19,7 @@ class EHealthDataSource: Mappable {
     var avatar      : String = ""
     var gender      : UserGender = .male
     var dob         : Int = 0
-    var identityNum : String = ""
+    var identityNum : String = "123456789"
     var profession  : String = ""
     var addressInfo : EHProfileAddress?
     

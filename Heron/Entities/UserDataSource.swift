@@ -27,7 +27,7 @@ class UserDataSource: Mappable {
     var userEmail :     String  = ""
     var userDOB :       Int  = 0
     var userGender :    UserGender = .male
-    var identityNum :   String  = ""
+    var identityNum :   String  = "123456789"
     var userAvatarURL : String  = "https://sgp1.digitaloceanspaces.com/dev.storage/6bab1242-88c5-4705-81e9-3a9e13c47d41.png"
 
     required init?(map: Map) {
