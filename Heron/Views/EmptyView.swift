@@ -37,6 +37,7 @@ class EmptyView: UIView {
         titleLabel.font = getFontSize(size: 20, weight: .bold)
         titleLabel.textColor = kDefaultTextColor
         titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(imageView.snp.bottom)

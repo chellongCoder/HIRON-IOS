@@ -16,6 +16,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     
     let calendar                    = FSCalendar()
     var collectionView              : UICollectionView?
+    let emptyView                   = EmptyView()
     let confirmBtn                  = UIButton()
     
     override func viewDidLoad() {
@@ -87,6 +88,15 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
             make.centerX.width.equalToSuperview()
             make.bottom.equalTo(bottomView.snp.top).offset(-10)
         })
+        
+        emptyView.titleLabel.text = "Sorry, it seems like there is no doctors available for this date"
+        emptyView.messageLabel.text = "Please select different date (dates with a dot next by on the calendar)"
+        emptyView.actionButon.isHidden = true
+        emptyView.isHidden = true
+        self.view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.center.size.equalTo(collectionView!)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -178,6 +188,14 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
 extension SelectDateAndTimeBookingViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if viewModel.getListTimeableByDate().isEmpty {
+            self.collectionView?.isHidden = true
+            self.emptyView.isHidden = false
+        } else {
+            self.collectionView?.isHidden = false
+            self.emptyView.isHidden = true
+        }
+        
         return viewModel.getListTimeableByDate().count
     }
     

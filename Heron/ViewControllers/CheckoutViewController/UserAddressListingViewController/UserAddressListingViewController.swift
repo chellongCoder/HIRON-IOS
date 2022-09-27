@@ -52,8 +52,8 @@ class UserAddressListingViewController: BaseViewController,
         }
         
         emptyView.imageView.image = UIImage.init(named: "noSearchResult")
-        emptyView.titleLabel.text = "No have any address"
-        emptyView.messageLabel.text = "Let's create new address"
+        emptyView.titleLabel.text = "You current don't have any Delivery Address for us to ship"
+        emptyView.messageLabel.text = "Please add your delivery address"
         emptyView.delegate = self
         emptyView.isHidden = true
         self.view.addSubview(emptyView)

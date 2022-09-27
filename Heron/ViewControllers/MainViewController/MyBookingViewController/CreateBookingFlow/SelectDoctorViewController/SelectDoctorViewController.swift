@@ -12,6 +12,7 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
     
     private let viewModel   = SelectDoctorViewModel()
     private let tableView   = UITableView()
+    private let emptyView   = EmptyView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,15 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
         tableView.snp.makeConstraints { (make) in
             make.top.bottom.centerX.width.equalTo(self.view.safeAreaLayoutGuide)
         }
+        
+        emptyView.titleLabel.text = "Sorry, it seems like there are no doctor available at this current time"
+        emptyView.messageLabel.text = "Please contact help center or go to Department to get help"
+        emptyView.actionButon.isHidden = true
+        emptyView.isHidden = true
+        self.view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.center.size.equalTo(tableView)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +55,20 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
     }
     
     override func bindingData() {
+        viewModel.listDoctor
+            .observe(on: MainScheduler.instance)
+            .subscribe { listDoctor in
+                
+                if listDoctor.element?.isEmpty ?? false {
+                    self.tableView.isHidden = true
+                    self.emptyView.isHidden = false
+                } else {
+                    self.tableView.isHidden = false
+                    self.emptyView.isHidden = true
+                }
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.listDoctor
             .bind(to: tableView.rx.items) { (_: UITableView, index: Int, element: DoctorDataSource) in
                 let cell = SelectDoctorTableViewCell(style: .default, reuseIdentifier:"SelectDoctorTableViewCell")

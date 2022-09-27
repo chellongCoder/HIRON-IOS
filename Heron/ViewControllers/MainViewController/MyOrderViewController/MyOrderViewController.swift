@@ -67,8 +67,9 @@ class MyOrderViewController: BaseViewController,
             make.left.bottom.right.equalToSuperview()
         }
         
-        emptyView.titleLabel.text = "Your order list is empty"
-        emptyView.messageLabel.text = "Filtered order will be available here"
+        emptyView.titleLabel.text = "You current don't have any orders"
+        emptyView.messageLabel.text = "Please buy some items"
+        emptyView.actionButon.setTitle("Browse products", for: .normal)
         emptyView.delegate = self
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
@@ -210,6 +211,37 @@ class MyOrderViewController: BaseViewController,
                     self.tableView.isHidden = false
                     self.emptyView.isHidden = true
                     self.tableView.reloadData()
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        self.viewModel.filter
+            .observe(on: MainScheduler.instance)
+            .subscribe { filterStr in
+                guard let filterS = filterStr.element else {
+                    self.emptyView.titleLabel.text = "You current don't have any orders"
+                    self.emptyView.messageLabel.text = "Please buy some items"
+                    return
+                }
+                
+                switch filterS {
+                case "pending":
+                    self.emptyView.titleLabel.text = "You currently don't have any pending order"
+                    self.emptyView.messageLabel.text = ""
+                case "confirmed":
+                    self.emptyView.titleLabel.text = "You currently don't have any confirmed order"
+                    self.emptyView.messageLabel.text = ""
+                case "processing":
+                    self.emptyView.titleLabel.text = "You currently don't have any processing order"
+                    self.emptyView.messageLabel.text = ""
+                case "completed":
+                    self.emptyView.titleLabel.text = "You currently don't have any complete order"
+                    self.emptyView.messageLabel.text = ""
+                case "canceled":
+                    self.emptyView.titleLabel.text = "You currently don't have any canceled order"
+                    self.emptyView.messageLabel.text = ""
+                default:
+                    break
                 }
             }
             .disposed(by: disposeBag)

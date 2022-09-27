@@ -98,8 +98,8 @@ class CartViewController: BaseViewController,
         tableView.addSubview(refreshControl)
         
         emptyView.imageView.image = UIImage.init(named: "noItems")
-        emptyView.titleLabel.text = "Your cart is empty"
-        emptyView.messageLabel.text = "Let's select new product to buy"
+        emptyView.titleLabel.text = "You current don't have any items in your cart"
+        emptyView.messageLabel.text = "Please add some items"
         emptyView.delegate = self
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
