@@ -12,9 +12,11 @@ import RxSwift
 
 class UserAddressListingViewController: BaseViewController,
                                         UITableViewDelegate,
-                                        UserAddressCellDelegate {
+                                        UserAddressCellDelegate,
+                                        EmptyViewDelegate {
     
     private let tableView           = UITableView()
+    private let emptyView           = EmptyView()
     private let addNewAddressBtn    = UIButton()
     var acceptance                  : BehaviorRelay<ContactDataSource?>?
     
@@ -48,6 +50,16 @@ class UserAddressListingViewController: BaseViewController,
             make.top.centerX.width.equalToSuperview()
             make.bottom.equalTo(addNewAddressBtn.snp.top).offset(-10)
         }
+        
+        emptyView.imageView.image = UIImage.init(named: "noSearchResult")
+        emptyView.titleLabel.text = "No have any address"
+        emptyView.messageLabel.text = "Let's create new address"
+        emptyView.delegate = self
+        emptyView.isHidden = true
+        self.view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.center.size.equalTo(tableView)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -79,6 +91,19 @@ class UserAddressListingViewController: BaseViewController,
     
     // MARK: - Datas
     override func bindingData() {
+        _DeliveryServices.listUserAddress
+            .observe(on: MainScheduler.instance)
+            .subscribe { listAddress in
+                if (listAddress.element ?? []).isEmpty {
+                    self.tableView.isHidden = true
+                    self.emptyView.isHidden = false
+                } else {
+                    self.tableView.isHidden = false
+                    self.emptyView.isHidden = true
+                }
+            }
+            .disposed(by: disposeBag)
+        
         _DeliveryServices.listUserAddress
             .observe(on: MainScheduler.instance)
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ContactDataSource) in
@@ -116,5 +141,10 @@ class UserAddressListingViewController: BaseViewController,
         newAddressVC.viewModel.contact.accept(address)
         newAddressVC.viewModel.isUpdated = true
         self.navigationController?.pushViewController(newAddressVC, animated: true)
+    }
+    
+    // MARK: - EmptyViewDelegate
+    func didSelectEmptyButton() {
+        self.addNewAddressButtonTapped()
     }
 }

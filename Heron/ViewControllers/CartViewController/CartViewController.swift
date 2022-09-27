@@ -10,11 +10,13 @@ import RxSwift
 
 class CartViewController: BaseViewController,
                           UITableViewDataSource, UITableViewDelegate,
-                          CartProductCellDelegate {
+                          CartProductCellDelegate,
+                          EmptyViewDelegate {
     
     public static let sharedInstance    = CartViewController()
     private let viewModel               = CartViewModel()
     let tableView                       = UITableView(frame: .zero, style: .plain)
+    let emptyView                       = EmptyView()
     
     private let voucherView             = VoucherSelectedView()
     private let totalLabel              = UILabel()
@@ -94,6 +96,16 @@ class CartViewController: BaseViewController,
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
+        
+        emptyView.imageView.image = UIImage.init(named: "noItems")
+        emptyView.titleLabel.text = "Your cart is empty"
+        emptyView.messageLabel.text = "Let's select new product to buy"
+        emptyView.delegate = self
+        emptyView.isHidden = true
+        self.view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.center.size.equalTo(tableView)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -121,9 +133,21 @@ class CartViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
                 
-                guard let cartData = cartDataSource.element as? CartDataSource else {return}
-                self.viewModel.cartDataSource = cartData
-                self.tableView.reloadData()
+                guard let cartData = cartDataSource.element as? CartDataSource else {
+                    self.tableView.isHidden = true
+                    self.emptyView.isHidden = false
+                    return
+                }
+                
+                if cartData.store.isEmpty {
+                    self.tableView.isHidden = true
+                    self.emptyView.isHidden = false
+                } else {
+                    self.tableView.isHidden = false
+                    self.emptyView.isHidden = true
+                    self.viewModel.cartDataSource = cartData
+                    self.tableView.reloadData()
+                }                
             }
             .disposed(by: disposeBag)
         
@@ -329,5 +353,11 @@ class CartViewController: BaseViewController,
         let cartItem = store.cartItems[index.row]
         
         viewModel.updateCartItemsQuanlity(cartItem, newValue: newValue)
+    }
+    
+    // MARK: - EmptyViewDelegate
+    func didSelectEmptyButton() {
+        self.dismiss(animated: true)
+        _NavController.gotoHomepage()
     }
 }

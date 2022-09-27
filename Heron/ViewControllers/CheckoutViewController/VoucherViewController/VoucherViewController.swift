@@ -17,6 +17,7 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
     let applyBtn        = UIButton()
     
     let tableView       = UITableView()
+    let emptyView       = EmptyView()
     
     private let viewModel   = VoucherViewModel()
     var acceptance          : BehaviorRelay<VoucherDataSource?>?
@@ -62,6 +63,16 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
             make.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        
+        emptyView.imageView.image = UIImage.init(named: "noDocument")
+        emptyView.titleLabel.text = "No vouchers"
+        emptyView.messageLabel.text = "You do not have any vouchers"
+        emptyView.actionButon.isHidden = true
+        emptyView.isHidden = true
+        self.view.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.center.size.equalTo(tableView)
+        }
     
         self.bindingData()
     }
@@ -75,8 +86,16 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
     override func bindingData() {
         viewModel.listUserVouchers
             .observe(on: MainScheduler.instance)
-            .subscribe { _ in
-                self.tableView.reloadData()
+            .subscribe { listVouchers in
+                
+                if (listVouchers.element ?? []).isEmpty {
+                    self.tableView.isHidden = true
+                    self.emptyView.isHidden = false
+                } else {
+                    self.tableView.isHidden = false
+                    self.emptyView.isHidden = true
+                    self.tableView.reloadData()
+                }
             }
             .disposed(by: disposeBag)
         
