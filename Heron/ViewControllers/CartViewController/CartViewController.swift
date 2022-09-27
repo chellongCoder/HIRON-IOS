@@ -229,6 +229,15 @@ class CartViewController: BaseViewController,
     
     // MARK: - UITableViewDelegate
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+//        let storeData = viewModel.cartDataSource?.store[indexPath.section]
+//        if let cellData = storeData?.cartItems[indexPath.row] {
+//            self.viewModel.selectAnotherItem(cellData)
+//        }
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = .white

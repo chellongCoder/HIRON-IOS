@@ -84,4 +84,17 @@ class CartViewModel {
             }
         }
     }
+    
+    func selectAnotherItem(_ item: CartItemDataSource) {
+        if let productData = item.product {
+            
+            _InventoryServices.getProductDetails(productID: productData.id) { _, newProductData in
+                if let newProductData = newProductData {
+                    let addToCartVC = AddToCartViewController(productData: newProductData)
+                    addToCartVC.modalPresentationStyle = .overFullScreen
+                    self.controller?.present(addToCartVC, animated: true)
+                }
+            }
+        }
+    }
 }
