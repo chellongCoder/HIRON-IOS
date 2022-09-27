@@ -58,7 +58,22 @@ class UserAddressListingViewController: BaseViewController,
     // MARK: - Buttons
     
     @objc private func addNewAddressButtonTapped() {
+        
         let newAddressVC = AddUserAddressViewController()
+        if _DeliveryServices.listUserAddress.value.isEmpty {
+            // First address
+            let userProfile = _AppCoreData.userDataSource.value
+            var newContact = ContactDataSource.init(JSONString: "{}", context: nil)!
+            newContact.firstName = userProfile?.userFirstName ?? ""
+            newContact.lastName = userProfile?.userLastName ?? ""
+            newContact.phone = String(format: "%@%@", userProfile?.userPhoneCode ?? "", userProfile?.userPhoneNum ?? "")
+            newContact.email = userProfile?.userEmail ?? ""
+            
+            newContact.isDefault = true
+            
+            newAddressVC.viewModel.contact.accept(newContact)
+        }
+        
         self.navigationController?.pushViewController(newAddressVC, animated: true)
     }
     
