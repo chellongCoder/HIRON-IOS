@@ -19,6 +19,7 @@ class ProductTableViewCell: UITableViewCell {
     let starView            = UILabel()
     let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
+    let variantMark         = UILabel()
 //    let addToCartBtn        = UIButton()
     
     private var productData : ProductDataSource?
@@ -97,6 +98,18 @@ class ProductTableViewCell: UITableViewCell {
             make.right.lessThanOrEqualTo(productTitleLabel)
         }
         
+        variantMark.isHidden = true
+        variantMark.backgroundColor = kRedHightLightColor
+        variantMark.textColor = .white
+        variantMark.layer.cornerRadius = 8
+        variantMark.layer.masksToBounds = true
+        variantMark.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+        contentView.addSubview(variantMark)
+        variantMark.snp.makeConstraints { make in
+            make.right.bottom.equalToSuperview()
+            make.height.equalTo(35)
+        }
+        
 //        addToCartBtn.setTitle("Add to cart", for: .normal)
 //        addToCartBtn.backgroundColor = kPrimaryColor
 //        addToCartBtn.layer.cornerRadius = 8
@@ -134,6 +147,9 @@ class ProductTableViewCell: UITableViewCell {
         } else {
             self.discountValue.isHidden = true
         }
+        
+        variantMark.isHidden = (cellData.type == .simple)
+        variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
     }
     
     @objc private func removeButtonTapped() {
