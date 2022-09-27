@@ -16,6 +16,7 @@ class CartServices : NSObject {
     var cartData                    = BehaviorRelay<CartDataSource?>(value: nil)
     var cartPreCheckoutResponseData = BehaviorRelay<CartPrepearedResponseDataSource?>(value: nil)
     var voucherCode                 = BehaviorRelay<VoucherDataSource?>(value: nil)
+    var cartLoadingAnimation        = BehaviorRelay<Bool>(value: false)
     private let disposeBag          = DisposeBag()
 
     override init() {
@@ -116,6 +117,7 @@ class CartServices : NSObject {
         let param : [String:Any] = ["products" : productsDict]
         let fullURLRequest = kGatwayCartURL + "/carts/add-to-cart"
         
+        self.cartLoadingAnimation.accept(true)
         _ = _AppDataHandler.post(parameters: param, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
@@ -127,7 +129,8 @@ class CartServices : NSObject {
     }
     
     func removeCartItem(itemID: String, completion:@escaping (String?, String?) -> Void) {
-                
+        
+        self.cartLoadingAnimation.accept(true)
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         _ = _AppDataHandler.delete(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 200, responseData.responseCode == 204 {
@@ -140,7 +143,8 @@ class CartServices : NSObject {
     }
     
     func updateCartItemQuanlity(itemID: String, newValue: Int, completion:@escaping (String?, String?) -> Void) {
-                
+        
+        self.cartLoadingAnimation.accept(true)
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         let params : [String: Any] = ["quantity": newValue]
         _ = _AppDataHandler.patch(parameters: params, fullURLRequest: fullURLRequest, completion: { responseData in
@@ -167,7 +171,7 @@ class CartServices : NSObject {
                         if let oldCartData = self.cartData.value {
                             newCartData = self.matchingCheckoutSelectedOfStore(newCartData, oldCartData: oldCartData)
                         }
-                        
+                        self.cartLoadingAnimation.accept(false)
                         self.cartData.accept(newCartData)
                     }
                 }

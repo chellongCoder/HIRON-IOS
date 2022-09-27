@@ -25,6 +25,7 @@ class AddToCartViewController: UIViewController {
     
     private let variantView     = ConfigurationProductVariantView()
     
+    let soldOutLabel        = UILabel()
     let addToCartBtn        = UIButton()
     
     let minusBtn            = UIButton()
@@ -216,13 +217,25 @@ class AddToCartViewController: UIViewController {
             make.right.equalTo(plusBtn.snp.left).offset(-5)
         }
         
+        soldOutLabel.isHidden = true
+        soldOutLabel.text = "This variant is sold out!\nPlease select another product"
+        soldOutLabel.textAlignment = .center
+        soldOutLabel.numberOfLines = 0
+        soldOutLabel.textColor = kRedHightLightColor
+        contentView.addSubview(soldOutLabel)
+        soldOutLabel.snp.makeConstraints { make in
+            make.top.equalTo(quantityTxt.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-32)
+        }
+        
         addToCartBtn.setTitle("Add to cart", for: .normal)
         addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
         addToCartBtn.addTarget(self, action: #selector(addCartButtonTapped), for: .touchUpInside)
         contentView.addSubview(addToCartBtn)
         addToCartBtn.snp.makeConstraints { make in
-            make.top.equalTo(quantityTxt.snp.bottom).offset(10)
+            make.top.equalTo(soldOutLabel.snp.bottom).offset(10)
             make.right.equalToSuperview().offset(-20)
             make.left.equalToSuperview().offset(20)
             make.height.equalTo(40)
@@ -362,12 +375,14 @@ extension AddToCartViewController : ProductVariantDelegate {
             self.priceLabel.text = String(format: "$%.2f", matchedSimpleProduct.customRegularPrice)
             self.priceLabel.isHidden = (matchedSimpleProduct.customRegularPrice == matchedSimpleProduct.customFinalPrice)
             
+            self.soldOutLabel.isHidden = true
             self.addToCartBtn.isUserInteractionEnabled = true
             self.addToCartBtn.backgroundColor = kPrimaryColor
             self.simpleProductData = matchedSimpleProduct
             self.loadTagsContents()
         } else {
             self.discountPercent.isHidden = true
+            self.soldOutLabel.isHidden = false
             self.addToCartBtn.isUserInteractionEnabled = false
             self.addToCartBtn.backgroundColor = kDisableColor
             self.simpleProductData = nil

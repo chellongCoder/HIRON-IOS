@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class CartHotView: UIView {
     
-    let cartPriceValue  = UILabel()
+    let cartPriceValue      = UILabel()
+    private let disposeBag  = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +47,33 @@ class CartHotView: UIView {
             make.left.equalTo(cartPriceValue.snp.right).offset(10)
             make.right.equalToSuperview().offset(-15)
         }
+        
+        let loadingIndicator = UIActivityIndicatorView()
+        loadingIndicator.color = .white
+        loadingIndicator.startAnimating()
+        self.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.size.equalTo(rightIcon)
+        }
+        
+        _CartServices.cartLoadingAnimation
+            .observe(on: MainScheduler.instance)
+            .subscribe { loadingAnimation in
+                if loadingAnimation.element ?? false {
+                    UIView.animate(withDuration: 1.0) {
+                        rightIcon.alpha = 0.0
+                    } completion: { _ in
+                        loadingIndicator.alpha = 1.0
+                    }
+                } else {
+                    UIView.animate(withDuration: 1.0) {
+                        loadingIndicator.alpha = 0.0
+                    } completion: { _ in
+                        rightIcon.alpha = 1.0
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {
