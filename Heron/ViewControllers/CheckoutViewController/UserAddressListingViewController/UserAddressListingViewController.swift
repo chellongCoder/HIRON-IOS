@@ -55,6 +55,7 @@ class UserAddressListingViewController: BaseViewController,
         emptyView.titleLabel.text = "You current don't have any Delivery Address for us to ship"
         emptyView.messageLabel.text = "Please add your delivery address"
         emptyView.delegate = self
+        emptyView.actionButon.isHidden = true
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
         emptyView.snp.makeConstraints { make in

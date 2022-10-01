@@ -64,8 +64,8 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
             make.bottom.equalToSuperview()
         }
         
-        emptyView.imageView.image = UIImage.init(named: "noDocument")
-        emptyView.titleLabel.text = "No vouchers"
+        emptyView.imageView.image = UIImage.init(named: "emptyBox")
+        emptyView.titleLabel.text = ""
         emptyView.messageLabel.text = "It seems like there are no voucher available at this moment"
         emptyView.actionButon.isHidden = true
         emptyView.isHidden = true

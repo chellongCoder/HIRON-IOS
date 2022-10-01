@@ -74,7 +74,7 @@ class MyBookingsViewController: BaseViewController,
         
         emptyView.titleLabel.text = "You current don't have any bookings"
         emptyView.messageLabel.text = "Please make some bookings with us"
-        emptyView.actionButon.setTitle("Book a doctor", for: .normal)
+        emptyView.actionButon.setTitle("Please make some bookings with us", for: .normal)
         emptyView.delegate = self
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
@@ -216,26 +216,20 @@ class MyBookingsViewController: BaseViewController,
             .subscribe { filterStr in
                 guard let filterS = filterStr.element else {
                     self.emptyView.titleLabel.text = "You current don't have any bookings"
-                    self.emptyView.messageLabel.text = "Please make some bookings with us"
                     return
                 }
                 
                 switch filterS {
                 case "pending":
                     self.emptyView.titleLabel.text = "You currently don't have any pending booking with us"
-                    self.emptyView.messageLabel.text = ""
                 case "confirmed":
                     self.emptyView.titleLabel.text = "You currently don't have any confirmed booking with us"
-                    self.emptyView.messageLabel.text = ""
                 case "processing":
                     self.emptyView.titleLabel.text = "You currently don't have any processing booking with us"
-                    self.emptyView.messageLabel.text = ""
                 case "completed":
                     self.emptyView.titleLabel.text = "You currently don't have any completed booking with us"
-                    self.emptyView.messageLabel.text = ""
                 case "canceled":
                     self.emptyView.titleLabel.text = "You currently don't have any canceled booking with us"
-                    self.emptyView.messageLabel.text = ""
                 default:
                     break
                 }

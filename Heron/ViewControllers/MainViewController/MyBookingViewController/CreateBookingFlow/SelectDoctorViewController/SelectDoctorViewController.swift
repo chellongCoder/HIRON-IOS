@@ -34,7 +34,7 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
         }
         
         emptyView.titleLabel.text = "Sorry, it seems like there are no doctor available at this current time"
-        emptyView.messageLabel.text = "Please contact help center or go to Department to get help"
+        emptyView.messageLabel.text = "Sorry, it seems like there are no doctor available for now"
         emptyView.actionButon.isHidden = true
         emptyView.isHidden = true
         self.view.addSubview(emptyView)

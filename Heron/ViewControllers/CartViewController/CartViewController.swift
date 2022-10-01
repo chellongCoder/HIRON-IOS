@@ -100,6 +100,7 @@ class CartViewController: BaseViewController,
         emptyView.imageView.image = UIImage.init(named: "noItems")
         emptyView.titleLabel.text = "You current don't have any items in your cart"
         emptyView.messageLabel.text = "Please add some items"
+        emptyView.actionButon.setTitle("Browse products", for: .normal)
         emptyView.delegate = self
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
