@@ -23,9 +23,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         
         let dissmissKeyboardGesture = UITapGestureRecognizer.init(target: self, action: #selector(dissmissKeyboard))
         self.view.addGestureRecognizer(dissmissKeyboardGesture)
-    }
-    
-    override func configUI() {
+ 
         let backgroundImage = UIImageView(image: UIImage(named: "bg"))
         backgroundImage.contentMode = .scaleAspectFit
         self.view.addSubview(backgroundImage)

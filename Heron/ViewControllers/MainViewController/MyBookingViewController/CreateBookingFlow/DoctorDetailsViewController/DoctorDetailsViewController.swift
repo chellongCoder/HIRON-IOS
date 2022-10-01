@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class DoctorDetailsViewController: BaseViewController {
+class DoctorDetailsViewController: PageScrollViewController {
 
     private let viewModel       = DoctorDetailsViewModel()
     private let doctorAvatar    = UIImageView()

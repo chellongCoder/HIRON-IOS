@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import Material
 
-class UpdateUserProfileViewController: BaseViewController ,
+class UpdateUserProfileViewController: PageScrollViewController ,
                                        UIPickerViewDelegate, UIPickerViewDataSource {
 
     private let viewModel   = UpdateUserProfileViewModel()

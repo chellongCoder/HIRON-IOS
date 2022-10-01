@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class ProductDetailsViewController: BaseViewController,
+class ProductDetailsViewController: PageScrollViewController,
                                     UIScrollViewDelegate {
     
     private let viewModel       = ProductDetailsViewModel()

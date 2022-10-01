@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class BookingDetailViewController: BaseViewController {
+class BookingDetailViewController: PageScrollViewController {
 
     let viewModel           = BookingDetailViewModel()
     let doctorImage         = UIImageView()

@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import Material
 
-class UpdateEHProfileViewController: BaseViewController {
+class UpdateEHProfileViewController: PageScrollViewController {
     private let viewModel   = UpdateEHProfileViewModel()
     
     let avatar              = UIImageView()

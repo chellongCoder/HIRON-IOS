@@ -23,9 +23,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
-    }
-    
-    override func configUI() {
+        
         let backgroundImage = UIImageView(image: UIImage(named: "bg"))
         backgroundImage.contentMode = .scaleAspectFit
         self.view.addSubview(backgroundImage)

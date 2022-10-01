@@ -12,8 +12,6 @@ import RxSwift
 class BaseViewController: UIViewController {
     
     let refreshControl          = UIRefreshControl()
-    internal let pageScroll     = UIScrollView()
-    let contentView             = UIView()
     let disposeBag              = DisposeBag()
 
     override func viewDidLoad() {
@@ -21,20 +19,7 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = .white
         self.edgesForExtendedLayout = []
         
-        pageScroll.showsVerticalScrollIndicator = false
-        self.view.addSubview(pageScroll)
-        pageScroll.snp.makeConstraints { (make) in
-            make.left.top.right.bottom.equalToSuperview()
-        }
-        
-        contentView.backgroundColor = .white
-        pageScroll.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.top.right.bottom.width.equalToSuperview()
-        }
-        self.configUI()
         self.bindingData()
-        self.view.layoutIfNeeded()
     }
     
     func showBackBtn() {
@@ -60,10 +45,29 @@ class BaseViewController: UIViewController {
     @objc func closeButtonTapped() {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    func configUI() {}
-    
+        
     func bindingData() {}
     
     @objc func reloadData() {}
+}
+
+class PageScrollViewController : BaseViewController {
+    internal let pageScroll     = UIScrollView()
+    let contentView             = UIView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        pageScroll.showsVerticalScrollIndicator = false
+        self.view.addSubview(pageScroll)
+        pageScroll.snp.makeConstraints { (make) in
+            make.left.top.right.bottom.equalToSuperview()
+        }
+        
+        contentView.backgroundColor = .white
+        pageScroll.addSubview(contentView)
+        contentView.snp.makeConstraints { (make) in
+            make.left.top.right.bottom.width.equalToSuperview()
+        }
+    }
 }

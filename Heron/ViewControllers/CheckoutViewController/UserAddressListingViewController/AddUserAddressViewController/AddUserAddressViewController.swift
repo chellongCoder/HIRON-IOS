@@ -10,7 +10,7 @@ import RxCocoa
 import RxSwift
 import Material
 
-class AddUserAddressViewController: BaseViewController {
+class AddUserAddressViewController: PageScrollViewController {
     
     private let firstNameTxt        = ErrorTextField()
     private let lastNameTxt         = ErrorTextField()

@@ -32,9 +32,7 @@ class AccountInfoViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
-    }
-    
-    override func configUI() {
+        
         let background = UIImageView(image: UIImage(named: "bg"))
         background.contentMode = .scaleAspectFit
         self.view.addSubview(background)

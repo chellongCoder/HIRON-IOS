@@ -9,7 +9,8 @@ import UIKit
 
 class MainAuthViewController: BaseViewController {
 
-        override func configUI() {
+        override func viewDidLoad() {
+            super.viewDidLoad()
             let topLogo = UIImageView(image: UIImage(named: "logo"))
             topLogo.contentMode = .scaleAspectFit
             self.view.addSubview(topLogo)
