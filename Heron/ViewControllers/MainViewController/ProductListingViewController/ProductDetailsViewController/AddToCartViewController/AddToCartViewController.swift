@@ -286,13 +286,13 @@ class AddToCartViewController: UIViewController {
         if let sizeName = productData.attributeValues.first(where: { attribute in
             return attribute.attributeCode == "Size"
         }) {
-            contentText = String(format: "%@, Size = %@", contentText, sizeName.value)
+            contentText = String(format: "%@, %@ %@", contentText, sizeName.label, sizeName.value)
         }
         
         if let colorName = productData.attributeValues.first(where: { attribute in
             return attribute.attributeCode == "Color"
         }) {
-            contentText = String(format: "%@, Color = %@", contentText, colorName.value)
+            contentText = String(format: "%@, %@ %@", contentText, colorName.label, colorName.value)
         }
         
         self.tagsContent.text = contentText

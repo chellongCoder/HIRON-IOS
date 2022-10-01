@@ -139,11 +139,12 @@ class CartServices : NSObject {
         
         self.cartLoadingAnimation.accept(true)
         _ = _AppDataHandler.post(parameters: param, fullURLRequest: fullURLRequest, completion: { responseData in
-            if responseData.responseCode == 200, responseData.responseCode == 204 {
+            if responseData.responseCode == 200 || responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
                 self.reloadCart()
                 return
             } else {
+                self.cartLoadingAnimation.accept(false)
                 completion(responseData.responseMessage, nil)
             }
         })
@@ -157,11 +158,12 @@ class CartServices : NSObject {
         self.cartLoadingAnimation.accept(true)
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         _ = _AppDataHandler.delete(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
-            if responseData.responseCode == 200, responseData.responseCode == 204 {
+            if responseData.responseCode == 200 || responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
                 self.reloadCart()
                 return
             } else {
+                self.cartLoadingAnimation.accept(false)
                 completion(responseData.responseMessage, nil)
             }
         })
@@ -176,11 +178,12 @@ class CartServices : NSObject {
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         let params : [String: Any] = ["quantity": newValue]
         _ = _AppDataHandler.patch(parameters: params, fullURLRequest: fullURLRequest, completion: { responseData in
-            if responseData.responseCode == 200, responseData.responseCode == 204 {
+            if responseData.responseCode == 200 || responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
                 self.reloadCart()
                 return
             } else {
+                self.cartLoadingAnimation.accept(false)
                 completion(responseData.responseMessage, nil)
             }
         })

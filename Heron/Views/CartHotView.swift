@@ -66,7 +66,7 @@ class CartHotView: UIView {
                         loadingIndicator.alpha = 1.0
                     }
                 } else {
-                    UIView.animate(withDuration: 1.0) {
+                    UIView.animate(withDuration: 0.1) {
                         loadingIndicator.alpha = 0.0
                     } completion: { _ in
                         rightIcon.alpha = 1.0

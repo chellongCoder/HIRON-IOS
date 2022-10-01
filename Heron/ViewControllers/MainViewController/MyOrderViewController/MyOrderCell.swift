@@ -118,16 +118,16 @@ class MyOrderCell: UITableViewCell {
         if let sizeName = cellData.attributes?.first(where: { attribute in
             return attribute.key == "Size"
         }) {
-            contentText = String(format: "Size = %@", sizeName.value ?? "")
+            contentText = String(format: "%@ %@", sizeName.label ?? "", sizeName.value ?? "")
         }
         
         if let colorName = cellData.attributes?.first(where: { attribute in
             return attribute.key == "Color"
         }) {
             if contentText.isEmpty {
-                contentText = String(format: "Color = %@", colorName.value ?? "")
+                contentText = String(format: "%@ %@", colorName.label ?? "", colorName.value ?? "")
             } else {
-                contentText = String(format: "%@, Color = %@", contentText, colorName.value ?? "")
+                contentText = String(format: "%@, %@ %@", contentText, colorName.label ?? "", colorName.value ?? "")
             }
         }
         self.tagContentLabel.text = contentText

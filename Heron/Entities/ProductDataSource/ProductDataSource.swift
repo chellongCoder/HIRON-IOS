@@ -186,6 +186,7 @@ struct ConfigurableOption : Mappable {
 
 struct ProductAttributeValue : Mappable {
     var id      : String = ""
+    var label   : String = ""
     var value   : String = ""
     var attributeCode   : String = ""
     
@@ -195,6 +196,7 @@ struct ProductAttributeValue : Mappable {
     
     mutating func mapping(map: Map) {
         id              <- map["id"]
+        label           <- map["label"]
         value           <- map["value"]
         attributeCode   <- map["attributeCode"]
     }
