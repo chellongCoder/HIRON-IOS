@@ -162,7 +162,7 @@ class MyOrderViewController: BaseViewController,
     
     @objc private func segmentBtnTapped(sender: UIButton) {
         
-        if selectedSegmentBtn == sender && sender != self.allBtn {
+        if selectedSegmentBtn == sender {
             return
         }
         
