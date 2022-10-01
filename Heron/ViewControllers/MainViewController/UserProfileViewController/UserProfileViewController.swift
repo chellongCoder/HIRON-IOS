@@ -27,6 +27,7 @@ class UserProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.controller = self
+        self.title = "Profile"
         
         avatar.image = UIImage.init(named: "default-image")
         avatar.contentMode = .scaleAspectFit

@@ -31,6 +31,7 @@ class MyOrderViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
+        self.title = "Orders"
         
         topScrollView.showsHorizontalScrollIndicator = false
         self.view.addSubview(topScrollView)
@@ -162,23 +163,6 @@ class MyOrderViewController: BaseViewController,
     
     @objc private func segmentBtnTapped(sender: UIButton) {
         
-        if selectedSegmentBtn == sender {
-            return
-        }
-        
-        selectedSegmentBtn?.isSelected = false
-        sender.isSelected = true
-        selectedSegmentBtn = sender
-        
-        separatorView.snp.remakeConstraints { (remake) in
-            remake.bottom.centerX.width.equalTo(selectedSegmentBtn!)
-            remake.height.equalTo(2)
-        }
-        
-        UIView.animate(withDuration: 0.2) {
-            self.view.layoutIfNeeded()
-        }
-        
         switch sender {
         case self.allBtn:
             self.viewModel.filter.accept(nil)
@@ -195,6 +179,23 @@ class MyOrderViewController: BaseViewController,
             self.viewModel.filter.accept("canceled")
         default:
             break
+        }
+        
+        if selectedSegmentBtn == sender {
+            return
+        }
+        
+        selectedSegmentBtn?.isSelected = false
+        sender.isSelected = true
+        selectedSegmentBtn = sender
+        
+        separatorView.snp.remakeConstraints { (remake) in
+            remake.bottom.centerX.width.equalTo(selectedSegmentBtn!)
+            remake.height.equalTo(2)
+        }
+        
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
         }
     }
     

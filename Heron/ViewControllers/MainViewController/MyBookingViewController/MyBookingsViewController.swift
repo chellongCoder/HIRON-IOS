@@ -29,6 +29,7 @@ class MyBookingsViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
+        self.title = "Bookings"
                 
         let addNewBookingBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "plus"),
                                            style: .plain,
@@ -159,6 +160,22 @@ class MyBookingsViewController: BaseViewController,
     
     @objc private func segmentBtnTapped(sender: UIButton) {
         
+        switch sender {
+        case self.allBtn:
+            self.viewModel.filter.accept(nil)
+//            tableViewIsScrolling = true
+        case self.pendingBtn:
+            self.viewModel.filter.accept("pending")
+        case self.confirmedBtn:
+            self.viewModel.filter.accept("confirmed")
+        case self.completeBtn:
+            self.viewModel.filter.accept("completed")
+        case self.canceledBtn:
+            self.viewModel.filter.accept("canceled")
+        default:
+            break
+        }
+        
         if selectedSegmentBtn == sender {
             return
         }
@@ -174,22 +191,6 @@ class MyBookingsViewController: BaseViewController,
         
         UIView.animate(withDuration: 0.2) {
             self.view.layoutIfNeeded()
-        }
-        
-        switch sender {
-        case self.allBtn:
-            self.viewModel.filter.accept(nil)
-//            tableViewIsScrolling = true
-        case self.pendingBtn:
-            self.viewModel.filter.accept("pending")
-        case self.confirmedBtn:
-            self.viewModel.filter.accept("confirmed")
-        case self.completeBtn:
-            self.viewModel.filter.accept("completed")
-        case self.canceledBtn:
-            self.viewModel.filter.accept("canceled")
-        default:
-            break
         }
     }
     

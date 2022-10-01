@@ -41,8 +41,6 @@ class MainViewController: UITabBarController {
         let myProfileNav = UINavigationController.init(rootViewController: UserProfileViewController())
         myProfileNav.tabBarItem = UITabBarItem(title: "Profile", image: UIImage.init(systemName: "person"), selectedImage: nil)
         
-        UINavigationBar.appearance().isTranslucent = false
-
         self.viewControllers = [myOrderNav, productNav, bookingNav, myProfileNav]
         self.selectedIndex = 1
     }
