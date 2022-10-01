@@ -228,19 +228,14 @@ class MyOrderViewController: BaseViewController,
                 switch filterS {
                 case "pending":
                     self.emptyView.titleLabel.text = "You currently don't have any pending order"
-                    self.emptyView.messageLabel.text = ""
                 case "confirmed":
                     self.emptyView.titleLabel.text = "You currently don't have any confirmed order"
-                    self.emptyView.messageLabel.text = ""
                 case "processing":
                     self.emptyView.titleLabel.text = "You currently don't have any processing order"
-                    self.emptyView.messageLabel.text = ""
                 case "completed":
                     self.emptyView.titleLabel.text = "You currently don't have any complete order"
-                    self.emptyView.messageLabel.text = ""
                 case "canceled":
                     self.emptyView.titleLabel.text = "You currently don't have any canceled order"
-                    self.emptyView.messageLabel.text = ""
                 default:
                     break
                 }

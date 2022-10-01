@@ -45,7 +45,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.centerX.equalToSuperview()
         }
         
-        firstNameTxt.placeholder = "First Name"
+        firstNameTxt.placeholder = "First Name *"
         firstNameTxt.text = viewModel.contact.value.firstName
         firstNameTxt.dividerNormalHeight = 0.5
         firstNameTxt.dividerNormalColor = kPrimaryColor
@@ -59,7 +59,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.height.equalTo(50)
         }
         
-        lastNameTxt.placeholder = "Last Name"
+        lastNameTxt.placeholder = "Last Name *"
         lastNameTxt.text = viewModel.contact.value.lastName
         lastNameTxt.dividerNormalHeight = 0.5
         lastNameTxt.dividerNormalColor = kPrimaryColor
@@ -73,7 +73,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.height.equalTo(50)
         }
         
-        phoneTxt.placeholder = "Phone Number"
+        phoneTxt.placeholder = "Phone Number *"
         phoneTxt.text = viewModel.contact.value.phone
         phoneTxt.dividerNormalHeight = 0.5
         phoneTxt.dividerNormalColor = kPrimaryColor
@@ -88,7 +88,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.height.equalTo(50)
         }
         
-        emailTxt.placeholder = "Email"
+        emailTxt.placeholder = "Email *"
         emailTxt.text = viewModel.contact.value.email
         emailTxt.dividerNormalHeight = 0.5
         emailTxt.dividerNormalColor = kPrimaryColor
@@ -113,7 +113,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.centerX.equalToSuperview()
         }
         
-        addressTxt.placeholder = "Address"
+        addressTxt.placeholder = "Address *"
         addressTxt.text = viewModel.contact.value.address
         addressTxt.dividerNormalHeight = 0.5
         addressTxt.dividerNormalColor = kPrimaryColor
@@ -127,7 +127,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.height.equalTo(50)
         }
         
-        countryTxt.placeholder = "Country"
+        countryTxt.placeholder = "Country *"
         countryTxt.text = viewModel.contact.value.country
         countryTxt.dividerNormalHeight = 0.5
         countryTxt.dividerNormalColor = kPrimaryColor
@@ -141,7 +141,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.height.equalTo(50)
         }
         
-        cityTxt.placeholder = "City"
+        cityTxt.placeholder = "City *"
         cityTxt.text = viewModel.contact.value.province
         cityTxt.dividerNormalHeight = 0.5
         cityTxt.dividerNormalColor = kPrimaryColor
@@ -155,7 +155,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.height.equalTo(50)
         }
         
-        postCodeTxt.placeholder = "Zip Code"
+        postCodeTxt.placeholder = "Zip Code *"
         postCodeTxt.text = viewModel.contact.value.postalCode
         postCodeTxt.dividerNormalHeight = 0.5
         postCodeTxt.dividerNormalColor = kPrimaryColor
@@ -265,13 +265,6 @@ class AddUserAddressViewController: PageScrollViewController {
             } else {
                 viewModel.createNewAddress()
             }
-        } else {
-            let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
-                                                 message: "Some field required to input", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-                alertVC.dismiss()
-            }))
-            _NavController.showAlert(alertVC)
         }
     }
     

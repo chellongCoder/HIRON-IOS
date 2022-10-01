@@ -119,7 +119,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        firstNameTxt.placeholder = "First Name"
+        firstNameTxt.placeholder = "First Name *"
         firstNameTxt.dividerNormalHeight = 0.5
         firstNameTxt.dividerNormalColor = kPrimaryColor
         firstNameTxt.errorColor = .red
@@ -132,7 +132,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
             make.height.equalTo(50)
         }
         
-        lastNameTxt.placeholder = "Last Name"
+        lastNameTxt.placeholder = "Last Name *"
         lastNameTxt.dividerNormalHeight = 0.5
         lastNameTxt.dividerNormalColor = kPrimaryColor
         lastNameTxt.errorColor = .red

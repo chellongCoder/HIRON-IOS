@@ -34,7 +34,7 @@ class EmptyView: UIView {
         }
         
         titleLabel.text = "Your box is empty"
-        titleLabel.font = getFontSize(size: 20, weight: .bold)
+        titleLabel.font = getFontSize(size: 16, weight: .bold)
         titleLabel.textColor = kDefaultTextColor
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
@@ -47,12 +47,12 @@ class EmptyView: UIView {
         
         messageLabel.text = "All incoming requests will be listed in this folder"
         messageLabel.textColor = kDefaultTextColor
-        messageLabel.font = getFontSize(size: 20, weight: .regular)
+        messageLabel.font = getFontSize(size: 12, weight: .regular)
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         self.addSubview(messageLabel)
         messageLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.centerX.width.equalTo(titleLabel)
         }
         

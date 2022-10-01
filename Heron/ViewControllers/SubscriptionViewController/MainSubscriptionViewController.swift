@@ -21,7 +21,6 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         self.viewModel.controller = self
         
         let backgroundImage = UIImageView(image: UIImage(named: "bg"))
@@ -105,6 +104,8 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             $0.width.equalToSuperview()
             $0.height.equalTo(200)
         }
+        
+        self.bindingData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
