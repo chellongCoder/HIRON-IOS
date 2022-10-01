@@ -21,6 +21,15 @@ class CartServices : NSObject {
 
     override init() {
         super.init()
+        self.reloadCart()
+        _AppCoreData.userSession
+            .observe(on: MainScheduler.instance)
+            .subscribe { userSession in
+                if (userSession.element != nil) {
+                    self.reloadCart()
+                }
+            }
+            .disposed(by: disposeBag)
         
         self.cartData
             .observe(on: MainScheduler.instance)
@@ -41,6 +50,10 @@ class CartServices : NSObject {
             .disposed(by: disposeBag)
     }
     
+    func reloadCart() {
+        self.getCartDataSource()
+    }
+    
     func cleanData() {
         cartData.accept(nil)
     }
@@ -50,7 +63,11 @@ class CartServices : NSObject {
         self.cartData.accept(self.uncheckAll(cartData: self.cartData.value))
     }
     
-    func prepearedCheckout() {
+    private func prepearedCheckout() {
+        
+        // Authentication first
+        if _AppCoreData.userSession.value == nil {return}
+        
         guard let cartData = cartData.value else {
             cartPreCheckoutResponseData.accept(nil)
             return
@@ -107,6 +124,9 @@ class CartServices : NSObject {
     
     func addToCart(listProducts: [ProductDataSource], completion:@escaping (String?, String?) -> Void) {
         
+        // Authentication first
+        if _AppCoreData.userSession.value == nil {return}
+        
         var productsDict : [[String:Any]] = []
         for product in listProducts {
             let productDict : [String: Any] = ["productId" : product.id,
@@ -121,6 +141,7 @@ class CartServices : NSObject {
         _ = _AppDataHandler.post(parameters: param, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
+                self.reloadCart()
                 return
             } else {
                 completion(responseData.responseMessage, nil)
@@ -130,11 +151,15 @@ class CartServices : NSObject {
     
     func removeCartItem(itemID: String, completion:@escaping (String?, String?) -> Void) {
         
+        // Authentication first
+        if _AppCoreData.userSession.value == nil {return}
+        
         self.cartLoadingAnimation.accept(true)
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         _ = _AppDataHandler.delete(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
+                self.reloadCart()
                 return
             } else {
                 completion(responseData.responseMessage, nil)
@@ -144,12 +169,16 @@ class CartServices : NSObject {
     
     func updateCartItemQuanlity(itemID: String, newValue: Int, completion:@escaping (String?, String?) -> Void) {
         
+        // Authentication first
+        if _AppCoreData.userSession.value == nil {return}
+        
         self.cartLoadingAnimation.accept(true)
         let fullURLRequest = kGatwayCartURL + String(format: "/carts/items/%@", itemID)
         let params : [String: Any] = ["quantity": newValue]
         _ = _AppDataHandler.patch(parameters: params, fullURLRequest: fullURLRequest, completion: { responseData in
             if responseData.responseCode == 200, responseData.responseCode == 204 {
                 completion(nil, responseData.responseMessage)
+                self.reloadCart()
                 return
             } else {
                 completion(responseData.responseMessage, nil)
@@ -157,16 +186,17 @@ class CartServices : NSObject {
         })
     }
     
-    func getCartDataSource(completion:@escaping (String?) -> Void) {
+    private func getCartDataSource() {
+        
+        // Authentication first
+        if _AppCoreData.userSession.value == nil {return}
         
         let fullURLRequest = kGatwayCartURL + "/carts"
         _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest, completion: { responseData in
-            if let responseMessage = responseData.responseMessage {
-                completion(responseMessage)
+            if responseData.responseMessage != nil {
                 return
             } else {                
                 if let data = responseData.responseData?["data"] as? [String:Any] {
-                    completion(nil)
                     if var newCartData = Mapper<CartDataSource>().map(JSON: data) {
                         if let oldCartData = self.cartData.value {
                             newCartData = self.matchingCheckoutSelectedOfStore(newCartData, oldCartData: oldCartData)
@@ -226,7 +256,7 @@ class CartServices : NSObject {
         return returnStore
     }
     
-    func isCartEmptySelection() -> Bool {
+    private func isCartEmptySelection() -> Bool {
         for store in self.cartData.value?.store ?? [] {
             for cartItem in store.cartItems where cartItem.isSelected {
                 return false

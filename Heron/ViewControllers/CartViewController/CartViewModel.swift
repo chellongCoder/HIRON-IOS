@@ -24,7 +24,6 @@ class CartViewModel {
                 _NavController.showAlert(alertVC)
                 return
             }
-            self.reloadCart()
         }
     }
     
@@ -44,8 +43,6 @@ class CartViewModel {
                 _NavController.showAlert(alertVC)
                 return
             }
-            
-            self.reloadCart()
         }
     }
     
@@ -53,25 +50,6 @@ class CartViewModel {
                 
         self.controller?.startLoadingAnimation()
         _CartServices.updateCartItemQuanlity(itemID: item.id, newValue: newValue) { errorMessage, _ in
-            self.controller?.endLoadingAnimation()
-            
-            if errorMessage != nil {
-                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-                    alertVC.dismiss()
-                }))
-                _NavController.showAlert(alertVC)
-                return
-            }
-            
-            self.reloadCart()
-        }
-    }
-    
-    func reloadCart() {
-        
-        self.controller?.startLoadingAnimation()
-        _CartServices.getCartDataSource { errorMessage in
             self.controller?.endLoadingAnimation()
             
             if errorMessage != nil {

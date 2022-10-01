@@ -111,7 +111,6 @@ class CartViewController: BaseViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
-        self.viewModel.reloadCart()
     }
     
     override func closeButtonTapped() {
@@ -124,7 +123,7 @@ class CartViewController: BaseViewController,
     
     // MARK: - BindingData
     override func reloadData() {
-        self.viewModel.reloadCart()
+        _CartServices.reloadCart()
         self.refreshControl.endRefreshing()
     }
     
