@@ -209,15 +209,15 @@ class UserSubscriptionViewController: BaseViewController {
             let alertVC = UIAlertController.init(title: NSLocalizedString("Confirm", comment: ""),
                                                  message: "Are you sure to cancel currently subscription?",
                                                  preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel immediately", comment: ""), style: .default, handler: { _ in
-                alertVC.dismiss()
-                self.viewModel.cancelCurrentlySubscription(true)
-            }))
-            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel auto renewable", comment: ""), style: .default, handler: { _ in
+//            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel immediately", comment: ""), style: .default, handler: { _ in
+//                alertVC.dismiss()
+//                self.viewModel.cancelCurrentlySubscription(true)
+//            }))
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Sure", comment: ""), style: .default, handler: { _ in
                 alertVC.dismiss()
                 self.viewModel.cancelCurrentlySubscription(false)
             }))
-            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Keep using", comment: ""), style: .cancel, handler: { _ in
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: { _ in
                 alertVC.dismiss()
             }))
             _NavController.showAlert(alertVC)

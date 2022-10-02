@@ -105,7 +105,7 @@ struct CartItemDataSource: Mappable {
 struct CartShippingDataSource: Mappable {
     
     var carrier     : CartCarrierDataSource?
-    private var qoutes  : [String: Any]?
+    var qoutes      : CartQoutesDataSource?
     
     // custom
     var amount      : Float = 0.0
@@ -117,8 +117,7 @@ struct CartShippingDataSource: Mappable {
         carrier <- map["carrier"]
         qoutes  <- map["quotes"]
         
-        let amountSource = (qoutes?["amount"] as? Int) ?? 0
-        amount = Float(amountSource) / 100.0
+        amount = Float(qoutes?.amount ?? 0) / 100.0
     }
 }
 
@@ -126,6 +125,21 @@ struct CartCarrierDataSource: Mappable {
     
     var name                : String = ""
     private var updatedAt   : Int = 0
+        
+    init?(map: Map) {
+        //
+    }
+    
+    mutating func mapping(map: Map) {
+        name        <- map["name"]
+        updatedAt   <- map["updatedAt"]
+    }
+}
+
+struct CartQoutesDataSource: Mappable {
+    
+    var estimatedTimeDropOff    : Int = 0
+    var amount                  : Int = 0
     
     // custom
     var updatedAtStr        : String = ""
@@ -135,10 +149,10 @@ struct CartCarrierDataSource: Mappable {
     }
     
     mutating func mapping(map: Map) {
-        name        <- map["name"]
-        updatedAt   <- map["updatedAt"]
+        estimatedTimeDropOff    <- map["estimatedTimeDropOff"]
+        amount                  <- map["amount"]
         
-        let date = Date.init(timeIntervalSince1970: TimeInterval(updatedAt/1000))
+        let date = Date.init(timeIntervalSince1970: TimeInterval(estimatedTimeDropOff/1000))
         self.updatedAtStr = date.toString(dateFormat: "MMM dd, yyyy")
     }
 }

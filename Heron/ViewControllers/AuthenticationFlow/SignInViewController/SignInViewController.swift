@@ -88,6 +88,10 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
             make.centerX.equalToSuperview()
         }
         
+        let changeServiceTouch = UITapGestureRecognizer.init(target: self, action: #selector(changeAuthenticationFlow))
+        signInSubLabel.addGestureRecognizer(changeServiceTouch)
+        signInSubLabel.isUserInteractionEnabled = true
+        
         emailTxt.delegate = self
         emailTxt.placeholder = "Email"
         emailTxt.dividerNormalHeight = 0.5
@@ -226,6 +230,17 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
+    }
+    
+    @objc private func changeAuthenticationFlow() {
+        var viewControllers = self.navigationController?.viewControllers ?? []
+        viewControllers.removeLast()
+        
+        let signInVC = SignInViewController()
+        signInVC.isSignIn = !isSignIn
+        
+        viewControllers.append(signInVC)
+        self.navigationController?.setViewControllers(viewControllers, animated: true)
     }
     
     // MARK: - UITextFieldDelegate

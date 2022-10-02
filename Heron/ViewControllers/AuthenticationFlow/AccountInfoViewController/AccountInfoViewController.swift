@@ -149,7 +149,7 @@ class AccountInfoViewController: BaseViewController,
             make.width.equalTo(self.view).offset(-40)
         }
                 
-        phoneNumberCodeTxt.text = "+1"
+        phoneNumberCodeTxt.text = "+01"
         phoneNumberCodeTxt.placeholder = "Phone Code *"
         phoneNumberCodeTxt.dividerNormalHeight = 0.5
         phoneNumberCodeTxt.dividerNormalColor = kPrimaryColor

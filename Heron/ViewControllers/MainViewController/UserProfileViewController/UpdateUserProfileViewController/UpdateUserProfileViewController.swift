@@ -10,7 +10,8 @@ import RxSwift
 import Material
 
 class UpdateUserProfileViewController: PageScrollViewController ,
-                                       UIPickerViewDelegate, UIPickerViewDataSource {
+                                       UIPickerViewDelegate, UIPickerViewDataSource,
+                                       UITextFieldDelegate {
 
     private let viewModel   = UpdateUserProfileViewModel()
     let avatar              = UIImageView()
@@ -124,6 +125,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         firstNameTxt.dividerNormalColor = kPrimaryColor
         firstNameTxt.errorColor = .red
         firstNameTxt.textColor = kDefaultTextColor
+        firstNameTxt.delegate = self
         self.pageScroll.addSubview(firstNameTxt)
         firstNameTxt.snp.makeConstraints { make in
             make.top.equalTo(contentView.snp.bottom).offset(40)
@@ -137,6 +139,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         lastNameTxt.dividerNormalColor = kPrimaryColor
         lastNameTxt.errorColor = .red
         lastNameTxt.textColor = kDefaultTextColor
+        lastNameTxt.delegate = self
         self.pageScroll.addSubview(lastNameTxt)
         lastNameTxt.snp.makeConstraints { make in
             make.top.equalTo(firstNameTxt.snp.bottom).offset(40)
@@ -192,6 +195,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         phoneNumberTxt.errorColor = .red
         phoneNumberTxt.textColor = kDefaultTextColor
         phoneNumberTxt.keyboardType = .phonePad
+        phoneNumberTxt.delegate = self
         self.pageScroll.addSubview(phoneNumberTxt)
         phoneNumberTxt.snp.makeConstraints { make in
             make.top.equalTo(dobTxt.snp.bottom).offset(50)
@@ -261,6 +265,9 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         
         codePicker.dataSource = self
         codePicker.delegate = self
+        if phoneNumberCodeTxt.text == "+84" {
+            codePicker.selectRow(1, inComponent: 0, animated: false)
+        }
         phoneNumberCodeTxt.inputView = codePicker
     }
     
@@ -384,11 +391,24 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         } else {
             if row == 0 {
                 phoneNumberCodeTxt.text = "+01"
-                userData.userPhoneCode = "01"
+                userData.userPhoneCode = "+01"
             } else {
                 phoneNumberCodeTxt.text = "+84"
-                userData.userPhoneCode = "84"
+                userData.userPhoneCode = "+84"
             }
+        }
+        
+        viewModel.userData.accept(userData)
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+        if textField == firstNameTxt {
+            userData.userFirstName = firstNameTxt.text ?? ""
+        } else if textField == lastNameTxt {
+            userData.userFirstName = firstNameTxt.text ?? ""
         }
         
         viewModel.userData.accept(userData)

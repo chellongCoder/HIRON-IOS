@@ -401,6 +401,7 @@ class CheckoutViewController: BaseViewController,
         
         if let storeData = viewModel.cartPreCheckout?.cartDetail[section - 1],
            let shippingData = storeData.shippingOrder,
+           let qoutes = shippingData.qoutes,
            let carier = shippingData.carrier {
             
             let titleSignal = UILabel()
@@ -415,7 +416,7 @@ class CheckoutViewController: BaseViewController,
             let carierView = CarrierView()
             carierView.carrierName.text = carier.name
             carierView.shippingFee.text = String(format: "$%.2f", shippingData.amount)
-            carierView.receivedLog.text = String(format: "Received order in %@", carier.updatedAtStr)
+            carierView.receivedLog.text = String(format: "Received order in %@", qoutes.updatedAtStr)
             contentFooterView.addSubview(carierView)
             carierView.snp.makeConstraints { (make) in
                 make.top.equalTo(titleSignal.snp.bottom).offset(2)
