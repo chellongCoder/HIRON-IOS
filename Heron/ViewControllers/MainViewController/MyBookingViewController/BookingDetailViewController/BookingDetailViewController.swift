@@ -20,6 +20,7 @@ class BookingDetailViewController: PageScrollViewController {
     let patientInfoLabel    = UILabel()
     let doctorInfoLabel     = UILabel()
     let totalPaymentLabel   = UILabel()
+    let bookingIDLabel      = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,6 +172,26 @@ class BookingDetailViewController: PageScrollViewController {
             make.top.equalTo(doctorInfoLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+        }
+        
+        let bookingIDIcon = UIImageView()
+        bookingIDIcon.image = UIImage.init(systemName: "calendar")
+        bookingIDIcon.tintColor = kDefaultTextColor
+        contentView.addSubview(bookingIDIcon)
+        bookingIDIcon.snp.makeConstraints { make in
+            make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
+            make.left.equalToSuperview().offset(10)
+            make.height.width.equalTo(13)
+        }
+        
+        bookingIDLabel.numberOfLines = 0
+        bookingIDLabel.textColor = kDefaultTextColor
+        bookingIDLabel.font = getFontSize(size: 14, weight: .regular)
+        contentView.addSubview(bookingIDLabel)
+        bookingIDLabel.snp.makeConstraints { make in
+            make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
+            make.left.equalTo(timeableIcon.snp.right).offset(8)
+            make.right.equalToSuperview().offset(-16)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
@@ -214,9 +235,10 @@ class BookingDetailViewController: PageScrollViewController {
                                                     trueBookingData.profile?.firstName ?? "",
                                                     trueBookingData.profile?.lastName ?? "",
                                                     trueBookingData.profile?.gender == .male ? "Male" : "Female")
-                self.totalPaymentLabel.text = String(format: "Total: %.2f. BookingID: #%@",
-                                                     trueBookingData.customAmount,
-                                                     trueBookingData.code)
+                self.totalPaymentLabel.text = String(format: "Total: $%.2f",
+                                                     trueBookingData.customAmount)
+                self.bookingIDLabel.text = String(format: " BookingID: #%@",
+                                                  trueBookingData.code)
             }
             .disposed(by: disposeBag)
 
