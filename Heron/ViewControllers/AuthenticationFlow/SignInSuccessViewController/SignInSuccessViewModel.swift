@@ -22,19 +22,26 @@ class SignInSuccessViewModel: NSObject {
             if let plans = plans {
                 
                 if plans.first(where: { userSubscription in
-                    return userSubscription.status == .ENABLED
+                    return userSubscription.customStatus == .CURRENTLY_NS
                 }) != nil {
-                    // User already subscrible and plan
+                    // User already subscrible and it never Stop
                     _NavController.gotoHomepage()
                     return
                 }
                 
-                let pendingPlans = plans.filter { userSubscription in
-                    return (userSubscription.status == .PENDING)
+                if plans.contains(where: { userSubscription in
+                    return userSubscription.customStatus == .CURRENTLY_ST
+                }) {
+                    if plans.contains(where: { userSubscription2 in
+                        return userSubscription2.customStatus == .WILL_ACTIVE
+                    }) {
+                        // User already subscrible and has switched plan
+                        _NavController.gotoHomepage()
+                        return
+                    }
                 }
                 
                 let viewController = MainSubscriptionViewController()
-                viewController.viewModel.pendingSubscription.accept(pendingPlans)
                 self.controller?.navigationController?.pushViewController(viewController, animated: true)
             }
         }

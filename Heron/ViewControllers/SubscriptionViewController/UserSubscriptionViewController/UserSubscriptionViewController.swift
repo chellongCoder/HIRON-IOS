@@ -108,7 +108,9 @@ class UserSubscriptionViewController: BaseViewController {
                     subView.removeFromSuperview()
                 }
                 
-                if let currentSubs = self.viewModel.getCurrentSubscription(listUserSubs) {
+                if let currentSubs = listUserSubs.first(where: { userRegisteredSubscription in
+                    return userRegisteredSubscription.customStatus == .CURRENTLY_NS || userRegisteredSubscription.customStatus == .CURRENTLY_ST
+                }) {
                     let statusLabel = UILabel()
                     statusLabel.text = String(format: "Status: %@", currentSubs.getStatusText())
                     statusLabel.textColor = kDefaultTextColor
@@ -160,12 +162,50 @@ class UserSubscriptionViewController: BaseViewController {
                         make.top.equalTo(startDateLabel.snp.bottom)
                         make.left.equalToSuperview().offset(10)
                         make.right.equalToSuperview().offset(-10)
+                    }
+                    
+                    var lastView : UIView = endDateLabel
+                    var isHasNextPlan = false
+                    
+                    if let nextPlan = listUserSubs.first(where: { userSubs in
+                        return userSubs.customStatus == .WILL_ACTIVE
+                    }) {
+                        isHasNextPlan = true
+                        
+                        let nextPlanLabel = UILabel()
+                        nextPlanLabel.text = String(format: "Next Plan is: %@", nextPlan.subsPlan?.subsItem?.name ?? "")
+                        nextPlanLabel.textColor = kDefaultTextColor
+                        nextPlanLabel.numberOfLines = 0
+                        nextPlanLabel.textColor = UIColor.init(hexString: "444444")
+                        nextPlanLabel.font = getFontSize(size: 14, weight: .regular)
+                        self.subsctionView.addSubview(nextPlanLabel)
+                        nextPlanLabel.snp.makeConstraints { make in
+                            make.top.equalTo(endDateLabel.snp.bottom)
+                            make.left.equalToSuperview().offset(10)
+                            make.right.equalToSuperview().offset(-10)
+                        }
+                        
+                        lastView = nextPlanLabel
+                    }
+                    
+                    lastView.snp.makeConstraints { make in
                         make.bottom.lessThanOrEqualToSuperview().offset(-10)
                     }
                     
                     self.view.layoutIfNeeded()
-                    self.actionButton.tag = 0
-                    self.actionButton.setTitle("Cancel", for: .normal)
+                    
+                    if currentSubs.customStatus == .CURRENTLY_ST && isHasNextPlan {
+                        self.actionButton.tag = 1
+                        self.actionButton.setTitle("Switch Plan", for: .normal)
+                    } else if currentSubs.customStatus == .CURRENTLY_ST && !isHasNextPlan {
+                        self.actionButton.tag = 1
+                        self.actionButton.setTitle("Subscribe", for: .normal)
+                    }
+                    else {
+                        self.actionButton.tag = 0
+                        self.actionButton.setTitle("Cancel", for: .normal)
+                    }
+                    
                     return
                 } else {
                     let statusLabel = UILabel()
@@ -209,10 +249,6 @@ class UserSubscriptionViewController: BaseViewController {
             let alertVC = UIAlertController.init(title: NSLocalizedString("Confirm", comment: ""),
                                                  message: "Are you sure to cancel currently subscription?",
                                                  preferredStyle: .alert)
-//            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel immediately", comment: ""), style: .default, handler: { _ in
-//                alertVC.dismiss()
-//                self.viewModel.cancelCurrentlySubscription(true)
-//            }))
             alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Sure", comment: ""), style: .default, handler: { _ in
                 alertVC.dismiss()
                 self.viewModel.cancelCurrentlySubscription(false)
