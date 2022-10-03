@@ -53,6 +53,7 @@ class CheckoutViewModel: NSObject {
                                                              message: "You has cancelled payment, you can try again", preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
+                            self.controller?.dismiss(animated: true)
                             _NavController.gotoHomepage()
                         }))
                         _NavController.showAlert(alertVC)
