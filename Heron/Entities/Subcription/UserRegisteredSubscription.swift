@@ -11,7 +11,7 @@ class UserRegisteredSubscription: Mappable {
     
     var id              : String = ""
     private var price   : Int = 0
-    var status          : SubscriptionStatus = .PENDING
+    private var status  : SubscriptionStatus = .PENDING
     var subsPlan        : SubscriptionData?
     var subsPlanId      : String = ""
     var interval        : SubscriptionInterval?
@@ -23,6 +23,7 @@ class UserRegisteredSubscription: Mappable {
     
     // custom
     var customPrice     : Float = 0.0
+    var customStatus    : CustomSubscriptionStatus = .NONE
     
     required init?(map: Map) {
         //
@@ -42,15 +43,17 @@ class UserRegisteredSubscription: Mappable {
         disabledAt  <- map["disabledAt"]
         
         self.customPrice = Float(self.price)/100.0
-    }
-    
-    func isCurrentlyApplied() -> Bool {
-        let currentMilisecond = Int(Date().timeIntervalSince1970)*1000
-        if self.enabledAt <= currentMilisecond && self.disabledAt > currentMilisecond {
-            return true
-        }
         
-        return false
+        let nowTimeStamp = Int(Date().timeIntervalSince1970)*1000
+        if enabledAt <= nowTimeStamp && disabledAt > nowTimeStamp && status == .ENABLED {
+            self.customStatus = .CURRENTLY_NS
+        } else if enabledAt <= nowTimeStamp && disabledAt > nowTimeStamp && (status == .CANCELLED || status == .DISABLE) {
+            self.customStatus = .CURRENTLY_ST
+        } else if enabledAt > nowTimeStamp && disabledAt > nowTimeStamp && disabledAt > enabledAt {
+            self.customStatus = .WILL_ACTIVE
+        } else if enabledAt > 0 {
+            self.customStatus = .USED
+        }
     }
     
     func getStatusText() -> String {
@@ -61,6 +64,8 @@ class UserRegisteredSubscription: Mappable {
             return "Activated"
         case .CANCELLED:
             return "Cancelled"
+        case .DISABLE:
+            return "Disabled"
         }
     }
 }

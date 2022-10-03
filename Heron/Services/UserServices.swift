@@ -19,7 +19,7 @@ class UserServices : NSObject {
             .observe(on: MainScheduler.instance)
             .subscribe { newSessionData in
                 guard let newSessionData = newSessionData.element else { return }
-                guard let newToken = newSessionData?.accessToken else { return }
+                guard (newSessionData?.accessToken) != nil else { return }
                 self.getUserProfile()
             }
             .disposed(by: disposeBag)
