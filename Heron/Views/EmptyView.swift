@@ -7,6 +7,7 @@
 
 import UIKit
 
+// swiftlint:disable:next class_delegate_protocol
 protocol EmptyViewDelegate {
     func didSelectEmptyButton()
 }

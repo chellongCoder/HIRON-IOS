@@ -200,8 +200,7 @@ class UserSubscriptionViewController: BaseViewController {
                     } else if currentSubs.customStatus == .CURRENTLY_ST && !isHasNextPlan {
                         self.actionButton.tag = 1
                         self.actionButton.setTitle("Subscribe", for: .normal)
-                    }
-                    else {
+                    } else {
                         self.actionButton.tag = 0
                         self.actionButton.setTitle("Cancel", for: .normal)
                     }
