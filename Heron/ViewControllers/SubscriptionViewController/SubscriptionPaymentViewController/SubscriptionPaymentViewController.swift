@@ -71,7 +71,6 @@ class SubscriptionPaymentViewController: BaseViewController {
         
         pricelbl.textColor = .white
         pricelbl.font = getFontSize(size: 24, weight: .bold)
-        pricelbl.text = "$ 100.00"
         
         let hstack = UIStackView()
         hstack.axis  = .horizontal

@@ -56,9 +56,6 @@ class SubscriptionPaymentViewModel: NSObject {
                             alertVC.dismiss()
                             _NavController.gotoHomepage()
                         }))
-                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Try again", comment: ""), style: .default, handler: { _ in
-                            alertVC.dismiss()
-                        }))
                         _NavController.showAlert(alertVC)
                     case .failed(let error):
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
