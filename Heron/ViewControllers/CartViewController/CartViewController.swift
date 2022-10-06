@@ -20,6 +20,7 @@ class CartViewController: BaseViewController,
     
     private let voucherView             = VoucherSelectedView()
     private let totalLabel              = UILabel()
+    private let checkboxAll             = UIButton()
     private let savingLabel             = UILabel()
     private let checkoutBtn             = UIButton()
 
@@ -35,12 +36,23 @@ class CartViewController: BaseViewController,
                                            action: #selector(closeButtonTapped))
         self.navigationItem.leftBarButtonItem = closeBtn
         
+        checkboxAll.tintColor = kPrimaryColor
+        checkboxAll.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
+        checkboxAll.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
+        checkboxAll.addTarget(self, action: #selector(storeCheckboxButtonTapped(button:)), for:.touchUpInside)
+        self.view.addSubview(checkboxAll)
+        checkboxAll.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(10)
+            make.height.width.equalTo(35)
+        }
+        
         savingLabel.text = "Saving: $0.0"
         savingLabel.textColor = kDefaultTextColor
         savingLabel.font = .systemFont(ofSize: 16)
         self.view.addSubview(savingLabel)
         savingLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(20)
+            make.left.equalTo(checkboxAll.snp.right).offset(5)
+            make.top.equalTo(checkboxAll.snp.centerY)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
         
@@ -52,7 +64,7 @@ class CartViewController: BaseViewController,
         self.view.addSubview(totalLabel)
         totalLabel.snp.makeConstraints { make in
             make.bottom.equalTo(savingLabel.snp.top).offset(-5)
-            make.left.equalToSuperview().offset(20)
+            make.left.equalTo(checkboxAll.snp.right).offset(5)
         }
         
         checkoutBtn.backgroundColor = kPrimaryColor
@@ -198,6 +210,16 @@ class CartViewController: BaseViewController,
     @objc private func storeCheckboxButtonTapped(button: UIButton) {
         
         button.isSelected = !button.isSelected
+        
+        if button == self.checkboxAll {
+            guard var cartData = viewModel.cartDataSource else {return}
+            if button.isSelected {
+                _CartServices.cartData.accept(_CartServices.checkAll(cartData: cartData))
+            } else {
+                _CartServices.cartData.accept(_CartServices.uncheckAll(cartData: cartData))
+            }
+            return
+        }
         
         let section = button.tag
         guard var cartData = viewModel.cartDataSource else {return}

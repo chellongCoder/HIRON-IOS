@@ -26,7 +26,8 @@ class DeliveryServices: NSObject {
     }
 
     func getListUserAddress() {
-                
+        guard _AppCoreData.userSession.value != nil else {return}
+        
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses/users/own"
         
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in

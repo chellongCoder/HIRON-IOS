@@ -27,6 +27,8 @@ class EHProfileServices: NSObject {
     
     func getListEHProfile(completion:@escaping (String?) -> Void) {
         
+        guard _AppCoreData.userSession.value != nil else {return}
+        
         let fullURLRequest = kGatewayEHealthProfileURL + "/profiles?filter[typeId][eq]=null"
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
                         
@@ -47,6 +49,8 @@ class EHProfileServices: NSObject {
     }
     
     func updateEHProfile(_ ehProfile: EHealthDataSource, completion:@escaping (String?, Bool) -> Void) {
+        
+        guard _AppCoreData.userSession.value != nil else {return}
         
         let fullURLRequest = kGatewayEHealthProfileURL + "/profiles/" + ehProfile.id
         

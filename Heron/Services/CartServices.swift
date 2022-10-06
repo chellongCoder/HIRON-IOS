@@ -224,7 +224,7 @@ class CartServices : NSObject {
         return returnCartData
     }
     
-    private func uncheckAll(cartData: CartDataSource?) -> CartDataSource? {
+    func uncheckAll(cartData: CartDataSource?) -> CartDataSource? {
         
         guard let cartData = cartData else {
             return nil
@@ -237,6 +237,30 @@ class CartServices : NSObject {
             var newItems : [CartItemDataSource] = []
             for var item in store.cartItems {
                 item.isSelected = false
+                newItems.append(item)
+            }
+            store.cartItems = newItems
+            newStore.append(store)
+        }
+        
+        var newCart = cartData
+        newCart.store = newStore
+        return newCart
+    }
+    
+    func checkAll(cartData: CartDataSource?) -> CartDataSource? {
+        
+        guard let cartData = cartData else {
+            return nil
+        }
+
+        var newStore : [StoreDataSource] = []
+        for var store in cartData.store {
+            
+            store.isCheckoutSelected = true
+            var newItems : [CartItemDataSource] = []
+            for var item in store.cartItems {
+                item.isSelected = true
                 newItems.append(item)
             }
             store.cartItems = newItems

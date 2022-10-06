@@ -17,6 +17,7 @@ class SelectEHPViewController: UIViewController {
     let emailValueLabel     = UILabel()
     let phoneValueLabel     = UILabel()
     let dobValueLabel       = UILabel()
+    let addressLabel        = UILabel()
     
     let makeBookingBtn      = UIButton()
     
@@ -169,13 +170,35 @@ class SelectEHPViewController: UIViewController {
             make.right.equalToSuperview()
         }
         
+        let addressInforLabel = UILabel()
+        addressInforLabel.text = "Address"
+        addressInforLabel.textColor = kDefaultTextColor
+        addressInforLabel.font = getFontSize(size: 11, weight: .semibold)
+        self.view.addSubview(addressInforLabel)
+        addressInforLabel.snp.makeConstraints { make in
+            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview()
+        }
+        
+        addressLabel.text = ""
+        addressLabel.numberOfLines = 0
+        addressLabel.textColor = kPrimaryColor
+        addressLabel.font = getFontSize(size: 11, weight: .semibold)
+        self.view.addSubview(addressLabel)
+        addressLabel.snp.makeConstraints { make in
+            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
+            make.left.equalTo(self.view.snp.centerX)
+            make.right.equalToSuperview()
+        }
+        
         makeBookingBtn.setTitle("Create Booking", for: .normal)
         makeBookingBtn.addTarget(self, action: #selector(makeBookingButtonTapped), for: .touchUpInside)
         makeBookingBtn.backgroundColor = kPrimaryColor
         makeBookingBtn.layer.cornerRadius = 8
         self.view.addSubview(makeBookingBtn)
         makeBookingBtn.snp.makeConstraints {
-            $0.top.greaterThanOrEqualTo(dobValueLabel.snp.bottom).offset(30)
+            $0.top.greaterThanOrEqualTo(addressLabel.snp.bottom).offset(30)
             $0.bottom.lessThanOrEqualToSuperview().offset(-30)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().offset(-40)
@@ -216,6 +239,11 @@ class SelectEHPViewController: UIViewController {
                 self.phoneValueLabel.text = firstEHProfile.phone
                 let dateDob = Date.init(timeIntervalSince1970: TimeInterval(firstEHProfile.dob / 1000))
                 self.dobValueLabel.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
+                self.addressLabel.text = String(format: "%@, %@, %@, %@",
+                                                firstEHProfile.addressInfo?.address ?? "",
+                                                firstEHProfile.addressInfo?.ward ?? "",
+                                                firstEHProfile.addressInfo?.district ?? "",
+                                                firstEHProfile.addressInfo?.province ?? "")
                 
             } onError: { error in
                 print("onError: %@", error.localizedDescription)
