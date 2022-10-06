@@ -97,5 +97,6 @@ class SuccessPlaceOrderViewController: UIViewController {
     
     @objc private func continueButtonTapped() {
         self.dismiss(animated: true)
+        _NavController.gotoProductListing()
     }
 }

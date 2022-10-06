@@ -155,16 +155,16 @@ class CartViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { voucherDataSource in
                 guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {
-                    self.voucherView.voucherCode.text = " SALE 0% "
+                    self.voucherView.voucherCode.text = " Select your voucher "
                     return
                 }
                 if voucherDataSource.couponRule?.isFixed ?? false {
                     // discount value
-                    self.voucherView.voucherCode.text = String(format: "$%.2f", voucherDataSource.couponRule?.customDiscount ?? 0.0)
+                    self.voucherView.voucherCode.text = String(format: " $%.2f ", voucherDataSource.couponRule?.customDiscount ?? 0.0)
                     
                 } else {
                     // discout percent
-                    self.voucherView.voucherCode.text = String(format: "%ld%% OFF", voucherDataSource.couponRule?.discount ?? 0)
+                    self.voucherView.voucherCode.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0)
                 }
             }
             .disposed(by: disposeBag)
@@ -358,6 +358,6 @@ class CartViewController: BaseViewController,
     // MARK: - EmptyViewDelegate
     func didSelectEmptyButton() {
         self.dismiss(animated: true)
-        _NavController.gotoHomepage()
+        _NavController.gotoProductListing()
     }
 }

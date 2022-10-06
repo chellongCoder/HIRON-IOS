@@ -55,7 +55,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
         contentView.snp.makeConstraints { make in
             make.top.equalTo(avatar.snp.bottom).offset(35)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-80)
+            make.width.equalToSuperview().offset(-40)
         }
         
         nameLabel.text = "Name: "

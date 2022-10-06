@@ -54,7 +54,7 @@ class CheckoutViewModel: NSObject {
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
                             self.controller?.dismiss(animated: true)
-                            _NavController.gotoHomepage()
+                            _NavController.gotoProductListing()
                         }))
                         _NavController.showAlert(alertVC)
                     case .failed(let error):
@@ -63,7 +63,7 @@ class CheckoutViewModel: NSObject {
                                                              preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
-                            _NavController.gotoHomepage()
+                            _NavController.gotoProductListing()
                         }))
                         _NavController.showAlert(alertVC)
                     }

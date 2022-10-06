@@ -13,6 +13,7 @@ class ChipView: UIView {
     
     init(title: String) {
         super.init(frame: .zero)
+        self.backgroundColor = kDisableColor
         
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true
