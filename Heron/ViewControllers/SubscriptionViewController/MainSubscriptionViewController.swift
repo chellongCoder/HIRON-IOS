@@ -19,6 +19,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             skipBtn.setTitle(selectedIndex == nil ? "Skip":"Confirm", for: .normal)
         }
     }
+    var currentlySub        : UserRegisteredSubscription?
     
     override func viewDidLoad() {
         self.viewModel.controller = self
@@ -115,8 +116,17 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     }
     
     @objc func continueActionTapped(_ sender: Any) {
+        
         if let selectedIndex = selectedIndex {
+            
             let selectedSubsciptionPlan = self.viewModel.subcriptions.value[selectedIndex.row]
+            
+            // switch plan
+            if let currentPlan = currentlySub {
+                viewModel.switchPlanTo(fromPlan: currentPlan, toPlan: selectedSubsciptionPlan)
+                return
+            }
+            
             let viewController = SubscriptionPaymentViewController()
             viewController.viewModel.subscriptionPlan.accept(selectedSubsciptionPlan)
             self.navigationController?.pushViewController(viewController, animated: true)

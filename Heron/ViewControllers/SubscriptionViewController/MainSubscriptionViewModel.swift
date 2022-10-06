@@ -54,4 +54,23 @@ class MainSubscriptionViewModel : NSObject {
             }
         }
     }
+    
+    func switchPlanTo(fromPlan: UserRegisteredSubscription, toPlan: SubscriptionData) {
+        self.controller?.startLoadingAnimation()
+        _SubscriptionService.switchPlan(fromPlan: fromPlan.id, toNewPlan: toPlan.id) { errorMessage, _ in
+            self.controller?.endLoadingAnimation()
+            
+            if errorMessage != nil {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    alertVC.dismiss()
+                    self.controller?.navigationController?.popToRootViewController(animated: true)
+                }))
+                _NavController.showAlert(alertVC)
+                return
+            }
+            
+            self.controller?.navigationController?.popToRootViewController(animated: true)
+        }
+    }
 }

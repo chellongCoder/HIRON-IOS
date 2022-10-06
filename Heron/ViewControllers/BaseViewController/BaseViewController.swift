@@ -19,7 +19,9 @@ class BaseViewController: UIViewController {
         self.view.backgroundColor = .white
         self.edgesForExtendedLayout = []
         
-        self.bindingData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.bindingData()
+        }
     }
     
     func showBackBtn() {

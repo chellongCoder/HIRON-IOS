@@ -111,4 +111,21 @@ class SubscriptionService: NSObject {
             }
         }
     }
+    
+    func switchPlan(fromPlan: String, toNewPlan: String, completion:@escaping (String?, String?) -> Void) {
+        let param : [String: Any] = ["subsPlanId" : toNewPlan]
+        let fullURLRequest = String(format: "%@%@%@", kGatewayPaymentURL, "/user-subs/switch-plan/", fromPlan)
+        _ = _AppDataHandler.post(parameters: param, fullURLRequest: fullURLRequest) { responseData in
+                        
+            if responseData.responseCode == 400 {
+                completion(responseData.responseMessage, nil)
+                return
+            } else if responseData.responseCode >= 500 {
+                completion(responseData.responseMessage, nil)
+                return
+            } else {
+                completion(nil, responseData.responseMessage)
+            }
+        }
+    }
 }
