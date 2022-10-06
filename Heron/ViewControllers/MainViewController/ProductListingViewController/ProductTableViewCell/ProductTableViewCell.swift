@@ -148,7 +148,7 @@ class ProductTableViewCell: UITableViewCell {
             self.discountValue.isHidden = true
         }
         
-        variantMark.isHidden = (cellData.type == .simple)
+        variantMark.isHidden = (cellData.type == .simple) || cellData.configurableOptions.isEmpty
         variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
     }
     

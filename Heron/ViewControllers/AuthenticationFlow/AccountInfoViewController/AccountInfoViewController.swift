@@ -255,27 +255,23 @@ class AccountInfoViewController: BaseViewController,
         if (firstNameTxt.text ?? "").isEmpty {
             firstNameTxt.isErrorRevealed = true
             firstNameTxt.error = "This field can not be empty"
-            return
         }
         userData.userFirstName = firstNameTxt.text!.formatString()
         
         if (lastNameTxt.text ?? "").isEmpty {
             lastNameTxt.isErrorRevealed = true
             lastNameTxt.error = "This field can not be empty"
-            return
         }
         userData.userLastName = lastNameTxt.text!.formatString()
         
         if (genderTxt.text ?? "").isEmpty {
             genderTxt.isErrorRevealed = true
             genderTxt.error = "This field can not be empty"
-            return
         }
         
         if (dobTxt.text ?? "").isEmpty {
             dobTxt.isErrorRevealed = true
             dobTxt.error = "This field can not be empty"
-            return
         }
         
         userData.userEmail = emailTxt.text ?? ""
@@ -283,9 +279,17 @@ class AccountInfoViewController: BaseViewController,
         if (phoneNumberTxt.text ?? "").isEmpty {
             phoneNumberTxt.isErrorRevealed = true
             phoneNumberTxt.error = "This field can not be empty"
-            return
         }
         userData.userPhoneNum = phoneNumberTxt.text!
+        
+        if firstNameTxt.isErrorRevealed ||
+            lastNameTxt.isErrorRevealed ||
+            genderTxt.isErrorRevealed ||
+            dobTxt.isErrorRevealed ||
+            phoneNumberTxt.isErrorRevealed {
+            return
+        }
+        
         viewModel.userData.accept(userData)
         viewModel.signUp {
             let vc = SignInSuccessViewController()

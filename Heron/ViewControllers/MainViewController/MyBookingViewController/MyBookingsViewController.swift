@@ -133,7 +133,7 @@ class MyBookingsViewController: BaseViewController,
         }
         
         completeBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        completeBtn.setTitle("   RECEIVED   ", for: .normal)
+        completeBtn.setTitle("   COMPLETED   ", for: .normal)
         completeBtn.setTitleColor(kDefaultTextColor, for: .normal)
         completeBtn.setTitleColor(kPrimaryColor, for: .selected)
         completeBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)

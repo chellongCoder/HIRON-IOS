@@ -162,6 +162,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     // MARK: - UICalendar
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         viewModel.selectedDate = date
+        _BookingServices.selectedTimeable.accept(nil)
         self.collectionView?.reloadData()
     }
     

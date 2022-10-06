@@ -18,7 +18,7 @@ enum CustomSubscriptionStatus : Int {
 class UserRegisteredSubscription: Mappable {
     
     var id              : String = ""
-    private var price   : Int = 0
+    var code            : String = ""
     private var status  : SubscriptionStatus = .PENDING
     var subsPlan        : SubscriptionData?
     var subsPlanId      : String = ""
@@ -30,7 +30,6 @@ class UserRegisteredSubscription: Mappable {
     var disabledAt      : Int = 0
     
     // custom
-    var customPrice     : Float = 0.0
     var customStatus    : CustomSubscriptionStatus = .NONE
     
     required init?(map: Map) {
@@ -39,7 +38,7 @@ class UserRegisteredSubscription: Mappable {
     
     func mapping(map: Map) {
         id          <- map["id"]
-        price       <- map["price"]
+        code        <- map["code"]
         status      <- map["status"]
         subsPlan    <- map["subsPlan"]
         subsPlanId  <- map["subsPlanId"]
@@ -49,9 +48,7 @@ class UserRegisteredSubscription: Mappable {
         paymentId   <- map["paymentId"]
         enabledAt   <- map["enabledAt"]
         disabledAt  <- map["disabledAt"]
-        
-        self.customPrice = Float(self.price)/100.0
-        
+                
         let nowTimeStamp = Int(Date().timeIntervalSince1970)*1000
         if enabledAt <= nowTimeStamp && disabledAt > nowTimeStamp && status == .ENABLED {
             self.customStatus = .CURRENTLY_NS

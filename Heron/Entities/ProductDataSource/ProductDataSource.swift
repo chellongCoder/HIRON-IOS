@@ -81,6 +81,10 @@ class ProductDataSource: Mappable, Equatable {
         self.customRegularPrice = Float(regularPrice)/100.0
         self.customFinalPrice = Float(finalPrice)/100.0
         
+        self.media = self.media.sorted(by: { lhs, rhs in
+            return lhs.sortOrder < rhs.sortOrder
+        })
+        
         if thumbnailUrl == nil {
             if let firstMedia = media.first(where: { productMedia in
                 return (productMedia.type == "image") && (productMedia.value != nil)
