@@ -19,14 +19,6 @@ enum SubscriptionStatus : String {
     case DISABLE    = "disabled"
 }
 
-enum CustomSubscriptionStatus : Int {
-    case USED           = -1
-    case NONE           = 0
-    case CURRENTLY_NS   = 1
-    case CURRENTLY_ST   = 2
-    case WILL_ACTIVE    = 3
-}
-
 struct SubscriptionData : Mappable {
 	var id              : String = ""
 	var subsItemId      : String = ""

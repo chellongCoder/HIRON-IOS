@@ -86,7 +86,7 @@ class SuccessPlaceOrderViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         
         // Clear cart Data
-        _CartServices.cleanData()
+        _CartServices.reloadCart()
     }
     
     // MARK: - Buttons
