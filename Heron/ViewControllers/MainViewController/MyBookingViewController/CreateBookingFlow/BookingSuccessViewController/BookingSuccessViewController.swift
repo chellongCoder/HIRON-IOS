@@ -8,6 +8,8 @@
 import UIKit
 
 class BookingSuccessViewController: UIViewController {
+    
+    let orderplacedMessage = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,8 +38,6 @@ class BookingSuccessViewController: UIViewController {
             make.width.equalToSuperview().offset(-60)
         }
         
-        let orderplacedMessage = UILabel()
-        orderplacedMessage.text = "Your Appointment  #A22752435455 has been received and is being processed. Please check the status at My Appointment page"
         orderplacedMessage.textAlignment = .center
         orderplacedMessage.textColor = kDefaultTextColor
         orderplacedMessage.font = getFontSize(size: 14, weight: .regular)

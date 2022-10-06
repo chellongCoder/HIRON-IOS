@@ -42,7 +42,7 @@ class ConfirmBookingViewModel: BaseViewModel {
     
     func booking() {
         self.controller?.startLoadingAnimation()
-        _BookingServices.createBookingOrder { errorMessage, clientSecret in
+        _BookingServices.createBookingOrder { errorMessage, clientSecret, orderCode in
             
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
@@ -64,6 +64,8 @@ class ConfirmBookingViewModel: BaseViewModel {
                     switch paymentResult {
                     case .completed:
                         let bookingSuccessVC = BookingSuccessViewController()
+                        // swiftlint:disable line_length
+                        bookingSuccessVC.orderplacedMessage.text = String(format: "Your Appointment #%@ has been received and is being processed. Please check the status at My Appointment page", orderCode ?? "")
                         self.controller?.navigationController?.pushViewController(bookingSuccessVC, animated: true)
                     case .canceled:
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Cancelled", comment: ""),

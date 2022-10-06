@@ -175,17 +175,17 @@ class BookingServices : NSObject {
         }
     }
     
-    func createBookingOrder(completion:@escaping (String?, String?) -> Void) {
+    func createBookingOrder(completion:@escaping (String?, String?, String?) -> Void) {
         
         // productID of booking product
         guard let itemID = self.bookingProduct.value?.id else {
-            completion("Not valid booking ID", nil)
+            completion("Not valid booking ID", nil, nil)
             return
         }
         
         // timetableId
         guard let timetableId = self.selectedTimeable.value?.id else {
-            completion("Not valid time block", nil)
+            completion("Not valid time block", nil, nil)
             return
         }
         
@@ -199,15 +199,16 @@ class BookingServices : NSObject {
         _ = _AppDataHandler.post(parameters: params, fullURLRequest: fullURLRequest) { responseData in
             if responseData.responseCode == 200 {
                 if let dataDict = responseData.responseData?["data"] as? [String: Any],
-                let paymentData = dataDict["payment"]  as? [String: Any],
+                   let code = dataDict["code"]  as? String,
+                   let paymentData = dataDict["payment"]  as? [String: Any],
                    let metaData = paymentData["metadata"] as? [String: Any],
                    let clientSecret = metaData["clientSecret"] as? String {
-                    completion(nil, clientSecret)
+                    completion(nil, clientSecret, code)
                     return
                 }
-                completion(responseData.responseMessage, nil)
+                completion(responseData.responseMessage, nil, nil)
             } else {
-                completion(responseData.responseMessage, nil)
+                completion(responseData.responseMessage, nil, nil)
             }
         }
     }
