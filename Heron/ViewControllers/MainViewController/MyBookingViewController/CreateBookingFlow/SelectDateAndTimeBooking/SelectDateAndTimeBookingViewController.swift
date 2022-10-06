@@ -89,7 +89,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
             make.bottom.equalTo(bottomView.snp.top).offset(-10)
         })
         
-        emptyView.titleLabel.text = "Sorry, it seems like there is no doctors available for this date"
+        emptyView.titleLabel.text = "Sorry, it seems like there are no doctors available for this date"
         emptyView.messageLabel.text = "Please select different date with availability (dates with a dot next by on calendar)"
         emptyView.actionButon.isHidden = true
         emptyView.isHidden = true

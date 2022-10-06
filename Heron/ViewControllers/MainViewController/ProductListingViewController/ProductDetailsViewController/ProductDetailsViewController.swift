@@ -59,7 +59,7 @@ class ProductDetailsViewController: PageScrollViewController,
         }
         
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = kPrimaryColor
+        pageControl.pageIndicatorTintColor = kDisableColor
         pageControl.currentPageIndicatorTintColor = kPrimaryColor
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         self.contentView.addSubview(pageControl)

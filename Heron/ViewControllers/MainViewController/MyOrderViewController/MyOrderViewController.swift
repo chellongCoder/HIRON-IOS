@@ -237,6 +237,8 @@ class MyOrderViewController: BaseViewController,
                 case "canceled":
                     self.emptyView.titleLabel.text = "You currently don't have any canceled order"
                 default:
+                    self.emptyView.titleLabel.text = "You current don't have any orders"
+                    self.emptyView.messageLabel.text = "Please buy some items"
                     break
                 }
             }

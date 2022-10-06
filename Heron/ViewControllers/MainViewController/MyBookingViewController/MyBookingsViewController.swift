@@ -231,6 +231,7 @@ class MyBookingsViewController: BaseViewController,
                 case "canceled":
                     self.emptyView.titleLabel.text = "You currently don't have any canceled booking with us"
                 default:
+                    self.emptyView.titleLabel.text = "You current don't have any bookings"
                     break
                 }
             }

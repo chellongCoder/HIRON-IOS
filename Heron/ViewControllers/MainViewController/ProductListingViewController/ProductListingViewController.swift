@@ -203,7 +203,7 @@ class ProductListingViewController: BaseViewController,
         self.reloadBannerView()
         
         pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = kPrimaryColor
+        pageControl.pageIndicatorTintColor = kDisableColor
         pageControl.currentPageIndicatorTintColor = kPrimaryColor
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         headerView.addSubview(pageControl)

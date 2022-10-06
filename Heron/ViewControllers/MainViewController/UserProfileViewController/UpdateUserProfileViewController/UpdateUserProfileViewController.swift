@@ -408,7 +408,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         if textField == firstNameTxt {
             userData.userFirstName = firstNameTxt.text ?? ""
         } else if textField == lastNameTxt {
-            userData.userFirstName = firstNameTxt.text ?? ""
+            userData.userLastName = lastNameTxt.text ?? ""
         }
         
         viewModel.userData.accept(userData)
