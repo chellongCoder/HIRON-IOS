@@ -17,6 +17,7 @@ class SelectEHPViewController: UIViewController {
     let emailValueLabel     = UILabel()
     let phoneValueLabel     = UILabel()
     let dobValueLabel       = UILabel()
+    let professionLabel     = UILabel()
     let addressLabel        = UILabel()
     
     let makeBookingBtn      = UIButton()
@@ -170,13 +171,35 @@ class SelectEHPViewController: UIViewController {
             make.right.equalToSuperview()
         }
         
+        let professtionLabel = UILabel()
+        professtionLabel.text = "Profession"
+        professtionLabel.textColor = kDefaultTextColor
+        professtionLabel.font = getFontSize(size: 11, weight: .semibold)
+        self.view.addSubview(professtionLabel)
+        professtionLabel.snp.makeConstraints { make in
+            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview()
+        }
+        
+        professionLabel.text = ""
+        professionLabel.numberOfLines = 0
+        professionLabel.textColor = kPrimaryColor
+        professionLabel.font = getFontSize(size: 11, weight: .semibold)
+        self.view.addSubview(professionLabel)
+        professionLabel.snp.makeConstraints { make in
+            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
+            make.left.equalTo(self.view.snp.centerX)
+            make.right.equalToSuperview()
+        }
+        
         let addressInforLabel = UILabel()
         addressInforLabel.text = "Address"
         addressInforLabel.textColor = kDefaultTextColor
         addressInforLabel.font = getFontSize(size: 11, weight: .semibold)
         self.view.addSubview(addressInforLabel)
         addressInforLabel.snp.makeConstraints { make in
-            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
+            make.top.equalTo(professionLabel.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(40)
             make.right.equalToSuperview()
         }
@@ -187,7 +210,7 @@ class SelectEHPViewController: UIViewController {
         addressLabel.font = getFontSize(size: 11, weight: .semibold)
         self.view.addSubview(addressLabel)
         addressLabel.snp.makeConstraints { make in
-            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
+            make.top.equalTo(professionLabel.snp.bottom).offset(20)
             make.left.equalTo(self.view.snp.centerX)
             make.right.equalToSuperview()
         }
@@ -239,11 +262,8 @@ class SelectEHPViewController: UIViewController {
                 self.phoneValueLabel.text = firstEHProfile.phone
                 let dateDob = Date.init(timeIntervalSince1970: TimeInterval(firstEHProfile.dob / 1000))
                 self.dobValueLabel.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
-                self.addressLabel.text = String(format: "%@, %@, %@, %@",
-                                                firstEHProfile.addressInfo?.address ?? "",
-                                                firstEHProfile.addressInfo?.ward ?? "",
-                                                firstEHProfile.addressInfo?.district ?? "",
-                                                firstEHProfile.addressInfo?.province ?? "")
+                self.professionLabel.text = firstEHProfile.profession
+                self.addressLabel.text = firstEHProfile.addressInfo?.getAddressString() ?? ""
                 
             } onError: { error in
                 print("onError: %@", error.localizedDescription)

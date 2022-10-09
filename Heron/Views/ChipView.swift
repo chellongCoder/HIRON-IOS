@@ -13,7 +13,7 @@ class ChipView: UIView {
     
     init(title: String) {
         super.init(frame: .zero)
-        self.backgroundColor = kDisableColor
+        self.backgroundColor = UIColor(hexString: "E4E7EB")?.withAlphaComponent(0.4)
         
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true

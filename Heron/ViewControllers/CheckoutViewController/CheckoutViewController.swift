@@ -143,6 +143,7 @@ class CheckoutViewController: BaseViewController,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.startLoadingAnimation()
     }
     
     // MARK: - UI
@@ -166,6 +167,7 @@ class CheckoutViewController: BaseViewController,
             return
         }
         
+        self.endLoadingAnimation()
         placeOrderBtn.isUserInteractionEnabled = true
         placeOrderBtn.backgroundColor = kPrimaryColor
     }

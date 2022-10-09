@@ -47,12 +47,12 @@ class VariantButton: UIButton {
         case .showOnly:
             self.isUserInteractionEnabled = false
             self.layer.borderColor = kDefaultTextColor.cgColor
-            self.backgroundColor = kDisableColor
+            self.backgroundColor = UIColor(hexString: "E4E7EB")?.withAlphaComponent(0.4)
             self.setTitleColor(kDefaultTextColor, for: .normal)
         case .normmal:
             self.isUserInteractionEnabled = true
             self.layer.borderColor = kDefaultTextColor.cgColor
-            self.backgroundColor = kDisableColor
+            self.backgroundColor = UIColor(hexString: "E4E7EB")?.withAlphaComponent(0.4)
             self.setTitleColor(kDefaultTextColor, for: .normal)
         case .selected:
             self.isUserInteractionEnabled = true
@@ -62,7 +62,7 @@ class VariantButton: UIButton {
         case .disable:
             self.isUserInteractionEnabled = false
             self.layer.borderColor = UIColor.lightGray.cgColor
-            self.backgroundColor = .lightGray
+            self.backgroundColor = kDisableColor
             self.setTitleColor(kDisableColor, for: .normal)
         }
     }

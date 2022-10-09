@@ -37,6 +37,22 @@ struct CartDataSource : Mappable {
         customSubTotal = Float(subtotal)/100.0
         customGrandTotal = Float(grandTotal)/100.0
     }
+    
+    func hasItemSelected() -> Bool {
+        for store in self.store {
+            if store.isCheckoutSelected {
+                return true
+            }
+            
+            for item in store.cartItems {
+                if item.isSelected {
+                    return true
+                }
+            }
+        }
+        
+        return false
+    }
 }
 
 struct StoreDataSource : Mappable {

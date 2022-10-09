@@ -23,7 +23,11 @@ class UserSubscriptionViewModel: NSObject {
                 return
             }
             
-            if let plans = plans {
+            if var plans = plans {
+                plans = plans.filter({ userRegisteredSubscription in
+                    // filter not pending
+                    return userRegisteredSubscription.getStatusText() != "Under Payment"
+                })
                 self.listUserSunscriptions.accept(plans)
             }
         }

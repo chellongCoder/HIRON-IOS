@@ -34,7 +34,8 @@ class VoucherSelectedView: UIView {
         voucherCode.textColor = kRedHightLightColor
         self.addSubview(voucherCode)
         voucherCode.snp.makeConstraints { make in
-            make.centerY.height.equalTo(voucherTitle)
+            make.centerY.equalTo(voucherTitle)
+            make.height.equalTo(voucherTitle).offset(10)
             make.right.equalToSuperview().offset(-16)
         }
     }

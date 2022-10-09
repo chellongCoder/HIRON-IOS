@@ -98,6 +98,8 @@ class CheckoutServices: NSObject {
             newCheckoutRequestDataSource.recipient?.latitude = shippingAddess.latitude
             newCheckoutRequestDataSource.recipient?.longitude = shippingAddess.longitude
             newCheckoutRequestDataSource.recipient?.isDefault = shippingAddess.isDefault
+        } else {
+            return
         }
         
         _ = _AppDataHandler.post(parameters: newCheckoutRequestDataSource.toJSON(), fullURLRequest: fullURLRequest) { responseData in

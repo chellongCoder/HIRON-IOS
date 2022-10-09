@@ -93,6 +93,10 @@ class ProductDataSource: Mappable, Equatable {
             return lhs.label < rhs.label
         })
         
+        self.desc = self.desc.sorted(by: { lhs, rhs in
+            return lhs.title >= rhs.title
+        })
+        
         if thumbnailUrl == nil {
             if let firstMedia = media.first(where: { productMedia in
                 return (productMedia.type == "image") && (productMedia.value != nil)

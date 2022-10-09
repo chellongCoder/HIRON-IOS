@@ -70,4 +70,32 @@ struct EHProfileAddress: Mappable {
         address     <- map["address"]
         postalCode  <- map["postalCode"]
     }
+    
+    func getAddressString() -> String {
+        var addressString = ""
+        if !self.address.isEmpty {
+            addressString += self.address + ", "
+        }
+        
+        if !self.ward.isEmpty {
+            addressString += self.ward + ", "
+        }
+        
+        if !self.district.isEmpty {
+            addressString += self.district + ", "
+        }
+        
+        if !self.province.isEmpty {
+            addressString += self.province + ", "
+        }
+        
+        if !self.country.isEmpty {
+            addressString += self.country + ", "
+        }
+        
+        if (addressString.count >= 2) {
+            addressString.removeLast(2)
+        }
+        return addressString
+    }
 }

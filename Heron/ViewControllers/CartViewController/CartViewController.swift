@@ -20,7 +20,6 @@ class CartViewController: BaseViewController,
     
     private let voucherView             = VoucherSelectedView()
     private let totalLabel              = UILabel()
-    private let checkboxAll             = UIButton()
     private let savingLabel             = UILabel()
     private let checkoutBtn             = UIButton()
 
@@ -36,23 +35,12 @@ class CartViewController: BaseViewController,
                                            action: #selector(closeButtonTapped))
         self.navigationItem.leftBarButtonItem = closeBtn
         
-        checkboxAll.tintColor = kPrimaryColor
-        checkboxAll.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        checkboxAll.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-        checkboxAll.addTarget(self, action: #selector(storeCheckboxButtonTapped(button:)), for:.touchUpInside)
-        self.view.addSubview(checkboxAll)
-        checkboxAll.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.height.width.equalTo(35)
-        }
-        
         savingLabel.text = "Saving: $0.0"
         savingLabel.textColor = kDefaultTextColor
         savingLabel.font = .systemFont(ofSize: 16)
         self.view.addSubview(savingLabel)
         savingLabel.snp.makeConstraints { make in
-            make.left.equalTo(checkboxAll.snp.right).offset(5)
-            make.top.equalTo(checkboxAll.snp.centerY)
+            make.left.equalToSuperview().offset(10)
             make.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
         
@@ -64,7 +52,7 @@ class CartViewController: BaseViewController,
         self.view.addSubview(totalLabel)
         totalLabel.snp.makeConstraints { make in
             make.bottom.equalTo(savingLabel.snp.top).offset(-5)
-            make.left.equalTo(checkboxAll.snp.right).offset(5)
+            make.left.equalToSuperview().offset(10)
         }
         
         checkoutBtn.backgroundColor = kPrimaryColor
@@ -188,14 +176,12 @@ class CartViewController: BaseViewController,
                     
                     self.checkoutBtn.backgroundColor = kDisableColor
                     self.checkoutBtn.isUserInteractionEnabled = false
-                    self.voucherView.isUserInteractionEnabled = false
                     
                     self.totalLabel.text = "Total: $0.0"
                     self.savingLabel.text = "Saving: $0.0"
                     return
                 }
                 
-                self.voucherView.isUserInteractionEnabled = true
                 self.checkoutBtn.backgroundColor = kPrimaryColor
                 self.checkoutBtn.isUserInteractionEnabled = true
                 
@@ -210,16 +196,6 @@ class CartViewController: BaseViewController,
     @objc private func storeCheckboxButtonTapped(button: UIButton) {
         
         button.isSelected = !button.isSelected
-        
-        if button == self.checkboxAll {
-            guard var cartData = viewModel.cartDataSource else {return}
-            if button.isSelected {
-                _CartServices.cartData.accept(_CartServices.checkAll(cartData: cartData))
-            } else {
-                _CartServices.cartData.accept(_CartServices.uncheckAll(cartData: cartData))
-            }
-            return
-        }
         
         let section = button.tag
         guard var cartData = viewModel.cartDataSource else {return}
@@ -237,6 +213,27 @@ class CartViewController: BaseViewController,
     }
     
     @objc private func voucherTapped() {
+        
+        guard let cartData =  _CartServices.cartData.value else {
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                                 message: "Please add at least one product to cart before apply voucher", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                alertVC.dismiss()
+            }))
+            _NavController.showAlert(alertVC)
+            return
+        }
+        
+        if !cartData.hasItemSelected() {
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                                 message: "Please select at least one product to apply voucher", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                alertVC.dismiss()
+            }))
+            _NavController.showAlert(alertVC)
+            return
+        }
+        
         let voucherVC = VoucherViewController()
         voucherVC.acceptance = _CartServices.voucherCode
         self.navigationController?.pushViewController(voucherVC, animated: true)

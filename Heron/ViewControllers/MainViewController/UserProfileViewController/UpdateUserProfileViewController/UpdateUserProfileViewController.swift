@@ -182,6 +182,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         phoneNumberCodeTxt.errorColor = .red
         phoneNumberCodeTxt.textColor = kDefaultTextColor
         phoneNumberCodeTxt.keyboardType = .phonePad
+        phoneNumberCodeTxt.isUserInteractionEnabled = false
         self.pageScroll.addSubview(phoneNumberCodeTxt)
         phoneNumberCodeTxt.snp.makeConstraints { make in
             make.top.equalTo(dobTxt.snp.bottom).offset(50)
@@ -196,6 +197,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         phoneNumberTxt.textColor = kDefaultTextColor
         phoneNumberTxt.keyboardType = .phonePad
         phoneNumberTxt.delegate = self
+        phoneNumberTxt.isUserInteractionEnabled = false
         self.pageScroll.addSubview(phoneNumberTxt)
         phoneNumberTxt.snp.makeConstraints { make in
             make.top.equalTo(dobTxt.snp.bottom).offset(50)
