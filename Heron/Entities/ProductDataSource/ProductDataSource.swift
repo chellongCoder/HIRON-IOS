@@ -85,6 +85,14 @@ class ProductDataSource: Mappable, Equatable {
             return lhs.sortOrder < rhs.sortOrder
         })
         
+        self.attributeValues = self.attributeValues.sorted(by: { lhs, rhs in
+            return lhs.attribute?.sortOrder ?? 0 < rhs.attribute?.sortOrder ?? 1
+        })
+        
+        self.configurableOptions = self.configurableOptions.sorted(by: { lhs, rhs in
+            return lhs.label < rhs.label
+        })
+        
         if thumbnailUrl == nil {
             if let firstMedia = media.first(where: { productMedia in
                 return (productMedia.type == "image") && (productMedia.value != nil)
@@ -185,6 +193,10 @@ struct ConfigurableOption : Mappable {
         code    <- map["code"]
         label   <- map["label"]
         values  <- map["values"]
+        
+        self.values = self.values.sorted(by: { lhs, rhs in
+            return lhs < rhs
+        })
     }
 }
 
@@ -207,7 +219,8 @@ struct ProductAttributeValue : Mappable {
     
     struct ProductAttribute : Mappable {
         
-        var label   : String = ""
+        var label       : String = ""
+        var sortOrder   : Int = 0
         
         init?(map: ObjectMapper.Map) {
             //
@@ -215,6 +228,7 @@ struct ProductAttributeValue : Mappable {
         
         mutating func mapping(map: ObjectMapper.Map) {
             label       <- map["label"]
+            sortOrder   <- map["sortOrder"]
         }
     }
 }

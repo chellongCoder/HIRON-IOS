@@ -18,7 +18,9 @@ class ProductDetailsViewModel: NSObject {
             return
         }
 
+        self.controller?.startLoadingAnimation()
         _InventoryServices.getProductDetails(productID: productDataSource.id) { errorMessage, newProductDetails in
+            self.controller?.endLoadingAnimation()
             self.controller?.refreshControl.endRefreshing()
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
