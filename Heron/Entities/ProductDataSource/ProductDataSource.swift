@@ -190,9 +190,9 @@ struct ConfigurableOption : Mappable {
 
 struct ProductAttributeValue : Mappable {
     var id      : String = ""
-    var label   : String = ""
     var value   : String = ""
     var attributeCode   : String = ""
+    var attribute   : ProductAttribute?
     
     init?(map: Map) {
         //
@@ -200,9 +200,22 @@ struct ProductAttributeValue : Mappable {
     
     mutating func mapping(map: Map) {
         id              <- map["id"]
-        label           <- map["label"]
         value           <- map["value"]
         attributeCode   <- map["attributeCode"]
+        attribute       <- map["attribute"]
+    }
+    
+    struct ProductAttribute : Mappable {
+        
+        var label   : String = ""
+        
+        init?(map: ObjectMapper.Map) {
+            //
+        }
+        
+        mutating func mapping(map: ObjectMapper.Map) {
+            label       <- map["label"]
+        }
     }
 }
 

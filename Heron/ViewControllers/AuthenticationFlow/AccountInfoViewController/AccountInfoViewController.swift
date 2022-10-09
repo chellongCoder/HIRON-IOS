@@ -255,23 +255,31 @@ class AccountInfoViewController: BaseViewController,
         if (firstNameTxt.text ?? "").isEmpty {
             firstNameTxt.isErrorRevealed = true
             firstNameTxt.error = "This field can not be empty"
+        } else {
+            firstNameTxt.isErrorRevealed = false
         }
         userData.userFirstName = firstNameTxt.text!.formatString()
         
         if (lastNameTxt.text ?? "").isEmpty {
             lastNameTxt.isErrorRevealed = true
             lastNameTxt.error = "This field can not be empty"
+        } else {
+            lastNameTxt.isErrorRevealed = false
         }
         userData.userLastName = lastNameTxt.text!.formatString()
         
         if (genderTxt.text ?? "").isEmpty {
             genderTxt.isErrorRevealed = true
             genderTxt.error = "This field can not be empty"
+        } else {
+            genderTxt.isErrorRevealed = false
         }
         
         if (dobTxt.text ?? "").isEmpty {
             dobTxt.isErrorRevealed = true
             dobTxt.error = "This field can not be empty"
+        } else {
+            dobTxt.isErrorRevealed = false
         }
         
         userData.userEmail = emailTxt.text ?? ""
@@ -279,6 +287,8 @@ class AccountInfoViewController: BaseViewController,
         if (phoneNumberTxt.text ?? "").isEmpty {
             phoneNumberTxt.isErrorRevealed = true
             phoneNumberTxt.error = "This field can not be empty"
+        } else {
+            phoneNumberTxt.isErrorRevealed = false
         }
         userData.userPhoneNum = phoneNumberTxt.text!
         
