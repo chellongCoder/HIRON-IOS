@@ -52,7 +52,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
             $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
         }
         
-        shippingAddressLabel.text = "Araseli Sanchez \n2559 haas street \nEscondido, California, 92025 \nUnited States"
+        shippingAddressLabel.text = ""
         shippingAddressLabel.numberOfLines = 0
         contentView.addSubview(shippingAddressLabel)
         shippingAddressLabel.snp.makeConstraints {
@@ -79,7 +79,8 @@ class ShippingInfoTableViewCell: UITableViewCell {
             $0.top.equalTo(seperate_line.snp.bottom).offset(10)
         }
         
-        billingAddressName.text = "Lisa Nguyen | 0332578456"
+        billingAddressName.text = ""
+        billingAddressName.numberOfLines = 0
         billingAddressName.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(billingAddressName)
         billingAddressName.snp.makeConstraints {
@@ -87,7 +88,7 @@ class ShippingInfoTableViewCell: UITableViewCell {
             $0.top.equalTo(billingAddressLabel.snp.bottom).offset(10)
         }
         
-        billingAddressEmail.text = "lisanguyen@gmail.com"
+        billingAddressEmail.text = ""
         billingAddressEmail.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(billingAddressEmail)
         billingAddressEmail.snp.makeConstraints {

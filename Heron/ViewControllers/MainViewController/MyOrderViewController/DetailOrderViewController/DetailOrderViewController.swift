@@ -99,11 +99,12 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
                                             orderData?.userData?.lastName ?? "",
                                             orderData?.userData?.phoneCountryCode ?? "",
                                             orderData?.userData?.phoneNumber ?? "")
-            cell.billingAddressName.text = String(format: "%@ %@ | %@%@",
+            cell.billingAddressName.text = String(format: "%@ %@ | %@%@\n%@",
                                                   orderData?.userData?.firstName ?? "",
                                                   orderData?.userData?.lastName ?? "",
                                                   orderData?.userData?.phoneCountryCode ?? "",
-                                                  orderData?.userData?.phoneNumber ?? "")
+                                                  orderData?.userData?.phoneNumber ?? "",
+                                                  self.viewModel.shippingData.value?.recipient?.getAddressString() ?? "")
             cell.billingAddressEmail.text = orderData?.userData?.email ?? ""
             return cell
         } else if indexPath.row == 3 + (orderData?.items?.count ?? 0) {
