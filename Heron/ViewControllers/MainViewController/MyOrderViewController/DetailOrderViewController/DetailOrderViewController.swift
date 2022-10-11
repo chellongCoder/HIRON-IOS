@@ -28,8 +28,8 @@ class DetailOrderViewController: BaseViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
-        tableView.register(ProductStatusTableViewCell.self, forCellReuseIdentifier: "ProductStatusTableViewCell")
-        tableView.register(ShippingInfoTableViewCell.self, forCellReuseIdentifier: "ShippingInfoTableViewCell")
+        tableView.register(OrderStatusTableViewCell.self, forCellReuseIdentifier: "ProductStatusTableViewCell")
+        tableView.register(ShippingAndBillingInfoTableViewCell.self, forCellReuseIdentifier: "ShippingInfoTableViewCell")
         tableView.register(TrackingTableViewCell.self, forCellReuseIdentifier: "TrackingTableViewCell")
         tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "PaymentTableViewCell")
         tableView.register(MyOrderCell.self, forCellReuseIdentifier: "MyOrderCell")
@@ -81,31 +81,19 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         
         if indexPath.row == 0 {
             // swiftlint:disable force_cast 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductStatusTableViewCell", for: indexPath) as! ProductStatusTableViewCell
-            cell.descStatusLabel.text = "You will receive the order in \(TimeConverter().getDateFromInt(orderData?.createdAt ?? 0)). Please keep your phone to get calling from deliver"
-            cell.orderDetailLabel.text = orderData?.code ?? ""
-            cell.purchasedLabel.text = TimeConverter().getDateFromInt(orderData?.createdAt ?? 0)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductStatusTableViewCell", for: indexPath) as! OrderStatusTableViewCell
+            cell.setDataSource(orderData)
             return cell
         } else if indexPath.row == 1 {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "TrackingTableViewCell", for: indexPath) as! TrackingTableViewCell
-            cell.descStatusLabel.text = String(format: "Express - %@", self.viewModel.shippingData.value?.trackingNumber ?? "Unknow")
+            cell.setDataSource(viewModel.shippingData.value)
             return cell
         } else if indexPath.row == 2 {
             // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingInfoTableViewCell", for: indexPath) as! ShippingInfoTableViewCell
-            cell.orderIdLabel.text = String(format: "%@ %@ | %@%@",
-                                            orderData?.userData?.firstName ?? "",
-                                            orderData?.userData?.lastName ?? "",
-                                            orderData?.userData?.phoneCountryCode ?? "",
-                                            orderData?.userData?.phoneNumber ?? "")
-            cell.billingAddressName.text = String(format: "%@ %@ | %@%@\n%@",
-                                                  orderData?.userData?.firstName ?? "",
-                                                  orderData?.userData?.lastName ?? "",
-                                                  orderData?.userData?.phoneCountryCode ?? "",
-                                                  orderData?.userData?.phoneNumber ?? "",
-                                                  self.viewModel.shippingData.value?.recipient?.getAddressString() ?? "")
-            cell.billingAddressEmail.text = orderData?.userData?.email ?? ""
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingInfoTableViewCell", for: indexPath) as! ShippingAndBillingInfoTableViewCell
+            cell.setUserData(orderData?.userData)
+            cell.setShippingData(viewModel.shippingData.value)
             return cell
         } else if indexPath.row == 3 + (orderData?.items?.count ?? 0) {
             // swiftlint:disable force_cast
@@ -117,7 +105,7 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell
             
             if let cards = orderData?.orderPayment?.metadata?.card {
-                cell.descStatusLabel.text = String(format: "%@ | %@%@",
+                cell.paymentCardLabel.text = String(format: "%@ | %@%@",
                                                    cards.getBrandName(), String(repeating: "X", count: 10),
                                                    cards.last4 ?? "")
             }

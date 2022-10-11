@@ -8,8 +8,7 @@
 import UIKit
 
 class TrackingTableViewCell: UITableViewCell {
-    let statusLabel         = UILabel()
-    let descStatusLabel     = UILabel()
+    private let shippingCarrierLabel     = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,24 +24,29 @@ class TrackingTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
         
-        statusLabel.text = "Shipping & Handling Information"
-        statusLabel.font = getFontSize(size: 16, weight: .medium)
-        contentView.addSubview(statusLabel)
-        statusLabel.snp.makeConstraints {
+        let shippingInfoTitle = UILabel()
+        shippingInfoTitle.text = "Shipping & Handling Information"
+        shippingInfoTitle.font = getFontSize(size: 16, weight: .medium)
+        contentView.addSubview(shippingInfoTitle)
+        shippingInfoTitle.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
         }
         
-        descStatusLabel.font = getFontSize(size: 14, weight: .regular)
-        descStatusLabel.text = "Express"
-        contentView.addSubview(descStatusLabel)
-        descStatusLabel.snp.makeConstraints {
+        shippingCarrierLabel.font = getFontSize(size: 14, weight: .regular)
+        shippingCarrierLabel.text = "Express"
+        contentView.addSubview(shippingCarrierLabel)
+        shippingCarrierLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
-            $0.top.equalTo(statusLabel.snp.bottom).offset(10)
+            $0.top.equalTo(shippingInfoTitle.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().offset(-10)
         }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setDataSource(_ cellData: OrderShippingData?) {
+        self.shippingCarrierLabel.text = String(format: "Express - %@", cellData?.trackingNumber ?? "Unknow")
     }
 }

@@ -167,10 +167,10 @@
 		9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */; };
 		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
-		B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */; };
+		B5061C01286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */; };
 		B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */; };
 		B5061C03286BF22700A03271 /* PackageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFC286BF22700A03271 /* PackageTableViewCell.swift */; };
-		B5061C04286BF22700A03271 /* ProductStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFD286BF22700A03271 /* ProductStatusTableViewCell.swift */; };
+		B5061C04286BF22700A03271 /* OrderStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFD286BF22700A03271 /* OrderStatusTableViewCell.swift */; };
 		B5061C05286BF22700A03271 /* MyOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFE286BF22700A03271 /* MyOrderViewController.swift */; };
 		B5061C06286BF22700A03271 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFF286BF22700A03271 /* PaymentTableViewCell.swift */; };
 		B5061C08286BF35F00A03271 /* MyOrderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061C07286BF35F00A03271 /* MyOrderViewModel.swift */; };
@@ -381,10 +381,10 @@
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
-		B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingInfoTableViewCell.swift; sourceTree = "<group>"; };
+		B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAndBillingInfoTableViewCell.swift; sourceTree = "<group>"; };
 		B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingTableViewCell.swift; sourceTree = "<group>"; };
 		B5061BFC286BF22700A03271 /* PackageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PackageTableViewCell.swift; sourceTree = "<group>"; };
-		B5061BFD286BF22700A03271 /* ProductStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductStatusTableViewCell.swift; sourceTree = "<group>"; };
+		B5061BFD286BF22700A03271 /* OrderStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderStatusTableViewCell.swift; sourceTree = "<group>"; };
 		B5061BFE286BF22700A03271 /* MyOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderViewController.swift; sourceTree = "<group>"; };
 		B5061BFF286BF22700A03271 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
 		B5061C07286BF35F00A03271 /* MyOrderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderViewModel.swift; sourceTree = "<group>"; };
@@ -909,9 +909,9 @@
 		93C2EA4628AFD2F000371DFE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				B5061BFD286BF22700A03271 /* ProductStatusTableViewCell.swift */,
+				B5061BFD286BF22700A03271 /* OrderStatusTableViewCell.swift */,
 				B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */,
-				B5061BFA286BF22700A03271 /* ShippingInfoTableViewCell.swift */,
+				B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */,
 				B5061BFC286BF22700A03271 /* PackageTableViewCell.swift */,
 				B5061BFF286BF22700A03271 /* PaymentTableViewCell.swift */,
 				93C2EA4728B282B800371DFE /* TotalOrderTableViewCell.swift */,
@@ -1494,7 +1494,7 @@
 				9A88B778288E499B00BE1E05 /* SelectDepartmentViewController.swift in Sources */,
 				93EC90C8285A382B009056F6 /* OrderSumView.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
-				B5061C04286BF22700A03271 /* ProductStatusTableViewCell.swift in Sources */,
+				B5061C04286BF22700A03271 /* OrderStatusTableViewCell.swift in Sources */,
 				B56181972862B59D009BE6E5 /* ItemUnit.swift in Sources */,
 				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
@@ -1554,7 +1554,7 @@
 				931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */,
 				93AF91F9284BE78E0075CD65 /* ContactDataSource.swift in Sources */,
 				B56181912862B59D009BE6E5 /* CheckoutPriceData.swift in Sources */,
-				B5061C01286BF22700A03271 /* ShippingInfoTableViewCell.swift in Sources */,
+				B5061C01286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift in Sources */,
 				B5061C03286BF22700A03271 /* PackageTableViewCell.swift in Sources */,
 				93EC90EB285A4D73009056F6 /* AccountInfoViewController.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,

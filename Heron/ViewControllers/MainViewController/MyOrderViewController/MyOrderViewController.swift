@@ -239,7 +239,6 @@ class MyOrderViewController: BaseViewController,
                 default:
                     self.emptyView.titleLabel.text = "You current don't have any orders"
                     self.emptyView.messageLabel.text = "Please buy some items"
-                    break
                 }
             }
             .disposed(by: disposeBag)

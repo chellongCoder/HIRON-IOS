@@ -8,15 +8,11 @@
 import RxSwift
 import UIKit
 
-extension UILabel {
-    
-}
-
-class ProductStatusTableViewCell: UITableViewCell {
-    let statusLabel = UILabel()
-    let descStatusLabel = UILabel()
-    let orderDetailLabel = UILabel()
-    let purchasedLabel = UILabel()
+class OrderStatusTableViewCell: UITableViewCell {
+    private let statusLabel = UILabel()
+    private let descStatusLabel = UILabel()
+    private let orderDetailLabel = UILabel()
+    private let purchasedLabel = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -92,6 +88,9 @@ class ProductStatusTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataSource(_ cellData: CartItemDataSource, indexPath: IndexPath) {
+    func setDataSource(_ cellData: OrderDataSource?) {
+        self.descStatusLabel.text = "You will receive the order in \(TimeConverter().getDateFromInt(cellData?.createdAt ?? 0)). Please keep your phone to get calling from deliver"
+        self.orderDetailLabel.text = cellData?.code ?? ""
+        self.purchasedLabel.text = TimeConverter().getDateFromInt(cellData?.createdAt ?? 0)
     }
 }

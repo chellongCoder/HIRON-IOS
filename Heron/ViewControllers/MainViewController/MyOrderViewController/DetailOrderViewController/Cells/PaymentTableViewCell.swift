@@ -9,8 +9,7 @@ import UIKit
 
 class PaymentTableViewCell: UITableViewCell {
     
-    let statusLabel         = UILabel()
-    let descStatusLabel     = UILabel()
+    let paymentCardLabel     = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -26,18 +25,20 @@ class PaymentTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
         
-        statusLabel.text = "Payment method"
-        statusLabel.font = .boldSystemFont(ofSize: 16)
-        contentView.addSubview(statusLabel)
-        statusLabel.snp.makeConstraints {
+        let paymentTitleLabel = UILabel()
+        paymentTitleLabel.text = "Payment method"
+        paymentTitleLabel.font = getFontSize(size: 14, weight: .medium)
+        contentView.addSubview(paymentTitleLabel)
+        paymentTitleLabel.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
         }
         
-        descStatusLabel.text = "Paid without cards"
-        contentView.addSubview(descStatusLabel)
-        descStatusLabel.snp.makeConstraints {
+        paymentCardLabel.text = "Paid without cards"
+        paymentCardLabel.font = getFontSize(size: 14, weight: .regular)
+        contentView.addSubview(paymentCardLabel)
+        paymentCardLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
-            $0.top.equalTo(statusLabel.snp.bottom).offset(10)
+            $0.top.equalTo(paymentTitleLabel.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().offset(-10)
         }
     }
