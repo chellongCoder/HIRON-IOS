@@ -232,7 +232,6 @@ class MyBookingsViewController: BaseViewController,
                     self.emptyView.titleLabel.text = "You currently don't have any canceled booking with us"
                 default:
                     self.emptyView.titleLabel.text = "You current don't have any bookings"
-                    break
                 }
             }
             .disposed(by: disposeBag)

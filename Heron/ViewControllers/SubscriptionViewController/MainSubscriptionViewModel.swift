@@ -10,14 +10,15 @@ import RxRelay
 import RxCocoa
 
 class MainSubscriptionViewModel : NSObject {
-    weak var controller     : MainSubscriptionViewController?
-    var subcriptions        = BehaviorRelay<[SubscriptionData]>(value: [])
-    var pendingSubscription = BehaviorRelay<[UserRegisteredSubscription]>(value: [])
-    private let disposeBag  = DisposeBag()
+    weak var controller             : MainSubscriptionViewController?
+    var subcriptions                = BehaviorRelay<[SubscriptionData]>(value: [])
+    private let pendingSubscription = BehaviorRelay<[UserRegisteredSubscription]>(value: [])
+    private let disposeBag          = DisposeBag()
     
     override init() {
         super.init()
         
+        self.getCurrentUserSubscription()
         self.pendingSubscription
             .observe(on: MainScheduler.instance)
             .subscribe { pendingSubscription in
@@ -35,6 +36,16 @@ class MainSubscriptionViewModel : NSObject {
         _SubscriptionService.cancelImmediatelySubscription(userSubs) { errorMessage, successMessage in
             print(errorMessage ?? "")
             print(successMessage ?? "")
+        }
+    }
+    
+    func getCurrentUserSubscription() {
+        _SubscriptionService.getUserRegisteredSubscriptionPlan { _, listUserSubscriptions in
+            let userPendingSub = listUserSubscriptions?.filter({ userRegisteredSubscription in
+                return userRegisteredSubscription.getStatusText() == "Under Payment"
+            })
+            
+            self.pendingSubscription.accept(userPendingSub ?? [])
         }
     }
     
