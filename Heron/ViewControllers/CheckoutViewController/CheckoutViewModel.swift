@@ -16,7 +16,10 @@ class CheckoutViewModel: NSObject {
     var listOrders                  : [OrderDataSource] = []
     
     func reloadPrecheckoutData() {
-        _DeliveryServices.getListUserAddress()
+        controller?.startLoadingAnimation()
+        _DeliveryServices.getListUserAddress { _, _ in
+            self.controller?.endLoadingAnimation()
+        }
     }
     
     func placeOrder() {

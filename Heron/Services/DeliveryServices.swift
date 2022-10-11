@@ -16,16 +16,15 @@ class DeliveryServices: NSObject {
     
     override init() {
         super.init()
-        
         // reload user address
-        self.getListUserAddress()
+        self.getListUserAddress { _, _ in }
     }
     
     func cleanData() {
         self.listUserAddress.accept([])
     }
 
-    func getListUserAddress() {
+    func getListUserAddress(completion:@escaping (String?, Bool) -> Void) {
         guard _AppCoreData.userSession.value != nil else {return}
         
         let fullURLRequest = kGatewayDeliveryServicesURL+"/delivery-addresses/users/own"
@@ -33,11 +32,13 @@ class DeliveryServices: NSObject {
         _ = _AppDataHandler.get(parameters: [:], fullURLRequest: fullURLRequest) { responseData in
             if let responseMessage = responseData.responseMessage {
                 print("Got error messgae %@", responseMessage)
+                completion(responseMessage, false)
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
                     let listAddress = Mapper<ContactDataSource>().mapArray(JSONArray: data)
                     self.listUserAddress.accept(listAddress)
+                    completion(nil, true)
                     
                     if let defaultAddress = listAddress.first(where: { contactDataSource in
                         contactDataSource.isDefault == true

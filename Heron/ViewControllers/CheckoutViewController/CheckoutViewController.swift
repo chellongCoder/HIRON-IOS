@@ -143,7 +143,7 @@ class CheckoutViewController: BaseViewController,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.startLoadingAnimation()
+        viewModel.reloadPrecheckoutData()
     }
     
     // MARK: - UI

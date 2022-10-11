@@ -11,7 +11,10 @@ import RxRelay
 class UserAddressListingViewModel: NSObject {
     public var animation        = BehaviorRelay<Bool>(value: false)
     
-    func getListUserAddress() {        
-        _DeliveryServices.getListUserAddress()
+    func getListUserAddress() {
+        animation.accept(true)
+        _DeliveryServices.getListUserAddress { _, _ in
+            self.animation.accept(false)
+        }
     }
 }
