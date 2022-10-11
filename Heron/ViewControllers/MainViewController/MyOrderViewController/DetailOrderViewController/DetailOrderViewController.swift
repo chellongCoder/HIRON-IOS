@@ -34,6 +34,7 @@ class DetailOrderViewController: BaseViewController {
         tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "PaymentTableViewCell")
         tableView.register(MyOrderCell.self, forCellReuseIdentifier: "MyOrderCell")
         tableView.register(TotalOrderTableViewCell.self, forCellReuseIdentifier: "TotalOrderTableViewCell")
+        tableView.register(StoreTableViewCell.self, forCellReuseIdentifier: "StoreTableViewCell")
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -95,12 +96,17 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             cell.setUserData(orderData?.userData)
             cell.setShippingData(viewModel.shippingData.value)
             return cell
-        } else if indexPath.row == 3 + (orderData?.items?.count ?? 0) {
+        } else if indexPath.row == 3 {
+            // swiftlint:disable force_cast
+            let cell = tableView.dequeueReusableCell(withIdentifier: "StoreTableViewCell", for: indexPath) as! StoreTableViewCell
+            cell.setStoreDataSource(orderData?.store)
+            return cell
+        } else if indexPath.row == 4 + (orderData?.items?.count ?? 0) {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "TotalOrderTableViewCell", for: indexPath) as! TotalOrderTableViewCell
             cell.title.text = String(format: "Total (%ld products):  $%.2f", (orderData?.items?.count ?? 0), orderData?.customAmount ?? 0.0)
             return cell
-        } else if indexPath.row == 4 + (orderData?.items?.count ?? 0) {
+        } else if indexPath.row == 5 + (orderData?.items?.count ?? 0) {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell
             
@@ -114,7 +120,7 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             // swiftlint:disable force_cast
             let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
-            if let cellData = orderData?.items?[indexPath.row - 3] {
+            if let cellData = orderData?.items?[indexPath.row - 4] {
                 orderItemCell.setDataSource(cellData, indexPath: indexPath)
             }
             return orderItemCell
@@ -122,6 +128,6 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        5 + (self.viewModel.orderData.value?.items?.count ?? 0)
+        return 6 + (self.viewModel.orderData.value?.items?.count ?? 0)
     }
 }

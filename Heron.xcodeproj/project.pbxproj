@@ -73,6 +73,7 @@
 		9393CCD128C64F4300DF6C50 /* UpdateEHProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9393CCD028C64F4300DF6C50 /* UpdateEHProfileViewModel.swift */; };
 		939BB57528AB2395001D582F /* UserServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939BB57428AB2395001D582F /* UserServices.swift */; };
 		939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939E6631285650A3009CD64D /* CheckoutItemTableViewCell.swift */; };
+		93A1881528F5589700F60EDF /* StoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A1881428F5589700F60EDF /* StoreTableViewCell.swift */; };
 		93AF91E9284BB7210075CD65 /* VoucherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF91E8284BB7210075CD65 /* VoucherViewController.swift */; };
 		93AF91EB284BBA750075CD65 /* VoucherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF91EA284BBA750075CD65 /* VoucherViewModel.swift */; };
 		93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AF91ED284BBD290075CD65 /* CheckoutViewController.swift */; };
@@ -285,6 +286,7 @@
 		9393CCD028C64F4300DF6C50 /* UpdateEHProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateEHProfileViewModel.swift; sourceTree = "<group>"; };
 		939BB57428AB2395001D582F /* UserServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserServices.swift; sourceTree = "<group>"; };
 		939E6631285650A3009CD64D /* CheckoutItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutItemTableViewCell.swift; sourceTree = "<group>"; };
+		93A1881428F5589700F60EDF /* StoreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreTableViewCell.swift; sourceTree = "<group>"; };
 		93AF91E8284BB7210075CD65 /* VoucherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherViewController.swift; sourceTree = "<group>"; };
 		93AF91EA284BBA750075CD65 /* VoucherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherViewModel.swift; sourceTree = "<group>"; };
 		93AF91ED284BBD290075CD65 /* CheckoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckoutViewController.swift; sourceTree = "<group>"; };
@@ -912,9 +914,10 @@
 				B5061BFD286BF22700A03271 /* OrderStatusTableViewCell.swift */,
 				B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */,
 				B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */,
+				93A1881428F5589700F60EDF /* StoreTableViewCell.swift */,
 				B5061BFC286BF22700A03271 /* PackageTableViewCell.swift */,
-				B5061BFF286BF22700A03271 /* PaymentTableViewCell.swift */,
 				93C2EA4728B282B800371DFE /* TotalOrderTableViewCell.swift */,
+				B5061BFF286BF22700A03271 /* PaymentTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1539,6 +1542,7 @@
 				93AF91EB284BBA750075CD65 /* VoucherViewModel.swift in Sources */,
 				93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */,
 				934D72A428A02A0900E4255F /* BookingInfoTableViewCell.swift in Sources */,
+				93A1881528F5589700F60EDF /* StoreTableViewCell.swift in Sources */,
 				9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */,
 				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				93AF91F7284BE2410075CD65 /* OrderTotalView.swift in Sources */,

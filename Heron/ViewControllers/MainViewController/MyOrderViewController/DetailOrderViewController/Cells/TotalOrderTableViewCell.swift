@@ -14,7 +14,7 @@ class TotalOrderTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        title.font = UIFont.systemFont(ofSize: 14)
+        title.font = getFontSize(size: 14, weight: .regular)
         self.addSubview(title)
         title.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)
