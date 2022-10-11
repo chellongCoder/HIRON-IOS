@@ -58,6 +58,8 @@ struct CartDataSource : Mappable {
 struct StoreDataSource : Mappable {
     
     var id              : String = ""
+    var name            : String = ""
+    var code            : String = ""
     var storeDetails    : StoreDetailsDataSource?
     var targetId        : String = ""
     var cartItems       : [CartItemDataSource] = []
@@ -75,6 +77,8 @@ struct StoreDataSource : Mappable {
     
     mutating func mapping(map: Map) {
         id              <- map["id"]
+        name            <- map["name"]
+        code            <- map["code"]
         storeDetails    <- map["store"]
         targetId        <- map["targetId"]
         cartItems       <- map["cartItems"]

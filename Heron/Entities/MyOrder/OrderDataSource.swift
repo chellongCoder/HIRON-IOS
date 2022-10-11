@@ -35,6 +35,7 @@ struct OrderDataSource : Mappable {
 	var coupons         : [String]?
 	var paymentCoupons  : [String]?
 	var attributeValues : [AttributeValues]?
+    var store           : StoreDataSource?
     
     // custom
     var customAmount    : Float = 0.0
@@ -63,6 +64,7 @@ struct OrderDataSource : Mappable {
 		coupons         <- map["coupons"]
 		paymentCoupons  <- map["paymentCoupons"]
 		attributeValues <- map["attributeValues"]
+        store           <- map["store"]
         
         if let metaData = map.JSON["metadata"] as? [String: Any],
            let userData = metaData["user"] as? [String: Any] {

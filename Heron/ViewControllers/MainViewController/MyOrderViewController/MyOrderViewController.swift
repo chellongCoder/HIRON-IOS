@@ -270,7 +270,7 @@ class MyOrderViewController: BaseViewController,
         let orderData = self.viewModel.orders.value[section]
         
         let title = UILabel()
-        title.text = "HARD_CODE"
+        title.text = orderData.store?.name ?? ""
         title.textColor = kDefaultTextColor
         title.font = getFontSize(size: 16, weight: .bold)
         
