@@ -136,7 +136,7 @@ class UserProfileViewController: BaseViewController {
             make.height.equalTo(50)
         }
         
-        userSubscriptions.setTitle("User Subscriptions", for: .normal)
+        userSubscriptions.setTitle("Subscription Management", for: .normal)
         userSubscriptions.setTitleColor(.white, for: .normal)
         userSubscriptions.backgroundColor = kPrimaryColor
         userSubscriptions.layer.cornerRadius = 8

@@ -48,7 +48,13 @@ class SubscriptionPaymentViewModel: NSObject {
                     // Check payment status
                     switch paymentResult {
                     case .completed:
-                        _NavController.gotoHomepage()
+                        let alertVC = UIAlertController.init(title: NSLocalizedString("Successfull", comment: ""),
+                                                             message: "You has complete payment, you can checking your subscription in User Profile page", preferredStyle: .alert)
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Skip", comment: ""), style: .cancel, handler: { _ in
+                            alertVC.dismiss()
+                            _NavController.gotoHomepage()
+                        }))
+                        _NavController.showAlert(alertVC)
                     case .canceled:
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Cancelled", comment: ""),
                                                              message: "You has cancelled payment, you can continue buy subscription in User Profile page", preferredStyle: .alert)

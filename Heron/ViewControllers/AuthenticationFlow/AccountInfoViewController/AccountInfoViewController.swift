@@ -19,6 +19,7 @@ class AccountInfoViewController: BaseViewController,
     let genderTxt           = ErrorTextField()
     let dobTxt              = ErrorTextField()
     let emailTxt            = ErrorTextField()
+    let identityNumberTxt   = ErrorTextField()
     let phoneNumberCodeTxt  = ErrorTextField()
     let phoneNumberTxt      = ErrorTextField()
     
@@ -148,6 +149,19 @@ class AccountInfoViewController: BaseViewController,
             make.centerX.equalToSuperview()
             make.width.equalTo(self.view).offset(-40)
         }
+        
+        identityNumberTxt.placeholder = "ID number*"
+        identityNumberTxt.dividerNormalHeight = 0.5
+        identityNumberTxt.dividerNormalColor = kPrimaryColor
+        identityNumberTxt.errorColor = .red
+        identityNumberTxt.textColor = kDefaultTextColor
+        identityNumberTxt.autocapitalizationType = .none
+        contentScrollView.addSubview(identityNumberTxt)
+        identityNumberTxt.snp.makeConstraints { make in
+            make.top.equalTo(emailTxt.snp.bottom).offset(50)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(self.view).offset(-40)
+        }
                 
         phoneNumberCodeTxt.text = "+01"
         phoneNumberCodeTxt.placeholder = "Phone Code *"
@@ -158,7 +172,7 @@ class AccountInfoViewController: BaseViewController,
         phoneNumberCodeTxt.keyboardType = .phonePad
         contentScrollView.addSubview(phoneNumberCodeTxt)
         phoneNumberCodeTxt.snp.makeConstraints { make in
-            make.top.equalTo(emailTxt.snp.bottom).offset(50)
+            make.top.equalTo(identityNumberTxt.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(20)
             make.width.equalTo(self.view).multipliedBy(0.3)
         }
@@ -171,7 +185,7 @@ class AccountInfoViewController: BaseViewController,
         phoneNumberTxt.keyboardType = .phonePad
         contentScrollView.addSubview(phoneNumberTxt)
         phoneNumberTxt.snp.makeConstraints { make in
-            make.top.equalTo(emailTxt.snp.bottom).offset(50)
+            make.top.equalTo(identityNumberTxt.snp.bottom).offset(50)
             make.left.equalTo(phoneNumberCodeTxt.snp.right).offset(10)
             make.right.equalTo(self.view).offset(-20)
         }
@@ -284,6 +298,14 @@ class AccountInfoViewController: BaseViewController,
         
         userData.userEmail = emailTxt.text ?? ""
         
+        if (identityNumberTxt.text ?? "").isEmpty {
+            identityNumberTxt.isErrorRevealed = true
+            identityNumberTxt.error = "This field can not be empty"
+        } else {
+            identityNumberTxt.isErrorRevealed = false
+        }
+        userData.identityNum = identityNumberTxt.text ?? ""
+        
         if (phoneNumberTxt.text ?? "").isEmpty {
             phoneNumberTxt.isErrorRevealed = true
             phoneNumberTxt.error = "This field can not be empty"
@@ -296,6 +318,7 @@ class AccountInfoViewController: BaseViewController,
             lastNameTxt.isErrorRevealed ||
             genderTxt.isErrorRevealed ||
             dobTxt.isErrorRevealed ||
+            identityNumberTxt.isErrorRevealed ||
             phoneNumberTxt.isErrorRevealed {
             return
         }

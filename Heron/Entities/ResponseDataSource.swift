@@ -15,4 +15,5 @@ struct ResponseDataSource {
     var responseMessage     : String?
     var responseData        : [String:Any]?
     var responseList        : [[String:Any]] = []
+    var responseErrorCode   : String?
 }

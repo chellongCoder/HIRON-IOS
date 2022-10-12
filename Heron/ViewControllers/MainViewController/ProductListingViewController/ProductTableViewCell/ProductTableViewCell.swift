@@ -149,7 +149,11 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         variantMark.isHidden = (cellData.type == .simple) || cellData.configurableOptions.isEmpty
-        variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
+        if cellData.configurableOptions.count == 1 {
+            variantMark.text = String(format: "  1 variant  ")
+        } else {
+            variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
+        }
     }
     
     @objc private func removeButtonTapped() {

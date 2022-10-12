@@ -28,6 +28,7 @@ class OrderShippingData: Mappable {
         var id          : String = ""
         var firstName   : String = ""
         var lastName    : String = ""
+        var phone       : String = ""
         var address     : String = ""
         var ward        : String = ""
         var district    : String = ""
@@ -42,6 +43,7 @@ class OrderShippingData: Mappable {
             id          <- map["id"]
             firstName   <- map["firstName"]
             lastName    <- map["lastName"]
+            phone       <- map["phone"]
             address     <- map["address"]
             ward        <- map["ward"]
             district    <- map["district"]

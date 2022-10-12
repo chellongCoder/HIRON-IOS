@@ -119,6 +119,8 @@ extension ApplicationDataHandler {
                 
                 if let responseDict = value as? [String: Any] {
                     responseData.responseMessage = responseDict["message"] as? String
+                    responseData.responseErrorCode = responseDict["error"] as? String
+
                 }
             } else if responseData.responseCode == 401 {
                 DispatchQueue.main.async {
@@ -152,6 +154,7 @@ extension ApplicationDataHandler {
                 responseData.responseMessage = NSLocalizedString("kServerErrorMessage", comment: "")
                 if let responseDict = value as? [String: Any] {
                     responseData.responseMessage = responseDict["message"] as? String
+                    responseData.responseErrorCode = responseDict["error"] as? String
                 }
             } else {
                 // Don't do anything
@@ -176,6 +179,8 @@ extension ApplicationDataHandler {
             
             bfprint(String(format:"Lucas API Response: %@", responseData.responseMessage ?? ""))
         }
+        
+        // Mapping Error code
         
         return responseData
     }

@@ -9,7 +9,7 @@ struct OrderUserMetadata : Mappable {
 	var username            : String?
 	var firstName           : String?
 	var lastName            : String?
-	var identityNum         : String = "123456789"
+	var identityNum         : String?
 	var email               : String?
 	var phoneNumber         : String?
     var phoneCountryCode    : String = "+84"

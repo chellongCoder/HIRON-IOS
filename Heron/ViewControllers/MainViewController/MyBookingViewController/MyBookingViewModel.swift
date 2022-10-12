@@ -46,7 +46,11 @@ class MyBookingViewModel: NSObject {
                 return
             }
             
-            if let data = listBookings {
+            if var data = listBookings {
+                // filter all PENDING status
+                data = data.filter({ bookingAppointmentDataSource in
+                    return bookingAppointmentDataSource.status != .PENDING
+                })
                 self.listBookings.accept(data)
             }
         }

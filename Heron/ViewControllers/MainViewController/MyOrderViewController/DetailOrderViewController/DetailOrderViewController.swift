@@ -104,7 +104,12 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         } else if indexPath.row == 4 + (orderData?.items?.count ?? 0) {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "TotalOrderTableViewCell", for: indexPath) as! TotalOrderTableViewCell
-            cell.title.text = String(format: "Total (%ld products):  $%.2f", (orderData?.items?.count ?? 0), orderData?.customAmount ?? 0.0)
+            if orderData?.items?.count == 1 {
+                cell.title.text = String(format: "Total (1 product):  $%.2f", orderData?.customAmount ?? 0.0)
+            } else {
+                cell.title.text = String(format: "Total (%ld products):  $%.2f", (orderData?.items?.count ?? 0), orderData?.customAmount ?? 0.0)
+            }
+            
             return cell
         } else if indexPath.row == 5 + (orderData?.items?.count ?? 0) {
             // swiftlint:disable force_cast

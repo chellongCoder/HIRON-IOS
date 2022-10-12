@@ -106,11 +106,6 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
     }
     
     func setUserData(_ userData: OrderUserMetadata?) {
-        self.shippingName.text = String(format: "%@ %@ | %@%@",
-                                             userData?.firstName ?? "",
-                                             userData?.lastName ?? "",
-                                             userData?.phoneCountryCode ?? "",
-                                             userData?.phoneNumber ?? "")
         self.billingAddressName.text = String(format: "%@ %@ | %@%@",
                                               userData?.firstName ?? "",
                                               userData?.lastName ?? "",
@@ -120,6 +115,10 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
     }
     
     func setShippingData(_ shippingData: OrderShippingData?) {
+        self.shippingName.text = String(format: "%@ %@ | %@",
+                                        shippingData?.recipient?.firstName ?? "",
+                                        shippingData?.recipient?.lastName ?? "",
+                                        shippingData?.recipient?.phone ?? "")
         self.shippingAddressLabel.text = shippingData?.recipient?.getAddressString()
     }
 }

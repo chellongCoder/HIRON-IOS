@@ -108,17 +108,17 @@ class MyBookingsViewController: BaseViewController,
             make.height.equalTo(46)
         }
         
-        pendingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        pendingBtn.setTitle("   PENDING   ", for: .normal)
-        pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
-        pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
-        stackView.addSubview(pendingBtn)
-        pendingBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(allBtn.snp.right).offset(2)
-            make.top.bottom.equalToSuperview()
-            make.height.equalTo(46)
-        }
+//        pendingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+//        pendingBtn.setTitle("   PENDING   ", for: .normal)
+//        pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
+//        pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
+//        pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+//        stackView.addSubview(pendingBtn)
+//        pendingBtn.snp.makeConstraints { (make) in
+//            make.left.equalTo(allBtn.snp.right).offset(2)
+//            make.top.bottom.equalToSuperview()
+//            make.height.equalTo(46)
+//        }
         
         confirmedBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
         confirmedBtn.setTitle("   CONFIRMED   ", for: .normal)
@@ -127,7 +127,7 @@ class MyBookingsViewController: BaseViewController,
         confirmedBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
         stackView.addSubview(confirmedBtn)
         confirmedBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(pendingBtn.snp.right).offset(2)
+            make.left.equalTo(allBtn.snp.right).offset(2)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }

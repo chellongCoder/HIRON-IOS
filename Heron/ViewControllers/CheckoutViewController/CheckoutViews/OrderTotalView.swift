@@ -94,7 +94,7 @@ class OrderTotalView: UIView {
             make.centerX.equalToSuperview()
         }
         
-        shippingAndTaxLabel.text = "Shiping and Tax"
+        shippingAndTaxLabel.text = "Shipping and Tax"
         shippingAndTaxLabel.textAlignment = .left
         shippingAndTaxLabel.font = .systemFont(ofSize: 14)
         self.addSubview(shippingAndTaxLabel)

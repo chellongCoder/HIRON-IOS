@@ -58,6 +58,7 @@ class CartViewModel {
                     alertVC.dismiss()
                 }))
                 _NavController.showAlert(alertVC)
+                _CartServices.reloadCart()
                 return
             }
         }

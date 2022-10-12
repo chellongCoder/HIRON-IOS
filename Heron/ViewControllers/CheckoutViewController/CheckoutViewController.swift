@@ -227,7 +227,7 @@ class CheckoutViewController: BaseViewController,
                     self.orderTotalView.totalValue.text = "$0.0"
                     
                     self.totalLabel.text = "Total: $0.0"
-                    self.savingLabel.text = "Saving: $0.0"
+                    self.savingLabel.text = "Savings $0.0"
                     
                     return
                 }

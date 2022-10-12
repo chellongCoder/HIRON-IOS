@@ -64,7 +64,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         }
         
         let bookingInfoLocations = UILabel()
-        bookingInfoLocations.text = String(format: "Locations: HARD_CODE")
+        bookingInfoLocations.text = String(format: "Location: HARD_CODE")
         bookingInfoLocations.textColor = kDefaultTextColor
         bookingInfoLocations.font = getFontSize(size: 16, weight: .regular)
         bookingInfoLocations.numberOfLines = 0

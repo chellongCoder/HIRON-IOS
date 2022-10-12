@@ -46,7 +46,12 @@ class MyOrderViewModel: NSObject {
                 return
             }
             
-            if let data = newOrder {
+            if var data = newOrder {
+                
+                // Hiden all PENDING order
+                data = data.filter({ orderDataSource in
+                    return orderDataSource.getOrderStatusValue() != "PENDING"
+                })
                 self.orders.accept(data)
             }
         }

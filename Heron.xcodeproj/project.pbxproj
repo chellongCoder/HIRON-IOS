@@ -13,6 +13,7 @@
 		930175752883322A00151A4B /* ConfigurationProductVariantView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930175742883322A00151A4B /* ConfigurationProductVariantView.swift */; };
 		9301757B2884886A00151A4B /* VariantButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301757A2884886A00151A4B /* VariantButton.swift */; };
 		9301757D28848A8D00151A4B /* UIImage_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301757C28848A8D00151A4B /* UIImage_EXT.swift */; };
+		930B683928F5D80A00357A4D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 930B683B28F5D80A00357A4D /* Localizable.strings */; };
 		930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3031281A05A1003D247A /* ProductListingViewModel.swift */; };
 		930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */; };
 		930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930F3035281A05C7003D247A /* ProductDetailsViewController.swift */; };
@@ -221,6 +222,7 @@
 		930175742883322A00151A4B /* ConfigurationProductVariantView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationProductVariantView.swift; sourceTree = "<group>"; };
 		9301757A2884886A00151A4B /* VariantButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariantButton.swift; sourceTree = "<group>"; };
 		9301757C28848A8D00151A4B /* UIImage_EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage_EXT.swift; sourceTree = "<group>"; };
+		930B683A28F5D80A00357A4D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		930F3031281A05A1003D247A /* ProductListingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingViewModel.swift; sourceTree = "<group>"; };
 		930F3033281A05B5003D247A /* ProductDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel.swift; sourceTree = "<group>"; };
 		930F3035281A05C7003D247A /* ProductDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewController.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				933D18EB2819935E00F1CCC4 /* LaunchScreen.storyboard */,
 				933D18EE2819935E00F1CCC4 /* Info.plist */,
 				933D18E62819935900F1CCC4 /* Heron.xcdatamodeld */,
+				930B683B28F5D80A00357A4D /* Localizable.strings */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -1314,6 +1317,7 @@
 				938F7AA7282112B300DD60DB /* SFProText-Light.ttf in Resources */,
 				933D18ED2819935E00F1CCC4 /* LaunchScreen.storyboard in Resources */,
 				933D18EA2819935E00F1CCC4 /* Assets.xcassets in Resources */,
+				930B683928F5D80A00357A4D /* Localizable.strings in Resources */,
 				938F7AA1282112B300DD60DB /* SFProText-RegularItalic.ttf in Resources */,
 				938F7AA2282112B300DD60DB /* SFProText-Semibold.ttf in Resources */,
 				938F7AA4282112B300DD60DB /* SFProText-BoldItalic.ttf in Resources */,
@@ -1649,6 +1653,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		930B683B28F5D80A00357A4D /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				930B683A28F5D80A00357A4D /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		933D18EB2819935E00F1CCC4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

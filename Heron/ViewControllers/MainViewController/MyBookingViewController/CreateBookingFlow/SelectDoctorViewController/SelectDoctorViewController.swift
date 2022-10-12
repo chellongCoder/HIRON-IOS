@@ -16,7 +16,7 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Select Doctors"
+        navigationItem.title = "Select Doctor"
         viewModel.controller = self
         
         self.showBackBtn()
