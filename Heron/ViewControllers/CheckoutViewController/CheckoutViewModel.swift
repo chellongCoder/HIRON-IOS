@@ -52,8 +52,8 @@ class CheckoutViewModel: NSObject {
                     case .completed:
                         self.controller?.didFinishPlaceOrder()
                     case .canceled:
-                        let alertVC = UIAlertController.init(title: NSLocalizedString("Cancelled", comment: ""),
-                                                             message: "You has cancelled payment, you can try again", preferredStyle: .alert)
+                        let alertVC = UIAlertController.init(title: NSLocalizedString("Payment Cancelled", comment: ""),
+                                                             message: "You have cancelled the payment.", preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
                             self.controller?.dismiss(animated: true)

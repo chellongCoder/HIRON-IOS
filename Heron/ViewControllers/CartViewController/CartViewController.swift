@@ -225,8 +225,8 @@ class CartViewController: BaseViewController,
         }
         
         if !cartData.hasItemSelected() {
-            let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
-                                                 message: "Please select at least one product to apply voucher", preferredStyle: .alert)
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Oops!", comment: ""),
+                                                 message: "Please select one product to apply voucher", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                 alertVC.dismiss()
             }))
@@ -331,8 +331,8 @@ class CartViewController: BaseViewController,
     // MARK: - CartProductCellDelegate
     func removeItemFromCart(_ index: IndexPath) {
         self.view.endEditing(true)
-        let alertVC = UIAlertController.init(title: NSLocalizedString("Confirm", comment: ""),
-                                             message: "Are you sure to remove this product?", preferredStyle: .alert)
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Remove item?", comment: ""),
+                                             message: "Are you sure to remove item from cart?", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
             alertVC.dismiss()
             guard let store = _CartServices.cartData.value?.store[index.section] else {return}

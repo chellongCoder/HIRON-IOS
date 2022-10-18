@@ -83,15 +83,15 @@ PODS:
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
   - ObjectMapper (4.2.0)
-  - OneSignalXCFramework (3.11.2):
-    - OneSignalXCFramework/OneSignalCore (= 3.11.2)
-    - OneSignalXCFramework/OneSignalExtension (= 3.11.2)
-    - OneSignalXCFramework/OneSignalOutcomes (= 3.11.2)
-  - OneSignalXCFramework/OneSignalCore (3.11.2)
-  - OneSignalXCFramework/OneSignalExtension (3.11.2):
+  - OneSignalXCFramework (3.11.3):
+    - OneSignalXCFramework/OneSignalCore (= 3.11.3)
+    - OneSignalXCFramework/OneSignalExtension (= 3.11.3)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.11.3)
+  - OneSignalXCFramework/OneSignalCore (3.11.3)
+  - OneSignalXCFramework/OneSignalExtension (3.11.3):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalOutcomes
-  - OneSignalXCFramework/OneSignalOutcomes (3.11.2):
+  - OneSignalXCFramework/OneSignalOutcomes (3.11.3):
     - OneSignalXCFramework/OneSignalCore
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -137,7 +137,7 @@ DEPENDENCIES:
   - SDWebImage (= 5.7.3)
   - SkeletonView (= 1.11.0)
   - SnapKit (= 5.0.1)
-  - Stripe
+  - Stripe (= 22.7.0)
   - SwiftLint (= 0.47.1)
   - SWRevealViewController (= 2.3.0)
 
@@ -182,7 +182,7 @@ SPEC CHECKSUMS:
   Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  OneSignalXCFramework: 81ceac017a290f23793443323090cfbe888f74ea
+  OneSignalXCFramework: e3f0100b491f5c7191dd1e204020eb3ecc4188b1
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
