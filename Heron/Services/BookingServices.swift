@@ -212,4 +212,23 @@ class BookingServices : NSObject {
             }
         }
     }
+    
+    // MARK: - Get Details
+    
+    func getDoctorDetailByID(_ id: String, completion:@escaping (String?, DoctorDataSource?) -> Void) {
+        
+        let fullURLRequest = kGatewayOganizationURL + "/members/" + id
+        _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
+                        
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
+                return
+            } else {
+                
+                if let data = responseData.responseData?["data"] as? [String:Any] {
+                    completion(responseData.responseMessage, Mapper<DoctorDataSource>().map(JSON: data))
+                }
+            }
+        }
+    }
 }

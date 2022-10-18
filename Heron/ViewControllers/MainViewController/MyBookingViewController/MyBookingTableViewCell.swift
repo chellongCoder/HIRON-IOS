@@ -10,10 +10,11 @@ import UIKit
 class MyBookingTableViewCell: UITableViewCell {
 
     let bookingStatusLabel  = UILabel()
+    let storeNameLabel      = UILabel()
     let timeableLabel       = UILabel()
     let addressBookingLabel = UILabel()
     let patientInfoLabel    = UILabel()
-    let doctorInfoLabel     = UILabel()
+//    let doctorInfoLabel     = UILabel()
     let totalPaymentLabel   = UILabel()
     let bookingIDLabel      = UILabel()
     
@@ -30,12 +31,11 @@ class MyBookingTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-8)
         }
         
-        let titleLabel = UILabel()
-        titleLabel.text = "HARD_CODE"
-        titleLabel.textColor = kDefaultTextColor
-        titleLabel.font = getFontSize(size: 16, weight: .bold)
-        contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
+        storeNameLabel.text = "HARD_CODE"
+        storeNameLabel.textColor = kDefaultTextColor
+        storeNameLabel.font = getFontSize(size: 16, weight: .bold)
+        contentView.addSubview(storeNameLabel)
+        storeNameLabel.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(8)
             make.right.equalToSuperview().offset(-8)
         }
@@ -57,8 +57,8 @@ class MyBookingTableViewCell: UITableViewCell {
         timeableIcon.tintColor = kDefaultTextColor
         contentView.addSubview(timeableIcon)
         timeableIcon.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
-            make.left.equalTo(titleLabel)
+            make.top.equalTo(storeNameLabel.snp.bottom).offset(8)
+            make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
         
@@ -67,7 +67,7 @@ class MyBookingTableViewCell: UITableViewCell {
         timeableLabel.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(timeableLabel)
         timeableLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.top.equalTo(storeNameLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
         }
@@ -78,7 +78,7 @@ class MyBookingTableViewCell: UITableViewCell {
         contentView.addSubview(addressIcon)
         addressIcon.snp.makeConstraints { make in
             make.top.equalTo(timeableIcon.snp.bottom).offset(8)
-            make.left.equalTo(titleLabel)
+            make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
         
@@ -99,7 +99,7 @@ class MyBookingTableViewCell: UITableViewCell {
         contentView.addSubview(patientIcon)
         patientIcon.snp.makeConstraints { make in
             make.top.equalTo(addressBookingLabel.snp.bottom).offset(8)
-            make.left.equalTo(titleLabel)
+            make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
         
@@ -114,34 +114,34 @@ class MyBookingTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-16)
         }
         
-        let doctorIcon = UIImageView()
-        doctorIcon.image = UIImage.init(systemName: "person.badge.plus")
-        doctorIcon.tintColor = kDefaultTextColor
-        contentView.addSubview(doctorIcon)
-        doctorIcon.snp.makeConstraints { make in
-            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
-            make.left.equalTo(titleLabel)
-            make.height.width.equalTo(13)
-        }
-        
-        doctorInfoLabel.text = "HARD_CODE"
-        doctorInfoLabel.numberOfLines = 0
-        doctorInfoLabel.textColor = kDefaultTextColor
-        doctorInfoLabel.font = getFontSize(size: 14, weight: .regular)
-        contentView.addSubview(doctorInfoLabel)
-        doctorInfoLabel.snp.makeConstraints { make in
-            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
-            make.left.equalTo(timeableIcon.snp.right).offset(8)
-            make.right.equalToSuperview().offset(-16)
-        }
+//        let doctorIcon = UIImageView()
+//        doctorIcon.image = UIImage.init(systemName: "person.badge.plus")
+//        doctorIcon.tintColor = kDefaultTextColor
+//        contentView.addSubview(doctorIcon)
+//        doctorIcon.snp.makeConstraints { make in
+//            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
+//            make.left.equalTo(titleLabel)
+//            make.height.width.equalTo(13)
+//        }
+//
+//        doctorInfoLabel.text = "HARD_CODE"
+//        doctorInfoLabel.numberOfLines = 0
+//        doctorInfoLabel.textColor = kDefaultTextColor
+//        doctorInfoLabel.font = getFontSize(size: 14, weight: .regular)
+//        contentView.addSubview(doctorInfoLabel)
+//        doctorInfoLabel.snp.makeConstraints { make in
+//            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
+//            make.left.equalTo(timeableIcon.snp.right).offset(8)
+//            make.right.equalToSuperview().offset(-16)
+//        }
         
         let paymentIcon = UIImageView()
         paymentIcon.image = UIImage.init(systemName: "creditcard")
         paymentIcon.tintColor = kDefaultTextColor
         contentView.addSubview(paymentIcon)
         paymentIcon.snp.makeConstraints { make in
-            make.top.equalTo(doctorInfoLabel.snp.bottom).offset(8)
-            make.left.equalTo(titleLabel)
+            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
+            make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
         
@@ -151,7 +151,7 @@ class MyBookingTableViewCell: UITableViewCell {
         totalPaymentLabel.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(totalPaymentLabel)
         totalPaymentLabel.snp.makeConstraints { make in
-            make.top.equalTo(doctorInfoLabel.snp.bottom).offset(8)
+            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
         }
@@ -162,7 +162,7 @@ class MyBookingTableViewCell: UITableViewCell {
         contentView.addSubview(bookingIDIcon)
         bookingIDIcon.snp.makeConstraints { make in
             make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
-            make.left.equalTo(titleLabel)
+            make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
         
@@ -184,13 +184,17 @@ class MyBookingTableViewCell: UITableViewCell {
     }
     
     func setDataSource(_ data: BookingAppointmentDataSource) {
+        
+        self.storeNameLabel.text = data.store?.name
+        self.addressBookingLabel.text = data.store?.addressInfo?.getAddressString()
+        
         self.bookingStatusLabel.text = String(format: " %@ ", data.getStatusLabel())
         
         let startTime = Date.init(timeIntervalSince1970: TimeInterval(data.startTime/1000))
         let endTime = Date.init(timeIntervalSince1970: TimeInterval(data.endTime/1000))
         self.timeableLabel.text = String(format: "From: %@ - To: %@. At %@",
-                                         startTime.toString(dateFormat: "HH: mm"),
-                                         endTime.toString(dateFormat: "HH: mm"),
+                                         startTime.toString(dateFormat: "HH:mm"),
+                                         endTime.toString(dateFormat: "HH:mm"),
                                          endTime.toString(dateFormat: "MMM dd, yyyy"))
         
         self.patientInfoLabel.text = String(format: "Customer: %@ %@ | Gender: %@",

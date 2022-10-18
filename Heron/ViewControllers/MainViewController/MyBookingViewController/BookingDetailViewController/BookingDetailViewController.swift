@@ -203,9 +203,8 @@ class BookingDetailViewController: PageScrollViewController {
                 guard let bookingElement = bookingData.element else {return}
                 guard let trueBookingData = bookingElement else {return}
                 
-//                if let avatarImageURL = URL(string: bookingData?.userAvatarURL ?? "") {
-//                    self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
-//                }
+                self.viewModel.getDoctorData()
+                
                 switch trueBookingData.status {
                 case .PENDING:
                     self.bookingStatus.text = "Booking Pending!"
@@ -229,7 +228,11 @@ class BookingDetailViewController: PageScrollViewController {
                 
                 let startTime = Date.init(timeIntervalSince1970: TimeInterval(trueBookingData.startTime/1000))
                 let endTime = Date.init(timeIntervalSince1970: TimeInterval(trueBookingData.endTime/1000))
-                self.timeableLabel.text = String(format: "From: %@ - To: %@", startTime.toString(dateFormat: "MMM dd, yyyy"), endTime.toString(dateFormat: "MMM dd, yyyy"))
+                self.timeableLabel.text = String(format: "From: %@ - To: %@. At %@",
+                                                 startTime.toString(dateFormat: "HH:mm"),
+                                                 endTime.toString(dateFormat: "HH:mm"),
+                                                 endTime.toString(dateFormat: "MMM dd, yyyy"))
+                self.addressBookingLabel.text = trueBookingData.store?.addressInfo?.getAddressString()
                 
                 self.patientInfoLabel.text = String(format: "Customer: %@ %@ | Gender: %@",
                                                     trueBookingData.profile?.firstName ?? "",
@@ -242,5 +245,27 @@ class BookingDetailViewController: PageScrollViewController {
             }
             .disposed(by: disposeBag)
 
+        self.viewModel.doctorData
+            .observe(on: MainScheduler.instance)
+            .subscribe { doctorData  in
+                guard let doctor = doctorData.element else {return}
+                
+                if let avatarImageURL = URL(string: doctor?.user?.avatar ?? "") {
+                    self.doctorImage.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
+                }
+                
+                self.bookingDescriptions.text = String(format: "You’re having an appointment with %@.\nYour bookingID #%@",
+                                                       (doctor?.user?.firstName ?? "") + (doctor?.user?.lastName ?? ""),
+                                                       self.viewModel.bookingData.value?.code ?? "")
+                
+                let positionNames = (doctor?.teamMemberPosition ?? []).map { position in
+                    position.team?.name ?? ""
+                }
+                
+                self.doctorInfoLabel.text = String(format: "Doctor: %@, %@",
+                                                   (doctor?.user?.firstName ?? "") + (doctor?.user?.lastName ?? ""),
+                                                   positionNames.joined(separator: ", "))
+            }
+            .disposed(by: disposeBag)
     }
 }

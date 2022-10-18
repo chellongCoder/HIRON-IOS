@@ -62,6 +62,7 @@ struct StoreDataSource : Mappable {
     var targetId        : String = ""
     var cartItems       : [CartItemDataSource] = []
     var shippingOrder   : CartShippingDataSource?
+    var addressInfo     : EHProfileAddress?
     
     private var orderTotal  : Int = 0
     
@@ -82,6 +83,7 @@ struct StoreDataSource : Mappable {
         cartItems       <- map["cartItems"]
         shippingOrder   <- map["shippingOrder"]
         orderTotal      <- map["orderTotal"]
+        addressInfo     <- map["addressInfo"]
         
         customOrderTotal = Float(orderTotal)/100.0
     }

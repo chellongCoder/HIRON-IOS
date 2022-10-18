@@ -21,6 +21,7 @@ enum BookingAppointmentStatus: String {
 class BookingAppointmentDataSource: Mappable {
     
     var id      : String = ""
+    var hostId  : String = ""
     var code    : String = ""
     var status  : BookingAppointmentStatus = .PENDING
     var isPaid  : Bool = false
@@ -28,6 +29,7 @@ class BookingAppointmentDataSource: Mappable {
     var startTime   : Int = 0
     var endTime     : Int = 0
     var profile     : EHealthDataSource?
+    var store       : StoreDataSource?
     
     // custom
     var customAmount    : Float = 0.0
@@ -38,6 +40,7 @@ class BookingAppointmentDataSource: Mappable {
     
     func mapping(map: Map) {
         id          <- map["id"]
+        hostId      <- map["hostId"]
         code        <- map["code"]
         status      <- map["status"]
         isPaid      <- map["isPaid"]
@@ -45,6 +48,7 @@ class BookingAppointmentDataSource: Mappable {
         startTime   <- map["startTime"]
         endTime     <- map["endTime"]
         profile     <- map["profile"]
+        store       <- map["store"]
         
         self.customAmount = Float(amount)/100.0
     }
