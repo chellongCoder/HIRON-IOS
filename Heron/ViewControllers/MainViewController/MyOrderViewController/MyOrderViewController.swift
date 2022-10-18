@@ -313,9 +313,9 @@ class MyOrderViewController: BaseViewController,
         let sessionData = self.viewModel.orders.value[section]
         
         let title = UILabel()
-        title.text = String(format: "Total (%ld products): $%.2f",
+        title.text = String(format: "Total (%ld products): %@",
                             sessionData.items?.count ?? 0,
-                            sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable ?? 0.0)
+                            getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
         title.font = UIFont.systemFont(ofSize: 14)
         headerView.addSubview(title)
         title.snp.makeConstraints {

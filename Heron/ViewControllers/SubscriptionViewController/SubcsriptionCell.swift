@@ -74,14 +74,14 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
     
     func setDataSource(data : SubscriptionData) {
         self.titleLabel.text = data.subsItem?.name
-        self.priceLabel.text = String(format: "$%.2f", data.customFinalPrice)
+        self.priceLabel.text = getMoneyFormat(data.customFinalPrice)
         if data.interval_count == 1 {
             self.intervalLabel.text = String(format: "/%@", data.interval.rawValue)
         } else {
             self.intervalLabel.text = String(format: "/%ld %@s", data.interval_count, data.interval.rawValue)
         }
         
-        // self.footerLabel.text = String(format: "From: $%.2f", data.customRegularPrice)
+//         self.footerLabel.text = String(format: "From: %@", getMoneyFormat(data.customRegularPrice))
     }
     
     func setSelected(_ isSelected : Bool) {

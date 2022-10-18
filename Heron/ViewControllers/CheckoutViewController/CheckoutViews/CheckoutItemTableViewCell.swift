@@ -113,8 +113,8 @@ class CheckoutItemTableViewCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%.2f", itemData.product!.customRegularPrice)
-        self.priceDiscount.text = String(format: "$%.2f", itemData.product!.customFinalPrice)
+        self.priceLabel.text = getMoneyFormat(itemData.product!.customRegularPrice)
+        self.priceDiscount.text = getMoneyFormat(itemData.product!.customFinalPrice)
         self.priceLabel.isHidden = (itemData.product!.customRegularPrice == itemData.product!.customFinalPrice)
         self.countLabel.text = String(format: "x%ld", itemData.quantity)
         

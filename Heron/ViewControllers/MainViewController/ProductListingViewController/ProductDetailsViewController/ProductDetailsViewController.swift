@@ -182,7 +182,7 @@ class ProductDetailsViewController: PageScrollViewController,
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.cartHotInfo.cartPriceValue.text = String(format: "$%.2f", cartDataSource?.customGrandTotal ?? 0.0)
+                self.cartHotInfo.cartPriceValue.text = getMoneyFormat(cartDataSource?.customGrandTotal)
             }
             .disposed(by: disposeBag)
         
@@ -193,8 +193,8 @@ class ProductDetailsViewController: PageScrollViewController,
                 guard let productData = productDataA else {return}
                 
                 self.packageTitle.text = productData.name
-                self.priceDiscount.text = String(format: "$%.2f", productData.customFinalPrice)
-                self.priceLabel.text = String(format: "$%.2f", productData.customRegularPrice)
+                self.priceDiscount.text = getMoneyFormat(productData.customFinalPrice)
+                self.priceLabel.text = getMoneyFormat(productData.customRegularPrice)
                 self.priceLabel.isHidden = (productData.customRegularPrice == productData.customFinalPrice)
                 
                 let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
@@ -345,8 +345,8 @@ extension ProductDetailsViewController : ProductVariantDelegate {
         }) {
             // Load new UI
             self.packageTitle.text = matchedSimpleProduct.name
-            self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
-            self.priceLabel.text = String(format: "$%.2f", matchedSimpleProduct.customRegularPrice)
+            self.priceDiscount.text = getMoneyFormat(matchedSimpleProduct.customFinalPrice)
+            self.priceLabel.text = getMoneyFormat(matchedSimpleProduct.customRegularPrice)
             
             let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
             self.loadMediaView(staticHeight)

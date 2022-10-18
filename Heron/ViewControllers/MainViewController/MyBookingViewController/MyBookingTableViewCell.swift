@@ -197,8 +197,8 @@ class MyBookingTableViewCell: UITableViewCell {
                                             data.profile?.firstName ?? "",
                                             data.profile?.lastName ?? "",
                                             data.profile?.gender == .male ? "Male" : "Female")
-        self.totalPaymentLabel.text = String(format: "Total: $%.2f",
-                                             data.customAmount)
+        self.totalPaymentLabel.text = String(format: "Total: %@",
+                                             getMoneyFormat(data.customAmount))
         self.bookingIDLabel.text = String(format: " BookingID: #%@",
                                           data.code)
     }

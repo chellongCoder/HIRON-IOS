@@ -36,3 +36,10 @@ class TimeConverter {
         return dateFormatter.string(from: date)
     }
 }
+
+func getMoneyFormat(_ value: Float?) -> String {
+    let formatter = NumberFormatter()
+    formatter.locale = Locale(identifier: "en_US_POSIX")
+    formatter.numberStyle = .currencyAccounting
+    return formatter.string(from: (value ?? 0.0) as NSNumber) ?? "$0.0"
+}

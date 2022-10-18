@@ -171,8 +171,8 @@ class CartProductTableViewCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%.2f", cellData.product!.customRegularPrice)
-        self.priceDiscount.text = String(format: "$%.2f", cellData.product!.customFinalPrice)
+        self.priceLabel.text = getMoneyFormat(cellData.product!.customRegularPrice)
+        self.priceDiscount.text = getMoneyFormat(cellData.product!.customFinalPrice)
         self.priceLabel.isHidden = (cellData.product!.customRegularPrice == cellData.product!.customFinalPrice)
         
         self.quantityValue = cellData.quantity

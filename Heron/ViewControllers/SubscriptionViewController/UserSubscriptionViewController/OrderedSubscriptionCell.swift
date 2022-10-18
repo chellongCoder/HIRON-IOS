@@ -87,7 +87,7 @@ class OrderedSubscriptionCell: UITableViewCell {
         let createdDate = Date.init(timeIntervalSince1970: TimeInterval(data.enabledAt)/1000)
         self.orderCreatedAtLabel.text = String(format: "Ordered on %@", createdDate.toString(dateFormat: "MMM dd yyyy"))
         
-        self.amountLabel.text = String(format: "Amount $%.2f", data.subsPlan?.customFinalPrice ?? 0.0)
+        self.amountLabel.text = String(format: "Amount %@", getMoneyFormat(data.subsPlan?.customFinalPrice))
         
         self.subsNameLabel.text = String(format: "Type: %@", data.subsPlan?.subsItem?.name ?? "")
         

@@ -83,8 +83,8 @@ class PackageTableViewCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = String(format: "$%.2f", cellData.customRegularPrice)
-        self.priceDiscount.text = String(format: "$%.2f", cellData.customFinalPrice)
+        self.priceLabel.text = getMoneyFormat(cellData.customRegularPrice)
+        self.priceDiscount.text = getMoneyFormat(cellData.customFinalPrice)
         
     }
 }

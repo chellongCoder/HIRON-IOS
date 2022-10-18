@@ -160,7 +160,7 @@ class CartViewController: BaseViewController,
                 }
                 if voucherDataSource.couponRule?.isFixed ?? false {
                     // discount value
-                    self.voucherView.voucherCode.text = String(format: " $%.2f ", voucherDataSource.couponRule?.customDiscount ?? 0.0)
+                    self.voucherView.voucherCode.text = String(format: " %@ ", getMoneyFormat(voucherDataSource.couponRule?.customDiscount))
                     
                 } else {
                     // discout percent
@@ -185,8 +185,8 @@ class CartViewController: BaseViewController,
                 self.checkoutBtn.backgroundColor = kPrimaryColor
                 self.checkoutBtn.isUserInteractionEnabled = true
                 
-                self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
-                self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
+                self.totalLabel.text = String(format: "Total: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
+                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
                 
             }
             .disposed(by: disposeBag)

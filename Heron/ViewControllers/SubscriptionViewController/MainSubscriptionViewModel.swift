@@ -81,7 +81,6 @@ class MainSubscriptionViewModel : NSObject {
                 return
             }
             
-            
             let alertVC = UIAlertController.init(title: NSLocalizedString("Switch success!", comment: ""),
                                                  message: "You have successfully switched to the new plan.",
                                                  preferredStyle: .alert)

@@ -208,9 +208,9 @@ class CheckoutViewController: BaseViewController,
             .subscribe { cartDataSource in
                 
                 guard let cartData = cartDataSource.element as? CartDataSource else {return}
-                self.orderTotalView.subTotalValue.text = String(format: "$%.2f", cartData.customSubTotal)
-                self.orderTotalView.discountValue.text = String(format: "$%.2f", (cartData.customSubTotal - cartData.customGrandTotal))
-                self.orderTotalView.totalValue.text = String(format: "$%.2f", cartData.customGrandTotal)
+                self.orderTotalView.subTotalValue.text = getMoneyFormat(cartData.customSubTotal)
+                self.orderTotalView.discountValue.text = getMoneyFormat((cartData.customSubTotal - cartData.customGrandTotal))
+                self.orderTotalView.totalValue.text = getMoneyFormat(cartData.customGrandTotal)
             }
             .disposed(by: disposeBag)
         
@@ -232,14 +232,13 @@ class CheckoutViewController: BaseViewController,
                     return
                 }
                 
-                self.orderTotalView.subTotalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customMerchandiseSubtotal ?? 0.0)
-                self.orderTotalView.discountValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
-                self.orderTotalView.shippingAndTaxValue.text = String(format: "$%.2f",
-                                                                      (cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal ?? 0.0) +
-                                                                      (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
-                self.orderTotalView.totalValue.text = String(format: "$%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
-                self.totalLabel.text = String(format: "Total: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable ?? 0.0)
-                self.savingLabel.text = String(format: "Saving: $%.2f", cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied ?? 0.0)
+                self.orderTotalView.subTotalValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customMerchandiseSubtotal)
+                self.orderTotalView.discountValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied)
+                self.orderTotalView.shippingAndTaxValue.text = getMoneyFormat((cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal ?? 0.0) +
+                                                                              (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
+                self.orderTotalView.totalValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable)
+                self.totalLabel.text = String(format: "Total: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
+                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
                 
                 self.viewModel.cartPreCheckout = cartPreCheckoutDataSource
                 self.tableView.reloadData()
@@ -286,7 +285,7 @@ class CheckoutViewController: BaseViewController,
                 guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
                 if voucherDataSource.couponRule?.isFixed ?? false {
                     // discount value
-                    self.voucherView.voucherCode.text = String(format: " $%.2f ", voucherDataSource.couponRule?.customDiscount ?? 0.0)
+                    self.voucherView.voucherCode.text = getMoneyFormat(voucherDataSource.couponRule?.customDiscount)
                     
                 } else {
                     // discout percent
@@ -417,7 +416,7 @@ class CheckoutViewController: BaseViewController,
             
             let carierView = CarrierView()
             carierView.carrierName.text = carier.name
-            carierView.shippingFee.text = String(format: "$%.2f", shippingData.amount)
+            carierView.shippingFee.text = getMoneyFormat(shippingData.amount)
             carierView.receivedLog.text = String(format: "Received order in %@", qoutes.updatedAtStr)
             contentFooterView.addSubview(carierView)
             carierView.snp.makeConstraints { (make) in
@@ -427,7 +426,7 @@ class CheckoutViewController: BaseViewController,
             }
             
             let orderSum = OrderSumView()
-            orderSum.orderSumValue.text = String(format: "$%.2f", storeData.customOrderTotal)
+            orderSum.orderSumValue.text = getMoneyFormat(storeData.customOrderTotal)
             contentFooterView.addSubview(orderSum)
             orderSum.snp.makeConstraints { (make) in
                 make.top.equalTo(carierView.snp.bottom).offset(2)

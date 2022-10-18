@@ -97,7 +97,7 @@ class VoucherTableViewCell: UITableViewCell {
         
         if cellData.couponRule?.isFixed ?? false {
             // discount value
-            self.promoValue.text = String(format: "$%.2f", cellData.couponRule?.customDiscount ?? 0.0)
+            self.promoValue.text = getMoneyFormat(cellData.couponRule?.customDiscount)
             
         } else {
             // discout percent

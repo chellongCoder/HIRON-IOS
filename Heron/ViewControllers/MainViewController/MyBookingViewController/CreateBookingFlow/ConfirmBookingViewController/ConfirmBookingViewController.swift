@@ -99,7 +99,7 @@ class ConfirmBookingViewController: BaseViewController,
             .observe(on: MainScheduler.instance)
             .subscribe { bookingData in
                 guard let bookingData = bookingData.element as? ProductDataSource else {return}
-                self.priceLabel.text = String(format: "Total: $%.2f /section", bookingData.customFinalPrice)
+                self.priceLabel.text = String(format: "Total: %@ /section", getMoneyFormat(bookingData.customFinalPrice))
             }
             .disposed(by: disposeBag)
     }

@@ -44,10 +44,8 @@ struct CartDataSource : Mappable {
                 return true
             }
             
-            for item in store.cartItems {
-                if item.isSelected {
-                    return true
-                }
+            for item in store.cartItems where item.isSelected {
+                return true
             }
         }
         

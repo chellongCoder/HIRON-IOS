@@ -235,8 +235,8 @@ class BookingDetailViewController: PageScrollViewController {
                                                     trueBookingData.profile?.firstName ?? "",
                                                     trueBookingData.profile?.lastName ?? "",
                                                     trueBookingData.profile?.gender == .male ? "Male" : "Female")
-                self.totalPaymentLabel.text = String(format: "Total: $%.2f",
-                                                     trueBookingData.customAmount)
+                self.totalPaymentLabel.text = String(format: "Total: %@",
+                                                     getMoneyFormat(trueBookingData.customAmount))
                 self.bookingIDLabel.text = String(format: " BookingID: #%@",
                                                   trueBookingData.code)
             }

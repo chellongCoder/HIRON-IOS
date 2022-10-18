@@ -48,6 +48,7 @@ class SubscriptionPaymentViewModel: NSObject {
                     // Check payment status
                     switch paymentResult {
                     case .completed:
+                        // swiftlint:disable line_length
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Payment successful!", comment: ""),
                                                              message: "You have successfully paid for the subscription. You now can check your subscription status in Profile Screen", preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Skip", comment: ""), style: .cancel, handler: { _ in

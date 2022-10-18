@@ -105,9 +105,9 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: "TotalOrderTableViewCell", for: indexPath) as! TotalOrderTableViewCell
             if orderData?.items?.count == 1 {
-                cell.title.text = String(format: "Total (1 product):  $%.2f", orderData?.customAmount ?? 0.0)
+                cell.title.text = String(format: "Total (1 product):  %@", getMoneyFormat(orderData?.customAmount))
             } else {
-                cell.title.text = String(format: "Total (%ld products):  $%.2f", (orderData?.items?.count ?? 0), orderData?.customAmount ?? 0.0)
+                cell.title.text = String(format: "Total (%ld products):  %@", (orderData?.items?.count ?? 0), getMoneyFormat(orderData?.customAmount))
             }
             
             return cell

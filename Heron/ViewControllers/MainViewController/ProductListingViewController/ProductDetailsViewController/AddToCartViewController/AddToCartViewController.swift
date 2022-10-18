@@ -133,7 +133,7 @@ class AddToCartViewController: UIViewController {
             make.right.equalToSuperview().offset(-16)
         }
                 
-        priceDiscount.text = String(format: "$%.2f", productData?.customFinalPrice ?? 0.0)
+        priceDiscount.text = getMoneyFormat(productData?.customFinalPrice)
         priceDiscount.textColor = kRedHightLightColor
         priceDiscount.font = getFontSize(size: 14, weight: .regular)
         contentView.addSubview(priceDiscount)
@@ -142,7 +142,7 @@ class AddToCartViewController: UIViewController {
             make.left.equalTo(productTitleLabel)
         }
         
-        priceLabel.text = String(format: "$%.2f", productData?.customRegularPrice ?? 0.0)
+        priceLabel.text = getMoneyFormat(productData?.customRegularPrice)
         priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
@@ -371,8 +371,8 @@ extension AddToCartViewController : ProductVariantDelegate {
             }
             
             self.productTitleLabel.text = matchedSimpleProduct.name
-            self.priceDiscount.text = String(format: "$%.2f", matchedSimpleProduct.customFinalPrice)
-            self.priceLabel.text = String(format: "$%.2f", matchedSimpleProduct.customRegularPrice)
+            self.priceDiscount.text = getMoneyFormat(matchedSimpleProduct.customFinalPrice)
+            self.priceLabel.text = getMoneyFormat(matchedSimpleProduct.customRegularPrice)
             self.priceLabel.isHidden = (matchedSimpleProduct.customRegularPrice == matchedSimpleProduct.customFinalPrice)
             
             self.soldOutLabel.isHidden = true
