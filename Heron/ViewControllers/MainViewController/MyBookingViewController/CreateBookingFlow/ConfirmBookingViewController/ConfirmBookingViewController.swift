@@ -102,6 +102,13 @@ class ConfirmBookingViewController: BaseViewController,
                 self.priceLabel.text = String(format: "Total: %@ /section", getMoneyFormat(bookingData.customFinalPrice))
             }
             .disposed(by: disposeBag)
+        
+        _BookingServices.storeDataSource
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - UITableViewDataSource

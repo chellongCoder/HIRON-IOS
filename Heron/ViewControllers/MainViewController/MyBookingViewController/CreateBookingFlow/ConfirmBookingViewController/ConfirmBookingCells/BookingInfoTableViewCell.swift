@@ -64,7 +64,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         }
         
         let bookingInfoLocations = UILabel()
-        bookingInfoLocations.text = String(format: "Location: HARD_CODE")
+        bookingInfoLocations.text = String(format: "Location: ")
         bookingInfoLocations.textColor = kDefaultTextColor
         bookingInfoLocations.font = getFontSize(size: 16, weight: .regular)
         bookingInfoLocations.numberOfLines = 0
@@ -87,12 +87,9 @@ class BookingInfoTableViewCell: UITableViewCell {
             bookingInfoTime.text = String(format: "Time: %@ - %@", startTime.toString(dateFormat: "HH:mm"), endTime.toString(dateFormat: "HH:mm"))
         }
         
-        if let selectOrganization = _BookingServices.selectedOrganization.value {
-            if let attribute = selectOrganization.attributeValues.first(where: { attribute in
-                return attribute.attributeCode == .Address
-            }) {
-                bookingInfoLocations.text = String(format: "Locations: %@", attribute.value)
-            }
+        if let storeDataSource = _BookingServices.storeDataSource.value {
+            bookingInfoLocations.text = String(format: "Location: %@", storeDataSource.addressInfo?.getAddressString() ?? "")
+
         }
     }
     

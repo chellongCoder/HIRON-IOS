@@ -30,7 +30,7 @@ class UserAddressListingViewController: BaseViewController,
         self.showBackBtn()
         
         addNewAddressBtn.backgroundColor = kPrimaryColor
-        addNewAddressBtn.setTitle("ADD NEW ADDRESS", for: .normal)
+        addNewAddressBtn.setTitle("Add new address", for: .normal)
         addNewAddressBtn.setTitleColor(.white, for: .normal)
         addNewAddressBtn.layer.cornerRadius = 8
         addNewAddressBtn.addTarget(self, action: #selector(addNewAddressButtonTapped), for: .touchUpInside)

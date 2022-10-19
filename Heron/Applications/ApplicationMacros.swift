@@ -47,6 +47,7 @@ let kGatewayPaymentURL                      = "https://ehp-api.cbidigital.com/pa
 let kGatewayEHealthProfileURL               = "https://ehp-api.cbidigital.com/eprofile-svc/api"
 let kGatewayOganizationURL                  = "https://ehp-api.cbidigital.com/organization-svc/api"
 let kGatewayBookingURL                      = "https://ehp-api.cbidigital.com/booking-svc/api"
+let kGatewayStoreURL                        = "https://ehp-api.cbidigital.com/store-svc/api"
 
 // Define notificationKey
 let kInternetNotificationAlive              = Notification.Name("kInternetNotificationAlive")

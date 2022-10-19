@@ -19,6 +19,7 @@ class BookingServices : NSObject {
     var selectedDoctor                  = BehaviorRelay<DoctorDataSource?>(value: nil)
     var selectedTimeable                = BehaviorRelay<TimeableDataSource?>(value: nil)
     var bookingProduct                  = BehaviorRelay<ProductDataSource?>(value: nil)
+    var storeDataSource                 = BehaviorRelay<StoreDataSource?>(value: nil)
     private let disposeBag              = DisposeBag()
     
     override init() {
@@ -32,6 +33,12 @@ class BookingServices : NSObject {
                         self.selectedOrganization.accept(firstOrganization)
                     }
                 }
+            }
+            .disposed(by: disposeBag)
+        self.bookingProduct
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                self.getStoreDetails()
             }
             .disposed(by: disposeBag)
     }
@@ -228,6 +235,17 @@ class BookingServices : NSObject {
                 if let data = responseData.responseData?["data"] as? [String:Any] {
                     completion(responseData.responseMessage, Mapper<DoctorDataSource>().map(JSON: data))
                 }
+            }
+        }
+    }
+    
+    func getStoreDetails() {
+        guard let storeID = self.bookingProduct.value?.targetId else {return}
+        let fullURLRequest = kGatewayStoreURL + "/stores/" + storeID
+        _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
+            
+            if let data = responseData.responseData?["data"] as? [String:Any] {
+                self.storeDataSource.accept(Mapper<StoreDataSource>().map(JSON: data))
             }
         }
     }

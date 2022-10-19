@@ -51,6 +51,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         contentView.addSubview(shippingName)
         shippingName.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
             $0.top.equalTo(shippingAddressTitle.snp.bottom).offset(8)
         }
         
@@ -60,6 +61,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         contentView.addSubview(shippingAddressLabel)
         shippingAddressLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
             $0.top.equalTo(shippingName.snp.bottom)
         }
         
@@ -88,6 +90,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         contentView.addSubview(billingAddressName)
         billingAddressName.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
             $0.top.equalTo(billingAddressLabel.snp.bottom).offset(8)
         }
         
@@ -96,6 +99,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         contentView.addSubview(billingAddressEmail)
         billingAddressEmail.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
+            $0.centerX.equalToSuperview()
             $0.top.equalTo(billingAddressName.snp.bottom)
             $0.bottom.equalToSuperview().offset(-10)
         }

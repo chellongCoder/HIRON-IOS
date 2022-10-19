@@ -26,6 +26,7 @@ enum ProductFeatureType : String {
 class ProductDataSource: Mappable, Equatable {
     
     var id              : String = ""
+    var targetId        : String = ""
     var code            : String?
     var name            : String?
     var shortDesc       : String?
@@ -58,6 +59,7 @@ class ProductDataSource: Mappable, Equatable {
     
     func mapping(map: Map) {
         id          <- map["id"]
+        targetId    <- map["targetId"]
         code        <- map["code"]
         name        <- map["name"]
         shortDesc   <- map["shortDesc"]
