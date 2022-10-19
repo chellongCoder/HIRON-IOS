@@ -260,7 +260,7 @@ class SelectEHPViewController: UIViewController {
                 }
                 self.emailValueLabel.text = firstEHProfile.email
                 self.phoneValueLabel.text = firstEHProfile.phone
-                let dateDob = Date.init(timeIntervalSince1970: TimeInterval(firstEHProfile.dob / 1000))
+                let dateDob = Date.init(timeIntervalSince1970: TimeInterval((firstEHProfile.dob ?? 0) / 1000))
                 self.dobValueLabel.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
                 self.professionLabel.text = firstEHProfile.profession
                 self.addressLabel.text = firstEHProfile.addressInfo?.getAddressString() ?? ""

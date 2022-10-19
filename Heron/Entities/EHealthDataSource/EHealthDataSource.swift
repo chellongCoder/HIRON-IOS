@@ -18,7 +18,8 @@ class EHealthDataSource: Mappable {
     var email       : String = ""
     var avatar      : String = ""
     var gender      : UserGender = .male
-    var dob         : Int = 0
+    var dob         : Int?
+    var dobString   : String?
     var identityNum : String = ""
     var profession  : String = ""
     var addressInfo : EHProfileAddress?
@@ -39,6 +40,7 @@ class EHealthDataSource: Mappable {
         avatar      <- map["avatar"]
         gender      <- map["gender"]
         dob         <- map["dob"]
+        dobString   <- map["dob"]
         identityNum <- map["identityNum"]
         profession  <- map["profession"]
         addressInfo <- map["addressInfo"]

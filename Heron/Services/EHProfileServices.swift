@@ -51,9 +51,7 @@ class EHProfileServices: NSObject {
     func updateEHProfile(_ ehProfile: EHealthDataSource, completion:@escaping (String?, Bool) -> Void) {
         
         guard _AppCoreData.userSession.value != nil else {return}
-        
         let fullURLRequest = kGatewayEHealthProfileURL + "/profiles/" + ehProfile.id
-        
         _ = _AppDataHandler.patch(parameters: ehProfile.toJSON(), fullURLRequest: fullURLRequest) { responseData in
                         
             if responseData.responseCode == 400 {

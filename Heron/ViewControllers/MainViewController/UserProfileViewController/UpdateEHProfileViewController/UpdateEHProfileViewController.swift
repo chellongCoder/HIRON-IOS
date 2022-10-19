@@ -253,7 +253,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
                         self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
                     }
                     self.nameLabel.text = String(format: "Name: %@ %@", mainProfile.firstName, mainProfile.lastName)
-                    let dateDob = Date.init(timeIntervalSince1970: TimeInterval(mainProfile.dob / 1000))
+                    let dateDob = Date.init(timeIntervalSince1970: TimeInterval((mainProfile.dob ?? 0) / 1000))
                     self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
                     self.genderLabel.text = String(format: "Gender: %@", (mainProfile.gender == .male) ? "Male" : "Female")
                     self.phoneLabel.text = String(format: "Phone number: %@", mainProfile.phone)
@@ -290,6 +290,14 @@ class UpdateEHProfileViewController: PageScrollViewController {
         address.postalCode = self.postCodeTxt.text ?? ""
         
         rootEHProfile.addressInfo = address
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        if let dobInt = rootEHProfile.dob {
+            let date = Date.init(timeIntervalSince1970: TimeInterval(dobInt))
+            rootEHProfile.dobString = date.toISO8601String()
+            rootEHProfile.dob = nil
+        }
         
         self.viewModel.updateRootEHProfile(rootEHProfile)
     }
