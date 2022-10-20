@@ -67,6 +67,7 @@ class ConfirmBookingViewModel: BaseViewModel {
                         // swiftlint:disable line_length
                         bookingSuccessVC.orderplacedMessage.text = String(format: "Your Appointment #%@ has been received and is being processed. Please check the status at My Appointment page", orderCode ?? "")
                         self.controller?.navigationController?.pushViewController(bookingSuccessVC, animated: true)
+                        _BookingServices.cleanData()
                     case .canceled:
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Booking Cancelled!", comment: ""),
                                                              message: "You have cancelled the booking.", preferredStyle: .alert)
@@ -74,6 +75,7 @@ class ConfirmBookingViewModel: BaseViewModel {
                             alertVC.dismiss()
                         }))
                         _NavController.showAlert(alertVC)
+                        _BookingServices.cleanData()
                     case .failed(let error):
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
                                                              message: error.localizedDescription ,
