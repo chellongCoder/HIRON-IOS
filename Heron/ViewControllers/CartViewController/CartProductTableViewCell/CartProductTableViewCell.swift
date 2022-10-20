@@ -238,7 +238,18 @@ class CartProductTableViewCell: UITableViewCell {
     }
     
     @objc private func plusButtonTapped() {
-        if self.quantityValue >= 99 {return}
+        if self.quantityValue >= 99999 {
+            let alertVC = UIAlertController.init(title: NSLocalizedString("Oops!", comment: ""),
+                                                 message: "Current limit quantity for ervery items is 99999",
+                                                 preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                alertVC.dismiss()
+            }))
+            _NavController.showAlert(alertVC)
+            self.quantityTxt.text = String(self.quantityValue)
+            return
+        }
+        
         self.quantityValue += 1
         quantityTxt.text = String(format: "%ld", self.quantityValue)
         self.updateItemQuanlity()

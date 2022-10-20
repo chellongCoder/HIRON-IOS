@@ -43,6 +43,35 @@ class ProductDetailsViewController: PageScrollViewController,
         self.showBackBtn()
         self.viewModel.controller = self
         
+        addToCartBtn.backgroundColor = kPrimaryColor
+        addToCartBtn.layer.cornerRadius = 8
+        addToCartBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
+        addToCartBtn.setTitle("Add to cart", for: .normal)
+        addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
+        self.view.addSubview(addToCartBtn)
+        addToCartBtn.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-20)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
+        
+        let touchAction = UITapGestureRecognizer.init(target: self, action: #selector(cartButtonTapped))
+        
+        cartHotInfo.backgroundColor = kPrimaryColor
+        cartHotInfo.addGestureRecognizer(touchAction)
+        self.view.addSubview(cartHotInfo)
+        cartHotInfo.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.right.equalToSuperview().offset(-20)
+            make.bottom.equalTo(addToCartBtn.snp.top).offset(-10)
+        }
+        
+        pageScroll.snp.remakeConstraints { (make) in
+            make.left.top.right.equalToSuperview()
+            make.bottom.equalTo(addToCartBtn.snp.top).offset(-10)
+        }
+        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         pageScroll.addSubview(refreshControl)
@@ -139,31 +168,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.left.equalTo(packageTitle)
             make.top.equalTo(variantView.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-50)
-        }
-        
-        addToCartBtn.backgroundColor = kPrimaryColor
-        addToCartBtn.layer.cornerRadius = 8
-        addToCartBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
-        addToCartBtn.setTitle("Add to cart", for: .normal)
-        addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
-        self.view.addSubview(addToCartBtn)
-        addToCartBtn.snp.makeConstraints { (make) in
-            make.bottom.equalToSuperview().offset(-20)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(40)
-        }
-        
-        let touchAction = UITapGestureRecognizer.init(target: self, action: #selector(cartButtonTapped))
-        
-        cartHotInfo.backgroundColor = kPrimaryColor
-        cartHotInfo.addGestureRecognizer(touchAction)
-        self.view.addSubview(cartHotInfo)
-        cartHotInfo.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.right.equalToSuperview().offset(-20)
-            make.bottom.equalTo(addToCartBtn.snp.top).offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
     
