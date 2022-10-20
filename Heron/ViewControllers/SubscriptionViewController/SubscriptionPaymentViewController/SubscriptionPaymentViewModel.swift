@@ -57,8 +57,8 @@ class SubscriptionPaymentViewModel: NSObject {
                         }))
                         _NavController.showAlert(alertVC)
                     case .canceled:
-                        let alertVC = UIAlertController.init(title: NSLocalizedString("Cancelled", comment: ""),
-                                                             message: "You has cancelled payment, you can continue buy subscription in User Profile page", preferredStyle: .alert)
+                        let alertVC = UIAlertController.init(title: NSLocalizedString("Subscription Cancelled!", comment: ""),
+                                                             message: "You have cancelled the subscription plan immediately.", preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Skip", comment: ""), style: .cancel, handler: { _ in
                             alertVC.dismiss()
                             _NavController.gotoHomepage()

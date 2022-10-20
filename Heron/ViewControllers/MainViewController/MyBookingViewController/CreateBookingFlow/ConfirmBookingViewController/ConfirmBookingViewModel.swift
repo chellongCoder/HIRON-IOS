@@ -68,8 +68,8 @@ class ConfirmBookingViewModel: BaseViewModel {
                         bookingSuccessVC.orderplacedMessage.text = String(format: "Your Appointment #%@ has been received and is being processed. Please check the status at My Appointment page", orderCode ?? "")
                         self.controller?.navigationController?.pushViewController(bookingSuccessVC, animated: true)
                     case .canceled:
-                        let alertVC = UIAlertController.init(title: NSLocalizedString("Cancelled", comment: ""),
-                                                             message: "You has cancelled booking", preferredStyle: .alert)
+                        let alertVC = UIAlertController.init(title: NSLocalizedString("Booking Cancelled!", comment: ""),
+                                                             message: "You have cancelled the booking.", preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
                         }))

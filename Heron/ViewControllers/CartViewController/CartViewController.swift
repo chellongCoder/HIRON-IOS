@@ -332,8 +332,8 @@ class CartViewController: BaseViewController,
     func removeItemFromCart(_ index: IndexPath) {
         self.view.endEditing(true)
         let alertVC = UIAlertController.init(title: NSLocalizedString("Remove item?", comment: ""),
-                                             message: "Are you sure to remove item from cart?", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                                             message: "Are you sure to remove this item from cart?", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Yes", comment: ""), style: .default, handler: { _ in
             alertVC.dismiss()
             guard let store = _CartServices.cartData.value?.store[index.section] else {return}
             let cartItem = store.cartItems[index.row]
