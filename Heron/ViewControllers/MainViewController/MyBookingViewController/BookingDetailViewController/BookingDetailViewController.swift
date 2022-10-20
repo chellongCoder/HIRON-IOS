@@ -196,6 +196,11 @@ class BookingDetailViewController: PageScrollViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.getMyBookingDetails()
+    }
+    
     override func bindingData() {
         self.viewModel.bookingData
             .observe(on: MainScheduler.instance)
@@ -258,13 +263,13 @@ class BookingDetailViewController: PageScrollViewController {
                                                        (doctor?.user?.firstName ?? "") + (doctor?.user?.lastName ?? ""),
                                                        self.viewModel.bookingData.value?.code ?? "")
                 
-                let positionNames = (doctor?.teamMemberPosition ?? []).map { position in
-                    position.team?.name ?? ""
+                let position = (doctor?.teamMemberPosition ?? []).filter { doctorTeamMemberPosition in
+                    return doctorTeamMemberPosition.team?.departmentId == self.viewModel.bookingData.value?.departmentID
                 }
                 
                 self.doctorInfoLabel.text = String(format: "Doctor: %@, %@",
                                                    (doctor?.user?.firstName ?? "") + (doctor?.user?.lastName ?? ""),
-                                                   positionNames.joined(separator: ", "))
+                                                   position.first?.team?.name ?? "")
             }
             .disposed(by: disposeBag)
     }

@@ -586,12 +586,12 @@
 		933D191E2819943000F1CCC4 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				B561813F2862B195009BE6E5 /* BaseViewController */,
 				93C2EA3228AE8A8A00371DFE /* SideBarMenuViewController */,
 				93EC90EF285A4DA6009056F6 /* SubscriptionViewController */,
 				93EC90E4285A4D57009056F6 /* AuthenticationFlow */,
 				93AF91EC284BBD100075CD65 /* CheckoutViewController */,
 				93D55227282A73550034B2B7 /* CartViewController */,
-				B561813F2862B195009BE6E5 /* BaseViewController */,
 				933D191F2819943A00F1CCC4 /* MainViewController */,
 				933D19222819944C00F1CCC4 /* LaunchScreenViewController */,
 			);

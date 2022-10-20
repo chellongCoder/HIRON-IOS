@@ -85,7 +85,6 @@ class ProductTableViewCell: UITableViewCell {
         priceDiscount.snp.makeConstraints { (make) in
             make.top.equalTo(starView.snp.bottom).offset(10)
             make.left.equalTo(productTitleLabel)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         priceLabel.text = "$ 20.00"
@@ -106,6 +105,7 @@ class ProductTableViewCell: UITableViewCell {
         variantMark.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
         contentView.addSubview(variantMark)
         variantMark.snp.makeConstraints { make in
+            make.top.equalTo(priceLabel.snp.bottom).offset(5)
             make.right.bottom.equalToSuperview()
             make.height.equalTo(35)
         }

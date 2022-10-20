@@ -222,6 +222,23 @@ class BookingServices : NSObject {
     
     // MARK: - Get Details
     
+    func getBookingDetailByID(_ id: String, completion:@escaping (String?, BookingAppointmentDataSource?) -> Void) {
+        
+        let fullURLRequest = kGatewayBookingURL + "/bookings/" + id
+        _ = _AppDataHandler.get(parameters: nil, fullURLRequest: fullURLRequest) { responseData in
+                        
+            if let responseMessage = responseData.responseMessage {
+                completion(responseMessage, nil)
+                return
+            } else {
+                
+                if let data = responseData.responseData?["data"] as? [String:Any] {
+                    completion(responseData.responseMessage, Mapper<BookingAppointmentDataSource>().map(JSON: data))
+                }
+            }
+        }
+    }
+    
     func getDoctorDetailByID(_ id: String, completion:@escaping (String?, DoctorDataSource?) -> Void) {
         
         let fullURLRequest = kGatewayOganizationURL + "/members/" + id

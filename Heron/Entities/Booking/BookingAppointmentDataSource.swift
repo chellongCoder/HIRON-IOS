@@ -30,6 +30,7 @@ class BookingAppointmentDataSource: Mappable {
     var endTime     : Int = 0
     var profile     : EHealthDataSource?
     var store       : StoreDataSource?
+    var departmentID: String?
     
     // custom
     var customAmount    : Float = 0.0
@@ -51,6 +52,13 @@ class BookingAppointmentDataSource: Mappable {
         store       <- map["store"]
         
         self.customAmount = Float(amount)/100.0
+        if let item = map.JSON["item"] as? [String: Any],
+           let metadata = item["metadata"] as? [String: Any],
+           let systemAttributes = metadata["systemAttributes"]  as? [String: Any],
+           let department_id = systemAttributes["department_id"] as? [String: Any] {
+            self.departmentID = department_id["value"] as? String
+        }
+        
     }
     
     func getStatusLabel() -> String {
