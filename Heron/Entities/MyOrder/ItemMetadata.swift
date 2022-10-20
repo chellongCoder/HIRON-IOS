@@ -16,7 +16,7 @@ struct ItemMetadata : Mappable {
 	var unit        : ItemUnit?
 	var brand       : ItemBrand?
 	var parent      : String?
-	var attributes  : ItemAttributes?
+	var attributes  : [String : Attribute] = [:]
 
 	init?(map: Map) {
 

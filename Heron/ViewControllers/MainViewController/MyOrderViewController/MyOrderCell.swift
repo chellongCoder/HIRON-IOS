@@ -115,21 +115,13 @@ class MyOrderCell: UITableViewCell {
         self.countLabel.text = String(format: "x%ld", cellData.quantity)
         
         var contentText = ""
-        if let sizeName = cellData.attributes?.first(where: { attribute in
-            return attribute.key == "Size"
-        }) {
-            contentText = String(format: "%@ %@", sizeName.label ?? "", sizeName.value ?? "")
-        }
         
-        if let colorName = cellData.attributes?.first(where: { attribute in
-            return attribute.key == "Color"
-        }) {
-            if contentText.isEmpty {
-                contentText = String(format: "%@ %@", colorName.label ?? "", colorName.value ?? "")
-            } else {
-                contentText = String(format: "%@, %@ %@", contentText, colorName.label ?? "", colorName.value ?? "")
+        for (_, attribute) in cellData.metadata?.attributes ?? [:] {
+            if let label = attribute.label {
+                contentText = String(format: "%@, %@ %@", contentText, label, attribute.value ?? "")
             }
         }
+        contentText.removeFirst()
         self.tagContentLabel.text = contentText
     }
     

@@ -20,7 +20,7 @@ struct OrderItems : Mappable {
 	var thumbnailUrl    : String?
 	var quantity        : Int = 0
 	var metadata        : ItemMetadata?
-	var attributes      : [ItemAttributes]?
+	var attributes      : [String : Attribute] = [:]
 	var createdAt       : Int?
 	var updatedAt       : String?
     

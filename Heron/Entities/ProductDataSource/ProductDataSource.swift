@@ -40,6 +40,7 @@ class ProductDataSource: Mappable, Equatable {
     var featureType     : ProductFeatureType = .ecom
     var unit            : ProductUnit?
     var brand           : ProductBrand?
+    var attributes      : [String : Attribute] = [:]
     
     // configurable product
     var type            : ProductType = .simple
@@ -73,6 +74,7 @@ class ProductDataSource: Mappable, Equatable {
         featureType     <- map["featureType"]
         unit            <- map["unit"]
         brand           <- map["brand"]
+        attributes      <- map["attributes"]
         
         type            <- map["type"]
         configurableOptions <- map["configurableOptions"]

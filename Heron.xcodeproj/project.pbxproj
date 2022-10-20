@@ -179,7 +179,6 @@
 		B5061C0A286BF37000A03271 /* MyOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061C09286BF37000A03271 /* MyOrderCell.swift */; };
 		B55B372D2836425B005245AB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B55B372C2836425B005245AB /* Utils.swift */; };
 		B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181402862B195009BE6E5 /* BaseViewController.swift */; };
-		B56181902862B59D009BE6E5 /* ItemAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181802862B59C009BE6E5 /* ItemAttributes.swift */; };
 		B56181912862B59D009BE6E5 /* CheckoutPriceData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181812862B59C009BE6E5 /* CheckoutPriceData.swift */; };
 		B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181822862B59C009BE6E5 /* OrderItems.swift */; };
 		B56181932862B59D009BE6E5 /* ItemMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181832862B59C009BE6E5 /* ItemMetadata.swift */; };
@@ -395,7 +394,6 @@
 		B5061C09286BF37000A03271 /* MyOrderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyOrderCell.swift; sourceTree = "<group>"; };
 		B55B372C2836425B005245AB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		B56181402862B195009BE6E5 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		B56181802862B59C009BE6E5 /* ItemAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemAttributes.swift; sourceTree = "<group>"; };
 		B56181812862B59C009BE6E5 /* CheckoutPriceData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckoutPriceData.swift; sourceTree = "<group>"; };
 		B56181822862B59C009BE6E5 /* OrderItems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderItems.swift; sourceTree = "<group>"; };
 		B56181832862B59C009BE6E5 /* ItemMetadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemMetadata.swift; sourceTree = "<group>"; };
@@ -1162,7 +1160,6 @@
 				B561818E2862B59D009BE6E5 /* OrderDataSource.swift */,
 				B56181882862B59D009BE6E5 /* OrderUserMetadata.swift */,
 				B56181832862B59C009BE6E5 /* ItemMetadata.swift */,
-				B56181802862B59C009BE6E5 /* ItemAttributes.swift */,
 				B56181892862B59D009BE6E5 /* ItemBrand.swift */,
 				B561818A2862B59D009BE6E5 /* OrderCard.swift */,
 				B561818F2862B59D009BE6E5 /* ItemCategory.swift */,
@@ -1614,7 +1611,6 @@
 				93D552212827FA800034B2B7 /* ProductDataSource.swift in Sources */,
 				9361911F28CB2B74000B6131 /* BookingDetailViewModel.swift in Sources */,
 				B5061C08286BF35F00A03271 /* MyOrderViewModel.swift in Sources */,
-				B56181902862B59D009BE6E5 /* ItemAttributes.swift in Sources */,
 				933D19422819947000F1CCC4 /* AppVersionDataSource.swift in Sources */,
 				9301757B2884886A00151A4B /* VariantButton.swift in Sources */,
 			);

@@ -195,18 +195,11 @@ class CartProductTableViewCell: UITableViewCell {
             contentText = String(format: "%@, %@", contentText, brandName)
         }
         
-        if let sizeName = productData.attributeValues.first(where: { attribute in
-            return attribute.attributeCode == "Size"
-        }) {
-            contentText = String(format: "%@, %@ %@", contentText, sizeName.attribute?.label ?? "", sizeName.value)
+        for (_, attribute) in productData.attributes {
+            if let label = attribute.label {
+                contentText = String(format: "%@, %@ %@", contentText, label, attribute.value ?? "")
+            }
         }
-        
-        if let colorName = productData.attributeValues.first(where: { attribute in
-            return attribute.attributeCode == "Color"
-        }) {
-            contentText = String(format: "%@, %@ %@", contentText, colorName.attribute?.label ?? "", colorName.value)
-        }
-        
         self.tagsContent.text = contentText
     }
     

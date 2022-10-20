@@ -45,7 +45,8 @@ struct AttributeValues: Mappable {
 struct Attribute : Mappable {
     
     var code            : AttributeCode = .About
-    var label           : String = ""
+    var label           : String?
+    var value           : String?
     var type            : String?
     var status          : String?
     var sortOrder       : Int?
@@ -64,6 +65,7 @@ struct Attribute : Mappable {
     mutating func mapping(map: Map) {
         code            <- map["code"]
         label           <- map["label"]
+        value           <- map["value"]
         type            <- map["type"]
         status          <- map["status"]
         sortOrder       <- map["sortOrder"]
