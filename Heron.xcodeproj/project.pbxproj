@@ -604,10 +604,10 @@
 			isa = PBXGroup;
 			children = (
 				93EC90DD285A4D20009056F6 /* MyOrderViewController */,
-				938F7A892820E7BD00DD60DB /* HomepageViewController */,
-				93C2EA4928B2891800371DFE /* MyBookingViewController */,
 				933D194628199DD700F1CCC4 /* ProductListingViewController */,
+				93C2EA4928B2891800371DFE /* MyBookingViewController */,
 				93C2EA3E28AF9E7E00371DFE /* UserProfileViewController */,
+				938F7A892820E7BD00DD60DB /* HomepageViewController */,
 				933D19202819944100F1CCC4 /* MainViewController.swift */,
 			);
 			path = MainViewController;
