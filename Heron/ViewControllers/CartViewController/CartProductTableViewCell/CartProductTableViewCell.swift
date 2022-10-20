@@ -269,6 +269,7 @@ extension CartProductTableViewCell : UITextFieldDelegate {
                 alertVC.dismiss()
             }))
             _NavController.showAlert(alertVC)
+            self.quantityTxt.text = String(self.quantityValue)
             return
         }
         
