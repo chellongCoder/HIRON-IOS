@@ -73,15 +73,18 @@ class ConfirmBookingViewModel: BaseViewModel {
                                                              message: "You have cancelled the booking.", preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
+                            self.controller?.dismiss(animated: true)
+                            _BookingServices.cleanData()
                         }))
                         _NavController.showAlert(alertVC)
-                        _BookingServices.cleanData()
                     case .failed(let error):
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
                                                              message: error.localizedDescription ,
                                                              preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
+                            self.controller?.dismiss(animated: true)
+                            _BookingServices.cleanData()
                         }))
                         _NavController.showAlert(alertVC)
                     }
