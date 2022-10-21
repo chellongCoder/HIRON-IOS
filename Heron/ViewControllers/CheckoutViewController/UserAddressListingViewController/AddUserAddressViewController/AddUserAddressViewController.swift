@@ -35,6 +35,24 @@ class AddUserAddressViewController: PageScrollViewController {
         
         viewModel.controller = self
         
+        completeBtn.backgroundColor = kPrimaryColor
+        completeBtn.layer.cornerRadius = 8
+        completeBtn.setTitle("Complete", for: .normal)
+        completeBtn.setTitleColor(.white, for: .normal)
+        completeBtn.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
+        self.view.addSubview(completeBtn)
+        completeBtn.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
+        
+        pageScroll.snp.remakeConstraints { (make) in
+            make.left.top.right.equalToSuperview()
+            make.bottom.equalTo(completeBtn.snp.top).offset(-10)
+        }
+        
         let contactTitle = UILabel()
         contactTitle.text = "Contacts"
         contactTitle.textColor = kDefaultTextColor
@@ -192,19 +210,6 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalTo(checkboxButton.snp.right).offset(5)
             make.right.equalTo(postCodeTxt)
             make.bottom.lessThanOrEqualToSuperview().offset(-90)
-        }
-        
-        completeBtn.backgroundColor = kPrimaryColor
-        completeBtn.layer.cornerRadius = 8
-        completeBtn.setTitle("Complete", for: .normal)
-        completeBtn.setTitleColor(.white, for: .normal)
-        completeBtn.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
-        self.view.addSubview(completeBtn)
-        completeBtn.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
         }
     }
     

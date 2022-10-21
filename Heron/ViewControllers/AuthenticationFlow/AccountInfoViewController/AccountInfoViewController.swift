@@ -247,7 +247,17 @@ class AccountInfoViewController: BaseViewController,
     }
     
     @objc private func doneDatePicker() {
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+        
+        if genderTxt.text == "Male" {
+            userData.userGender = .male
+        } else {
+            userData.userGender = .female
+        }
+        
         dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
+        userData.userDOB = Int(datePicker.date.timeIntervalSince1970)*1000
+        viewModel.userData.accept(userData)
         self.view.endEditing(true)
     }
     

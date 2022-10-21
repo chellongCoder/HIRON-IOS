@@ -54,7 +54,14 @@ class UserSubscriptionViewModel: NSObject {
                         return
                     }
                     
-                    self.getListUserSubscriptions()
+                    let alertVC = UIAlertController.init(title: NSLocalizedString("Cancell Successfuly!", comment: ""),
+                                                         message: "You canceled your subscriptions",
+                                                         preferredStyle: .alert)
+                    alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                        alertVC.dismiss()
+                        self.getListUserSubscriptions()
+                    }))
+                    _NavController.showAlert(alertVC)
                 }
                 
             } else {

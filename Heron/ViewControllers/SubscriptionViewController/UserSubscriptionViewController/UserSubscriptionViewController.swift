@@ -320,10 +320,10 @@ class UserSubscriptionViewController: BaseViewController {
             alertVC.dismiss()
             self.viewModel.cancelCurrentlySubscription(true)
         }))
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel auto-renew", comment: ""), style: .default, handler: { _ in
-            alertVC.dismiss()
-            self.viewModel.cancelCurrentlySubscription(false)
-        }))
+//        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel auto-renew", comment: ""), style: .default, handler: { _ in
+//            alertVC.dismiss()
+//            self.viewModel.cancelCurrentlySubscription(false)
+//        }))
         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Nope", comment: ""), style: .cancel, handler: { _ in
             alertVC.dismiss()
         }))
