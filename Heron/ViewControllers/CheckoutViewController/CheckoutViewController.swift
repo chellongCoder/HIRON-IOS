@@ -97,23 +97,23 @@ class CheckoutViewController: BaseViewController,
             make.top.equalToSuperview().offset(10)
         }
         
-        self.view.addSubview(orderTotalView)
-        orderTotalView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalTo(bottomView.snp.top).offset(-2)
-        }
+//        self.view.addSubview(orderTotalView)
+//        orderTotalView.snp.makeConstraints { make in
+//            make.left.equalToSuperview().offset(10)
+//            make.right.equalToSuperview().offset(-10)
+//            make.bottom.equalTo(bottomView.snp.top).offset(-2)
+//        }
         
-        let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
-        voucherView.addGestureRecognizer(voucherTouch)
-        self.view.addSubview(voucherView)
-        voucherView.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalTo(orderTotalView.snp.top).offset(-2)
-        }
+//        let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
+//        voucherView.addGestureRecognizer(voucherTouch)
+//        self.view.addSubview(voucherView)
+//        voucherView.snp.makeConstraints { make in
+//            make.left.equalToSuperview().offset(10)
+//            make.right.equalToSuperview().offset(-10)
+//            make.bottom.equalTo(orderTotalView.snp.top).offset(-2)
+//        }
         
-        self.view.layoutIfNeeded()
+//        self.view.layoutIfNeeded()
 //
 //        let tableViewContent = UIView()
 //        tableViewContent.backgroundColor = .red
@@ -134,7 +134,7 @@ class CheckoutViewController: BaseViewController,
         tableView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalToSuperview().offset(10)
-            make.bottom.equalTo(voucherView.snp.top).offset(-10)
+            make.bottom.equalTo(placeOrderBtn.snp.top).offset(-10)
         }
         
         self.viewModel.reloadPrecheckoutData()
@@ -297,13 +297,18 @@ class CheckoutViewController: BaseViewController,
     
     // MARK: - UITableViewDataSource
     func numberOfSections(in tableView: UITableView) -> Int {
-        return (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 1
+        return (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
+            // shipping address and billing address
+            return 2
+        } else if section == (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 1 {
+            // Voucher and total
             return 2
         } else {
+            // Store
             let cartDetail = viewModel.cartPreCheckout?.cartDetail[section - 1]
             return cartDetail?.cartItems.count ?? 0
         }
@@ -341,6 +346,30 @@ class CheckoutViewController: BaseViewController,
                 return cell
                 
             }
+        } else if indexPath.section == (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 1 {
+            // Voucher and total
+            let cell = UITableViewCell.init(style: .default, reuseIdentifier: "UITableViewCell")
+            cell.backgroundColor = kBackgroundColor
+            
+            if indexPath.row == 0 {
+                // Voucher
+                cell.addSubview(voucherView)
+                voucherView.snp.makeConstraints { (make) in
+                    make.left.equalToSuperview().offset(10)
+                    make.top.equalToSuperview().offset(2)
+                    make.center.equalToSuperview()
+                }
+            } else {
+                // Total order
+                cell.addSubview(orderTotalView)
+                orderTotalView.snp.makeConstraints { (make) in
+                    make.left.equalToSuperview().offset(10)
+                    make.top.equalToSuperview().offset(2)
+                    make.center.equalToSuperview()
+                }
+            }
+            
+            return cell
         } else {
             var cell = tableView.dequeueReusableCell(withIdentifier: "CheckoutItemTableViewCell") as? CheckoutItemTableViewCell
             
@@ -360,7 +389,7 @@ class CheckoutViewController: BaseViewController,
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if section == 0 {
+        if section == 0 || section == (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 1 {
             return nil
         }
         
@@ -384,7 +413,7 @@ class CheckoutViewController: BaseViewController,
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         
-        if section == 0 {
+        if section == 0 || section == (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 1 {
             return UIView()
         }
         

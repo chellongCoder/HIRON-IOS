@@ -86,6 +86,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         priceLabel.snp.makeConstraints { (make) in
             make.top.equalTo(tagsContent.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         countLabel.text = "x1"

@@ -801,10 +801,10 @@
 			isa = PBXGroup;
 			children = (
 				93AF91F1284BD6570075CD65 /* AddressView.swift */,
-				93AF91F3284BDFE50075CD65 /* VoucherSelectedView.swift */,
 				93AF91F6284BE2410075CD65 /* OrderTotalView.swift */,
 				939E6631285650A3009CD64D /* CheckoutItemTableViewCell.swift */,
 				93EC90C5285A2D85009056F6 /* CarrierView.swift */,
+				93AF91F3284BDFE50075CD65 /* VoucherSelectedView.swift */,
 				93EC90C7285A382B009056F6 /* OrderSumView.swift */,
 			);
 			path = CheckoutViews;
