@@ -20,6 +20,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
     let genderLabel         = UILabel()
     let phoneLabel          = UILabel()
     let emailLabel          = UILabel()
+    let userIDLabel         = UILabel()
     
     let firstNameTxt        = ErrorTextField()
     let lastNameTxt         = ErrorTextField()
@@ -115,6 +116,18 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         contentView.addSubview(emailLabel)
         emailLabel.snp.makeConstraints { make in
             make.top.equalTo(phoneLabel.snp.bottom)
+            make.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+        }
+        
+        userIDLabel.text = "User Identity: "
+        userIDLabel.textColor = kDefaultTextColor
+        userIDLabel.numberOfLines = 0
+        userIDLabel.textColor = UIColor.init(hexString: "444444")
+        userIDLabel.font = getFontSize(size: 14, weight: .regular)
+        contentView.addSubview(userIDLabel)
+        userIDLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailLabel.snp.bottom)
             make.left.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-10)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
@@ -312,6 +325,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
                     self.genderLabel.text = String(format: "Gender: %@", (userData?.userGender == .male) ? "Male" : "Female")
                     self.phoneLabel.text = String(format: "Phone number: %@%@", userData?.userPhoneCode ?? "", userData?.userPhoneNum ?? "")
                     self.emailLabel.text = String(format: "Email : %@", userData?.userEmail ?? "")
+                    self.userIDLabel.text = String(format: "User Identity : %@", userData?.identityNum ?? "")
                     
                     self.firstNameTxt.text = userData?.userFirstName
                     self.lastNameTxt.text = userData?.userLastName

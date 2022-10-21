@@ -294,7 +294,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         if let dobInt = rootEHProfile.dob {
-            let date = Date.init(timeIntervalSince1970: TimeInterval(dobInt))
+            let date = Date.init(timeIntervalSince1970: TimeInterval(dobInt/1000))
             rootEHProfile.dobString = date.toISO8601String()
             rootEHProfile.dob = nil
         }
