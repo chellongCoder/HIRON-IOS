@@ -54,7 +54,7 @@ class OrderTotalView: UIView {
             make.height.equalTo(1)
         }
         
-        subtotalLabel.text = "Subtotal"
+        subtotalLabel.text = "Subtotal:"
         subtotalLabel.textAlignment = .left
         subtotalLabel.font = .systemFont(ofSize: 14)
         self.addSubview(subtotalLabel)
@@ -74,7 +74,7 @@ class OrderTotalView: UIView {
             make.centerX.equalToSuperview()
         }
         
-        discountLabel.text = "Discount"
+        discountLabel.text = "Voucher's discount:"
         discountLabel.textAlignment = .left
         discountLabel.font = .systemFont(ofSize: 14)
         self.addSubview(discountLabel)
@@ -94,7 +94,7 @@ class OrderTotalView: UIView {
             make.centerX.equalToSuperview()
         }
         
-        shippingAndTaxLabel.text = "Shipping and Tax"
+        shippingAndTaxLabel.text = "Shipping and Tax:"
         shippingAndTaxLabel.textAlignment = .left
         shippingAndTaxLabel.font = .systemFont(ofSize: 14)
         self.addSubview(shippingAndTaxLabel)
@@ -114,7 +114,7 @@ class OrderTotalView: UIView {
             make.centerX.equalToSuperview()
         }
         
-        totalLabel.text = "Total"
+        totalLabel.text = "Total:"
         totalLabel.textAlignment = .left
         totalLabel.font = .boldSystemFont(ofSize: 16)
         self.addSubview(totalLabel)

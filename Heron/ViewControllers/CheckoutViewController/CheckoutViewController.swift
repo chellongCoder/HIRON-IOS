@@ -20,7 +20,7 @@ class CheckoutViewController: BaseViewController,
     private let orderTotalView  = OrderTotalView()
 
     private let totalLabel      = UILabel()
-    private let savingLabel     = UILabel()
+//    private let savingLabel     = UILabel()
     private let placeOrderBtn   = UIButton()
     
     private let tableView       = UITableView.init(frame: .zero, style: .grouped)
@@ -62,14 +62,14 @@ class CheckoutViewController: BaseViewController,
             make.left.right.equalToSuperview()
         }
         
-        savingLabel.text = "Saving: $0.0"
-        savingLabel.textColor = kDefaultTextColor
-        savingLabel.font = .systemFont(ofSize: 16)
-        bottomView.addSubview(savingLabel)
-        savingLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(20)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
-        }
+//        savingLabel.text = "Saving: $0.0"
+//        savingLabel.textColor = kDefaultTextColor
+//        savingLabel.font = .systemFont(ofSize: 16)
+//        bottomView.addSubview(savingLabel)
+//        savingLabel.snp.makeConstraints { make in
+//            make.left.equalToSuperview().offset(20)
+//            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+//        }
         
         totalLabel.text = "Total: $0.0"
         totalLabel.textColor = kDefaultTextColor
@@ -78,7 +78,7 @@ class CheckoutViewController: BaseViewController,
         totalLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         bottomView.addSubview(totalLabel)
         totalLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(savingLabel.snp.top).offset(-5)
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
             make.left.equalToSuperview().offset(20)
         }
         
@@ -90,10 +90,11 @@ class CheckoutViewController: BaseViewController,
         placeOrderBtn.addTarget(self, action: #selector(placeOrderTapped), for: .touchUpInside)
         bottomView.addSubview(placeOrderBtn)
         placeOrderBtn.snp.makeConstraints { make in
-            make.top.equalTo(totalLabel.snp.top)
-            make.bottom.equalTo(savingLabel.snp.bottom)
+//            make.top.equalTo(totalLabel.snp.top)
+            make.centerY.equalTo(totalLabel)
             make.right.equalToSuperview().offset(-10)
             make.left.equalTo(totalLabel.snp.right).offset(15)
+            make.height.equalTo(50)
             make.top.equalToSuperview().offset(10)
         }
         
@@ -227,7 +228,7 @@ class CheckoutViewController: BaseViewController,
                     self.orderTotalView.totalValue.text = "$0.0"
                     
                     self.totalLabel.text = "Total: $0.0"
-                    self.savingLabel.text = "Savings $0.0"
+//                    self.savingLabel.text = "Savings $0.0"
                     
                     return
                 }
@@ -238,7 +239,7 @@ class CheckoutViewController: BaseViewController,
                                                                               (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
                 self.orderTotalView.totalValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable)
                 self.totalLabel.text = String(format: "Total: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
-                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
+//                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
                 
                 self.viewModel.cartPreCheckout = cartPreCheckoutDataSource
                 self.tableView.reloadData()
@@ -452,17 +453,18 @@ class CheckoutViewController: BaseViewController,
                 make.top.equalTo(titleSignal.snp.bottom).offset(2)
                 make.left.equalToSuperview().offset(10)
                 make.right.equalToSuperview().offset(-10)
-            }
-            
-            let orderSum = OrderSumView()
-            orderSum.orderSumValue.text = getMoneyFormat(storeData.customOrderTotal)
-            contentFooterView.addSubview(orderSum)
-            orderSum.snp.makeConstraints { (make) in
-                make.top.equalTo(carierView.snp.bottom).offset(2)
-                make.left.equalToSuperview().offset(10)
-                make.right.equalToSuperview().offset(-10)
                 make.bottom.lessThanOrEqualToSuperview().offset(-10)
             }
+            
+//            let orderSum = OrderSumView()
+//            orderSum.orderSumValue.text = getMoneyFormat(storeData.customOrderTotal)
+//            contentFooterView.addSubview(orderSum)
+//            orderSum.snp.makeConstraints { (make) in
+//                make.top.equalTo(carierView.snp.bottom).offset(2)
+//                make.left.equalToSuperview().offset(10)
+//                make.right.equalToSuperview().offset(-10)
+//                make.bottom.lessThanOrEqualToSuperview().offset(-10)
+//            }
         }
         
         return footerView
