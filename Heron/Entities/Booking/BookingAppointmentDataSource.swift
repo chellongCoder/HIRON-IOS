@@ -28,6 +28,7 @@ class BookingAppointmentDataSource: Mappable {
     private var amount  : Int = 0
     var startTime   : Int = 0
     var endTime     : Int = 0
+    var createAt    : Int = 0
     var profile     : EHealthDataSource?
     var store       : StoreDataSource?
     var departmentID: String?
@@ -48,6 +49,7 @@ class BookingAppointmentDataSource: Mappable {
         amount      <- map["amount"]
         startTime   <- map["startTime"]
         endTime     <- map["endTime"]
+        createAt    <- map["createAt"]
         profile     <- map["profile"]
         store       <- map["store"]
         

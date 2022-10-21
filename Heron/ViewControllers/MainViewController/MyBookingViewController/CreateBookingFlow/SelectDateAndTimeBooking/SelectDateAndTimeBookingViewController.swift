@@ -132,6 +132,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
 //    }
     
     override func backButtonTapped() {
+        _BookingServices.selectedTimeable.accept(nil)
         self.navigationController?.popViewController(animated: true)
     }
     

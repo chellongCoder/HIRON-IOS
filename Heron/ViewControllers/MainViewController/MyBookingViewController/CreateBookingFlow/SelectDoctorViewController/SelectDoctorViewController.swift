@@ -49,6 +49,11 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
         self.viewModel.getListDoctor()
     }
     
+    override func backButtonTapped() {
+        _BookingServices.selectedDoctor.accept(nil)
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     // MARK: - Data
     override func reloadData() {
         viewModel.getListDoctor()

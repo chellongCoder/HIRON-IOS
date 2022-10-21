@@ -17,6 +17,7 @@ class MyBookingTableViewCell: UITableViewCell {
 //    let doctorInfoLabel     = UILabel()
     let totalPaymentLabel   = UILabel()
     let bookingIDLabel      = UILabel()
+    let createAtLabel       = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -175,6 +176,16 @@ class MyBookingTableViewCell: UITableViewCell {
             make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+        }
+        
+        createAtLabel.text = ""
+        createAtLabel.numberOfLines = 0
+        createAtLabel.textColor = kDefaultTextColor
+        createAtLabel.font = getFontSize(size: 14, weight: .regular)
+        contentView.addSubview(createAtLabel)
+        createAtLabel.snp.makeConstraints { make in
+            make.top.equalTo(bookingIDLabel.snp.bottom).offset(8)
+            make.right.equalToSuperview().offset(-10)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
@@ -205,5 +216,7 @@ class MyBookingTableViewCell: UITableViewCell {
                                              getMoneyFormat(data.customAmount))
         self.bookingIDLabel.text = String(format: " BookingID: #%@",
                                           data.code)
+        let creatAtDate = Date.init(timeIntervalSince1970: TimeInterval(data.createAt/1000))
+        self.createAtLabel.text = String(format: "Create at %@", creatAtDate.toString(dateFormat: "MMM dd, yyyy"))
     }
 }

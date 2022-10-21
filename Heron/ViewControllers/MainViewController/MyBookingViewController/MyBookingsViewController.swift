@@ -74,7 +74,7 @@ class MyBookingsViewController: BaseViewController,
         
         emptyView.titleLabel.text = "You current don't have any bookings"
         emptyView.messageLabel.text = "Please make some bookings with us"
-        emptyView.actionButon.setTitle("Please make some bookings with us", for: .normal)
+        emptyView.actionButon.setTitle("Start booking", for: .normal)
         emptyView.delegate = self
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
