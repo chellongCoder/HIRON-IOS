@@ -216,7 +216,7 @@ class MyBookingTableViewCell: UITableViewCell {
                                              getMoneyFormat(data.customAmount))
         self.bookingIDLabel.text = String(format: " BookingID: #%@",
                                           data.code)
-        let creatAtDate = Date.init(timeIntervalSince1970: TimeInterval(data.createAt/1000))
-        self.createAtLabel.text = String(format: "Create at %@", creatAtDate.toString(dateFormat: "MMM dd, yyyy"))
+        let createdAtDate = Date.init(timeIntervalSince1970: TimeInterval(data.createdAt/1000))
+        self.createAtLabel.text = String(format: "Create at %@", createdAtDate.toString(dateFormat: "MMM dd, yyyy"))
     }
 }

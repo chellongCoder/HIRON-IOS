@@ -228,7 +228,7 @@ class CheckoutViewController: BaseViewController,
                     self.orderTotalView.totalValue.text = "$0.0"
                     
                     self.totalLabel.text = "Total: $0.0"
-//                    self.savingLabel.text = "Savings $0.0"
+//                    self.savingLabel.text = "Saving $0.0"
                     
                     return
                 }
@@ -447,7 +447,7 @@ class CheckoutViewController: BaseViewController,
             let carierView = CarrierView()
             carierView.carrierName.text = carier.name
             carierView.shippingFee.text = getMoneyFormat(shippingData.amount)
-            carierView.receivedLog.text = String(format: "Received order in %@", qoutes.updatedAtStr)
+            carierView.receivedLog.text = String(format: "Received order on %@", qoutes.updatedAtStr)
             contentFooterView.addSubview(carierView)
             carierView.snp.makeConstraints { (make) in
                 make.top.equalTo(titleSignal.snp.bottom).offset(2)

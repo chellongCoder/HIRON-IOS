@@ -291,7 +291,7 @@ class MyOrderViewController: BaseViewController,
         }
         
         let shippingStatus = UIButton()
-        shippingStatus.setTitle("Receive order in \(TimeConverter().getDateFromInt(orderData.createdAt ?? 0))", for: .normal)
+        shippingStatus.setTitle("Receive order on \(TimeConverter().getDateFromInt(orderData.createdAt ?? 0))", for: .normal)
         shippingStatus.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         shippingStatus.setTitleColor(.black, for: .normal)
         shippingStatus.contentHorizontalAlignment = .left
@@ -314,7 +314,7 @@ class MyOrderViewController: BaseViewController,
         
         let title = UILabel()
         if sessionData.items?.count == 1 {
-            title.text = String(format: "Total (1 products): %@",
+            title.text = String(format: "Total (1 product): %@",
                                 getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
         } else {
             title.text = String(format: "Total (%ld products): %@",
