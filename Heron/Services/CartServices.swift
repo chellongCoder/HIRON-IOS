@@ -22,6 +22,13 @@ class CartServices : NSObject {
     override init() {
         super.init()
         self.reloadCart()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+            self.bindingData()
+        }
+    }
+    
+    private func bindingData() {
         _AppCoreData.userSession
             .observe(on: MainScheduler.instance)
             .subscribe { userSession in

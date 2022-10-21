@@ -19,6 +19,13 @@ class CheckoutServices: NSObject {
     
     override init() {
         super.init()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+            self.bindingData()
+        }
+    }
+    
+    private func bindingData() {
         self.deliveryAddress
             .observe(on: MainScheduler.instance)
             .subscribe { _ in

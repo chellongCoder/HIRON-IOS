@@ -28,9 +28,13 @@ class ApplicationCoreData: NSObject {
     override init() {
         super.init()
         self.initSync()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+            self.bindingData()
+        }
     }
     
-    func startContext() {
+    private func bindingData() {
         self.userSession
             .observe(on: MainScheduler.instance)
             .subscribe { _ in

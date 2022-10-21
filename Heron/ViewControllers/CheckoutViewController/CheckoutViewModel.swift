@@ -37,8 +37,6 @@ class CheckoutViewModel: NSObject {
                 return
             }
             
-            // clear checkout data
-            _CheckoutServices.checkoutSucess()
             
             self.listOrders = listOrders
             
@@ -50,6 +48,8 @@ class CheckoutViewModel: NSObject {
                 _PaymentServices.payment(clientSecret, fromViewController: controller) { paymentResult in
                     switch paymentResult {
                     case .completed:
+                        // clear checkout data
+                        _CheckoutServices.checkoutSucess()
                         self.controller?.didFinishPlaceOrder()
                     case .canceled:
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Payment Cancelled", comment: ""),
@@ -57,6 +57,8 @@ class CheckoutViewModel: NSObject {
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
                             self.controller?.dismiss(animated: true)
+                            // clear checkout data
+                            _CheckoutServices.checkoutSucess()
                             _NavController.gotoProductListing()
                         }))
                         _NavController.showAlert(alertVC)
@@ -66,6 +68,8 @@ class CheckoutViewModel: NSObject {
                                                              preferredStyle: .alert)
                         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                             alertVC.dismiss()
+                            // clear checkout data
+                            _CheckoutServices.checkoutSucess()
                             _NavController.gotoProductListing()
                         }))
                         _NavController.showAlert(alertVC)

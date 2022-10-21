@@ -25,6 +25,12 @@ class BookingServices : NSObject {
     override init() {
         super.init()
         
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+            self.bindingData()
+        }
+    }
+    
+    private func bindingData() {
         self.selectedDepartment
             .observe(on: MainScheduler.instance)
             .subscribe { _ in

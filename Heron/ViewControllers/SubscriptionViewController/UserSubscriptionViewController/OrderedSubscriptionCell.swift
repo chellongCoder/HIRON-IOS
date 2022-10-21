@@ -85,7 +85,7 @@ class OrderedSubscriptionCell: UITableViewCell {
     
     func setDataSource(_ data: UserRegisteredSubscription) {
         let createdDate = Date.init(timeIntervalSince1970: TimeInterval(data.enabledAt)/1000)
-        self.orderCreatedAtLabel.text = String(format: "Ordered on %@", createdDate.toString(dateFormat: "MMM dd yyyy"))
+        self.orderCreatedAtLabel.text = String(format: "Ordered on %@", createdDate.toString(dateFormat: "MMM dd, yyyy"))
         
         self.amountLabel.text = String(format: "Amount %@", getMoneyFormat(data.subsPlan?.customFinalPrice))
         

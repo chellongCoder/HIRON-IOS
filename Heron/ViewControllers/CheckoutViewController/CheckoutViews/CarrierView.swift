@@ -66,7 +66,7 @@ class CarrierView: UIView {
             make.height.width.equalTo(20)
         }
         
-        receivedLog.text = "Received order in "
+        receivedLog.text = "Received order on "
         receivedLog.textColor = UIColor.init(hexString: "444444")
         receivedLog.font = getFontSize(size: 12, weight: .medium)
         self.addSubview(receivedLog)

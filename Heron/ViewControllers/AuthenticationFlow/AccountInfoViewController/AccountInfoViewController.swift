@@ -247,7 +247,7 @@ class AccountInfoViewController: BaseViewController,
     }
     
     @objc private func doneDatePicker() {
-        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd yyyy")
+        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
         self.view.endEditing(true)
     }
     

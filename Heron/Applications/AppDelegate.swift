@@ -20,8 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        self.initServices()
+        
         ApplicationTracking.shareInstance.commonConfig()
-        _AppCoreData.startContext()
         _AppDataHandler.checkConnectionRepeatedly()
         IQKeyboardManager.shared.enable = true
         
@@ -95,5 +96,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    // MARK: - Init services
+    private func initServices() {
+        _ = _NavController
+        _ = _AppCoreData
+        _ = _UserServices
+        _ = _CartServices
+        _ = _CheckoutServices
+        _ = _BookingServices
     }
 }

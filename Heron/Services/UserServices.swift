@@ -15,6 +15,13 @@ class UserServices : NSObject {
     
     override init() {
         super.init()
+        
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.1) {
+            self.bindingData()
+        }
+    }
+    
+    private func bindingData() {
         _AppCoreData.userSession
             .observe(on: MainScheduler.instance)
             .subscribe { newSessionData in
@@ -23,7 +30,6 @@ class UserServices : NSObject {
                 self.getUserProfile()
             }
             .disposed(by: disposeBag)
-
     }
     
     func getUserProfile() {
