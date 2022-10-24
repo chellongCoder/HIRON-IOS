@@ -248,7 +248,7 @@ class AddToCartViewController: UIViewController {
                 let number = Int(text) ?? 0
                 if number >= 99999 {
                     let alertVC = UIAlertController.init(title: NSLocalizedString("Oops!", comment: ""),
-                                                         message: "Current limit quantity for ervery items is 99999",
+                                                         message: "Current limit quantity for every items is 99999",
                                                          preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                         alertVC.dismiss()

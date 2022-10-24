@@ -188,35 +188,35 @@ class UpdateUserProfileViewController: PageScrollViewController ,
             make.height.equalTo(50)
         }
         
-        phoneNumberCodeTxt.text = "+84"
-        phoneNumberCodeTxt.placeholder = "Phone Code *"
-        phoneNumberCodeTxt.dividerNormalHeight = 0.5
-        phoneNumberCodeTxt.dividerNormalColor = kPrimaryColor
-        phoneNumberCodeTxt.errorColor = .red
-        phoneNumberCodeTxt.textColor = kDefaultTextColor
-        phoneNumberCodeTxt.keyboardType = .phonePad
-        phoneNumberCodeTxt.isUserInteractionEnabled = false
-        self.pageScroll.addSubview(phoneNumberCodeTxt)
-        phoneNumberCodeTxt.snp.makeConstraints { make in
-            make.top.equalTo(dobTxt.snp.bottom).offset(50)
-            make.left.equalToSuperview().offset(20)
-            make.width.equalTo(self.view).multipliedBy(0.3)
-        }
-        
-        phoneNumberTxt.placeholder = "Phone number *"
-        phoneNumberTxt.dividerNormalHeight = 0.5
-        phoneNumberTxt.dividerNormalColor = kPrimaryColor
-        phoneNumberTxt.errorColor = .red
-        phoneNumberTxt.textColor = kDefaultTextColor
-        phoneNumberTxt.keyboardType = .phonePad
-        phoneNumberTxt.delegate = self
-        phoneNumberTxt.isUserInteractionEnabled = false
-        self.pageScroll.addSubview(phoneNumberTxt)
-        phoneNumberTxt.snp.makeConstraints { make in
-            make.top.equalTo(dobTxt.snp.bottom).offset(50)
-            make.left.equalTo(phoneNumberCodeTxt.snp.right).offset(10)
-            make.right.equalTo(self.view).offset(-20)
-        }
+//        phoneNumberCodeTxt.text = "+84"
+//        phoneNumberCodeTxt.placeholder = "Phone Code *"
+//        phoneNumberCodeTxt.dividerNormalHeight = 0.5
+//        phoneNumberCodeTxt.dividerNormalColor = kPrimaryColor
+//        phoneNumberCodeTxt.errorColor = .red
+//        phoneNumberCodeTxt.textColor = kDefaultTextColor
+//        phoneNumberCodeTxt.keyboardType = .phonePad
+//        phoneNumberCodeTxt.isUserInteractionEnabled = false
+//        self.pageScroll.addSubview(phoneNumberCodeTxt)
+//        phoneNumberCodeTxt.snp.makeConstraints { make in
+//            make.top.equalTo(dobTxt.snp.bottom).offset(50)
+//            make.left.equalToSuperview().offset(20)
+//            make.width.equalTo(self.view).multipliedBy(0.3)
+//        }
+//
+//        phoneNumberTxt.placeholder = "Phone number *"
+//        phoneNumberTxt.dividerNormalHeight = 0.5
+//        phoneNumberTxt.dividerNormalColor = kPrimaryColor
+//        phoneNumberTxt.errorColor = .red
+//        phoneNumberTxt.textColor = kDefaultTextColor
+//        phoneNumberTxt.keyboardType = .phonePad
+//        phoneNumberTxt.delegate = self
+//        phoneNumberTxt.isUserInteractionEnabled = false
+//        self.pageScroll.addSubview(phoneNumberTxt)
+//        phoneNumberTxt.snp.makeConstraints { make in
+//            make.top.equalTo(dobTxt.snp.bottom).offset(50)
+//            make.left.equalTo(phoneNumberCodeTxt.snp.right).offset(10)
+//            make.right.equalTo(self.view).offset(-20)
+//        }
         
         let completeBtn = UIButton()
         completeBtn.backgroundColor = kPrimaryColor
@@ -226,7 +226,7 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         completeBtn.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         self.pageScroll.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { make in
-            make.top.equalTo(phoneNumberCodeTxt.snp.bottom).offset(30)
+            make.top.equalTo(dobTxt.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)

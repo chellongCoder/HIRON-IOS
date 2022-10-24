@@ -202,7 +202,14 @@ class BookingServices : NSObject {
             return
         }
         
+        // profileID
+        guard let selectedProfileID = self.selectedProfile.value?.id else {
+            completion("Not valid EHP Profile", nil, nil)
+            return
+        }
+        
         let params : [String: Any] = ["itemId" : itemID,
+                                      "profileId" : selectedProfileID,
                                       "paymentMethodCode": "cards",
                                       "paymentPlatform": "web_browser",
                                       "timetableId":timetableId,
