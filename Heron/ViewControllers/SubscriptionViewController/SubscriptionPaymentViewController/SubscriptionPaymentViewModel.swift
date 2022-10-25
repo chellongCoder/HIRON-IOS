@@ -51,15 +51,15 @@ class SubscriptionPaymentViewModel: NSObject {
                         // swiftlint:disable line_length
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Payment successful!", comment: ""),
                                                              message: "You have successfully paid for the subscription. You now can check your subscription status in Profile Screen", preferredStyle: .alert)
-                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Skip", comment: ""), style: .cancel, handler: { _ in
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .cancel, handler: { _ in
                             alertVC.dismiss()
                             _NavController.gotoHomepage()
                         }))
                         _NavController.showAlert(alertVC)
                     case .canceled:
                         let alertVC = UIAlertController.init(title: NSLocalizedString("Subscription Cancelled!", comment: ""),
-                                                             message: "You have cancelled the subscription plan immediately.", preferredStyle: .alert)
-                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Skip", comment: ""), style: .cancel, handler: { _ in
+                                                             message: "You have cancelled the current subscription immediatelly.", preferredStyle: .alert)
+                        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .cancel, handler: { _ in
                             alertVC.dismiss()
                             _NavController.gotoHomepage()
                         }))

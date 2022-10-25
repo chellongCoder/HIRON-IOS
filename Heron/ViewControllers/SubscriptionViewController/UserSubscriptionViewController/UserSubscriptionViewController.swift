@@ -23,7 +23,7 @@ class UserSubscriptionViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
-        self.title = "Subscriptions"
+        self.title = "Subscription Management"
         
         self.viewModel.controller = self
         
@@ -316,7 +316,7 @@ class UserSubscriptionViewController: BaseViewController {
         let alertVC = UIAlertController.init(title: NSLocalizedString("Cancel subscription?", comment: ""),
                                              message: "Are you sure to cancel current subscription?",
                                              preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Stop now", comment: ""), style: .default, handler: { _ in
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Cancel Now", comment: ""), style: .default, handler: { _ in
             alertVC.dismiss()
             self.viewModel.cancelCurrentlySubscription(true)
         }))
@@ -324,7 +324,7 @@ class UserSubscriptionViewController: BaseViewController {
 //            alertVC.dismiss()
 //            self.viewModel.cancelCurrentlySubscription(false)
 //        }))
-        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Nope", comment: ""), style: .cancel, handler: { _ in
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Back", comment: ""), style: .cancel, handler: { _ in
             alertVC.dismiss()
         }))
         _NavController.showAlert(alertVC)

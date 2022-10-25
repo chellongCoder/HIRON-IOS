@@ -16,7 +16,7 @@ class DetailOrderViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.controller = self
-        self.title = "Detailed order"
+        self.title = "Order Details"
         
         self.showBackBtn()
         

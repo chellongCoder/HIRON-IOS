@@ -11,6 +11,7 @@ class SignInSuccessViewController: BaseViewController {
     
     private let viewModel       = SignInSuccessViewModel()
     private let continueBtn     = UIButton()
+    let centerDesc              = UILabel()
     let centerDescInfo          = UILabel()
     
     override func viewDidLoad() {
@@ -33,7 +34,6 @@ class SignInSuccessViewController: BaseViewController {
             $0.height.equalTo(50)
         }
         
-        let centerDesc = UILabel()
         centerDesc.text = "SUCCESSFULLY!"
         centerDesc.textAlignment = .center
         centerDesc.font = getFontSize(size: 20, weight: .medium)

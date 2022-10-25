@@ -50,7 +50,7 @@ class BookingSuccessViewController: UIViewController {
         }
         
         let viewMyBookingBtn = UIButton()
-        viewMyBookingBtn.setTitle("View  My Bookings", for: .normal)
+        viewMyBookingBtn.setTitle("View My Bookings", for: .normal)
         viewMyBookingBtn.setTitleColor(kPrimaryColor, for: .normal)
         viewMyBookingBtn.backgroundColor = .white
         viewMyBookingBtn.layer.cornerRadius = 8

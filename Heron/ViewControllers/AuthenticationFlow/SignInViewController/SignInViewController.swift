@@ -219,7 +219,8 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
                 }
                 
                 let vc = SignInSuccessViewController()
-                vc.centerDescInfo.text = "Congratulations,You have signed in successfully. Wish you have a nice experience."
+                vc.centerDesc.text = "Login Success!"
+                vc.centerDescInfo.text = "Congratulations! You have signed in successfully.\nWe wish you the best experience using our app! Have a good day!"
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         } else {

@@ -262,7 +262,10 @@ class CheckoutViewController: BaseViewController,
                     self.deliveryTo.addressLabel.text = nil
                     return
                 }
-                self.deliveryTo.contactLabel.text = deliveryAddress.firstName + " " + deliveryAddress.lastName + " | +" + deliveryAddress.phone
+                self.deliveryTo.contactLabel.text = String(format: "%@ %@ | %@",
+                                                           deliveryAddress.firstName,
+                                                           deliveryAddress.lastName,
+                                                           deliveryAddress.phone)
                 self.deliveryTo.addressLabel.text = deliveryAddress.address + ", " + deliveryAddress.province + ", " + deliveryAddress.country + ", " + deliveryAddress.postalCode
                 
                 self.tableView.reloadData()
@@ -453,7 +456,7 @@ class CheckoutViewController: BaseViewController,
             let carierView = CarrierView()
             carierView.carrierName.text = carier.name
             carierView.shippingFee.text = getMoneyFormat(shippingData.amount)
-            carierView.receivedLog.text = String(format: "Received order on %@", qoutes.updatedAtStr)
+            carierView.receivedLog.text = String(format: "Receive order on %@", qoutes.updatedAtStr)
             contentFooterView.addSubview(carierView)
             carierView.snp.makeConstraints { (make) in
                 make.top.equalTo(titleSignal.snp.bottom).offset(2)

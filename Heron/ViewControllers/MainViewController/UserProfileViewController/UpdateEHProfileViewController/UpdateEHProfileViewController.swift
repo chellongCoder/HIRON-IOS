@@ -265,6 +265,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
                     self.provinceTxt.text = mainProfile.addressInfo?.province
                     self.districtTxt.text = mainProfile.addressInfo?.district
                     self.wardTxt.text = mainProfile.addressInfo?.ward
+                    self.postCodeTxt.text = mainProfile.addressInfo?.postalCode
                     
                     self.professionTxt.text = mainProfile.profession
                 }

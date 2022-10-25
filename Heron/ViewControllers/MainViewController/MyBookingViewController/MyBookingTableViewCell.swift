@@ -217,6 +217,6 @@ class MyBookingTableViewCell: UITableViewCell {
         self.bookingIDLabel.text = String(format: " BookingID: #%@",
                                           data.code)
         let createdAtDate = Date.init(timeIntervalSince1970: TimeInterval(data.createdAt/1000))
-        self.createAtLabel.text = String(format: "Create at %@", createdAtDate.toString(dateFormat: "MMM dd, yyyy"))
+        self.createAtLabel.text = String(format: "Created at %@", createdAtDate.toString(dateFormat: "MMM dd, yyyy"))
     }
 }

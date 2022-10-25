@@ -37,7 +37,7 @@ class SignInViewModel: NSObject {
             
             if isExist {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""),
-                                                     message: "This email already exist, please try to login.\n If you make sure this not you, you can contact our support at (chidoanh.com)",
+                                                     message: "This email already exists, please try to login.\nIf you already forgot your password, contact our support at Chidoanh.com!\nThank you.",
                                                      preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
