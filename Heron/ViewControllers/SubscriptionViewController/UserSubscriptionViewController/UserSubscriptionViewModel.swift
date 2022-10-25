@@ -27,8 +27,13 @@ class UserSubscriptionViewModel: NSObject {
                 plans = plans.filter({ userRegisteredSubscription in
                     // filter not pending
                     // filter not canceled and not enable
-                    return (userRegisteredSubscription.status != .PENDING) || !(userRegisteredSubscription.status == .CANCELLED && userRegisteredSubscription.enabledAt == nil)
+                    return userRegisteredSubscription.status != .PENDING
                 })
+                
+                plans = plans .filter({ userRegisteredSubscription in
+                    return !(userRegisteredSubscription.status == .CANCELLED && userRegisteredSubscription.enabledAt == 0)
+                })
+                
                 self.listUserSunscriptions.accept(plans)
             }
         }
@@ -55,8 +60,8 @@ class UserSubscriptionViewModel: NSObject {
                         return
                     }
                     
-                    let alertVC = UIAlertController.init(title: NSLocalizedString("Cancell Successfuly!", comment: ""),
-                                                         message: "You canceled your subscriptions",
+                    let alertVC = UIAlertController.init(title: NSLocalizedString("Subscription Cancelled!", comment: ""),
+                                                         message: "ou have cancelled the current subscription immediately",
                                                          preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                         alertVC.dismiss()

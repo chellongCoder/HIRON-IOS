@@ -37,7 +37,6 @@ class CheckoutViewModel: NSObject {
                 return
             }
             
-            
             self.listOrders = listOrders
             
             // Payment process

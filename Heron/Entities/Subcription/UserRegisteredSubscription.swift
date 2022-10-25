@@ -26,7 +26,7 @@ class UserRegisteredSubscription: Mappable {
     var interval_count  : Int = 1
     var payment         : PaymentDataSource?
     var paymentId       : String = ""
-    var enabledAt       : Int?
+    var enabledAt       : Int = 0
     var disabledAt      : Int = 0
     
     // custom
@@ -50,13 +50,13 @@ class UserRegisteredSubscription: Mappable {
         disabledAt  <- map["disabledAt"]
                 
         let nowTimeStamp = Int(Date().timeIntervalSince1970)*1000
-        if enabledAt ?? 0 <= nowTimeStamp && disabledAt > nowTimeStamp && status == .ENABLED {
+        if enabledAt <= nowTimeStamp && disabledAt > nowTimeStamp && status == .ENABLED {
             self.customStatus = .CURRENTLY_NS
-        } else if enabledAt ?? 0 <= nowTimeStamp && disabledAt > nowTimeStamp && (status == .CANCELLED || status == .DISABLE) {
+        } else if enabledAt <= nowTimeStamp && disabledAt > nowTimeStamp && (status == .CANCELLED || status == .DISABLE) {
             self.customStatus = .CURRENTLY_ST
-        } else if enabledAt ?? 0 > nowTimeStamp && disabledAt > nowTimeStamp && disabledAt > enabledAt ?? 0 {
+        } else if enabledAt > nowTimeStamp && disabledAt > nowTimeStamp && disabledAt > enabledAt {
             self.customStatus = .WILL_ACTIVE
-        } else if enabledAt ?? 0 > 0 {
+        } else if enabledAt > 0 {
             self.customStatus = .USED
         }
     }

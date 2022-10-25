@@ -445,7 +445,7 @@ class CheckoutViewController: BaseViewController,
            let carier = shippingData.carrier {
             
             let titleSignal = UILabel()
-            titleSignal.text = "Shipping & Handling informations"
+            titleSignal.text = "Shipping & Handling information"
             contentFooterView.addSubview(titleSignal)
             titleSignal.snp.makeConstraints { make in
                 make.top.right.equalToSuperview()
