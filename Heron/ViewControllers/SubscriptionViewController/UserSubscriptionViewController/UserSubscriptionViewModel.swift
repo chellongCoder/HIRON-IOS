@@ -26,7 +26,8 @@ class UserSubscriptionViewModel: NSObject {
             if var plans = plans {
                 plans = plans.filter({ userRegisteredSubscription in
                     // filter not pending
-                    return userRegisteredSubscription.getStatusText() != "Under Payment"
+                    // filter not canceled and not enable
+                    return (userRegisteredSubscription.status != .PENDING) || !(userRegisteredSubscription.status == .CANCELLED && userRegisteredSubscription.enabledAt == nil)
                 })
                 self.listUserSunscriptions.accept(plans)
             }

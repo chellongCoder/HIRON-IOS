@@ -129,7 +129,7 @@ class UserSubscriptionViewController: BaseViewController {
         }
         
         let startDateLabel = UILabel()
-        let startDate = Date.init(timeIntervalSince1970: TimeInterval(userSub.enabledAt / 1000))
+        let startDate = Date.init(timeIntervalSince1970: TimeInterval(userSub.enabledAt ?? 0 / 1000))
         startDateLabel.text = String(format: "From: %@", startDate.toString(dateFormat: "MMM dd, yyyy"))
         startDateLabel.textColor = kDefaultTextColor
         startDateLabel.numberOfLines = 0

@@ -19,14 +19,14 @@ class UserRegisteredSubscription: Mappable {
     
     var id              : String = ""
     var code            : String = ""
-    private var status  : SubscriptionStatus = .PENDING
+    var status          : SubscriptionStatus = .PENDING
     var subsPlan        : SubscriptionData?
     var subsPlanId      : String = ""
     var interval        : SubscriptionInterval?
     var interval_count  : Int = 1
     var payment         : PaymentDataSource?
     var paymentId       : String = ""
-    var enabledAt       : Int = 0
+    var enabledAt       : Int?
     var disabledAt      : Int = 0
     
     // custom
@@ -50,13 +50,13 @@ class UserRegisteredSubscription: Mappable {
         disabledAt  <- map["disabledAt"]
                 
         let nowTimeStamp = Int(Date().timeIntervalSince1970)*1000
-        if enabledAt <= nowTimeStamp && disabledAt > nowTimeStamp && status == .ENABLED {
+        if enabledAt ?? 0 <= nowTimeStamp && disabledAt > nowTimeStamp && status == .ENABLED {
             self.customStatus = .CURRENTLY_NS
-        } else if enabledAt <= nowTimeStamp && disabledAt > nowTimeStamp && (status == .CANCELLED || status == .DISABLE) {
+        } else if enabledAt ?? 0 <= nowTimeStamp && disabledAt > nowTimeStamp && (status == .CANCELLED || status == .DISABLE) {
             self.customStatus = .CURRENTLY_ST
-        } else if enabledAt > nowTimeStamp && disabledAt > nowTimeStamp && disabledAt > enabledAt {
+        } else if enabledAt ?? 0 > nowTimeStamp && disabledAt > nowTimeStamp && disabledAt > enabledAt ?? 0 {
             self.customStatus = .WILL_ACTIVE
-        } else if enabledAt > 0 {
+        } else if enabledAt ?? 0 > 0 {
             self.customStatus = .USED
         }
     }
