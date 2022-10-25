@@ -168,6 +168,12 @@ class CheckoutViewController: BaseViewController,
             return
         }
         
+        if (_CheckoutServices.cartPreCheckoutResponseData.value?.checkoutPriceData?.customShippingSubtotal ?? 0) == 0 {
+            self.placeOrderBtn.isUserInteractionEnabled = false
+            self.placeOrderBtn.backgroundColor = kDisableColor
+            return
+        }
+                
         self.endLoadingAnimation()
         placeOrderBtn.isUserInteractionEnabled = true
         placeOrderBtn.backgroundColor = kPrimaryColor

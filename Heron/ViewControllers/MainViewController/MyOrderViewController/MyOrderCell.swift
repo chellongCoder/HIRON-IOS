@@ -121,7 +121,11 @@ class MyOrderCell: UITableViewCell {
                 contentText = String(format: "%@, %@ %@", contentText, label, attribute.value ?? "")
             }
         }
-        contentText.removeFirst()
+        
+        if !contentText.isEmpty {
+            contentText.removeFirst()
+        }
+        
         self.tagContentLabel.text = contentText
     }
     
