@@ -78,7 +78,6 @@ class BookingDetailViewController: PageScrollViewController {
         timeableIcon.tintColor = kDefaultTextColor
         contentView.addSubview(timeableIcon)
         timeableIcon.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(8)
             make.left.equalToSuperview().offset(10)
             make.height.width.equalTo(13)
         }
@@ -90,6 +89,7 @@ class BookingDetailViewController: PageScrollViewController {
             make.top.equalToSuperview().offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(timeableIcon)
         }
         
         let addressIcon = UIImageView()
@@ -97,7 +97,6 @@ class BookingDetailViewController: PageScrollViewController {
         addressIcon.tintColor = kDefaultTextColor
         contentView.addSubview(addressIcon)
         addressIcon.snp.makeConstraints { make in
-            make.top.equalTo(timeableIcon.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(10)
             make.height.width.equalTo(13)
         }
@@ -111,6 +110,7 @@ class BookingDetailViewController: PageScrollViewController {
             make.top.equalTo(timeableLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(addressIcon)
         }
         
         let patientIcon = UIImageView()
@@ -118,7 +118,6 @@ class BookingDetailViewController: PageScrollViewController {
         patientIcon.tintColor = kDefaultTextColor
         contentView.addSubview(patientIcon)
         patientIcon.snp.makeConstraints { make in
-            make.top.equalTo(addressBookingLabel.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(10)
             make.height.width.equalTo(13)
         }
@@ -131,6 +130,7 @@ class BookingDetailViewController: PageScrollViewController {
             make.top.equalTo(addressBookingLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(patientIcon)
         }
         
         let doctorIcon = UIImageView()
@@ -138,7 +138,6 @@ class BookingDetailViewController: PageScrollViewController {
         doctorIcon.tintColor = kDefaultTextColor
         contentView.addSubview(doctorIcon)
         doctorIcon.snp.makeConstraints { make in
-            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(10)
             make.height.width.equalTo(13)
         }
@@ -152,6 +151,7 @@ class BookingDetailViewController: PageScrollViewController {
             make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(doctorIcon)
         }
         
         let paymentIcon = UIImageView()
@@ -159,7 +159,6 @@ class BookingDetailViewController: PageScrollViewController {
         paymentIcon.tintColor = kDefaultTextColor
         contentView.addSubview(paymentIcon)
         paymentIcon.snp.makeConstraints { make in
-            make.top.equalTo(doctorInfoLabel.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(10)
             make.height.width.equalTo(13)
         }
@@ -172,6 +171,7 @@ class BookingDetailViewController: PageScrollViewController {
             make.top.equalTo(doctorInfoLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(paymentIcon)
         }
         
         let bookingIDIcon = UIImageView()
@@ -179,7 +179,6 @@ class BookingDetailViewController: PageScrollViewController {
         bookingIDIcon.tintColor = kDefaultTextColor
         contentView.addSubview(bookingIDIcon)
         bookingIDIcon.snp.makeConstraints { make in
-            make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
             make.left.equalToSuperview().offset(10)
             make.height.width.equalTo(13)
         }
@@ -192,6 +191,7 @@ class BookingDetailViewController: PageScrollViewController {
             make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(bookingIDIcon)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }

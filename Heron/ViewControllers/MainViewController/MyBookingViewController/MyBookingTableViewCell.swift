@@ -58,7 +58,6 @@ class MyBookingTableViewCell: UITableViewCell {
         timeableIcon.tintColor = kDefaultTextColor
         contentView.addSubview(timeableIcon)
         timeableIcon.snp.makeConstraints { make in
-            make.top.equalTo(storeNameLabel.snp.bottom).offset(8)
             make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
@@ -71,6 +70,7 @@ class MyBookingTableViewCell: UITableViewCell {
             make.top.equalTo(storeNameLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(timeableIcon)
         }
         
         let addressIcon = UIImageView()
@@ -78,7 +78,6 @@ class MyBookingTableViewCell: UITableViewCell {
         addressIcon.tintColor = kDefaultTextColor
         contentView.addSubview(addressIcon)
         addressIcon.snp.makeConstraints { make in
-            make.top.equalTo(timeableIcon.snp.bottom).offset(8)
             make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
@@ -92,6 +91,7 @@ class MyBookingTableViewCell: UITableViewCell {
             make.top.equalTo(timeableLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(addressIcon)
         }
         
         let patientIcon = UIImageView()
@@ -99,7 +99,6 @@ class MyBookingTableViewCell: UITableViewCell {
         patientIcon.tintColor = kDefaultTextColor
         contentView.addSubview(patientIcon)
         patientIcon.snp.makeConstraints { make in
-            make.top.equalTo(addressBookingLabel.snp.bottom).offset(8)
             make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
@@ -113,6 +112,7 @@ class MyBookingTableViewCell: UITableViewCell {
             make.top.equalTo(addressBookingLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(patientIcon)
         }
         
 //        let doctorIcon = UIImageView()
@@ -120,7 +120,6 @@ class MyBookingTableViewCell: UITableViewCell {
 //        doctorIcon.tintColor = kDefaultTextColor
 //        contentView.addSubview(doctorIcon)
 //        doctorIcon.snp.makeConstraints { make in
-//            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
 //            make.left.equalTo(titleLabel)
 //            make.height.width.equalTo(13)
 //        }
@@ -134,6 +133,7 @@ class MyBookingTableViewCell: UITableViewCell {
 //            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
 //            make.left.equalTo(timeableIcon.snp.right).offset(8)
 //            make.right.equalToSuperview().offset(-16)
+//            make.centerY.equalTo(doctorIcon)
 //        }
         
         let paymentIcon = UIImageView()
@@ -141,7 +141,6 @@ class MyBookingTableViewCell: UITableViewCell {
         paymentIcon.tintColor = kDefaultTextColor
         contentView.addSubview(paymentIcon)
         paymentIcon.snp.makeConstraints { make in
-            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
             make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
@@ -155,6 +154,7 @@ class MyBookingTableViewCell: UITableViewCell {
             make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(paymentIcon)
         }
         
         let bookingIDIcon = UIImageView()
@@ -162,7 +162,6 @@ class MyBookingTableViewCell: UITableViewCell {
         bookingIDIcon.tintColor = kDefaultTextColor
         contentView.addSubview(bookingIDIcon)
         bookingIDIcon.snp.makeConstraints { make in
-            make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
             make.left.equalTo(storeNameLabel)
             make.height.width.equalTo(13)
         }
@@ -176,6 +175,7 @@ class MyBookingTableViewCell: UITableViewCell {
             make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
             make.left.equalTo(timeableIcon.snp.right).offset(8)
             make.right.equalToSuperview().offset(-16)
+            make.centerY.equalTo(bookingIDIcon)
         }
         
         createAtLabel.text = ""

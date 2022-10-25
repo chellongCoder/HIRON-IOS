@@ -53,7 +53,7 @@ class SelectEHPViewController: UIViewController {
         let basicInforLabel = UILabel()
         basicInforLabel.text = "Basic Information"
         basicInforLabel.textColor = kDefaultTextColor
-        basicInforLabel.font = getFontSize(size: 13, weight: .semibold)
+        basicInforLabel.font = getFontSize(size: 17, weight: .semibold)
         self.view.addSubview(basicInforLabel)
         basicInforLabel.snp.makeConstraints { make in
             make.top.equalTo(avatar.snp.bottom).offset(30)
@@ -64,7 +64,7 @@ class SelectEHPViewController: UIViewController {
         let nameLabel = UILabel()
         nameLabel.text = "Name"
         nameLabel.textColor = kDefaultTextColor
-        nameLabel.font = getFontSize(size: 11, weight: .semibold)
+        nameLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.top.equalTo(basicInforLabel.snp.bottom).offset(20)
@@ -75,18 +75,18 @@ class SelectEHPViewController: UIViewController {
         nameValueLabel.text = ""
         nameValueLabel.numberOfLines = 0
         nameValueLabel.textColor = kPrimaryColor
-        nameValueLabel.font = getFontSize(size: 11, weight: .semibold)
+        nameValueLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(nameValueLabel)
         nameValueLabel.snp.makeConstraints { make in
             make.top.equalTo(basicInforLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX)
+            make.left.equalTo(self.view.snp.centerX).offset(-40)
             make.right.equalToSuperview()
         }
         
         let genderInforLabel = UILabel()
         genderInforLabel.text = "Gender"
         genderInforLabel.textColor = kDefaultTextColor
-        genderInforLabel.font = getFontSize(size: 11, weight: .semibold)
+        genderInforLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(genderInforLabel)
         genderInforLabel.snp.makeConstraints { make in
             make.top.equalTo(nameValueLabel.snp.bottom).offset(20)
@@ -97,18 +97,18 @@ class SelectEHPViewController: UIViewController {
         genderValueLabel.text = ""
         genderValueLabel.numberOfLines = 0
         genderValueLabel.textColor = kPrimaryColor
-        genderValueLabel.font = getFontSize(size: 11, weight: .semibold)
+        genderValueLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(genderValueLabel)
         genderValueLabel.snp.makeConstraints { make in
             make.top.equalTo(nameValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX)
+            make.left.equalTo(self.view.snp.centerX).offset(-40)
             make.right.equalToSuperview()
         }
         
         let emailInforLabel = UILabel()
         emailInforLabel.text = "Email"
         emailInforLabel.textColor = kDefaultTextColor
-        emailInforLabel.font = getFontSize(size: 11, weight: .semibold)
+        emailInforLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(emailInforLabel)
         emailInforLabel.snp.makeConstraints { make in
             make.top.equalTo(genderValueLabel.snp.bottom).offset(20)
@@ -119,18 +119,18 @@ class SelectEHPViewController: UIViewController {
         emailValueLabel.text = ""
         emailValueLabel.numberOfLines = 0
         emailValueLabel.textColor = kPrimaryColor
-        emailValueLabel.font = getFontSize(size: 11, weight: .semibold)
+        emailValueLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(emailValueLabel)
         emailValueLabel.snp.makeConstraints { make in
             make.top.equalTo(genderValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX)
+            make.left.equalTo(self.view.snp.centerX).offset(-40)
             make.right.equalToSuperview()
         }
         
         let phoneInforLabel = UILabel()
         phoneInforLabel.text = "Phone Number"
         phoneInforLabel.textColor = kDefaultTextColor
-        phoneInforLabel.font = getFontSize(size: 11, weight: .semibold)
+        phoneInforLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(phoneInforLabel)
         phoneInforLabel.snp.makeConstraints { make in
             make.top.equalTo(emailValueLabel.snp.bottom).offset(20)
@@ -141,18 +141,18 @@ class SelectEHPViewController: UIViewController {
         phoneValueLabel.text = ""
         phoneValueLabel.numberOfLines = 0
         phoneValueLabel.textColor = kPrimaryColor
-        phoneValueLabel.font = getFontSize(size: 11, weight: .semibold)
+        phoneValueLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(phoneValueLabel)
         phoneValueLabel.snp.makeConstraints { make in
             make.top.equalTo(emailValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX)
+            make.left.equalTo(self.view.snp.centerX).offset(-40)
             make.right.equalToSuperview()
         }
         
         let dobInforLabel = UILabel()
         dobInforLabel.text = "DOB"
         dobInforLabel.textColor = kDefaultTextColor
-        dobInforLabel.font = getFontSize(size: 11, weight: .semibold)
+        dobInforLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(dobInforLabel)
         dobInforLabel.snp.makeConstraints { make in
             make.top.equalTo(phoneValueLabel.snp.bottom).offset(20)
@@ -163,18 +163,18 @@ class SelectEHPViewController: UIViewController {
         dobValueLabel.text = ""
         dobValueLabel.numberOfLines = 0
         dobValueLabel.textColor = kPrimaryColor
-        dobValueLabel.font = getFontSize(size: 11, weight: .semibold)
+        dobValueLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(dobValueLabel)
         dobValueLabel.snp.makeConstraints { make in
             make.top.equalTo(phoneValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX)
+            make.left.equalTo(self.view.snp.centerX).offset(-40)
             make.right.equalToSuperview()
         }
         
         let professtionLabel = UILabel()
         professtionLabel.text = "Profession"
         professtionLabel.textColor = kDefaultTextColor
-        professtionLabel.font = getFontSize(size: 11, weight: .semibold)
+        professtionLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(professtionLabel)
         professtionLabel.snp.makeConstraints { make in
             make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
@@ -185,18 +185,18 @@ class SelectEHPViewController: UIViewController {
         professionLabel.text = ""
         professionLabel.numberOfLines = 0
         professionLabel.textColor = kPrimaryColor
-        professionLabel.font = getFontSize(size: 11, weight: .semibold)
+        professionLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(professionLabel)
         professionLabel.snp.makeConstraints { make in
             make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX)
+            make.left.equalTo(self.view.snp.centerX).offset(-40)
             make.right.equalToSuperview()
         }
         
         let addressInforLabel = UILabel()
         addressInforLabel.text = "Address"
         addressInforLabel.textColor = kDefaultTextColor
-        addressInforLabel.font = getFontSize(size: 11, weight: .semibold)
+        addressInforLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(addressInforLabel)
         addressInforLabel.snp.makeConstraints { make in
             make.top.equalTo(professionLabel.snp.bottom).offset(20)
@@ -207,12 +207,12 @@ class SelectEHPViewController: UIViewController {
         addressLabel.text = ""
         addressLabel.numberOfLines = 0
         addressLabel.textColor = kPrimaryColor
-        addressLabel.font = getFontSize(size: 11, weight: .semibold)
+        addressLabel.font = getFontSize(size: 14, weight: .semibold)
         self.view.addSubview(addressLabel)
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(professionLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX)
-            make.right.equalToSuperview()
+            make.left.equalTo(self.view.snp.centerX).offset(-40)
+            make.right.equalToSuperview().offset(-20)
         }
         
         makeBookingBtn.setTitle("Create Booking", for: .normal)

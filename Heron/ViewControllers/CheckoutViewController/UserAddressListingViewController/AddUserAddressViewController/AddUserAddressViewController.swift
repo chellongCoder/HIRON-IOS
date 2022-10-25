@@ -201,7 +201,7 @@ class AddUserAddressViewController: PageScrollViewController {
         }
         
         let checkboxTitle = UILabel()
-        checkboxTitle.text = "using as default address"
+        checkboxTitle.text = "Using as default address"
         checkboxTitle.textColor = kPrimaryColor
         checkboxTitle.font = getFontSize(size: 14, weight: .regular)
         self.pageScroll.addSubview(checkboxTitle)
