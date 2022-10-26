@@ -61,7 +61,7 @@ class UserSubscriptionViewModel: NSObject {
                     }
                     
                     let alertVC = UIAlertController.init(title: NSLocalizedString("Subscription Cancelled!", comment: ""),
-                                                         message: "ou have cancelled the current subscription immediately",
+                                                         message: "You have cancelled the current subscription immediately",
                                                          preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                         alertVC.dismiss()

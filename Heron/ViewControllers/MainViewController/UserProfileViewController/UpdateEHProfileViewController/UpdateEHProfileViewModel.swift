@@ -44,6 +44,7 @@ class UpdateEHProfileViewModel: NSObject {
                                                      message: "Your E-Health Profile is updated! ", preferredStyle: .alert)
                 alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
                     alertVC.dismiss()
+                    self.controller?.navigationController?.popToRootViewController(animated: true)
                 }))
                 _NavController.showAlert(alertVC)
                 return

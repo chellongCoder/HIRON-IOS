@@ -274,7 +274,7 @@ class UserSubscriptionViewController: BaseViewController {
         } else if self.planButton.tag == 1 {
             // Switch plan immediately
             let alertVC = UIAlertController.init(title: NSLocalizedString("Switch plan?", comment: ""),
-                                                 message: "If you swicth plan, you will loss current plan time left",
+                                                 message: "If you swicth plan, you will lose current plan time left",
                                                  preferredStyle: .alert)
             alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("Switch Immediately", comment: ""), style: .default, handler: { _ in
                 alertVC.dismiss()
