@@ -32,7 +32,7 @@ class BookingDetailViewModel: NSObject {
                 return
             }
             
-//            self.bookingData.accept(bookingData)
+            self.bookingData.accept(bookingData)
         }
     }
     

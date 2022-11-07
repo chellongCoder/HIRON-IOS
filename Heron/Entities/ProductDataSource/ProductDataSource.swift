@@ -23,7 +23,7 @@ enum ProductFeatureType : String {
     case ecom_booking   = "ecom_booking"
 }
 
-class ProductDataSource: Mappable, Equatable {
+class ProductDataSource: Mappable, Equatable, Hashable, Comparable {
     
     var id              : String = ""
     var targetId        : String = ""
@@ -41,6 +41,7 @@ class ProductDataSource: Mappable, Equatable {
     var unit            : ProductUnit?
     var brand           : ProductBrand?
     var attributes      : [String : Attribute] = [:]
+    var createdAt       : Int = 0
     
     // configurable product
     var type            : ProductType = .simple
@@ -75,6 +76,7 @@ class ProductDataSource: Mappable, Equatable {
         unit            <- map["unit"]
         brand           <- map["brand"]
         attributes      <- map["attributes"]
+        createdAt       <- map["createdAt"]
         
         type            <- map["type"]
         configurableOptions <- map["configurableOptions"]
@@ -112,6 +114,14 @@ class ProductDataSource: Mappable, Equatable {
     
     static func == (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    static func < (lhs: ProductDataSource, rhs: ProductDataSource) -> Bool {
+        return lhs.createdAt < rhs.createdAt
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        return hasher.combine(id)
     }
     
     func isMatchingWithVariants(_ variants: [SelectedVariant]) -> Bool {

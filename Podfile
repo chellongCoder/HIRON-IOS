@@ -16,7 +16,7 @@ target 'Heron' do
   
   pod 'NVActivityIndicatorView',  '5.1.1'
   pod 'BadgeHub',                 '1.0.0'
-  pod 'IQKeyboardManagerSwift',   '6.5.6'
+  pod 'IQKeyboardManager',        '6.5.10'
   pod 'SkeletonView',             '1.11.0'
   pod 'Material',                 '3.1.8'
   pod 'MaterialComponents/Chips', '119.1.3'

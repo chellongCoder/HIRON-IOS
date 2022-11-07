@@ -1,4 +1,68 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1" systemVersion="11A491" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="true" userDefinedModelVersionIdentifier="">
-    <elements/>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21279" systemVersion="21G115" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="LocalConfigurableOption" representedClassName="LocalConfigurableOption" syncable="YES" codeGenerationType="class">
+        <attribute name="code" optional="YES" attributeType="String"/>
+        <attribute name="label" optional="YES" attributeType="String"/>
+        <attribute name="values" optional="YES" attributeType="String"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductDataSource" inverseName="configurableOptions" inverseEntity="LocalProductDataSource"/>
+    </entity>
+    <entity name="LocalContentDescription" representedClassName="LocalContentDescription" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <attribute name="visibility" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductDataSource" inverseName="desc" inverseEntity="LocalProductDataSource"/>
+    </entity>
+    <entity name="LocalProductAttribute" representedClassName="LocalProductAttribute" syncable="YES" codeGenerationType="class">
+        <attribute name="label" optional="YES" attributeType="String"/>
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="relationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductAttributeValue" inverseName="attribute" inverseEntity="LocalProductAttributeValue"/>
+    </entity>
+    <entity name="LocalProductAttributeValue" representedClassName="LocalProductAttributeValue" syncable="YES" codeGenerationType="class">
+        <attribute name="attributeCode" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="valueA" optional="YES" attributeType="String"/>
+        <relationship name="attribute" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductAttribute" inverseName="relationship" inverseEntity="LocalProductAttribute"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductDataSource" inverseName="attributeValues" inverseEntity="LocalProductDataSource"/>
+    </entity>
+    <entity name="LocalProductBrand" representedClassName="LocalProductBrand" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductDataSource" inverseName="brand" inverseEntity="LocalProductDataSource"/>
+    </entity>
+    <entity name="LocalProductDataSource" representedClassName="LocalProductDataSource" syncable="YES" codeGenerationType="class">
+        <attribute name="attribute" optional="YES" attributeType="String"/>
+        <attribute name="available" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="code" optional="YES" attributeType="String"/>
+        <attribute name="createdAt" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="currency" optional="YES" attributeType="String"/>
+        <attribute name="customFinalPrice" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="customRegularPrice" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="discountPercent" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="featureType" optional="YES" attributeType="String"/>
+        <attribute name="finalPrice" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="quantity" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="shortDesc" optional="YES" attributeType="String"/>
+        <attribute name="targetId" optional="YES" attributeType="String"/>
+        <attribute name="thumbnailUrl" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="attributeValues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalProductAttributeValue" inverseName="product" inverseEntity="LocalProductAttributeValue"/>
+        <relationship name="brand" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductBrand" inverseName="product" inverseEntity="LocalProductBrand"/>
+        <relationship name="configurableOptions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalConfigurableOption" inverseName="product" inverseEntity="LocalConfigurableOption"/>
+        <relationship name="desc" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalContentDescription" inverseName="product" inverseEntity="LocalContentDescription"/>
+        <relationship name="media" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="LocalProductMediaDataSource" inverseName="product" inverseEntity="LocalProductMediaDataSource"/>
+        <relationship name="unit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductUnit" inverseName="product" inverseEntity="LocalProductUnit"/>
+    </entity>
+    <entity name="LocalProductMediaDataSource" representedClassName="LocalProductMediaDataSource" syncable="YES" codeGenerationType="class">
+        <attribute name="sortOrder" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <attribute name="valueA" optional="YES" attributeType="String"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductDataSource" inverseName="media" inverseEntity="LocalProductDataSource"/>
+    </entity>
+    <entity name="LocalProductUnit" representedClassName="LocalProductUnit" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="product" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="LocalProductDataSource" inverseName="unit" inverseEntity="LocalProductDataSource"/>
+    </entity>
 </model>

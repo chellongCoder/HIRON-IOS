@@ -7,6 +7,6 @@
 
 import UIKit
 
-class BaseViewModel: NSObject {
+class BaseViewModel {
 
 }

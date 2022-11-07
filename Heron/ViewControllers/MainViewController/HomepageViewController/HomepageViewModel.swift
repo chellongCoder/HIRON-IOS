@@ -1,16 +1,15 @@
 //
-//  ProductListingViewModel.swift
+//  HomepageViewModel.swift
 //  Heron
 //
-//  Created by Luu Luc on 28/04/2022.
+//  Created by Lucas Luu on 06/11/2022.
 //
 
-import UIKit
-import RxSwift
+import Foundation
 import RxRelay
 
-class ProductListingViewModel: NSObject {
-    weak var controller     : ProductListingViewController?
+class HomepageViewModel: BaseViewModel {
+    weak var controller     : HomepageViewController?
     var listBanners         : [String] = ["banner_image1", "banner_image2", "banner_image3"]
     var filterData          : CategoryDataSource?
     var listProducts        = BehaviorRelay<[ProductDataSource]>(value: Array(_AppCoreData.listsavedProducts))
@@ -30,7 +29,7 @@ class ProductListingViewModel: NSObject {
         
 //        self.controller?.startLoadingAnimation()
         _InventoryServices.getListProducts(param: param) { errorMessage, listNewProducts in
-            self.controller?.endLoadingAnimation()
+//            self.controller?.endLoadingAnimation()
             self.controller?.refreshControl.endRefreshing()
             if errorMessage != nil {
                 let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)

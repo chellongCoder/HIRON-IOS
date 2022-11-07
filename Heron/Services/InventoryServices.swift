@@ -20,7 +20,9 @@ class InventoryServices {
                 return
             } else {
                 if let data = responseData.responseData?["data"] as? [[String:Any]] {
-                    completion(responseData.responseMessage, Mapper<ProductDataSource>().mapArray(JSONArray: data))
+                    let listProducts = Mapper<ProductDataSource>().mapArray(JSONArray: data)
+                    completion(responseData.responseMessage, listProducts)
+                    _AppCoreData.cachedProducts(listProducts)
                 }
             }
         }

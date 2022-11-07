@@ -148,6 +148,7 @@
 		93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EC90FD28622229009056F6 /* DiscountValueView.swift */; };
 		93F3CD6328BF3F0D0010ACB8 /* PaymentServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F3CD6228BF3F0D0010ACB8 /* PaymentServices.swift */; };
 		93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */; };
+		9A444D5F2917B86800C3B002 /* HomepageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A444D5E2917B86800C3B002 /* HomepageViewModel.swift */; };
 		9A88B760288DB24500BE1E05 /* SelectEHPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B75F288DB24500BE1E05 /* SelectEHPViewController.swift */; };
 		9A88B762288DB25C00BE1E05 /* SelectEHPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B761288DB25C00BE1E05 /* SelectEHPViewModel.swift */; };
 		9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */; };
@@ -361,6 +362,7 @@
 		93EC90FD28622229009056F6 /* DiscountValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountValueView.swift; sourceTree = "<group>"; };
 		93F3CD6228BF3F0D0010ACB8 /* PaymentServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentServices.swift; sourceTree = "<group>"; };
 		93F776FD28524BE800ACE16E /* CartPrepearedRequestDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartPrepearedRequestDataSource.swift; sourceTree = "<group>"; };
+		9A444D5E2917B86800C3B002 /* HomepageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewModel.swift; sourceTree = "<group>"; };
 		9A88B75F288DB24500BE1E05 /* SelectEHPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEHPViewController.swift; sourceTree = "<group>"; };
 		9A88B761288DB25C00BE1E05 /* SelectEHPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectEHPViewModel.swift; sourceTree = "<group>"; };
 		9A88B763288DB29A00BE1E05 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -717,6 +719,7 @@
 			isa = PBXGroup;
 			children = (
 				938F7A8A2820E7DC00DD60DB /* HomepageViewController.swift */,
+				9A444D5E2917B86800C3B002 /* HomepageViewModel.swift */,
 			);
 			path = HomepageViewController;
 			sourceTree = "<group>";
@@ -1201,12 +1204,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 933D19072819935E00F1CCC4 /* Build configuration list for PBXNativeTarget "Heron" */;
 			buildPhases = (
+				93A3C1A12874E355003A20F1 /* SwiftLint */,
 				46069F85B42A8FE8B828ACE4 /* [CP] Check Pods Manifest.lock */,
 				933D18D62819935900F1CCC4 /* Sources */,
 				933D18D72819935900F1CCC4 /* Frameworks */,
 				933D18D82819935900F1CCC4 /* Resources */,
 				0D0B98E301021DD03AA81D9A /* [CP] Embed Pods Frameworks */,
-				93A3C1A12874E355003A20F1 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -1601,6 +1604,7 @@
 				934D72A828A02A6000E4255F /* BookingProfileTableViewCell.swift in Sources */,
 				93F3CD6328BF3F0D0010ACB8 /* PaymentServices.swift in Sources */,
 				B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */,
+				9A444D5F2917B86800C3B002 /* HomepageViewModel.swift in Sources */,
 				9393CCCF28C6422E00DF6C50 /* UpdateEHProfileViewController.swift in Sources */,
 				93EC90ED285A4D73009056F6 /* SignInSuccessViewController.swift in Sources */,
 				B5061C05286BF22700A03271 /* MyOrderViewController.swift in Sources */,

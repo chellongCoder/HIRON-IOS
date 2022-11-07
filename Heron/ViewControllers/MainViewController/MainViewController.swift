@@ -41,8 +41,8 @@ class MainViewController: UITabBarController {
         let myProfileNav = UINavigationController.init(rootViewController: UserProfileViewController())
         myProfileNav.tabBarItem = UITabBarItem(title: "Profile", image: UIImage.init(systemName: "person"), selectedImage: nil)
         
-        self.viewControllers = [myOrderNav, productNav, bookingNav, myProfileNav]
-        self.selectedIndex = 1
+        self.viewControllers = [myOrderNav, productNav, homeNav, bookingNav, myProfileNav]
+        self.selectedIndex = 2
     }
 
     override func viewWillAppear(_ animated: Bool) {
