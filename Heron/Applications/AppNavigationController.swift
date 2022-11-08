@@ -65,7 +65,7 @@ extension AppNavigationController {
         _NavController.setViewControllers([MainViewController.sharedInstance], animated: true)
     }
     
-    func gotoHomepage() {
+    func gotoProductListingPage() {
         
         DispatchQueue.global().async {
             _CartServices.reloadCart()
@@ -73,6 +73,17 @@ extension AppNavigationController {
         
         let homePage = MainViewController.sharedInstance
         homePage.selectedIndex = 1
+        _NavController.setViewControllers([MainViewController.sharedInstance], animated: true)
+    }
+    
+    func gotoHomepage() {
+        
+        DispatchQueue.global().async {
+            _CartServices.reloadCart()
+        }
+        
+        let homePage = MainViewController.sharedInstance
+        homePage.selectedIndex = 2
         _NavController.setViewControllers([MainViewController.sharedInstance], animated: true)
     }
     
