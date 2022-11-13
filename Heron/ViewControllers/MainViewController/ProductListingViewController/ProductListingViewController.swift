@@ -19,6 +19,7 @@ class ProductListingViewController: BaseViewController,
     
     let searchBar                   = SearchBarTxt()
     let tableView                   = UITableView(frame: .zero, style: .plain)
+    var collectionView              : UICollectionView?
     let noDataView                  = UIView()
     var cartHub                     : BadgeHub?
     
@@ -47,7 +48,7 @@ class ProductListingViewController: BaseViewController,
         let changeViewStyleItem = UIBarButtonItem.init(image: UIImage.init(named: "collection_bar_icon"),
                                               style: .plain,
                                               target: self,
-                                              action: #selector(filterButtonTapped))
+                                              action: #selector(switchViewButtonTapped))
         self.navigationItem.rightBarButtonItems = [cartButtonItem, changeViewStyleItem]
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
@@ -65,6 +66,22 @@ class ProductListingViewController: BaseViewController,
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.centerX.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.scrollDirection = .vertical
+        layout.minimumLineSpacing = 0
+        
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView?.backgroundColor = .white
+        collectionView?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
+        self.view.addSubview(collectionView!)
+        collectionView?.snp.makeConstraints { (make) in
+            make.top.left.right.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
@@ -105,6 +122,17 @@ class ProductListingViewController: BaseViewController,
         _NavController.pushViewController(filterVC, animated: true)
     }
     
+    @objc private func switchViewButtonTapped() {
+        let viewMode = viewModel.viewMode.value
+        
+        switch viewMode {
+        case .gridView:
+            viewModel.viewMode.accept(.listView)
+        case .listView:
+            viewModel.viewMode.accept(.gridView)
+        }
+    }
+    
     private func dismissKeyboard() {
         self.searchBar.endEditing(true)
     }
@@ -123,6 +151,20 @@ class ProductListingViewController: BaseViewController,
             }
             .disposed(by: disposeBag)
         
+        viewModel.viewMode
+            .observe(on: MainScheduler.instance)
+            .subscribe { viewMode in
+                switch viewMode.element ?? .listView {
+                case .gridView:
+                    self.tableView.isHidden = true
+                    self.collectionView?.isHidden = false
+                case .listView:
+                    self.tableView.isHidden = false
+                    self.collectionView?.isHidden = true
+                }
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.listProducts
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
                 let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
@@ -132,16 +174,12 @@ class ProductListingViewController: BaseViewController,
             }
             .disposed(by: disposeBag)
         
-//        tableView.rx
-//            .modelSelected(ProductDataSource.self)
-//            .subscribe { model in
-//                guard let productData = model.element else {return}
-//                let viewDetailsController = ProductDetailsViewController.init(productData)
-//                _NavController.pushViewController(viewDetailsController, animated: true)
-//
-//                self.dismissKeyboard()
-//            }
-//            .disposed(by: disposeBag)
+        viewModel.listProducts
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                self.collectionView?.reloadData()
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - UITableViewDelegate
@@ -164,5 +202,41 @@ class ProductListingViewController: BaseViewController,
     func addProductToCart(_ data: ProductDataSource) {
         let cartVC = CartViewController.sharedInstance
         cartVC.addProductToCart(data)
+    }
+}
+
+extension ProductListingViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let screenSize = UIScreen.main.bounds
+        return CGSize(width: (screenSize.width-78)/2, height: 228)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let value = viewModel.listProducts.value
+        let productData = value[indexPath.row]
+        
+        let viewDetailsController = ProductDetailsViewController.init(productData)
+        _NavController.pushViewController(viewDetailsController, animated: true)
+        
+        self.dismissKeyboard()
+    }
+    
+    // MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.listProducts.value.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // swiftlint:disable force_cast
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
+        
+        let value = viewModel.listProducts.value
+        let productData = value[indexPath.row]
+        cell.setDataSource(productData)
+        cell.delegate = self
+        return cell
     }
 }

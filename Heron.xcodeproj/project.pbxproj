@@ -168,6 +168,7 @@
 		9AB248D42921364F007812D5 /* Mulish-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248B829212D4B007812D5 /* Mulish-ExtraLight.ttf */; };
 		9AB248D52921364F007812D5 /* Mulish-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248C229212D4B007812D5 /* Mulish-SemiBoldItalic.ttf */; };
 		9AB248D62921364F007812D5 /* Mulish-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248BA29212D4B007812D5 /* Mulish-MediumItalic.ttf */; };
+		9AB248D9292147D9007812D5 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB248D8292147D9007812D5 /* ProductCollectionViewCell.swift */; };
 		9AC54E592892F575006312D6 /* SelectDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */; };
 		9AC54E5B28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */; };
 		9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */; };
@@ -386,6 +387,7 @@
 		9AB248C429212D4B007812D5 /* Mulish-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Medium.ttf"; sourceTree = "<group>"; };
 		9AB248C529212D4B007812D5 /* Mulish-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-BlackItalic.ttf"; sourceTree = "<group>"; };
 		9AB248C629212D4B007812D5 /* Mulish-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-BoldItalic.ttf"; sourceTree = "<group>"; };
+		9AB248D8292147D9007812D5 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBookingViewModel.swift; sourceTree = "<group>"; };
 		9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeableDataSource.swift; sourceTree = "<group>"; };
@@ -686,6 +688,7 @@
 			children = (
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
+				9AB248D7292147BD007812D5 /* ProductCollectionViewCell */,
 				938F7A8C28210F0C00DD60DB /* ProductTableViewCell */,
 				933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */,
 				930F3031281A05A1003D247A /* ProductListingViewModel.swift */,
@@ -1137,6 +1140,14 @@
 			path = SelectDateAndTimeBooking;
 			sourceTree = "<group>";
 		};
+		9AB248D7292147BD007812D5 /* ProductCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				9AB248D8292147D9007812D5 /* ProductCollectionViewCell.swift */,
+			);
+			path = ProductCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1524,6 +1535,7 @@
 				934D72A628A02A4600E4255F /* BookingDoctorTableViewCell.swift in Sources */,
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
 				9A88B766288DB76100BE1E05 /* BookingServices.swift in Sources */,
+				9AB248D9292147D9007812D5 /* ProductCollectionViewCell.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* ItemCategory.swift in Sources */,
