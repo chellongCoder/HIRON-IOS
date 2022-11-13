@@ -61,13 +61,13 @@ class IconTextField: UITextField {
 
 class SearchBarTxt: UITextField {
 
-    let padding     = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 36)
+    let padding     = UIEdgeInsets(top: 0, left: 44, bottom: 0, right: 0)
     let icon        = UIImageView()
     let deleteBtn   = UIButton()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon.image = UIImage(named: "search_icon")?.withRenderingMode(.alwaysOriginal)
+        icon.image = UIImage(named: "search_bar_icon")?.withRenderingMode(.alwaysOriginal)
         icon.contentMode = .scaleAspectFill
         
         self.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
@@ -78,7 +78,7 @@ class SearchBarTxt: UITextField {
         icon.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
-            make.width.height.equalTo(16)
+            make.width.height.equalTo(20)
         }
     }
     

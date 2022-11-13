@@ -17,10 +17,9 @@ class ProductListingViewController: BaseViewController,
     
     private let viewModel           = ProductListingViewModel()
     
-    let searchBar                   = UISearchBar()
+    let searchBar                   = SearchBarTxt()
     let tableView                   = UITableView(frame: .zero, style: .plain)
     let noDataView                  = UIView()
-    var cartButtonItem              : UIBarButtonItem?
     var cartHub                     : BadgeHub?
     
     override func viewDidLoad() {
@@ -29,25 +28,27 @@ class ProductListingViewController: BaseViewController,
         
         viewModel.controller = self
         
-        searchBar.placeholder = "Seach"
+        searchBar.placeholder = "Search"
         self.navigationItem.titleView = searchBar
         
-        cartButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "cart"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(cartButtonTapped))
-        self.cartHub = BadgeHub(barButtonItem: cartButtonItem!)
+        let cartButton = UIButton()
+        cartButton.setBackgroundImage(UIImage.init(named: "cart_bar_icon"), for: .normal)
+        cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+        
+        self.cartHub = BadgeHub(view: cartButton)
+        self.cartHub?.setCircleAtFrame(CGRect(x: 12, y: -10, width: 20, height: 20))
         self.cartHub?.setCircleColor(kRedHightLightColor, label: .white)
         self.cartHub?.setCircleBorderColor(.white, borderWidth: 1)
         self.cartHub?.setMaxCount(to: 99)
-        self.cartHub?.setCount(10)
+        self.cartHub?.setCount(0)
         self.cartHub?.pop()
         
-        let filterButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "slider.horizontal.3"),
+        let cartButtonItem = UIBarButtonItem(customView: cartButton)
+        let changeViewStyleItem = UIBarButtonItem.init(image: UIImage.init(named: "collection_bar_icon"),
                                               style: .plain,
                                               target: self,
                                               action: #selector(filterButtonTapped))
-        self.navigationItem.rightBarButtonItems = [cartButtonItem!, filterButtonItem]
+        self.navigationItem.rightBarButtonItems = [cartButtonItem, changeViewStyleItem]
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)

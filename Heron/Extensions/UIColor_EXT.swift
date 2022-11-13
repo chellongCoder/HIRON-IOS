@@ -10,9 +10,9 @@ import UIKit
 
 let kPrimaryColor           = UIColor.init(hexString: "1890FF")!
 let kDefaultTextColor       = UIColor.init(hexString: "172B4D")!
-let kBackgroundColor        = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+let kBackgroundColor        = UIColor.white
 let kDisableColor           = UIColor.init(hexString: "D9D9D9")!
-let kRedHightLightColor     = UIColor.init(hexString: "FA4169")!
+let kRedHightLightColor     = UIColor.init(hexString: "ff6d6f")!
 
 extension UIColor {
     

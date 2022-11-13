@@ -649,8 +649,8 @@
 				933D192F2819946800F1CCC4 /* UIView_EXT.swift */,
 				933D19302819946800F1CCC4 /* String_EXT.swift */,
 				933D19312819946800F1CCC4 /* UIColor_EXT.swift */,
-				B55B372C2836425B005245AB /* Utils.swift */,
 				9301757C28848A8D00151A4B /* UIImage_EXT.swift */,
+				B55B372C2836425B005245AB /* Utils.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1204,8 +1204,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 933D19072819935E00F1CCC4 /* Build configuration list for PBXNativeTarget "Heron" */;
 			buildPhases = (
-				93A3C1A12874E355003A20F1 /* SwiftLint */,
 				46069F85B42A8FE8B828ACE4 /* [CP] Check Pods Manifest.lock */,
+				93A3C1A12874E355003A20F1 /* SwiftLint */,
 				933D18D62819935900F1CCC4 /* Sources */,
 				933D18D72819935900F1CCC4 /* Frameworks */,
 				933D18D82819935900F1CCC4 /* Resources */,
