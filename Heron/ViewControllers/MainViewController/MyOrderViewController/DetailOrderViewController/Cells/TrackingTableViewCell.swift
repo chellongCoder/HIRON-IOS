@@ -26,13 +26,13 @@ class TrackingTableViewCell: UITableViewCell {
         
         let shippingInfoTitle = UILabel()
         shippingInfoTitle.text = "Shipping & Handling Information"
-        shippingInfoTitle.font = getFontSize(size: 16, weight: .medium)
+        shippingInfoTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(shippingInfoTitle)
         shippingInfoTitle.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
         }
         
-        shippingCarrierLabel.font = getFontSize(size: 14, weight: .regular)
+        shippingCarrierLabel.font = getCustomFont(size: 14, name: .regular)
         shippingCarrierLabel.text = "Express"
         contentView.addSubview(shippingCarrierLabel)
         shippingCarrierLabel.snp.makeConstraints {

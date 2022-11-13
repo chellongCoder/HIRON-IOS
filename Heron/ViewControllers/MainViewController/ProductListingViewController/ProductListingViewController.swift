@@ -78,7 +78,7 @@ class ProductListingViewController: BaseViewController,
         let noDataLabel = UILabel()
         noDataLabel.textAlignment = .center
         noDataLabel.numberOfLines = 0
-        noDataLabel.font = getFontSize(size: 16, weight: .regular)
+        noDataLabel.font = getCustomFont(size: 16, name: .regular)
         noDataLabel.text = "No any data to display"
         noDataView.addSubview(noDataLabel)
         noDataLabel.snp.makeConstraints { (make) in

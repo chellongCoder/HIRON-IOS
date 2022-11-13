@@ -47,7 +47,7 @@ class MyOrderCell: UITableViewCell {
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getFontSize(size: 14, weight: .regular)
+        productTitleLabel.font = getCustomFont(size: 14, name: .regular)
         productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
@@ -59,7 +59,7 @@ class MyOrderCell: UITableViewCell {
         
         tagContentLabel.backgroundColor = UIColor.init(hexString: "F0F0F0")
         tagContentLabel.textColor = kDefaultTextColor
-        tagContentLabel.font = getFontSize(size: 12, weight: .regular)
+        tagContentLabel.font = getCustomFont(size: 12, name: .regular)
         tagContentLabel.numberOfLines = 0
         contentView.addSubview(tagContentLabel)
         tagContentLabel.snp.makeConstraints { make in
@@ -78,7 +78,7 @@ class MyOrderCell: UITableViewCell {
         
         priceDiscount.text = "$0.00"
         priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getFontSize(size: 14, weight: .regular)
+        priceDiscount.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
             make.top.equalTo(priceLabel.snp.bottom)
@@ -87,7 +87,7 @@ class MyOrderCell: UITableViewCell {
         
         countLabel.text = "x0"
         countLabel.textColor = kDefaultTextColor
-        countLabel.font = getFontSize(size: 12, weight: .regular)
+        countLabel.font = getCustomFont(size: 12, name: .regular)
         countLabel.textAlignment = .right
         contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { make in

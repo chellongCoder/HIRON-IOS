@@ -8,22 +8,35 @@
 
 import UIKit
 
-enum FontWeight: String {
-    case light          = "SFProText-Light"
-    case regular        = "SFProText-Regular"
-    case medium         = "SFProText-Medium"
-    case semibold       = "SFProText-Semibold"
-    case bold           = "SFProText-Bold"
-    case heavy          = "SFProText-Heavy"
-
-    case lightItalic    = "SFProText-LightItalic"
-    case regularItalic  = "SFProText-RegularItalic"
-    case mediumItalic   = "SFProText-MediumItalic"
-    case semiboldItalic = "SFProText-SemiboldItalic"
-    case boldItalic     = "SFProText-BoldItalic"
-    case heavyItalic    = "SFProText-HeavyItalic"
+enum FontName: String {
+    
+    case extraLight     = "Mulish ExtraLight"
+    case light          = "Mulish-Light"
+    case regular        = "Mulish-Regular"
+    case black          = "Mulish-Black"
+    case medium         = "Mulish-Medium"
+    case semiBold       = "Mulish-SemiBold"
+    case bold           = "Mulish-Bold"
+    case extraBold      = "Mulish-ExtraBold"
+    
+    // italic
+    case extraLightItalic   = "Mulish-ExtraLightItalic"
+    case lightItalic        = "Mulish-LightItalic"
+    case italic             = "Mulish-Italic"
+    case blackItalic        = "Mulish-BlackItalic"
+    case mediumItalic       = "Mulish-MediumItalic"
+    case semiBoldItalic     = "Mulish-SemiBoldItalic"
+    case boldItalic         = "Mulish-BoldItalic"
+    case extraBoldItalic    = "Mulish-ExtraBoldItalic"
 }
 
-func getFontSize (size: CGFloat, weight: FontWeight) -> UIFont {
-    return UIFont.init(name: weight.rawValue, size: size)!
+func getCustomFont (size: CGFloat, name: FontName) -> UIFont {
+    guard let customFont = UIFont(name: name.rawValue, size: size) else {
+        fatalError("""
+            Failed to load the \(name.rawValue) font.
+            Make sure the font file is included in the project and the font name is spelled correctly.
+            """
+        )
+    }
+    return customFont
 }

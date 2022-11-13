@@ -66,7 +66,7 @@ class AccountInfoViewController: BaseViewController,
         let accountInfoLabel = UILabel()
         accountInfoLabel.textAlignment = .center
         accountInfoLabel.text = "Account Info"
-        accountInfoLabel.font = getFontSize(size: 24, weight: .bold)
+        accountInfoLabel.font = getCustomFont(size: 24, name: .bold)
         accountInfoLabel.textColor = kDefaultTextColor
         childVỉew.addSubview(accountInfoLabel)
         accountInfoLabel.snp.makeConstraints {

@@ -108,7 +108,7 @@ class UserSubscriptionViewController: BaseViewController {
         statusLabel.textColor = kDefaultTextColor
         statusLabel.numberOfLines = 0
         statusLabel.textColor = UIColor.init(hexString: "444444")
-        statusLabel.font = getFontSize(size: 14, weight: .regular)
+        statusLabel.font = getCustomFont(size: 14, name: .regular)
         self.subsctionView.addSubview(statusLabel)
         statusLabel.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(10)
@@ -120,7 +120,7 @@ class UserSubscriptionViewController: BaseViewController {
         subscriptionNameLabel.textColor = kDefaultTextColor
         subscriptionNameLabel.numberOfLines = 0
         subscriptionNameLabel.textColor = UIColor.init(hexString: "444444")
-        subscriptionNameLabel.font = getFontSize(size: 14, weight: .regular)
+        subscriptionNameLabel.font = getCustomFont(size: 14, name: .regular)
         self.subsctionView.addSubview(subscriptionNameLabel)
         subscriptionNameLabel.snp.makeConstraints { make in
             make.top.equalTo(statusLabel.snp.bottom)
@@ -134,7 +134,7 @@ class UserSubscriptionViewController: BaseViewController {
         startDateLabel.textColor = kDefaultTextColor
         startDateLabel.numberOfLines = 0
         startDateLabel.textColor = UIColor.init(hexString: "444444")
-        startDateLabel.font = getFontSize(size: 14, weight: .regular)
+        startDateLabel.font = getCustomFont(size: 14, name: .regular)
         self.subsctionView.addSubview(startDateLabel)
         startDateLabel.snp.makeConstraints { make in
             make.top.equalTo(subscriptionNameLabel.snp.bottom)
@@ -148,7 +148,7 @@ class UserSubscriptionViewController: BaseViewController {
         endDateLabel.textColor = kDefaultTextColor
         endDateLabel.numberOfLines = 0
         endDateLabel.textColor = UIColor.init(hexString: "444444")
-        endDateLabel.font = getFontSize(size: 14, weight: .regular)
+        endDateLabel.font = getCustomFont(size: 14, name: .regular)
         self.subsctionView.addSubview(endDateLabel)
         endDateLabel.snp.makeConstraints { make in
             make.top.equalTo(startDateLabel.snp.bottom)
@@ -233,7 +233,7 @@ class UserSubscriptionViewController: BaseViewController {
                 statusLabel.textColor = kDefaultTextColor
                 statusLabel.numberOfLines = 0
                 statusLabel.textColor = UIColor.init(hexString: "444444")
-                statusLabel.font = getFontSize(size: 14, weight: .regular)
+                statusLabel.font = getCustomFont(size: 14, name: .regular)
                 self.subsctionView.addSubview(statusLabel)
                 statusLabel.snp.makeConstraints { make in
                     make.top.left.equalToSuperview().offset(10)

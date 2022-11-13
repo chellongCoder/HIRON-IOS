@@ -62,15 +62,15 @@ class SubscriptionPaymentViewController: BaseViewController {
                 
         let choosedPlanIs = UILabel()
         choosedPlanIs.textColor = kDefaultTextColor
-        choosedPlanIs.font = getFontSize(size: 16, weight: .bold)
+        choosedPlanIs.font = getCustomFont(size: 16, name: .bold)
         choosedPlanIs.text = "Your choosen plan is:"
         
         selectedPlanName.text = "Annually subscription"
         selectedPlanName.textColor = .white
-        selectedPlanName.font = getFontSize(size: 20, weight: .medium)
+        selectedPlanName.font = getCustomFont(size: 20, name: .medium)
         
         pricelbl.textColor = .white
-        pricelbl.font = getFontSize(size: 24, weight: .bold)
+        pricelbl.font = getCustomFont(size: 24, name: .bold)
         
         let hstack = UIStackView()
         hstack.axis  = .horizontal

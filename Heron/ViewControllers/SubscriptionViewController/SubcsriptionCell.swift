@@ -29,7 +29,7 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .white
-        titleLabel.font = getFontSize(size: 14, weight: .medium)
+        titleLabel.font = getCustomFont(size: 14, name: .medium)
         cardView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
@@ -40,7 +40,7 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
         priceLabel.textAlignment = .center
         priceLabel.numberOfLines = 1
         priceLabel.textColor = .white
-        priceLabel.font = getFontSize(size: 24, weight: .bold)
+        priceLabel.font = getCustomFont(size: 24, name: .bold)
         cardView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
@@ -48,7 +48,7 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
         
         intervalLabel.textAlignment = .center
         intervalLabel.textColor = .white
-        intervalLabel.font = getFontSize(size: 12, weight: .bold)
+        intervalLabel.font = getCustomFont(size: 12, name: .bold)
         cardView.addSubview(intervalLabel)
         intervalLabel.snp.makeConstraints { make in
             make.top.equalTo(priceLabel.snp.bottom)
@@ -60,7 +60,7 @@ class SubcriptionCollectionViewCell: UICollectionViewCell {
 //        footerLabel.textAlignment = .center
 //        footerLabel.numberOfLines = 0
 //        footerLabel.textColor = .white
-//        footerLabel.font = getFontSize(size: 12, weight: .medium)
+//        footerLabel.font = getCustomFont(size: 12, weight: .medium)
 //        cardView.addSubview(footerLabel)
 //        footerLabel.snp.makeConstraints { make in
 //            make.bottom.equalToSuperview().offset(-10)

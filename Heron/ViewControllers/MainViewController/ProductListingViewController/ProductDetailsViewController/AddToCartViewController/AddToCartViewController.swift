@@ -107,7 +107,7 @@ class AddToCartViewController: UIViewController {
         discountPercent.backgroundColor = .red
         discountPercent.textColor = .white
         discountPercent.layer.cornerRadius = 4
-        discountPercent.font = getFontSize(size: 20, weight: .heavy)
+        discountPercent.font = getCustomFont(size: 20, name: .extraBold)
         contentView.addSubview(discountPercent)
         discountPercent.snp.makeConstraints { make in
             make.top.equalTo(packageImage.snp.top).offset(-5)
@@ -123,7 +123,7 @@ class AddToCartViewController: UIViewController {
         
         productTitleLabel.text = productData?.name ?? ""
         productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getFontSize(size: 16, weight: .medium)
+        productTitleLabel.font = getCustomFont(size: 16, name: .medium)
         productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
@@ -135,7 +135,7 @@ class AddToCartViewController: UIViewController {
                 
         priceDiscount.text = getMoneyFormat(productData?.customFinalPrice)
         priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getFontSize(size: 14, weight: .regular)
+        priceDiscount.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
             make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
@@ -153,7 +153,7 @@ class AddToCartViewController: UIViewController {
         
         tagsContent.text = ""
         tagsContent.numberOfLines = 0
-        tagsContent.font = getFontSize(size: 12, weight: .regular)
+        tagsContent.font = getCustomFont(size: 12, name: .regular)
         tagsContent.textColor = kDefaultTextColor
         contentView.addSubview(tagsContent)
         tagsContent.snp.makeConstraints { make in
@@ -173,7 +173,7 @@ class AddToCartViewController: UIViewController {
         
         let quantityLabel = UILabel()
         quantityLabel.text = "Quantity :"
-        quantityLabel.font = getFontSize(size: 16, weight: .medium)
+        quantityLabel.font = getCustomFont(size: 16, name: .medium)
         quantityLabel.textColor = kDefaultTextColor
         contentView.addSubview(quantityLabel)
         quantityLabel.snp.makeConstraints { make in

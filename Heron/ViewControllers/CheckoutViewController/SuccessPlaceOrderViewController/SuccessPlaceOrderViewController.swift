@@ -29,7 +29,7 @@ class SuccessPlaceOrderViewController: UIViewController {
         let orderplacedTitle = UILabel()
         orderplacedTitle.text = "Order placed"
         orderplacedTitle.textColor = kPrimaryColor
-        orderplacedTitle.font = getFontSize(size: 20, weight: .medium)
+        orderplacedTitle.font = getCustomFont(size: 20, name: .medium)
         orderplacedTitle.textAlignment = .center
         self.view.addSubview(orderplacedTitle)
         orderplacedTitle.snp.makeConstraints { make in
@@ -42,7 +42,7 @@ class SuccessPlaceOrderViewController: UIViewController {
         orderplacedMessage.text = String(format: "Your order: #%@ has been received and is being processed. Please check the delivery status at My Order screen", self.listOrders.first?.code ?? "" )
         orderplacedMessage.textAlignment = .center
         orderplacedMessage.textColor = kDefaultTextColor
-        orderplacedMessage.font = getFontSize(size: 14, weight: .regular)
+        orderplacedMessage.font = getCustomFont(size: 14, name: .regular)
         orderplacedMessage.numberOfLines = 0
         self.view.addSubview(orderplacedMessage)
         orderplacedMessage.snp.makeConstraints { make in

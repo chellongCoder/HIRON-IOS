@@ -34,7 +34,7 @@ class BookingPaymentTableViewCell: UITableViewCell {
         let paymentMethodTitle = UILabel()
         paymentMethodTitle.text = "Payment method"
         paymentMethodTitle.textColor = kDefaultTextColor
-        paymentMethodTitle.font = getFontSize(size: 16, weight: .medium)
+        paymentMethodTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(paymentMethodTitle)
         paymentMethodTitle.snp.makeConstraints { make in
             make.centerY.equalTo(creditIcon)
@@ -45,7 +45,7 @@ class BookingPaymentTableViewCell: UITableViewCell {
         let paymentCardType = UILabel()
         paymentCardType.text = "HARD_CODE: Credit / Debit card"
         paymentCardType.textColor = kDefaultTextColor
-        paymentCardType.font = getFontSize(size: 16, weight: .regular)
+        paymentCardType.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(paymentCardType)
         paymentCardType.snp.makeConstraints { make in
             make.top.equalTo(paymentMethodTitle.snp.bottom).offset(5)
@@ -56,7 +56,7 @@ class BookingPaymentTableViewCell: UITableViewCell {
         let creditCardNum = UILabel()
         creditCardNum.text = "HARD_CODE: *1234"
         creditCardNum.textColor = kDefaultTextColor
-        creditCardNum.font = getFontSize(size: 16, weight: .regular)
+        creditCardNum.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(creditCardNum)
         creditCardNum.snp.makeConstraints { make in
             make.top.equalTo(paymentCardType.snp.bottom)

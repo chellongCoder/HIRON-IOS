@@ -91,7 +91,7 @@ class MyOrderViewController: BaseViewController,
         allBtn.setTitle("   ALL   ", for: .normal)
         allBtn.setTitleColor(kDefaultTextColor, for: .normal)
         allBtn.setTitleColor(kPrimaryColor, for: .selected)
-        allBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        allBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(allBtn)
         allBtn.snp.makeConstraints { (make) in
             make.left.top.bottom.equalToSuperview()
@@ -102,7 +102,7 @@ class MyOrderViewController: BaseViewController,
 //        pendingBtn.setTitle("   PENDING   ", for: .normal)
 //        pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
 //        pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
-//        pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+//        pendingBtn.titleLabel?.font = getCustomFont(size: 12, weight: .semibold)
 //        stackView.addSubview(pendingBtn)
 //        pendingBtn.snp.makeConstraints { (make) in
 //            make.left.equalTo(allBtn.snp.right).offset(2)
@@ -114,7 +114,7 @@ class MyOrderViewController: BaseViewController,
         confirmedBtn.setTitle("   CONFIRMED   ", for: .normal)
         confirmedBtn.setTitleColor(kDefaultTextColor, for: .normal)
         confirmedBtn.setTitleColor(kPrimaryColor, for: .selected)
-        confirmedBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        confirmedBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(confirmedBtn)
         confirmedBtn.snp.makeConstraints { (make) in
             make.left.equalTo(allBtn.snp.right).offset(2)
@@ -126,7 +126,7 @@ class MyOrderViewController: BaseViewController,
         processingBtn.setTitle("   ON-DELIVERY   ", for: .normal)
         processingBtn.setTitleColor(kDefaultTextColor, for: .normal)
         processingBtn.setTitleColor(kPrimaryColor, for: .selected)
-        processingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        processingBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(processingBtn)
         processingBtn.snp.makeConstraints { (make) in
             make.left.equalTo(confirmedBtn.snp.right).offset(2)
@@ -139,7 +139,7 @@ class MyOrderViewController: BaseViewController,
         completeBtn.setTitle("   RECEIVED   ", for: .normal)
         completeBtn.setTitleColor(kDefaultTextColor, for: .normal)
         completeBtn.setTitleColor(kPrimaryColor, for: .selected)
-        completeBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        completeBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { (make) in
             make.left.equalTo(processingBtn.snp.right).offset(2)
@@ -151,7 +151,7 @@ class MyOrderViewController: BaseViewController,
         canceledBtn.setTitle("   CANCELED   ", for: .normal)
         canceledBtn.setTitleColor(kDefaultTextColor, for: .normal)
         canceledBtn.setTitleColor(kPrimaryColor, for: .selected)
-        canceledBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        canceledBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(canceledBtn)
         canceledBtn.snp.makeConstraints { (make) in
             make.left.equalTo(completeBtn.snp.right).offset(2)
@@ -271,7 +271,7 @@ class MyOrderViewController: BaseViewController,
         let title = UILabel()
         title.text = orderData.store?.name ?? ""
         title.textColor = kDefaultTextColor
-        title.font = getFontSize(size: 16, weight: .bold)
+        title.font = getCustomFont(size: 16, name: .bold)
         
         headerView.addSubview(title)
         title.snp.makeConstraints {
@@ -281,7 +281,7 @@ class MyOrderViewController: BaseViewController,
         let status = UILabel()
         status.text = String(format: " %@ ", orderData.getOrderStatusValue())
         status.textColor = kPrimaryColor
-        status.font = getFontSize(size: 14, weight: .regular)
+        status.font = getCustomFont(size: 14, name: .regular)
         status.layer.borderWidth = 1
         status.layer.borderColor = kPrimaryColor.cgColor
         headerView.addSubview(status)

@@ -13,23 +13,21 @@ class ChipView: UIView {
     
     init(title: String) {
         super.init(frame: .zero)
-        self.backgroundColor = UIColor(hexString: "E4E7EB")?.withAlphaComponent(0.4)
+        self.backgroundColor = UIColor(hexString: "f6f6f6")
         
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 2
         self.layer.masksToBounds = true
-        self.layer.borderWidth = 1
-        self.layer.borderColor = kDefaultTextColor.cgColor
                 
         self.textLabel.text = title
-        self.textLabel.textColor = .white
-        self.textLabel.font = getFontSize(size: 12, weight: .medium)
+        self.textLabel.textColor = kDefaultTextColor
+        self.textLabel.font = getCustomFont(size: 9, name: .regular)
         self.textLabel.textColor = kDefaultTextColor
         self.textLabel.textAlignment = .center
         self.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(-4)
+            make.width.equalToSuperview().offset(-8)
+            make.height.equalToSuperview().offset(-5)
         }
     }
     

@@ -66,11 +66,11 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         
         let subcriptionLabel = UILabel()
         subcriptionLabel.text = "Which plan do you wanna use?"
-        subcriptionLabel.font = getFontSize(size: 16, weight: .bold)
+        subcriptionLabel.font = getCustomFont(size: 16, name: .bold)
         
         let subcriptionLabel2 = UILabel()
         subcriptionLabel2.text = "Save up to 15%"
-        subcriptionLabel2.font = getFontSize(size: 14, weight: .regular)
+        subcriptionLabel2.font = getCustomFont(size: 14, name: .regular)
         
         skipBtn.setTitle("Skip", for: .normal)
         skipBtn.addTarget(self, action: #selector(continueActionTapped), for: .touchUpInside)

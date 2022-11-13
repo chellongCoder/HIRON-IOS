@@ -45,7 +45,7 @@ class ConfirmBookingViewController: BaseViewController,
         
         priceLabel.text = "Total: $0.00/ section"
         priceLabel.textColor = kDefaultTextColor
-        priceLabel.font = getFontSize(size: 16, weight: .medium)
+        priceLabel.font = getCustomFont(size: 16, name: .medium)
         bottomView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

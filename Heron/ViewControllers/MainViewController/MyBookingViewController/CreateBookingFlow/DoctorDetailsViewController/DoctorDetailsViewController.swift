@@ -46,7 +46,7 @@ class DoctorDetailsViewController: PageScrollViewController {
             make.bottom.equalTo(doctorAvatar.snp.top).offset(staticHeight + 50)
         }
         
-        doctorTitle.font = getFontSize(size: 20, weight: .medium)
+        doctorTitle.font = getCustomFont(size: 20, name: .medium)
         doctorTitle.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         doctorTitle.numberOfLines = 0
         contentView.addSubview(doctorTitle)
@@ -57,7 +57,7 @@ class DoctorDetailsViewController: PageScrollViewController {
         }
         
         starView.text = "★★★★★"
-        starView.font = getFontSize(size: 16, weight: .medium)
+        starView.font = getCustomFont(size: 16, name: .medium)
         starView.textColor = UIColor.init(hexString: "F1C644")
         contentView.addSubview(starView)
         starView.snp.makeConstraints { make in
@@ -84,7 +84,7 @@ class DoctorDetailsViewController: PageScrollViewController {
         let aboutTitle = UILabel()
         aboutTitle.text = "About"
         aboutTitle.textColor = kDefaultTextColor
-        aboutTitle.font = getFontSize(size: 16, weight: .medium)
+        aboutTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(aboutTitle)
         aboutTitle.snp.makeConstraints { make in
             make.top.equalTo(tagsViewScroll.snp.bottom).offset(50)
@@ -99,7 +99,7 @@ class DoctorDetailsViewController: PageScrollViewController {
             self.aboutContents.text = aboutAttribute.value
         }
         aboutContents.textColor = kDefaultTextColor
-        aboutContents.font = getFontSize(size: 14, weight: .regular)
+        aboutContents.font = getCustomFont(size: 14, name: .regular)
         aboutContents.numberOfLines = 0
         contentView.addSubview(aboutContents)
         aboutContents.snp.makeConstraints { make in
@@ -111,7 +111,7 @@ class DoctorDetailsViewController: PageScrollViewController {
         let workExpTitle = UILabel()
         workExpTitle.text = "Work Experience"
         workExpTitle.textColor = kDefaultTextColor
-        workExpTitle.font = getFontSize(size: 16, weight: .medium)
+        workExpTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(workExpTitle)
         workExpTitle.snp.makeConstraints { make in
             make.top.equalTo(aboutContents.snp.bottom).offset(16)
@@ -126,7 +126,7 @@ class DoctorDetailsViewController: PageScrollViewController {
             self.workExpContents.text = workExperienceAttribute.value
         }
         workExpContents.textColor = kDefaultTextColor
-        workExpContents.font = getFontSize(size: 14, weight: .regular)
+        workExpContents.font = getCustomFont(size: 14, name: .regular)
         workExpContents.numberOfLines = 0
         contentView.addSubview(workExpContents)
         workExpContents.snp.makeConstraints { make in
@@ -138,7 +138,7 @@ class DoctorDetailsViewController: PageScrollViewController {
         let certificateTitle = UILabel()
         certificateTitle.text = "Certificate"
         certificateTitle.textColor = kDefaultTextColor
-        certificateTitle.font = getFontSize(size: 16, weight: .medium)
+        certificateTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(certificateTitle)
         certificateTitle.snp.makeConstraints { make in
             make.top.equalTo(workExpContents.snp.bottom).offset(16)
@@ -153,7 +153,7 @@ class DoctorDetailsViewController: PageScrollViewController {
             self.certContents.text = certificateAttribute.value
         }
         certContents.textColor = kDefaultTextColor
-        certContents.font = getFontSize(size: 14, weight: .regular)
+        certContents.font = getCustomFont(size: 14, name: .regular)
         certContents.numberOfLines = 0
         contentView.addSubview(certContents)
         certContents.snp.makeConstraints { make in

@@ -23,7 +23,7 @@ class CarrierView: UIView {
         let carrierTitle = UILabel()
         carrierTitle.text = "Carrier"
         carrierTitle.textColor = kDefaultTextColor
-        carrierTitle.font = getFontSize(size: 14, weight: .medium)
+        carrierTitle.font = getCustomFont(size: 14, name: .medium)
         self.addSubview(carrierTitle)
         carrierTitle.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(20)
@@ -31,7 +31,7 @@ class CarrierView: UIView {
         
         carrierName.text = "Grab"
         carrierName.textColor = kDefaultTextColor
-        carrierName.font = getFontSize(size: 12, weight: .regular)
+        carrierName.font = getCustomFont(size: 12, name: .regular)
         self.addSubview(carrierName)
         carrierName.snp.makeConstraints { make in
             make.top.equalTo(carrierTitle.snp.bottom)
@@ -49,7 +49,7 @@ class CarrierView: UIView {
         
         shippingFee.text = "$0.0"
         shippingFee.textAlignment = .right
-        shippingFee.font = getFontSize(size: 14, weight: .regular)
+        shippingFee.font = getCustomFont(size: 14, name: .regular)
         self.addSubview(shippingFee)
         shippingFee.snp.makeConstraints { make in
             make.centerY.equalTo(nextMarkIcon)
@@ -68,7 +68,7 @@ class CarrierView: UIView {
         
         receivedLog.text = "Receive order on "
         receivedLog.textColor = UIColor.init(hexString: "444444")
-        receivedLog.font = getFontSize(size: 12, weight: .medium)
+        receivedLog.font = getCustomFont(size: 12, name: .medium)
         self.addSubview(receivedLog)
         receivedLog.snp.makeConstraints { make in
             make.centerY.equalTo(profileIcon)

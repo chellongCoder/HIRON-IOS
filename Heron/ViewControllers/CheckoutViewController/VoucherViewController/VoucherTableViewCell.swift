@@ -40,7 +40,7 @@ class VoucherTableViewCell: UITableViewCell {
         promoValue.textAlignment = .center
         promoValue.textColor = kDefaultTextColor
         promoValue.backgroundColor = kBackgroundColor
-        promoValue.font = getFontSize(size: 14, weight: .medium)
+        promoValue.font = getCustomFont(size: 14, name: .medium)
         contentView.addSubview(promoValue)
         promoValue.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(10)
@@ -49,7 +49,7 @@ class VoucherTableViewCell: UITableViewCell {
         }
         
         titleLabel.text = ""
-        titleLabel.font = getFontSize(size: 14, weight: .medium)
+        titleLabel.font = getCustomFont(size: 14, name: .medium)
         titleLabel.textColor = kDefaultTextColor
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
@@ -60,7 +60,7 @@ class VoucherTableViewCell: UITableViewCell {
         
         dateAvailableLabel.text = ""
         dateAvailableLabel.numberOfLines = 0
-        dateAvailableLabel.font = getFontSize(size: 14, weight: .regular)
+        dateAvailableLabel.font = getCustomFont(size: 14, name: .regular)
         dateAvailableLabel.textColor = kDefaultTextColor
         contentView.addSubview(dateAvailableLabel)
         dateAvailableLabel.snp.makeConstraints { (make) in

@@ -26,7 +26,7 @@ class VariantButton: UIButton {
         self.layer.borderWidth = 1
                 
         self.setTitleColor(.white, for: .selected)
-        self.titleLabel?.font = getFontSize(size: 12, weight: .medium)
+        self.titleLabel?.font = getCustomFont(size: 12, name: .medium)
         self.setTitle(String(format: "  %@  ", variantValue?.value ?? ""), for: .normal)
         self.setTitleColor(kDefaultTextColor, for: .normal)
         

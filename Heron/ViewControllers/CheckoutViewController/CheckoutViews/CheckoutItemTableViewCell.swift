@@ -49,7 +49,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         
         productTitleLabel.text = ""
         productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getFontSize(size: 16, weight: .medium)
+        productTitleLabel.font = getCustomFont(size: 16, name: .medium)
         productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
@@ -61,7 +61,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         
         tagsContent.text = ""
         tagsContent.numberOfLines = 0
-        tagsContent.font = getFontSize(size: 12, weight: .regular)
+        tagsContent.font = getCustomFont(size: 12, name: .regular)
         tagsContent.textColor = kDefaultTextColor
         contentView.addSubview(tagsContent)
         tagsContent.snp.makeConstraints { (make) in
@@ -72,7 +72,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
 
         priceDiscount.text = "$ 10.00"
         priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getFontSize(size: 14, weight: .regular)
+        priceDiscount.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
             make.top.equalTo(tagsContent.snp.bottom).offset(10)
@@ -90,7 +90,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
         }
         
         countLabel.text = "x1"
-        countLabel.font = getFontSize(size: 16, weight: .medium)
+        countLabel.font = getCustomFont(size: 16, name: .medium)
         countLabel.textColor = kDefaultTextColor
         countLabel.textAlignment = .right
         contentView.addSubview(countLabel)

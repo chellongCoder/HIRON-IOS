@@ -34,7 +34,7 @@ class BookingDoctorTableViewCell: UITableViewCell {
         let doctorInforName = UILabel()
         doctorInforName.text = "Mr Mike Lee"
         doctorInforName.textColor = kDefaultTextColor
-        doctorInforName.font = getFontSize(size: 16, weight: .medium)
+        doctorInforName.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(doctorInforName)
         doctorInforName.snp.makeConstraints { make in
             make.centerY.equalTo(doctorIcon)
@@ -44,7 +44,7 @@ class BookingDoctorTableViewCell: UITableViewCell {
         
         let doctorInfoTags = UILabel()
         doctorInfoTags.textColor = kDefaultTextColor
-        doctorInfoTags.font = getFontSize(size: 16, weight: .regular)
+        doctorInfoTags.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(doctorInfoTags)
         doctorInfoTags.snp.makeConstraints { make in
             make.top.equalTo(doctorInforName.snp.bottom).offset(5)
@@ -54,7 +54,7 @@ class BookingDoctorTableViewCell: UITableViewCell {
         
         let doctorInfoDean = UILabel()
         doctorInfoDean.textColor = kDefaultTextColor
-        doctorInfoDean.font = getFontSize(size: 16, weight: .regular)
+        doctorInfoDean.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(doctorInfoDean)
         doctorInfoDean.snp.makeConstraints { make in
             make.top.equalTo(doctorInfoTags.snp.bottom)

@@ -34,7 +34,7 @@ class BookingProfileTableViewCell: UITableViewCell {
         let customerTitle = UILabel()
         customerTitle.text = "Customer"
         customerTitle.textColor = kDefaultTextColor
-        customerTitle.font = getFontSize(size: 16, weight: .medium)
+        customerTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(customerTitle)
         customerTitle.snp.makeConstraints { make in
             make.centerY.equalTo(patientIcon)
@@ -44,7 +44,7 @@ class BookingProfileTableViewCell: UITableViewCell {
         
         let patientInfo = UILabel()
         patientInfo.textColor = kDefaultTextColor
-        patientInfo.font = getFontSize(size: 16, weight: .regular)
+        patientInfo.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(patientInfo)
         patientInfo.snp.makeConstraints { make in
             make.top.equalTo(customerTitle.snp.bottom).offset(5)
@@ -54,7 +54,7 @@ class BookingProfileTableViewCell: UITableViewCell {
         
         let patientEmail = UILabel()
         patientEmail.textColor = kDefaultTextColor
-        patientEmail.font = getFontSize(size: 16, weight: .regular)
+        patientEmail.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(patientEmail)
         patientEmail.snp.makeConstraints { make in
             make.top.equalTo(patientInfo.snp.bottom)

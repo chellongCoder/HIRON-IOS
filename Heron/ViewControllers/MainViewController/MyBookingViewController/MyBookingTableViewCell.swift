@@ -34,7 +34,7 @@ class MyBookingTableViewCell: UITableViewCell {
         
         storeNameLabel.text = "HARD_CODE"
         storeNameLabel.textColor = kDefaultTextColor
-        storeNameLabel.font = getFontSize(size: 16, weight: .bold)
+        storeNameLabel.font = getCustomFont(size: 16, name: .bold)
         contentView.addSubview(storeNameLabel)
         storeNameLabel.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(8)
@@ -43,7 +43,7 @@ class MyBookingTableViewCell: UITableViewCell {
         
         bookingStatusLabel.text = " HARD_CODE "
         bookingStatusLabel.textColor = kPrimaryColor
-        bookingStatusLabel.font = getFontSize(size: 14, weight: .regular)
+        bookingStatusLabel.font = getCustomFont(size: 14, name: .regular)
         bookingStatusLabel.layer.borderWidth = 1
         bookingStatusLabel.layer.borderColor = kPrimaryColor.cgColor
         contentView.addSubview(bookingStatusLabel)
@@ -64,7 +64,7 @@ class MyBookingTableViewCell: UITableViewCell {
         
         timeableLabel.text = "HARD_CODE"
         timeableLabel.textColor = kDefaultTextColor
-        timeableLabel.font = getFontSize(size: 14, weight: .regular)
+        timeableLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(timeableLabel)
         timeableLabel.snp.makeConstraints { make in
             make.top.equalTo(storeNameLabel.snp.bottom).offset(8)
@@ -85,7 +85,7 @@ class MyBookingTableViewCell: UITableViewCell {
         addressBookingLabel.text = "HARD_CODE"
         addressBookingLabel.numberOfLines = 0
         addressBookingLabel.textColor = kDefaultTextColor
-        addressBookingLabel.font = getFontSize(size: 14, weight: .regular)
+        addressBookingLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(addressBookingLabel)
         addressBookingLabel.snp.makeConstraints { make in
             make.top.equalTo(timeableLabel.snp.bottom).offset(8)
@@ -106,7 +106,7 @@ class MyBookingTableViewCell: UITableViewCell {
         patientInfoLabel.text = "HARD_CODE"
         patientInfoLabel.numberOfLines = 0
         patientInfoLabel.textColor = kDefaultTextColor
-        patientInfoLabel.font = getFontSize(size: 14, weight: .regular)
+        patientInfoLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(patientInfoLabel)
         patientInfoLabel.snp.makeConstraints { make in
             make.top.equalTo(addressBookingLabel.snp.bottom).offset(8)
@@ -127,7 +127,7 @@ class MyBookingTableViewCell: UITableViewCell {
 //        doctorInfoLabel.text = "HARD_CODE"
 //        doctorInfoLabel.numberOfLines = 0
 //        doctorInfoLabel.textColor = kDefaultTextColor
-//        doctorInfoLabel.font = getFontSize(size: 14, weight: .regular)
+//        doctorInfoLabel.font = getCustomFont(size: 14, weight: .regular)
 //        contentView.addSubview(doctorInfoLabel)
 //        doctorInfoLabel.snp.makeConstraints { make in
 //            make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
@@ -148,7 +148,7 @@ class MyBookingTableViewCell: UITableViewCell {
         totalPaymentLabel.text = "HARD_CODE"
         totalPaymentLabel.numberOfLines = 0
         totalPaymentLabel.textColor = kDefaultTextColor
-        totalPaymentLabel.font = getFontSize(size: 14, weight: .regular)
+        totalPaymentLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(totalPaymentLabel)
         totalPaymentLabel.snp.makeConstraints { make in
             make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
@@ -169,7 +169,7 @@ class MyBookingTableViewCell: UITableViewCell {
         bookingIDLabel.text = "HARD_CODE"
         bookingIDLabel.numberOfLines = 0
         bookingIDLabel.textColor = kDefaultTextColor
-        bookingIDLabel.font = getFontSize(size: 14, weight: .regular)
+        bookingIDLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(bookingIDLabel)
         bookingIDLabel.snp.makeConstraints { make in
             make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)
@@ -181,7 +181,7 @@ class MyBookingTableViewCell: UITableViewCell {
         createAtLabel.text = ""
         createAtLabel.numberOfLines = 0
         createAtLabel.textColor = kDefaultTextColor
-        createAtLabel.font = getFontSize(size: 14, weight: .regular)
+        createAtLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(createAtLabel)
         createAtLabel.snp.makeConstraints { make in
             make.top.equalTo(bookingIDLabel.snp.bottom).offset(8)

@@ -101,7 +101,7 @@ class MyBookingsViewController: BaseViewController,
         allBtn.setTitle("   ALL   ", for: .normal)
         allBtn.setTitleColor(kDefaultTextColor, for: .normal)
         allBtn.setTitleColor(kPrimaryColor, for: .selected)
-        allBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        allBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(allBtn)
         allBtn.snp.makeConstraints { (make) in
             make.left.top.bottom.equalToSuperview()
@@ -112,7 +112,7 @@ class MyBookingsViewController: BaseViewController,
 //        pendingBtn.setTitle("   PENDING   ", for: .normal)
 //        pendingBtn.setTitleColor(kDefaultTextColor, for: .normal)
 //        pendingBtn.setTitleColor(kPrimaryColor, for: .selected)
-//        pendingBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+//        pendingBtn.titleLabel?.font = getCustomFont(size: 12, weight: .semibold)
 //        stackView.addSubview(pendingBtn)
 //        pendingBtn.snp.makeConstraints { (make) in
 //            make.left.equalTo(allBtn.snp.right).offset(2)
@@ -124,7 +124,7 @@ class MyBookingsViewController: BaseViewController,
         confirmedBtn.setTitle("   CONFIRMED   ", for: .normal)
         confirmedBtn.setTitleColor(kDefaultTextColor, for: .normal)
         confirmedBtn.setTitleColor(kPrimaryColor, for: .selected)
-        confirmedBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        confirmedBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(confirmedBtn)
         confirmedBtn.snp.makeConstraints { (make) in
             make.left.equalTo(allBtn.snp.right).offset(2)
@@ -136,7 +136,7 @@ class MyBookingsViewController: BaseViewController,
         completeBtn.setTitle("   COMPLETED   ", for: .normal)
         completeBtn.setTitleColor(kDefaultTextColor, for: .normal)
         completeBtn.setTitleColor(kPrimaryColor, for: .selected)
-        completeBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        completeBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { (make) in
             make.left.equalTo(confirmedBtn.snp.right).offset(2)
@@ -148,7 +148,7 @@ class MyBookingsViewController: BaseViewController,
         canceledBtn.setTitle("   CANCELED   ", for: .normal)
         canceledBtn.setTitleColor(kDefaultTextColor, for: .normal)
         canceledBtn.setTitleColor(kPrimaryColor, for: .selected)
-        canceledBtn.titleLabel?.font = getFontSize(size: 12, weight: .semibold)
+        canceledBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
         stackView.addSubview(canceledBtn)
         canceledBtn.snp.makeConstraints { (make) in
             make.left.equalTo(completeBtn.snp.right).offset(2)

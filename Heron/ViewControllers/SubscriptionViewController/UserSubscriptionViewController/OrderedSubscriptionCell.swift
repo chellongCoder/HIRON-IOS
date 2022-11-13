@@ -38,7 +38,7 @@ class OrderedSubscriptionCell: UITableViewCell {
         }
         
         orderCreatedAtLabel.textColor = kDefaultTextColor
-        orderCreatedAtLabel.font = getFontSize(size: 16, weight: .medium)
+        orderCreatedAtLabel.font = getCustomFont(size: 16, name: .medium)
         orderCreatedAtLabel.numberOfLines = 0
         contentView.addSubview(orderCreatedAtLabel)
         orderCreatedAtLabel.snp.makeConstraints { make in
@@ -48,7 +48,7 @@ class OrderedSubscriptionCell: UITableViewCell {
         }
         
         amountLabel.textColor = kDefaultTextColor
-        amountLabel.font = getFontSize(size: 14, weight: .regular)
+        amountLabel.font = getCustomFont(size: 14, name: .regular)
         amountLabel.numberOfLines = 0
         contentView.addSubview(amountLabel)
         amountLabel.snp.makeConstraints { make in
@@ -58,7 +58,7 @@ class OrderedSubscriptionCell: UITableViewCell {
         }
         
         subsNameLabel.textColor = kDefaultTextColor
-        subsNameLabel.font = getFontSize(size: 14, weight: .regular)
+        subsNameLabel.font = getCustomFont(size: 14, name: .regular)
         subsNameLabel.numberOfLines = 0
         contentView.addSubview(subsNameLabel)
         subsNameLabel.snp.makeConstraints { make in
@@ -68,7 +68,7 @@ class OrderedSubscriptionCell: UITableViewCell {
         }
         
         orderNumberLabel.textColor = kDefaultTextColor
-        orderNumberLabel.font = getFontSize(size: 14, weight: .medium)
+        orderNumberLabel.font = getCustomFont(size: 14, name: .medium)
         orderNumberLabel.numberOfLines = 0
         contentView.addSubview(orderNumberLabel)
         orderNumberLabel.snp.makeConstraints { make in

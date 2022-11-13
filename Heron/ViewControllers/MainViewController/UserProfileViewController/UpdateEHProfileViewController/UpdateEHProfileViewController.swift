@@ -62,7 +62,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
         nameLabel.textColor = kDefaultTextColor
         nameLabel.numberOfLines = 0
         nameLabel.textColor = UIColor.init(hexString: "444444")
-        nameLabel.font = getFontSize(size: 14, weight: .regular)
+        nameLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(nameLabel)
         nameLabel.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(10)
@@ -73,7 +73,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
         dobLabel.textColor = kDefaultTextColor
         dobLabel.numberOfLines = 0
         dobLabel.textColor = UIColor.init(hexString: "444444")
-        dobLabel.font = getFontSize(size: 14, weight: .regular)
+        dobLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(dobLabel)
         dobLabel.snp.makeConstraints { make in
             make.top.equalTo(nameLabel.snp.bottom)
@@ -85,7 +85,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
         genderLabel.textColor = kDefaultTextColor
         genderLabel.numberOfLines = 0
         genderLabel.textColor = UIColor.init(hexString: "444444")
-        genderLabel.font = getFontSize(size: 14, weight: .regular)
+        genderLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(genderLabel)
         genderLabel.snp.makeConstraints { make in
             make.top.equalTo(dobLabel.snp.bottom)
@@ -97,7 +97,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
         phoneLabel.textColor = kDefaultTextColor
         phoneLabel.numberOfLines = 0
         phoneLabel.textColor = UIColor.init(hexString: "444444")
-        phoneLabel.font = getFontSize(size: 14, weight: .regular)
+        phoneLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(phoneLabel)
         phoneLabel.snp.makeConstraints { make in
             make.top.equalTo(genderLabel.snp.bottom)
@@ -109,7 +109,7 @@ class UpdateEHProfileViewController: PageScrollViewController {
         emailLabel.textColor = kDefaultTextColor
         emailLabel.numberOfLines = 0
         emailLabel.textColor = UIColor.init(hexString: "444444")
-        emailLabel.font = getFontSize(size: 14, weight: .regular)
+        emailLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(emailLabel)
         emailLabel.snp.makeConstraints { make in
             make.top.equalTo(phoneLabel.snp.bottom)

@@ -42,7 +42,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         let chooseTime = UILabel()
         chooseTime.text = NSLocalizedString("Select time", comment: "")
         chooseTime.textColor = .lightGray
-        chooseTime.font = getFontSize(size: 16, weight: .medium)
+        chooseTime.font = getCustomFont(size: 16, name: .medium)
         self.view.addSubview(chooseTime)
         chooseTime.snp.makeConstraints {
             $0.top.equalTo(calendar.snp.bottom).offset(10)

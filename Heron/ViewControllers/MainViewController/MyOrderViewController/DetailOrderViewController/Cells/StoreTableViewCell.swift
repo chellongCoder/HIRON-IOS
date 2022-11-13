@@ -14,7 +14,7 @@ class StoreTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        storeLabel.font = getFontSize(size: 16, weight: .bold)
+        storeLabel.font = getCustomFont(size: 16, name: .bold)
         self.addSubview(storeLabel)
         storeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(10)

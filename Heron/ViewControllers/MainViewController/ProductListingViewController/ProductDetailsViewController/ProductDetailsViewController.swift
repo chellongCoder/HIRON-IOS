@@ -45,7 +45,7 @@ class ProductDetailsViewController: PageScrollViewController,
         
         addToCartBtn.backgroundColor = kPrimaryColor
         addToCartBtn.layer.cornerRadius = 8
-        addToCartBtn.titleLabel?.font = getFontSize(size: 16, weight: .medium)
+        addToCartBtn.titleLabel?.font = getCustomFont(size: 16, name: .medium)
         addToCartBtn.setTitle("Add to cart", for: .normal)
         addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
         self.view.addSubview(addToCartBtn)
@@ -98,7 +98,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.height.equalTo(15)
         }
         
-        packageTitle.font = getFontSize(size: 20, weight: .medium)
+        packageTitle.font = getCustomFont(size: 20, name: .medium)
         packageTitle.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         packageTitle.numberOfLines = 0
         contentView.addSubview(packageTitle)
@@ -111,7 +111,7 @@ class ProductDetailsViewController: PageScrollViewController,
 //        discountPercent.text = String(format: "-%.f%%", viewModel.productDataSource?.discountPercent ?? 0.0)
 //        discountPercent.backgroundColor = .red
 //        discountPercent.textColor = .white
-//        discountPercent.font = getFontSize(size: 20, weight: .semibold)
+//        discountPercent.font = getCustomFont(size: 20, weight: .semibold)
 //        self.contentView.addSubview(discountPercent)
 //        discountPercent.snp.makeConstraints { make in
 //            make.top.equalTo(packageTitle.snp.bottom).offset(5)
@@ -131,7 +131,7 @@ class ProductDetailsViewController: PageScrollViewController,
         }
         
         priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getFontSize(size: 14, weight: .regular)
+        priceDiscount.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
             make.top.equalTo(tagsViewStack.snp.bottom).offset(10)
@@ -147,7 +147,7 @@ class ProductDetailsViewController: PageScrollViewController,
         }
         
         starView.text = "★★★★★"
-        starView.font = getFontSize(size: 16, weight: .medium)
+        starView.font = getCustomFont(size: 16, name: .medium)
         starView.textColor = UIColor.init(hexString: "F1C644")
         contentView.addSubview(starView)
         starView.snp.makeConstraints { make in

@@ -15,15 +15,16 @@ class DiscountValueView: UIView {
         super.init(frame: frame)
         
         self.layer.cornerRadius = 4
-        self.backgroundColor = kRedHightLightColor
+        self.backgroundColor = kPinkColor
         
         contentLabel.text = "-50%"
-        contentLabel.textColor = .white
-        contentLabel.font = getFontSize(size: 11, weight: .heavy)
+        contentLabel.textColor = kRedHightLightColor
+        contentLabel.font = getCustomFont(size: 11, name: .extraBold)
         self.addSubview(contentLabel)
         contentLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.top.left.equalToSuperview().offset(5)
+            make.width.equalToSuperview().offset(-6)
+            make.height.equalToSuperview().offset(-3)
         }
     }
     

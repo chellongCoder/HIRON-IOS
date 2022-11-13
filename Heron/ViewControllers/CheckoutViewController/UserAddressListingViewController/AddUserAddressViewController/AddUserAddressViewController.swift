@@ -56,7 +56,7 @@ class AddUserAddressViewController: PageScrollViewController {
         let contactTitle = UILabel()
         contactTitle.text = "Contacts"
         contactTitle.textColor = kDefaultTextColor
-        contactTitle.font = getFontSize(size: 16, weight: .medium)
+        contactTitle.font = getCustomFont(size: 16, name: .medium)
         self.pageScroll.addSubview(contactTitle)
         contactTitle.snp.makeConstraints { make in
             make.top.left.equalToSuperview().offset(20)
@@ -123,7 +123,7 @@ class AddUserAddressViewController: PageScrollViewController {
         let addressTitle = UILabel()
         addressTitle.text = "Address"
         addressTitle.textColor = kDefaultTextColor
-        addressTitle.font = getFontSize(size: 16, weight: .medium)
+        addressTitle.font = getCustomFont(size: 16, name: .medium)
         self.pageScroll.addSubview(addressTitle)
         addressTitle.snp.makeConstraints { make in
             make.top.equalTo(emailTxt.snp.bottom).offset(30)
@@ -203,7 +203,7 @@ class AddUserAddressViewController: PageScrollViewController {
         let checkboxTitle = UILabel()
         checkboxTitle.text = "Using as default address"
         checkboxTitle.textColor = kPrimaryColor
-        checkboxTitle.font = getFontSize(size: 14, weight: .regular)
+        checkboxTitle.font = getCustomFont(size: 14, name: .regular)
         self.pageScroll.addSubview(checkboxTitle)
         checkboxTitle.snp.makeConstraints { make in
             make.centerY.equalTo(checkboxButton)

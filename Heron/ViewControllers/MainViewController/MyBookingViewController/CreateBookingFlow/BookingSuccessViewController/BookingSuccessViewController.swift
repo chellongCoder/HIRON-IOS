@@ -29,7 +29,7 @@ class BookingSuccessViewController: UIViewController {
         let orderplacedTitle = UILabel()
         orderplacedTitle.text = "Booking confirmed!"
         orderplacedTitle.textColor = kPrimaryColor
-        orderplacedTitle.font = getFontSize(size: 20, weight: .medium)
+        orderplacedTitle.font = getCustomFont(size: 20, name: .medium)
         orderplacedTitle.textAlignment = .center
         self.view.addSubview(orderplacedTitle)
         orderplacedTitle.snp.makeConstraints { make in
@@ -40,7 +40,7 @@ class BookingSuccessViewController: UIViewController {
         
         orderplacedMessage.textAlignment = .center
         orderplacedMessage.textColor = kDefaultTextColor
-        orderplacedMessage.font = getFontSize(size: 14, weight: .regular)
+        orderplacedMessage.font = getCustomFont(size: 14, name: .regular)
         orderplacedMessage.numberOfLines = 0
         self.view.addSubview(orderplacedMessage)
         orderplacedMessage.snp.makeConstraints { make in

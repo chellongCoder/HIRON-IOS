@@ -27,14 +27,14 @@ class PaymentTableViewCell: UITableViewCell {
         
         let paymentTitleLabel = UILabel()
         paymentTitleLabel.text = "Payment method"
-        paymentTitleLabel.font = getFontSize(size: 14, weight: .medium)
+        paymentTitleLabel.font = getCustomFont(size: 14, name: .medium)
         contentView.addSubview(paymentTitleLabel)
         paymentTitleLabel.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
         }
         
         paymentCardLabel.text = "Paid without cards"
-        paymentCardLabel.font = getFontSize(size: 14, weight: .regular)
+        paymentCardLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(paymentCardLabel)
         paymentCardLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)

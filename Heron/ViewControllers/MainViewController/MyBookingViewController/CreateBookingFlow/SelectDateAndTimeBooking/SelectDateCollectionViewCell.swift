@@ -52,7 +52,7 @@ class SelectDateCollectionViewCell: UICollectionViewCell {
         }
 
         selectOption.textAlignment = .center
-        selectOption.font = getFontSize(size: 14, weight: .semibold)
+        selectOption.font = getCustomFont(size: 14, name: .semiBold)
         selectOption.textColor = .gray
         layoutView.addSubview(selectOption)
         selectOption.snp.makeConstraints { (make) in

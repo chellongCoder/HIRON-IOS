@@ -51,7 +51,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
         
         doctorNameLabel.text = ""
         doctorNameLabel.numberOfLines = 0
-        doctorNameLabel.font = getFontSize(size: 16, weight: .medium)
+        doctorNameLabel.font = getCustomFont(size: 16, name: .medium)
         doctorNameLabel.textColor = kDefaultTextColor
         doctorNameLabel.numberOfLines = 0
         contentView.addSubview(doctorNameLabel)
@@ -63,7 +63,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
         
 //        tagsContent.text = ""
 //        tagsContent.numberOfLines = 0
-//        tagsContent.font = getFontSize(size: 12, weight: .regular)
+//        tagsContent.font = getCustomFont(size: 12, weight: .regular)
 //        tagsContent.textColor = kDefaultTextColor
         contentView.addSubview(tagsContent)
         tagsContent.snp.makeConstraints { (make) in
@@ -74,7 +74,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
         }
         
         starView.text = "★★★★★"
-        starView.font = getFontSize(size: 16, weight: .medium)
+        starView.font = getCustomFont(size: 16, name: .medium)
         starView.textColor = UIColor.init(hexString: "F1C644")
         contentView.addSubview(starView)
         starView.snp.makeConstraints { make in
@@ -117,7 +117,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
                 newChipView.backgroundColor = kRedHightLightColor
                 newChipView.borderColor = kRedHightLightColor
                 newChipView.textLabel.textColor = .white
-                newChipView.textLabel.font = getFontSize(size: 11, weight: .semibold)
+                newChipView.textLabel.font = getCustomFont(size: 11, name: .semiBold)
                 tagsContent.addSubview(newChipView)
                 
                 if let lastView = lastView {
@@ -144,7 +144,7 @@ class SelectDoctorTableViewCell: UITableViewCell {
             newChipView.backgroundColor = kPrimaryColor
             newChipView.borderColor = kPrimaryColor
             newChipView.textLabel.textColor = .white
-            newChipView.textLabel.font = getFontSize(size: 11, weight: .semibold)
+            newChipView.textLabel.font = getCustomFont(size: 11, name: .semiBold)
             tagsContent.addSubview(newChipView)
             
             if let lastView = lastView {

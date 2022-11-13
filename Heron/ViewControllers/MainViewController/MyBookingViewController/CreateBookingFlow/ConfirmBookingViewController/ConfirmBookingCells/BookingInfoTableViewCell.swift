@@ -35,7 +35,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         let bookingInfoTitle = UILabel()
         bookingInfoTitle.text = "Booking Information"
         bookingInfoTitle.textColor = kDefaultTextColor
-        bookingInfoTitle.font = getFontSize(size: 16, weight: .medium)
+        bookingInfoTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(bookingInfoTitle)
         bookingInfoTitle.snp.makeConstraints { make in
             make.centerY.equalTo(infoIcon)
@@ -45,7 +45,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         
         let bookingInfoDate = UILabel()
         bookingInfoDate.textColor = kDefaultTextColor
-        bookingInfoDate.font = getFontSize(size: 16, weight: .regular)
+        bookingInfoDate.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(bookingInfoDate)
         bookingInfoDate.snp.makeConstraints { make in
             make.top.equalTo(bookingInfoTitle.snp.bottom).offset(5)
@@ -55,7 +55,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         
         let bookingInfoTime = UILabel()
         bookingInfoTime.textColor = kDefaultTextColor
-        bookingInfoTime.font = getFontSize(size: 16, weight: .regular)
+        bookingInfoTime.font = getCustomFont(size: 16, name: .regular)
         contentView.addSubview(bookingInfoTime)
         bookingInfoTime.snp.makeConstraints { make in
             make.top.equalTo(bookingInfoDate.snp.bottom)
@@ -66,7 +66,7 @@ class BookingInfoTableViewCell: UITableViewCell {
         let bookingInfoLocations = UILabel()
         bookingInfoLocations.text = String(format: "Location: ")
         bookingInfoLocations.textColor = kDefaultTextColor
-        bookingInfoLocations.font = getFontSize(size: 16, weight: .regular)
+        bookingInfoLocations.font = getCustomFont(size: 16, name: .regular)
         bookingInfoLocations.numberOfLines = 0
         contentView.addSubview(bookingInfoLocations)
         bookingInfoLocations.snp.makeConstraints { make in

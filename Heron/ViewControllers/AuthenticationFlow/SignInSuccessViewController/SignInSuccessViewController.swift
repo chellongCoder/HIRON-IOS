@@ -36,7 +36,7 @@ class SignInSuccessViewController: BaseViewController {
         
         centerDesc.text = "SUCCESSFULLY!"
         centerDesc.textAlignment = .center
-        centerDesc.font = getFontSize(size: 20, weight: .medium)
+        centerDesc.font = getCustomFont(size: 20, name: .medium)
         centerDesc.textColor = kPrimaryColor
         self.view.addSubview(centerDesc)
         centerDesc.snp.makeConstraints {
@@ -47,7 +47,7 @@ class SignInSuccessViewController: BaseViewController {
         
         centerDescInfo.numberOfLines = 0
         centerDescInfo.textAlignment = .center
-        centerDescInfo.font = getFontSize(size: 14, weight: .regular)
+        centerDescInfo.font = getCustomFont(size: 14, name: .regular)
         self.view.addSubview(centerDescInfo)
         centerDescInfo.snp.makeConstraints {
             $0.top.equalTo(centerDesc.snp.bottom).offset(10)

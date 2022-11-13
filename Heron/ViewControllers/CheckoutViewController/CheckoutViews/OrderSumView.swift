@@ -29,7 +29,7 @@ class OrderSumView: UIView {
         
         let orderSumTitle = UILabel()
         orderSumTitle.text = "Order Sum"
-        orderSumTitle.font = getFontSize(size: 14, weight: .medium)
+        orderSumTitle.font = getCustomFont(size: 14, name: .medium)
         orderSumTitle.textColor = kDefaultTextColor
         self.addSubview(orderSumTitle)
         orderSumTitle.snp.makeConstraints { make in
@@ -38,7 +38,7 @@ class OrderSumView: UIView {
         }
         
         orderSumValue.text = "$0.0"
-        orderSumValue.font = getFontSize(size: 14, weight: .bold)
+        orderSumValue.font = getCustomFont(size: 14, name: .bold)
         orderSumValue.textColor = kRedHightLightColor
         self.addSubview(orderSumValue)
         orderSumValue.snp.makeConstraints { make in

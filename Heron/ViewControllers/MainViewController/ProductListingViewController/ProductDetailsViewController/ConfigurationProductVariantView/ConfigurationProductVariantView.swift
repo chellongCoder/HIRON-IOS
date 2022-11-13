@@ -73,7 +73,7 @@ class ConfigurationProductVariantView: UIView {
             let configurationTitle = UILabel()
             configurationTitle.text = configuration.label
             configurationTitle.textColor = kDefaultTextColor
-            configurationTitle.font = getFontSize(size: 16, weight: .medium)
+            configurationTitle.font = getCustomFont(size: 16, name: .medium)
             allConfigView.addSubview(configurationTitle)
             
             if lastConfig != nil {
@@ -93,7 +93,7 @@ class ConfigurationProductVariantView: UIView {
             let countLabel = UILabel()
             countLabel.text = String(format: "(%ld types)", configuration.values.count)
             countLabel.textColor = kDefaultTextColor
-            countLabel.font = getFontSize(size: 14, weight: .regular)
+            countLabel.font = getCustomFont(size: 14, name: .regular)
             allConfigView.addSubview(countLabel)
             countLabel.snp.makeConstraints { make in
                 make.centerY.equalTo(configurationTitle)

@@ -38,7 +38,7 @@ class UserAddressCell: UITableViewCell {
         
         markAsDefault.isHidden = true
         markAsDefault.text = "Default ✅"
-        markAsDefault.font = getFontSize(size: 16, weight: .medium)
+        markAsDefault.font = getCustomFont(size: 16, name: .medium)
         markAsDefault.textColor = kDefaultTextColor
         markAsDefault.textAlignment = .right
         contentView.addSubview(markAsDefault)
@@ -48,7 +48,7 @@ class UserAddressCell: UITableViewCell {
         }
         
         fullName.text = "Mike Le"
-        fullName.font = getFontSize(size: 14, weight: .medium)
+        fullName.font = getCustomFont(size: 14, name: .medium)
         fullName.textColor = kDefaultTextColor
         contentView.addSubview(fullName)
         fullName.snp.makeConstraints { (make) in
@@ -57,7 +57,7 @@ class UserAddressCell: UITableViewCell {
         }
         
         phoneNumber.text = "+"
-        phoneNumber.font = getFontSize(size: 10, weight: .medium)
+        phoneNumber.font = getCustomFont(size: 10, name: .medium)
         phoneNumber.textColor = kDefaultTextColor
         contentView.addSubview(phoneNumber)
         phoneNumber.snp.makeConstraints { make in
@@ -66,7 +66,7 @@ class UserAddressCell: UITableViewCell {
         }
         
         addressLabel.text = "+"
-        addressLabel.font = getFontSize(size: 10, weight: .medium)
+        addressLabel.font = getCustomFont(size: 10, name: .medium)
         addressLabel.textColor = kDefaultTextColor
         addressLabel.numberOfLines = 0
         contentView.addSubview(addressLabel)

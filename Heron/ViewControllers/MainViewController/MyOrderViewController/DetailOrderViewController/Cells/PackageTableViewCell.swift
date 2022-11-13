@@ -43,7 +43,7 @@ class PackageTableViewCell: UITableViewCell {
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getFontSize(size: 16, weight: .medium)
+        productTitleLabel.font = getCustomFont(size: 16, name: .medium)
         productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
         contentView.addSubview(productTitleLabel)
@@ -55,7 +55,7 @@ class PackageTableViewCell: UITableViewCell {
         
         priceDiscount.text = "$0.00"
         priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getFontSize(size: 14, weight: .regular)
+        priceDiscount.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
             make.top.equalTo(productTitleLabel.snp.bottom).offset(10)

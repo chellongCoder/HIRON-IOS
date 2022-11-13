@@ -68,7 +68,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         
         let signInLabel = UILabel()
         signInLabel.textAlignment = .center
-        signInLabel.font = getFontSize(size: 24, weight: .bold)
+        signInLabel.font = getCustomFont(size: 24, name: .bold)
         signInLabel.textColor = kDefaultTextColor
         signInLabel.text = isSignIn ? "Sign in" : "Sign up"
         childVỉew.addSubview(signInLabel)
@@ -80,7 +80,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         let signInSubLabel = UILabel()
         signInSubLabel.textAlignment = .center
         signInSubLabel.textColor = kDefaultTextColor
-        signInSubLabel.font = getFontSize(size: 16, weight: .medium)
+        signInSubLabel.font = getCustomFont(size: 16, name: .medium)
         signInSubLabel.text = isSignIn ? "New to CBIHS? Sign up" : "Already have an account? Sign in"
         childVỉew.addSubview(signInSubLabel)
         signInSubLabel.snp.makeConstraints { make in
@@ -148,7 +148,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
             rememberPassword.text = "Remember password?"
             rememberPassword.textColor = kDefaultTextColor
             rememberPassword.numberOfLines = 0
-            rememberPassword.font = getFontSize(size: 14, weight: .regular)
+            rememberPassword.font = getCustomFont(size: 14, name: .regular)
             childVỉew.addSubview(rememberPassword)
             rememberPassword.snp.makeConstraints { make in
                 make.left.equalTo(checkboxBtn.snp.right).offset(8)

@@ -30,7 +30,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         let ađressInforTitle = UILabel()
         ađressInforTitle.text = "Address Information"
         ađressInforTitle.textColor = kDefaultTextColor
-        ađressInforTitle.font = getFontSize(size: 16, weight: .bold)
+        ađressInforTitle.font = getCustomFont(size: 16, name: .bold)
         contentView.addSubview(ađressInforTitle)
         ađressInforTitle.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
@@ -38,7 +38,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         
         let shippingAddressTitle = UILabel()
         shippingAddressTitle.text = "Shipping Address"
-        shippingAddressTitle.font = getFontSize(size: 14, weight: .medium)
+        shippingAddressTitle.font = getCustomFont(size: 14, name: .medium)
         contentView.addSubview(shippingAddressTitle)
         shippingAddressTitle.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
@@ -46,7 +46,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         }
         
         shippingName.text = ""
-        shippingName.font = getFontSize(size: 14, weight: .regular)
+        shippingName.font = getCustomFont(size: 14, name: .regular)
         shippingAddressLabel.numberOfLines = 0
         contentView.addSubview(shippingName)
         shippingName.snp.makeConstraints {
@@ -56,7 +56,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         }
         
         shippingAddressLabel.text = ""
-        shippingAddressLabel.font = getFontSize(size: 14, weight: .regular)
+        shippingAddressLabel.font = getCustomFont(size: 14, name: .regular)
         shippingAddressLabel.numberOfLines = 0
         contentView.addSubview(shippingAddressLabel)
         shippingAddressLabel.snp.makeConstraints {
@@ -77,7 +77,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         
         let billingAddressLabel = UILabel()
         billingAddressLabel.text = "Billing Address"
-        billingAddressLabel.font = getFontSize(size: 14, weight: .medium)
+        billingAddressLabel.font = getCustomFont(size: 14, name: .medium)
         contentView.addSubview(billingAddressLabel)
         billingAddressLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
@@ -86,7 +86,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         
         billingAddressName.text = ""
         billingAddressName.numberOfLines = 0
-        billingAddressName.font = getFontSize(size: 14, weight: .regular)
+        billingAddressName.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(billingAddressName)
         billingAddressName.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
@@ -95,7 +95,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         }
         
         billingAddressEmail.text = ""
-        billingAddressEmail.font = getFontSize(size: 14, weight: .regular)
+        billingAddressEmail.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(billingAddressEmail)
         billingAddressEmail.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)

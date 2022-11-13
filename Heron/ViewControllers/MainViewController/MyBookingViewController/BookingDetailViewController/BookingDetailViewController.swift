@@ -43,7 +43,7 @@ class BookingDetailViewController: PageScrollViewController {
         }
         
         bookingStatus.textColor = kPrimaryColor
-        bookingStatus.font = getFontSize(size: 20, weight: .medium)
+        bookingStatus.font = getCustomFont(size: 20, name: .medium)
         bookingStatus.numberOfLines = 0
         bookingStatus.textAlignment = .center
         self.view.addSubview(bookingStatus)
@@ -54,7 +54,7 @@ class BookingDetailViewController: PageScrollViewController {
         }
         
         bookingDescriptions.textColor = kDefaultTextColor
-        bookingDescriptions.font = getFontSize(size: 14, weight: .regular)
+        bookingDescriptions.font = getCustomFont(size: 14, name: .regular)
         bookingDescriptions.numberOfLines = 0
         bookingDescriptions.textAlignment = .center
         self.view.addSubview(bookingDescriptions)
@@ -83,7 +83,7 @@ class BookingDetailViewController: PageScrollViewController {
         }
         
         timeableLabel.textColor = kDefaultTextColor
-        timeableLabel.font = getFontSize(size: 14, weight: .regular)
+        timeableLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(timeableLabel)
         timeableLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(8)
@@ -104,7 +104,7 @@ class BookingDetailViewController: PageScrollViewController {
         addressBookingLabel.text = "HARD_CODE"
         addressBookingLabel.numberOfLines = 0
         addressBookingLabel.textColor = kDefaultTextColor
-        addressBookingLabel.font = getFontSize(size: 14, weight: .regular)
+        addressBookingLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(addressBookingLabel)
         addressBookingLabel.snp.makeConstraints { make in
             make.top.equalTo(timeableLabel.snp.bottom).offset(8)
@@ -124,7 +124,7 @@ class BookingDetailViewController: PageScrollViewController {
         
         patientInfoLabel.numberOfLines = 0
         patientInfoLabel.textColor = kDefaultTextColor
-        patientInfoLabel.font = getFontSize(size: 14, weight: .regular)
+        patientInfoLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(patientInfoLabel)
         patientInfoLabel.snp.makeConstraints { make in
             make.top.equalTo(addressBookingLabel.snp.bottom).offset(8)
@@ -145,7 +145,7 @@ class BookingDetailViewController: PageScrollViewController {
         doctorInfoLabel.text = "HARD_CODE"
         doctorInfoLabel.numberOfLines = 0
         doctorInfoLabel.textColor = kDefaultTextColor
-        doctorInfoLabel.font = getFontSize(size: 14, weight: .regular)
+        doctorInfoLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(doctorInfoLabel)
         doctorInfoLabel.snp.makeConstraints { make in
             make.top.equalTo(patientInfoLabel.snp.bottom).offset(8)
@@ -165,7 +165,7 @@ class BookingDetailViewController: PageScrollViewController {
         
         totalPaymentLabel.numberOfLines = 0
         totalPaymentLabel.textColor = kDefaultTextColor
-        totalPaymentLabel.font = getFontSize(size: 14, weight: .regular)
+        totalPaymentLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(totalPaymentLabel)
         totalPaymentLabel.snp.makeConstraints { make in
             make.top.equalTo(doctorInfoLabel.snp.bottom).offset(8)
@@ -185,7 +185,7 @@ class BookingDetailViewController: PageScrollViewController {
         
         bookingIDLabel.numberOfLines = 0
         bookingIDLabel.textColor = kDefaultTextColor
-        bookingIDLabel.font = getFontSize(size: 14, weight: .regular)
+        bookingIDLabel.font = getCustomFont(size: 14, name: .regular)
         contentView.addSubview(bookingIDLabel)
         bookingIDLabel.snp.makeConstraints { make in
             make.top.equalTo(totalPaymentLabel.snp.bottom).offset(8)

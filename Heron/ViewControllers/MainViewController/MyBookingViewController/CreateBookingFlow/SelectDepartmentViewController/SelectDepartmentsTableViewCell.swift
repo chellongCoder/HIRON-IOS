@@ -35,7 +35,7 @@ class SelectDepartmentsTableViewCell: UITableViewCell {
         }
         
         departmentNameLabel.text = ""
-        departmentNameLabel.font = getFontSize(size: 14, weight: .medium)
+        departmentNameLabel.font = getCustomFont(size: 14, name: .medium)
         departmentNameLabel.textColor = kDefaultTextColor
         contentView.addSubview(departmentNameLabel)
         departmentNameLabel.snp.makeConstraints { (make) in

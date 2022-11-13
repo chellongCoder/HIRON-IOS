@@ -14,11 +14,12 @@ protocol ProductCellDelegate : AnyObject {
 class ProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
-    let discountValue       = DiscountValueView()
     let productTitleLabel   = UILabel()
+    let tagsViewStack       = UIView()
     let starView            = UILabel()
-    let priceLabel          = DiscountLabel()
-    let priceDiscount       = UILabel()
+    let sourcePriceLabel    = DiscountLabel()
+    let discountValue       = DiscountValueView()
+    let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
 //    let addToCartBtn        = UIButton()
     
@@ -27,88 +28,84 @@ class ProductTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .clear
-
-        let contentView = UIView()
-        contentView.setShadow()
-        self.contentView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(12)
-            make.right.equalToSuperview().offset(-12)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
-        }
+        self.backgroundColor = kBackgroundColor
 
         packageImage.image = UIImage(named: "default-image")
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
-        contentView.addSubview(packageImage)
+        self.contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(18)
-            make.width.height.equalTo(80)
-            make.bottom.lessThanOrEqualToSuperview().offset(-24)
+            make.top.equalToSuperview().offset(15)
+            make.left.equalToSuperview().offset(16)
+            make.width.height.equalTo(106)
+            make.bottom.lessThanOrEqualToSuperview().offset(-15)
         }
         
-        contentView.addSubview(discountValue)
-        discountValue.snp.makeConstraints { make in
-            make.top.equalTo(packageImage.snp.top).offset(5)
-            make.centerX.equalTo(packageImage.snp.right).offset(5)
-        }
-        
-        productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
+        productTitleLabel.text = ""
         productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getFontSize(size: 16, weight: .medium)
+        productTitleLabel.font = getCustomFont(size: 13, name: .regular)
         productTitleLabel.textColor = kDefaultTextColor
         productTitleLabel.numberOfLines = 0
-        contentView.addSubview(productTitleLabel)
+        self.contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(discountValue.snp.right).offset(10)
+            make.left.equalTo(packageImage.snp.right).offset(12)
             make.top.equalTo(packageImage)
             make.right.equalToSuperview().offset(-16)
         }
         
-        starView.text = "★★★★★"
-        starView.font = getFontSize(size: 16, weight: .medium)
-        starView.textColor = UIColor.init(hexString: "F1C644")
-        contentView.addSubview(starView)
-        starView.snp.makeConstraints { make in
+        self.contentView.addSubview(tagsViewStack)
+        tagsViewStack.snp.makeConstraints { make in
             make.top.equalTo(productTitleLabel.snp.bottom)
             make.left.right.equalTo(productTitleLabel)
+            make.height.equalTo(14)
         }
         
-        priceDiscount.text = "$ 10.00"
-        priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getFontSize(size: 14, weight: .regular)
-        contentView.addSubview(priceDiscount)
-        priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(starView.snp.bottom).offset(10)
+        truePriceLabel.text = "$ 10.00"
+        truePriceLabel.textColor = kDefaultTextColor
+        truePriceLabel.font = getCustomFont(size: 13, name: .extraBold)
+        self.contentView.addSubview(truePriceLabel)
+        truePriceLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(packageImage.snp.bottom)
             make.left.equalTo(productTitleLabel)
         }
         
-        priceLabel.text = "$ 20.00"
-        priceLabel.setTextColor(kDisableColor)
-        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
-        contentView.addSubview(priceLabel)
-        priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(starView.snp.bottom).offset(10)
-            make.left.equalTo(priceDiscount.snp.right).offset(5)
-            make.right.lessThanOrEqualTo(productTitleLabel)
+        starView.text = "★ 4.5"
+        starView.font = getCustomFont(size: 11, name: .regular)
+        starView.textColor = kDefaultTextColor
+        self.contentView.addSubview(starView)
+        starView.snp.makeConstraints { make in
+            make.centerY.equalTo(truePriceLabel)
+            make.right.equalTo(productTitleLabel)
         }
         
-        variantMark.isHidden = true
-        variantMark.backgroundColor = kRedHightLightColor
-        variantMark.textColor = .white
-        variantMark.layer.cornerRadius = 8
-        variantMark.layer.masksToBounds = true
-        variantMark.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
-        contentView.addSubview(variantMark)
-        variantMark.snp.makeConstraints { make in
-            make.top.equalTo(priceLabel.snp.bottom).offset(5)
-            make.right.bottom.equalToSuperview()
-            make.height.equalTo(35)
+        contentView.addSubview(discountValue)
+        discountValue.snp.makeConstraints { make in
+            make.left.equalTo(productTitleLabel)
+            make.bottom.equalTo(truePriceLabel.snp.top).offset(-5)
         }
+        
+        sourcePriceLabel.text = "$ 20.00"
+        sourcePriceLabel.setTextColor(kDefaultTextColor)
+        sourcePriceLabel.font = getCustomFont(size: 11, name: .semiBold)
+        self.contentView.addSubview(sourcePriceLabel)
+        sourcePriceLabel.snp.makeConstraints { (make) in
+            make.bottom.equalTo(truePriceLabel.snp.top).offset(-5)
+            make.left.equalTo(discountValue.snp.right).offset(4)
+        }
+        
+//        variantMark.isHidden = true
+//        variantMark.backgroundColor = kRedHightLightColor
+//        variantMark.textColor = .white
+//        variantMark.layer.cornerRadius = 8
+//        variantMark.layer.masksToBounds = true
+//        variantMark.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMaxYCorner]
+//        self.contentView.addSubview(variantMark)
+//        variantMark.snp.makeConstraints { make in
+//            make.top.equalTo(sourcePriceLabel.snp.bottom).offset(5)
+//            make.right.bottom.equalToSuperview()
+//            make.height.equalTo(35)
+//        }
         
 //        addToCartBtn.setTitle("Add to cart", for: .normal)
 //        addToCartBtn.backgroundColor = kPrimaryColor
@@ -132,27 +129,90 @@ class ProductTableViewCell: UITableViewCell {
         
         self.productData = cellData
         
-        self.productTitleLabel.text = cellData.name
         if let imageURL = URL.init(string: cellData.thumbnailUrl ?? "") {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = getMoneyFormat(cellData.customRegularPrice)
-        self.priceDiscount.text = getMoneyFormat(cellData.customFinalPrice)
-        self.priceLabel.isHidden = (cellData.customRegularPrice == cellData.customFinalPrice)
+        self.productTitleLabel.text = cellData.name
+        self.loadTagsContents(cellData)
         
-        if cellData.discountPercent > 0 {
-            self.discountValue.isHidden = false
-            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
-        } else {
-            self.discountValue.isHidden = true
-        }
+        self.sourcePriceLabel.text = getMoneyFormat(cellData.customRegularPrice)
+        self.truePriceLabel.text = getMoneyFormat(cellData.customFinalPrice)
+        self.sourcePriceLabel.isHidden = (cellData.customRegularPrice == cellData.customFinalPrice)
+        
+//        if cellData.discountPercent > 0 {
+//            self.discountValue.isHidden = false
+//            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
+//        } else {
+//            self.discountValue.isHidden = true
+//        }
         
         variantMark.isHidden = (cellData.type == .simple) || cellData.configurableOptions.isEmpty
         if cellData.configurableOptions.count == 1 {
             variantMark.text = String(format: "  1 variant  ")
         } else {
             variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
+        }
+    }
+    
+    private func loadTagsContents(_ cellData: ProductDataSource) {
+        for subView in tagsViewStack.subviews {
+            subView.removeFromSuperview()
+        }
+        
+        var lastView : UIView? = nil
+        switch cellData.featureType {
+        case .ecom:
+            let newChipView = ChipView.init(title: "Physical Product")
+            tagsViewStack.addSubview(newChipView)
+            newChipView.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview()
+            }
+            
+            if let lastView = lastView {
+                newChipView.snp.makeConstraints { make in
+                    make.left.equalTo(lastView.snp.right).offset(4)
+                }
+            } else {
+                newChipView.snp.makeConstraints { make in
+                    make.left.equalTo(self.productTitleLabel)
+                }
+            }
+            lastView = newChipView
+        case .ecom_booking:
+            let newChipView = ChipView.init(title: "Virtual Product")
+            tagsViewStack.addSubview(newChipView)
+            newChipView.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview()
+            }
+            if let lastView = lastView {
+                newChipView.snp.makeConstraints { make in
+                    make.left.equalTo(lastView.snp.right).offset(4)
+                }
+            } else {
+                newChipView.snp.makeConstraints { make in
+                    make.left.equalTo(self.productTitleLabel)
+                }
+            }
+            lastView = newChipView
+        }
+        
+        if let unitName = cellData.unit?.name {
+            let newChipView = ChipView.init(title: unitName)
+            tagsViewStack.addSubview(newChipView)
+            newChipView.snp.makeConstraints { make in
+                make.top.bottom.equalToSuperview()
+            }
+            if let lastView = lastView {
+                newChipView.snp.makeConstraints { make in
+                    make.left.equalTo(lastView.snp.right).offset(4)
+                }
+            } else {
+                newChipView.snp.makeConstraints { make in
+                    make.left.equalTo(self.productTitleLabel)
+                }
+            }
+            lastView = newChipView
         }
     }
     

@@ -32,7 +32,7 @@ class MainAuthViewController: BaseViewController {
             let centerDesc = UILabel()
             centerDesc.textAlignment = .center
             centerDesc.text = "Access your patient history, lab results, future appointments and more."
-            centerDesc.font = getFontSize(size: 16, weight: .regular)
+            centerDesc.font = getCustomFont(size: 16, name: .regular)
             centerDesc.numberOfLines = 0
             self.view.addSubview(centerDesc)
             centerDesc.snp.makeConstraints {
