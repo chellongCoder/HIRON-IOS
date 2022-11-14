@@ -15,8 +15,9 @@
 		18D91C3D291E062F003F2328 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3C291E062F003F2328 /* TagView.swift */; };
 		18D91C3F291E0642003F2328 /* StackTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3E291E0642003F2328 /* StackTagView.swift */; };
 		18E7DF012920E5F200E0BD00 /* GroupCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7DF002920E5F200E0BD00 /* GroupCategory.swift */; };
-		18FC15B02922D1E000294591 /* UILabel_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AF2922D1E000294591 /* UILabel_EXT.swift */; };
-		18FC15B32922D28600294591 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15B22922D28500294591 /* ProductViewController.swift */; };
+		18FC15A82922ABA100294591 /* UILabel_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15A72922ABA100294591 /* UILabel_EXT.swift */; };
+		18FC15AB2922ABE000294591 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AA2922ABE000294591 /* ProductViewController.swift */; };
+		18FC15AD2922BF1600294591 /* ProductBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AC2922BF1600294591 /* ProductBannerView.swift */; };
 		5420DFD1ADB514180E443DB8 /* Pods_Heron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */; };
 		5D9629979773B0F0A8EF6E29 /* Pods_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */; };
 		8F44A8CAC79E09534AD07075 /* Pods_HeronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */; };
@@ -237,8 +238,9 @@
 		18D91C3C291E062F003F2328 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		18D91C3E291E0642003F2328 /* StackTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTagView.swift; sourceTree = "<group>"; };
 		18E7DF002920E5F200E0BD00 /* GroupCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCategory.swift; sourceTree = "<group>"; };
-		18FC15AF2922D1E000294591 /* UILabel_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabel_EXT.swift; path = Fonts/UILabel_EXT.swift; sourceTree = "<group>"; };
-		18FC15B22922D28500294591 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		18FC15A72922ABA100294591 /* UILabel_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabel_EXT.swift; path = Fonts/UILabel_EXT.swift; sourceTree = "<group>"; };
+		18FC15AA2922ABE000294591 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		18FC15AC2922BF1600294591 /* ProductBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBannerView.swift; sourceTree = "<group>"; };
 		274A19593BFB005372FA29B7 /* Pods-Heron-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F07810B31D8BE9A038CEA94 /* Pods-HeronTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.release.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.release.xcconfig"; sourceTree = "<group>"; };
 		3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -481,6 +483,7 @@
 				18B28506291F91E900AF16B2 /* StackInfoProductView.swift */,
 				18E7DF002920E5F200E0BD00 /* GroupCategory.swift */,
 				18482B782920F37200C161FB /* ProductCategory.swift */,
+				18FC15AC2922BF1600294591 /* ProductBannerView.swift */,
 			);
 			path = ProductInfo;
 			sourceTree = "<group>";
@@ -493,7 +496,7 @@
 			path = Items;
 			sourceTree = "<group>";
 		};
-		18FC15AE2922D13F00294591 /* Recovered References */ = {
+		18FC15A62922AB1100294591 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 				189DD447291EBD0100F5603C /* UILabel_EXT.swift */,
@@ -501,10 +504,10 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		18FC15B12922D28500294591 /* ProductDetailsViewController2 */ = {
+		18FC15A92922ABE000294591 /* ProductDetailsViewController2 */ = {
 			isa = PBXGroup;
 			children = (
-				18FC15B22922D28500294591 /* ProductViewController.swift */,
+				18FC15AA2922ABE000294591 /* ProductViewController.swift */,
 			);
 			path = ProductDetailsViewController2;
 			sourceTree = "<group>";
@@ -578,7 +581,7 @@
 				933D18DB2819935900F1CCC4 /* Products */,
 				75A858D48E3B78311D34E771 /* Pods */,
 				FDD6F5C2326508B4B9DB604E /* Frameworks */,
-				18FC15AE2922D13F00294591 /* Recovered References */,
+				18FC15A62922AB1100294591 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -716,6 +719,7 @@
 				18FC15AF2922D1E000294591 /* UILabel_EXT.swift */,
 				933D192F2819946800F1CCC4 /* UIView_EXT.swift */,
 				933D19302819946800F1CCC4 /* String_EXT.swift */,
+				18FC15A72922ABA100294591 /* UILabel_EXT.swift */,
 				933D19312819946800F1CCC4 /* UIColor_EXT.swift */,
 				9301757C28848A8D00151A4B /* UIImage_EXT.swift */,
 				B55B372C2836425B005245AB /* Utils.swift */,
@@ -744,7 +748,7 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
-				18FC15B12922D28500294591 /* ProductDetailsViewController2 */,
+				18FC15A92922ABE000294591 /* ProductDetailsViewController2 */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
 				938F7A8C28210F0C00DD60DB /* ProductTableViewCell */,
@@ -1549,6 +1553,7 @@
 				9393CCD128C64F4300DF6C50 /* UpdateEHProfileViewModel.swift in Sources */,
 				93C2EA4528AFD27900371DFE /* DetailOrderViewModel.swift in Sources */,
 				93E7BE2528C3A8D20037D82A /* SubscriptionPaymentViewModel.swift in Sources */,
+				18FC15AD2922BF1600294591 /* ProductBannerView.swift in Sources */,
 				930F3036281A05C7003D247A /* ProductDetailsViewController.swift in Sources */,
 				933D19372819946800F1CCC4 /* UIViewController_EXT.swift in Sources */,
 				93AF91F0284BBD580075CD65 /* CheckoutViewModel.swift in Sources */,
@@ -1629,7 +1634,7 @@
 				93A1881528F5589700F60EDF /* StoreTableViewCell.swift in Sources */,
 				18D91C3D291E062F003F2328 /* TagView.swift in Sources */,
 				9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */,
-				18FC15B32922D28600294591 /* ProductViewController.swift in Sources */,
+				18FC15AB2922ABE000294591 /* ProductViewController.swift in Sources */,
 				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				93AF91F7284BE2410075CD65 /* OrderTotalView.swift in Sources */,
 				93EC90C6285A2D85009056F6 /* CarrierView.swift in Sources */,
@@ -1665,7 +1670,7 @@
 				933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */,
 				93EC90F4285A4DB9009056F6 /* MainSubscriptionViewModel.swift in Sources */,
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,
-				18FC15B02922D1E000294591 /* UILabel_EXT.swift in Sources */,
+				18FC15A82922ABA100294591 /* UILabel_EXT.swift in Sources */,
 				9301757D28848A8D00151A4B /* UIImage_EXT.swift in Sources */,
 				93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */,
 				93C2EA5628B32B6500371DFE /* EHProfileServices.swift in Sources */,

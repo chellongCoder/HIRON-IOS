@@ -137,7 +137,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.top.equalTo(tagsViewStack.snp.bottom).offset(10)
             make.left.equalTo(packageTitle)
         }
-        
+
         priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)
@@ -145,7 +145,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.top.equalTo(tagsViewStack.snp.bottom).offset(10)
             make.left.equalTo(priceDiscount.snp.right).offset(5)
         }
-        
+
         starView.text = "★★★★★"
         starView.font = getCustomFont(size: 16, name: .medium)
         starView.textColor = UIColor.init(hexString: "F1C644")
@@ -154,7 +154,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.top.equalTo(priceDiscount.snp.bottom).offset(5)
             make.left.equalTo(packageTitle)
         }
-                
+
         variantView.delegate = self
         contentView.addSubview(variantView)
         variantView.snp.makeConstraints { make in
@@ -162,7 +162,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.top.equalTo(starView.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
         }
-        
+
         contentView.addSubview(contentDescView)
         contentDescView.snp.makeConstraints { make in
             make.left.equalTo(packageTitle)

@@ -10,23 +10,27 @@ import RxSwift
 import BadgeHub
 
 class ProductDetailsViewController2: PageScrollViewController,
-                                    UIScrollViewDelegate {
+                                     UIScrollViewDelegate, ProductVariantDelegate {
+    
     
     var cartButtonItem                  : UIBarButtonItem?
     var shareButtonItem                 : UIBarButtonItem?
     var moreButtonItem                  : UIBarButtonItem?
     var heartItem                       : UIButton?
-    
     var cartHub                         : BadgeHub?
-    let bannerImage             = UIImageView()
-    let contentDescView         = UIView()
-    let groupProductSizeCategory    = GroupProductCategory.init(title: "Size", categories: ["10ml", "5ml", "6ml"])
-    let groupProductColorCategory    = GroupProductCategory.init(title: "Color", categories: ["red", "yellow", "blue", "green"])
-    let stackTagView            = StackTagView()
-    let discountView            = DiscountView()
-    let stackInfoView           = StackInfoView()
-
     
+    private let bannerImage             = UIImageView()
+    private let topMediaView            = UIScrollView()
+    private let pageControl             = UIPageControl()
+    private let variantView             = ConfigurationProductVariantView()
+    private let contentDescView         = UIView()
+    let groupProductSizeCategory        = GroupProductCategory.init(title: "Size", categories: ["10ml", "5ml", "6ml"])
+    let groupProductColorCategory       = GroupProductCategory.init(title: "Color", categories: ["red", "yellow", "blue", "green"])
+    let stackTagView                    = StackTagView()
+    let discountView                    = DiscountView()
+    let stackInfoView                   = StackInfoView()
+    let addToCartBtn                    = UIButton()
+
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -49,6 +53,20 @@ class ProductDetailsViewController2: PageScrollViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
+        
+        addToCartBtn.backgroundColor = kPrimaryColor
+        addToCartBtn.layer.cornerRadius = 8
+        addToCartBtn.titleLabel?.font = getCustomFont(size: 16, name: .medium)
+        addToCartBtn.setTitle("Add to cart", for: .normal)
+        addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
+        self.view.addSubview(addToCartBtn)
+        addToCartBtn.snp.makeConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-20)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(50)
+        }
+
         /// TODO: UI header
         cartButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "bagIcon"),
                                               style: .plain,
@@ -83,15 +101,72 @@ class ProductDetailsViewController2: PageScrollViewController,
         ]
         
         /// TODO: UI banner
-        bannerImage.image = UIImage.init(named: "banner_image4")
-        bannerImage.contentMode = .scaleAspectFill
-        bannerImage.layer.masksToBounds = true
-        self.view.addSubview(bannerImage)
-        bannerImage.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.width.equalToSuperview().offset(0)
-            make.height.equalTo(bannerImage.snp.width).multipliedBy(1)
+//        bannerImage.image = UIImage.init(named: "banner_image4")
+//        bannerImage.contentMode = .scaleAspectFill
+//        bannerImage.layer.masksToBounds = true
+//        self.view.addSubview(bannerImage)
+//        bannerImage.snp.makeConstraints { (make) in
+//            make.top.equalToSuperview()
+//            make.width.equalToSuperview().offset(0)
+//            make.height.equalTo(bannerImage.snp.width).multipliedBy(1)
+//        }
+        pageScroll.snp.remakeConstraints { (make) in
+            make.left.top.right.equalToSuperview()
+            make.bottom.equalTo(addToCartBtn.snp.top).offset(-10)
         }
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
+        pageScroll.addSubview(refreshControl)
+        
+        let staticHeight = (UIScreen.main.bounds.size.width)*1
+        topMediaView.isPagingEnabled = true
+        topMediaView.delegate = self
+        topMediaView.showsHorizontalScrollIndicator = false
+        self.contentView.addSubview(topMediaView)
+        topMediaView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.right.left.equalToSuperview()
+            make.bottom.equalTo(topMediaView.snp.top).offset(staticHeight)
+        }
+        let width = UIScreen.main.bounds.size.width
+        let size = CGSize(width: width, height: staticHeight)
+        let listMediaLength = 5
+        var index = 0
+
+        for mediaData in 1...listMediaLength {
+            
+            let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
+            
+            let cell = ProductBannerView.init(frame: frame)
+            if let imageURL = URL.init(string: mediaData.description ) {
+                cell.bannerImage.setImage(url: imageURL, placeholder: UIImage(named: "banner_image4")!)
+            }
+            topMediaView.addSubview(cell)
+            
+            index += 1
+        }
+        
+        self.pageControl.numberOfPages = listMediaLength
+        pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = kDisableColor
+        pageControl.currentPageIndicatorTintColor = kPrimaryColor
+        pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
+        self.contentView.addSubview(pageControl)
+        pageControl.snp.makeConstraints { (make) in
+            make.bottom.equalTo(topMediaView.snp.bottom).offset(-40)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(15)
+        }
+        
+        variantView.delegate = self
+        contentView.addSubview(variantView)
+        variantView.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.equalTo(pageControl.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+        }
+
         
         /// TODO: UI blurview product detail
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -150,16 +225,16 @@ class ProductDetailsViewController2: PageScrollViewController,
         }
         
         /// TODO: UI product detail blur
-        self.view.addSubview(contentDescView)
+        self.contentView.addSubview(contentDescView)
         contentDescView.snp.makeConstraints { (make) in
-            make.top.equalTo(bannerImage.snp.bottom).offset(-30)
+            make.top.equalTo(topMediaView.snp.bottom).offset(-30)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-15)
             make.height.equalTo(contentDescView.snp.width).multipliedBy(0.3)
         }
 
         /// TODO: UI Group category size
-        self.view.addSubview(groupProductSizeCategory)
+        self.contentView.addSubview(groupProductSizeCategory)
         groupProductSizeCategory.snp.makeConstraints { (make) in
             make.top.equalTo(contentDescView.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)
@@ -167,7 +242,7 @@ class ProductDetailsViewController2: PageScrollViewController,
         }
         
         /// TODO: UI Group category size
-        self.view.addSubview(groupProductColorCategory)
+        self.contentView.addSubview(groupProductColorCategory)
         groupProductColorCategory.snp.makeConstraints { (make) in
             make.top.equalTo(groupProductSizeCategory.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)
@@ -180,4 +255,26 @@ class ProductDetailsViewController2: PageScrollViewController,
         self.navigationController?.isNavigationBarHidden = false
     }
     
+    @objc private func pageControlDidChange(_ sender: UIPageControl) {
+        let current = sender.currentPage
+        self.topMediaView.setContentOffset(CGPoint(x: CGFloat(current)*view.frame.width, y: 0), animated: true)
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        let fractionalPage = scrollView.contentOffset.x / pageWidth
+        
+        let page = lroundf(Float(fractionalPage))
+        self.pageControl.currentPage = page
+    }
+    
+    @objc private func buyNowButtonTapped() {
+        
+    }
+    
+    func didSelectVariant(variants: [SelectedVariant]) {
+
+    }
+
 }
