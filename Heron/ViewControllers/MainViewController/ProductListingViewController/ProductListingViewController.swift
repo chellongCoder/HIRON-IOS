@@ -149,7 +149,8 @@ class ProductListingViewController: BaseViewController,
         let value = viewModel.listProducts.value
         let productData = value[indexPath.row]
         
-        let viewDetailsController = ProductDetailsViewController.init(productData)
+//        let viewDetailsController = ProductDetailsViewController.init(productData)
+        let viewDetailsController = ProductDetailsViewController2.init(productData)
         _NavController.pushViewController(viewDetailsController, animated: true)
         
         self.dismissKeyboard()

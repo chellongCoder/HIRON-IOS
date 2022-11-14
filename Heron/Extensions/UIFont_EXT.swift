@@ -40,3 +40,7 @@ func getCustomFont (size: CGFloat, name: FontName) -> UIFont {
     }
     return customFont
 }
+
+func getFontSize (size: CGFloat, weight: FontName) -> UIFont {
+    return UIFont.init(name: weight.rawValue, size: size)!
+}

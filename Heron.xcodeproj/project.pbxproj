@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18482B792920F37200C161FB /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18482B782920F37200C161FB /* ProductCategory.swift */; };
+		1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891A4C4291D7A5C007D98DA /* ChipView.swift */; };
+		1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */; };
+		18B28507291F91E900AF16B2 /* StackInfoProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B28506291F91E900AF16B2 /* StackInfoProductView.swift */; };
+		18B30835291E9B970015F13E /* DiscountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B30834291E9B970015F13E /* DiscountView.swift */; };
+		18D91C3D291E062F003F2328 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3C291E062F003F2328 /* TagView.swift */; };
+		18D91C3F291E0642003F2328 /* StackTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3E291E0642003F2328 /* StackTagView.swift */; };
+		18E7DF012920E5F200E0BD00 /* GroupCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7DF002920E5F200E0BD00 /* GroupCategory.swift */; };
+		18FC15B02922D1E000294591 /* UILabel_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AF2922D1E000294591 /* UILabel_EXT.swift */; };
+		18FC15B32922D28600294591 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15B22922D28500294591 /* ProductViewController.swift */; };
 		5420DFD1ADB514180E443DB8 /* Pods_Heron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */; };
 		5D9629979773B0F0A8EF6E29 /* Pods_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */; };
 		8F44A8CAC79E09534AD07075 /* Pods_HeronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */; };
@@ -151,7 +161,6 @@
 		9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */; };
 		9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */; };
 		9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift */; };
-		9AA92B15288859F400606082 /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA92B14288859F400606082 /* ChipView.swift */; };
 		9AB248C72921364F007812D5 /* Mulish-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248C429212D4B007812D5 /* Mulish-Medium.ttf */; };
 		9AB248C82921364F007812D5 /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248BF29212D4B007812D5 /* Mulish-Regular.ttf */; };
 		9AB248C92921364F007812D5 /* Mulish-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248C629212D4B007812D5 /* Mulish-BoldItalic.ttf */; };
@@ -219,6 +228,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18482B782920F37200C161FB /* ProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategory.swift; sourceTree = "<group>"; };
+		1891A4C4291D7A5C007D98DA /* ChipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChipView.swift; path = Heron/Views/ChipView.swift; sourceTree = SOURCE_ROOT; };
+		1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
+		189DD447291EBD0100F5603C /* UILabel_EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_EXT.swift; sourceTree = "<group>"; };
+		18B28506291F91E900AF16B2 /* StackInfoProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackInfoProductView.swift; sourceTree = "<group>"; };
+		18B30834291E9B970015F13E /* DiscountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountView.swift; sourceTree = "<group>"; };
+		18D91C3C291E062F003F2328 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
+		18D91C3E291E0642003F2328 /* StackTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTagView.swift; sourceTree = "<group>"; };
+		18E7DF002920E5F200E0BD00 /* GroupCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCategory.swift; sourceTree = "<group>"; };
+		18FC15AF2922D1E000294591 /* UILabel_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabel_EXT.swift; path = Fonts/UILabel_EXT.swift; sourceTree = "<group>"; };
+		18FC15B22922D28500294591 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		274A19593BFB005372FA29B7 /* Pods-Heron-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F07810B31D8BE9A038CEA94 /* Pods-HeronTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.release.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.release.xcconfig"; sourceTree = "<group>"; };
 		3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -369,7 +389,6 @@
 		9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentDataSource.swift; sourceTree = "<group>"; };
 		9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentsTableViewCell.swift; sourceTree = "<group>"; };
 		9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBookingViewController.swift; sourceTree = "<group>"; };
-		9AA92B14288859F400606082 /* ChipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChipView.swift; sourceTree = "<group>"; };
 		9AB248B729212D4A007812D5 /* Mulish-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Black.ttf"; sourceTree = "<group>"; };
 		9AB248B829212D4B007812D5 /* Mulish-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-ExtraLight.ttf"; sourceTree = "<group>"; };
 		9AB248B929212D4B007812D5 /* Mulish-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Italic.ttf"; sourceTree = "<group>"; };
@@ -454,6 +473,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1891A4C3291D7971007D98DA /* ProductInfo */ = {
+			isa = PBXGroup;
+			children = (
+				18D91C3E291E0642003F2328 /* StackTagView.swift */,
+				18B30834291E9B970015F13E /* DiscountView.swift */,
+				18B28506291F91E900AF16B2 /* StackInfoProductView.swift */,
+				18E7DF002920E5F200E0BD00 /* GroupCategory.swift */,
+				18482B782920F37200C161FB /* ProductCategory.swift */,
+			);
+			path = ProductInfo;
+			sourceTree = "<group>";
+		};
+		18D91C3B291E0568003F2328 /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				18D91C3C291E062F003F2328 /* TagView.swift */,
+			);
+			path = Items;
+			sourceTree = "<group>";
+		};
+		18FC15AE2922D13F00294591 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				189DD447291EBD0100F5603C /* UILabel_EXT.swift */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		18FC15B12922D28500294591 /* ProductDetailsViewController2 */ = {
+			isa = PBXGroup;
+			children = (
+				18FC15B22922D28500294591 /* ProductViewController.swift */,
+			);
+			path = ProductDetailsViewController2;
+			sourceTree = "<group>";
+		};
 		75A858D48E3B78311D34E771 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -523,6 +578,7 @@
 				933D18DB2819935900F1CCC4 /* Products */,
 				75A858D48E3B78311D34E771 /* Pods */,
 				FDD6F5C2326508B4B9DB604E /* Frameworks */,
+				18FC15AE2922D13F00294591 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -632,14 +688,17 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18D91C3B291E0568003F2328 /* Items */,
+				1891A4C3291D7971007D98DA /* ProductInfo */,
 				930175792884885400151A4B /* Buttons */,
 				938F7A8F2821119E00DD60DB /* BannerView */,
 				933D19262819946000F1CCC4 /* LoadingAnimationView.swift */,
-				9AA92B14288859F400606082 /* ChipView.swift */,
 				931EC25D2846F60E00B72479 /* CartHotView.swift */,
+				1891A4C4291D7A5C007D98DA /* ChipView.swift */,
 				93EC90FD28622229009056F6 /* DiscountValueView.swift */,
 				93CA16DD28A3F7C6008CC897 /* DiscountLabel.swift */,
 				9343119928DB6D8F003B77F9 /* EmptyView.swift */,
+				1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -654,6 +713,7 @@
 				933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */,
 				933D192D2819946800F1CCC4 /* UIFont_EXT.swift */,
 				933D192E2819946800F1CCC4 /* UIViewController_EXT.swift */,
+				18FC15AF2922D1E000294591 /* UILabel_EXT.swift */,
 				933D192F2819946800F1CCC4 /* UIView_EXT.swift */,
 				933D19302819946800F1CCC4 /* String_EXT.swift */,
 				933D19312819946800F1CCC4 /* UIColor_EXT.swift */,
@@ -684,6 +744,7 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				18FC15B12922D28500294591 /* ProductDetailsViewController2 */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
 				938F7A8C28210F0C00DD60DB /* ProductTableViewCell */,
@@ -1499,6 +1560,7 @@
 				93D73F1028450CE80015C4FB /* DeliveryServices.swift in Sources */,
 				9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */,
 				B5061C06286BF22700A03271 /* PaymentTableViewCell.swift in Sources */,
+				18B30835291E9B970015F13E /* DiscountView.swift in Sources */,
 				93AF91FE284BEE140075CD65 /* UserAddressListingViewModel.swift in Sources */,
 				93EC90F6285A4DB9009056F6 /* SubcsriptionCell.swift in Sources */,
 				9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */,
@@ -1526,7 +1588,9 @@
 				9A88B766288DB76100BE1E05 /* BookingServices.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */,
+				18B28507291F91E900AF16B2 /* StackInfoProductView.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* ItemCategory.swift in Sources */,
+				18482B792920F37200C161FB /* ProductCategory.swift in Sources */,
 				93C2EA4D28B28B5E00371DFE /* MyBookingViewModel.swift in Sources */,
 				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
 				9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */,
@@ -1534,12 +1598,12 @@
 				93E520422835ED4900523772 /* CartDataSource.swift in Sources */,
 				93E24E1128B887F000E53835 /* UserRegisteredSubscription.swift in Sources */,
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
+				1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */,
 				938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */,
 				B561819E2862B59D009BE6E5 /* OrderDataSource.swift in Sources */,
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
 				B56181992862B59D009BE6E5 /* ItemBrand.swift in Sources */,
 				93AF920E284D10BF0075CD65 /* PromotionServices.swift in Sources */,
-				9AA92B15288859F400606082 /* ChipView.swift in Sources */,
 				930F3034281A05B5003D247A /* ProductDetailsViewModel.swift in Sources */,
 				93EC90FC285A59C6009056F6 /* SuccessPlaceOrderViewController.swift in Sources */,
 				93C2EA3A28AF3FF000371DFE /* SignInViewModel.swift in Sources */,
@@ -1563,10 +1627,13 @@
 				93BB6911283003B000BC2E5E /* ProductFilterViewModel.swift in Sources */,
 				934D72A428A02A0900E4255F /* BookingInfoTableViewCell.swift in Sources */,
 				93A1881528F5589700F60EDF /* StoreTableViewCell.swift in Sources */,
+				18D91C3D291E062F003F2328 /* TagView.swift in Sources */,
 				9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */,
+				18FC15B32922D28600294591 /* ProductViewController.swift in Sources */,
 				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				93AF91F7284BE2410075CD65 /* OrderTotalView.swift in Sources */,
 				93EC90C6285A2D85009056F6 /* CarrierView.swift in Sources */,
+				18D91C3F291E0642003F2328 /* StackTagView.swift in Sources */,
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				932AC4CD28A21CEE0060338B /* BookingSuccessViewController.swift in Sources */,
 				B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */,
@@ -1578,6 +1645,7 @@
 				931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */,
 				93AF91F9284BE78E0075CD65 /* ContactDataSource.swift in Sources */,
 				B56181912862B59D009BE6E5 /* CheckoutPriceData.swift in Sources */,
+				1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */,
 				B5061C01286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift in Sources */,
 				B5061C03286BF22700A03271 /* PackageTableViewCell.swift in Sources */,
 				93EC90EB285A4D73009056F6 /* AccountInfoViewController.swift in Sources */,
@@ -1597,11 +1665,13 @@
 				933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */,
 				93EC90F4285A4DB9009056F6 /* MainSubscriptionViewModel.swift in Sources */,
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,
+				18FC15B02922D1E000294591 /* UILabel_EXT.swift in Sources */,
 				9301757D28848A8D00151A4B /* UIImage_EXT.swift in Sources */,
 				93D73F0E28450CD90015C4FB /* AuthenticationServices.swift in Sources */,
 				93C2EA5628B32B6500371DFE /* EHProfileServices.swift in Sources */,
 				93E7BE1B28C109000037D82A /* OrderShippingData.swift in Sources */,
 				93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */,
+				18E7DF012920E5F200E0BD00 /* GroupCategory.swift in Sources */,
 				93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */,
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,
 				93C2EA4F28B318B800371DFE /* MyBookingTableViewCell.swift in Sources */,
