@@ -128,7 +128,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
             subView.removeFromSuperview()
         }
         
-        var lastView : UIView? = nil
+        var lastView : UIView?
         switch cellData.featureType {
         case .ecom:
             let newChipView = ChipView.init(title: "Physical Product")

@@ -21,7 +21,7 @@ class ProductTableViewCell: UITableViewCell {
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
-//    let addToCartBtn        = UIButton()
+    let addToWishlistBtn    = UIButton()
     
     private var productData : ProductDataSource?
     var delegate            : ProductCellDelegate?
@@ -70,15 +70,6 @@ class ProductTableViewCell: UITableViewCell {
             make.left.equalTo(productTitleLabel)
         }
         
-        starView.text = "★ 4.5"
-        starView.font = getCustomFont(size: 11, name: .regular)
-        starView.textColor = kDefaultTextColor
-        self.contentView.addSubview(starView)
-        starView.snp.makeConstraints { make in
-            make.centerY.equalTo(truePriceLabel)
-            make.right.equalTo(productTitleLabel)
-        }
-        
         contentView.addSubview(discountValue)
         discountValue.snp.makeConstraints { make in
             make.left.equalTo(productTitleLabel)
@@ -94,6 +85,24 @@ class ProductTableViewCell: UITableViewCell {
             make.left.equalTo(discountValue.snp.right).offset(4)
         }
         
+        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
+        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .normal)
+        addToWishlistBtn.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
+        self.contentView.addSubview(addToWishlistBtn)
+        addToWishlistBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(truePriceLabel)
+            make.right.equalTo(productTitleLabel)
+            make.height.width.equalTo(16)
+        }
+        
+        starView.text = "★ 4.5"
+        starView.font = getCustomFont(size: 11, name: .regular)
+        starView.textColor = kDefaultTextColor
+        self.contentView.addSubview(starView)
+        starView.snp.makeConstraints { make in
+            make.centerY.equalTo(truePriceLabel)
+            make.right.equalTo(addToWishlistBtn.snp.left).offset(-16)
+        }
 //        variantMark.isHidden = true
 //        variantMark.backgroundColor = kRedHightLightColor
 //        variantMark.textColor = .white
@@ -160,7 +169,7 @@ class ProductTableViewCell: UITableViewCell {
             subView.removeFromSuperview()
         }
         
-        var lastView : UIView? = nil
+        var lastView : UIView?
         switch cellData.featureType {
         case .ecom:
             let newChipView = ChipView.init(title: "Physical Product")
@@ -216,9 +225,7 @@ class ProductTableViewCell: UITableViewCell {
         }
     }
     
-    @objc private func removeButtonTapped() {
-        if let productData = productData {
-            delegate?.addProductToCart(productData)
-        }
+    @objc private func addToWishListButtonTapped() {
+        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
     }
 }
