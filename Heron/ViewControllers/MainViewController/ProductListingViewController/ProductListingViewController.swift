@@ -12,8 +12,7 @@ import BadgeHub
 
 class ProductListingViewController: BaseViewController,
                                     UITableViewDelegate,
-                                    ProductFilterDelegate,
-                                    ProductCellDelegate {
+                                    ProductFilterDelegate {
     
     private let viewModel           = ProductListingViewModel()
     
@@ -69,10 +68,14 @@ class ProductListingViewController: BaseViewController,
             make.bottom.equalToSuperview()
         }
         
+        let screenSize = UIScreen.main.bounds
         let layout = UICollectionViewFlowLayout()
+        let cellWidth = screenSize.width/2
+        layout.itemSize = CGSize(width: cellWidth, height: cellWidth + 97)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .vertical
         
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView?.backgroundColor = .white
@@ -169,7 +172,6 @@ class ProductListingViewController: BaseViewController,
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
                 let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
                 cell.setDataSource(element)
-                cell.delegate = self
                 return cell
             }
             .disposed(by: disposeBag)
@@ -208,12 +210,6 @@ class ProductListingViewController: BaseViewController,
 extension ProductListingViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     // MARK: - UICollectionViewDelegateFlowLayout
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let screenSize = UIScreen.main.bounds
-        return CGSize(width: (screenSize.width-78)/2, height: 228)
-    }
-
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let value = viewModel.listProducts.value
         let productData = value[indexPath.row]
@@ -236,7 +232,6 @@ extension ProductListingViewController : UICollectionViewDataSource, UICollectio
         let value = viewModel.listProducts.value
         let productData = value[indexPath.row]
         cell.setDataSource(productData)
-        cell.delegate = self
         return cell
     }
 }

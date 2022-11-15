@@ -17,9 +17,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
+    let addToWishlistBtn    = UIButton()
     
     private var productData : ProductDataSource?
-    var delegate            : ProductCellDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,67 +32,72 @@ class ProductCollectionViewCell: UICollectionViewCell {
         packageImage.layer.cornerRadius = 8
         self.contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
-            make.top.left.right.equalToSuperview().offset(15)
+            make.top.left.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
             make.height.equalTo(self.contentView.snp.width)
         }
         
-//        productTitleLabel.text = ""
-//        productTitleLabel.numberOfLines = 0
-//        productTitleLabel.font = getCustomFont(size: 13, name: .regular)
-//        productTitleLabel.textColor = kDefaultTextColor
-//        productTitleLabel.numberOfLines = 0
-//        self.contentView.addSubview(productTitleLabel)
-//        productTitleLabel.snp.makeConstraints { (make) in
-//            make.left.equalTo(packageImage.snp.right).offset(12)
-//            make.top.equalTo(packageImage)
-//            make.right.equalToSuperview().offset(-16)
-//        }
-//
-//        self.contentView.addSubview(tagsViewStack)
-//        tagsViewStack.snp.makeConstraints { make in
-//            make.top.equalTo(productTitleLabel.snp.bottom)
-//            make.left.right.equalTo(productTitleLabel)
-//            make.height.equalTo(14)
-//        }
-//
-//        truePriceLabel.text = "$ 10.00"
-//        truePriceLabel.textColor = kDefaultTextColor
-//        truePriceLabel.font = getCustomFont(size: 13, name: .extraBold)
-//        self.contentView.addSubview(truePriceLabel)
-//        truePriceLabel.snp.makeConstraints { (make) in
-//            make.bottom.equalTo(packageImage.snp.bottom)
-//            make.left.equalTo(productTitleLabel)
-//        }
-//
-//        starView.text = "★ 4.5"
-//        starView.font = getCustomFont(size: 11, name: .regular)
-//        starView.textColor = kDefaultTextColor
-//        self.contentView.addSubview(starView)
-//        starView.snp.makeConstraints { make in
-//            make.centerY.equalTo(truePriceLabel)
-//            make.right.equalTo(productTitleLabel)
-//        }
-//
-//        contentView.addSubview(discountValue)
-//        discountValue.snp.makeConstraints { make in
-//            make.left.equalTo(productTitleLabel)
-//            make.bottom.equalTo(truePriceLabel.snp.top).offset(-5)
-//        }
-//
-//        sourcePriceLabel.text = "$ 20.00"
-//        sourcePriceLabel.setTextColor(kDefaultTextColor)
-//        sourcePriceLabel.font = getCustomFont(size: 11, name: .semiBold)
-//        self.contentView.addSubview(sourcePriceLabel)
-//        sourcePriceLabel.snp.makeConstraints { (make) in
-//            make.bottom.equalTo(truePriceLabel.snp.top).offset(-5)
-//            make.left.equalTo(discountValue.snp.right).offset(4)
-//        }
+        productTitleLabel.text = ""
+        productTitleLabel.numberOfLines = 2
+        productTitleLabel.font = getCustomFont(size: 13, name: .regular)
+        productTitleLabel.textColor = kDefaultTextColor
+        productTitleLabel.numberOfLines = 0
+        self.contentView.addSubview(productTitleLabel)
+        productTitleLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(packageImage.snp.bottom).offset(8)
+            make.left.equalTo(packageImage)
+            make.right.equalToSuperview().offset(-34)
+        }
+        
+        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
+        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .normal)
+        addToWishlistBtn.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
+        self.contentView.addSubview(addToWishlistBtn)
+        addToWishlistBtn.snp.makeConstraints { make in
+            make.top.equalTo(productTitleLabel)
+            make.right.equalTo(packageImage)
+            make.height.width.equalTo(16)
+        }
+        
+        contentView.addSubview(discountValue)
+        discountValue.snp.makeConstraints { make in
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
+            make.left.equalTo(productTitleLabel)
+        }
+        
+        sourcePriceLabel.text = "$ 20.00"
+        sourcePriceLabel.setTextColor(kDefaultTextColor)
+        sourcePriceLabel.font = getCustomFont(size: 11, name: .semiBold)
+        self.contentView.addSubview(sourcePriceLabel)
+        sourcePriceLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
+            make.left.equalTo(discountValue.snp.right).offset(4)
+        }
+        
+        truePriceLabel.text = "$ 10.00"
+        truePriceLabel.textColor = kDefaultTextColor
+        truePriceLabel.font = getCustomFont(size: 13, name: .extraBold)
+        self.contentView.addSubview(truePriceLabel)
+        truePriceLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(discountValue.snp.bottom).offset(2)
+            make.left.equalTo(productTitleLabel)
+//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        starView.text = "★ 4.5"
+        starView.font = getCustomFont(size: 11, name: .regular)
+        starView.textColor = kDefaultTextColor
+        self.contentView.addSubview(starView)
+        starView.snp.makeConstraints { make in
+            make.centerY.equalTo(truePriceLabel)
+            make.right.equalTo(packageImage)
+        }
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func setDataSource(_ cellData: ProductDataSource) {
         
         self.productData = cellData
@@ -102,7 +107,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
         }
         
         self.productTitleLabel.text = cellData.name
-//        self.loadTagsContents(cellData)
         
         self.sourcePriceLabel.text = getMoneyFormat(cellData.customRegularPrice)
         self.truePriceLabel.text = getMoneyFormat(cellData.customFinalPrice)
@@ -182,5 +186,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
             }
             lastView = newChipView
         }
+    }
+    
+    @objc private func addToWishListButtonTapped() {
+        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
     }
 }

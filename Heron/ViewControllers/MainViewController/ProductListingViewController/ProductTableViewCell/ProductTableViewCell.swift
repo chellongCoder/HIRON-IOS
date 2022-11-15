@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol ProductCellDelegate : AnyObject {
-    func addProductToCart(_ data: ProductDataSource)
-}
-
 class ProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
@@ -24,7 +20,6 @@ class ProductTableViewCell: UITableViewCell {
     let addToWishlistBtn    = UIButton()
     
     private var productData : ProductDataSource?
-    var delegate            : ProductCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -115,19 +110,7 @@ class ProductTableViewCell: UITableViewCell {
 //            make.right.bottom.equalToSuperview()
 //            make.height.equalTo(35)
 //        }
-        
-//        addToCartBtn.setTitle("Add to cart", for: .normal)
-//        addToCartBtn.backgroundColor = kPrimaryColor
-//        addToCartBtn.layer.cornerRadius = 8
-//        addToCartBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
-//        contentView.addSubview(addToCartBtn)
-//        addToCartBtn.snp.makeConstraints { make in
-//            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
-//            make.right.equalToSuperview().offset(-20)
-//            make.height.equalTo(40)
-//            make.left.equalTo(productTitleLabel)
-//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-//        }
+
     }
 
     required init?(coder: NSCoder) {
