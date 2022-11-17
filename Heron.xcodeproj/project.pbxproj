@@ -10,6 +10,7 @@
 		18482B792920F37200C161FB /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18482B782920F37200C161FB /* ProductCategory.swift */; };
 		1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891A4C4291D7A5C007D98DA /* ChipView.swift */; };
 		1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */; };
+		189F8BEB2924E16600DBB5E1 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F8BEA2924E16600DBB5E1 /* Footer.swift */; };
 		18B28507291F91E900AF16B2 /* StackInfoProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B28506291F91E900AF16B2 /* StackInfoProductView.swift */; };
 		18B30835291E9B970015F13E /* DiscountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B30834291E9B970015F13E /* DiscountView.swift */; };
 		18D91C3D291E062F003F2328 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3C291E062F003F2328 /* TagView.swift */; };
@@ -18,6 +19,8 @@
 		18FC15A82922ABA100294591 /* UILabel_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15A72922ABA100294591 /* UILabel_EXT.swift */; };
 		18FC15AB2922ABE000294591 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AA2922ABE000294591 /* ProductViewController.swift */; };
 		18FC15AD2922BF1600294591 /* ProductBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AC2922BF1600294591 /* ProductBannerView.swift */; };
+		18FC15B52923782400294591 /* Spacer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15B42923782400294591 /* Spacer.swift */; };
+		18FC15B7292411B800294591 /* ShopInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15B6292411B800294591 /* ShopInfoView.swift */; };
 		5420DFD1ADB514180E443DB8 /* Pods_Heron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */; };
 		5D9629979773B0F0A8EF6E29 /* Pods_HeronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */; };
 		8F44A8CAC79E09534AD07075 /* Pods_HeronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */; };
@@ -233,6 +236,7 @@
 		1891A4C4291D7A5C007D98DA /* ChipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChipView.swift; path = Heron/Views/ChipView.swift; sourceTree = SOURCE_ROOT; };
 		1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
 		189DD447291EBD0100F5603C /* UILabel_EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_EXT.swift; sourceTree = "<group>"; };
+		189F8BEA2924E16600DBB5E1 /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
 		18B28506291F91E900AF16B2 /* StackInfoProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackInfoProductView.swift; sourceTree = "<group>"; };
 		18B30834291E9B970015F13E /* DiscountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountView.swift; sourceTree = "<group>"; };
 		18D91C3C291E062F003F2328 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 		18FC15A72922ABA100294591 /* UILabel_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabel_EXT.swift; path = Fonts/UILabel_EXT.swift; sourceTree = "<group>"; };
 		18FC15AA2922ABE000294591 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		18FC15AC2922BF1600294591 /* ProductBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBannerView.swift; sourceTree = "<group>"; };
+		18FC15B42923782400294591 /* Spacer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spacer.swift; sourceTree = "<group>"; };
+		18FC15B6292411B800294591 /* ShopInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopInfoView.swift; sourceTree = "<group>"; };
 		274A19593BFB005372FA29B7 /* Pods-Heron-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		2F07810B31D8BE9A038CEA94 /* Pods-HeronTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronTests.release.xcconfig"; path = "Target Support Files/Pods-HeronTests/Pods-HeronTests.release.xcconfig"; sourceTree = "<group>"; };
 		3C53001839C017F7AA2A8561 /* Pods-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -484,6 +490,9 @@
 				18E7DF002920E5F200E0BD00 /* GroupCategory.swift */,
 				18482B782920F37200C161FB /* ProductCategory.swift */,
 				18FC15AC2922BF1600294591 /* ProductBannerView.swift */,
+				18FC15B42923782400294591 /* Spacer.swift */,
+				18FC15B6292411B800294591 /* ShopInfoView.swift */,
+				189F8BEA2924E16600DBB5E1 /* Footer.swift */,
 			);
 			path = ProductInfo;
 			sourceTree = "<group>";
@@ -716,7 +725,6 @@
 				933D192C2819946800F1CCC4 /* UIImageView_EXT.swift */,
 				933D192D2819946800F1CCC4 /* UIFont_EXT.swift */,
 				933D192E2819946800F1CCC4 /* UIViewController_EXT.swift */,
-				18FC15AF2922D1E000294591 /* UILabel_EXT.swift */,
 				933D192F2819946800F1CCC4 /* UIView_EXT.swift */,
 				933D19302819946800F1CCC4 /* String_EXT.swift */,
 				18FC15A72922ABA100294591 /* UILabel_EXT.swift */,
@@ -1585,6 +1593,7 @@
 				93EC90C8285A382B009056F6 /* OrderSumView.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				B5061C04286BF22700A03271 /* OrderStatusTableViewCell.swift in Sources */,
+				189F8BEB2924E16600DBB5E1 /* Footer.swift in Sources */,
 				B56181972862B59D009BE6E5 /* ItemUnit.swift in Sources */,
 				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
@@ -1615,6 +1624,7 @@
 				9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */,
 				9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */,
 				9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift in Sources */,
+				18FC15B7292411B800294591 /* ShopInfoView.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubscriptionData.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
@@ -1650,6 +1660,7 @@
 				931EC25E2846F60E00B72479 /* CartHotView.swift in Sources */,
 				93AF91F9284BE78E0075CD65 /* ContactDataSource.swift in Sources */,
 				B56181912862B59D009BE6E5 /* CheckoutPriceData.swift in Sources */,
+				18FC15B52923782400294591 /* Spacer.swift in Sources */,
 				1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */,
 				B5061C01286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift in Sources */,
 				B5061C03286BF22700A03271 /* PackageTableViewCell.swift in Sources */,

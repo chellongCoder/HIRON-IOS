@@ -11,7 +11,8 @@ import BadgeHub
 
 class ProductDetailsViewController2: PageScrollViewController,
                                      UIScrollViewDelegate, ProductVariantDelegate {
-    
+    private let viewModel               = ProductDetailsViewModel()
+
     
     var cartButtonItem                  : UIBarButtonItem?
     var shareButtonItem                 : UIBarButtonItem?
@@ -30,6 +31,10 @@ class ProductDetailsViewController2: PageScrollViewController,
     let discountView                    = DiscountView()
     let stackInfoView                   = StackInfoView()
     let addToCartBtn                    = UIButton()
+    let descView                        = UIView()
+    let shopView                        = ShopProductView()
+    let footer                          = ProductDetailFooter()
+
 
 
     init(_ data: ProductDataSource) {
@@ -49,24 +54,19 @@ class ProductDetailsViewController2: PageScrollViewController,
         _NavController.presentCartPage()
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
         
-        addToCartBtn.backgroundColor = kPrimaryColor
-        addToCartBtn.layer.cornerRadius = 8
-        addToCartBtn.titleLabel?.font = getCustomFont(size: 16, name: .medium)
-        addToCartBtn.setTitle("Add to cart", for: .normal)
-        addToCartBtn.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
-        self.view.addSubview(addToCartBtn)
-        addToCartBtn.snp.makeConstraints { (make) in
+        ///TODO: UI footer
+        self.view.addSubview(footer)
+        footer.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview().offset(-20)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
-
+        
         /// TODO: UI header
         cartButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "bagIcon"),
                                               style: .plain,
@@ -97,22 +97,11 @@ class ProductDetailsViewController2: PageScrollViewController,
         
         heartItem?.tintColor = kDefaultBlackColor
 
-        self.navigationItem.rightBarButtonItems = [moreButtonItem!, shareButtonItem!,  cartButtonItem!
-        ]
+        self.navigationItem.rightBarButtonItems = [moreButtonItem!, shareButtonItem!,  cartButtonItem!]
         
-        /// TODO: UI banner
-//        bannerImage.image = UIImage.init(named: "banner_image4")
-//        bannerImage.contentMode = .scaleAspectFill
-//        bannerImage.layer.masksToBounds = true
-//        self.view.addSubview(bannerImage)
-//        bannerImage.snp.makeConstraints { (make) in
-//            make.top.equalToSuperview()
-//            make.width.equalToSuperview().offset(0)
-//            make.height.equalTo(bannerImage.snp.width).multipliedBy(1)
-//        }
         pageScroll.snp.remakeConstraints { (make) in
             make.left.top.right.equalToSuperview()
-            make.bottom.equalTo(addToCartBtn.snp.top).offset(-10)
+            make.bottom.equalTo(footer.snp.top).offset(-10)
         }
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
@@ -247,7 +236,50 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.top.equalTo(groupProductSizeCategory.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)
         }
+        
+        /// TODO: UI spacer
+        let spacer = SpacerView()
+        self.contentView.addSubview(spacer)
+        spacer.snp.makeConstraints { (make) in
+            make.top.equalTo(groupProductColorCategory.snp.bottom).offset(60)
+            make.height.equalTo(6)
+            make.width.equalToSuperview()
+        }
 
+        /// TODO: UI shopview
+        self.contentView.addSubview(shopView)
+        
+        shopView.snp.makeConstraints { (make) in
+            make.top.equalTo(spacer.snp.bottom).offset(10)
+            make.height.equalTo(60)
+            make.width.equalToSuperview()
+        }
+        /// TODO: UI spacer
+        let spacer2 = SpacerView()
+        self.contentView.addSubview(spacer2)
+        spacer2.snp.makeConstraints { (make) in
+            make.top.equalTo(shopView.snp.bottom).offset(10)
+            make.height.equalTo(6)
+            make.width.equalToSuperview()
+        }
+        
+        /// TODO: UI content description
+        contentView.addSubview(descView)
+        descView.snp.makeConstraints { make in
+            make.top.equalTo(shopView.snp.bottom).offset(15)
+            make.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.width.equalToSuperview()
+            make.height.equalTo(100)
+        }
+
+        
+        
+        
+    }
+    
+    override func bindingData() {
+        loadContentDescView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -277,4 +309,40 @@ class ProductDetailsViewController2: PageScrollViewController,
 
     }
 
+    private func loadContentDescView() {
+
+        var lastView: UIView?
+
+        let titleLabel = UILabel()
+        titleLabel.text = "Description"
+        titleLabel.textColor = kDefaultTextColor
+        titleLabel.font = getCustomFont(size: 13, name: .bold)
+        self.descView.addSubview(titleLabel)
+        
+        if lastView != nil {
+            titleLabel.snp.makeConstraints { make in
+                make.top.equalTo(lastView!.snp.bottom).offset(16)
+                make.centerX.left.equalToSuperview()
+            }
+        } else {
+            titleLabel.snp.makeConstraints { make in
+                make.top.equalTo(10)
+                make.centerX.left.equalTo(groupProductSizeCategory)
+            }
+        }
+        
+        let contentLabel = UILabel()
+        contentLabel.numberOfLines = 0
+        contentLabel.text = "Nhà phát triển, Luu Thi Tuyet Minh, đã cho biết rằng phương thức đảm bảo quyền riêng tư của ứng dụng có thể bao gồm việc xử lý dữ liệu như được mô tả ở bên dưới. Để biết thêm thông tin, hãy xem chính sách quyền riêng tư của nhà phát triển."
+        contentLabel.textColor = UIColor.init(hexString: "172B4D")
+        contentLabel.font = getCustomFont(size: 13, name: .regular)
+        contentDescView.addSubview(contentLabel)
+        contentLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+            make.centerX.left.equalToSuperview()
+        }
+        
+        lastView = contentLabel
+
+    }
 }
