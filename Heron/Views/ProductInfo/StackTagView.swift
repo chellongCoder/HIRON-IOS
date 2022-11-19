@@ -16,7 +16,6 @@ class StackTagView: UIView {
         self.layer.masksToBounds = true
     
         stack.distribution  = .fillProportionally
-        stack.alignment = .top
         stack.spacing = 4
 
         let tagView1 = TagView.init(title: "Physical Product")
@@ -27,9 +26,8 @@ class StackTagView: UIView {
         stack.add(view: tagView3)
         
         self.addSubview(stack)
-        
         stack.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(10)
+            make.top.left.equalToSuperview().offset(0)
             make.width.equalToSuperview()
             make.height.equalToSuperview()
         }

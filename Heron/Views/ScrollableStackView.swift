@@ -15,10 +15,9 @@ public class ScrollableStackView: UIView {
 
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: .zero)
-        scrollView.backgroundColor = .clear
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.layoutMargins = .zero
-        scrollView.contentSize = CGSize(width: 20, height: 100)
+        scrollView.contentSize = CGSize(width: 200, height: 50)
 
         return scrollView
     }()
@@ -38,29 +37,18 @@ public class ScrollableStackView: UIView {
         super.didMoveToSuperview()
         translatesAutoresizingMaskIntoConstraints = false
         clipsToBounds = true
-        addSubview(scrollView)
+        self.addSubview(scrollView)
+        scrollView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalToSuperview()
+        }
         scrollView.addSubview(stackView)
+        stackView.snp.makeConstraints { (make) in
+            make.top.left.right.equalToSuperview()
+        }
         setNeedsUpdateConstraints()
     }
-
-    public override func updateConstraints() {
-        super.updateConstraints()
-        if !didSetupConstraints {
-            NSLayoutConstraint.activate([
-                scrollView.topAnchor.constraint(equalTo: topAnchor),
-                scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
-                stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-                stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-                stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-                stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-                stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-            ])
-            didSetupConstraints.toggle()
-        }
-    }
-
 }
 
 // MARK: - ScrollableStackView - Actions

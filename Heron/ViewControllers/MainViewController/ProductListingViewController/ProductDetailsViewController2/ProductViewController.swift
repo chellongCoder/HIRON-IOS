@@ -13,7 +13,6 @@ class ProductDetailsViewController2: PageScrollViewController,
                                      UIScrollViewDelegate, ProductVariantDelegate {
     private let viewModel               = ProductDetailsViewModel()
 
-    
     var cartButtonItem                  : UIBarButtonItem?
     var shareButtonItem                 : UIBarButtonItem?
     var moreButtonItem                  : UIBarButtonItem?
@@ -23,22 +22,22 @@ class ProductDetailsViewController2: PageScrollViewController,
     private let bannerImage             = UIImageView()
     private let topMediaView            = UIScrollView()
     private let pageControl             = UIPageControl()
+    private let pagingView              = UILabel()
+    
     private let variantView             = ConfigurationProductVariantView()
     private let contentDescView         = UIView()
     let groupProductSizeCategory        = GroupProductCategory.init(title: "Size", categories: ["10ml", "5ml", "6ml"])
     let groupProductColorCategory       = GroupProductCategory.init(title: "Color", categories: ["red", "yellow", "blue", "green"])
     let stackTagView                    = StackTagView()
-    let discountView                    = DiscountView()
     let stackInfoView                   = StackInfoView()
     let addToCartBtn                    = UIButton()
     let descView                        = UIView()
     let shopView                        = ShopProductView()
     let footer                          = ProductDetailFooter()
-
-
-
+    
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
+        viewModel.productDataSource.accept(data)
     }
     
     required init?(coder: NSCoder) {
@@ -57,6 +56,7 @@ class ProductDetailsViewController2: PageScrollViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
+
         
         ///TODO: UI footer
         self.view.addSubview(footer)
@@ -136,27 +136,35 @@ class ProductDetailsViewController2: PageScrollViewController,
             index += 1
         }
         
-        self.pageControl.numberOfPages = listMediaLength
-        pageControl.currentPage = 0
-        pageControl.pageIndicatorTintColor = kDisableColor
-        pageControl.currentPageIndicatorTintColor = kPrimaryColor
-        pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
-        self.contentView.addSubview(pageControl)
-        pageControl.snp.makeConstraints { (make) in
+        self.contentView.addSubview(pagingView)
+        pagingView.text = "1/5"
+        pagingView.textColor = .white
+        pagingView.textAlignment = .center
+        pagingView.backgroundColor = .black
+        pagingView.font = getCustomFont(size: 9, name: .regular)
+        pagingView.layer.masksToBounds = true
+        pagingView.layer.cornerRadius = 7
+        pagingView.layer.opacity = 0.3
+        pagingView.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
             make.bottom.equalTo(topMediaView.snp.bottom).offset(-40)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(15)
+            make.height.equalTo(14)
+            make.width.equalTo(27)
         }
         
-        variantView.delegate = self
-        contentView.addSubview(variantView)
-        variantView.snp.makeConstraints { make in
-            make.left.equalToSuperview()
-            make.top.equalTo(pageControl.snp.bottom).offset(15)
-            make.centerX.equalToSuperview()
-        }
+        self.pageControl.numberOfPages = listMediaLength
+        topMediaView.contentSize = CGSize.init(width: CGFloat(listMediaLength)*(size.width), height: size.height)
+        pageControl.currentPage = 0
+        pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
+        
+//        variantView.delegate = self
+//        contentView.addSubview(variantView)
+//        variantView.snp.makeConstraints { make in
+//            make.left.equalToSuperview()
+//            make.top.equalTo(pageControl.snp.bottom).offset(15)
+//            make.centerX.equalToSuperview()
+//        }
 
-        
         /// TODO: UI blurview product detail
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -178,9 +186,9 @@ class ProductDetailsViewController2: PageScrollViewController,
         /// TODO: UI stack tag view
         contentDescView.addSubview(stackTagView)
         stackTagView.snp.makeConstraints { (make) in
-            make.top.left.equalToSuperview()
+            make.top.left.equalToSuperview().offset(10)
             make.width.equalToSuperview().offset(-50)
-            make.height.equalTo(50)
+            make.height.equalTo(30)
         }
         /// TODO: UI heart button
         contentDescView.addSubview(heartItem!)
@@ -195,7 +203,7 @@ class ProductDetailsViewController2: PageScrollViewController,
         nameProduct.lineBreakMode = .byWordWrapping
         nameProduct.numberOfLines = 2
         nameProduct.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules OptiBac Probiotics for Daily Wellbeing, 30 capsules"
-        nameProduct.font = getFontSize(size: 16, weight: .medium)
+        nameProduct.font = getCustomFont(size: 16, name: .regular)
         nameProduct.textColor = UIColor.init(hexString: "424242")
         contentDescView.addSubview(nameProduct)
         nameProduct.snp.makeConstraints { (make) in
@@ -207,7 +215,7 @@ class ProductDetailsViewController2: PageScrollViewController,
         /// TODO: UI stack info product
         contentDescView.addSubview(stackInfoView)
         stackInfoView.snp.makeConstraints { (make) in
-            make.top.equalTo(nameProduct.snp.bottom).offset(0)
+            make.top.equalTo(nameProduct.snp.bottom).offset(10)
             make.left.equalTo(10)
             make.width.equalToSuperview().offset(-15)
             make.height.equalTo(20)
@@ -266,25 +274,36 @@ class ProductDetailsViewController2: PageScrollViewController,
         /// TODO: UI content description
         contentView.addSubview(descView)
         descView.snp.makeConstraints { make in
-            make.top.equalTo(shopView.snp.bottom).offset(15)
+            make.left.equalTo(contentDescView)
+            make.top.equalTo(spacer2.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
-            make.width.equalToSuperview()
-            make.height.equalTo(100)
         }
 
-        
         
         
     }
     
     override func bindingData() {
-        loadContentDescView()
+        viewModel.productDataSource
+            .observe(on: MainScheduler.instance)
+            .subscribe { productDataSource in
+                guard let productDataA = productDataSource.element else {return}
+                guard let productData = productDataA else {return}
+                                
+                let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
+                
+                self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
+                self.loadContentDescView()
+            }
+            .disposed(by: disposeBag)
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        viewModel.reloadProductDetails()
     }
     
     @objc private func pageControlDidChange(_ sender: UIPageControl) {
@@ -299,8 +318,9 @@ class ProductDetailsViewController2: PageScrollViewController,
         
         let page = lroundf(Float(fractionalPage))
         self.pageControl.currentPage = page
+        pagingView.text = "\(page+1)/5"
     }
-    
+
     @objc private func buyNowButtonTapped() {
         
     }
@@ -310,39 +330,50 @@ class ProductDetailsViewController2: PageScrollViewController,
     }
 
     private func loadContentDescView() {
+        for subview in descView.subviews {
+            subview.removeFromSuperview()
+        }
+
+        guard let productDataSource = self.viewModel.productDataSource.value else {return}
 
         var lastView: UIView?
-
-        let titleLabel = UILabel()
-        titleLabel.text = "Description"
-        titleLabel.textColor = kDefaultTextColor
-        titleLabel.font = getCustomFont(size: 13, name: .bold)
-        self.descView.addSubview(titleLabel)
         
-        if lastView != nil {
-            titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(lastView!.snp.bottom).offset(16)
+        for content in productDataSource.desc {
+            let titleLabel = UILabel()
+            titleLabel.text = content.title
+            titleLabel.textColor = kDefaultTextColor
+            titleLabel.font = .boldSystemFont(ofSize: 13)
+            self.descView.addSubview(titleLabel)
+            
+            if lastView != nil {
+                titleLabel.snp.makeConstraints { make in
+                    make.top.equalTo(lastView!.snp.bottom).offset(16)
+                    make.centerX.left.equalToSuperview()
+                }
+            } else {
+                titleLabel.snp.makeConstraints { make in
+                    make.top.equalToSuperview()
+                    make.centerX.left.equalToSuperview()
+                }
+            }
+            
+            let contentLabel = UILabel()
+            contentLabel.numberOfLines = 0
+            contentLabel.attributedText = content.content.htmlAttributedString()
+            contentLabel.textColor = UIColor.init(hexString: "172B4D")
+            contentLabel.font = getCustomFont(size: 13, name: .regular)
+            self.descView.addSubview(contentLabel)
+            contentLabel.snp.makeConstraints { make in
+                make.top.equalTo(titleLabel.snp.bottom).offset(15)
                 make.centerX.left.equalToSuperview()
             }
-        } else {
-            titleLabel.snp.makeConstraints { make in
-                make.top.equalTo(10)
-                make.centerX.left.equalTo(groupProductSizeCategory)
-            }
+            
+            lastView = contentLabel
         }
         
-        let contentLabel = UILabel()
-        contentLabel.numberOfLines = 0
-        contentLabel.text = "Nhà phát triển, Luu Thi Tuyet Minh, đã cho biết rằng phương thức đảm bảo quyền riêng tư của ứng dụng có thể bao gồm việc xử lý dữ liệu như được mô tả ở bên dưới. Để biết thêm thông tin, hãy xem chính sách quyền riêng tư của nhà phát triển."
-        contentLabel.textColor = UIColor.init(hexString: "172B4D")
-        contentLabel.font = getCustomFont(size: 13, name: .regular)
-        contentDescView.addSubview(contentLabel)
-        contentLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.centerX.left.equalToSuperview()
-        }
-        
-        lastView = contentLabel
+        lastView?.snp.makeConstraints({ make in
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        })
 
     }
 }
