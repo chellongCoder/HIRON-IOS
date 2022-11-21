@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		181ED8A5292A23B2005848CE /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181ED8A4292A23B2005848CE /* TabView.swift */; };
 		18482B792920F37200C161FB /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18482B782920F37200C161FB /* ProductCategory.swift */; };
 		1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891A4C4291D7A5C007D98DA /* ChipView.swift */; };
 		1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */; };
@@ -232,6 +233,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		181ED8A4292A23B2005848CE /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		18482B782920F37200C161FB /* ProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategory.swift; sourceTree = "<group>"; };
 		1891A4C4291D7A5C007D98DA /* ChipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChipView.swift; path = Heron/Views/ChipView.swift; sourceTree = SOURCE_ROOT; };
 		1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 				18FC15B42923782400294591 /* Spacer.swift */,
 				18FC15B6292411B800294591 /* ShopInfoView.swift */,
 				189F8BEA2924E16600DBB5E1 /* Footer.swift */,
+				181ED8A4292A23B2005848CE /* TabView.swift */,
 			);
 			path = ProductInfo;
 			sourceTree = "<group>";
@@ -1627,6 +1630,7 @@
 				18FC15B7292411B800294591 /* ShopInfoView.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubscriptionData.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
+				181ED8A5292A23B2005848CE /* TabView.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */,
 				93C2EA5428B326DA00371DFE /* UpdateUserProfileViewModel.swift in Sources */,

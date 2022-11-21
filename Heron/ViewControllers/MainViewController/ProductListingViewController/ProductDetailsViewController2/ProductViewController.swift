@@ -20,10 +20,12 @@ class ProductDetailsViewController2: PageScrollViewController,
     var cartHub                         : BadgeHub?
     
     private let bannerImage             = UIImageView()
+    private let tabView                 = TabViewProductDetail()
     private let topMediaView            = UIScrollView()
     private let pageControl             = UIPageControl()
     private let pagingView              = UILabel()
-    
+    private let topView                 = UIImageView()
+
     private let variantView             = ConfigurationProductVariantView()
     private let contentDescView         = UIView()
     let groupProductSizeCategory        = GroupProductCategory.init(title: "Size", categories: ["10ml", "5ml", "6ml"])
@@ -57,6 +59,18 @@ class ProductDetailsViewController2: PageScrollViewController,
         super.viewDidLoad()
         self.showBackBtn()
 
+        self.topView.contentMode = .scaleAspectFill
+        let image = UIImage(named: "banner_image4")
+        self.topView.image = image      
+        self.topView.layer.cornerRadius = 35/2
+        self.topView.layer.masksToBounds = true
+        self.topView.snp.makeConstraints { make in
+            make.width.equalTo(35)
+            make.height.equalTo(35)
+        }
+        DispatchQueue.main.async {
+            self.navigationItem.titleView = nil
+        }
         
         ///TODO: UI footer
         self.view.addSubview(footer)
@@ -91,7 +105,7 @@ class ProductDetailsViewController2: PageScrollViewController,
                                               target: self,
                                               action: #selector(filterButtonTapped))
         moreButtonItem?.tintColor = kDefaultBlackColor
-        
+        moreButtonItem?.customView?.alpha = 0.0
         heartItem = UIButton(type: .custom)
         heartItem!.setImage(UIImage(systemName: "heart"), for: .normal)
         
@@ -99,6 +113,7 @@ class ProductDetailsViewController2: PageScrollViewController,
 
         self.navigationItem.rightBarButtonItems = [moreButtonItem!, shareButtonItem!,  cartButtonItem!]
         
+        pageScroll.delegate = self
         pageScroll.snp.remakeConstraints { (make) in
             make.left.top.right.equalToSuperview()
             make.bottom.equalTo(footer.snp.top).offset(-10)
@@ -108,6 +123,15 @@ class ProductDetailsViewController2: PageScrollViewController,
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         pageScroll.addSubview(refreshControl)
         
+        ///TODO: Top tab view
+        self.view.addSubview(tabView)
+        tabView.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(0)
+            make.top.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(0)
+        }
+
         let staticHeight = (UIScreen.main.bounds.size.width)*1
         topMediaView.isPagingEnabled = true
         topMediaView.delegate = self
@@ -256,7 +280,6 @@ class ProductDetailsViewController2: PageScrollViewController,
 
         /// TODO: UI shopview
         self.contentView.addSubview(shopView)
-        
         shopView.snp.makeConstraints { (make) in
             make.top.equalTo(spacer.snp.bottom).offset(10)
             make.height.equalTo(60)
@@ -274,13 +297,11 @@ class ProductDetailsViewController2: PageScrollViewController,
         /// TODO: UI content description
         contentView.addSubview(descView)
         descView.snp.makeConstraints { make in
-            make.left.equalTo(contentDescView)
+            make.left.right.equalTo(10)
             make.top.equalTo(spacer2.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
-
-        
         
     }
     
@@ -290,9 +311,6 @@ class ProductDetailsViewController2: PageScrollViewController,
             .subscribe { productDataSource in
                 guard let productDataA = productDataSource.element else {return}
                 guard let productData = productDataA else {return}
-                                
-                let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
-                
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
                 self.loadContentDescView()
             }
@@ -303,9 +321,11 @@ class ProductDetailsViewController2: PageScrollViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+
         viewModel.reloadProductDetails()
+
     }
-    
+
     @objc private func pageControlDidChange(_ sender: UIPageControl) {
         let current = sender.currentPage
         self.topMediaView.setContentOffset(CGPoint(x: CGFloat(current)*view.frame.width, y: 0), animated: true)
@@ -313,9 +333,74 @@ class ProductDetailsViewController2: PageScrollViewController,
     
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(scrollView == self.topMediaView) {
+            print("self.topMediaView")
+        } else if(scrollView == self.pageScroll) {
+            print("self.pageScroll")
+            let contentOffset = scrollView.contentOffset
+            if(contentOffset.y >= self.topMediaView.frame.size.height / 2) {
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.5) {
+                        self.navigationItem.titleView = self.topView
+                        self.pagingView.alpha = 0
+                    } completion: { _ in
+                        print("completed animate 1 up")
+                    }
+
+                    UIView.animate(withDuration: 2) {
+                        
+                        self.tabView.snp.remakeConstraints({ make in
+                            make.left.equalToSuperview().offset(0)
+                            make.top.equalToSuperview()
+                            make.width.equalToSuperview()
+                        })
+                        
+                        self.topMediaView.snp.remakeConstraints { make in
+                            make.top.equalTo(64)
+                            make.right.left.equalToSuperview()
+                            make.bottom.equalTo(self.topMediaView.snp.top).offset(0)
+                        }
+
+                    } completion: { _ in
+                        print("completed animate 2 up")
+                    }
+                }
+            }
+            else if(contentOffset.y < 0) {
+                let staticHeight = (UIScreen.main.bounds.size.width)*1
+
+                DispatchQueue.main.async {
+                    UIView.animate(withDuration: 0.5) {
+                        self.navigationItem.titleView = nil
+                        self.pagingView.alpha = 0.3
+                    } completion: { _ in
+                        print("completed animate 1 down")
+                    }
+
+                    UIView.animate(withDuration: 2) {
+                        
+                        self.tabView.snp.remakeConstraints({ make in
+                            make.left.equalToSuperview().offset(0)
+                            make.top.equalToSuperview()
+                            make.width.equalToSuperview()
+                            make.height.equalTo(0)
+                        })
+                        
+                        self.topMediaView.snp.remakeConstraints { make in
+                            make.top.equalToSuperview()
+                            make.right.left.equalToSuperview()
+                            make.bottom.equalTo(self.topMediaView.snp.top).offset(staticHeight)
+                        }
+                    } completion: { _ in
+                        print("completed animate 2 down")
+                    }
+                }
+            }
+            
+        }
         let pageWidth = scrollView.frame.size.width
         let fractionalPage = scrollView.contentOffset.x / pageWidth
-        
+
         let page = lroundf(Float(fractionalPage))
         self.pageControl.currentPage = page
         pagingView.text = "\(page+1)/5"
