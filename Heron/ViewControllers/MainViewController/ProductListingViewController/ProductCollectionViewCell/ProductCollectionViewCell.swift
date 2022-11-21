@@ -41,7 +41,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
         productTitleLabel.numberOfLines = 2
         productTitleLabel.font = getCustomFont(size: 13, name: .regular)
         productTitleLabel.textColor = kDefaultTextColor
-        productTitleLabel.numberOfLines = 0
         self.contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
             make.top.equalTo(packageImage.snp.bottom).offset(8)

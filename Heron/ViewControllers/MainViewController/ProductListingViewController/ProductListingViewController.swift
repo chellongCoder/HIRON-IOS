@@ -44,7 +44,7 @@ class ProductListingViewController: BaseViewController,
         self.cartHub?.pop()
         
         let cartButtonItem = UIBarButtonItem(customView: cartButton)
-        let changeViewStyleItem = UIBarButtonItem.init(image: UIImage.init(named: "collection_bar_icon"),
+        let changeViewStyleItem = UIBarButtonItem.init(image: UIImage.init(named: "list_bar_icon"),
                                               style: .plain,
                                               target: self,
                                               action: #selector(switchViewButtonTapped))
@@ -125,14 +125,16 @@ class ProductListingViewController: BaseViewController,
         _NavController.pushViewController(filterVC, animated: true)
     }
     
-    @objc private func switchViewButtonTapped() {
+    @objc private func switchViewButtonTapped(_ sender: UIBarButtonItem) {
         let viewMode = viewModel.viewMode.value
         
         switch viewMode {
         case .gridView:
             viewModel.viewMode.accept(.listView)
+            sender.image = UIImage.init(named: "collection_bar_icon")
         case .listView:
             viewModel.viewMode.accept(.gridView)
+            sender.image = UIImage.init(named: "list_bar_icon")
         }
     }
     
@@ -149,7 +151,10 @@ class ProductListingViewController: BaseViewController,
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.cartHub?.setCount(cartDataSource?.totalItemCount ?? 0)
+                
+                guard let cartData = cartDataSource.element else {return}
+                
+                self.cartHub?.setCount(cartData?.totalItemCount ?? 0)
                 self.cartHub?.pop()
             }
             .disposed(by: disposeBag)

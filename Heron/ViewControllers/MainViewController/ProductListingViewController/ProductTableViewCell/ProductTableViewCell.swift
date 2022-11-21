@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class ProductTableViewCell: UITableViewCell {
     
@@ -20,6 +21,7 @@ class ProductTableViewCell: UITableViewCell {
     let addToWishlistBtn    = UIButton()
     
     private var productData : ProductDataSource?
+    private let disposeBag  = DisposeBag()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -111,6 +113,22 @@ class ProductTableViewCell: UITableViewCell {
 //            make.height.equalTo(35)
 //        }
 
+        _AppCoreData.wishListProduct
+            .observe(on: MainScheduler.instance)
+            .subscribe { wishList in
+                
+                guard let wishList = wishList.element else {return}
+                guard let productData = self.productData else {
+                    return
+                }
+                
+                if wishList.contains(productData) {
+                    self.addToWishlistBtn.isSelected = true
+                } else {
+                    self.addToWishlistBtn.isSelected = false
+                }
+            }
+            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {
@@ -132,12 +150,12 @@ class ProductTableViewCell: UITableViewCell {
         self.truePriceLabel.text = getMoneyFormat(cellData.customFinalPrice)
         self.sourcePriceLabel.isHidden = (cellData.customRegularPrice == cellData.customFinalPrice)
         
-//        if cellData.discountPercent > 0 {
-//            self.discountValue.isHidden = false
-//            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
-//        } else {
-//            self.discountValue.isHidden = true
-//        }
+        if cellData.discountPercent > 0 {
+            self.discountValue.isHidden = false
+            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
+        } else {
+            self.discountValue.isHidden = true
+        }
         
         variantMark.isHidden = (cellData.type == .simple) || cellData.configurableOptions.isEmpty
         if cellData.configurableOptions.count == 1 {
@@ -210,5 +228,19 @@ class ProductTableViewCell: UITableViewCell {
     
     @objc private func addToWishListButtonTapped() {
         self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
+        
+        guard let productData = self.productData else {
+            return
+        }
+        
+        var wishList = _AppCoreData.wishListProduct.value
+        if self.addToWishlistBtn.isSelected {
+            wishList.append(productData)
+        } else {
+            wishList.removeAll { savedProduct in
+                return savedProduct == productData
+            }
+        }
+        _AppCoreData.wishListProduct.accept(wishList)
     }
 }

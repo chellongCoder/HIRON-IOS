@@ -19,7 +19,7 @@ class ProductListingViewModel: NSObject {
     var listBanners         : [String] = ["banner_image1", "banner_image2", "banner_image3"]
     var filterData          : CategoryDataSource?
     let listProducts        = BehaviorRelay<[ProductDataSource]>(value: Array(_AppCoreData.listsavedProducts))
-    let viewMode            = BehaviorRelay<ProductListingMode>(value: .listView)
+    let viewMode            = BehaviorRelay<ProductListingMode>(value: .gridView)
     
     func getProductList() {
         
@@ -34,7 +34,9 @@ class ProductListingViewModel: NSObject {
                      "sort[createdAt]" : "desc"]
         }
         
-//        self.controller?.startLoadingAnimation()
+        if self.listProducts.value.isEmpty {
+            self.controller?.startLoadingAnimation()
+        }
         _InventoryServices.getListProducts(param: param) { errorMessage, listNewProducts in
             self.controller?.endLoadingAnimation()
             self.controller?.refreshControl.endRefreshing()

@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (5.2.0)
   - BadgeHub (1.0.0)
-  - BugfenderSDK (1.10.5)
+  - BugfenderSDK (1.10.4)
   - FSCalendar (2.8.4)
   - IQKeyboardManager (6.5.10)
   - Material (3.1.8):
@@ -83,15 +83,15 @@ PODS:
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
   - ObjectMapper (4.2.0)
-  - OneSignalXCFramework (3.11.3):
-    - OneSignalXCFramework/OneSignalCore (= 3.11.3)
-    - OneSignalXCFramework/OneSignalExtension (= 3.11.3)
-    - OneSignalXCFramework/OneSignalOutcomes (= 3.11.3)
-  - OneSignalXCFramework/OneSignalCore (3.11.3)
-  - OneSignalXCFramework/OneSignalExtension (3.11.3):
+  - OneSignalXCFramework (3.12.1):
+    - OneSignalXCFramework/OneSignalCore (= 3.12.1)
+    - OneSignalXCFramework/OneSignalExtension (= 3.12.1)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.1)
+  - OneSignalXCFramework/OneSignalCore (3.12.1)
+  - OneSignalXCFramework/OneSignalExtension (3.12.1):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalOutcomes
-  - OneSignalXCFramework/OneSignalOutcomes (3.11.3):
+  - OneSignalXCFramework/OneSignalOutcomes (3.12.1):
     - OneSignalXCFramework/OneSignalCore
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
@@ -124,7 +124,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (= 5.2.0)
   - BadgeHub (= 1.0.0)
-  - BugfenderSDK
+  - BugfenderSDK (= 1.10.4)
   - FSCalendar (= 2.8.4)
   - IQKeyboardManager (= 6.5.10)
   - Material (= 3.1.8)
@@ -172,7 +172,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: c1ca147559e730bfb2182c8c7aafbdd90a867987
   BadgeHub: b227771329f78c37a2dae7502607ec6d00a50bd4
-  BugfenderSDK: 210724a09aa05c9f6cdaea17af0fbbc2527a654d
+  BugfenderSDK: d48b0baf2fe53339e73ffd3231457f224e77b03b
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
@@ -182,7 +182,7 @@ SPEC CHECKSUMS:
   Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  OneSignalXCFramework: e3f0100b491f5c7191dd1e204020eb3ecc4188b1
+  OneSignalXCFramework: e286449b6048f4a2eade5f5626a04779dfa4fcb2
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
@@ -196,6 +196,6 @@ SPEC CHECKSUMS:
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a
 
-PODFILE CHECKSUM: 7dd46f285f021509beab470290536e1f3aa8eb28
+PODFILE CHECKSUM: b8c616d6b3fe37260dfdf67560f200803bfdc0ac
 
 COCOAPODS: 1.11.3

@@ -21,6 +21,7 @@ class ApplicationCoreData: NSObject {
     public var userSession              = BehaviorRelay<SessionDataSource?>(value: nil)
     public var userDataSource           = BehaviorRelay<UserDataSource?>(value: nil)
     public var listsavedProducts        : [ProductDataSource] = []
+    public var wishListProduct          = BehaviorRelay<[ProductDataSource]>(value: [])
     private let disposeBag              = DisposeBag()
     
     private var timerRefeshToken: Timer?
