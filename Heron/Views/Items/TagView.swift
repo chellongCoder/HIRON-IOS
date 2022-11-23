@@ -20,7 +20,7 @@ class TagView: UIView {
                 
         self.textLabel.text = title
         self.textLabel.textColor = .white
-        self.textLabel.font = getFontSize(size: 12, weight: .medium)
+        self.textLabel.font = getCustomFont(size: 12, name: .medium)
         self.textLabel.textColor = kDefaultTextColor
         self.textLabel.textAlignment = .center
         self.addSubview(textLabel)

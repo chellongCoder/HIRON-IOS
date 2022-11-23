@@ -16,8 +16,8 @@ class GroupProductCategory: UIView {
         super.init(frame: .zero)
         
         self.textLabel.text = title
-        self.textLabel.textColor = kDefaultBlackColor
-        self.textLabel.font = getFontSize(size: 11, weight: .regular)
+        self.textLabel.textColor = kDefaultTextColor
+        self.textLabel.font = getCustomFont(size: 11, name: .regular)
         self.textLabel.textColor = kDefaultTextColor
 
         self.addSubview(textLabel)

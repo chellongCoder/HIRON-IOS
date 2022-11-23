@@ -138,6 +138,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.left.equalTo(packageTitle)
         }
 
+        
         priceLabel.setTextColor(kDisableColor)
         priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
         contentView.addSubview(priceLabel)

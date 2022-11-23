@@ -6,10 +6,9 @@
 //
 
 
-
 class DiscountView: UIView {
 
-    let discount     = UILabel()
+    var discount     = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -17,7 +16,7 @@ class DiscountView: UIView {
     
         discount.text = "30%"
         
-        discount.font = getFontSize(size: 9, weight: .bold)
+        discount.font = getCustomFont(size: 9, name: .bold)
         discount.textColor = UIColor.init(hexString: "ff6d6e")
         self.addSubview(discount)
         discount.snp.makeConstraints { make in
@@ -27,6 +26,10 @@ class DiscountView: UIView {
         
     }
 
+    func setDiscount(_ str: String) {
+        self.discount.text = str
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

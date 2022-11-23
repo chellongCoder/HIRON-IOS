@@ -11,7 +11,7 @@ class StackInfoView: UIView {
 
     let stack           = ScrollableStackView()
     let discountView    = DiscountView()
-    let originnalPrice  = UILabel()
+    let originalPrice   = DiscountLabel()
     let salePrice       = UILabel()
     let saleAmount      = UILabel()
     let spaceLine       = UIView()
@@ -40,12 +40,11 @@ class StackInfoView: UIView {
         }
         
         /// TODO: UI original view
-        originnalPrice.text = "$150.00"
-        originnalPrice.strikeThrough(true)
-        originnalPrice.font = getFontSize(size: 11, weight: .medium)
-        originnalPrice.textColor = kDefaultBlackColor
-        stack.addSubview(originnalPrice)
-        originnalPrice.snp.makeConstraints { (make) in
+        originalPrice.text = "$150.00"
+        originalPrice.font = getCustomFont(size: 11, name: .medium)
+        originalPrice.setTextColor(kDefaultTextColor)
+        stack.addSubview(originalPrice)
+        originalPrice.snp.makeConstraints { (make) in
             make.left.equalTo(discountView.snp.right).offset(10)
             make.top.equalToSuperview()
             make.centerY.equalToSuperview()
@@ -53,22 +52,21 @@ class StackInfoView: UIView {
 
         /// TODO: UI sale price view
         salePrice.text = "$100.00"
-        salePrice.font = getFontSize(size: 16, weight: .bold)
-        salePrice.textColor = kDefaultBlackColor
+        salePrice.font = getCustomFont(size: 16, name: .bold)
+        salePrice.textColor = kDefaultTextColor
         stack.addSubview(salePrice)
         salePrice.snp.makeConstraints { (make) in
-            make.left.equalTo(originnalPrice.snp.right).offset(10)
+            make.left.equalTo(originalPrice.snp.right).offset(10)
             make.centerY.equalToSuperview()
         }
 //
        
         
-        
         /// TODO: UI sale amount view
         reviewView.text = "80 reviews"
         reviewView.underline()
-        reviewView.font = getFontSize(size: 11, weight: .regular)
-        reviewView.textColor = kDefaultBlackColor
+        reviewView.font = getCustomFont(size: 11, name: .regular)
+        reviewView.textColor = kDefaultTextColor
         stack.addSubview(reviewView)
         reviewView.snp.makeConstraints { (make) in
             make.right.equalToSuperview()
@@ -87,17 +85,7 @@ class StackInfoView: UIView {
         
         /// TODO: UI star view
         starView.text = "★"
-        starView.font = getFontSize(size: 11, weight: .regular)
-        starView.textColor = UIColor.init(hexString: "ff6d6e")
-        stack.addSubview(starView)
-        starView.snp.makeConstraints { (make) in
-            make.right.equalTo(spaceLine2.snp.left).offset(-10)
-            make.centerY.equalToSuperview()
-        }
-        
-        /// TODO: UI point view
-        starView.text = "★"
-        starView.font = getFontSize(size: 11, weight: .regular)
+        starView.font = getCustomFont(size: 11, name: .regular)
         starView.textColor = UIColor.init(hexString: "ff6d6e")
         stack.addSubview(starView)
         starView.snp.makeConstraints { (make) in
@@ -116,8 +104,8 @@ class StackInfoView: UIView {
         
         /// TODO: UI sale amount view
         saleAmount.text = "120 sales"
-        saleAmount.font = getFontSize(size: 11, weight: .regular)
-        saleAmount.textColor = kDefaultBlackColor
+        saleAmount.font = getCustomFont(size: 11, name: .regular)
+        saleAmount.textColor = kDefaultTextColor
         stack.addSubview(saleAmount)
         saleAmount.snp.makeConstraints { (make) in
             make.right.equalTo(spaceLine.snp.left).offset(-10)
@@ -132,7 +120,36 @@ class StackInfoView: UIView {
         }
         
     }
+    
+    func setDiscountPercent(_ str: String) {
+        self.discountView.setDiscount(str)
+    }
+    
+    func setOriginalPrice(_ str: String) {
+        self.originalPrice.text = str
+    }
+    
+    func setSalePrice(_ str: String) {
+        self.salePrice.text = str
+    }
+    
+    func setSaleAmount(_ str: String) {
+        self.saleAmount.text = "\(str) sales"
+    }
+    
+    func setStars(_ str: String) {
+        self.starView.text = str
+    }
 
+    func setPointView(_ str: String) {
+        self.pointView.text = str
+    }
+    
+    func setReviewView(_ str: String) {
+        self.reviewView.text = "\(str) reviews"
+    }
+    
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

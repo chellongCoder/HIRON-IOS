@@ -28,6 +28,8 @@ class ProductDetailsViewController2: PageScrollViewController,
 
     private let variantView             = ConfigurationProductVariantView()
     private let contentDescView         = UIView()
+    private let nameProduct             = UILabel()
+
     let groupProductSizeCategory        = GroupProductCategory.init(title: "Size", categories: ["10ml", "5ml", "6ml"])
     let groupProductColorCategory       = GroupProductCategory.init(title: "Color", categories: ["red", "yellow", "blue", "green"])
     let stackTagView                    = StackTagView()
@@ -82,11 +84,11 @@ class ProductDetailsViewController2: PageScrollViewController,
         }
         
         /// TODO: UI header
-        cartButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "bagIcon"),
+        cartButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "cart_bar_icon"),
                                               style: .plain,
                                               target: self,
                                               action: #selector(cartButtonTapped))
-        cartButtonItem?.tintColor = kDefaultBlackColor
+        cartButtonItem?.tintColor = kDefaultTextColor
         self.cartHub = BadgeHub(barButtonItem: cartButtonItem!)
         self.cartHub?.setCircleColor(kRedHightLightColor, label: .white)
         self.cartHub?.setCircleBorderColor(.white, borderWidth: 1)
@@ -98,18 +100,18 @@ class ProductDetailsViewController2: PageScrollViewController,
                                                    style: .done,
                                               target: self,
                                               action: #selector(filterButtonTapped))
-        shareButtonItem?.tintColor = kDefaultBlackColor
+        shareButtonItem?.tintColor = kDefaultTextColor
         
         moreButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "moreIcon"),
                                               style: .plain,
                                               target: self,
                                               action: #selector(filterButtonTapped))
-        moreButtonItem?.tintColor = kDefaultBlackColor
+        moreButtonItem?.tintColor = kDefaultTextColor
         moreButtonItem?.customView?.alpha = 0.0
         heartItem = UIButton(type: .custom)
         heartItem!.setImage(UIImage(systemName: "heart"), for: .normal)
         
-        heartItem?.tintColor = kDefaultBlackColor
+        heartItem?.tintColor = kDefaultTextColor
 
         self.navigationItem.rightBarButtonItems = [moreButtonItem!, shareButtonItem!,  cartButtonItem!]
         
@@ -142,23 +144,6 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.right.left.equalToSuperview()
             make.bottom.equalTo(topMediaView.snp.top).offset(staticHeight)
         }
-        let width = UIScreen.main.bounds.size.width
-        let size = CGSize(width: width, height: staticHeight)
-        let listMediaLength = 5
-        var index = 0
-
-        for mediaData in 1...listMediaLength {
-            
-            let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
-            
-            let cell = ProductBannerView.init(frame: frame)
-            if let imageURL = URL.init(string: mediaData.description ) {
-                cell.bannerImage.setImage(url: imageURL, placeholder: UIImage(named: "banner_image4")!)
-            }
-            topMediaView.addSubview(cell)
-            
-            index += 1
-        }
         
         self.contentView.addSubview(pagingView)
         pagingView.text = "1/5"
@@ -176,8 +161,6 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.width.equalTo(27)
         }
         
-        self.pageControl.numberOfPages = listMediaLength
-        topMediaView.contentSize = CGSize.init(width: CGFloat(listMediaLength)*(size.width), height: size.height)
         pageControl.currentPage = 0
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
         
@@ -223,7 +206,6 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.height.equalTo(20)
         }
         /// TODO: UI name product
-        let nameProduct = UILabel()
         nameProduct.lineBreakMode = .byWordWrapping
         nameProduct.numberOfLines = 2
         nameProduct.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules OptiBac Probiotics for Daily Wellbeing, 30 capsules"
@@ -301,18 +283,38 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.top.equalTo(spacer2.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.width.equalToSuperview().offset(-20)
         }
         
     }
     
     override func bindingData() {
+        _CartServices.cartData
+            .observe(on: MainScheduler.instance)
+            .subscribe { cartDataSource in
+                ///TODO:
+            }
+            .disposed(by: disposeBag)
+
         viewModel.productDataSource
             .observe(on: MainScheduler.instance)
             .subscribe { productDataSource in
                 guard let productDataA = productDataSource.element else {return}
                 guard let productData = productDataA else {return}
+                
+                self.nameProduct.text = productData.name
+                self.stackInfoView.setDiscountPercent(String(format:"%.2f", productData.discountPercent))
+                self.stackInfoView.setOriginalPrice(getMoneyFormat(productData.customRegularPrice))
+                self.stackInfoView.setSalePrice(getMoneyFormat(Float(productData.customFinalPrice)))
+                self.stackInfoView.setSaleAmount("\(productData.quantity)")
+                self.stackInfoView.setStars("★★★★★")
+                self.stackInfoView.setReviewView("4")
+
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
                 self.loadContentDescView()
+                let staticHeight = (UIScreen.main.bounds.size.width)
+                self.loadMediaView(staticHeight)
+
             }
             .disposed(by: disposeBag)
 
@@ -335,6 +337,19 @@ class ProductDetailsViewController2: PageScrollViewController,
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if(scrollView == self.topMediaView) {
             print("self.topMediaView")
+            let pageWidth = scrollView.frame.size.width
+            let fractionalPage = scrollView.contentOffset.x / pageWidth
+
+            let page = lroundf(Float(fractionalPage))
+            self.pageControl.currentPage = page
+            pagingView.text = "\(page+1)/5"
+
+            guard let listMedia = viewModel.productDataSource.value?.media else {return}
+            let mediaData = listMedia[page]
+            if let imageURL = URL.init(string: mediaData.value ?? "") {
+                topView.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+            }
+
         } else if(scrollView == self.pageScroll) {
             print("self.pageScroll")
             let contentOffset = scrollView.contentOffset
@@ -398,12 +413,6 @@ class ProductDetailsViewController2: PageScrollViewController,
             }
             
         }
-        let pageWidth = scrollView.frame.size.width
-        let fractionalPage = scrollView.contentOffset.x / pageWidth
-
-        let page = lroundf(Float(fractionalPage))
-        self.pageControl.currentPage = page
-        pagingView.text = "\(page+1)/5"
     }
 
     @objc private func buyNowButtonTapped() {
@@ -412,6 +421,41 @@ class ProductDetailsViewController2: PageScrollViewController,
     
     func didSelectVariant(variants: [SelectedVariant]) {
 
+    }
+    
+    // MARK: - Data
+    private func loadMediaView(_ height: CGFloat) {
+        
+        guard let listMedia = viewModel.productDataSource.value?.media else {return}
+        
+        for subView in topMediaView.subviews {
+            subView.removeFromSuperview()
+        }
+        
+        let width = UIScreen.main.bounds.size.width
+        let size = CGSize(width: width, height: height)
+        var index = 0
+        
+        for mediaData in listMedia {
+            
+            let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
+            
+            let cell = ProductBannerView.init(frame: frame)
+            if let imageURL = URL.init(string: mediaData.value ?? "") {
+                cell.bannerImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+            }
+            topMediaView.addSubview(cell)
+            
+            index += 1
+        }
+        
+        let mediaData = listMedia[0]
+        if let imageURL = URL.init(string: mediaData.value ?? "") {
+            topView.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+        }
+
+        self.pageControl.numberOfPages = listMedia.count
+        topMediaView.contentSize = CGSize.init(width: CGFloat(listMedia.count)*(size.width), height: size.height)
     }
 
     private func loadContentDescView() {

@@ -23,7 +23,7 @@ class ProductCategory: UIView {
                 
         self.textLabel.text = title
         self.textLabel.textColor = .white
-        self.textLabel.font = getFontSize(size: 13, weight: .regular)
+        self.textLabel.font = getCustomFont(size: 13, name: .regular)
         self.textLabel.textColor = UIColor.init(hexString: "808080")!
         self.textLabel.textAlignment = .center
         self.addSubview(textLabel)

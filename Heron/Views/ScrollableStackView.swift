@@ -10,7 +10,6 @@ import UIKit
 
 public class ScrollableStackView: UIView {
 
-    // MARK: Properties
     private var didSetupConstraints = false
 
     private lazy var scrollView: UIScrollView = {
@@ -18,7 +17,6 @@ public class ScrollableStackView: UIView {
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.layoutMargins = .zero
         scrollView.contentSize = CGSize(width: 200, height: 50)
-
         return scrollView
     }()
 
@@ -28,11 +26,9 @@ public class ScrollableStackView: UIView {
         stackView.axis = .horizontal
         stackView.alignment = .fill
         stackView.distribution = .fill
-
         return stackView
     }()
 
-    // MARK: Life Cycle
     public override func didMoveToSuperview() {
         super.didMoveToSuperview()
         translatesAutoresizingMaskIntoConstraints = false
@@ -124,7 +120,6 @@ extension ScrollableStackView {
         }
     }
  
-
     /// A Boolean value that controls whether the vertical scroll indicator is visible.
     ///
     /// The default value is `true`. The indicator is visible while tracking is underway and fades out after tracking.

@@ -18,8 +18,9 @@ class ShopProductView: UIView {
         
         #warning("Hard code")
         self.addSubview(avatar)
-        avatar.image = UIImage.init(named: "store")?.roundedImage
+        avatar.image = UIImage.init(named: "store")
         avatar.contentMode = .scaleAspectFit
+        avatar.layer.cornerRadius = 25
         avatar.snp.makeConstraints { (make) in
             make.width.equalTo(50)
             make.height.equalTo(50)
