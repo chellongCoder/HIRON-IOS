@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		181ED8A5292A23B2005848CE /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181ED8A4292A23B2005848CE /* TabView.swift */; };
+		181F79FB292F88200080068B /* ProductDetailsViewModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F79FA292F88200080068B /* ProductDetailsViewModel2.swift */; };
 		18482B792920F37200C161FB /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18482B782920F37200C161FB /* ProductCategory.swift */; };
 		1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891A4C4291D7A5C007D98DA /* ChipView.swift */; };
 		1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */; };
@@ -234,6 +235,7 @@
 
 /* Begin PBXFileReference section */
 		181ED8A4292A23B2005848CE /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		181F79FA292F88200080068B /* ProductDetailsViewModel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel2.swift; sourceTree = "<group>"; };
 		18482B782920F37200C161FB /* ProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategory.swift; sourceTree = "<group>"; };
 		1891A4C4291D7A5C007D98DA /* ChipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChipView.swift; path = Heron/Views/ChipView.swift; sourceTree = SOURCE_ROOT; };
 		1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
@@ -520,6 +522,7 @@
 			isa = PBXGroup;
 			children = (
 				18FC15AA2922ABE000294591 /* ProductViewController.swift */,
+				181F79FA292F88200080068B /* ProductDetailsViewModel2.swift */,
 			);
 			path = ProductDetailsViewController2;
 			sourceTree = "<group>";
@@ -1694,6 +1697,7 @@
 				18E7DF012920E5F200E0BD00 /* GroupCategory.swift in Sources */,
 				93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */,
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,
+				181F79FB292F88200080068B /* ProductDetailsViewModel2.swift in Sources */,
 				93C2EA4F28B318B800371DFE /* MyBookingTableViewCell.swift in Sources */,
 				93AF9210284D158C0075CD65 /* VoucherTableViewCell.swift in Sources */,
 				93C2EA4B28B2893700371DFE /* MyBookingsViewController.swift in Sources */,

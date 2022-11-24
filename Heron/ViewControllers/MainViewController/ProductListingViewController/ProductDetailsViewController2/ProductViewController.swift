@@ -11,7 +11,7 @@ import BadgeHub
 
 class ProductDetailsViewController2: PageScrollViewController,
                                      UIScrollViewDelegate, ProductVariantDelegate {
-    private let viewModel               = ProductDetailsViewModel()
+    private let viewModel               = ProductDetailsViewModel2()
 
     var cartButtonItem                  : UIBarButtonItem?
     var shareButtonItem                 : UIBarButtonItem?
@@ -30,8 +30,6 @@ class ProductDetailsViewController2: PageScrollViewController,
     private let contentDescView         = UIView()
     private let nameProduct             = UILabel()
 
-    let groupProductSizeCategory        = GroupProductCategory.init(title: "Size", categories: ["10ml", "5ml", "6ml"])
-    let groupProductColorCategory       = GroupProductCategory.init(title: "Color", categories: ["red", "yellow", "blue", "green"])
     let stackTagView                    = StackTagView()
     let stackInfoView                   = StackInfoView()
     let addToCartBtn                    = UIButton()
@@ -60,6 +58,7 @@ class ProductDetailsViewController2: PageScrollViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
+        self.viewModel.controller = self
 
         self.topView.contentMode = .scaleAspectFill
         let image = UIImage(named: "banner_image4")
@@ -163,14 +162,7 @@ class ProductDetailsViewController2: PageScrollViewController,
         
         pageControl.currentPage = 0
         pageControl.addTarget(self, action: #selector(pageControlDidChange(_:)), for: .valueChanged)
-        
-//        variantView.delegate = self
-//        contentView.addSubview(variantView)
-//        variantView.snp.makeConstraints { make in
-//            make.left.equalToSuperview()
-//            make.top.equalTo(pageControl.snp.bottom).offset(15)
-//            make.centerX.equalToSuperview()
-//        }
+
 
         /// TODO: UI blurview product detail
         let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -235,27 +227,21 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.width.equalToSuperview().offset(-15)
             make.height.equalTo(contentDescView.snp.width).multipliedBy(0.3)
         }
-
-        /// TODO: UI Group category size
-        self.contentView.addSubview(groupProductSizeCategory)
-        groupProductSizeCategory.snp.makeConstraints { (make) in
-            make.top.equalTo(contentDescView.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(10)
-            make.height.equalTo(50)
-        }
         
-        /// TODO: UI Group category size
-        self.contentView.addSubview(groupProductColorCategory)
-        groupProductColorCategory.snp.makeConstraints { (make) in
-            make.top.equalTo(groupProductSizeCategory.snp.bottom).offset(10)
-            make.left.equalToSuperview().offset(10)
+        self.variantView.delegate = self
+        self.contentView.addSubview(variantView)
+        variantView.snp.makeConstraints { make in
+            make.left.equalToSuperview()
+            make.top.equalTo(contentDescView.snp.bottom).offset(0)
+            make.centerX.equalToSuperview()
         }
+
         
         /// TODO: UI spacer
         let spacer = SpacerView()
         self.contentView.addSubview(spacer)
         spacer.snp.makeConstraints { (make) in
-            make.top.equalTo(groupProductColorCategory.snp.bottom).offset(60)
+            make.top.equalTo(variantView.snp.bottom).offset(0)
             make.height.equalTo(6)
             make.width.equalToSuperview()
         }
@@ -288,6 +274,11 @@ class ProductDetailsViewController2: PageScrollViewController,
         
     }
     
+    // MARK: - Binding Data
+    override func reloadData() {
+        viewModel.reloadProductDetails()
+    }
+    
     override func bindingData() {
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
@@ -303,15 +294,18 @@ class ProductDetailsViewController2: PageScrollViewController,
                 guard let productData = productDataA else {return}
                 
                 self.nameProduct.text = productData.name
-                self.stackInfoView.setDiscountPercent(String(format:"%.2f", productData.discountPercent))
+                self.stackInfoView.setDiscountPercent(String(format:"%.1f", productData.discountPercent) + "%")
                 self.stackInfoView.setOriginalPrice(getMoneyFormat(productData.customRegularPrice))
                 self.stackInfoView.setSalePrice(getMoneyFormat(Float(productData.customFinalPrice)))
                 self.stackInfoView.setSaleAmount("\(productData.quantity)")
                 self.stackInfoView.setStars("★★★★★")
                 self.stackInfoView.setReviewView("4")
 
+                self.shopView.shopName.text = productData.brand?.name
+                self.shopView.shopDesc.text = ""
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
                 self.loadContentDescView()
+                self.loadTagsContents()
                 let staticHeight = (UIScreen.main.bounds.size.width)
                 self.loadMediaView(staticHeight)
 
@@ -421,6 +415,34 @@ class ProductDetailsViewController2: PageScrollViewController,
     
     func didSelectVariant(variants: [SelectedVariant]) {
 
+    }
+    
+    private func loadTagsContents() {
+        for arrangedSubview in stackTagView.stack.stackView.arrangedSubviews {
+            arrangedSubview.removeFromSuperview()
+        }
+        
+        guard let productDataSource = self.viewModel.productDataSource.value else {return}
+
+        switch productDataSource.featureType {
+        case .ecom:
+            let newChipView = TagView.init(title: "Physical Product")
+            stackTagView.addArrangedSubview(newChipView)
+        case .ecom_booking:
+            let newChipView = TagView.init(title: "Virtual Product")
+            stackTagView.addArrangedSubview(newChipView)
+        }
+        
+        if let unitName = productDataSource.unit?.name {
+            let newChipView = TagView.init(title: unitName)
+            stackTagView.addArrangedSubview(newChipView)
+        }
+        
+        if let brandName = productDataSource.brand?.name {
+            let newChipView = TagView.init(title: brandName)
+            stackTagView.addArrangedSubview(newChipView)
+        }
+        
     }
     
     // MARK: - Data

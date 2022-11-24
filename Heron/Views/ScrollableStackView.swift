@@ -20,7 +20,7 @@ public class ScrollableStackView: UIView {
         return scrollView
     }()
 
-    private lazy var stackView: UIStackView = {
+    var stackView: UIStackView = {
         let stackView = UIStackView(frame: .zero)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal

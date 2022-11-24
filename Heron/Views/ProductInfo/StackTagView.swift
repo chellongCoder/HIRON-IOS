@@ -33,6 +33,10 @@ class StackTagView: UIView {
         }
         
     }
+    
+    func addArrangedSubview(_ tag: TagView) {
+        stack.add(view: tag)
+    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
