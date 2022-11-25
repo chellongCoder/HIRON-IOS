@@ -18,13 +18,24 @@ class VoucherSelectedView: UIView {
         self.layer.cornerRadius = 8
         self.setShadow()
         
+        let voucherIcon = UIImageView()
+        voucherIcon.image = UIImage.init(named: "voucher_icon")
+        voucherIcon.contentMode = .scaleAspectFit
+        self.addSubview(voucherIcon)
+        voucherIcon.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(12)
+            make.left.equalToSuperview().offset(16)
+            make.height.width.equalTo(20)
+            make.bottom.equalToSuperview().offset(-16)
+        }
+        
         voucherTitle.text = "Voucher"
         voucherTitle.textColor = kDefaultTextColor
-        voucherTitle.font = .boldSystemFont(ofSize: 14)
+        voucherTitle.font = getCustomFont(size: 13, name: .regular)
         self.addSubview(voucherTitle)
         voucherTitle.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(13)
-            make.left.equalToSuperview().offset(14)
+            make.centerY.equalTo(voucherIcon)
+            make.left.equalTo(voucherIcon.snp.right).offset(10)
             make.bottom.lessThanOrEqualToSuperview().offset(-13)
         }
         
