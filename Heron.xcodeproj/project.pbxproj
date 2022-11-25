@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		181ED8A5292A23B2005848CE /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181ED8A4292A23B2005848CE /* TabView.swift */; };
 		181F79FB292F88200080068B /* ProductDetailsViewModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F79FA292F88200080068B /* ProductDetailsViewModel2.swift */; };
-		18482B792920F37200C161FB /* ProductCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18482B782920F37200C161FB /* ProductCategory.swift */; };
+		181F79FD292FCE860080068B /* ReviewRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F79FC292FCE860080068B /* ReviewRate.swift */; };
+		181F79FF2930D3660080068B /* ItemReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F79FE2930D3660080068B /* ItemReview.swift */; };
 		1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891A4C4291D7A5C007D98DA /* ChipView.swift */; };
 		1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */; };
 		189F8BEB2924E16600DBB5E1 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F8BEA2924E16600DBB5E1 /* Footer.swift */; };
@@ -17,7 +18,6 @@
 		18B30835291E9B970015F13E /* DiscountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B30834291E9B970015F13E /* DiscountView.swift */; };
 		18D91C3D291E062F003F2328 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3C291E062F003F2328 /* TagView.swift */; };
 		18D91C3F291E0642003F2328 /* StackTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3E291E0642003F2328 /* StackTagView.swift */; };
-		18E7DF012920E5F200E0BD00 /* GroupCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E7DF002920E5F200E0BD00 /* GroupCategory.swift */; };
 		18FC15A82922ABA100294591 /* UILabel_EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15A72922ABA100294591 /* UILabel_EXT.swift */; };
 		18FC15AB2922ABE000294591 /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AA2922ABE000294591 /* ProductViewController.swift */; };
 		18FC15AD2922BF1600294591 /* ProductBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FC15AC2922BF1600294591 /* ProductBannerView.swift */; };
@@ -236,7 +236,8 @@
 /* Begin PBXFileReference section */
 		181ED8A4292A23B2005848CE /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		181F79FA292F88200080068B /* ProductDetailsViewModel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDetailsViewModel2.swift; sourceTree = "<group>"; };
-		18482B782920F37200C161FB /* ProductCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCategory.swift; sourceTree = "<group>"; };
+		181F79FC292FCE860080068B /* ReviewRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRate.swift; sourceTree = "<group>"; };
+		181F79FE2930D3660080068B /* ItemReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemReview.swift; sourceTree = "<group>"; };
 		1891A4C4291D7A5C007D98DA /* ChipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChipView.swift; path = Heron/Views/ChipView.swift; sourceTree = SOURCE_ROOT; };
 		1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
 		189DD447291EBD0100F5603C /* UILabel_EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_EXT.swift; sourceTree = "<group>"; };
@@ -245,7 +246,6 @@
 		18B30834291E9B970015F13E /* DiscountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountView.swift; sourceTree = "<group>"; };
 		18D91C3C291E062F003F2328 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		18D91C3E291E0642003F2328 /* StackTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTagView.swift; sourceTree = "<group>"; };
-		18E7DF002920E5F200E0BD00 /* GroupCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCategory.swift; sourceTree = "<group>"; };
 		18FC15A72922ABA100294591 /* UILabel_EXT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UILabel_EXT.swift; path = Fonts/UILabel_EXT.swift; sourceTree = "<group>"; };
 		18FC15AA2922ABE000294591 /* ProductViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
 		18FC15AC2922BF1600294591 /* ProductBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductBannerView.swift; sourceTree = "<group>"; };
@@ -491,13 +491,12 @@
 				18D91C3E291E0642003F2328 /* StackTagView.swift */,
 				18B30834291E9B970015F13E /* DiscountView.swift */,
 				18B28506291F91E900AF16B2 /* StackInfoProductView.swift */,
-				18E7DF002920E5F200E0BD00 /* GroupCategory.swift */,
-				18482B782920F37200C161FB /* ProductCategory.swift */,
 				18FC15AC2922BF1600294591 /* ProductBannerView.swift */,
 				18FC15B42923782400294591 /* Spacer.swift */,
 				18FC15B6292411B800294591 /* ShopInfoView.swift */,
 				189F8BEA2924E16600DBB5E1 /* Footer.swift */,
 				181ED8A4292A23B2005848CE /* TabView.swift */,
+				181F79FC292FCE860080068B /* ReviewRate.swift */,
 			);
 			path = ProductInfo;
 			sourceTree = "<group>";
@@ -506,6 +505,7 @@
 			isa = PBXGroup;
 			children = (
 				18D91C3C291E062F003F2328 /* TagView.swift */,
+				181F79FE2930D3660080068B /* ItemReview.swift */,
 			);
 			path = Items;
 			sourceTree = "<group>";
@@ -1549,6 +1549,7 @@
 				93E7BE1F28C3A2C00037D82A /* UserSubscriptionViewModel.swift in Sources */,
 				93EC90EE285A4D73009056F6 /* SignInViewController.swift in Sources */,
 				93AF9205284BF93A0075CD65 /* AddUserAddressViewController.swift in Sources */,
+				181F79FF2930D3660080068B /* ItemReview.swift in Sources */,
 				933D19392819946800F1CCC4 /* String_EXT.swift in Sources */,
 				930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */,
 				93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */,
@@ -1610,7 +1611,6 @@
 				B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */,
 				18B28507291F91E900AF16B2 /* StackInfoProductView.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* ItemCategory.swift in Sources */,
-				18482B792920F37200C161FB /* ProductCategory.swift in Sources */,
 				93C2EA4D28B28B5E00371DFE /* MyBookingViewModel.swift in Sources */,
 				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
 				9A88B769288DB7A800BE1E05 /* EHealthDataSource.swift in Sources */,
@@ -1659,6 +1659,7 @@
 				933D19382819946800F1CCC4 /* UIView_EXT.swift in Sources */,
 				932AC4CD28A21CEE0060338B /* BookingSuccessViewController.swift in Sources */,
 				B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */,
+				181F79FD292FCE860080068B /* ReviewRate.swift in Sources */,
 				9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */,
 				9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */,
 				93E7A8AE28A2A52F008371D1 /* AttributeValues.swift in Sources */,
@@ -1694,7 +1695,6 @@
 				93C2EA5628B32B6500371DFE /* EHProfileServices.swift in Sources */,
 				93E7BE1B28C109000037D82A /* OrderShippingData.swift in Sources */,
 				93AF920C284D06CF0075CD65 /* VoucherDataSource.swift in Sources */,
-				18E7DF012920E5F200E0BD00 /* GroupCategory.swift in Sources */,
 				93F776FE28524BE800ACE16E /* CartPrepearedRequestDataSource.swift in Sources */,
 				B56181412862B195009BE6E5 /* BaseViewController.swift in Sources */,
 				181F79FB292F88200080068B /* ProductDetailsViewModel2.swift in Sources */,

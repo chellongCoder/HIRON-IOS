@@ -59,9 +59,7 @@ class StackInfoView: UIView {
             make.left.equalTo(originalPrice.snp.right).offset(10)
             make.centerY.equalToSuperview()
         }
-//
        
-        
         /// TODO: UI sale amount view
         reviewView.text = "80 reviews"
         reviewView.underline()

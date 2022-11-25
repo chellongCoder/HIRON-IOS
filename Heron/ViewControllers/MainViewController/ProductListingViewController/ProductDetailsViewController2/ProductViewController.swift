@@ -35,6 +35,7 @@ class ProductDetailsViewController2: PageScrollViewController,
     let addToCartBtn                    = UIButton()
     let descView                        = UIView()
     let shopView                        = ShopProductView()
+    let reviewView                      = ReviewRate()
     let footer                          = ProductDetailFooter()
     
     init(_ data: ProductDataSource) {
@@ -236,7 +237,6 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.centerX.equalToSuperview()
         }
 
-        
         /// TODO: UI spacer
         let spacer = SpacerView()
         self.contentView.addSubview(spacer)
@@ -272,6 +272,7 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.width.equalToSuperview().offset(-20)
         }
         
+
     }
     
     // MARK: - Binding Data
@@ -306,6 +307,7 @@ class ProductDetailsViewController2: PageScrollViewController,
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
                 self.loadContentDescView()
                 self.loadTagsContents()
+                self.loadReviewView()
                 let staticHeight = (UIScreen.main.bounds.size.width)
                 self.loadMediaView(staticHeight)
 
@@ -479,6 +481,27 @@ class ProductDetailsViewController2: PageScrollViewController,
         self.pageControl.numberOfPages = listMedia.count
         topMediaView.contentSize = CGSize.init(width: CGFloat(listMedia.count)*(size.width), height: size.height)
     }
+    
+    private func loadReviewView() {
+        /// TODO: UI spacer
+        let spacer3 = SpacerView()
+        self.contentView.addSubview(spacer3)
+        spacer3.snp.makeConstraints { (make) in
+            make.top.equalTo(self.descView.snp.bottom).offset(10)
+            make.height.equalTo(6)
+            make.width.equalToSuperview()
+        }
+        
+        /// TODO: UI spacer
+        self.contentView.addSubview(reviewView)
+        reviewView.snp.makeConstraints { (make) in
+            make.bottom.lessThanOrEqualToSuperview().offset(-200)
+            make.top.equalTo(spacer3.snp.bottom).offset(0)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+        }
+        
+    }
 
     private func loadContentDescView() {
         for subview in descView.subviews {
@@ -486,9 +509,9 @@ class ProductDetailsViewController2: PageScrollViewController,
         }
 
         guard let productDataSource = self.viewModel.productDataSource.value else {return}
+       
+        var lastView                        : UIView?
 
-        var lastView: UIView?
-        
         for content in productDataSource.desc {
             let titleLabel = UILabel()
             titleLabel.text = content.title
@@ -501,11 +524,14 @@ class ProductDetailsViewController2: PageScrollViewController,
                     make.top.equalTo(lastView!.snp.bottom).offset(16)
                     make.centerX.left.equalToSuperview()
                 }
+                
+                
             } else {
                 titleLabel.snp.makeConstraints { make in
                     make.top.equalToSuperview()
                     make.centerX.left.equalToSuperview()
                 }
+
             }
             
             let contentLabel = UILabel()
@@ -520,11 +546,13 @@ class ProductDetailsViewController2: PageScrollViewController,
             }
             
             lastView = contentLabel
+
         }
         
         lastView?.snp.makeConstraints({ make in
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         })
+        
 
     }
 }
