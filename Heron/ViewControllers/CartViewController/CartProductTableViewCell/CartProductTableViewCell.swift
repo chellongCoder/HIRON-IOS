@@ -21,7 +21,7 @@ class CartProductTableViewCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
 //    let tagsContent         = UILabel()
-    var volumeContent       : ChipView?
+    var volumeContent       : ChipViewDropDown?
 //    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
     
@@ -90,7 +90,7 @@ class CartProductTableViewCell: UITableViewCell {
 //            make.right.equalToSuperview().offset(-16)
 //        }
         
-        volumeContent = ChipView.init(title: "")
+        volumeContent = ChipViewDropDown.init(title: "")
         self.contentView.addSubview(volumeContent!)
         volumeContent!.snp.makeConstraints { (make) in
             make.left.equalTo(packageImage.snp.right).offset(16)
@@ -122,7 +122,8 @@ class CartProductTableViewCell: UITableViewCell {
         minusBtn.setTitleColor(kDefaultTextColor, for: .normal)
         minusBtn.layer.cornerRadius = 10
         minusBtn.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
-        minusBtn.layer.borderWidth = 0.5
+        minusBtn.layer.borderWidth = 0.7
+        minusBtn.layer.borderColor = kDisableColor.cgColor
         minusBtn.layer.masksToBounds = true
         minusBtn.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
         self.contentView.addSubview(minusBtn)
@@ -135,7 +136,8 @@ class CartProductTableViewCell: UITableViewCell {
         
         quantityTxt.text = String(format: "%ld", self.quantityValue)
         quantityTxt.font = getCustomFont(size: 11, name: .medium)
-        quantityTxt.layer.borderWidth = 0.5
+        quantityTxt.layer.borderWidth = 0.7
+        quantityTxt.layer.borderColor = kDisableColor.cgColor
         quantityTxt.textAlignment = .center
         quantityTxt.keyboardType = .numberPad
         quantityTxt.delegate = self
@@ -151,7 +153,8 @@ class CartProductTableViewCell: UITableViewCell {
         plusBtn.setTitleColor(kDefaultTextColor, for: .normal)
         plusBtn.layer.cornerRadius = 10
         plusBtn.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        plusBtn.layer.borderWidth = 0.5
+        plusBtn.layer.borderWidth = 0.7
+        plusBtn.layer.borderColor = kDisableColor.cgColor
         plusBtn.layer.masksToBounds = true
         plusBtn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
         self.contentView.addSubview(plusBtn)

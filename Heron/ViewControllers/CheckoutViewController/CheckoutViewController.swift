@@ -295,11 +295,11 @@ class CheckoutViewController: BaseViewController,
                 guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
                 if voucherDataSource.couponRule?.isFixed ?? false {
                     // discount value
-                    self.voucherView.voucherCode.text = getMoneyFormat(voucherDataSource.couponRule?.customDiscount)
+                    self.voucherView.voucherCode.textLabel.text = getMoneyFormat(voucherDataSource.couponRule?.customDiscount)
                     
                 } else {
                     // discout percent
-                    self.voucherView.voucherCode.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0)
+                    self.voucherView.voucherCode.textLabel.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0)
                 }
             }
             .disposed(by: disposeBag)

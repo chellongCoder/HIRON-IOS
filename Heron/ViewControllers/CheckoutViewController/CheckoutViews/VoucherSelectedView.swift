@@ -10,7 +10,7 @@ import UIKit
 class VoucherSelectedView: UIView {
     
     let voucherTitle    = UILabel()
-    let voucherCode     = UILabel()
+    let voucherCode     = ChipViewVoucher.init(title: "")
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,19 +39,43 @@ class VoucherSelectedView: UIView {
             make.bottom.lessThanOrEqualToSuperview().offset(-13)
         }
         
-        voucherCode.text = " SALE 0% "
-        voucherCode.layer.borderColor = kRedHightLightColor.cgColor
-        voucherCode.layer.borderWidth = 1
-        voucherCode.textColor = kRedHightLightColor
+        let nextIcon = UIImageView()
+        nextIcon.image = UIImage.init(named: "nextRight_icon")
+        self.addSubview(nextIcon)
+        nextIcon.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(10)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
+        voucherCode.textLabel.text = ""
         self.addSubview(voucherCode)
         voucherCode.snp.makeConstraints { make in
             make.centerY.equalTo(voucherTitle)
-            make.height.equalTo(voucherTitle).offset(10)
-            make.right.equalToSuperview().offset(-16)
+            make.right.equalTo(nextIcon.snp.left).offset(-16)
         }
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setVoucherData(_ voucherDataSource: VoucherDataSource?) {
+        guard let voucherDataSource = voucherDataSource else {
+            self.voucherCode.isHidden = true
+            self.voucherCode.textLabel.text = "".uppercased()
+            return
+        }
+        
+        self.voucherCode.isHidden = true
+        
+        if voucherDataSource.couponRule?.isFixed ?? false {
+            // discount value
+            self.voucherCode.textLabel.text = String(format: " %@ ", getMoneyFormat(voucherDataSource.couponRule?.customDiscount)).uppercased()
+            
+        } else {
+            // discout percent
+            self.voucherCode.textLabel.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0).uppercased()
+        }
     }
 }

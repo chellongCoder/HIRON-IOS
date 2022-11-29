@@ -26,7 +26,8 @@ class CartViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        navigationItem.title = "My Cart"
+        navigationItem.title = "My cart"
+        navigationItem.titleLabel.font = getCustomFont(size: 18, name: .bold)
         self.viewModel.controller = self
         
         let closeBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "xmark"),
@@ -166,6 +167,8 @@ class CartViewController: BaseViewController,
                     self.emptyView.isHidden = true
                     self.viewModel.cartDataSource = cartData
                     self.tableView.reloadData()
+                    
+                    self.checkoutBtn.setTitle("Checkout (\(cartData.countItemSelected()))", for: .normal)
                 }                
             }
             .disposed(by: disposeBag)
@@ -173,18 +176,7 @@ class CartViewController: BaseViewController,
         _CartServices.voucherCode
             .observe(on: MainScheduler.instance)
             .subscribe { voucherDataSource in
-                guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {
-                    self.voucherView.voucherCode.text = " Select your voucher "
-                    return
-                }
-                if voucherDataSource.couponRule?.isFixed ?? false {
-                    // discount value
-                    self.voucherView.voucherCode.text = String(format: " %@ ", getMoneyFormat(voucherDataSource.couponRule?.customDiscount))
-                    
-                } else {
-                    // discout percent
-                    self.voucherView.voucherCode.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0)
-                }
+                self.voucherView.setVoucherData(voucherDataSource.element as? VoucherDataSource)
             }
             .disposed(by: disposeBag)
         
@@ -292,7 +284,7 @@ class CartViewController: BaseViewController,
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
         
 //        let storeData = viewModel.cartDataSource?.store[indexPath.section]
 //        if let cellData = storeData?.cartItems[indexPath.row] {
