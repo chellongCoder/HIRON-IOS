@@ -111,12 +111,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
         self.truePriceLabel.text = getMoneyFormat(cellData.customFinalPrice)
         self.sourcePriceLabel.isHidden = (cellData.customRegularPrice == cellData.customFinalPrice)
         
-//        if cellData.discountPercent > 0 {
-//            self.discountValue.isHidden = false
-//            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
-//        } else {
-//            self.discountValue.isHidden = true
-//        }
+        if cellData.discountPercent > 0 {
+            self.discountValue.isHidden = false
+            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
+        } else {
+            self.discountValue.isHidden = true
+        }
         
         variantMark.isHidden = (cellData.type == .simple) || cellData.configurableOptions.isEmpty
         if cellData.configurableOptions.count == 1 {

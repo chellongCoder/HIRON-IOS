@@ -40,10 +40,9 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         productTitleLabel.text = ""
-        productTitleLabel.numberOfLines = 0
         productTitleLabel.font = getCustomFont(size: 13, name: .regular)
         productTitleLabel.textColor = kDefaultTextColor
-        productTitleLabel.numberOfLines = 0
+        productTitleLabel.numberOfLines = 2
         self.contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(packageImage.snp.right).offset(12)
