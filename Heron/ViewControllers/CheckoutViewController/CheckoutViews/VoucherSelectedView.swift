@@ -15,9 +15,6 @@ class VoucherSelectedView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = 8
-        self.setShadow()
-        
         let voucherIcon = UIImageView()
         voucherIcon.image = UIImage.init(named: "voucher_icon")
         voucherIcon.contentMode = .scaleAspectFit
@@ -67,7 +64,7 @@ class VoucherSelectedView: UIView {
             return
         }
         
-        self.voucherCode.isHidden = true
+        self.voucherCode.isHidden = false
         
         if voucherDataSource.couponRule?.isFixed ?? false {
             // discount value

@@ -56,25 +56,26 @@ class CartViewController: BaseViewController,
         checkoutBtn.setTitle("Checkout", for: .normal)
         checkoutBtn.titleLabel?.font = getCustomFont(size: 13, name: .bold)
         checkoutBtn.layer.cornerRadius = 18
-        checkoutBtn.setContentHuggingPriority(.defaultLow, for: .horizontal)
+//        checkoutBtn.setContentHuggingPriority(.defaultLow, for: .horizontal)
         checkoutBtn.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
         self.view.addSubview(checkoutBtn)
         checkoutBtn.snp.makeConstraints { make in
             make.height.equalTo(36)
             make.right.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview().offset(-50)
+            make.width.equalTo(140)
         }
         
         totalLabel.text = "Total: $0.0"
         totalLabel.textColor = kDefaultTextColor
         totalLabel.font = getCustomFont(size: 13, name: .extraBold)
         totalLabel.adjustsFontSizeToFitWidth = false
-        totalLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+//        totalLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         self.view.addSubview(totalLabel)
         totalLabel.snp.makeConstraints { make in
             make.centerY.equalTo(checkoutBtn)
-            make.left.equalToSuperview().offset(16)
-            make.right.equalTo(checkoutBtn.snp.left).offset(-16)
+            make.left.greaterThanOrEqualToSuperview().offset(16)
+            make.right.equalTo(checkoutBtn.snp.left).offset(-8)
         }
         
         let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
@@ -85,6 +86,16 @@ class CartViewController: BaseViewController,
             make.right.equalToSuperview().offset(-16)
             make.bottom.equalTo(checkoutBtn.snp.top).offset(-10)
             make.height.equalTo(50)
+        }
+        
+        let spacer = UIView()
+        spacer.backgroundColor = kDisableColor
+        self.view.addSubview(spacer)
+        spacer.snp.makeConstraints { make in
+            make.centerY.equalTo(voucherView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(0.5)
+            make.width.equalToSuperview().offset(-32)
         }
         
         if #available(iOS 15.0, *) {
