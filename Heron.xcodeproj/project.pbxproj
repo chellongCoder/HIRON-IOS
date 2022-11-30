@@ -174,6 +174,8 @@
 		9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */; };
 		9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */; };
 		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
+		A097CC8A2937925C00C587AD /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC892937925C00C587AD /* ExtendedButton.swift */; };
+		A097CC8C29379DA400C587AD /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8B29379DA400C587AD /* ExtendedLabel.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */; };
 		B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */; };
@@ -394,6 +396,8 @@
 		9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewController.swift; sourceTree = "<group>"; };
 		9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewModel.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A097CC892937925C00C587AD /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
+		A097CC8B29379DA400C587AD /* ExtendedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
 		B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAndBillingInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -661,6 +665,8 @@
 				933D19312819946800F1CCC4 /* UIColor_EXT.swift */,
 				9301757C28848A8D00151A4B /* UIImage_EXT.swift */,
 				B55B372C2836425B005245AB /* Utils.swift */,
+				A097CC892937925C00C587AD /* ExtendedButton.swift */,
+				A097CC8B29379DA400C587AD /* ExtendedLabel.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1510,6 +1516,7 @@
 				93D73F1028450CE80015C4FB /* DeliveryServices.swift in Sources */,
 				9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */,
 				B5061C06286BF22700A03271 /* PaymentTableViewCell.swift in Sources */,
+				A097CC8A2937925C00C587AD /* ExtendedButton.swift in Sources */,
 				93AF91FE284BEE140075CD65 /* UserAddressListingViewModel.swift in Sources */,
 				93EC90F6285A4DB9009056F6 /* SubcsriptionCell.swift in Sources */,
 				9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */,
@@ -1559,6 +1566,7 @@
 				9A88B764288DB29A00BE1E05 /* BaseViewModel.swift in Sources */,
 				9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubscriptionData.swift in Sources */,
+				A097CC8C29379DA400C587AD /* ExtendedLabel.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
 				939E6632285650A3009CD64D /* CheckoutItemTableViewCell.swift in Sources */,

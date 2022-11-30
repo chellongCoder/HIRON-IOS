@@ -12,12 +12,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
     let tagsViewStack       = UIView()
-    let starView            = UILabel()
+    let starView            = LeftRightImageLabel.init(leftImage: UIImage.init(named: "start_icon"))
     let sourcePriceLabel    = DiscountLabel()
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
-    let addToWishlistBtn    = UIButton()
+    let addToWishlistBtn    = ExtendedButton()
     
     private var productData : ProductDataSource?
 
@@ -55,7 +55,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         addToWishlistBtn.snp.makeConstraints { make in
             make.top.equalTo(productTitleLabel)
             make.right.equalTo(packageImage)
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(32)
         }
         
         contentView.addSubview(discountValue)
@@ -83,13 +83,14 @@ class ProductCollectionViewCell: UICollectionViewCell {
 //            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        starView.text = "★ 4.5"
-        starView.font = getCustomFont(size: 11, name: .regular)
-        starView.textColor = kDefaultTextColor
+        starView.textLabel?.text = "4.5"
+        starView.textLabel?.font = getCustomFont(size: 11, name: .regular)
+        starView.textLabel?.textColor = kDefaultTextColor
         self.contentView.addSubview(starView)
         starView.snp.makeConstraints { make in
             make.centerY.equalTo(truePriceLabel)
             make.right.equalTo(packageImage)
+            make.height.equalTo(11)
         }
     }
 
@@ -188,6 +189,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func addToWishListButtonTapped() {
-        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
+        self.addToWishlistBtn.setSeleted(!self.addToWishlistBtn.isSelected)
     }
 }

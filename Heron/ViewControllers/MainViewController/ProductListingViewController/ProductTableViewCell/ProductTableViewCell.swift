@@ -13,12 +13,12 @@ class ProductTableViewCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
     let tagsViewStack       = UIView()
-    let starView            = UILabel()
+    let starView            = LeftRightImageLabel.init(leftImage: UIImage.init(named: "start_icon"))
     let sourcePriceLabel    = DiscountLabel()
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
-    let addToWishlistBtn    = UIButton()
+    let addToWishlistBtn    = ExtendedButton()
     
     private var productData : ProductDataSource?
     private let disposeBag  = DisposeBag()
@@ -88,16 +88,17 @@ class ProductTableViewCell: UITableViewCell {
         addToWishlistBtn.snp.makeConstraints { make in
             make.centerY.equalTo(truePriceLabel)
             make.right.equalTo(productTitleLabel)
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(32)
         }
         
-        starView.text = "★ 4.5"
-        starView.font = getCustomFont(size: 11, name: .regular)
-        starView.textColor = kDefaultTextColor
+        starView.textLabel?.text = "4.5"
+        starView.textLabel?.font = getCustomFont(size: 11, name: .regular)
+        starView.textLabel?.textColor = kDefaultTextColor
         self.contentView.addSubview(starView)
         starView.snp.makeConstraints { make in
             make.centerY.equalTo(truePriceLabel)
             make.right.equalTo(addToWishlistBtn.snp.left).offset(-16)
+            make.height.equalTo(11)
         }
 //        variantMark.isHidden = true
 //        variantMark.backgroundColor = kRedHightLightColor
@@ -122,9 +123,9 @@ class ProductTableViewCell: UITableViewCell {
                 }
                 
                 if wishList.contains(productData) {
-                    self.addToWishlistBtn.isSelected = true
+                    self.addToWishlistBtn.setSeleted(true)
                 } else {
-                    self.addToWishlistBtn.isSelected = false
+                    self.addToWishlistBtn.setSeleted(false)
                 }
             }
             .disposed(by: disposeBag)
@@ -226,7 +227,7 @@ class ProductTableViewCell: UITableViewCell {
     }
     
     @objc private func addToWishListButtonTapped() {
-        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
+        self.addToWishlistBtn.setSeleted(!self.addToWishlistBtn.isSelected)
         
         guard let productData = self.productData else {
             return
