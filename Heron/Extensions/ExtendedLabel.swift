@@ -47,7 +47,7 @@ class LeftRightImageLabel: UIView {
                 make.centerY.equalToSuperview()
                 make.right.equalToSuperview().offset(-2)
                 make.height.width.equalTo(self.snp.height)
-                make.left.greaterThanOrEqualTo(self.textLabel!.snp.right).offset(2)
+                make.left.greaterThanOrEqualTo(self.textLabel!.snp.right).offset(5)
             }
         }
     }

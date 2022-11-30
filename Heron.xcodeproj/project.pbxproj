@@ -176,6 +176,7 @@
 		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
 		A097CC8A2937925C00C587AD /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC892937925C00C587AD /* ExtendedButton.swift */; };
 		A097CC8C29379DA400C587AD /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8B29379DA400C587AD /* ExtendedLabel.swift */; };
+		A097CC8F2937A91A00C587AD /* ProductListingFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */; };
 		B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */; };
@@ -398,6 +399,7 @@
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A097CC892937925C00C587AD /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		A097CC8B29379DA400C587AD /* ExtendedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
+		A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingFilterView.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
 		B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAndBillingInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -692,6 +694,7 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A097CC8D2937A90400C587AD /* ProductListingFilterView */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
 				9AB248D7292147BD007812D5 /* ProductCollectionViewCell */,
@@ -1177,6 +1180,14 @@
 			path = CreateBookingFlow;
 			sourceTree = "<group>";
 		};
+		A097CC8D2937A90400C587AD /* ProductListingFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */,
+			);
+			path = ProductListingFilterView;
+			sourceTree = "<group>";
+		};
 		B561813F2862B195009BE6E5 /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1614,6 +1625,7 @@
 				93BB69152830277B00BC2E5E /* CartViewModel.swift in Sources */,
 				93AF9202284BEE8F0075CD65 /* UserAddressCell.swift in Sources */,
 				938F7AAC28220DD600DD60DB /* BannerView.swift in Sources */,
+				A097CC8F2937A91A00C587AD /* ProductListingFilterView.swift in Sources */,
 				933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */,
 				93EC90F4285A4DB9009056F6 /* MainSubscriptionViewModel.swift in Sources */,
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,

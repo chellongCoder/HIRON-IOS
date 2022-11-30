@@ -82,6 +82,10 @@ class SearchBarTxt: UITextField {
         }
     }
     
+    override var intrinsicContentSize: CGSize {
+        return UIView.layoutFittingExpandedSize
+    }
+    
     override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
         return CGRect(x: self.frame.width - 36, y: self.frame.height / 2 - 10, width: 20, height: 20)
     }

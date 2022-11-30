@@ -17,6 +17,7 @@ class ProductListingViewController: BaseViewController,
     private let viewModel           = ProductListingViewModel()
     
     let searchBar                   = SearchBarTxt()
+    let filterView                  = ProductListingFilterView()
     let tableView                   = UITableView(frame: .zero, style: .plain)
     var collectionView              : UICollectionView?
     let noDataView                  = UIView()
@@ -50,6 +51,12 @@ class ProductListingViewController: BaseViewController,
                                               action: #selector(switchViewButtonTapped))
         self.navigationItem.rightBarButtonItems = [cartButtonItem, changeViewStyleItem]
         
+        self.view.addSubview(filterView)
+        filterView.snp.makeConstraints { make in
+            make.top.centerX.width.equalToSuperview()
+            make.height.equalTo(80)
+        }
+        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
@@ -64,7 +71,8 @@ class ProductListingViewController: BaseViewController,
         tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.centerX.width.equalToSuperview()
+            make.top.equalTo(filterView.snp.bottom)
+            make.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
@@ -84,7 +92,8 @@ class ProductListingViewController: BaseViewController,
         collectionView?.delegate = self
         self.view.addSubview(collectionView!)
         collectionView?.snp.makeConstraints { (make) in
-            make.top.left.right.centerX.width.equalToSuperview()
+            make.top.equalTo(filterView.snp.bottom)
+            make.left.right.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
