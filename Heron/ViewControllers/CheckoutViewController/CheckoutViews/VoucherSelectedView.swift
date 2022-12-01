@@ -37,7 +37,7 @@ class VoucherSelectedView: UIView {
         }
         
         let nextIcon = UIImageView()
-        nextIcon.image = UIImage.init(named: "nextRight_icon")
+        nextIcon.image = UIImage.init(named: "right_icon")
         self.addSubview(nextIcon)
         nextIcon.snp.makeConstraints { make in
             make.centerY.equalToSuperview()

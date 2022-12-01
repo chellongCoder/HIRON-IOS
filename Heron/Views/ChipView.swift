@@ -60,7 +60,7 @@ class ChipViewDropDown: UIView {
             make.height.equalToSuperview().offset(-9)
         }
         
-        self.imageIcon.image = UIImage.init(named: "dropdown_icon")
+        self.imageIcon.image = UIImage.init(named: "down_icon")
         self.addSubview(imageIcon)
         imageIcon.snp.makeConstraints { make in
             make.height.width.equalTo(10)

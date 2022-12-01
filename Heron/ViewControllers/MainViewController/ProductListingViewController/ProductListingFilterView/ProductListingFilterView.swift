@@ -10,9 +10,9 @@ import UIKit
 
 class ProductListingFilterView : UIView {
     
-    let classyFilterLabel   = LeftRightImageLabel.init(rightImage: UIImage.init(named: "dropdown_icon"))
-    let exampleLabel        = LeftRightImageLabel.init(rightImage: UIImage.init(named: "dropdown_icon"))
-    let exampleLabel2       = LeftRightImageLabel.init(rightImage: UIImage.init(named: "dropdown_icon"))
+    let classyFilterLabel   = LeftRightImageLabel.init(rightImage: UIImage.init(named: "down_icon"))
+    let exampleLabel        = LeftRightImageLabel.init(rightImage: UIImage.init(named: "down_icon"))
+    let exampleLabel2       = LeftRightImageLabel.init(rightImage: UIImage.init(named: "down_icon"))
     let filterLabel         = LeftRightImageLabel.init(rightImage: UIImage.init(named: "filter_icon"))
     
     let chipView1           = ChipView(title: "New")

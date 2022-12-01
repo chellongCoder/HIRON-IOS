@@ -25,7 +25,7 @@ class BaseViewController: UIViewController {
     }
     
     func showBackBtn() {
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward"),
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(named: "left_icon"),
                                            style: .plain,
                                            target: self,
                                            action: #selector(backButtonTapped))
