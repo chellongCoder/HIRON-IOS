@@ -11,7 +11,7 @@ import SWRevealViewController
 
 class AppNavigationController: UINavigationController {
     
-    public static let sharedInstance = AppNavigationController(rootViewController: LaunchScreenViewController())
+    public static let sharedInstance = AppNavigationController(rootViewController: VoucherViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()

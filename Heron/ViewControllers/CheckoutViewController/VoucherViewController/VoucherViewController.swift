@@ -25,19 +25,21 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        navigationItem.title = "Vouchers"
+        navigationItem.title = "Voucher Add"
         
         self.showBackBtn()
         
         applyBtn.backgroundColor = kPrimaryColor
         applyBtn.setTitleColor(.white, for: .normal)
+        applyBtn.titleLabel?.font = getCustomFont(size: 13, name: .bold)
         applyBtn.setTitle("Apply", for: .normal)
+        applyBtn.layer.cornerRadius = 20
         self.view.addSubview(applyBtn)
         applyBtn.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-10)
-            make.width.equalTo(60)
-            make.height.equalTo(50)
+            make.width.equalTo(75)
+            make.height.equalTo(40)
         }
         
         codeTxt.placeholder = "Voucher Code"

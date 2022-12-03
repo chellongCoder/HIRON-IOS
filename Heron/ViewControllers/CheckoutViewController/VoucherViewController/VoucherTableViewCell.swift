@@ -14,10 +14,12 @@ protocol VoucherTableViewCellDelegate : AnyObject {
 
 class VoucherTableViewCell: UITableViewCell {
     
-    private let promoValue      = UILabel()
+    private let topLineView     = UIView()
     private let titleLabel      = UILabel()
+    private let desciptionLabel = UILabel()
+    private let additionalListView = UIView()
     private let dateAvailableLabel  = UILabel()
-    private let applyBtn        = UIButton()
+    private let applyBtn            = ExtendedButton()
     
     private var voucherData     : VoucherDataSource?
     var delegate                : VoucherTableViewCellDelegate?
@@ -35,53 +37,63 @@ class VoucherTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(8)
             make.bottom.equalToSuperview().offset(-8)
         }
-        
-        promoValue.text = "0% OFF"
-        promoValue.textAlignment = .center
-        promoValue.textColor = kDefaultTextColor
-        promoValue.backgroundColor = kBackgroundColor
-        promoValue.font = getCustomFont(size: 14, name: .medium)
-        contentView.addSubview(promoValue)
-        promoValue.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(10)
-            make.bottom.equalToSuperview().offset(-10)
-            make.height.width.equalTo(100)
+      
+        topLineView.backgroundColor = kPurpleColor
+        contentView.addSubview(topLineView)
+        topLineView.snp.makeConstraints { make in
+            make.height.equalTo(3)
+            make.left.right.top.equalToSuperview()
         }
         
         titleLabel.text = ""
-        titleLabel.font = getCustomFont(size: 14, name: .medium)
-        titleLabel.textColor = kDefaultTextColor
+        titleLabel.font = getCustomFont(size: 16, name: .extraBold)
+        titleLabel.textColor = kPurpleColor
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(10)
-            make.left.equalTo(promoValue.snp.right).offset(10)
-            make.right.equalToSuperview().offset(-10)
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(12)
         }
         
-        dateAvailableLabel.text = ""
-        dateAvailableLabel.numberOfLines = 0
-        dateAvailableLabel.font = getCustomFont(size: 14, name: .regular)
-        dateAvailableLabel.textColor = kDefaultTextColor
-        contentView.addSubview(dateAvailableLabel)
-        dateAvailableLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.left.equalTo(promoValue.snp.right).offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        applyBtn.setTitle("Apply", for: .normal)
+        applyBtn.setBackgroundImage(UIImage.init(named: "select_icon"), for: .normal)
         applyBtn.backgroundColor = kPrimaryColor
         applyBtn.layer.cornerRadius = 8
-        applyBtn.addTarget(self, action: #selector(applyButtonTapped), for: .touchUpInside)
         contentView.addSubview(applyBtn)
         applyBtn.snp.makeConstraints { make in
-            make.top.equalTo(dateAvailableLabel.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(40)
-            make.left.equalTo(titleLabel)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.centerY.equalTo(titleLabel.snp.centerY)
+            make.right.equalToSuperview().offset(-12)
+            make.height.width.equalTo(16)
         }
         
+        desciptionLabel.text = "Discount $10.00 lorem Ipsum is simply dummy text of the printing and standard typesetting industry."
+        desciptionLabel.font = getCustomFont(size: 13, name: .light)
+        desciptionLabel.textColor = kDefaultTextColor
+        desciptionLabel.numberOfLines = 0
+        contentView.addSubview(desciptionLabel)
+        desciptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(8)
+            make.left.equalToSuperview().offset(12)
+            make.right.equalToSuperview().offset(-12)
+        }
+        
+        additionalListView.backgroundColor = .white
+        contentView.addSubview(additionalListView)
+        additionalListView.snp.makeConstraints { make in
+            make.top.equalTo(desciptionLabel.snp.bottom)
+            make.centerX.width.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-16)
+        }
+//        dateAvailableLabel.text = ""
+//        dateAvailableLabel.numberOfLines = 0
+//        dateAvailableLabel.font = getCustomFont(size: 14, name: .regular)
+//        dateAvailableLabel.textColor = kDefaultTextColor
+//        contentView.addSubview(dateAvailableLabel)
+//        dateAvailableLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(titleLabel.snp.bottom).offset(10)
+//            make.left.equalTo(promoValue.snp.right).offset(10)
+//            make.right.equalToSuperview().offset(-10)
+//        }
+//
+       
     }
     
     required init?(coder: NSCoder) {
@@ -97,20 +109,63 @@ class VoucherTableViewCell: UITableViewCell {
         
         if cellData.couponRule?.isFixed ?? false {
             // discount value
-            self.promoValue.text = getMoneyFormat(cellData.couponRule?.customDiscount)
+//            self.promoValue.text = getMoneyFormat(cellData.couponRule?.customDiscount)
             
         } else {
             // discout percent
-            self.promoValue.text = String(format: "%ld%% OFF", cellData.couponRule?.discount ?? 0)
+//            self.promoValue.text = String(format: "%ld%% OFF", cellData.couponRule?.discount ?? 0)
         }
         
-        if cellData.isSelectedVoucher {
-            self.applyBtn.setTitle("Cancel", for: .normal)
-            self.applyBtn.backgroundColor = kRedHightLightColor
-        } else {
-            self.applyBtn.setTitle("Apply", for: .normal)
-            self.applyBtn.backgroundColor = kPrimaryColor
+//        if cellData.isSelectedVoucher {
+//            self.applyBtn.setTitle("Cancel", for: .normal)
+//            self.applyBtn.backgroundColor = kRedHightLightColor
+//        } else {
+//            self.applyBtn.setTitle("Apply", for: .normal)
+//            self.applyBtn.backgroundColor = kPrimaryColor
+//        }
+        
+        #warning("HARD_CODE")
+        let contents = ["Content 1", "Content 2", "Content 3", "Content 3.5", "Content 4"]
+        var lastetContent : UIView?
+        
+        for content in contents {
+            
+            let chamIcon = UIView()
+            chamIcon.backgroundColor = kDefaultTextColor
+            self.additionalListView.addSubview(chamIcon)
+            chamIcon.snp.makeConstraints { make in
+                make.left.equalToSuperview().offset(32)
+                make.height.width.equalTo(5)
+            }
+                        
+            let contentLabel = UILabel()
+            contentLabel.text = content
+            contentLabel.numberOfLines = 0
+            contentLabel.font = getCustomFont(size: 13, name: .light)
+            contentLabel.textColor = kTitleTextColor
+            self.additionalListView.addSubview(contentLabel)
+            contentLabel.snp.makeConstraints { make in
+                make.top.equalTo(chamIcon).offset(-5)
+                make.left.equalTo(chamIcon.snp.right).offset(6)
+                make.right.equalToSuperview().offset(-16)
+            }
+            
+            if let lastetContent = lastetContent {
+                chamIcon.snp.makeConstraints { make in
+                    make.top.equalTo(lastetContent.snp.bottom).offset(17)
+                }
+            } else {
+                chamIcon.snp.makeConstraints { make in
+                    make.top.equalToSuperview().offset(17)
+                }
+            }
+            
+            lastetContent = contentLabel
         }
+        
+        lastetContent?.snp.makeConstraints({ make in
+            make.bottom.lessThanOrEqualToSuperview()
+        })
     }
     
     // MARK: - Buttons
