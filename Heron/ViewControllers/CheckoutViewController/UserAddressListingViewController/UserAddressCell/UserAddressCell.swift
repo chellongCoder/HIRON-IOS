@@ -13,52 +13,42 @@ protocol UserAddressCellDelegate : AnyObject {
 
 class UserAddressCell: UITableViewCell {
     
-    let markAsDefault       = UILabel()
+    let markAsDefault       = ChipView(title: "")
     let fullName            = UILabel()
     let phoneNumber         = UILabel()
     let addressLabel        = UILabel()
     let editButton          = UIButton()
+    let seleteButton        = UIButton()
     
     private var contactData : ContactDataSource?
     var delegate            : UserAddressCellDelegate?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .clear
-
-        let contentView = UIView()
-        contentView.setShadow()
-        self.contentView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
-        }
+        self.backgroundColor = .white
         
-        markAsDefault.isHidden = true
-        markAsDefault.text = "Default ✅"
-        markAsDefault.font = getCustomFont(size: 16, name: .medium)
-        markAsDefault.textColor = kDefaultTextColor
-        markAsDefault.textAlignment = .right
-        contentView.addSubview(markAsDefault)
-        markAsDefault.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
+        seleteButton.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
+        seleteButton.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
+        seleteButton.addTarget(self, action: #selector(seleteButtonTapped), for: .touchUpInside)
+        contentView.addSubview(seleteButton)
+        seleteButton.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.top.equalToSuperview().offset(20)
+            make.height.width.equalTo(16)
         }
         
         fullName.text = "Mike Le"
-        fullName.font = getCustomFont(size: 14, name: .medium)
-        fullName.textColor = kDefaultTextColor
+        fullName.font = getCustomFont(size: 13, name: .bold)
+        fullName.textColor = kTitleTextColor
         contentView.addSubview(fullName)
         fullName.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
+            make.left.equalTo(seleteButton.snp.right).offset(2)
+            make.centerY.equalTo(seleteButton.snp.centerY)
         }
         
         phoneNumber.text = "+"
         phoneNumber.font = getCustomFont(size: 10, name: .medium)
-        phoneNumber.textColor = kDefaultTextColor
+        phoneNumber.textColor = kTitleTextColor
         contentView.addSubview(phoneNumber)
         phoneNumber.snp.makeConstraints { make in
             make.top.equalTo(fullName.snp.bottom).offset(5)
@@ -67,25 +57,42 @@ class UserAddressCell: UITableViewCell {
         
         addressLabel.text = "+"
         addressLabel.font = getCustomFont(size: 10, name: .medium)
-        addressLabel.textColor = kDefaultTextColor
+        addressLabel.textColor = kTitleTextColor
         addressLabel.numberOfLines = 0
         contentView.addSubview(addressLabel)
         addressLabel.snp.makeConstraints { make in
             make.top.equalTo(phoneNumber.snp.bottom).offset(8)
             make.left.right.equalTo(phoneNumber)
+            make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
         
-        editButton.setTitle("Edit", for: .normal)
-        editButton.backgroundColor = kPrimaryColor
-        editButton.layer.cornerRadius = 8
+        editButton.setBackgroundImage(UIImage.init(named: "edit_icon"), for: .normal)
         editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
         contentView.addSubview(editButton)
         editButton.snp.makeConstraints { make in
-            make.top.equalTo(addressLabel.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(40)
-            make.width.equalTo(80)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.centerY.equalTo(fullName.snp.centerY)
+            make.right.equalToSuperview().offset(-14)
+            make.height.width.equalTo(14)
+        }
+        
+        markAsDefault.isHidden = true
+        markAsDefault.textLabel.text = " Default "
+        markAsDefault.textLabel.textColor = kCustomTextColor
+        markAsDefault.layer.cornerRadius = 9
+        contentView.addSubview(markAsDefault)
+        markAsDefault.snp.makeConstraints { make in
+            make.top.equalTo(addressLabel.snp.bottom).offset(19)
+            make.left.equalTo(addressLabel)
+            make.bottom.lessThanOrEqualToSuperview().offset(-20)
+        }
+        
+        let line = UIView()
+        line.backgroundColor = kGrayColor
+        contentView.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.height.equalTo(6)
+            make.centerX.width.equalToSuperview()
         }
     }
 
@@ -113,5 +120,9 @@ class UserAddressCell: UITableViewCell {
         }
 
         self.delegate?.didEditAddress(contactData)
+    }
+    
+    @objc private func seleteButtonTapped() {
+        seleteButton.isSelected = !seleteButton.isSelected
     }
 }

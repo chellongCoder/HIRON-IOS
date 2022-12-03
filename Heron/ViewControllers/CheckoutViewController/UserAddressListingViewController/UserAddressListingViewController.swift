@@ -25,21 +25,38 @@ class UserAddressListingViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        navigationItem.title = "User's Address"
+        navigationItem.title = "My Address"
         
         self.showBackBtn()
         
         addNewAddressBtn.backgroundColor = kPrimaryColor
-        addNewAddressBtn.setTitle("Add new address", for: .normal)
-        addNewAddressBtn.setTitleColor(.white, for: .normal)
-        addNewAddressBtn.layer.cornerRadius = 8
+        addNewAddressBtn.layer.cornerRadius = 20
         addNewAddressBtn.addTarget(self, action: #selector(addNewAddressButtonTapped), for: .touchUpInside)
         self.view.addSubview(addNewAddressBtn)
         addNewAddressBtn.snp.makeConstraints { make in
             make.bottom.equalTo(self.view.safeAreaLayoutGuide)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
+            make.height.equalTo(40)
+        }
+        
+        let buttonTitle = UILabel()
+        buttonTitle.text = "Add new address"
+        buttonTitle.textColor = .white
+        buttonTitle.font = getCustomFont(size: 14, name: .bold)
+        addNewAddressBtn.addSubview(buttonTitle)
+        buttonTitle.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.centerX.equalToSuperview().offset(20)
+        }
+        
+        let buttonIcon = UIImageView()
+        buttonIcon.image = UIImage.init(named: "plus_icon")
+        addNewAddressBtn.addSubview(buttonIcon)
+        buttonIcon.snp.makeConstraints { make in
+            make.right.equalTo(buttonTitle.snp.left).offset(-10)
+            make.centerY.equalToSuperview()
+            make.height.width.equalTo(14)
         }
         
         tableView.separatorStyle = .none
