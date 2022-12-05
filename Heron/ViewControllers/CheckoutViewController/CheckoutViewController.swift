@@ -316,15 +316,7 @@ class CheckoutViewController: BaseViewController,
         _CartServices.voucherCode
             .observe(on: MainScheduler.instance)
             .subscribe { voucherDataSource in
-                guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {return}
-                if voucherDataSource.couponRule?.isFixed ?? false {
-                    // discount value
-                    self.voucherView.voucherCode.textLabel.text = getMoneyFormat(voucherDataSource.couponRule?.customDiscount)
-                    
-                } else {
-                    // discout percent
-                    self.voucherView.voucherCode.textLabel.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0)
-                }
+                self.voucherView.setVoucherData(voucherDataSource.element as? VoucherDataSource)
             }
             .disposed(by: disposeBag)
     }
