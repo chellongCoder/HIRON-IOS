@@ -93,12 +93,12 @@ class SuccessPlaceOrderViewController: UIViewController {
     
     // MARK: - Buttons
     @objc private func viewMyBookingButtonTapped() {
-//        self.dismiss(animated: true)
-//        _NavController.gotoMyOrderPage()
+        self.dismiss(animated: true)
+        _NavController.gotoMyOrderPage()
     }
     
     @objc private func continueButtonTapped() {
-//        self.dismiss(animated: true)
-//        _NavController.gotoProductListing()
+        self.dismiss(animated: true)
+        _NavController.gotoProductListing()
     }
 }

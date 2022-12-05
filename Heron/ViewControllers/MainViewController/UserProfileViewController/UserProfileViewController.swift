@@ -14,170 +14,161 @@ class UserProfileViewController: BaseViewController {
     
     let avatar              = UIImageView()
     let nameLabel           = UILabel()
-    let dobLabel            = UILabel()
-    let genderLabel         = UILabel()
-    let phoneLabel          = UILabel()
-    let emailLabel          = UILabel()
-    let userIDLabel         = UILabel()
+    let planView            = PlanView()
+    let voucherInfo         = UserDashboardItem()
+    let pointInfo           = UserDashboardItem()
+    let giftCardInfo        = UserDashboardItem()
     
-    private let updateProfileBtn    = UIButton()
-    private let updateEHProfileBtn  = UIButton()
-    private let userSubscriptions   = UIButton()
+    private let updateProfileBtn    = UserProfileActionBtn()
+    private let updateEHProfileBtn  = UserProfileActionBtn()
+    private let userSubscriptions   = UserProfileActionBtn()
     private let signOutBtn          = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.controller = self
         self.title = "Profile"
+        self.view.backgroundColor = kPrimaryColor
+        
+        let cricle1 = UIView()
+        cricle1.backgroundColor = kCircleBackgroundColor
+        cricle1.layer.cornerRadius = 90
+        self.view.addSubview(cricle1)
+        cricle1.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(-20)
+            make.right.equalToSuperview().offset(20)
+            make.height.width.equalTo(180)
+        }
+        
+        let cricle2 = UIView()
+        cricle2.backgroundColor = kCircleBackgroundColor
+        cricle2.layer.cornerRadius = 56
+        self.view.addSubview(cricle2)
+        cricle2.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(165)
+            make.left.equalToSuperview().offset(-15)
+            make.height.width.equalTo(112)
+        }
         
         avatar.image = UIImage.init(named: "default-image")
         avatar.contentMode = .scaleAspectFit
-        avatar.layer.borderWidth = 1
-        avatar.layer.cornerRadius = 8
-        avatar.layer.borderColor = UIColor.gray.cgColor
+        avatar.layer.borderColor = UIColor.white.cgColor
+        avatar.layer.borderWidth = 12
+        avatar.layer.cornerRadius = 60
         self.view.addSubview(avatar)
         avatar.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(120)
+            make.top.equalToSuperview().offset(52)
             make.centerX.equalToSuperview()
-            make.height.width.equalTo(100)
+            make.height.width.equalTo(120)
+        }
+        
+        nameLabel.text = ""
+        nameLabel.textColor = .white
+        nameLabel.textAlignment = .center
+        nameLabel.font = getCustomFont(size: 16, name: .bold)
+        self.view.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(avatar.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-32)
+        }
+        planView.layer.cornerRadius = 15
+        self.view.addSubview(planView)
+        planView.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(12)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(30)
+        }
+    
+        pointInfo.layer.cornerRadius = 10
+        pointInfo.layer.masksToBounds = true
+        self.view.addSubview(pointInfo)
+        pointInfo.snp.makeConstraints { make in
+            make.top.equalTo(planView.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
+            make.height.width.equalTo(68)
+        }
+        
+        voucherInfo.layer.cornerRadius = 10
+        voucherInfo.layer.masksToBounds = true
+        self.view.addSubview(voucherInfo)
+        voucherInfo.snp.makeConstraints { make in
+            make.top.equalTo(pointInfo.snp.top)
+            make.right.equalTo(pointInfo.snp.left).offset(-30)
+            make.height.width.equalTo(pointInfo)
+        }
+        
+        giftCardInfo.layer.cornerRadius = 10
+        giftCardInfo.layer.masksToBounds = true
+        self.view.addSubview(giftCardInfo)
+        giftCardInfo.snp.makeConstraints { make in
+            make.top.equalTo(pointInfo)
+            make.height.width.equalTo(pointInfo)
+            make.left.equalTo(pointInfo.snp.right).offset(30)
         }
         
         let contentView = UIView()
-        contentView.backgroundColor = UIColor.init(hexString: "F0F0F0")
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 40
+        contentView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         self.view.addSubview(contentView)
         contentView.snp.makeConstraints { make in
-            make.top.equalTo(avatar.snp.bottom).offset(35)
+            make.top.equalTo(pointInfo.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-80)
+            make.width.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
         }
         
-        nameLabel.text = "Name: "
-        nameLabel.textColor = kDefaultTextColor
-        nameLabel.numberOfLines = 0
-        nameLabel.textColor = UIColor.init(hexString: "444444")
-        nameLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        dobLabel.text = "DOB: "
-        dobLabel.textColor = kDefaultTextColor
-        dobLabel.numberOfLines = 0
-        dobLabel.textColor = UIColor.init(hexString: "444444")
-        dobLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(dobLabel)
-        dobLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        genderLabel.text = "Gender: "
-        genderLabel.textColor = kDefaultTextColor
-        genderLabel.numberOfLines = 0
-        genderLabel.textColor = UIColor.init(hexString: "444444")
-        genderLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(genderLabel)
-        genderLabel.snp.makeConstraints { make in
-            make.top.equalTo(dobLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        phoneLabel.text = "Phone number: "
-        phoneLabel.textColor = kDefaultTextColor
-        phoneLabel.numberOfLines = 0
-        phoneLabel.textColor = UIColor.init(hexString: "444444")
-        phoneLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(phoneLabel)
-        phoneLabel.snp.makeConstraints { make in
-            make.top.equalTo(genderLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        emailLabel.text = "Email: "
-        emailLabel.textColor = kDefaultTextColor
-        emailLabel.numberOfLines = 0
-        emailLabel.textColor = UIColor.init(hexString: "444444")
-        emailLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(emailLabel)
-        emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(phoneLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        userIDLabel.text = "User Identity: "
-        userIDLabel.textColor = kDefaultTextColor
-        userIDLabel.numberOfLines = 0
-        userIDLabel.textColor = UIColor.init(hexString: "444444")
-        userIDLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(userIDLabel)
-        userIDLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-                
-        updateProfileBtn.setTitle("Update User Profile", for: .normal)
-        updateProfileBtn.setTitleColor(.white, for: .normal)
-        updateProfileBtn.backgroundColor = kPrimaryColor
-        updateProfileBtn.layer.cornerRadius = 8
+        updateProfileBtn.actionName.text = "Update User Profile"
+        updateProfileBtn.actionIcon.image = UIImage.init(named: "user_profile_icon")
         updateProfileBtn.addTarget(self, action: #selector(updateUserProfileButtonTapped), for: .touchUpInside)
-        self.view.addSubview(updateProfileBtn)
+        contentView.addSubview(updateProfileBtn)
         updateProfileBtn.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(20)
-            make.width.equalToSuperview().offset(-40)
+            make.top.equalTo(contentView).offset(20)
+            make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.height.equalTo(50)
         }
-        
-        updateEHProfileBtn.setTitle("Update E-Health Profile", for: .normal)
-        updateEHProfileBtn.setTitleColor(.white, for: .normal)
-        updateEHProfileBtn.backgroundColor = kPrimaryColor
-        updateEHProfileBtn.layer.cornerRadius = 8
+
+        updateEHProfileBtn.actionName.text = "Update E-Health Profile"
+        updateEHProfileBtn.actionIcon.image = UIImage.init(named: "user_ehp_profile_icon")
         updateEHProfileBtn.addTarget(self, action: #selector(updateEHProfileButtonTapped), for: .touchUpInside)
-        self.view.addSubview(updateEHProfileBtn)
+        contentView.addSubview(updateEHProfileBtn)
         updateEHProfileBtn.snp.makeConstraints { make in
             make.top.equalTo(updateProfileBtn.snp.bottom).offset(5)
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.height.equalTo(50)
         }
-        
-        userSubscriptions.setTitle("Subscription Management", for: .normal)
-        userSubscriptions.setTitleColor(.white, for: .normal)
-        userSubscriptions.backgroundColor = kPrimaryColor
-        userSubscriptions.layer.cornerRadius = 8
+
+        userSubscriptions.actionName.text = "Subscription Management"
+        userSubscriptions.actionIcon.image = UIImage.init(named: "user_supscription_icon")
         userSubscriptions.addTarget(self, action: #selector(userSubscriptionButtonTapped), for: .touchUpInside)
-        self.view.addSubview(userSubscriptions)
+        contentView.addSubview(userSubscriptions)
         userSubscriptions.snp.makeConstraints { make in
             make.top.equalTo(updateEHProfileBtn.snp.bottom).offset(5)
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalToSuperview()
             make.centerX.equalToSuperview()
-            make.height.equalTo(50)
         }
-        
-        signOutBtn.setTitle("Sign Out", for: .normal)
-        signOutBtn.setTitleColor(.white, for: .normal)
-        signOutBtn.backgroundColor = kRedHightLightColor
-        signOutBtn.layer.cornerRadius = 8
+
+        signOutBtn.setTitle("Sign out", for: .normal)
+        signOutBtn.setTitleColor(kPrimaryColor, for: .normal)
+        signOutBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        signOutBtn.backgroundColor = .white
+        signOutBtn.layer.cornerRadius = 20
+        signOutBtn.layer.borderColor = kPrimaryColor.cgColor
+        signOutBtn.layer.borderWidth = 1.5
         signOutBtn.addTarget(self, action: #selector(signoutButtonTapped), for: .touchUpInside)
-        self.view.addSubview(signOutBtn)
+        contentView.addSubview(signOutBtn)
         signOutBtn.snp.makeConstraints { make in
-            make.top.equalTo(userSubscriptions.snp.bottom).offset(20)
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalToSuperview().offset(-56)
             make.centerX.equalToSuperview()
-            make.height.equalTo(50)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(-31)
         }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel.getUserProfile()
     }
     
@@ -190,15 +181,8 @@ class UserProfileViewController: BaseViewController {
                     if let avatarImageURL = URL(string: userData?.userAvatarURL ?? "") {
                         self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
                     }
-                    self.nameLabel.text = String(format: "Name: %@ %@", userData?.userFirstName ?? "", userData?.userLastName ?? "")
-                    let dateDob = Date.init(timeIntervalSince1970: TimeInterval((userData?.userDOB ?? 0) / 1000))
-                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
-                    self.genderLabel.text = String(format: "Gender: %@", (userData?.userGender == .male) ? "Male" : "Female")
-                    self.phoneLabel.text = String(format: "Phone number: +%@%@", userData?.userPhoneCode ?? "", userData?.userPhoneNum ?? "")
-                    self.emailLabel.text = String(format: "Email : %@", userData?.userEmail ?? "")
-                    self.userIDLabel.text = String(format: "User Identity : %@", userData?.identityNum ?? "")
+                    self.nameLabel.text = String(format: "%@ %@", userData?.userFirstName ?? "", userData?.userLastName ?? "")
                 }
-                
             }
             .disposed(by: disposeBag)
     }

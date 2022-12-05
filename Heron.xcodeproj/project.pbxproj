@@ -174,6 +174,9 @@
 		9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */; };
 		9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */; };
 		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
+		A0979E49293B8B2F00E243A0 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E48293B8B2F00E243A0 /* PlanView.swift */; };
+		A0979E4B293B90D100E243A0 /* UserDashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */; };
+		A0979E4D293B9A5100E243A0 /* UserProfileActionBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */; };
 		A097CC8A2937925C00C587AD /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC892937925C00C587AD /* ExtendedButton.swift */; };
 		A097CC8C29379DA400C587AD /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8B29379DA400C587AD /* ExtendedLabel.swift */; };
 		A097CC8F2937A91A00C587AD /* ProductListingFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */; };
@@ -397,6 +400,9 @@
 		9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewController.swift; sourceTree = "<group>"; };
 		9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewModel.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0979E48293B8B2F00E243A0 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
+		A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardItem.swift; sourceTree = "<group>"; };
+		A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileActionBtn.swift; sourceTree = "<group>"; };
 		A097CC892937925C00C587AD /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
 		A097CC8B29379DA400C587AD /* ExtendedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
 		A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingFilterView.swift; sourceTree = "<group>"; };
@@ -648,6 +654,9 @@
 				93EC90FD28622229009056F6 /* DiscountValueView.swift */,
 				93CA16DD28A3F7C6008CC897 /* DiscountLabel.swift */,
 				9343119928DB6D8F003B77F9 /* EmptyView.swift */,
+				A0979E48293B8B2F00E243A0 /* PlanView.swift */,
+				A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */,
+				A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1498,6 +1507,7 @@
 				93E7BE1F28C3A2C00037D82A /* UserSubscriptionViewModel.swift in Sources */,
 				93EC90EE285A4D73009056F6 /* SignInViewController.swift in Sources */,
 				93AF9205284BF93A0075CD65 /* AddUserAddressViewController.swift in Sources */,
+				A0979E4B293B90D100E243A0 /* UserDashboardItem.swift in Sources */,
 				933D19392819946800F1CCC4 /* String_EXT.swift in Sources */,
 				930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */,
 				93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */,
@@ -1534,6 +1544,7 @@
 				93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */,
 				933D19272819946000F1CCC4 /* LoadingAnimationView.swift in Sources */,
 				93EC90CA285A4C03009056F6 /* LaunchScreenViewController.swift in Sources */,
+				A0979E4D293B9A5100E243A0 /* UserProfileActionBtn.swift in Sources */,
 				B561819A2862B59D009BE6E5 /* OrderCard.swift in Sources */,
 				B561819D2862B59D009BE6E5 /* OrderPayment.swift in Sources */,
 				9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */,
@@ -1549,6 +1560,7 @@
 				B5061C04286BF22700A03271 /* OrderStatusTableViewCell.swift in Sources */,
 				B56181972862B59D009BE6E5 /* ItemUnit.swift in Sources */,
 				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
+				A0979E49293B8B2F00E243A0 /* PlanView.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
 				934D72A628A02A4600E4255F /* BookingDoctorTableViewCell.swift in Sources */,
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
