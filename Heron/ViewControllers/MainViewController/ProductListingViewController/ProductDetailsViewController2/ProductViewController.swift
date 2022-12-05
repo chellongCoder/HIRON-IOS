@@ -10,9 +10,17 @@ import RxSwift
 import BadgeHub
 
 class ProductDetailsViewController2: PageScrollViewController,
-                                     UIScrollViewDelegate, ProductVariantDelegate {
+                                     UIScrollViewDelegate,
+                                     ProductVariantDelegate,
+                                     UITableViewDelegate,
+                                     ProductCellDelegate,
+                                     UICollectionViewDataSource,
+                                     UICollectionViewDelegate{
+  
+    
     private let viewModel               = ProductDetailsViewModel2()
-
+    private let productViewModel        = ProductListingViewModel()
+    
     var cartButtonItem                  : UIBarButtonItem?
     var shareButtonItem                 : UIBarButtonItem?
     var moreButtonItem                  : UIBarButtonItem?
@@ -35,9 +43,11 @@ class ProductDetailsViewController2: PageScrollViewController,
     let addToCartBtn                    = UIButton()
     let descView                        = UIView()
     let shopView                        = ShopProductView()
-    let reviewView                      = ReviewRate()
     let footer                          = ProductDetailFooter()
-    
+    let reviewRate                      = ReviewRate()
+    let tableRateView                   = UITableView(frame: .zero, style: .plain)
+    var collectionview                  : UICollectionView!
+
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
         viewModel.productDataSource.accept(data)
@@ -272,7 +282,10 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.width.equalToSuperview().offset(-20)
         }
         
-
+        self.loadReviewView()
+        
+        self.loadRelateProducts()
+        
     }
     
     // MARK: - Binding Data
@@ -287,7 +300,13 @@ class ProductDetailsViewController2: PageScrollViewController,
                 ///TODO:
             }
             .disposed(by: disposeBag)
-
+        productViewModel.listProducts
+            .bind(to: tableRateView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
+                let cell = ItemReviewTableViewCell(style: .default, reuseIdentifier:"ItemReviewTableViewCell")
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.productDataSource
             .observe(on: MainScheduler.instance)
             .subscribe { productDataSource in
@@ -307,7 +326,6 @@ class ProductDetailsViewController2: PageScrollViewController,
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
                 self.loadContentDescView()
                 self.loadTagsContents()
-                self.loadReviewView()
                 let staticHeight = (UIScreen.main.bounds.size.width)
                 self.loadMediaView(staticHeight)
 
@@ -487,20 +505,58 @@ class ProductDetailsViewController2: PageScrollViewController,
         let spacer3 = SpacerView()
         self.contentView.addSubview(spacer3)
         spacer3.snp.makeConstraints { (make) in
-            make.top.equalTo(self.descView.snp.bottom).offset(10)
+            make.top.equalTo(descView.snp.bottom)
             make.height.equalTo(6)
             make.width.equalToSuperview()
         }
         
+        tableRateView.delegate = self
+        tableRateView.separatorStyle = .none
+        tableRateView.isScrollEnabled = false
+        tableRateView.register(ItemReviewTableViewCell.self, forCellReuseIdentifier: "ItemReviewTableViewCell")
+        self.contentView.addSubview(tableRateView)
+        tableRateView.snp.makeConstraints { (make) in
+            make.centerX.width.equalToSuperview()
+            make.top.equalTo(spacer3.snp.bottom).offset(10)
+            make.height.equalTo(500)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+
+        }
+    }
+    
+    private func loadRelateProducts() {
         /// TODO: UI spacer
-        self.contentView.addSubview(reviewView)
-        reviewView.snp.makeConstraints { (make) in
-            make.bottom.lessThanOrEqualToSuperview().offset(-200)
-            make.top.equalTo(spacer3.snp.bottom).offset(0)
-            make.centerX.equalToSuperview()
+        let spacer3 = SpacerView()
+        self.contentView.addSubview(spacer3)
+        spacer3.snp.makeConstraints { (make) in
+            make.top.equalTo(tableRateView.snp.bottom)
+            make.height.equalTo(6)
             make.width.equalToSuperview()
         }
         
+        let viewWidth = UIScreen.main.bounds.size.width/2.1
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: viewWidth, height: viewWidth * 1.3)
+        layout.minimumInteritemSpacing = 10
+        layout.minimumLineSpacing = 0
+        
+        
+        collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionview.dataSource = self
+        collectionview.delegate = self
+        collectionview.register(ItemRelateProductCollection.self, forCellWithReuseIdentifier: "ItemRelateProductCollection")
+        collectionview.showsVerticalScrollIndicator = false
+        collectionview.isScrollEnabled = false
+        self.contentView.addSubview(collectionview)
+        collectionview.snp.makeConstraints { make in
+            make.centerX.width.equalToSuperview()
+            make.top.equalTo(spacer3.snp.bottom).offset(10)
+            make.height.equalTo(500)
+            make.width.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+
     }
 
     private func loadContentDescView() {
@@ -553,6 +609,53 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         })
         
+//        let arrray = [UIView(),UIView(),UIView(),UIView(),UIView()]
+//        var lastItem : UIView? = nil
+//
+//        for value in arrray {
+//
+//            value.snp.makeConstraints { make in
+//                make.height.equalTo(50)
+//            }
+//            lastItem = value
+//        }
+//
+//        lastItem?.snp.makeConstraints { make in
+//            make.bottom.lessThanOrEqualToSuperview().offset(-16)
+//        }
+//        print(lastItem)
 
     }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return UITableView.automaticDimension
+        // (UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+ 
+        reviewRate.snp.makeConstraints { make in
+            make.height.equalTo(80)
+            make.width.equalTo(UIScreen.main.bounds.size.width)
+        }
+        return self.reviewRate
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return productViewModel.listProducts.value.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "ItemRelateProductCollection", for: indexPath) as? ItemRelateProductCollection
+        return cell!
+
+    }
+    
+    // MARK: - ProductCellDelegate
+    func addProductToCart(_ data: ProductDataSource) {
+        let cartVC = CartViewController.sharedInstance
+        cartVC.addProductToCart(data)
+    }
+
 }

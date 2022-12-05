@@ -1,12 +1,13 @@
 //
-//  ReviewRate.swift
+//  RateTableViewCell.swift
 //  Heron
 //
-//  Created by Longnn on 24/11/2022.
+//  Created by Longnn on 02/12/2022.
 //
 
 import Foundation
-class ReviewRate: UIView {
+
+class RateTableViewCell: UITableViewCell {
     let reviewView    = UIView()
     let stack         = UIStackView(frame: .zero)
     private let title = UILabel()
@@ -14,8 +15,8 @@ class ReviewRate: UIView {
     let reviewCount   = UILabel()
     let showAll       = UILabel()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         title.text = "Reviews"
         title.textColor = kDefaultTextColor
@@ -68,7 +69,6 @@ class ReviewRate: UIView {
         arrowLeft.snp.makeConstraints { make in
             make.right.equalToSuperview()
             make.top.equalToSuperview().offset(0)
-            make.centerY.equalToSuperview()
         }
         
         stack.addSubview(showAll)
@@ -84,12 +84,12 @@ class ReviewRate: UIView {
         reviewView.addSubview(stack)
         stack.alignment = .center
         stack.snp.makeConstraints { make in
+            make.top.equalTo(title.snp.bottom).offset(10)
             make.left.right.equalToSuperview().offset(10)
             make.width.equalToSuperview().offset(-20)
-            make.top.equalTo(title.snp.bottom).offset(10)
-            make.bottom.lessThanOrEqualToSuperview().offset(0)
+            make.height.equalTo(20)
         }
-        
+                
         self.addSubview(reviewView)
         reviewView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview().offset(0)
@@ -101,5 +101,4 @@ class ReviewRate: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

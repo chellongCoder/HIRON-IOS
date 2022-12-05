@@ -6,66 +6,70 @@
 //
 
 import Foundation
-class ItemReview: UIView {
-    let view = UIView()
-    let avatar      = UIImageView()
+class ItemReviewTableViewCell: UITableViewCell {
+    let avatar          = UIImageView()
     let rateUserName    = UILabel()
-    let stars    = UILabel()
-    let category    = UILabel()
-    let time    = UILabel()
-    let comment    = UILabel()
-    let helpful    = UILabel()
+    let stars           = UILabel()
+    let category        = UILabel()
+    let time            = UILabel()
+    let comment         = UILabel()
+    let helpful         = UILabel()
 
-    let likeBTN          = UIButton()
+    let likeBTN         = UIButton()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         
         avatar.image = UIImage.init(named: "store")
         avatar.contentMode = .scaleAspectFit
         avatar.layer.cornerRadius = 14
-        view.addSubview(avatar)
+        contentView.addSubview(avatar)
         avatar.snp.makeConstraints { make in
-            make.left.top.equalToSuperview()
-            make.width.equalTo(28)
-            make.height.equalTo(28)
+            make.left.top.equalToSuperview().offset(16)
+            make.width.height.equalTo(28)
         }
-        view.addSubview(rateUserName)
+        
         rateUserName.text = "Michelle Stewart"
         rateUserName.font = getCustomFont(size: 11, name: .bold)
+        contentView.addSubview(rateUserName)
         rateUserName.snp.makeConstraints { make in
             make.left.equalTo(avatar.snp.right).offset(10)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(16)
         }
-        view.addSubview(stars)
+        
+        
         stars.text = "★★★★★"
         stars.textColor = UIColor.init(hexString: "ff6d6e")
         stars.font = getCustomFont(size: 11, name: .regular)
+        contentView.addSubview(stars)
         stars.snp.makeConstraints { make in
             make.left.equalTo(avatar.snp.right).offset(10)
             make.top.equalTo(rateUserName.snp.bottom).offset(15)
         }
-        view.addSubview(category)
+        
+        
         category.text = "10ml - Red"
         category.textColor = UIColor.init(hexString: "888888")
         category.font = getCustomFont(size: 11, name: .regular)
+        contentView.addSubview(category)
         category.snp.makeConstraints { make in
             make.left.equalTo(stars.snp.right).offset(10)
             make.top.equalTo(rateUserName.snp.bottom).offset(15)
         }
         
         time.text = "3 days ago"
-        view.addSubview(time)
         time.textColor = UIColor.init(hexString: "888888")
         time.font = getCustomFont(size: 11, name: .regular)
+        contentView.addSubview(time)
         time.snp.makeConstraints { make in
             make.right.equalToSuperview().offset(0)
             make.top.equalTo(rateUserName.snp.bottom).offset(15)
         }
 
         comment.text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-        view.addSubview(comment)
-        comment.numberOfLines = 2
+        contentView.addSubview(comment)
+        comment.numberOfLines = 0
         comment.textColor = kDefaultTextColor
         comment.font = getCustomFont(size: 13, name: .regular)
         comment.snp.makeConstraints { make in
@@ -76,27 +80,20 @@ class ItemReview: UIView {
         
         likeBTN.setImage(UIImage(named: "like"), for: .normal)
         likeBTN.tintColor = kDefaultTextColor
-        view.addSubview(likeBTN)
+        contentView.addSubview(likeBTN)
         likeBTN.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
             make.top.equalTo(comment.snp.bottom).offset(15)
         }
         
         helpful.text = "Helpful (5)"
-        view.addSubview(helpful)
+        contentView.addSubview(helpful)
         helpful.textColor = UIColor.init(hexString: "888888")
         helpful.font = getCustomFont(size: 11, name: .regular)
         helpful.snp.makeConstraints { make in
             make.left.equalTo(likeBTN.snp.right).offset(10)
             make.top.equalTo(comment.snp.bottom).offset(15)
-        }
-                
-        self.addSubview(view)
-        view.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
-            make.width.equalToSuperview().offset(-20)
-            make.centerX.equalToSuperview()
-            
+            make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
     }
     
