@@ -88,8 +88,8 @@ class ProductListingViewController: BaseViewController,
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         collectionView?.backgroundColor = .white
         collectionView?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
-        collectionView?.dataSource = self
-        collectionView?.delegate = self
+//        collectionView?.dataSource = self
+//        collectionView?.delegate = self
         self.view.addSubview(collectionView!)
         collectionView?.snp.makeConstraints { (make) in
             make.top.equalTo(filterView.snp.bottom)
@@ -191,9 +191,8 @@ class ProductListingViewController: BaseViewController,
             .disposed(by: disposeBag)
         
         viewModel.listProducts
-            .observe(on: MainScheduler.instance)
-            .subscribe { _ in
-                self.collectionView?.reloadData()
+            .bind(to: collectionView!.rx.items(cellIdentifier: "ProductCollectionViewCell") ) { (_: Int, productData: ProductDataSource, cell: ProductCollectionViewCell) in
+                cell.setDataSource(productData)
             }
             .disposed(by: disposeBag)
     }

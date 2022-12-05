@@ -113,22 +113,22 @@ class ProductTableViewCell: UITableViewCell {
 //            make.height.equalTo(35)
 //        }
 
-        _AppCoreData.wishListProduct
-            .observe(on: MainScheduler.instance)
-            .subscribe { wishList in
-                
-                guard let wishList = wishList.element else {return}
-                guard let productData = self.productData else {
-                    return
-                }
-                
-                if wishList.contains(productData) {
-                    self.addToWishlistBtn.setSeleted(true)
-                } else {
-                    self.addToWishlistBtn.setSeleted(false)
-                }
-            }
-            .disposed(by: disposeBag)
+//        _AppCoreData.wishListProduct
+//            .observe(on: MainScheduler.instance)
+//            .subscribe { wishList in
+//
+//                guard let wishList = wishList.element else {return}
+//                guard let productData = self.productData else {
+//                    return
+//                }
+//
+//                if wishList.contains(productData) {
+//                    self.addToWishlistBtn.isSelected = true
+//                } else {
+//                    self.addToWishlistBtn.isSelected = false
+//                }
+//            }
+//            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {
@@ -162,6 +162,12 @@ class ProductTableViewCell: UITableViewCell {
             variantMark.text = String(format: "  1 variant  ")
         } else {
             variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
+        }
+        
+        if _AppCoreData.wishListProduct.value.contains(cellData) {
+            self.addToWishlistBtn.isSelected = true
+        } else {
+            self.addToWishlistBtn.isSelected = false
         }
     }
     
