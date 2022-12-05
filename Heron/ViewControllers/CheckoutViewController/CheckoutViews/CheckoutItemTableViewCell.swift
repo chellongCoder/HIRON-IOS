@@ -90,7 +90,6 @@ class CheckoutItemTableViewCell: UITableViewCell {
 //            make.bottom.lessThanOrEqualToSuperview().offset(-10)
 //        }
         
-        
     }
 
     required init?(coder: NSCoder) {
