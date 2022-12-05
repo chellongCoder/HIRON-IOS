@@ -11,7 +11,7 @@ import RxSwift
 class MyOrderCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
-    let tagContentLabel     = UILabel()
+    let tagContentLabel     = ChipView(title: "")
     let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
     let countLabel          = UILabel()
@@ -34,66 +34,54 @@ class MyOrderCell: UITableViewCell {
         }
 
         packageImage.image = UIImage(named: "default-image")
-        packageImage.contentMode = .scaleAspectFill
+        packageImage.contentMode = .scaleAspectFit
         packageImage.clipsToBounds = true
-        packageImage.layer.cornerRadius = 8
         contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(10)
-            make.width.height.equalTo(120)
+            make.top.equalToSuperview().offset(10)
+            make.left.equalToSuperview().offset(16)
+            make.width.equalTo(50)
+            make.height.equalTo(61)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getCustomFont(size: 14, name: .regular)
-        productTitleLabel.textColor = kDefaultTextColor
-        productTitleLabel.numberOfLines = 0
+        productTitleLabel.font = getCustomFont(size: 11, name: .regular)
+        productTitleLabel.textColor = kCustomTextColor
         contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(packageImage.snp.right).offset(15)
+            make.left.equalTo(packageImage.snp.right).offset(16)
             make.top.equalTo(packageImage)
             make.right.equalToSuperview().offset(-16)
         }
         
-        tagContentLabel.backgroundColor = UIColor.init(hexString: "F0F0F0")
-        tagContentLabel.textColor = kDefaultTextColor
-        tagContentLabel.font = getCustomFont(size: 12, name: .regular)
-        tagContentLabel.numberOfLines = 0
+        tagContentLabel.textLabel.font = getCustomFont(size: 10, name: .regular)
         contentView.addSubview(tagContentLabel)
         tagContentLabel.snp.makeConstraints { make in
-            make.top.equalTo(productTitleLabel.snp.bottom)
-            make.left.right.equalTo(productTitleLabel)
-        }
-        
-        priceLabel.text = "$0.00"
-        priceLabel.setTextColor(kDisableColor)
-        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
-        contentView.addSubview(priceLabel)
-        priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(tagContentLabel.snp.bottom).offset(10)
-            make.left.equalTo(productTitleLabel)
-        }
-        
-        priceDiscount.text = "$0.00"
-        priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(priceDiscount)
-        priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(priceLabel.snp.bottom)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(8)
             make.left.equalTo(productTitleLabel)
         }
         
         countLabel.text = "x0"
         countLabel.textColor = kDefaultTextColor
-        countLabel.font = getCustomFont(size: 12, name: .regular)
+        countLabel.font = getCustomFont(size: 13, name: .regular)
         countLabel.textAlignment = .right
         contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(priceDiscount)
-            make.right.equalTo(productTitleLabel)
+            make.bottom.equalTo(packageImage.snp.bottom)
+            make.left.equalTo(tagContentLabel)
         }
+        
+        priceDiscount.text = "$0.00"
+        priceDiscount.textColor = kDefaultTextColor
+        priceDiscount.font = getCustomFont(size: 13, name: .regular)
+        contentView.addSubview(priceDiscount)
+        priceDiscount.snp.makeConstraints { (make) in
+            make.centerY.equalTo(countLabel)
+            make.right.equalToSuperview().offset(-16)
+        }
+      
     }
 
     required init?(coder: NSCoder) {
@@ -126,7 +114,7 @@ class MyOrderCell: UITableViewCell {
             contentText.removeFirst()
         }
         
-        self.tagContentLabel.text = contentText
+        self.tagContentLabel.textLabel.text = contentText
     }
     
     @objc private func removeButtonTapped() {

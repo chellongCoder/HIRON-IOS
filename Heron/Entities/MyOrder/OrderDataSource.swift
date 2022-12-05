@@ -77,19 +77,19 @@ struct OrderDataSource : Mappable {
     func getOrderStatusValue() -> String {
         switch self.status {
         case .PENDING:
-            return "PENDING"
+            return "Pending"
         case .CONFIRMED:
-            return "CONFIRMED"
+            return "Confirmed"
         case .PROCESSING:
-            return "PROCESSING"
+            return "Processing"
         case .COMPLETED:
-            return "COMPLETED"
+            return "Completed"
         case .CANCELED:
-            return "CANCELED"
+            return "Canceled"
         case .REJECTED:
-            return "REJECTED"
+            return "Rejected"
         case .EXPIRED:
-            return "EXPIRED"
+            return "Expired"
         }
     }
 }
