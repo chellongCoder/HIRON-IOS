@@ -125,6 +125,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
         } else {
             variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
         }
+        
+        if _AppCoreData.wishListProduct.value.contains(cellData) {
+            self.addToWishlistBtn.isSelected = true
+        } else {
+            self.addToWishlistBtn.isSelected = false
+        }
     }
     
     private func loadTagsContents(_ cellData: ProductDataSource) {
@@ -189,6 +195,20 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func addToWishListButtonTapped() {
-        self.addToWishlistBtn.setSeleted(!self.addToWishlistBtn.isSelected)
+        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
+        
+        guard let productData = self.productData else {
+            return
+        }
+        
+        var wishList = _AppCoreData.wishListProduct.value
+        if self.addToWishlistBtn.isSelected {
+            wishList.append(productData)
+        } else {
+            wishList.removeAll { savedProduct in
+                return savedProduct == productData
+            }
+        }
+        _AppCoreData.wishListProduct.accept(wishList)
     }
 }
