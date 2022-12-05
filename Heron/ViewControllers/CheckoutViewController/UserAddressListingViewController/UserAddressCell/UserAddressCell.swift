@@ -73,6 +73,7 @@ class UserAddressCell: UITableViewCell {
             make.centerY.equalTo(fullName.snp.centerY)
             make.right.equalToSuperview().offset(-14)
             make.height.width.equalTo(14)
+            make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
         
         markAsDefault.isHidden = true
@@ -109,8 +110,14 @@ class UserAddressCell: UITableViewCell {
         self.addressLabel.text = cellData.address + "," + cellData.province + "," + cellData.country + "," + cellData.postalCode
         if cellData.isDefault {
             markAsDefault.isHidden = false
+            markAsDefault.snp.remakeConstraints { make in
+                make.top.equalTo(addressLabel.snp.bottom).offset(19)
+                make.left.equalTo(addressLabel)
+                make.bottom.lessThanOrEqualToSuperview().offset(-20)
+            }
         } else {
             markAsDefault.isHidden = true
+            markAsDefault.snp.removeConstraints()
         }
     }
     
