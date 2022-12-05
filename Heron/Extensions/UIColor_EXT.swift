@@ -19,6 +19,8 @@ let kPinkColor              = UIColor.init(hexString: "ffe2e2")!
 let kGrayColor              = UIColor.init(hexString: "efefef")!
 let kPurpleColor            = UIColor.init(hexString: "9facf1")!
 let kCircleBackgroundColor  = UIColor.init(hexString: "2cc8c6")!
+let kLightGrayColor         = UIColor.init(hexString: "d8d8d8")!
+
 
 extension UIColor {
     
