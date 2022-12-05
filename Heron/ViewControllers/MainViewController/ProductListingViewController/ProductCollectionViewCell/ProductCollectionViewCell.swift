@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class ProductCollectionViewCell: UICollectionViewCell {
 
@@ -20,6 +21,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     let addToWishlistBtn    = ExtendedButton()
     
     private var productData : ProductDataSource?
+    private let disposeBag  = DisposeBag()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -92,6 +94,23 @@ class ProductCollectionViewCell: UICollectionViewCell {
             make.right.equalTo(packageImage)
             make.height.equalTo(11)
         }
+        
+        _AppCoreData.wishListProduct
+            .observe(on: MainScheduler.instance)
+            .subscribe { wishList in
+
+                guard let wishList = wishList.element else {return}
+                guard let productData = self.productData else {
+                    return
+                }
+
+                if wishList.contains(productData) {
+                    self.addToWishlistBtn.isSelected = true
+                } else {
+                    self.addToWishlistBtn.isSelected = false
+                }
+            }
+            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {
@@ -127,9 +146,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
         }
         
         if _AppCoreData.wishListProduct.value.contains(cellData) {
-            self.addToWishlistBtn.isSelected = true
+            self.addToWishlistBtn.setSeleted(true)
         } else {
-            self.addToWishlistBtn.isSelected = false
+            self.addToWishlistBtn.setSeleted(false)
         }
     }
     
@@ -195,7 +214,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func addToWishListButtonTapped() {
-        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
+        self.addToWishlistBtn.setSeleted(!self.addToWishlistBtn.isSelected)
         
         guard let productData = self.productData else {
             return
