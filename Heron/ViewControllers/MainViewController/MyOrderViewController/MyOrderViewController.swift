@@ -31,7 +31,9 @@ class MyOrderViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
-        self.title = "Orders"
+        self.title = "My orders"
+        
+        // TODO: A Luc lam thanh search
         
         topScrollView.showsHorizontalScrollIndicator = false
         self.view.addSubview(topScrollView)
@@ -50,11 +52,12 @@ class MyOrderViewController: BaseViewController,
         
         self.loadHeaderView(stackView: stackView)
         
-        separatorView.backgroundColor = kPrimaryColor
+        separatorView.backgroundColor = kDefaultTextColor
+        separatorView.alpha = 0.7
         self.view.addSubview(separatorView)
         separatorView.snp.makeConstraints { (make) in
             make.bottom.centerX.width.equalTo(selectedSegmentBtn!)
-            make.height.equalTo(2)
+            make.height.equalTo(1.5)
         }
         
         tableView.delegate = self
@@ -88,10 +91,10 @@ class MyOrderViewController: BaseViewController,
         allBtn.isSelected = true
         self.selectedSegmentBtn = allBtn
         allBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        allBtn.setTitle("   ALL   ", for: .normal)
+        allBtn.setTitle("    All    ", for: .normal)
         allBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        allBtn.setTitleColor(kPrimaryColor, for: .selected)
-        allBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        allBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        allBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(allBtn)
         allBtn.snp.makeConstraints { (make) in
             make.left.top.bottom.equalToSuperview()
@@ -111,50 +114,50 @@ class MyOrderViewController: BaseViewController,
 //        }
         
         confirmedBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        confirmedBtn.setTitle("   CONFIRMED   ", for: .normal)
+        confirmedBtn.setTitle("   Confirmed   ", for: .normal)
         confirmedBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        confirmedBtn.setTitleColor(kPrimaryColor, for: .selected)
-        confirmedBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        confirmedBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        confirmedBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(confirmedBtn)
         confirmedBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(allBtn.snp.right).offset(2)
+            make.left.equalTo(allBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }
         
         processingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        processingBtn.setTitle("   ON-DELIVERY   ", for: .normal)
+        processingBtn.setTitle("   Shipping   ", for: .normal)
         processingBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        processingBtn.setTitleColor(kPrimaryColor, for: .selected)
-        processingBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        processingBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        processingBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(processingBtn)
         processingBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(confirmedBtn.snp.right).offset(2)
+            make.left.equalTo(confirmedBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
             make.right.lessThanOrEqualToSuperview()
         }
         
         completeBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        completeBtn.setTitle("   RECEIVED   ", for: .normal)
+        completeBtn.setTitle("   Completed   ", for: .normal)
         completeBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        completeBtn.setTitleColor(kPrimaryColor, for: .selected)
-        completeBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        completeBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        completeBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(processingBtn.snp.right).offset(2)
+            make.left.equalTo(processingBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }
         
         canceledBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        canceledBtn.setTitle("   CANCELED   ", for: .normal)
+        canceledBtn.setTitle("   Cancelled   ", for: .normal)
         canceledBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        canceledBtn.setTitleColor(kPrimaryColor, for: .selected)
-        canceledBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        canceledBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        canceledBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(canceledBtn)
         canceledBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(completeBtn.snp.right).offset(2)
+            make.left.equalTo(completeBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
             make.right.lessThanOrEqualToSuperview()
