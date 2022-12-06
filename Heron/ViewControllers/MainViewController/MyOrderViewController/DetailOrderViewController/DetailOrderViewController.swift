@@ -32,7 +32,7 @@ class DetailOrderViewController: BaseViewController {
         tableView.register(ShippingAndBillingInfoTableViewCell.self, forCellReuseIdentifier: "ShippingInfoTableViewCell")
         tableView.register(TrackingTableViewCell.self, forCellReuseIdentifier: "TrackingTableViewCell")
         tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "PaymentTableViewCell")
-        tableView.register(MyOrderCell.self, forCellReuseIdentifier: "MyOrderCell")
+        tableView.register(PackageTableViewCell.self, forCellReuseIdentifier: "PackageTableViewCell")
         tableView.register(TotalOrderTableViewCell.self, forCellReuseIdentifier: "TotalOrderTableViewCell")
         tableView.register(StoreTableViewCell.self, forCellReuseIdentifier: "StoreTableViewCell")
         
@@ -124,9 +124,9 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             return cell
         } else {
             // swiftlint:disable force_cast
-            let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "MyOrderCell", for: indexPath) as! MyOrderCell
+            let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "PackageTableViewCell", for: indexPath) as! PackageTableViewCell
             if let cellData = orderData?.items?[indexPath.row - 4] {
-                orderItemCell.setDataSource(cellData, indexPath: indexPath)
+                orderItemCell.setDataSource(cellData)
             }
             return orderItemCell
         }
