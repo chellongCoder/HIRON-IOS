@@ -322,7 +322,6 @@ class MyOrderViewController: BaseViewController,
         
         let sessionData = self.viewModel.orders.value[section]
         
-        
         let totalLabel = UILabel()
         totalLabel.text = String(format: "Total %@", getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
         totalLabel.font = getCustomFont(size: 13, name: .regular)
