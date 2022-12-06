@@ -25,9 +25,9 @@ class TextField: UITextField {
     }
 }
 
-class IconTextField: UITextField {
+class BoudedIconTextField: UITextField {
 
-    let padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 10)
+    let padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 40)
     let icon    = UIImageView()
 
     override init(frame: CGRect) {
@@ -37,9 +37,13 @@ class IconTextField: UITextField {
         addSubview(icon)
         icon.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
             make.width.height.equalTo(16)
         }
+        
+        self.layer.cornerRadius = 6
+        self.layer.borderColor = kLightGrayColor.cgColor
+        self.layer.borderWidth = 1
     }
 
     required init?(coder: NSCoder) {

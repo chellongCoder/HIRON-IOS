@@ -11,8 +11,8 @@ import Material
 class SignInViewController: BaseViewController, UITextFieldDelegate {
     
     private let viewModel   = SignInViewModel()
-    let emailTxt            = ErrorTextField()
-    let passwordTxt         = ErrorTextField()
+    let emailTxt            = BoudedIconTextField()
+    let passwordTxt         = BoudedIconTextField()
     let checkboxBtn         = UIButton()
     
     var isSignIn            = true
@@ -20,6 +20,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
+        self.view.backgroundColor = kPrimaryColor
         
         let dissmissKeyboardGesture = UITapGestureRecognizer.init(target: self, action: #selector(dissmissKeyboard))
         self.view.addGestureRecognizer(dissmissKeyboardGesture)
@@ -46,7 +47,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         let childVỉew = UIView()
         self.view.addSubview(childVỉew)
         childVỉew.layer.cornerRadius = 25
-        childVỉew.backgroundColor = UIColor.init(hexString: "1890FF")?.withAlphaComponent(0.2)
+        childVỉew.backgroundColor = .white
         childVỉew.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.bottom.equalToSuperview().offset(20)
@@ -94,10 +95,11 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         
         emailTxt.delegate = self
         emailTxt.placeholder = "Email"
-        emailTxt.dividerNormalHeight = 0.5
-        emailTxt.dividerNormalColor = kPrimaryColor
-        emailTxt.errorColor = .red
+//        emailTxt.dividerNormalHeight = 0.5
+//        emailTxt.dividerNormalColor = kPrimaryColor
+//        emailTxt.errorColor = .red
         emailTxt.textColor = kDefaultTextColor
+        emailTxt.font = getCustomFont(size: 14, name: .semiBold)
         emailTxt.keyboardType = .emailAddress
         emailTxt.autocapitalizationType = .none
         emailTxt.autocorrectionType = .no
@@ -105,21 +107,21 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         emailTxt.snp.makeConstraints {
             $0.top.equalTo(signInSubLabel.snp.bottom).offset(30)
             $0.width.equalToSuperview().multipliedBy(0.8)
-            $0.height.equalTo(50)
+            $0.height.equalTo(40)
             $0.centerX.equalToSuperview()
         }
         
         passwordTxt.placeholder = "Password"
         passwordTxt.isSecureTextEntry = true
-        passwordTxt.dividerNormalHeight = 0.5
-        passwordTxt.dividerNormalColor = kPrimaryColor
-        passwordTxt.errorColor = .red
+//        passwordTxt.dividerNormalHeight = 0.5
+//        passwordTxt.dividerNormalColor = kPrimaryColor
+//        passwordTxt.errorColor = .red
         passwordTxt.textColor = kDefaultTextColor
         childVỉew.addSubview(passwordTxt)
         passwordTxt.snp.makeConstraints {
             $0.top.equalTo(emailTxt.snp.bottom).offset(50)
             $0.width.equalToSuperview().multipliedBy(0.8)
-            $0.height.equalTo(50)
+            $0.height.equalTo(40)
             $0.centerX.equalToSuperview()
         }
         
@@ -247,12 +249,12 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
         if textField == emailTxt {
-            if !(emailTxt.text ?? "").isValidEmail() {
-                emailTxt.isErrorRevealed = true
-                emailTxt.error = "This email is not valid"
-            } else {
-                emailTxt.isErrorRevealed = false
-            }
+//            if !(emailTxt.text ?? "").isValidEmail() {
+//                emailTxt.isErrorRevealed = true
+//                emailTxt.error = "This email is not valid"
+//            } else {
+//                emailTxt.isErrorRevealed = false
+//            }
         }
     }
 }
