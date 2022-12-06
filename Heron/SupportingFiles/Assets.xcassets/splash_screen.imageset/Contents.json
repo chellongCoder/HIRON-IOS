@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "clip-doctor-and-patient 1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "clip-doctor-and-patient 1@2x.png",
+      "filename" : "Untitled.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "clip-doctor-and-patient 1@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
