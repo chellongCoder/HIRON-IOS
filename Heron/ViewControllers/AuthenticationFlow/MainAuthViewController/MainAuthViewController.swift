@@ -8,76 +8,95 @@
 import UIKit
 
 class MainAuthViewController: BaseViewController {
-
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            let topLogo = UIImageView(image: UIImage(named: "logo"))
-            topLogo.contentMode = .scaleAspectFit
-            self.view.addSubview(topLogo)
-            topLogo.snp.makeConstraints {
-                $0.top.equalToSuperview().offset(70)
-                $0.centerX.equalToSuperview()
-                $0.height.equalTo(70)
-            }
-            
-            let centerImage = UIImageView(image: UIImage(named: "splash_screen"))
-            centerImage.contentMode = .scaleAspectFit
-            self.view.addSubview(centerImage)
-            centerImage.snp.makeConstraints {
-                $0.top.equalTo(topLogo.snp.bottom).offset(30)
-                $0.centerX.equalToSuperview()
-                $0.width.equalToSuperview().offset(-40)
-            }
-            
-            let centerDesc = UILabel()
-            centerDesc.textAlignment = .center
-            centerDesc.text = "Access your patient history, lab results, future appointments and more."
-            centerDesc.font = getCustomFont(size: 16, name: .regular)
-            centerDesc.numberOfLines = 0
-            self.view.addSubview(centerDesc)
-            centerDesc.snp.makeConstraints {
-                $0.top.equalTo(centerImage.snp.bottom).offset(20)
-                $0.centerX.equalToSuperview()
-                $0.width.equalToSuperview().offset(-40)
-            }
-            
-            let signInBtn = UIButton()
-            signInBtn.setTitle("Sign in", for: .normal)
-            signInBtn.backgroundColor = kPrimaryColor
-            signInBtn.layer.cornerRadius = 8
-            signInBtn.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
-            self.view.addSubview(signInBtn)
-            signInBtn.snp.makeConstraints {
-                $0.top.equalTo(centerDesc.snp.bottom).offset(15)
-                $0.centerX.equalToSuperview()
-                $0.width.equalToSuperview().offset(-60)
-                $0.height.equalTo(50)
-            }
-            
-            let signUpBtn = UIButton()
-            signUpBtn.setTitle("Sign Up", for: .normal)
-            signUpBtn.setTitleColor(kDefaultTextColor, for: .normal)
-            signUpBtn.backgroundColor = UIColor.init(hexString: "E5E5E5")
-            signUpBtn.layer.cornerRadius = 8
-            signUpBtn.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-            self.view.addSubview(signUpBtn)
-            signUpBtn.snp.makeConstraints {
-                $0.top.equalTo(signInBtn.snp.bottom).offset(15)
-                $0.centerX.equalToSuperview()
-                $0.width.equalToSuperview().offset(-60)
-                $0.height.equalTo(50)
-            }
-        }
-
-        @objc func signInButtonTapped(_ sender: Any) {
-            let vc = SignInViewController()
-            vc.isSignIn = true
-            self.navigationController?.pushViewController(vc, animated: true)
+    
+    private let contentScollView    = UIScrollView()
+    private let pageControl         = UIPageControl()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor.init(hexString: "F2FCFB")
+       
+        let signInBtn = UIButton()
+        signInBtn.setTitle("Sign in", for: .normal)
+        signInBtn.backgroundColor = kPrimaryColor
+        signInBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        signInBtn.setTitleColor(.white, for: .normal)
+        signInBtn.layer.cornerRadius = 20
+        signInBtn.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        self.view.addSubview(signInBtn)
+        signInBtn.snp.makeConstraints {
+            $0.bottom.equalToSuperview().offset(-60)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview().offset(-70)
+            $0.height.equalTo(40)
         }
         
-        @objc func signUpButtonTapped(_ sender: Any) {
-            let vc = SignInViewController()
-            vc.isSignIn = false
-            self.navigationController?.pushViewController(vc, animated: true)
+        let signUpBtn = UIButton()
+        signUpBtn.setTitle("Sign Up", for: .normal)
+        signUpBtn.backgroundColor = .clear
+        signUpBtn.titleLabel?.font = getCustomFont(size: 14, name: .semiBold)
+        signUpBtn.setTitleColor(kPrimaryColor, for: .normal)
+        signUpBtn.layer.cornerRadius = 20
+        signUpBtn.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        self.view.addSubview(signUpBtn)
+        signUpBtn.snp.makeConstraints { make in
+            make.bottom.equalTo(signInBtn.snp.top).offset(-10)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-70)
+            make.height.equalTo(40)
         }
+        
+        pageControl.numberOfPages = 3
+        pageControl.pageIndicatorTintColor = kDisableColor
+        pageControl.currentPageIndicatorTintColor = kPrimaryColor
+        self.view.addSubview(pageControl)
+        pageControl.snp.makeConstraints { make in
+            make.centerX.width.equalToSuperview()
+            make.bottom.equalTo(signUpBtn.snp.top).offset(-20)
+        }
+        
+        let contentView = TutorialCell()
+        contentScollView.addSubview(contentView)
+        self.view.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.bottom.equalTo(pageControl.snp.top).offset(-20)
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(120)
+        }
+        
+        let centerImage = UIImageView(image: UIImage(named: "splash_screen"))
+        centerImage.backgroundColor = UIColor.init(hexString: "C2EEEB")
+        centerImage.contentMode = .scaleAspectFit
+        centerImage.layer.masksToBounds = true
+        self.view.addSubview(centerImage)
+        centerImage.snp.makeConstraints {
+            $0.bottom.equalTo(contentView.snp.top).offset(45)
+            $0.centerX.equalToSuperview()
+            $0.width.equalToSuperview()
+            $0.top.equalToSuperview()
+        }
+        
+        self.view.sendSubviewToBack(centerImage)
+        
+//        contentScollView.isPagingEnabled = true
+//        self.view.addSubview(contentScollView)
+//        contentScollView.snp.makeConstraints { make in
+//            make.width.centerX.left.right.equalToSuperview()
+//            make.height.equalTo(120)
+//        }
+        
+    }
+    
+    @objc func signInButtonTapped(_ sender: Any) {
+        let vc = SignInViewController()
+        vc.isSignIn = true
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func signUpButtonTapped(_ sender: Any) {
+        let vc = SignInViewController()
+        vc.isSignIn = false
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
+ 

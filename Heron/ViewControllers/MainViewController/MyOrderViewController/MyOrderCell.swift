@@ -69,8 +69,9 @@ class MyOrderCell: UITableViewCell {
         countLabel.textAlignment = .right
         contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(packageImage.snp.bottom)
+            make.top.equalTo(tagContentLabel.snp.bottom).offset(10)
             make.left.equalTo(tagContentLabel)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         priceDiscount.text = "$0.00"
