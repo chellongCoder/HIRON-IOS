@@ -8,8 +8,10 @@
 
 import UIKit
 
-let kPrimaryColor           = UIColor.init(hexString: "1890FF")!
+let kPrimaryColor           = UIColor.init(hexString: "14c1c2")!
 let kDefaultTextColor       = UIColor.init(hexString: "424242")!
+let kTitleTextColor         = UIColor.init(hexString: "2a2a2a")!
+let kCustomTextColor        = UIColor.init(hexString: "888888")!
 let kBackgroundColor        = UIColor.white
 let kDisableColor           = UIColor.init(hexString: "D9D9D9")!
 let kPinkColor              = UIColor.init(hexString: "ffe2e2")!
@@ -17,8 +19,10 @@ let kRedHightLightColor     = UIColor.init(hexString: "FA4169")!
 let kDefaultGreyColor       = UIColor.init(hexString: "d8d8d8")!
 let kDefaultDarkGreyColor   = UIColor.init(hexString: "efefef")!
 let kDefaultGreenColor      = UIColor.init(hexString: "14c1c2")!
-
-
+let kGrayColor              = UIColor.init(hexString: "efefef")!
+let kPurpleColor            = UIColor.init(hexString: "9facf1")!
+let kCircleBackgroundColor  = UIColor.init(hexString: "2cc8c6")!
+let kLightGrayColor         = UIColor.init(hexString: "d8d8d8")!
 
 extension UIColor {
     

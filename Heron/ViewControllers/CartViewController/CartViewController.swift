@@ -20,13 +20,14 @@ class CartViewController: BaseViewController,
     
     private let voucherView             = VoucherSelectedView()
     private let totalLabel              = UILabel()
-    private let savingLabel             = UILabel()
+//    private let savingLabel             = UILabel()
     private let checkoutBtn             = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        navigationItem.title = "Cart"
+        navigationItem.title = "My cart"
+        navigationItem.titleLabel.font = getCustomFont(size: 18, name: .bold)
         self.viewModel.controller = self
         
         let closeBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "xmark"),
@@ -35,38 +36,46 @@ class CartViewController: BaseViewController,
                                            action: #selector(closeButtonTapped))
         self.navigationItem.leftBarButtonItem = closeBtn
         
-        savingLabel.text = "Saving: $0.0"
-        savingLabel.textColor = kDefaultTextColor
-        savingLabel.font = .systemFont(ofSize: 16)
-        self.view.addSubview(savingLabel)
-        savingLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(10)
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+        let wishlistFilter = UIBarButtonItem.init(image: UIImage.init(named: "wishlist_bar_icon"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(wishlistButtonTapped))
+        self.navigationItem.rightBarButtonItem = wishlistFilter
+        
+//        savingLabel.text = "Saving: $0.0"
+//        savingLabel.textColor = kDefaultTextColor
+//        savingLabel.font = .systemFont(ofSize: 16)
+//        self.view.addSubview(savingLabel)
+//        savingLabel.snp.makeConstraints { make in
+//            make.left.equalToSuperview().offset(10)
+//            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+//        }
+                
+        checkoutBtn.backgroundColor = kPrimaryColor
+        checkoutBtn.setTitleColor(.white, for: .normal)
+        checkoutBtn.setTitle("Checkout", for: .normal)
+        checkoutBtn.titleLabel?.font = getCustomFont(size: 13, name: .bold)
+        checkoutBtn.layer.cornerRadius = 18
+//        checkoutBtn.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        checkoutBtn.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
+        self.view.addSubview(checkoutBtn)
+        checkoutBtn.snp.makeConstraints { make in
+            make.height.equalTo(36)
+            make.right.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-50)
+            make.width.equalTo(140)
         }
         
         totalLabel.text = "Total: $0.0"
         totalLabel.textColor = kDefaultTextColor
-        totalLabel.font = .systemFont(ofSize: 20)
+        totalLabel.font = getCustomFont(size: 13, name: .extraBold)
         totalLabel.adjustsFontSizeToFitWidth = false
-        totalLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+//        totalLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         self.view.addSubview(totalLabel)
         totalLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(savingLabel.snp.top).offset(-5)
-            make.left.equalToSuperview().offset(10)
-        }
-        
-        checkoutBtn.backgroundColor = kPrimaryColor
-        checkoutBtn.setTitleColor(.white, for: .normal)
-        checkoutBtn.setTitle("Checkout", for: .normal)
-        checkoutBtn.layer.cornerRadius = 8
-        checkoutBtn.setContentHuggingPriority(.defaultLow, for: .horizontal)
-        checkoutBtn.addTarget(self, action: #selector(checkoutButtonTapped), for: .touchUpInside)
-        self.view.addSubview(checkoutBtn)
-        checkoutBtn.snp.makeConstraints { make in
-            make.top.equalTo(totalLabel.snp.top)
-            make.bottom.equalTo(savingLabel.snp.bottom)
-            make.right.equalToSuperview().offset(-10)
-            make.left.equalTo(totalLabel.snp.right).offset(15)
+            make.centerY.equalTo(checkoutBtn)
+            make.left.greaterThanOrEqualToSuperview().offset(16)
+            make.right.equalTo(checkoutBtn.snp.left).offset(-8)
         }
         
         let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
@@ -77,6 +86,16 @@ class CartViewController: BaseViewController,
             make.right.equalToSuperview().offset(-16)
             make.bottom.equalTo(checkoutBtn.snp.top).offset(-10)
             make.height.equalTo(50)
+        }
+        
+        let spacer = UIView()
+        spacer.backgroundColor = kDisableColor
+        self.view.addSubview(spacer)
+        spacer.snp.makeConstraints { make in
+            make.centerY.equalTo(voucherView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(0.5)
+            make.width.equalToSuperview().offset(-32)
         }
         
         if #available(iOS 15.0, *) {
@@ -122,6 +141,18 @@ class CartViewController: BaseViewController,
         _CartServices.voucherCode.accept(nil)
     }
     
+    @objc private func wishlistButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature do not available righ now",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
     // MARK: - BindingData
     override func reloadData() {
         _CartServices.reloadCart()
@@ -147,6 +178,8 @@ class CartViewController: BaseViewController,
                     self.emptyView.isHidden = true
                     self.viewModel.cartDataSource = cartData
                     self.tableView.reloadData()
+                    
+                    self.checkoutBtn.setTitle("Checkout (\(cartData.countItemSelected()))", for: .normal)
                 }                
             }
             .disposed(by: disposeBag)
@@ -154,18 +187,7 @@ class CartViewController: BaseViewController,
         _CartServices.voucherCode
             .observe(on: MainScheduler.instance)
             .subscribe { voucherDataSource in
-                guard let voucherDataSource = voucherDataSource.element as? VoucherDataSource else {
-                    self.voucherView.voucherCode.text = " Select your voucher "
-                    return
-                }
-                if voucherDataSource.couponRule?.isFixed ?? false {
-                    // discount value
-                    self.voucherView.voucherCode.text = String(format: " %@ ", getMoneyFormat(voucherDataSource.couponRule?.customDiscount))
-                    
-                } else {
-                    // discout percent
-                    self.voucherView.voucherCode.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0)
-                }
+                self.voucherView.setVoucherData(voucherDataSource.element as? VoucherDataSource)
             }
             .disposed(by: disposeBag)
         
@@ -178,7 +200,7 @@ class CartViewController: BaseViewController,
                     self.checkoutBtn.isUserInteractionEnabled = false
                     
                     self.totalLabel.text = "Total: $0.0"
-                    self.savingLabel.text = "Saving: $0.0"
+//                    self.savingLabel.text = "Saving: $0.0"
                     return
                 }
                 
@@ -186,16 +208,16 @@ class CartViewController: BaseViewController,
                 self.checkoutBtn.isUserInteractionEnabled = true
                 
                 self.totalLabel.text = String(format: "Total: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
-                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
+//                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
                 
             }
             .disposed(by: disposeBag)
     }
     
     // MARK: - Buttons
-    @objc private func storeCheckboxButtonTapped(button: UIButton) {
+    @objc private func storeCheckboxButtonTapped(button: ExtendedButton) {
         
-        button.isSelected = !button.isSelected
+        button.setSeleted(!button.isSelected)
         
         let section = button.tag
         guard var cartData = viewModel.cartDataSource else {return}
@@ -273,7 +295,7 @@ class CartViewController: BaseViewController,
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
         
 //        let storeData = viewModel.cartDataSource?.store[indexPath.section]
 //        if let cellData = storeData?.cartItems[indexPath.row] {
@@ -285,31 +307,31 @@ class CartViewController: BaseViewController,
         let headerView = UIView()
         headerView.backgroundColor = .white
         
-        let checkboxButton = UIButton()
-        checkboxButton.tintColor = kPrimaryColor
-        checkboxButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        checkboxButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
+        let checkboxButton = ExtendedButton()
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_selected"), for: .selected)
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_unselected"), for: .normal)
         checkboxButton.tag = section
-        checkboxButton.imageView?.contentMode = .scaleAspectFit
         checkboxButton.addTarget(self, action: #selector(storeCheckboxButtonTapped(button:)), for:.touchUpInside)
         headerView.addSubview(checkboxButton)
         checkboxButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(10)
-            make.height.width.equalTo(35)
+            make.left.equalToSuperview().offset(16)
+            make.height.width.equalTo(32)
         }
         
         if let storeData = _CartServices.cartData.value?.store[section] {
             let titleSignal = UILabel()
             titleSignal.text = storeData.storeDetails?.name ?? "Unknow Store Name"
+            titleSignal.font = getCustomFont(size: 13, name: .semiBold)
+            titleSignal.textColor = kDefaultTextColor
             headerView.addSubview(titleSignal)
             titleSignal.snp.makeConstraints { make in
                 make.centerY.equalToSuperview()
-                make.left.equalTo(checkboxButton.snp.right).offset(10)
-                make.height.equalTo(30)
+                make.left.equalTo(checkboxButton.snp.right).offset(14)
+                make.height.equalTo(14)
             }
             
-            checkboxButton.isSelected = storeData.isCheckoutSelected
+            checkboxButton.setSeleted(storeData.isCheckoutSelected)
             
         }
         

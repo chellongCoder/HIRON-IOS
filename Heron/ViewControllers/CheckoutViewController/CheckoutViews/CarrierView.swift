@@ -10,72 +10,52 @@ import UIKit
 class CarrierView: UIView {
     
     let carrierName     = UILabel()
-    let nextMarkIcon    = UIImageView.init(image: UIImage(systemName: "chevron.right"))
-    let shippingFee     = UILabel()
-    let receivedLog    = UILabel()
+    let nextMarkIcon    = UIImageView.init(image: UIImage(named: "right_icon"))
+    let receivedLog     = UILabel()
+    let priceLabel      = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = 8
-        self.setShadow()
-        
-        let carrierTitle = UILabel()
-        carrierTitle.text = "Carrier"
-        carrierTitle.textColor = kDefaultTextColor
-        carrierTitle.font = getCustomFont(size: 14, name: .medium)
-        self.addSubview(carrierTitle)
-        carrierTitle.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(20)
+        let profileIcon = UIImageView()
+        profileIcon.image = UIImage(named: "radio_active_btn")
+        profileIcon.tintColor = kPrimaryColor
+        self.addSubview(profileIcon)
+        profileIcon.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(14.5)
+            make.left.equalToSuperview().offset(16)
+            make.height.width.equalTo(16)
         }
         
         carrierName.text = "Grab"
         carrierName.textColor = kDefaultTextColor
-        carrierName.font = getCustomFont(size: 12, name: .regular)
+        carrierName.font = getCustomFont(size: 13, name: .regular)
         self.addSubview(carrierName)
         carrierName.snp.makeConstraints { make in
-            make.top.equalTo(carrierTitle.snp.bottom)
-            make.centerX.equalTo(carrierTitle)
-            make.left.greaterThanOrEqualTo(carrierTitle)
-        }
-        
-        nextMarkIcon.tintColor = kPrimaryColor
-        self.addSubview(nextMarkIcon)
-        nextMarkIcon.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-20)
-            make.height.width.equalTo(20)
-        }
-        
-        shippingFee.text = "$0.0"
-        shippingFee.textAlignment = .right
-        shippingFee.font = getCustomFont(size: 14, name: .regular)
-        self.addSubview(shippingFee)
-        shippingFee.snp.makeConstraints { make in
-            make.centerY.equalTo(nextMarkIcon)
-            make.right.equalTo(nextMarkIcon.snp.left).offset(-10)
-        }
-        
-        let profileIcon = UIImageView()
-        profileIcon.image = UIImage(systemName: "folder.fill.badge.person.crop")
-        profileIcon.tintColor = kPrimaryColor
-        self.addSubview(profileIcon)
-        profileIcon.snp.makeConstraints { make in
-            make.top.equalTo(carrierName.snp.bottom).offset(10)
-            make.left.equalTo(carrierTitle)
-            make.height.width.equalTo(20)
+            make.centerY.equalTo(profileIcon.snp.centerY)
+            make.left.equalTo(profileIcon.snp.right).offset(12)
         }
         
         receivedLog.text = "Receive order on "
-        receivedLog.textColor = UIColor.init(hexString: "444444")
-        receivedLog.font = getCustomFont(size: 12, name: .medium)
+        receivedLog.textColor = kDefaultTextColor
+        receivedLog.font = getCustomFont(size: 11, name: .regular)
         self.addSubview(receivedLog)
         receivedLog.snp.makeConstraints { make in
-            make.centerY.equalTo(profileIcon)
-            make.left.equalTo(profileIcon.snp.right).offset(10)
-            make.right.equalToSuperview()
+            make.left.equalTo(carrierName.snp.left)
+            make.top.equalTo(carrierName.snp.bottom).offset(8)
             make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
+        
+        priceLabel.text = "$10.00"
+        priceLabel.textColor = kDefaultTextColor
+        priceLabel.font = getCustomFont(size: 13, name: .semiBold)
+        priceLabel.textAlignment = .right
+        self.addSubview(priceLabel)
+        priceLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(carrierName.snp.centerY)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
     }
     
     required init?(coder: NSCoder) {

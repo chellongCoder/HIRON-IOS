@@ -51,6 +51,17 @@ struct CartDataSource : Mappable {
         
         return false
     }
+    
+    func countItemSelected() -> Int {
+        var count = 0
+        for store in self.store {
+            for item in store.cartItems where item.isSelected {
+                count += 1
+            }
+        }
+        
+        return count
+    }
 }
 
 struct StoreDataSource : Mappable {

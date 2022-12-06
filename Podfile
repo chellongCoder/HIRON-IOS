@@ -27,7 +27,7 @@ target 'Heron' do
   pod 'SwiftLint',                '0.47.1'
   
   #Tracking
-  pod 'BugfenderSDK'
+  pod 'BugfenderSDK',             '1.10.4'
   # pod 'AppsFlyerFramework',       '6.2.6'
   # pod 'Firebase/Analytics'
   # pod 'Mixpanel-swift',           '2.9.3'

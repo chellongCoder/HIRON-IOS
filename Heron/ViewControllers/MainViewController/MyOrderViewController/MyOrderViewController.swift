@@ -31,7 +31,9 @@ class MyOrderViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
-        self.title = "Orders"
+        self.title = "My orders"
+        
+        // TODO: A Luc lam thanh search
         
         topScrollView.showsHorizontalScrollIndicator = false
         self.view.addSubview(topScrollView)
@@ -50,11 +52,12 @@ class MyOrderViewController: BaseViewController,
         
         self.loadHeaderView(stackView: stackView)
         
-        separatorView.backgroundColor = kPrimaryColor
+        separatorView.backgroundColor = kDefaultTextColor
+        separatorView.alpha = 0.7
         self.view.addSubview(separatorView)
         separatorView.snp.makeConstraints { (make) in
             make.bottom.centerX.width.equalTo(selectedSegmentBtn!)
-            make.height.equalTo(2)
+            make.height.equalTo(1.5)
         }
         
         tableView.delegate = self
@@ -88,10 +91,10 @@ class MyOrderViewController: BaseViewController,
         allBtn.isSelected = true
         self.selectedSegmentBtn = allBtn
         allBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        allBtn.setTitle("   ALL   ", for: .normal)
+        allBtn.setTitle("    All    ", for: .normal)
         allBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        allBtn.setTitleColor(kPrimaryColor, for: .selected)
-        allBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        allBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        allBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(allBtn)
         allBtn.snp.makeConstraints { (make) in
             make.left.top.bottom.equalToSuperview()
@@ -111,50 +114,50 @@ class MyOrderViewController: BaseViewController,
 //        }
         
         confirmedBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        confirmedBtn.setTitle("   CONFIRMED   ", for: .normal)
+        confirmedBtn.setTitle("   Confirmed   ", for: .normal)
         confirmedBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        confirmedBtn.setTitleColor(kPrimaryColor, for: .selected)
-        confirmedBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        confirmedBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        confirmedBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(confirmedBtn)
         confirmedBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(allBtn.snp.right).offset(2)
+            make.left.equalTo(allBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }
         
         processingBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        processingBtn.setTitle("   ON-DELIVERY   ", for: .normal)
+        processingBtn.setTitle("   Shipping   ", for: .normal)
         processingBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        processingBtn.setTitleColor(kPrimaryColor, for: .selected)
-        processingBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        processingBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        processingBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(processingBtn)
         processingBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(confirmedBtn.snp.right).offset(2)
+            make.left.equalTo(confirmedBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
             make.right.lessThanOrEqualToSuperview()
         }
         
         completeBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        completeBtn.setTitle("   RECEIVED   ", for: .normal)
+        completeBtn.setTitle("   Completed   ", for: .normal)
         completeBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        completeBtn.setTitleColor(kPrimaryColor, for: .selected)
-        completeBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        completeBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        completeBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(processingBtn.snp.right).offset(2)
+            make.left.equalTo(processingBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
         }
         
         canceledBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
-        canceledBtn.setTitle("   CANCELED   ", for: .normal)
+        canceledBtn.setTitle("   Cancelled   ", for: .normal)
         canceledBtn.setTitleColor(kDefaultTextColor, for: .normal)
-        canceledBtn.setTitleColor(kPrimaryColor, for: .selected)
-        canceledBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        canceledBtn.setTitleColor(kDefaultTextColor, for: .selected)
+        canceledBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
         stackView.addSubview(canceledBtn)
         canceledBtn.snp.makeConstraints { (make) in
-            make.left.equalTo(completeBtn.snp.right).offset(2)
+            make.left.equalTo(completeBtn.snp.right).offset(10)
             make.top.bottom.equalToSuperview()
             make.height.equalTo(46)
             make.right.lessThanOrEqualToSuperview()
@@ -268,39 +271,46 @@ class MyOrderViewController: BaseViewController,
         
         let orderData = self.viewModel.orders.value[section]
         
-        let title = UILabel()
-        title.text = orderData.store?.name ?? ""
-        title.textColor = kDefaultTextColor
-        title.font = getCustomFont(size: 16, name: .bold)
-        
-        headerView.addSubview(title)
-        title.snp.makeConstraints {
-            $0.top.left.equalToSuperview().offset(10)
-        }
-        
         let status = UILabel()
         status.text = String(format: " %@ ", orderData.getOrderStatusValue())
-        status.textColor = kPrimaryColor
-        status.font = getCustomFont(size: 14, name: .regular)
-        status.layer.borderWidth = 1
-        status.layer.borderColor = kPrimaryColor.cgColor
+        status.textColor = kDefaultTextColor
+        status.font = getCustomFont(size: 14, name: .bold)
         headerView.addSubview(status)
-        status.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.right.equalToSuperview().offset(-10)
+        status.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(25)
+            make.right.equalToSuperview().offset(-16)
         }
         
-        let shippingStatus = UIButton()
-        shippingStatus.setTitle("Receive order on \(TimeConverter().getDateFromInt(orderData.createdAt ?? 0))", for: .normal)
-        shippingStatus.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        shippingStatus.setTitleColor(.black, for: .normal)
-        shippingStatus.contentHorizontalAlignment = .left
-        headerView.addSubview(shippingStatus)
-        shippingStatus.snp.makeConstraints {
-            $0.top.equalTo(title.snp.bottom).offset(10)
-            $0.left.equalToSuperview().offset(10)
-            $0.right.equalToSuperview().offset(-10)
-            $0.bottom.equalToSuperview().offset(-10)
+        let liveIcon = UIView()
+        liveIcon.backgroundColor = kPrimaryColor
+        liveIcon.layer.cornerRadius = 3
+        headerView.addSubview(liveIcon)
+        liveIcon.snp.makeConstraints { make in
+            make.centerY.equalTo(status)
+            make.right.equalTo(status.snp.left).offset(-4)
+            make.height.width.equalTo(6)
+        }
+        
+        let idLabel = UILabel()
+        idLabel.text = "ID order #\(orderData.code)"
+        idLabel.font = getCustomFont(size: 13, name: .regular)
+        idLabel.textColor = kDefaultTextColor
+        headerView.addSubview(idLabel)
+        idLabel.snp.makeConstraints { make in
+            make.top.equalTo(status.snp.bottom).offset(8)
+            make.left.equalTo(status)
+        }
+        
+        let date = UILabel()
+        date.text = "Created Date \(TimeConverter().getDateFromInt(orderData.createdAt ?? 0))"
+        date.font = getCustomFont(size: 11, name: .regular)
+        date.textColor = kDefaultTextColor
+        headerView.addSubview(date)
+        date.snp.makeConstraints { make in
+            make.top.equalTo(idLabel.snp.bottom).offset(8)
+            make.right.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview().offset(-5)
         }
         
         return headerView
@@ -312,29 +322,70 @@ class MyOrderViewController: BaseViewController,
         
         let sessionData = self.viewModel.orders.value[section]
         
-        let title = UILabel()
-        if sessionData.items?.count == 1 {
-            title.text = String(format: "Total (1 product): %@",
-                                getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
-        } else {
-            title.text = String(format: "Total (%ld products): %@",
-                                sessionData.items?.count ?? 0,
-                                getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
+        let totalLabel = UILabel()
+        totalLabel.text = String(format: "Total %@", getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
+        totalLabel.font = getCustomFont(size: 13, name: .regular)
+        totalLabel.textColor = kDefaultTextColor
+        headerView.addSubview(totalLabel)
+        totalLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-17)
         }
-        title.font = UIFont.systemFont(ofSize: 14)
-        headerView.addSubview(title)
-        title.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.bottom.right.equalToSuperview().offset(-15)
+                
+        let productCountLabel = UILabel()
+        if sessionData.items?.count == 1 {
+            productCountLabel.text = "1 product"
+        } else {
+            productCountLabel.text = String(format: "%ld products",
+                                sessionData.items?.count ?? 0)
+        }
+        productCountLabel.font = getCustomFont(size: 11, name: .regular)
+        productCountLabel.textColor = kDefaultTextColor
+        headerView.addSubview(productCountLabel)
+        productCountLabel.snp.makeConstraints {
+            $0.centerY.equalTo(totalLabel)
+            $0.right.equalTo(totalLabel.snp.left).offset(-12)
+            $0.bottom.equalToSuperview().offset(-15)
+        }
+        
+        #warning("hardcode")
+        
+        let button1 = UIButton()
+        button1.setTitle("   Button1   ", for: .normal)
+        button1.setTitleColor( .white, for: .normal)
+        button1.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+        button1.layer.cornerRadius = 15
+        button1.layer.backgroundColor = kPrimaryColor.cgColor
+        headerView.addSubview(button1)
+        button1.snp.makeConstraints { make in
+            make.centerY.equalTo(totalLabel)
+            make.left.equalToSuperview().offset(16)
+            make.height.equalTo(30)
+        }
+        
+        let button2 = UIButton()
+        button2.setTitle("   Button2   ", for: .normal)
+        button2.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+        button2.setTitleColor(kPrimaryColor, for: .normal)
+        button2.layer.borderColor = kPrimaryColor.cgColor
+        button2.layer.borderWidth = 0.8
+        button2.layer.cornerRadius = 15
+        headerView.addSubview(button2)
+        button2.snp.makeConstraints { make in
+            make.centerY.height.equalTo(button1)
+            make.left.equalTo(button1.snp.right).offset(10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
         
         let separator = UIView()
-        separator.backgroundColor = .lightGray
+        separator.backgroundColor = kLightGrayColor
         headerView.addSubview(separator)
-        separator.snp.makeConstraints {
-            $0.left.bottom.right.equalToSuperview()
-            $0.height.equalTo(2)
+        separator.snp.makeConstraints { make in
+            make.bottom.centerX.equalToSuperview()
+            make.height.equalTo(0.5)
+            make.width.equalToSuperview().offset(-32)
         }
+        
         return headerView
     }
     

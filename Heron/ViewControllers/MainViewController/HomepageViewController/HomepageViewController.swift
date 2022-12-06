@@ -12,8 +12,7 @@ import RxCocoa
 class HomepageViewController: BaseViewController,
                               UITableViewDelegate,
                               UIScrollViewDelegate,
-                              ProductFilterDelegate,
-                              ProductCellDelegate {
+                              ProductFilterDelegate {
     
     private let viewModel           = HomepageViewModel()
     
@@ -161,7 +160,6 @@ class HomepageViewController: BaseViewController,
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
                 let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
                 cell.setDataSource(element)
-                cell.delegate = self
                 return cell
             }
             .disposed(by: disposeBag)
@@ -240,11 +238,5 @@ class HomepageViewController: BaseViewController,
     // MARK: - ProductFilterDelegate
     func didApplyFilter(_ data: CategoryDataSource?) {
         self.viewModel.filterData = data
-    }
-    
-    // MARK: - ProductCellDelegate
-    func addProductToCart(_ data: ProductDataSource) {
-        let cartVC = CartViewController.sharedInstance
-        cartVC.addProductToCart(data)
     }
 }

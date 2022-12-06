@@ -134,8 +134,8 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
                 self.checkboxBtn.isSelected = true
             }
             
-            checkboxBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
-            checkboxBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square"), for: .selected)
+            checkboxBtn.setBackgroundImage(UIImage.init(named: "checkbox_unselected"), for: .normal)
+            checkboxBtn.setBackgroundImage(UIImage.init(named: "checkbox_selected"), for: .selected)
             checkboxBtn.addTarget(self, action: #selector(rememberPasswordButtonTapped), for: .touchUpInside)
             childVỉew.addSubview(checkboxBtn)
             checkboxBtn.snp.makeConstraints { make in

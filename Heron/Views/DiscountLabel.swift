@@ -17,7 +17,7 @@ class DiscountLabel: UILabel {
         self.addSubview(discountLine)
         discountLine.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(0.5)
             make.width.equalToSuperview().offset(-4)
         }
     }

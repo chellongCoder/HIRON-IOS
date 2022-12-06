@@ -6,25 +6,22 @@
 //
 
 import UIKit
-
-protocol ProductCellDelegate : AnyObject {
-    func addProductToCart(_ data: ProductDataSource)
-}
+import RxSwift
 
 class ProductTableViewCell: UITableViewCell {
     
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
     let tagsViewStack       = UIView()
-    let starView            = UILabel()
+    let starView            = LeftRightImageLabel.init(leftImage: UIImage.init(named: "start_icon"))
     let sourcePriceLabel    = DiscountLabel()
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
-//    let addToCartBtn        = UIButton()
+    let addToWishlistBtn    = ExtendedButton()
     
     private var productData : ProductDataSource?
-    var delegate            : ProductCellDelegate?
+    private let disposeBag  = DisposeBag()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,10 +40,9 @@ class ProductTableViewCell: UITableViewCell {
         }
         
         productTitleLabel.text = ""
-        productTitleLabel.numberOfLines = 0
         productTitleLabel.font = getCustomFont(size: 13, name: .regular)
         productTitleLabel.textColor = kDefaultTextColor
-        productTitleLabel.numberOfLines = 0
+        productTitleLabel.numberOfLines = 2
         self.contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(packageImage.snp.right).offset(12)
@@ -70,15 +66,6 @@ class ProductTableViewCell: UITableViewCell {
             make.left.equalTo(productTitleLabel)
         }
         
-        starView.text = "★ 4.5"
-        starView.font = getCustomFont(size: 11, name: .regular)
-        starView.textColor = kDefaultTextColor
-        self.contentView.addSubview(starView)
-        starView.snp.makeConstraints { make in
-            make.centerY.equalTo(truePriceLabel)
-            make.right.equalTo(productTitleLabel)
-        }
-        
         contentView.addSubview(discountValue)
         discountValue.snp.makeConstraints { make in
             make.left.equalTo(productTitleLabel)
@@ -94,6 +81,25 @@ class ProductTableViewCell: UITableViewCell {
             make.left.equalTo(discountValue.snp.right).offset(4)
         }
         
+        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
+        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .normal)
+        addToWishlistBtn.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
+        self.contentView.addSubview(addToWishlistBtn)
+        addToWishlistBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(truePriceLabel)
+            make.right.equalTo(productTitleLabel)
+            make.height.width.equalTo(32)
+        }
+        
+        starView.textLabel?.text = "4.5"
+        starView.textLabel?.font = getCustomFont(size: 11, name: .regular)
+        starView.textLabel?.textColor = kDefaultTextColor
+        self.contentView.addSubview(starView)
+        starView.snp.makeConstraints { make in
+            make.centerY.equalTo(truePriceLabel)
+            make.right.equalTo(addToWishlistBtn.snp.left).offset(-16)
+            make.height.equalTo(11)
+        }
 //        variantMark.isHidden = true
 //        variantMark.backgroundColor = kRedHightLightColor
 //        variantMark.textColor = .white
@@ -106,19 +112,23 @@ class ProductTableViewCell: UITableViewCell {
 //            make.right.bottom.equalToSuperview()
 //            make.height.equalTo(35)
 //        }
-        
-//        addToCartBtn.setTitle("Add to cart", for: .normal)
-//        addToCartBtn.backgroundColor = kPrimaryColor
-//        addToCartBtn.layer.cornerRadius = 8
-//        addToCartBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
-//        contentView.addSubview(addToCartBtn)
-//        addToCartBtn.snp.makeConstraints { make in
-//            make.top.equalTo(priceDiscount.snp.bottom).offset(10)
-//            make.right.equalToSuperview().offset(-20)
-//            make.height.equalTo(40)
-//            make.left.equalTo(productTitleLabel)
-//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-//        }
+
+        _AppCoreData.wishListProduct
+            .observe(on: MainScheduler.instance)
+            .subscribe { wishList in
+
+                guard let wishList = wishList.element else {return}
+                guard let productData = self.productData else {
+                    return
+                }
+
+                if wishList.contains(productData) {
+                    self.addToWishlistBtn.isSelected = true
+                } else {
+                    self.addToWishlistBtn.isSelected = false
+                }
+            }
+            .disposed(by: disposeBag)
     }
 
     required init?(coder: NSCoder) {
@@ -140,18 +150,24 @@ class ProductTableViewCell: UITableViewCell {
         self.truePriceLabel.text = getMoneyFormat(cellData.customFinalPrice)
         self.sourcePriceLabel.isHidden = (cellData.customRegularPrice == cellData.customFinalPrice)
         
-//        if cellData.discountPercent > 0 {
-//            self.discountValue.isHidden = false
-//            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
-//        } else {
-//            self.discountValue.isHidden = true
-//        }
+        if cellData.discountPercent > 0 {
+            self.discountValue.isHidden = false
+            self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
+        } else {
+            self.discountValue.isHidden = true
+        }
         
         variantMark.isHidden = (cellData.type == .simple) || cellData.configurableOptions.isEmpty
         if cellData.configurableOptions.count == 1 {
             variantMark.text = String(format: "  1 variant  ")
         } else {
             variantMark.text = String(format: "  %ld variants  ", cellData.configurableOptions.count)
+        }
+        
+        if _AppCoreData.wishListProduct.value.contains(cellData) {
+            self.addToWishlistBtn.setSeleted(true)
+        } else {
+            self.addToWishlistBtn.setSeleted(false)
         }
     }
     
@@ -160,7 +176,7 @@ class ProductTableViewCell: UITableViewCell {
             subView.removeFromSuperview()
         }
         
-        var lastView : UIView? = nil
+        var lastView : UIView?
         switch cellData.featureType {
         case .ecom:
             let newChipView = ChipView.init(title: "Physical Product")
@@ -216,9 +232,21 @@ class ProductTableViewCell: UITableViewCell {
         }
     }
     
-    @objc private func removeButtonTapped() {
-        if let productData = productData {
-            delegate?.addProductToCart(productData)
+    @objc private func addToWishListButtonTapped() {
+        self.addToWishlistBtn.setSeleted(!self.addToWishlistBtn.isSelected)
+        
+        guard let productData = self.productData else {
+            return
         }
+        
+        var wishList = _AppCoreData.wishListProduct.value
+        if self.addToWishlistBtn.isSelected {
+            wishList.append(productData)
+        } else {
+            wishList.removeAll { savedProduct in
+                return savedProduct == productData
+            }
+        }
+        _AppCoreData.wishListProduct.accept(wishList)
     }
 }

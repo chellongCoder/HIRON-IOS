@@ -6,12 +6,15 @@
 //
 
 import RxSwift
+import UIKit
 
 class PackageTableViewCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
-    let priceLabel          = UILabel()
+    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
+    let countLabel          = UILabel()
+    let tagContentLabel     = ChipView(title: "")
     
     private var orderItem   : OrderItems?
     
@@ -19,57 +22,69 @@ class PackageTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
         
-        let contentView = UIView()
-        contentView.setShadow()
-        self.contentView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
-        }
-        
         packageImage.image = UIImage(named: "default-image")
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
         contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(10)
-            make.width.height.equalTo(120)
+            make.top.equalToSuperview().offset(16)
+            make.left.equalToSuperview().offset(16)
+            make.width.equalTo(50)
+            make.height.equalTo(61)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-        
-        productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
-        productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getCustomFont(size: 16, name: .medium)
-        productTitleLabel.textColor = kDefaultTextColor
-        productTitleLabel.numberOfLines = 0
-        contentView.addSubview(productTitleLabel)
-        productTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(packageImage.snp.right).offset(15)
-            make.top.equalTo(packageImage)
-            make.right.equalToSuperview().offset(-16)
         }
         
         priceDiscount.text = "$0.00"
         priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getCustomFont(size: 14, name: .regular)
+        priceDiscount.textAlignment = .right
+        priceDiscount.font = getCustomFont(size: 13, name: .semiBold)
+        priceDiscount.setContentCompressionResistancePriority(.required, for: .horizontal)
+        priceDiscount.setContentHuggingPriority(.required, for: .horizontal)
         contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
+            make.top.equalTo(packageImage)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
+        productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
+        productTitleLabel.numberOfLines = 2
+        productTitleLabel.font = getCustomFont(size: 11, name: .regular)
+        productTitleLabel.textColor = kCustomTextColor
+        contentView.addSubview(productTitleLabel)
+        productTitleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(packageImage.snp.right).offset(16)
+            make.right.equalTo(priceDiscount.snp.left).offset(-5)
+            make.top.equalTo(packageImage)
+        }
+        
+        tagContentLabel.textLabel.font = getCustomFont(size: 11, name: .regular)
+        tagContentLabel.textLabel.textColor = kCustomTextColor
+        contentView.addSubview(tagContentLabel)
+        tagContentLabel.snp.makeConstraints { make in
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(4)
             make.left.equalTo(productTitleLabel)
         }
         
         priceLabel.text = "$0.00"
-        priceLabel.textColor = kDisableColor
-        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        priceLabel.textColor = kDefaultTextColor
+        priceLabel.font = .systemFont(ofSize: 11, weight: .regular)
         contentView.addSubview(priceLabel)
         priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(10)
-            make.left.equalTo(priceDiscount.snp.right).offset(5)
+            make.top.greaterThanOrEqualTo(priceDiscount.snp.bottom).offset(2)
+            make.right.equalTo(priceDiscount)
         }
+        
+        countLabel.text = "x0"
+        countLabel.textColor = kCustomTextColor
+        countLabel.font = getCustomFont(size: 11, name: .regular)
+        contentView.addSubview(countLabel)
+        countLabel.snp.makeConstraints { make in
+            make.top.greaterThanOrEqualTo(priceLabel.snp.bottom).offset(6)
+            make.centerY.equalTo(tagContentLabel)
+            make.right.equalTo(priceDiscount)
+        }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -86,5 +101,20 @@ class PackageTableViewCell: UITableViewCell {
         self.priceLabel.text = getMoneyFormat(cellData.customRegularPrice)
         self.priceDiscount.text = getMoneyFormat(cellData.customFinalPrice)
         
+        var contentText = ""
+        
+        for (_, attribute) in cellData.metadata?.attributes ?? [:] {
+            if let label = attribute.label {
+                contentText = String(format: "%@, %@ %@", contentText, label, attribute.value ?? "")
+            }
+        }
+        
+        if !contentText.isEmpty {
+            contentText.removeFirst()
+        }
+        
+        self.tagContentLabel.textLabel.text = contentText
+        
+        self.countLabel.text = String(format: "x%ld", cellData.quantity)
     }
 }

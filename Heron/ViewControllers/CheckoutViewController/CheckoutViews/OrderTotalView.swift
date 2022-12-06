@@ -17,124 +17,74 @@ class OrderTotalView: UIView {
     let shippingAndTaxLabel = UILabel()
     let shippingAndTaxValue = UILabel()
     
-    let totalLabel          = UILabel()
-    let totalValue          = UILabel()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.layer.cornerRadius = 8
-        self.setShadow()
-        
-        let markIcon = UIImageView.init(image: UIImage(systemName: "cart"))
-        markIcon.tintColor = kPrimaryColor
-        self.addSubview(markIcon)
-        markIcon.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(20)
-            make.height.width.equalTo(20)
-        }
-        
-        title.text = "Order Total"
-        title.textColor = kDefaultTextColor
-        title.font = .systemFont(ofSize: 16)
-        self.addSubview(title)
-        title.snp.makeConstraints { make in
-            make.centerY.equalTo(markIcon)
-            make.left.equalTo(markIcon.snp.right).offset(10)
-            make.right.equalToSuperview()
-        }
-        
-        let lineView = UIView()
-        lineView.backgroundColor = UIColor.init(hexString: "F6F6F6")!
-        self.addSubview(lineView)
-        lineView.snp.makeConstraints { make in
-            make.top.equalTo(title.snp.bottom).offset(15)
-            make.centerX.equalToSuperview()
-            make.left.equalToSuperview().offset(20)
-            make.height.equalTo(1)
-        }
-        
-        subtotalLabel.text = "Subtotal:"
+        subtotalLabel.text = "Sub total"
         subtotalLabel.textAlignment = .left
-        subtotalLabel.font = .systemFont(ofSize: 14)
+        subtotalLabel.font = getCustomFont(size: 13, name: .light)
+        subtotalLabel.textColor = kTitleTextColor
         self.addSubview(subtotalLabel)
         subtotalLabel.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(15)
-            make.left.equalToSuperview().offset(10)
-            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(16)
         }
         
         subTotalValue.text = "$0"
         subTotalValue.textAlignment = .right
-        subTotalValue.font = .systemFont(ofSize: 14)
+        subTotalValue.font = getCustomFont(size: 13, name: .semiBold)
+        subTotalValue.textColor = kTitleTextColor
         self.addSubview(subTotalValue)
         subTotalValue.snp.makeConstraints { make in
-            make.centerY.equalTo(subtotalLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
+            make.centerY.equalTo(subtotalLabel.snp.centerY)
+            make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
         
-        discountLabel.text = "Voucher's discount:"
+        discountLabel.text = "Voucher's discount"
         discountLabel.textAlignment = .left
-        discountLabel.font = .systemFont(ofSize: 14)
+        discountLabel.font = getCustomFont(size: 13, name: .light)
+        discountLabel.textColor = kTitleTextColor
         self.addSubview(discountLabel)
         discountLabel.snp.makeConstraints { make in
-            make.top.equalTo(subTotalValue.snp.bottom)
-            make.left.equalToSuperview().offset(10)
+            make.top.equalTo(subTotalValue.snp.bottom).offset(12)
+            make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
         
         discountValue.text = "$0"
         discountValue.textAlignment = .right
-        discountValue.font = .systemFont(ofSize: 14)
+        discountValue.font = getCustomFont(size: 13, name: .semiBold)
+        discountValue.textColor = kTitleTextColor
         self.addSubview(discountValue)
         discountValue.snp.makeConstraints { make in
-            make.centerY.equalTo(discountLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
+            make.centerY.equalTo(discountLabel.snp.centerY)
+            make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
         
-        shippingAndTaxLabel.text = "Shipping and Tax:"
+        shippingAndTaxLabel.text = "Shipping and Tax"
         shippingAndTaxLabel.textAlignment = .left
-        shippingAndTaxLabel.font = .systemFont(ofSize: 14)
+        shippingAndTaxLabel.font = getCustomFont(size: 13, name: .light)
+        shippingAndTaxLabel.textColor = kTitleTextColor
         self.addSubview(shippingAndTaxLabel)
         shippingAndTaxLabel.snp.makeConstraints { make in
-            make.top.equalTo(discountValue.snp.bottom)
-            make.left.equalToSuperview().offset(10)
+            make.top.equalTo(discountValue.snp.bottom).offset(12)
+            make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
         
         shippingAndTaxValue.text = "$0"
         shippingAndTaxValue.textAlignment = .right
-        shippingAndTaxValue.font = .systemFont(ofSize: 14)
+        shippingAndTaxValue.font = getCustomFont(size: 13, name: .semiBold)
+        shippingAndTaxValue.textColor = kTitleTextColor
         self.addSubview(shippingAndTaxValue)
         shippingAndTaxValue.snp.makeConstraints { make in
-            make.centerY.equalTo(shippingAndTaxLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
+            make.centerY.equalTo(shippingAndTaxLabel.snp.centerY)
+            make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
-        
-        totalLabel.text = "Total:"
-        totalLabel.textAlignment = .left
-        totalLabel.font = .boldSystemFont(ofSize: 16)
-        self.addSubview(totalLabel)
-        totalLabel.snp.makeConstraints { make in
-            make.top.equalTo(shippingAndTaxValue.snp.bottom).offset(5)
-            make.left.equalToSuperview().offset(10)
-            make.centerX.equalToSuperview()
-        }
-        
-        totalValue.text = "$0"
-        totalValue.textAlignment = .right
-        totalValue.font = .boldSystemFont(ofSize: 16)
-        self.addSubview(totalValue)
-        totalValue.snp.makeConstraints { make in
-            make.centerY.equalTo(totalLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.centerX.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-        
     }
     
     required init?(coder: NSCoder) {

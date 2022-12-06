@@ -12,13 +12,14 @@ import BadgeHub
 
 class ProductListingViewController: BaseViewController,
                                     UITableViewDelegate,
-                                    ProductFilterDelegate,
-                                    ProductCellDelegate {
+                                    ProductFilterDelegate {
     
     private let viewModel           = ProductListingViewModel()
     
     let searchBar                   = SearchBarTxt()
+    let filterView                  = ProductListingFilterView()
     let tableView                   = UITableView(frame: .zero, style: .plain)
+    var collectionView              : UICollectionView?
     let noDataView                  = UIView()
     var cartHub                     : BadgeHub?
     
@@ -44,11 +45,17 @@ class ProductListingViewController: BaseViewController,
         self.cartHub?.pop()
         
         let cartButtonItem = UIBarButtonItem(customView: cartButton)
-        let changeViewStyleItem = UIBarButtonItem.init(image: UIImage.init(named: "collection_bar_icon"),
+        let changeViewStyleItem = UIBarButtonItem.init(image: UIImage.init(named: "list_bar_icon"),
                                               style: .plain,
                                               target: self,
-                                              action: #selector(filterButtonTapped))
+                                              action: #selector(switchViewButtonTapped))
         self.navigationItem.rightBarButtonItems = [cartButtonItem, changeViewStyleItem]
+        
+        self.view.addSubview(filterView)
+        filterView.snp.makeConstraints { make in
+            make.top.centerX.width.equalToSuperview()
+            make.height.equalTo(80)
+        }
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
@@ -64,7 +71,29 @@ class ProductListingViewController: BaseViewController,
         tableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.centerX.width.equalToSuperview()
+            make.top.equalTo(filterView.snp.bottom)
+            make.centerX.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        let screenSize = UIScreen.main.bounds
+        let layout = UICollectionViewFlowLayout()
+        let cellWidth = screenSize.width/2
+        layout.itemSize = CGSize(width: cellWidth, height: cellWidth + 97)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.scrollDirection = .vertical
+        
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView?.backgroundColor = .white
+        collectionView?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
+//        collectionView?.dataSource = self
+//        collectionView?.delegate = self
+        self.view.addSubview(collectionView!)
+        collectionView?.snp.makeConstraints { (make) in
+            make.top.equalTo(filterView.snp.bottom)
+            make.left.right.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
@@ -105,6 +134,19 @@ class ProductListingViewController: BaseViewController,
         _NavController.pushViewController(filterVC, animated: true)
     }
     
+    @objc private func switchViewButtonTapped(_ sender: UIBarButtonItem) {
+        let viewMode = viewModel.viewMode.value
+        
+        switch viewMode {
+        case .gridView:
+            viewModel.viewMode.accept(.listView)
+            sender.image = UIImage.init(named: "collection_bar_icon")
+        case .listView:
+            viewModel.viewMode.accept(.gridView)
+            sender.image = UIImage.init(named: "list_bar_icon")
+        }
+    }
+    
     private func dismissKeyboard() {
         self.searchBar.endEditing(true)
     }
@@ -118,8 +160,25 @@ class ProductListingViewController: BaseViewController,
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.cartHub?.setCount(cartDataSource?.totalItemCount ?? 0)
+                
+                guard let cartData = cartDataSource.element else {return}
+                
+                self.cartHub?.setCount(cartData?.totalItemCount ?? 0)
                 self.cartHub?.pop()
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.viewMode
+            .observe(on: MainScheduler.instance)
+            .subscribe { viewMode in
+                switch viewMode.element ?? .listView {
+                case .gridView:
+                    self.tableView.isHidden = true
+                    self.collectionView?.isHidden = false
+                case .listView:
+                    self.tableView.isHidden = false
+                    self.collectionView?.isHidden = true
+                }
             }
             .disposed(by: disposeBag)
         
@@ -127,21 +186,15 @@ class ProductListingViewController: BaseViewController,
             .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
                 let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
                 cell.setDataSource(element)
-                cell.delegate = self
                 return cell
             }
             .disposed(by: disposeBag)
         
-//        tableView.rx
-//            .modelSelected(ProductDataSource.self)
-//            .subscribe { model in
-//                guard let productData = model.element else {return}
-//                let viewDetailsController = ProductDetailsViewController.init(productData)
-//                _NavController.pushViewController(viewDetailsController, animated: true)
-//
-//                self.dismissKeyboard()
-//            }
-//            .disposed(by: disposeBag)
+        viewModel.listProducts
+            .bind(to: collectionView!.rx.items(cellIdentifier: "ProductCollectionViewCell") ) { (_: Int, productData: ProductDataSource, cell: ProductCollectionViewCell) in
+                cell.setDataSource(productData)
+            }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - UITableViewDelegate
@@ -165,5 +218,34 @@ class ProductListingViewController: BaseViewController,
     func addProductToCart(_ data: ProductDataSource) {
         let cartVC = CartViewController.sharedInstance
         cartVC.addProductToCart(data)
+    }
+}
+
+extension ProductListingViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let value = viewModel.listProducts.value
+        let productData = value[indexPath.row]
+        
+        let viewDetailsController = ProductDetailsViewController.init(productData)
+        _NavController.pushViewController(viewDetailsController, animated: true)
+        
+        self.dismissKeyboard()
+    }
+    
+    // MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.listProducts.value.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // swiftlint:disable force_cast
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
+        
+        let value = viewModel.listProducts.value
+        let productData = value[indexPath.row]
+        cell.setDataSource(productData)
+        return cell
     }
 }

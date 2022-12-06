@@ -23,81 +23,72 @@ class CheckoutItemTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = .clear
-
-        let contentView = UIView()
-        contentView.setShadow()
-        self.contentView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.top.equalToSuperview().offset(2)
-            make.bottom.equalToSuperview().offset(-2)
-        }
+        self.backgroundColor = .white
         
         packageImage.image = UIImage(named: "default-image")
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
-        contentView.addSubview(packageImage)
+        self.contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(10)
-            make.width.height.equalTo(120)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.top.equalToSuperview().offset(11)
+            make.left.equalToSuperview().offset(16)
+            make.width.equalTo(50)
+            make.height.equalTo(60)
+            make.bottom.lessThanOrEqualToSuperview().offset(-11)
         }
         
         productTitleLabel.text = ""
-        productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getCustomFont(size: 16, name: .medium)
-        productTitleLabel.textColor = kDefaultTextColor
-        productTitleLabel.numberOfLines = 0
-        contentView.addSubview(productTitleLabel)
+        productTitleLabel.numberOfLines = 2
+        productTitleLabel.font = getCustomFont(size: 11, name: .regular)
+        productTitleLabel.textColor = kCustomTextColor
+        self.contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(packageImage.snp.right).offset(15)
+            make.left.equalTo(packageImage.snp.right).offset(16)
             make.top.equalTo(packageImage)
             make.right.equalToSuperview().offset(-16)
         }
         
         tagsContent.text = ""
         tagsContent.numberOfLines = 0
-        tagsContent.font = getCustomFont(size: 12, name: .regular)
+        tagsContent.font = getCustomFont(size: 10, name: .regular)
         tagsContent.textColor = kDefaultTextColor
-        contentView.addSubview(tagsContent)
+        self.contentView.addSubview(tagsContent)
         tagsContent.snp.makeConstraints { (make) in
-            make.left.equalTo(packageImage.snp.right).offset(15)
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(5)
+            make.left.equalTo(packageImage.snp.right).offset(16)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
             make.right.equalToSuperview().offset(-16)
-        }
-
-        priceDiscount.text = "$ 10.00"
-        priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(priceDiscount)
-        priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(tagsContent.snp.bottom).offset(10)
-            make.left.equalTo(productTitleLabel)
-        }
-        
-        priceLabel.text = "$ 20.00"
-        priceLabel.setTextColor(kDisableColor)
-        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
-        contentView.addSubview(priceLabel)
-        priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(tagsContent.snp.bottom).offset(10)
-            make.left.equalTo(priceDiscount.snp.right).offset(5)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         countLabel.text = "x1"
-        countLabel.font = getCustomFont(size: 16, name: .medium)
+        countLabel.font = getCustomFont(size: 13, name: .regular)
         countLabel.textColor = kDefaultTextColor
-        countLabel.textAlignment = .right
-        contentView.addSubview(countLabel)
+        countLabel.textAlignment = .left
+        self.contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { (make) in
-            make.bottom.equalTo(packageImage).offset(-20)
-            make.right.equalToSuperview().offset(-20)
+            make.left.equalTo(packageImage.snp.right).offset(16)
+            make.bottom.equalTo(packageImage)
         }
+
+        priceDiscount.text = "$ 10.00"
+        priceDiscount.textColor = kDefaultTextColor
+        priceDiscount.font = getCustomFont(size: 13, name: .regular)
+        self.contentView.addSubview(priceDiscount)
+        priceDiscount.snp.makeConstraints { (make) in
+            make.left.equalTo(countLabel.snp.right).offset(30)
+            make.bottom.equalTo(packageImage)
+            make.bottom.lessThanOrEqualToSuperview().offset(-11)
+        }
+        
+//        priceLabel.text = "$ 20.00"
+//        priceLabel.setTextColor(kDisableColor)
+//        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
+//        self.contentView.addSubview(priceLabel)
+//        priceLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(tagsContent.snp.bottom).offset(10)
+//            make.left.equalTo(priceDiscount.snp.right).offset(5)
+//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+//        }
     }
 
     required init?(coder: NSCoder) {

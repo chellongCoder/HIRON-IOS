@@ -17,11 +17,12 @@ protocol CartProductCellDelegate: AnyObject {
 
 class CartProductTableViewCell: UITableViewCell {
     
-    let checkboxButton      = UIButton()
+    let checkboxButton      = ExtendedButton()
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
-    let tagsContent         = UILabel()
-    let priceLabel          = DiscountLabel()
+//    let tagsContent         = UILabel()
+    var volumeContent       : ChipViewDropDown?
+//    let priceLabel          = DiscountLabel()
     let priceDiscount       = UILabel()
     
     let minusBtn            = UIButton()
@@ -32,7 +33,7 @@ class CartProductTableViewCell: UITableViewCell {
     
     private var cartItemData : CartItemDataSource? {
         didSet {
-            checkboxButton.isSelected = cartItemData?.isSelected ?? false
+            checkboxButton.setSeleted(cartItemData?.isSelected ?? false)
         }
     }
     private var indexPath   : IndexPath?
@@ -42,118 +43,124 @@ class CartProductTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
 
-        let contentView = UIView()
-        contentView.setShadow()
-        self.contentView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
-        }
-
-        checkboxButton.tintColor = kPrimaryColor
-        checkboxButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        checkboxButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-        checkboxButton.imageView?.contentMode = .scaleAspectFit
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_selected"), for: .selected)
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_unselected"), for: .normal)
         checkboxButton.addTarget(self, action: #selector(modifyCheckoutList(button:)), for:.touchUpInside)
-        contentView.addSubview(checkboxButton)
+        self.contentView.addSubview(checkboxButton)
         checkboxButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(10)
-            make.height.width.equalTo(35)
+            make.left.equalToSuperview().offset(16)
+            make.height.width.equalTo(32)
         }
         
         packageImage.image = UIImage(named: "default-image")
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
-        contentView.addSubview(packageImage)
+        self.contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(24)
-            make.left.equalTo(checkboxButton.snp.right).offset(10)
-            make.width.height.equalTo(120)
-            make.bottom.lessThanOrEqualToSuperview().offset(-24)
+            make.top.equalToSuperview().offset(21)
+            make.left.equalTo(checkboxButton.snp.right).offset(14)
+            make.width.equalTo(80)
+            make.height.equalTo(98)
+            make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
         
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
-        productTitleLabel.numberOfLines = 0
-        productTitleLabel.font = getCustomFont(size: 16, name: .medium)
-        productTitleLabel.textColor = kDefaultTextColor
-        productTitleLabel.numberOfLines = 0
-        contentView.addSubview(productTitleLabel)
+        productTitleLabel.numberOfLines = 2
+        productTitleLabel.font = getCustomFont(size: 11, name: .regular)
+        productTitleLabel.textColor = kCustomTextColor
+        self.contentView.addSubview(productTitleLabel)
         productTitleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(packageImage.snp.right).offset(15)
+            make.left.equalTo(packageImage.snp.right).offset(16)
             make.top.equalTo(packageImage)
-            make.right.equalToSuperview().offset(-16)
+            make.right.equalToSuperview().offset(-53)
         }
         
-        tagsContent.text = ""
-        tagsContent.numberOfLines = 0
-        tagsContent.font = getCustomFont(size: 12, name: .regular)
-        tagsContent.textColor = kDefaultTextColor
-        contentView.addSubview(tagsContent)
-        tagsContent.snp.makeConstraints { (make) in
-            make.left.equalTo(packageImage.snp.right).offset(15)
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(5)
-            make.right.equalToSuperview().offset(-16)
+//        tagsContent.text = ""
+//        tagsContent.numberOfLines = 0
+//        tagsContent.font = getCustomFont(size: 11, name: .semiBold)
+//        tagsContent.textColor = kDefaultTextColor
+//        self.contentView.addSubview(tagsContent)
+//        tagsContent.snp.makeConstraints { (make) in
+//            make.left.equalTo(packageImage.snp.right).offset(16)
+//            make.top.equalTo(productTitleLabel.snp.bottom).offset(8)
+//            make.right.equalToSuperview().offset(-16)
+//        }
+        
+        volumeContent = ChipViewDropDown.init(title: "")
+        self.contentView.addSubview(volumeContent!)
+        volumeContent!.snp.makeConstraints { (make) in
+            make.left.equalTo(packageImage.snp.right).offset(16)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(8)
+//            make.top.equalTo(tagsContent.snp.bottom).offset(8)
         }
         
         priceDiscount.text = "$ 10.00"
-        priceDiscount.textColor = kRedHightLightColor
-        priceDiscount.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(priceDiscount)
+        priceDiscount.textColor = kDefaultTextColor
+        priceDiscount.font = getCustomFont(size: 13, name: .extraBold)
+        self.contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
-            make.top.equalTo(tagsContent.snp.bottom).offset(10)
-            make.left.equalTo(productTitleLabel)
+            make.bottom.equalTo(packageImage.snp.bottom)
+            make.right.equalToSuperview().offset(-16)
         }
         
-        priceLabel.text = "$ 20.00"
-        priceLabel.setTextColor(kDisableColor)
-        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
-        contentView.addSubview(priceLabel)
-        priceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(tagsContent.snp.bottom).offset(10)
-            make.left.equalTo(priceDiscount.snp.right).offset(5)
-        }
+//        priceLabel.text = "$ 20.00"
+//        priceLabel.setTextColor(kDisableColor)
+//        priceLabel.font = .systemFont(ofSize: 14, weight: .regular)
+//        self.contentView.addSubview(priceLabel)
+//        priceLabel.snp.makeConstraints { (make) in
+//            make.top.equalTo(tagsContent.snp.bottom).offset(10)
+//            make.left.equalTo(priceDiscount.snp.right).offset(5)
+//        }
         
-        checkboxButton.isSelected = cartItemData?.isSelected ?? false
+        checkboxButton.setSeleted(cartItemData?.isSelected ?? false)
         
-        minusBtn.setBackgroundImage(UIImage.init(systemName: "minus.circle"), for: .normal)
-        minusBtn.layer.cornerRadius = 15
+        minusBtn.setTitle("-", for: .normal)
+        minusBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        minusBtn.layer.cornerRadius = 10
+        minusBtn.layer.maskedCorners = [.layerMinXMinYCorner, .layerMinXMaxYCorner]
+        minusBtn.layer.borderWidth = 0.7
+        minusBtn.layer.borderColor = kDisableColor.cgColor
         minusBtn.layer.masksToBounds = true
         minusBtn.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
-        contentView.addSubview(minusBtn)
+        self.contentView.addSubview(minusBtn)
         minusBtn.snp.makeConstraints { make in
-            make.top.equalTo(priceLabel.snp.bottom).offset(5)
-            make.left.equalTo(productTitleLabel)
-            make.height.width.equalTo(30)
-        }
-        
-        plusBtn.setBackgroundImage(UIImage.init(systemName: "plus.circle"), for: .normal)
-        plusBtn.layer.cornerRadius = 15
-        plusBtn.layer.masksToBounds = true
-        plusBtn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
-        contentView.addSubview(plusBtn)
-        plusBtn.snp.makeConstraints { make in
-            make.top.equalTo(priceLabel.snp.bottom).offset(5)
-            make.right.equalTo(productTitleLabel)
-            make.height.width.equalTo(30)
+            make.centerY.equalTo(priceDiscount)
+            make.left.equalTo(packageImage.snp.right).offset(16)
+            make.height.equalTo(20)
+            make.width.equalTo(30)
         }
         
         quantityTxt.text = String(format: "%ld", self.quantityValue)
-        quantityTxt.layer.borderWidth = 1
-        quantityTxt.layer.borderColor = UIColor.lightGray.cgColor
+        quantityTxt.font = getCustomFont(size: 11, name: .medium)
+        quantityTxt.layer.borderWidth = 0.7
+        quantityTxt.layer.borderColor = kDisableColor.cgColor
         quantityTxt.textAlignment = .center
         quantityTxt.keyboardType = .numberPad
         quantityTxt.delegate = self
-        contentView.addSubview(quantityTxt)
+        self.contentView.addSubview(quantityTxt)
         quantityTxt.snp.makeConstraints { make in
             make.centerY.equalTo(minusBtn)
-            make.height.equalTo(30)
-            make.left.equalTo(minusBtn.snp.right).offset(5)
-            make.right.equalTo(plusBtn.snp.left).offset(-5)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.left.equalTo(minusBtn.snp.right).offset(-0.5)
+            make.height.equalTo(20)
+            make.width.equalTo(30)
+        }
+        
+        plusBtn.setTitle("+", for: .normal)
+        plusBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        plusBtn.layer.cornerRadius = 10
+        plusBtn.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        plusBtn.layer.borderWidth = 0.7
+        plusBtn.layer.borderColor = kDisableColor.cgColor
+        plusBtn.layer.masksToBounds = true
+        plusBtn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+        self.contentView.addSubview(plusBtn)
+        plusBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(priceDiscount)
+            make.left.equalTo(quantityTxt.snp.right).offset(-0.5)
+            make.height.equalTo(20)
+            make.width.equalTo(30)
         }
     }
 
@@ -171,9 +178,9 @@ class CartProductTableViewCell: UITableViewCell {
             self.packageImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
         }
         
-        self.priceLabel.text = getMoneyFormat(cellData.product!.customRegularPrice)
-        self.priceDiscount.text = getMoneyFormat(cellData.product!.customFinalPrice)
-        self.priceLabel.isHidden = (cellData.product!.customRegularPrice == cellData.product!.customFinalPrice)
+//        self.priceLabel.text = getMoneyFormat(cellData.product!.customRegularPrice)
+        self.priceDiscount.text = getMoneyFormat(cellData.product?.customFinalPrice ?? 0.0)
+//        self.priceLabel.isHidden = (cellData.product!.customRegularPrice == cellData.product!.customFinalPrice)
         
         self.quantityValue = cellData.quantity
         self.quantityTxt.text = String(format: "%ld", cellData.quantity)
@@ -195,12 +202,13 @@ class CartProductTableViewCell: UITableViewCell {
             contentText = String(format: "%@, %@", contentText, brandName)
         }
         
+//        self.tagsContent.text = contentText
+        
         for (_, attribute) in productData.attributes {
             if let label = attribute.label {
-                contentText = String(format: "%@, %@ %@", contentText, label, attribute.value ?? "")
+                self.volumeContent?.textLabel.text = String(format: "%@ - %@", label, attribute.value ?? "")
             }
         }
-        self.tagsContent.text = contentText
     }
     
     @objc private func removeButtonTapped() {

@@ -23,7 +23,7 @@ class UserDataSource: Mappable {
     var userFirstName : String  = ""
     var userLastName :  String  = ""
     var userPhoneNum :  String  = ""
-    var userPhoneCode : String  = "+84"
+    var userPhoneCode : String  = "+1"
     var userEmail :     String  = ""
     var userDOB :       Int  = 0
     var userGender :    UserGender = .male

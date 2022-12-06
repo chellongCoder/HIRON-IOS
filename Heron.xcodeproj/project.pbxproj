@@ -185,11 +185,18 @@
 		9AB248D42921364F007812D5 /* Mulish-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248B829212D4B007812D5 /* Mulish-ExtraLight.ttf */; };
 		9AB248D52921364F007812D5 /* Mulish-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248C229212D4B007812D5 /* Mulish-SemiBoldItalic.ttf */; };
 		9AB248D62921364F007812D5 /* Mulish-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248BA29212D4B007812D5 /* Mulish-MediumItalic.ttf */; };
+		9AB248D9292147D9007812D5 /* ProductCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB248D8292147D9007812D5 /* ProductCollectionViewCell.swift */; };
 		9AC54E592892F575006312D6 /* SelectDateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */; };
 		9AC54E5B28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */; };
 		9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */; };
 		9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */; };
 		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
+		A0979E49293B8B2F00E243A0 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E48293B8B2F00E243A0 /* PlanView.swift */; };
+		A0979E4B293B90D100E243A0 /* UserDashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */; };
+		A0979E4D293B9A5100E243A0 /* UserProfileActionBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */; };
+		A097CC8A2937925C00C587AD /* ExtendedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC892937925C00C587AD /* ExtendedButton.swift */; };
+		A097CC8C29379DA400C587AD /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8B29379DA400C587AD /* ExtendedLabel.swift */; };
+		A097CC8F2937A91A00C587AD /* ProductListingFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */; };
 		B5061C02286BF22700A03271 /* TrackingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* TrackingTableViewCell.swift */; };
@@ -421,12 +428,19 @@
 		9AB248C429212D4B007812D5 /* Mulish-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Medium.ttf"; sourceTree = "<group>"; };
 		9AB248C529212D4B007812D5 /* Mulish-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-BlackItalic.ttf"; sourceTree = "<group>"; };
 		9AB248C629212D4B007812D5 /* Mulish-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-BoldItalic.ttf"; sourceTree = "<group>"; };
+		9AB248D8292147D9007812D5 /* ProductCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AC54E582892F575006312D6 /* SelectDateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AC54E5A28963AFB006312D6 /* SelectDateAndTimeBookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBookingViewModel.swift; sourceTree = "<group>"; };
 		9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeableDataSource.swift; sourceTree = "<group>"; };
 		9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewController.swift; sourceTree = "<group>"; };
 		9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewModel.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0979E48293B8B2F00E243A0 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
+		A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardItem.swift; sourceTree = "<group>"; };
+		A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileActionBtn.swift; sourceTree = "<group>"; };
+		A097CC892937925C00C587AD /* ExtendedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedButton.swift; sourceTree = "<group>"; };
+		A097CC8B29379DA400C587AD /* ExtendedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
+		A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingFilterView.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
 		B5061BFA286BF22700A03271 /* ShippingAndBillingInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAndBillingInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -731,6 +745,9 @@
 				93CA16DD28A3F7C6008CC897 /* DiscountLabel.swift */,
 				9343119928DB6D8F003B77F9 /* EmptyView.swift */,
 				1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */,
+				A0979E48293B8B2F00E243A0 /* PlanView.swift */,
+				A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */,
+				A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -751,6 +768,8 @@
 				933D19312819946800F1CCC4 /* UIColor_EXT.swift */,
 				9301757C28848A8D00151A4B /* UIImage_EXT.swift */,
 				B55B372C2836425B005245AB /* Utils.swift */,
+				A097CC892937925C00C587AD /* ExtendedButton.swift */,
+				A097CC8B29379DA400C587AD /* ExtendedLabel.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -777,8 +796,10 @@
 			isa = PBXGroup;
 			children = (
 				18FC15A92922ABE000294591 /* ProductDetailsViewController2 */,
+				A097CC8D2937A90400C587AD /* ProductListingFilterView */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
+				9AB248D7292147BD007812D5 /* ProductCollectionViewCell */,
 				938F7A8C28210F0C00DD60DB /* ProductTableViewCell */,
 				933D194728199EEB00F1CCC4 /* ProductListingViewController.swift */,
 				930F3031281A05A1003D247A /* ProductListingViewModel.swift */,
@@ -1230,6 +1251,14 @@
 			path = SelectDateAndTimeBooking;
 			sourceTree = "<group>";
 		};
+		9AB248D7292147BD007812D5 /* ProductCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				9AB248D8292147D9007812D5 /* ProductCollectionViewCell.swift */,
+			);
+			path = ProductCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1251,6 +1280,14 @@
 				9A88B76A288DBB2E00BE1E05 /* SelectDoctorViewController */,
 			);
 			path = CreateBookingFlow;
+			sourceTree = "<group>";
+		};
+		A097CC8D2937A90400C587AD /* ProductListingFilterView */ = {
+			isa = PBXGroup;
+			children = (
+				A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */,
+			);
+			path = ProductListingFilterView;
 			sourceTree = "<group>";
 		};
 		B561813F2862B195009BE6E5 /* BaseViewController */ = {
@@ -1564,6 +1601,7 @@
 				93EC90EE285A4D73009056F6 /* SignInViewController.swift in Sources */,
 				93AF9205284BF93A0075CD65 /* AddUserAddressViewController.swift in Sources */,
 				181F79FF2930D3660080068B /* ItemReviewTableViewCell.swift in Sources */,
+				A0979E4B293B90D100E243A0 /* UserDashboardItem.swift in Sources */,
 				933D19392819946800F1CCC4 /* String_EXT.swift in Sources */,
 				930F3032281A05A1003D247A /* ProductListingViewModel.swift in Sources */,
 				93D73F1628450D7E0015C4FB /* CheckoutServices.swift in Sources */,
@@ -1595,12 +1633,14 @@
 				9A88B771288DBD4A00BE1E05 /* DoctorDataSource.swift in Sources */,
 				B5061C06286BF22700A03271 /* PaymentTableViewCell.swift in Sources */,
 				18B30835291E9B970015F13E /* DiscountView.swift in Sources */,
+				A097CC8A2937925C00C587AD /* ExtendedButton.swift in Sources */,
 				93AF91FE284BEE140075CD65 /* UserAddressListingViewModel.swift in Sources */,
 				93EC90F6285A4DB9009056F6 /* SubcsriptionCell.swift in Sources */,
 				9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */,
 				93EC90FE28622229009056F6 /* DiscountValueView.swift in Sources */,
 				933D19272819946000F1CCC4 /* LoadingAnimationView.swift in Sources */,
 				93EC90CA285A4C03009056F6 /* LaunchScreenViewController.swift in Sources */,
+				A0979E4D293B9A5100E243A0 /* UserProfileActionBtn.swift in Sources */,
 				B561819A2862B59D009BE6E5 /* OrderCard.swift in Sources */,
 				B561819D2862B59D009BE6E5 /* OrderPayment.swift in Sources */,
 				9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */,
@@ -1618,10 +1658,12 @@
 				18E3B49F2939AC9200D40B29 /* RateAvengeView.swift in Sources */,
 				B56181972862B59D009BE6E5 /* ItemUnit.swift in Sources */,
 				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
+				A0979E49293B8B2F00E243A0 /* PlanView.swift in Sources */,
 				933D18E82819935900F1CCC4 /* Heron.xcdatamodeld in Sources */,
 				934D72A628A02A4600E4255F /* BookingDoctorTableViewCell.swift in Sources */,
 				933D19212819944100F1CCC4 /* MainViewController.swift in Sources */,
 				9A88B766288DB76100BE1E05 /* BookingServices.swift in Sources */,
+				9AB248D9292147D9007812D5 /* ProductCollectionViewCell.swift in Sources */,
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */,
 				18B28507291F91E900AF16B2 /* StackInfoProductView.swift in Sources */,
@@ -1648,6 +1690,7 @@
 				9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift in Sources */,
 				18FC15B7292411B800294591 /* ShopInfoView.swift in Sources */,
 				B56181A92862B64E009BE6E5 /* SubscriptionData.swift in Sources */,
+				A097CC8C29379DA400C587AD /* ExtendedLabel.swift in Sources */,
 				93AF91EE284BBD290075CD65 /* CheckoutViewController.swift in Sources */,
 				181ED8A5292A23B2005848CE /* TabView.swift in Sources */,
 				93D5522F282A76B60034B2B7 /* AddToCartViewController.swift in Sources */,
@@ -1702,6 +1745,7 @@
 				93BB69152830277B00BC2E5E /* CartViewModel.swift in Sources */,
 				93AF9202284BEE8F0075CD65 /* UserAddressCell.swift in Sources */,
 				938F7AAC28220DD600DD60DB /* BannerView.swift in Sources */,
+				A097CC8F2937A91A00C587AD /* ProductListingFilterView.swift in Sources */,
 				933D191B2819940B00F1CCC4 /* AppNavigationController.swift in Sources */,
 				93EC90F4285A4DB9009056F6 /* MainSubscriptionViewModel.swift in Sources */,
 				93D55229282A73710034B2B7 /* CartViewController.swift in Sources */,
