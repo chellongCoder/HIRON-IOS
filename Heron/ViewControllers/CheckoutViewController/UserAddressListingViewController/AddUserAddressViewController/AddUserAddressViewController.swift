@@ -21,7 +21,7 @@ class AddUserAddressViewController: PageScrollViewController {
     private let countryTxt          = ErrorTextField()
     private let cityTxt             = ErrorTextField()
     private let postCodeTxt         = ErrorTextField()
-    private let checkboxButton      = UIButton()
+    private let checkboxButton      = ExtendedButton()
     
     private let completeBtn         = UIButton()
     
@@ -187,11 +187,9 @@ class AddUserAddressViewController: PageScrollViewController {
             make.height.equalTo(50)
         }
         
-        checkboxButton.tintColor = kPrimaryColor
-        checkboxButton.isSelected = viewModel.contact.value.isDefault
-        checkboxButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        checkboxButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-        checkboxButton.imageView?.contentMode = .scaleAspectFit
+        checkboxButton.setSeleted(viewModel.contact.value.isDefault)
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_selected"), for: .selected)
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_unselected"), for: .normal)
         checkboxButton.addTarget(self, action: #selector(setAsDefaultAddress), for:.touchUpInside)
         self.pageScroll.addSubview(checkboxButton)
         checkboxButton.snp.makeConstraints { make in
@@ -215,7 +213,7 @@ class AddUserAddressViewController: PageScrollViewController {
     
     // MARK: - Buttons
     @objc private func setAsDefaultAddress() {
-        checkboxButton.isSelected = !checkboxButton.isSelected
+        checkboxButton.setSeleted(!checkboxButton.isSelected)
         
         var contact = viewModel.contact.value
         contact.isDefault = checkboxButton.isSelected

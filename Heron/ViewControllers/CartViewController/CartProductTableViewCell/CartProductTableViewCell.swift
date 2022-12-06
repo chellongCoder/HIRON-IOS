@@ -17,7 +17,7 @@ protocol CartProductCellDelegate: AnyObject {
 
 class CartProductTableViewCell: UITableViewCell {
     
-    let checkboxButton      = UIButton()
+    let checkboxButton      = ExtendedButton()
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
 //    let tagsContent         = UILabel()
@@ -33,7 +33,7 @@ class CartProductTableViewCell: UITableViewCell {
     
     private var cartItemData : CartItemDataSource? {
         didSet {
-            checkboxButton.isSelected = cartItemData?.isSelected ?? false
+            checkboxButton.setSeleted(cartItemData?.isSelected ?? false)
         }
     }
     private var indexPath   : IndexPath?
@@ -43,16 +43,14 @@ class CartProductTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
 
-        checkboxButton.tintColor = kPrimaryColor
-        checkboxButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        checkboxButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
-        checkboxButton.imageView?.contentMode = .scaleAspectFit
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_selected"), for: .selected)
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_unselected"), for: .normal)
         checkboxButton.addTarget(self, action: #selector(modifyCheckoutList(button:)), for:.touchUpInside)
         self.contentView.addSubview(checkboxButton)
         checkboxButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(32)
         }
         
         packageImage.image = UIImage(named: "default-image")
@@ -116,7 +114,7 @@ class CartProductTableViewCell: UITableViewCell {
 //            make.left.equalTo(priceDiscount.snp.right).offset(5)
 //        }
         
-        checkboxButton.isSelected = cartItemData?.isSelected ?? false
+        checkboxButton.setSeleted(cartItemData?.isSelected ?? false)
         
         minusBtn.setTitle("-", for: .normal)
         minusBtn.setTitleColor(kDefaultTextColor, for: .normal)

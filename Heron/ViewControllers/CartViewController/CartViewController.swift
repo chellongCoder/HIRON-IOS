@@ -215,9 +215,9 @@ class CartViewController: BaseViewController,
     }
     
     // MARK: - Buttons
-    @objc private func storeCheckboxButtonTapped(button: UIButton) {
+    @objc private func storeCheckboxButtonTapped(button: ExtendedButton) {
         
-        button.isSelected = !button.isSelected
+        button.setSeleted(!button.isSelected)
         
         let section = button.tag
         guard var cartData = viewModel.cartDataSource else {return}
@@ -307,18 +307,16 @@ class CartViewController: BaseViewController,
         let headerView = UIView()
         headerView.backgroundColor = .white
         
-        let checkboxButton = UIButton()
-        checkboxButton.tintColor = kPrimaryColor
-        checkboxButton.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        checkboxButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
+        let checkboxButton = ExtendedButton()
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_selected"), for: .selected)
+        checkboxButton.setBackgroundImage(UIImage.init(named: "checkbox_unselected"), for: .normal)
         checkboxButton.tag = section
-        checkboxButton.imageView?.contentMode = .scaleAspectFit
         checkboxButton.addTarget(self, action: #selector(storeCheckboxButtonTapped(button:)), for:.touchUpInside)
         headerView.addSubview(checkboxButton)
         checkboxButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
             make.left.equalToSuperview().offset(16)
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(32)
         }
         
         if let storeData = _CartServices.cartData.value?.store[section] {
@@ -333,7 +331,7 @@ class CartViewController: BaseViewController,
                 make.height.equalTo(14)
             }
             
-            checkboxButton.isSelected = storeData.isCheckoutSelected
+            checkboxButton.setSeleted(storeData.isCheckoutSelected)
             
         }
         

@@ -89,8 +89,6 @@ class CheckoutItemTableViewCell: UITableViewCell {
 //            make.left.equalTo(priceDiscount.snp.right).offset(5)
 //            make.bottom.lessThanOrEqualToSuperview().offset(-10)
 //        }
-        
-        
     }
 
     required init?(coder: NSCoder) {
