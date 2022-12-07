@@ -13,11 +13,9 @@ class ProductDetailsViewController2: PageScrollViewController,
                                      UIScrollViewDelegate,
                                      ProductVariantDelegate,
                                      UITableViewDelegate,
-                                     ProductCellDelegate,
                                      UICollectionViewDataSource,
-                                     UICollectionViewDelegate{
+                                     UICollectionViewDelegate {
   
-    
     private let viewModel               = ProductDetailsViewModel2()
     private let productViewModel        = ProductListingViewModel()
     
@@ -516,9 +514,10 @@ class ProductDetailsViewController2: PageScrollViewController,
         tableRateView.register(ItemReviewTableViewCell.self, forCellReuseIdentifier: "ItemReviewTableViewCell")
         self.contentView.addSubview(tableRateView)
         tableRateView.snp.makeConstraints { (make) in
-            make.centerX.width.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.top.equalTo(spacer3.snp.bottom).offset(10)
             make.height.equalTo(500)
+            make.width.equalToSuperview().offset(-20)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
 
         }
@@ -534,13 +533,21 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.width.equalToSuperview()
         }
         
-        let viewWidth = UIScreen.main.bounds.size.width/2.1
+        let title = UILabel()
+        title.text = "Related product"
+        title.font = getCustomFont(size: 18, name: .bold)
+        self.contentView.addSubview(title)
+        title.snp.makeConstraints { (make) in
+            make.top.equalTo(spacer3.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(10)
+        }
+
+        let viewWidth = UIScreen.main.bounds.size.width/2.2
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: viewWidth, height: viewWidth * 1.3)
+        layout.itemSize = CGSize(width: viewWidth, height: viewWidth * 1.5)
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 0
-        
         
         collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionview.dataSource = self
@@ -551,9 +558,9 @@ class ProductDetailsViewController2: PageScrollViewController,
         self.contentView.addSubview(collectionview)
         collectionview.snp.makeConstraints { make in
             make.centerX.width.equalToSuperview()
-            make.top.equalTo(spacer3.snp.bottom).offset(10)
+            make.top.equalTo(title.snp.bottom).offset(10)
             make.height.equalTo(500)
-            make.width.equalToSuperview()
+            make.width.equalToSuperview().offset(-20)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
 

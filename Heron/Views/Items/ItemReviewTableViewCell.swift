@@ -14,8 +14,8 @@ class ItemReviewTableViewCell: UITableViewCell {
     let time            = UILabel()
     let comment         = UILabel()
     let helpful         = UILabel()
-
     let likeBTN         = UIButton()
+    let line            = UIView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -93,6 +93,15 @@ class ItemReviewTableViewCell: UITableViewCell {
         helpful.snp.makeConstraints { make in
             make.left.equalTo(likeBTN.snp.right).offset(10)
             make.top.equalTo(comment.snp.bottom).offset(15)
+            make.bottom.lessThanOrEqualToSuperview().offset(-16)
+        }
+        
+        line.backgroundColor = kLightGrayColor
+        contentView.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.width.equalToSuperview()
+            make.height.equalTo(0.5)
+            make.top.equalTo(helpful.snp.bottom).offset(10)
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
     }

@@ -13,6 +13,9 @@ class ItemRelateProductCollection: UICollectionViewCell {
     let discount        = DiscountView()
     let originalPrice   = DiscountLabel()
     let salePrice       = UILabel()
+    let star            = UILabel()
+    let starPoint       = UILabel()
+    let heartItem       = UIButton(type: .custom)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +40,15 @@ class ItemRelateProductCollection: UICollectionViewCell {
             make.top.equalTo(banner.snp.bottom)
             make.left.equalToSuperview()
         }
+        
+        heartItem.setImage(UIImage(systemName: "heart"), for: .normal)
+        heartItem.tintColor = kDefaultTextColor
+        self.contentView.addSubview(heartItem)
+        heartItem.snp.makeConstraints { make in
+            make.top.equalTo(banner.snp.bottom)
+            make.right.equalToSuperview()
+        }
+
         
         discount.setDiscount("30%")
         discount.backgroundColor = UIColor.init(hexString: "ffe2e2")
@@ -66,7 +78,26 @@ class ItemRelateProductCollection: UICollectionViewCell {
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        
+        starPoint.text = "4.5"
+        starPoint.font = getCustomFont(size: 11, name: .regular)
+        self.contentView.addSubview(starPoint)
+        starPoint.snp.makeConstraints { make in
+            make.top.equalTo(discount.snp.bottom).offset(10)
+            make.right.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+
+        star.text = "★"
+        star.font = getCustomFont(size: 11, name: .bold)
+        star.textColor = UIColor.init(hexString: "ff6d6e")
+        self.contentView.addSubview(star)
+        star.snp.makeConstraints { make in
+            make.top.equalTo(discount.snp.bottom).offset(10)
+            make.right.equalTo(starPoint.snp.left)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+
+
     }
     
     required init?(coder: NSCoder) {
