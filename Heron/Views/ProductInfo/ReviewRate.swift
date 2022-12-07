@@ -85,7 +85,7 @@ class ReviewRate: UIView {
         stack.alignment = .center
         stack.snp.makeConstraints { make in
             make.left.right.equalToSuperview().offset(10)
-            make.width.equalToSuperview().offset(-20)
+            make.width.equalToSuperview().offset(-30)
             make.top.equalTo(title.snp.bottom).offset(10)
             make.bottom.lessThanOrEqualToSuperview().offset(0)
         }

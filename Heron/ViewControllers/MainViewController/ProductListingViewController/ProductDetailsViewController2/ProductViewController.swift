@@ -35,7 +35,7 @@ class ProductDetailsViewController2: PageScrollViewController,
     private let variantView             = ConfigurationProductVariantView()
     private let contentDescView         = UIView()
     private let nameProduct             = UILabel()
-
+    let showMoreView                    = UIView()
     let stackTagView                    = StackTagView()
     let stackInfoView                   = StackInfoView()
     let addToCartBtn                    = UIButton()
@@ -280,6 +280,34 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.width.equalToSuperview().offset(-20)
         }
         
+        let showMoreTxt = UILabel()
+       
+        showMoreTxt.text = "Show more"
+        showMoreTxt.font = getCustomFont(size: 11, name: .regular)
+        showMoreView.addSubview(showMoreTxt)
+        showMoreTxt.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        self.contentView.addSubview(showMoreView)
+        showMoreView.snp.makeConstraints { make in
+            make.top.equalTo(descView.snp.bottom).offset(0)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(20)
+        }
+        
+        let dropdown = UIImageView()
+        dropdown.clipsToBounds = true
+        dropdown.image = UIImage(named: "dropdown")?.withRenderingMode(.alwaysOriginal)
+        dropdown.contentMode = .scaleAspectFit
+
+        showMoreView.addSubview(dropdown)
+        dropdown.snp.makeConstraints { make in
+            make.left.equalTo(showMoreTxt.snp.right).offset(0)
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(10)
+        }
+
         self.loadReviewView()
         
         self.loadRelateProducts()
@@ -503,7 +531,7 @@ class ProductDetailsViewController2: PageScrollViewController,
         let spacer3 = SpacerView()
         self.contentView.addSubview(spacer3)
         spacer3.snp.makeConstraints { (make) in
-            make.top.equalTo(descView.snp.bottom)
+            make.top.equalTo(self.showMoreView.snp.bottom).offset(20)
             make.height.equalTo(6)
             make.width.equalToSuperview()
         }
@@ -521,6 +549,36 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
 
         }
+        
+        let showMoreTxt = UILabel()
+        let showMoreView = UIView()
+        
+        showMoreTxt.text = "Show all"
+        showMoreTxt.font = getCustomFont(size: 11, name: .regular)
+        showMoreView.addSubview(showMoreTxt)
+        showMoreTxt.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
+        self.contentView.addSubview(showMoreView)
+        showMoreView.snp.makeConstraints { make in
+            make.top.equalTo(tableRateView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(100)
+            make.height.equalTo(40)
+        }
+        
+        let dropdown = UIImageView()
+        dropdown.clipsToBounds = true
+        dropdown.image = UIImage(named: "arrowright")?.withRenderingMode(.alwaysOriginal)
+        dropdown.contentMode = .scaleAspectFit
+
+        showMoreView.addSubview(dropdown)
+        dropdown.snp.makeConstraints { make in
+            make.left.equalTo(showMoreTxt.snp.right).offset(0)
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(10)
+        }
+
     }
     
     private func loadRelateProducts() {
@@ -528,7 +586,7 @@ class ProductDetailsViewController2: PageScrollViewController,
         let spacer3 = SpacerView()
         self.contentView.addSubview(spacer3)
         spacer3.snp.makeConstraints { (make) in
-            make.top.equalTo(tableRateView.snp.bottom)
+            make.top.equalTo(tableRateView.snp.bottom).offset(30)
             make.height.equalTo(6)
             make.width.equalToSuperview()
         }
@@ -588,7 +646,6 @@ class ProductDetailsViewController2: PageScrollViewController,
                     make.centerX.left.equalToSuperview()
                 }
                 
-                
             } else {
                 titleLabel.snp.makeConstraints { make in
                     make.top.equalToSuperview()
@@ -616,6 +673,7 @@ class ProductDetailsViewController2: PageScrollViewController,
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         })
         
+
 //        let arrray = [UIView(),UIView(),UIView(),UIView(),UIView()]
 //        var lastItem : UIView? = nil
 //
