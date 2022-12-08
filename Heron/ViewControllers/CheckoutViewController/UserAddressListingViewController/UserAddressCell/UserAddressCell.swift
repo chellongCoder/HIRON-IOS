@@ -18,7 +18,7 @@ class UserAddressCell: UITableViewCell {
     let phoneNumber         = UILabel()
     let addressLabel        = UILabel()
     let editButton          = UIButton()
-    let seleteButton        = UIButton()
+    let selectButton        = UIButton()
     
     private var contactData : ContactDataSource?
     var delegate            : UserAddressCellDelegate?
@@ -27,14 +27,14 @@ class UserAddressCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
         
-        seleteButton.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
-        seleteButton.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
-        seleteButton.addTarget(self, action: #selector(seleteButtonTapped), for: .touchUpInside)
-        contentView.addSubview(seleteButton)
-        seleteButton.snp.makeConstraints { make in
+        selectButton.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
+        selectButton.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
+        selectButton.addTarget(self, action: #selector(seleteButtonTapped), for: .touchUpInside)
+        contentView.addSubview(selectButton)
+        selectButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.top.equalToSuperview().offset(20)
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(32)
         }
         
         fullName.text = "Mike Le"
@@ -42,8 +42,8 @@ class UserAddressCell: UITableViewCell {
         fullName.textColor = kTitleTextColor
         contentView.addSubview(fullName)
         fullName.snp.makeConstraints { (make) in
-            make.left.equalTo(seleteButton.snp.right).offset(2)
-            make.centerY.equalTo(seleteButton.snp.centerY)
+            make.left.equalTo(selectButton.snp.right).offset(2)
+            make.centerY.equalTo(selectButton.snp.centerY)
         }
         
         phoneNumber.text = "+"
@@ -119,6 +119,10 @@ class UserAddressCell: UITableViewCell {
             markAsDefault.isHidden = true
             markAsDefault.snp.removeConstraints()
         }
+        
+        if let selectedAddress = _CheckoutServices.deliveryAddress.value {
+            selectButton.isSelected = (selectedAddress.id == cellData.id)
+        }
     }
     
     @objc private func editButtonTapped() {
@@ -130,6 +134,6 @@ class UserAddressCell: UITableViewCell {
     }
     
     @objc private func seleteButtonTapped() {
-        seleteButton.isSelected = !seleteButton.isSelected
+        selectButton.isSelected = !selectButton.isSelected
     }
 }
