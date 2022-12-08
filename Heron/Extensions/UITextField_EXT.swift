@@ -31,7 +31,7 @@ class BoundedIconTextField: UITextField {
     private let rightIcon   = UIButton()
     private let errorLabel  = UILabel()
     
-    var rightAction : (() -> (Void))? = {}
+    var rightAction : (() -> ())? = {}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -91,7 +91,7 @@ class BoundedIconTextField: UITextField {
     
     func setPlaceHolderText(_ text: String) {
         self.attributedPlaceholder = NSAttributedString(string: text, attributes: [
-            .foregroundColor: kLightGrayColor,
+            .foregroundColor: kCustomTextColor,
             .font: getCustomFont(size: 11, name: .regular) ])
     }
 
