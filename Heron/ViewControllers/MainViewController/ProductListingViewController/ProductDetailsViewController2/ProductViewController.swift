@@ -45,7 +45,8 @@ class ProductDetailsViewController2: PageScrollViewController,
     let reviewRate                      = ReviewRate()
     let tableRateView                   = UITableView(frame: .zero, style: .plain)
     var collectionview                  : UICollectionView!
-
+    var showTabView = false
+    var topMediaViewHeight = CGFloat(0)
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
         viewModel.productDataSource.accept(data)
@@ -311,6 +312,7 @@ class ProductDetailsViewController2: PageScrollViewController,
         self.loadReviewView()
         
         self.loadRelateProducts()
+     
         
     }
     
@@ -376,7 +378,6 @@ class ProductDetailsViewController2: PageScrollViewController,
     // MARK: - UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if(scrollView == self.topMediaView) {
-            print("self.topMediaView")
             let pageWidth = scrollView.frame.size.width
             let fractionalPage = scrollView.contentOffset.x / pageWidth
 
@@ -391,65 +392,62 @@ class ProductDetailsViewController2: PageScrollViewController,
             }
 
         } else if(scrollView == self.pageScroll) {
-            print("self.pageScroll")
+            if (self.topMediaView.frame.size.height > 0) {
+                self.topMediaViewHeight = self.topMediaView.frame.size.height
+            }
             let contentOffset = scrollView.contentOffset
-            if(contentOffset.y >= self.topMediaView.frame.size.height / 2) {
-                DispatchQueue.main.async {
-                    UIView.animate(withDuration: 0.5) {
+            if (contentOffset.y >= self.topMediaViewHeight * 0.2) {
+                let alpha = min(1, 2 * contentOffset.y / self.topMediaViewHeight - 1)
+                self.topMediaView.alpha = 1 - alpha
+                print(self.topMediaViewHeight)
+                if (!self.showTabView && contentOffset.y >= self.topMediaViewHeight * 0.8) {
+                    DispatchQueue.main.async {
                         self.navigationItem.titleView = self.topView
-                        self.pagingView.alpha = 0
-                    } completion: { _ in
-                        print("completed animate 1 up")
+                        self.topView.alpha = (5 * contentOffset.y / self.topMediaViewHeight) - 4
                     }
-
-                    UIView.animate(withDuration: 2) {
-                        
+                }
+                if (!self.showTabView && contentOffset.y >= self.topMediaViewHeight) {
+                    DispatchQueue.main.async {
+                        self.pagingView.alpha = 0
                         self.tabView.snp.remakeConstraints({ make in
                             make.left.equalToSuperview().offset(0)
                             make.top.equalToSuperview()
                             make.width.equalToSuperview()
                         })
-                        
                         self.topMediaView.snp.remakeConstraints { make in
                             make.top.equalTo(64)
                             make.right.left.equalToSuperview()
                             make.bottom.equalTo(self.topMediaView.snp.top).offset(0)
                         }
-
-                    } completion: { _ in
-                        print("completed animate 2 up")
+                        self.showTabView = true
                     }
                 }
             }
-            else if(contentOffset.y < 0) {
-                let staticHeight = (UIScreen.main.bounds.size.width)*1
-
+            if (self.showTabView && contentOffset.y < self.topMediaViewHeight) {
+                let staticHeight = (UIScreen.main.bounds.size.width) * 1
+                let alpha = min(1, 2 * contentOffset.y / self.topMediaViewHeight - 1)
                 DispatchQueue.main.async {
-                    UIView.animate(withDuration: 0.5) {
-                        self.navigationItem.titleView = nil
-                        self.pagingView.alpha = 0.3
-                    } completion: { _ in
-                        print("completed animate 1 down")
+                    self.navigationItem.titleView = nil
+                    self.topMediaView.snp.remakeConstraints { make in
+                        make.top.equalToSuperview()
+                        make.right.left.equalToSuperview()
+                        make.bottom.equalTo(self.topMediaView.snp.top).offset(staticHeight)
                     }
-
-                    UIView.animate(withDuration: 2) {
-                        
-                        self.tabView.snp.remakeConstraints({ make in
-                            make.left.equalToSuperview().offset(0)
-                            make.top.equalToSuperview()
-                            make.width.equalToSuperview()
-                            make.height.equalTo(0)
-                        })
-                        
-                        self.topMediaView.snp.remakeConstraints { make in
-                            make.top.equalToSuperview()
-                            make.right.left.equalToSuperview()
-                            make.bottom.equalTo(self.topMediaView.snp.top).offset(staticHeight)
-                        }
-                    } completion: { _ in
-                        print("completed animate 2 down")
-                    }
+                    self.topMediaView.alpha = 1 - alpha
                 }
+            }
+            if (self.showTabView && contentOffset.y < self.topMediaViewHeight * 0.8) {
+                DispatchQueue.main.async {
+                    self.pagingView.alpha = 0.3
+                    self.tabView.snp.remakeConstraints({ make in
+                        make.left.equalToSuperview().offset(0)
+                        make.top.equalToSuperview()
+                        make.width.equalToSuperview()
+                        make.height.equalTo(0)
+                    })
+                }
+                
+                self.showTabView = false
             }
             
         }
