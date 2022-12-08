@@ -18,7 +18,6 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.viewModel.controller = self
-        self.view.backgroundColor = kPrimaryColor
         
         let dissmissKeyboardGesture = UITapGestureRecognizer.init(target: self, action: #selector(dissmissKeyboard))
         self.view.addGestureRecognizer(dissmissKeyboardGesture)
@@ -159,6 +158,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         signUpBtn.setTitle("Sign up", for: .normal)
         signUpBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
         signUpBtn.setTitleColor(kPrimaryColor, for: .normal)
+        signUpBtn.backgroundColor = .white
         self.view.addSubview(signUpBtn)
         signUpBtn.snp.makeConstraints { make in
             make.top.equalTo(signInBtn.snp.bottom).offset(16)
