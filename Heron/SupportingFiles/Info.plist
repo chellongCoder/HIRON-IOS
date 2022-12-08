@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>App Uses Non-Exempt Encryption </key>
+	<false/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Mulish-Black.ttf</string>
+		<string>Mulish-BlackItalic.ttf</string>
+		<string>Mulish-Bold.ttf</string>
+		<string>Mulish-BoldItalic.ttf</string>
+		<string>Mulish-ExtraBold.ttf</string>
+		<string>Mulish-ExtraBoldItalic.ttf</string>
+		<string>Mulish-ExtraLight.ttf</string>
+		<string>Mulish-ExtraLightItalic.ttf</string>
+		<string>Mulish-Italic.ttf</string>
+		<string>Mulish-Light.ttf</string>
+		<string>Mulish-LightItalic.ttf</string>
+		<string>Mulish-Medium.ttf</string>
+		<string>Mulish-MediumItalic.ttf</string>
+		<string>Mulish-Regular.ttf</string>
+		<string>Mulish-SemiBold.ttf</string>
+		<string>Mulish-SemiBoldItalic.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
+</dict>
+</plist>

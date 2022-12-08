@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  Heron
+
+  Created by Luu Luc on 11/10/2022.
+  
+*/
+
+"CART:10000" = "Cart not found";
+"CART:11000" = "Product %@ is disabled";
+"CART:11001" = "Not found cart items in list";
+"CART:11002" = "Not pre checkout disabled product";
