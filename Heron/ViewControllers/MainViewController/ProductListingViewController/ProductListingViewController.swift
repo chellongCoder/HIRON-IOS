@@ -89,7 +89,7 @@ class ProductListingViewController: BaseViewController,
         collectionView?.backgroundColor = .white
         collectionView?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
 //        collectionView?.dataSource = self
-//        collectionView?.delegate = self
+        collectionView?.delegate = self
         self.view.addSubview(collectionView!)
         collectionView?.snp.makeConstraints { (make) in
             make.top.equalTo(filterView.snp.bottom)

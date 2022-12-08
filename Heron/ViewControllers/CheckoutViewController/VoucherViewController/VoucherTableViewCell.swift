@@ -19,7 +19,7 @@ class VoucherTableViewCell: UITableViewCell {
     private let desciptionLabel = UILabel()
     private let additionalListView = UIView()
     private let dateAvailableLabel  = UILabel()
-    private let applyBtn            = ExtendedButton()
+    private let selectBtn            = ExtendedButton()
     
     private var voucherData     : VoucherDataSource?
     var delegate                : VoucherTableViewCellDelegate?
@@ -54,11 +54,11 @@ class VoucherTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(12)
         }
         
-        applyBtn.setBackgroundImage(UIImage.init(named: "select_icon"), for: .normal)
-        applyBtn.backgroundColor = kPrimaryColor
-        applyBtn.layer.cornerRadius = 8
-        contentView.addSubview(applyBtn)
-        applyBtn.snp.makeConstraints { make in
+        selectBtn.setBackgroundImage(UIImage.init(named: "select_icon"), for: .normal)
+        selectBtn.backgroundColor = kPrimaryColor
+        selectBtn.layer.cornerRadius = 8
+        contentView.addSubview(selectBtn)
+        selectBtn.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.right.equalToSuperview().offset(-12)
             make.height.width.equalTo(16)
@@ -116,13 +116,11 @@ class VoucherTableViewCell: UITableViewCell {
 //            self.promoValue.text = String(format: "%ld%% OFF", cellData.couponRule?.discount ?? 0)
         }
         
-//        if cellData.isSelectedVoucher {
-//            self.applyBtn.setTitle("Cancel", for: .normal)
-//            self.applyBtn.backgroundColor = kRedHightLightColor
-//        } else {
-//            self.applyBtn.setTitle("Apply", for: .normal)
-//            self.applyBtn.backgroundColor = kPrimaryColor
-//        }
+        if cellData.isSelectedVoucher {
+            self.selectBtn.isHidden = false
+        } else {
+            self.selectBtn.isHidden = true
+        }
         
         #warning("HARD_CODE")
         let contents = ["Content 1", "Content 2", "Content 3", "Content 3.5", "Content 4"]

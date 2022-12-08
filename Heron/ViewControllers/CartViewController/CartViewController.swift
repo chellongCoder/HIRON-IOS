@@ -143,7 +143,7 @@ class CartViewController: BaseViewController,
     
     @objc private func wishlistButtonTapped() {
         let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
-                                             message: "This feature do not available righ now",
+                                             message: "This feature is not available at the moment.",
                                              preferredStyle: .alert)
         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
                                              style: .default,
