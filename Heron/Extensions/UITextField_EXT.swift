@@ -25,21 +25,74 @@ class TextField: UITextField {
     }
 }
 
-class IconTextField: UITextField {
+class BoundedIconTextField: UITextField {
 
-    let padding = UIEdgeInsets(top: 0, left: 40, bottom: 0, right: 10)
-    let icon    = UIImageView()
-
+    let padding             = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 40)
+    private let rightIcon   = UIButton()
+    private let errorLabel  = UILabel()
+    
+    var rightAction : (() -> (Void))? = {}
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        icon.image = UIImage(named: "search_icon")?.withRenderingMode(.alwaysOriginal)
-        icon.contentMode = .scaleAspectFill
-        addSubview(icon)
-        icon.snp.makeConstraints { (make) in
+        
+        self.textColor = kDefaultTextColor
+        self.font = getCustomFont(size: 14, name: .semiBold)
+        
+        self.layer.borderWidth = 1
+        self.layer.borderColor = kLightGrayColor.cgColor
+        self.layer.cornerRadius = 6
+        self.layer.masksToBounds = false
+        
+        rightIcon.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
+        rightIcon.contentMode = .scaleAspectFill
+        rightIcon.isHidden = true
+        addSubview(rightIcon)
+        rightIcon.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.left.equalToSuperview().offset(16)
-            make.width.height.equalTo(16)
+            make.right.equalToSuperview().offset(-12)
+            make.width.height.equalTo(32)
         }
+        
+        self.addSubview(errorLabel)
+        errorLabel.textColor = .red
+        errorLabel.font = getCustomFont(size: 9, name: .light)
+        addSubview(errorLabel)
+        errorLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.bottom).offset(5)
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview()
+        }
+    }
+    
+    func setError(_ errorStr: String?) {
+        guard let errorStr = errorStr else {
+            self.errorLabel.isHidden = true
+            return
+        }
+
+        self.errorLabel.isHidden = false
+        self.errorLabel.text = errorStr
+    }
+    
+    func setRightIcon(_ image: UIImage?) {
+        guard let image = image else {
+            self.rightIcon.isHidden = true
+            return
+        }
+        
+        self.rightIcon.isHidden = false
+        rightIcon.setImage(image, for: .normal)
+    }
+    
+    @objc private func rightButtonTapped() {
+        rightAction?()
+    }
+    
+    func setPlaceHolderText(_ text: String) {
+        self.attributedPlaceholder = NSAttributedString(string: text, attributes: [
+            .foregroundColor: kLightGrayColor,
+            .font: getCustomFont(size: 11, name: .regular) ])
     }
 
     required init?(coder: NSCoder) {
