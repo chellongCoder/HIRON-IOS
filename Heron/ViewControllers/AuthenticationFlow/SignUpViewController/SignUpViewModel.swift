@@ -8,9 +8,9 @@
 import UIKit
 import RxRelay
 
-class AccountInfoViewModel: NSObject {
+class SignUpViewModel: NSObject {
 
-    weak var controller : AccountInfoViewController?
+    weak var controller : SignUpViewController?
     var userData        = BehaviorRelay<UserDataSource?>(value: nil)
     
     func signUp(completion: @escaping () -> Void) {

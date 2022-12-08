@@ -1,0 +1,502 @@
+//
+//  AccountInfoViewController.swift
+//  Heron
+//
+//  Created by Triet Nguyen on 05/06/2022.
+//
+
+import UIKit
+import Material
+
+class SignUpViewController: BaseViewController,
+                                 UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    private let viewModel   = SignUpViewModel()
+    var isSign = true
+    
+    let firstNameTxt         = BoundedIconTextField()
+    let lastNameTxt         = BoundedIconTextField()
+    let femaleBtn           = UIButton()
+    let maleBtn             = UIButton()
+    let dobTxt              = BoundedIconTextField()
+    let emailTxt            = BoundedIconTextField()
+    let passwordTxt         = BoundedIconTextField()
+    let identityNumberTxt   = BoundedIconTextField()
+    let phoneNumberCodeTxt  = BoundedIconTextField()
+    let phoneNumberTxt      = BoundedIconTextField()
+    
+    var prevScreenPass      = ""
+    var prevEmail           = ""
+    
+    private let datePicker  = UIDatePicker()
+    private let genderPicker = UIPickerView()
+    private let codePicker  = UIPickerView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.viewModel.controller = self
+        
+        let image = UIImageView()
+        image.image = UIImage.init(named: "logo")
+        self.view.addSubview(image)
+        image.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
+            make.left.equalToSuperview().offset(16)
+            make.height.equalTo(24)
+            make.width.equalTo(107)
+        }
+        
+        let signUpLabel = UILabel()
+        signUpLabel.textAlignment = .left
+        signUpLabel.font = getCustomFont(size: 26, name: .bold)
+        signUpLabel.textColor = kDefaultTextColor
+        signUpLabel.text = "Sign up"
+        self.view.addSubview(signUpLabel)
+        signUpLabel.snp.makeConstraints { make in
+            make.top.equalTo(image.snp.bottom).offset(48)
+            make.left.equalToSuperview().offset(28)
+        }
+        
+        let contentScrollView = UIScrollView()
+        contentScrollView.showsVerticalScrollIndicator = false
+        self.view.addSubview(contentScrollView)
+        contentScrollView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.top.equalTo(signUpLabel.snp.bottom).offset(20)
+            $0.bottom.equalToSuperview()
+        }
+        
+        let firstNameLabel = UILabel()
+        firstNameLabel.text = "First name"
+        firstNameLabel.font = getCustomFont(size: 11, name: .light)
+        firstNameLabel.textColor = kDarkColor
+        firstNameLabel.textAlignment = .left
+        contentScrollView.addSubview(firstNameLabel)
+        firstNameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(28)
+        }
+                
+        firstNameTxt.setPlaceHolderText(" First name ")
+        firstNameTxt.textColor = kDefaultTextColor
+        contentScrollView.addSubview(firstNameTxt)
+        firstNameTxt.snp.makeConstraints { make in
+            make.top.equalTo(firstNameLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().offset(-56)
+        }
+        
+        let lastNameLabel = UILabel()
+        lastNameLabel.text = "Last name"
+        lastNameLabel.font = getCustomFont(size: 11, name: .light)
+        lastNameLabel.textColor = kDarkColor
+        lastNameLabel.textAlignment = .left
+        contentScrollView.addSubview(lastNameLabel)
+        lastNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(firstNameTxt.snp.bottom).offset(20)
+            make.left.equalTo(firstNameLabel)
+        }
+                
+        lastNameTxt.setPlaceHolderText(" Last name ")
+        lastNameTxt.textColor = kDefaultTextColor
+        contentScrollView.addSubview(lastNameTxt)
+        lastNameTxt.snp.makeConstraints { make in
+            make.top.equalTo(lastNameLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().offset(-56)
+        }
+        
+        let genderLabel = UILabel()
+        genderLabel.text = "Gender"
+        genderLabel.font = getCustomFont(size: 11, name: .light)
+        genderLabel.textColor = kDarkColor
+        genderLabel.textAlignment = .left
+        contentScrollView.addSubview(genderLabel)
+        genderLabel.snp.makeConstraints { make in
+            make.top.equalTo(lastNameTxt.snp.bottom).offset(20)
+            make.left.equalTo(lastNameTxt)
+        }
+        
+        femaleBtn.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
+        femaleBtn.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
+        contentScrollView.addSubview(femaleBtn)
+        femaleBtn.snp.makeConstraints { make in
+            make.top.equalTo(genderLabel.snp.bottom).offset(10)
+            make.left.equalToSuperview().offset(30)
+            make.height.width.equalTo(32)
+        }
+        
+        let femaleLabel = UILabel()
+        femaleLabel.text = "Female"
+        femaleLabel.textColor = kDefaultTextColor
+        femaleLabel.font = getCustomFont(size: 14, name: .semiBold)
+        femaleLabel.textAlignment = .left
+        contentScrollView.addSubview(femaleLabel)
+        femaleLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(femaleBtn)
+            make.left.equalTo(femaleBtn.snp.right).offset(2)
+            make.width.equalTo(80)
+        }
+        
+        maleBtn.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
+        maleBtn.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
+        contentScrollView.addSubview(maleBtn)
+        maleBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(femaleBtn)
+            make.left.equalTo(self.view.snp.centerX)
+            make.height.width.equalTo(32)
+        }
+        
+        let maleLabel = UILabel()
+        maleLabel.text = "Male"
+        maleLabel.textColor = kDefaultTextColor
+        maleLabel.font = getCustomFont(size: 14, name: .semiBold)
+        maleLabel.textAlignment = .left
+        contentScrollView.addSubview(maleLabel)
+        maleLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(femaleBtn)
+            make.left.equalTo(maleBtn.snp.right).offset(2)
+        }
+        
+        self.loadPickerView()
+        
+        let dobLabel = UILabel()
+        dobLabel.text = "Date of Birth"
+        dobLabel.textColor = kDarkColor
+        dobLabel.font = getCustomFont(size: 11, name: .light)
+        dobLabel.textAlignment = .left
+        contentScrollView.addSubview(dobLabel)
+        dobLabel.snp.makeConstraints { make in
+            make.top.equalTo(femaleBtn.snp.bottom).offset(20)
+            make.left.equalTo(genderLabel)
+        }
+        
+        dobTxt.setPlaceHolderText("MM dd, yyyy")
+        dobTxt.setRightIcon(UIImage.init(named: "calendar_icon"))
+        dobTxt.textColor = kDefaultTextColor
+        dobTxt.inputView = self.datePicker
+        contentScrollView.addSubview(dobTxt)
+        dobTxt.snp.makeConstraints { make in
+            make.top.equalTo(dobLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalTo(self.view).offset(-56)
+        }
+        
+        let emailLabel = UILabel()
+        emailLabel.text = "Email"
+        emailLabel.font = getCustomFont(size: 11, name: .light)
+        emailLabel.textColor = kDarkColor
+        emailLabel.textAlignment = .left
+        contentScrollView.addSubview(emailLabel)
+        emailLabel.snp.makeConstraints { make in
+            make.top.equalTo(dobTxt.snp.bottom).offset(20)
+            make.left.equalTo(dobLabel)
+        }
+        
+        emailTxt.text = self.prevEmail
+        emailTxt.setPlaceHolderText(" Email ")
+        emailTxt.textColor = kDefaultTextColor
+        emailTxt.autocapitalizationType = .none
+        emailTxt.isUserInteractionEnabled = false
+        contentScrollView.addSubview(emailTxt)
+        emailTxt.snp.makeConstraints { make in
+            make.top.equalTo(emailLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().offset(-56)
+        }
+        
+        let passwordLabel = UILabel()
+        passwordLabel.text = "Password"
+        passwordLabel.font = getCustomFont(size: 11, name: .light)
+        passwordLabel.textColor = kDarkColor
+        passwordLabel.textAlignment = .left
+        contentScrollView.addSubview(passwordLabel)
+        passwordLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTxt.snp.bottom).offset(20)
+            make.left.equalTo(emailLabel)
+        }
+        
+        passwordTxt.setPlaceHolderText("Password")
+        passwordTxt.isSecureTextEntry = true
+        passwordTxt.textColor = kDefaultTextColor
+        passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        passwordTxt.rightAction = {
+            self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
+            if self.passwordTxt.isSecureTextEntry {
+                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+            } else {
+                self.passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            }
+        }
+        contentScrollView.addSubview(passwordTxt)
+        passwordTxt.snp.makeConstraints { make in
+            make.top.equalTo(passwordLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let identityNumberLabel = UILabel()
+        identityNumberLabel.text = "ID Number"
+        identityNumberLabel.textColor = kDarkColor
+        identityNumberLabel.font = getCustomFont(size: 11, name: .light)
+        identityNumberLabel.textAlignment = .left
+        contentScrollView.addSubview(identityNumberLabel)
+        identityNumberLabel.snp.makeConstraints { make in
+            make.top.equalTo(passwordTxt.snp.bottom).offset(20)
+            make.left.equalTo(emailLabel)
+        }
+        
+        identityNumberTxt.setPlaceHolderText(" ID Number ")
+        identityNumberTxt.textColor = kDefaultTextColor
+        identityNumberTxt.autocapitalizationType = .none
+        contentScrollView.addSubview(identityNumberTxt)
+        identityNumberTxt.snp.makeConstraints { make in
+            make.top.equalTo(identityNumberLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let phoneNumberLabel = UILabel()
+        phoneNumberLabel.text = "Phone number"
+        phoneNumberLabel.font = getCustomFont(size: 11, name: .light)
+        phoneNumberLabel.textColor = kDarkColor
+        phoneNumberLabel.textAlignment = .left
+        contentScrollView.addSubview(phoneNumberLabel)
+        phoneNumberLabel.snp.makeConstraints { make in
+            make.top.equalTo(identityNumberTxt.snp.bottom).offset(20)
+            make.left.equalTo(identityNumberLabel)
+        }
+        
+        #warning("A Luc lam tiep")
+        
+//        phoneNumberCodeTxt.text = "+01"
+//        phoneNumberCodeTxt.placeholder = "Phone Code *"
+//        phoneNumberCodeTxt.textColor = kDefaultTextColor
+//        phoneNumberCodeTxt.keyboardType = .phonePad
+//        contentScrollView.addSubview(phoneNumberCodeTxt)
+//        phoneNumberCodeTxt.snp.makeConstraints { make in
+//            make.top.equalTo(identityNumberTxt.snp.bottom).offset(50)
+//            make.left.equalToSuperview().offset(20)
+//            make.width.equalTo(self.view).multipliedBy(0.3)
+//        }
+
+        phoneNumberTxt.setPlaceHolderText(" Phone number ")
+        phoneNumberTxt.textColor = kDefaultTextColor
+        phoneNumberTxt.keyboardType = .phonePad
+        contentScrollView.addSubview(phoneNumberTxt)
+        phoneNumberTxt.snp.makeConstraints { make in
+            make.top.equalTo(phoneNumberLabel.snp.bottom).offset(8)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.centerX.equalToSuperview()
+        }
+
+        let createAccountBtn = UIButton()
+        createAccountBtn.backgroundColor = kPrimaryColor
+        createAccountBtn.layer.cornerRadius = 20
+        createAccountBtn.addTarget(self, action: #selector(continueActionTapped), for: .touchUpInside)
+        createAccountBtn.setTitle("Create", for: .normal)
+        createAccountBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        contentScrollView.addSubview(createAccountBtn)
+        createAccountBtn.snp.makeConstraints { make in
+            make.top.equalTo(phoneNumberTxt.snp.bottom).offset(30)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.bottom.lessThanOrEqualToSuperview().offset(-100)
+        }
+    }
+    
+    private func loadPickerView() {
+        let calendar = Calendar(identifier: .gregorian)
+        let currentDate = Date()
+        var components = DateComponents()
+        components.calendar = calendar
+        components.day = -1
+        let maxDate = calendar.date(byAdding: components, to: currentDate)!
+        datePicker.datePickerMode = .date
+//        datePicker.locale = .current
+        datePicker.timeZone = TimeZone.init(identifier: "UTC")
+        datePicker.maximumDate = maxDate
+        if #available(iOS 14, *) {
+            datePicker.preferredDatePickerStyle = .wheels
+            datePicker.sizeToFit()
+        }
+
+        let doneToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done = UIBarButtonItem(title: "Done",
+                                   style: .done,
+                                   target: self,
+                                   action: #selector(doneDatePicker))
+
+        doneToolbar.setItems([flexSpace, done], animated: true)
+        doneToolbar.sizeToFit()
+
+        datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
+        dobTxt.inputView = datePicker
+        dobTxt.inputAccessoryView = doneToolbar
+        
+        genderPicker.delegate = self
+        genderPicker.dataSource = self
+//        genderTxt.inputView = genderPicker
+        
+        codePicker.dataSource = self
+        codePicker.delegate = self
+        phoneNumberCodeTxt.inputView = codePicker
+    }
+    
+    @objc private func doneDatePicker() {
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+        
+//        if genderTxt.text == "Male" {
+//            userData.userGender = .male
+//        } else {
+//            userData.userGender = .female
+//        }
+        
+        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
+        userData.userDOB = Int(datePicker.date.timeIntervalSince1970)*1000
+        viewModel.userData.accept(userData)
+        self.view.endEditing(true)
+    }
+    
+    @objc private func datePickerValueChanged(_ sender: UIDatePicker) {
+        dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+        userData.userDOB = Int(sender.date.timeIntervalSince1970)*1000
+        viewModel.userData.accept(userData)
+    }
+    
+    @objc func continueActionTapped(_ sender: Any) {
+//
+//        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+//        userData.userEmail = self.prevEmail
+//        userData.userName = self.prevEmail
+//        userData.password = self.prevScreenPass
+//        userData.passwordConfirm = self.prevScreenPass
+//
+//        if (firstNameTxt.text ?? "").isEmpty {
+//            firstNameTxt.isErrorRevealed = true
+//            firstNameTxt.error = "This field can not be empty"
+//        } else {
+//            firstNameTxt.isErrorRevealed = false
+//        }
+//        userData.userFirstName = firstNameTxt.text!.formatString()
+//
+//        if (lastNameTxt.text ?? "").isEmpty {
+//            lastNameTxt.isErrorRevealed = true
+//            lastNameTxt.error = "This field can not be empty"
+//        } else {
+//            lastNameTxt.isErrorRevealed = false
+//        }
+//        userData.userLastName = lastNameTxt.text!.formatString()
+//
+//        if (genderTxt.text ?? "").isEmpty {
+//            genderTxt.isErrorRevealed = true
+//            genderTxt.error = "This field can not be empty"
+//        } else {
+//            genderTxt.isErrorRevealed = false
+//        }
+//
+//        if (dobTxt.text ?? "").isEmpty {
+//            dobTxt.isErrorRevealed = true
+//            dobTxt.error = "This field can not be empty"
+//        } else {
+//            dobTxt.isErrorRevealed = false
+//        }
+//
+//        userData.userEmail = emailTxt.text ?? ""
+//
+//        if (identityNumberTxt.text ?? "").isEmpty {
+//            identityNumberTxt.isErrorRevealed = true
+//            identityNumberTxt.error = "This field can not be empty"
+//        } else {
+//            identityNumberTxt.isErrorRevealed = false
+//        }
+//        userData.identityNum = identityNumberTxt.text ?? ""
+//
+//        if (phoneNumberTxt.text ?? "").isEmpty {
+//            phoneNumberTxt.isErrorRevealed = true
+//            phoneNumberTxt.error = "This field can not be empty"
+//        } else {
+//            phoneNumberTxt.isErrorRevealed = false
+//        }
+//        userData.userPhoneNum = phoneNumberTxt.text!
+//
+//        if firstNameTxt.isErrorRevealed ||
+//            lastNameTxt.isErrorRevealed ||
+//            genderTxt.isErrorRevealed ||
+//            dobTxt.isErrorRevealed ||
+//            identityNumberTxt.isErrorRevealed ||
+//            phoneNumberTxt.isErrorRevealed {
+//            return
+//        }
+//
+//        viewModel.userData.accept(userData)
+//        viewModel.signUp {
+//            let vc = SignInSuccessViewController()
+//            vc.centerDesc.text = "Sign-up Success!"
+//            vc.centerDescInfo.text = "Congratulations! You have signed up successfully.\nWe wish you the best experience using our app! Have a good day!"
+//            self.navigationController?.pushViewController(vc, animated: true)
+//        }
+    }
+    
+    // MARK: - UIPickerViewDataSource
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == genderPicker {
+            if row == 0 {
+                return "Male"
+            }
+            return "Female"
+        } else {
+            if row == 0 {
+                return "+01"
+            }
+            return "+84"
+        }
+    }
+    
+    // MARK: - UIPickerViewDelegate
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//
+//        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+//
+//        if pickerView == genderPicker {
+//            if row == 0 {
+//                genderTxt.text = "Male"
+//                userData.userGender = .male
+//            } else {
+//                genderTxt.text = "Female"
+//                userData.userGender = .female
+//            }
+//        } else {
+//            if row == 0 {
+//                phoneNumberCodeTxt.text = "+01"
+//                userData.userPhoneCode = "01"
+//            } else {
+//                phoneNumberCodeTxt.text = "+84"
+//                userData.userPhoneCode = "84"
+//            }
+//        }
+//
+//        viewModel.userData.accept(userData)
+//    }
+}

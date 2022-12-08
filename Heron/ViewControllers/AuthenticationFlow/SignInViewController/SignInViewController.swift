@@ -157,6 +157,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         signUpBtn.layer.cornerRadius = 20
         signUpBtn.setTitle("Sign up", for: .normal)
         signUpBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        signUpBtn.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         signUpBtn.setTitleColor(kPrimaryColor, for: .normal)
         self.view.addSubview(signUpBtn)
         signUpBtn.snp.makeConstraints { make in
@@ -227,14 +228,9 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
 //        }
     }
     
-    @objc private func changeAuthenticationFlow() {
-        var viewControllers = self.navigationController?.viewControllers ?? []
-        viewControllers.removeLast()
-        
-        let signInVC = SignInViewController()
-        
-        viewControllers.append(signInVC)
-        self.navigationController?.setViewControllers(viewControllers, animated: true)
+    @objc private func signUpButtonTapped() {
+        let signUpVC = SignUpViewController()
+        self.navigationController?.setViewControllers([signUpVC], animated: true)
     }
     
     // MARK: - UITextFieldDelegate
