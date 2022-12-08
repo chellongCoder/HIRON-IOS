@@ -14,7 +14,7 @@ class MainAuthViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(hexString: "F2FCFB")
+        self.view.backgroundColor = .white
        
         let signInBtn = UIButton()
         signInBtn.setTitle("Sign in", for: .normal)
@@ -25,7 +25,7 @@ class MainAuthViewController: BaseViewController {
         signInBtn.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         self.view.addSubview(signInBtn)
         signInBtn.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-60)
+            $0.bottom.equalToSuperview().offset(-30)
             $0.centerX.equalToSuperview()
             $0.width.equalToSuperview().offset(-70)
             $0.height.equalTo(40)
@@ -66,14 +66,11 @@ class MainAuthViewController: BaseViewController {
         
         let centerImage = UIImageView(image: UIImage(named: "splash_screen"))
         centerImage.backgroundColor = UIColor.init(hexString: "C2EEEB")
-        centerImage.contentMode = .scaleAspectFit
+        centerImage.contentMode = .scaleAspectFill
         centerImage.layer.masksToBounds = true
         self.view.addSubview(centerImage)
         centerImage.snp.makeConstraints {
-            $0.bottom.equalTo(contentView.snp.top).offset(45)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview()
-            $0.top.equalToSuperview()
+            $0.center.size.equalToSuperview()
         }
         
         self.view.sendSubviewToBack(centerImage)
@@ -89,13 +86,11 @@ class MainAuthViewController: BaseViewController {
     
     @objc func signInButtonTapped(_ sender: Any) {
         let vc = SignInViewController()
-        vc.isSignIn = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func signUpButtonTapped(_ sender: Any) {
         let vc = SignInViewController()
-        vc.isSignIn = false
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
