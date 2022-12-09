@@ -66,6 +66,16 @@ class CartProductTableViewCell: UITableViewCell {
             make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
         
+        let addWishlistBtn = ExtendedButton()
+        addWishlistBtn.setImage(UIImage.init(named: "move_to_wishlist_icon"), for: .normal)
+        addWishlistBtn.addTarget(self, action: #selector(removeButtonTapped), for: .touchUpInside)
+        self.contentView.addSubview(addWishlistBtn)
+        addWishlistBtn.snp.makeConstraints { make in
+            make.top.equalTo(packageImage).offset(2)
+            make.right.equalToSuperview().offset(-8)
+            make.height.width.equalTo(32)
+        }
+        
         productTitleLabel.text = "OptiBac Probiotics for Daily Wellbeing, 30 capsules"
         productTitleLabel.numberOfLines = 2
         productTitleLabel.font = getCustomFont(size: 11, name: .regular)
@@ -74,7 +84,7 @@ class CartProductTableViewCell: UITableViewCell {
         productTitleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(packageImage.snp.right).offset(16)
             make.top.equalTo(packageImage)
-            make.right.equalToSuperview().offset(-53)
+            make.right.equalTo(addWishlistBtn.snp.left).offset(-5)
         }
         
 //        tagsContent.text = ""
@@ -161,6 +171,15 @@ class CartProductTableViewCell: UITableViewCell {
             make.left.equalTo(quantityTxt.snp.right).offset(-0.5)
             make.height.equalTo(20)
             make.width.equalTo(30)
+        }
+        
+        let line = UIView()
+        line.backgroundColor = kLightGrayColor
+        self.contentView.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.bottom.centerX.equalToSuperview()
+            make.height.equalTo(0.5)
+            make.width.equalToSuperview().offset(-32)
         }
     }
 
