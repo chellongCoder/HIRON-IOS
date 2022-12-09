@@ -170,6 +170,7 @@ class UserProfileViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         viewModel.getUserProfile()
+        viewModel.getUserSubscription()
     }
     
     // MARK: Binding Data
