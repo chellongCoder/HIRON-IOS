@@ -11,7 +11,7 @@ import RxRelay
 class UserProfileViewModel: NSObject {
     
     weak var controller : UserProfileViewController?
-    let userPlanString  = BehaviorRelay<String>(value: "User's plan")
+    let userPlanString  = BehaviorRelay<String>(value: " No plan ")
     
     func getUserProfile() {
         _UserServices.getUserProfile()
@@ -31,12 +31,12 @@ class UserProfileViewModel: NSObject {
             if let currentlySubs = listUserSubs?.first(where: { userRegisteredSubscription in
                 return userRegisteredSubscription.customStatus == .CURRENTLY_NS || userRegisteredSubscription.customStatus == .CURRENTLY_ST
             }) {
-                self.userPlanString.accept(currentlySubs.subsPlan?.subsItem?.name ?? "User's plan")
+                self.userPlanString.accept(currentlySubs.subsPlan?.subsItem?.name ?? " No plan ")
                 return
             }
             
             // Dont have any subscriptions
-            self.userPlanString.accept("User's plan")
+            self.userPlanString.accept(" No plan ")
             
         }
     }

@@ -23,7 +23,7 @@ class PlanView : UIView {
             make.height.width.equalTo(16)
         }
         
-        planName.text = " User's plan "
+        planName.text = " No plan "
         planName.font = getCustomFont(size: 13, name: .regular)
         planName.textColor = .white
         self.addSubview(planName)

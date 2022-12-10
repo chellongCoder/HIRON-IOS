@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "checks.png",
+      "filename" : "Check_Voucher list 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "checks@2x.png",
+      "filename" : "Check_Voucher list 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "checks@3x.png",
+      "filename" : "Check_Voucher list.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

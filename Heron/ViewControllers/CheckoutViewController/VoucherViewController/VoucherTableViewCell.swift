@@ -14,12 +14,12 @@ protocol VoucherTableViewCellDelegate : AnyObject {
 
 class VoucherTableViewCell: UITableViewCell {
     
-    private let topLineView     = UIView()
-    private let titleLabel      = UILabel()
-    private let desciptionLabel = UILabel()
-    private let additionalListView = UIView()
+    private let topLineView         = UIView()
+    private let titleLabel          = UILabel()
+    private let desciptionLabel     = UILabel()
+    private let additionalListView  = UIView()
     private let dateAvailableLabel  = UILabel()
-    private let selectBtn            = ExtendedButton()
+    private let selectBtn           = UIButton()
     
     private var voucherData     : VoucherDataSource?
     var delegate                : VoucherTableViewCellDelegate?
@@ -61,17 +61,15 @@ class VoucherTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(12)
         }
         
-        selectBtn.setBackgroundImage(UIImage.init(named: "select_icon"), for: .normal)
-        selectBtn.backgroundColor = kPrimaryColor
-        selectBtn.layer.cornerRadius = 8
+        selectBtn.setBackgroundImage(UIImage.init(named: "circle_selected_icon"), for: .normal)
         contentView.addSubview(selectBtn)
         selectBtn.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.right.equalToSuperview().offset(-12)
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(32)
         }
         
-        desciptionLabel.text = "Discount $10.00 lorem Ipsum is simply dummy text of the printing and standard typesetting industry."
+        desciptionLabel.text = ""
         desciptionLabel.font = getCustomFont(size: 13, name: .light)
         desciptionLabel.textColor = kDefaultTextColor
         desciptionLabel.numberOfLines = 0
