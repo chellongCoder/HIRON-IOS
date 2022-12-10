@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Back.png",
+      "filename" : "Close_My cart_Active 2.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Back 1.png",
+      "filename" : "Close_My cart_Active 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Back 2.png",
+      "filename" : "Close_My cart_Active.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

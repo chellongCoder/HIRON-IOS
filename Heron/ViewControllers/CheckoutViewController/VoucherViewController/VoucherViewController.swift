@@ -51,6 +51,25 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
             make.height.equalTo(40)
         }
         
+        let guidelineView = UIView()
+        guidelineView.backgroundColor = UIColor.init(hexString: "f6f6f6")
+        self.view.addSubview(guidelineView)
+        guidelineView.snp.makeConstraints { make in
+            make.top.equalTo(codeTxt.snp.bottom).offset(20)
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(37)
+        }
+        
+        let guideLabel = UILabel()
+        guideLabel.text = "* You can only choose 1 discount code"
+        guideLabel.textColor = kTitleTextColor
+        guideLabel.font = getCustomFont(size: 13, name: .italic)
+        guidelineView.addSubview(guideLabel)
+        guideLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview().offset(-32)
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -58,7 +77,7 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
         tableView.register(VoucherTableViewCell.self, forCellReuseIdentifier: "VoucherTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(codeTxt.snp.bottom).offset(10)
+            make.top.equalTo(guidelineView.snp.bottom).offset(20)
             make.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }

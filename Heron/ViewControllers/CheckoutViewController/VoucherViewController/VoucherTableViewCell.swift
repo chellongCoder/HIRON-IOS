@@ -29,7 +29,9 @@ class VoucherTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
 
         let contentView = UIView()
-        contentView.setShadow()
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 6
+        contentView.layer.borderColor = UIColor.red.cgColor
         self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(16)
@@ -37,6 +39,14 @@ class VoucherTableViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(8)
             make.bottom.equalToSuperview().offset(-8)
         }
+        
+        var contentViewBorder = CAShapeLayer()
+        contentViewBorder.strokeColor = UIColor.black.cgColor
+        contentViewBorder.lineDashPattern = [2, 2]
+        contentViewBorder.frame = contentView.bounds
+        contentViewBorder.fillColor = nil
+        contentViewBorder.path = UIBezierPath(rect: contentView.bounds).cgPath
+        contentView.layer.addSublayer(contentViewBorder)
       
         topLineView.backgroundColor = kPurpleColor
         contentView.addSubview(topLineView)
@@ -106,6 +116,7 @@ class VoucherTableViewCell: UITableViewCell {
         
         self.titleLabel.text = cellData.couponRule?.title ?? ""
         self.dateAvailableLabel.text = TimeConverter().getDateFromInt(cellData.couponRule?.startTime ?? 0) + " - " + TimeConverter().getDateFromInt(cellData.couponRule?.endTime ?? 0)
+        self.desciptionLabel.text = cellData.couponRule?.description
         
         if cellData.couponRule?.isFixed ?? false {
             // discount value
