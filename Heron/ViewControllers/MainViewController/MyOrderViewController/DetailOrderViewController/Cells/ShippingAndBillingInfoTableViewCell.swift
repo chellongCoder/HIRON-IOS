@@ -27,81 +27,103 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
         
-        let ađressInforTitle = UILabel()
-        ađressInforTitle.text = "Address Information"
-        ađressInforTitle.textColor = kDefaultTextColor
-        ađressInforTitle.font = getCustomFont(size: 16, name: .bold)
-        contentView.addSubview(ađressInforTitle)
-        ađressInforTitle.snp.makeConstraints {
-            $0.top.left.equalToSuperview().offset(10)
+        let locationImage1 = UIImageView()
+        locationImage1.image = UIImage.init(named: "location_icon")
+        locationImage1.layer.masksToBounds = true
+        locationImage1.contentMode = .scaleAspectFit
+        contentView.addSubview(locationImage1)
+        locationImage1.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview().offset(16)
+            make.width.equalTo(20)
         }
         
-        let shippingAddressTitle = UILabel()
-        shippingAddressTitle.text = "Shipping Address"
-        shippingAddressTitle.font = getCustomFont(size: 14, name: .medium)
-        contentView.addSubview(shippingAddressTitle)
-        shippingAddressTitle.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
-            $0.top.equalTo(ađressInforTitle.snp.bottom).offset(16)
+        let ađressInforTitle = UILabel()
+        ađressInforTitle.text = "Shipping Information"
+        ađressInforTitle.textColor = kTitleTextColor
+        ađressInforTitle.font = getCustomFont(size: 13, name: .bold)
+        contentView.addSubview(ađressInforTitle)
+        ađressInforTitle.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.left.equalTo(locationImage1.snp.right).offset(12)
         }
         
         shippingName.text = ""
-        shippingName.font = getCustomFont(size: 14, name: .regular)
+        shippingName.font = getCustomFont(size: 13, name: .medium)
+        shippingName.textColor = kTitleTextColor
         shippingAddressLabel.numberOfLines = 0
         contentView.addSubview(shippingName)
         shippingName.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
+            $0.left.equalTo(ađressInforTitle)
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(shippingAddressTitle.snp.bottom).offset(8)
+            $0.top.equalTo(ađressInforTitle.snp.bottom).offset(12)
         }
         
         shippingAddressLabel.text = ""
-        shippingAddressLabel.font = getCustomFont(size: 14, name: .regular)
+        shippingAddressLabel.font = getCustomFont(size: 13, name: .regular)
+        shippingAddressLabel.textColor = kTitleTextColor
         shippingAddressLabel.numberOfLines = 0
         contentView.addSubview(shippingAddressLabel)
         shippingAddressLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
+            $0.left.equalTo(ađressInforTitle)
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(shippingName.snp.bottom)
+            $0.top.equalTo(shippingName.snp.bottom).offset(12)
         }
         
         let seperate_line = UIView()
-        seperate_line.backgroundColor = .lightGray
+        seperate_line.backgroundColor = kGrayColor
         contentView.addSubview(seperate_line)
         seperate_line.snp.makeConstraints {
-            $0.height.equalTo(1)
+            $0.height.equalTo(3)
             $0.left.equalToSuperview()
             $0.right.equalToSuperview()
-            $0.top.equalTo(shippingAddressLabel.snp.bottom).offset(10)
+            $0.top.equalTo(shippingAddressLabel.snp.bottom).offset(20)
+        }
+        
+        locationImage1.snp.makeConstraints { make in
+            make.bottom.equalTo(seperate_line)
+        }
+        
+        let locationImage2 = UIImageView()
+        locationImage2.image = UIImage.init(named: "location_icon")
+        locationImage2.layer.masksToBounds = true
+        locationImage2.contentMode = .scaleAspectFit
+        contentView.addSubview(locationImage2)
+        locationImage2.snp.makeConstraints { make in
+            make.top.equalTo(seperate_line.snp.bottom)
+            make.left.equalToSuperview().offset(16)
+            make.width.equalTo(20)
+            make.bottom.equalToSuperview()
         }
         
         let billingAddressLabel = UILabel()
         billingAddressLabel.text = "Billing Address"
-        billingAddressLabel.font = getCustomFont(size: 14, name: .medium)
+        billingAddressLabel.font = getCustomFont(size: 13, name: .bold)
+        billingAddressLabel.textColor = kTitleTextColor
         contentView.addSubview(billingAddressLabel)
         billingAddressLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
-            $0.top.equalTo(seperate_line.snp.bottom).offset(27)
+            $0.left.equalTo(ađressInforTitle)
+            $0.top.equalTo(seperate_line.snp.bottom).offset(20)
         }
         
-        billingAddressName.text = ""
+        billingAddressName.text = "300 Park Ave, New York, NY 10022"
         billingAddressName.numberOfLines = 0
-        billingAddressName.font = getCustomFont(size: 14, name: .regular)
+        billingAddressName.font = getCustomFont(size: 13, name: .medium)
         contentView.addSubview(billingAddressName)
         billingAddressName.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
+            $0.left.equalTo(billingAddressLabel)
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(billingAddressLabel.snp.bottom).offset(8)
+            $0.top.equalTo(billingAddressLabel.snp.bottom).offset(12)
         }
         
-        billingAddressEmail.text = ""
-        billingAddressEmail.font = getCustomFont(size: 14, name: .regular)
+        billingAddressEmail.text = "300 Park Ave, New York, NY 10022"
+        billingAddressEmail.font = getCustomFont(size: 13, name: .regular)
         contentView.addSubview(billingAddressEmail)
         billingAddressEmail.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
+            $0.left.left.equalTo(billingAddressLabel)
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(billingAddressName.snp.bottom)
-            $0.bottom.equalToSuperview().offset(-10)
+            $0.top.equalTo(billingAddressName.snp.bottom).offset(12)
+            $0.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
     
@@ -110,12 +132,12 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
     }
     
     func setUserData(_ userData: OrderUserMetadata?) {
-        self.billingAddressName.text = String(format: "%@ %@ | %@%@",
-                                              userData?.firstName ?? "",
-                                              userData?.lastName ?? "",
-                                              userData?.phoneCountryCode ?? "",
-                                              userData?.phoneNumber ?? "")
-        self.billingAddressEmail.text = userData?.email ?? ""
+//        self.billingAddressName.text = String(format: "%@ %@ | %@%@",
+//                                              userData?.firstName ?? "",
+//                                              userData?.lastName ?? "",
+//                                              userData?.phoneCountryCode ?? "",
+//                                              userData?.phoneNumber ?? "")
+//        self.billingAddressEmail.text = userData?.email ?? ""
     }
     
     func setShippingData(_ shippingData: OrderShippingData?) {

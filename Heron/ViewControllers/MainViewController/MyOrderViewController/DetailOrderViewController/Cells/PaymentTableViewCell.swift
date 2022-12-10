@@ -25,22 +25,96 @@ class PaymentTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
         
-        let paymentTitleLabel = UILabel()
-        paymentTitleLabel.text = "Payment method"
-        paymentTitleLabel.font = getCustomFont(size: 14, name: .medium)
-        contentView.addSubview(paymentTitleLabel)
-        paymentTitleLabel.snp.makeConstraints {
-            $0.top.left.equalToSuperview().offset(10)
+        let orderInfoLabel = UILabel()
+        orderInfoLabel.text = "Order infomation"
+        orderInfoLabel.textColor = kDefaultTextColor
+        orderInfoLabel.font = getCustomFont(size: 13, name: .bold)
+        contentView.addSubview(orderInfoLabel)
+        orderInfoLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(16)
         }
         
-        paymentCardLabel.text = "Paid without cards"
-        paymentCardLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(paymentCardLabel)
-        paymentCardLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
-            $0.top.equalTo(paymentTitleLabel.snp.bottom).offset(10)
-            $0.bottom.equalToSuperview().offset(-10)
+        let orderIdLabel = UILabel()
+        orderIdLabel.text = "ID order"
+        orderIdLabel.textColor = kDefaultTextColor
+        orderIdLabel.font = getCustomFont(size: 11, name: .regular)
+        contentView.addSubview(orderIdLabel)
+        orderIdLabel.snp.makeConstraints { make in
+            make.top.equalTo(orderInfoLabel.snp.bottom).offset(12)
+            make.left.equalTo(orderInfoLabel)
         }
+        
+        let orderIdValue = UILabel()
+        orderIdValue.text = "#1234567889"
+        orderIdValue.font = getCustomFont(size: 13, name: .semiBold)
+        orderIdValue.textColor = kPrimaryColor
+        contentView.addSubview(orderIdValue)
+        orderIdValue.snp.makeConstraints { make in
+            make.top.equalTo(orderIdLabel.snp.bottom).offset(8)
+            make.left.equalTo(orderIdLabel)
+        }
+        
+        let copyTitle = UILabel()
+        copyTitle.text = "Copy"
+        copyTitle.font = getCustomFont(size: 11, name: .regular)
+        copyTitle.textColor = kCustomTextColor
+        contentView.addSubview(copyTitle)
+        copyTitle.snp.makeConstraints { make in
+            make.top.equalTo(orderIdValue)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
+        let copyBtn = UIButton()
+        copyBtn.setImage(UIImage.init(named: "copy_icon"), for: .normal)
+        contentView.addSubview(copyBtn)
+        copyBtn.snp.makeConstraints { make in
+            make.top.equalTo(orderIdValue)
+            make.right.equalTo(copyTitle.snp.left).offset(-7)
+            make.height.width.equalTo(16)
+        }
+        
+        let orderDateLabel = UILabel()
+        orderDateLabel.text = "Order date"
+        orderDateLabel.font = getCustomFont(size: 11, name: .regular)
+        orderDateLabel.textColor = kDefaultTextColor
+        contentView.addSubview(orderDateLabel)
+        orderDateLabel.snp.makeConstraints { make in
+            make.top.equalTo(orderIdValue.snp.bottom).offset(16)
+            make.left.equalTo(orderInfoLabel)
+        }
+        
+        let orderDateValue = UILabel()
+        orderDateValue.text = "Feb 05, 2022"
+        orderDateValue.font = getCustomFont(size: 13, name: .semiBold)
+        orderDateValue.textColor = kDefaultTextColor
+        contentView.addSubview(orderDateValue)
+        orderDateValue.snp.makeConstraints { make in
+            make.top.equalTo(orderDateLabel.snp.bottom).offset(8)
+            make.left.equalTo(orderInfoLabel)
+        }
+        
+        let shippingMethodLabel = UILabel()
+        shippingMethodLabel.text = "Shipping method"
+        shippingMethodLabel.font = getCustomFont(size: 11, name: .regular)
+        shippingMethodLabel.textColor = kDefaultTextColor
+        contentView.addSubview(shippingMethodLabel)
+        shippingMethodLabel.snp.makeConstraints { make in
+            make.top.equalTo(orderDateValue.snp.bottom).offset(16)
+            make.left.equalTo(orderInfoLabel)
+        }
+        
+        let shippingMethodValue = UILabel()
+        shippingMethodValue.text = "Standard delivery"
+        shippingMethodValue.font = getCustomFont(size: 13, name: .semiBold)
+        shippingMethodValue.textColor = kDefaultTextColor
+        contentView.addSubview(shippingMethodValue)
+        shippingMethodValue.snp.makeConstraints { make in
+            make.top.equalTo(shippingMethodLabel.snp.bottom).offset(8)
+            make.left.equalTo(orderInfoLabel)
+            make.bottom.lessThanOrEqualToSuperview().offset(-20)
+        }
+        
     }
     
     required init?(coder: NSCoder) {

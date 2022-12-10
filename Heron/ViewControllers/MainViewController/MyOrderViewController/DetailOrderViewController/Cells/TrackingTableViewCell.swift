@@ -25,7 +25,7 @@ class TrackingTableViewCell: UITableViewCell {
         }
         
         let shippingInfoTitle = UILabel()
-        shippingInfoTitle.text = "Shipping & Handling Information"
+        shippingInfoTitle.text = "Not imple"
         shippingInfoTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(shippingInfoTitle)
         shippingInfoTitle.snp.makeConstraints {

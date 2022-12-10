@@ -27,7 +27,6 @@ class DetailOrderViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = kBackgroundColor
         tableView.register(OrderStatusTableViewCell.self, forCellReuseIdentifier: "ProductStatusTableViewCell")
         tableView.register(ShippingAndBillingInfoTableViewCell.self, forCellReuseIdentifier: "ShippingInfoTableViewCell")
         tableView.register(TrackingTableViewCell.self, forCellReuseIdentifier: "TrackingTableViewCell")
@@ -43,9 +42,21 @@ class DetailOrderViewController: BaseViewController {
         }
     }
     
-    init(_ data: OrderDataSource) {
-        super.init(nibName: nil, bundle: nil)
-        self.viewModel.orderData.accept(data)
+    init(_ data: OrderDataSource?) {
+        
+        #warning("ANh Luc hard code lafm UI")
+        
+        if let data = data {
+            UserDefaults.standard.setValue(data.toJSONString(), forKey: "lucas test")
+            super.init(nibName: nil, bundle: nil)
+            self.viewModel.orderData.accept(data)
+        } else {
+            let cachedString = UserDefaults.standard.string(forKey: "lucas test") as? String ?? ""
+            
+            let cachedData = OrderDataSource.init(JSONString: cachedString)
+            super.init(nibName: nil, bundle: nil)
+            self.viewModel.orderData.accept(cachedData)
+        }
     }
     
     override func bindingData() {
