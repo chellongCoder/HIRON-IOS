@@ -392,213 +392,200 @@ class AddUserAddressViewController: PageScrollViewController {
     }
     
     @objc private func cancelButtonTapped() {
-        #warning("A Luc lam")
+        self.navigationController?.popViewController(animated: true)
     }
     
     private func validateButton() {
-//        if self.firstNameTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        if self.lastNameTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        if self.phoneTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        if self.emailTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        if self.addressTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        if self.countryTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        if self.cityTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        if self.postCodeTxt.isErrorRevealed {
-//            self.completeBtn.isUserInteractionEnabled = false
-//            self.completeBtn.backgroundColor = kDisableColor
-//            return
-//        }
-//        completeBtn.isUserInteractionEnabled = true
-//        completeBtn.backgroundColor = kPrimaryColor
+        if self.firstNameTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        if self.lastNameTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        if self.phoneTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        if self.emailTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        if self.addressTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        if self.countryTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        if self.cityTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        if self.postCodeTxt.text?.isEmpty ?? false {
+            disableSaveBtn()
+            return
+        }
+        saveBtn.isUserInteractionEnabled = true
+        saveBtn.backgroundColor = kPrimaryColor
+    }
+    
+    private func disableSaveBtn() {
+        self.saveBtn.isUserInteractionEnabled = false
+        self.saveBtn.backgroundColor = kDisableColor
     }
     
     // MARK: - Data
      override func bindingData() {
-//
-//        viewModel.contact
-//            .subscribe { _ in
-////                guard let contact = contactDataSource.element else {return}
-////                if contact.isValidContact() {
-//                    self.completeBtn.backgroundColor = kPrimaryColor
-//                    self.completeBtn.isUserInteractionEnabled = true
-////                } else {
-////                    self.completeBtn.backgroundColor = kDisableColor
-////                    self.completeBtn.isUserInteractionEnabled = false
-////                }
-//            }
-//            .disposed(by: disposeBag)
-//
-//         viewModel.animation
-//             .subscribe { animation in
-//                 if animation.element ?? false {
-//                     self.startLoadingAnimation()
-//                 } else {
-//                     self.endLoadingAnimation()
-//                 }
-//             }
-//             .disposed(by: disposeBag)
-//
-//        firstNameTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (firstNameTxt.text == "") {
-//                    firstNameTxt.error = "This field can not be empty"
-//                    firstNameTxt.isErrorRevealed = true
-//                } else {
-//                    firstNameTxt.isErrorRevealed = false
-//                }
-//                var contact = viewModel.contact.value
-//                contact.firstName = firstNameTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        lastNameTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (lastNameTxt.text == "") {
-//                    lastNameTxt.error = "This field can not be empty"
-//                    lastNameTxt.isErrorRevealed = true
-//                } else {
-//                    lastNameTxt.isErrorRevealed = false
-//                }
-//
-//                var contact = viewModel.contact.value
-//                contact.lastName = lastNameTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        phoneTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (phoneTxt.text == "") {
-//                    phoneTxt.error = "This field can not be empty"
-//                    phoneTxt.isErrorRevealed = true
-//                } else {
-//                    phoneTxt.isErrorRevealed = false
-//                }
-//                var contact = viewModel.contact.value
-//                contact.phone = phoneTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        emailTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (emailTxt.text == "") {
-//                    emailTxt.error = "This field can not be empty"
-//                    emailTxt.isErrorRevealed = true
-//                } else if (!(emailTxt.text?.isValidEmail() ?? true)) {
-//                    emailTxt.error = "Email not valid"
-//                    emailTxt.isErrorRevealed = true
-//                } else {
-//                    emailTxt.isErrorRevealed = false
-//                }
-//                var contact = viewModel.contact.value
-//                contact.email = emailTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        addressTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (addressTxt.text == "") {
-//                    addressTxt.error = "This field can not be empty"
-//                    addressTxt.isErrorRevealed = true
-//                } else {
-//                    addressTxt.isErrorRevealed = false
-//                }
-//                var contact = viewModel.contact.value
-//                contact.address = addressTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        countryTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (countryTxt.text == "") {
-//                    countryTxt.error = "This field can not be empty"
-//                    countryTxt.isErrorRevealed = true
-//                } else {
-//                    countryTxt.isErrorRevealed = false
-//                }
-//
-//                var contact = viewModel.contact.value
-//                contact.country = countryTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        cityTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (cityTxt.text == "") {
-//                    cityTxt.error = "This field can not be empty"
-//                    cityTxt.isErrorRevealed = true
-//                } else {
-//                    cityTxt.isErrorRevealed = false
-//                }
-//
-//                var contact = viewModel.contact.value
-//                contact.province = cityTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        postCodeTxt.rx.controlEvent([.editingChanged])
-//            .asObservable()
-//            .subscribe({ [unowned self] _ in
-//
-//                if (postCodeTxt.text == "") {
-//                    postCodeTxt.error = "This field can not be empty"
-//                    postCodeTxt.isErrorRevealed = true
-//                } else {
-//                    postCodeTxt.isErrorRevealed = false
-//                }
-//
-//                var contact = viewModel.contact.value
-//                contact.postalCode = postCodeTxt.text!
-//                viewModel.contact.accept(contact)
-//            })
-//            .disposed(by: disposeBag)
+
+        viewModel.contact
+            .subscribe { contactDataSource in
+                guard let contact = contactDataSource.element else {return}
+                if contact.isValidContact() {
+                    self.saveBtn.backgroundColor = kPrimaryColor
+                    self.saveBtn.isUserInteractionEnabled = true
+                } else {
+                    self.disableSaveBtn()
+                }
+            }
+            .disposed(by: disposeBag)
+
+         viewModel.animation
+             .subscribe { animation in
+                 if animation.element ?? false {
+                     self.startLoadingAnimation()
+                 } else {
+                     self.endLoadingAnimation()
+                 }
+             }
+             .disposed(by: disposeBag)
+
+        firstNameTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (firstNameTxt.text == "") {
+                    firstNameTxt.setError("This field can not be empty")
+                } else {
+                    firstNameTxt.setError(nil)
+                }
+                var contact = viewModel.contact.value
+                contact.firstName = firstNameTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
+
+        lastNameTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (lastNameTxt.text == "") {
+                    lastNameTxt.setError("This field can not be empty")
+                } else {
+                    lastNameTxt.setError(nil)
+                }
+
+                var contact = viewModel.contact.value
+                contact.lastName = lastNameTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
+
+        phoneTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (phoneTxt.text == "") {
+                    phoneTxt.setError("This field can not be empty")
+                } else {
+                    phoneTxt.setError(nil)
+                }
+                var contact = viewModel.contact.value
+                contact.phone = phoneTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
+
+        emailTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (emailTxt.text == "") {
+                    emailTxt.setError("This field can not be empty")
+                } else if (!(emailTxt.text?.isValidEmail() ?? true)) {
+                    emailTxt.setError("Email not valid")
+                } else {
+                    emailTxt.setError(nil)
+                }
+                var contact = viewModel.contact.value
+                contact.email = emailTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
+
+        addressTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (addressTxt.text == "") {
+                    addressTxt.setError("This field can not be empty")
+                } else {
+                    addressTxt.setError(nil)
+                }
+                var contact = viewModel.contact.value
+                contact.address = addressTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
+
+        countryTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (countryTxt.text == "") {
+                    countryTxt.setError("This field can not be empty")
+                } else {
+                    countryTxt.setError(nil)
+                }
+
+                var contact = viewModel.contact.value
+                contact.country = countryTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
+
+        cityTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (cityTxt.text == "") {
+                    cityTxt.setError("This field can not be empty")
+                } else {
+                    cityTxt.setError(nil)
+                }
+
+                var contact = viewModel.contact.value
+                contact.province = cityTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
+
+        postCodeTxt.rx.controlEvent([.editingChanged])
+            .asObservable()
+            .subscribe({ [unowned self] _ in
+
+                if (postCodeTxt.text == "") {
+                    postCodeTxt.setError("This field can not be empty")
+                } else {
+                    postCodeTxt.setError(nil)
+                }
+
+                var contact = viewModel.contact.value
+                contact.postalCode = postCodeTxt.text!
+                viewModel.contact.accept(contact)
+            })
+            .disposed(by: disposeBag)
     }
 }

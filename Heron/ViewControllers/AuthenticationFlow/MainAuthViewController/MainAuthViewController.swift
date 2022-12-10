@@ -90,7 +90,7 @@ class MainAuthViewController: BaseViewController {
     }
     
     @objc func signUpButtonTapped(_ sender: Any) {
-        let vc = SignInViewController()
+        let vc = SignUpViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

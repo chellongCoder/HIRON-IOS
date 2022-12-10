@@ -7,14 +7,14 @@
 
 import UIKit
 import Material
+import PhoneNumberKit
 
-class SignUpViewController: BaseViewController,
-                                 UIPickerViewDelegate, UIPickerViewDataSource {
+class SignUpViewController: BaseViewController {
     
     private let viewModel   = SignUpViewModel()
     var isSign = true
     
-    let firstNameTxt         = BoundedIconTextField()
+    let firstNameTxt        = BoundedIconTextField()
     let lastNameTxt         = BoundedIconTextField()
     let femaleBtn           = UIButton()
     let maleBtn             = UIButton()
@@ -22,15 +22,12 @@ class SignUpViewController: BaseViewController,
     let emailTxt            = BoundedIconTextField()
     let passwordTxt         = BoundedIconTextField()
     let identityNumberTxt   = BoundedIconTextField()
-    let phoneNumberCodeTxt  = BoundedIconTextField()
-    let phoneNumberTxt      = BoundedIconTextField()
+    let phoneNumberTxt      = PhoneNumberTextField()
     
     var prevScreenPass      = ""
     var prevEmail           = ""
     
     private let datePicker  = UIDatePicker()
-    private let genderPicker = UIPickerView()
-    private let codePicker  = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,7 +73,7 @@ class SignUpViewController: BaseViewController,
             make.top.equalToSuperview().offset(20)
             make.left.equalToSuperview().offset(28)
         }
-                
+        
         firstNameTxt.setPlaceHolderText(" First name ")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
@@ -97,7 +94,7 @@ class SignUpViewController: BaseViewController,
             make.top.equalTo(firstNameTxt.snp.bottom).offset(20)
             make.left.equalTo(firstNameLabel)
         }
-                
+        
         lastNameTxt.setPlaceHolderText(" Last name ")
         lastNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(lastNameTxt)
@@ -121,6 +118,8 @@ class SignUpViewController: BaseViewController,
         
         femaleBtn.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
         femaleBtn.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
+        femaleBtn.addTarget(self, action: #selector(genderTapped(_:)), for: .touchUpInside)
+        femaleBtn.isSelected = true
         contentScrollView.addSubview(femaleBtn)
         femaleBtn.snp.makeConstraints { make in
             make.top.equalTo(genderLabel.snp.bottom).offset(10)
@@ -142,6 +141,8 @@ class SignUpViewController: BaseViewController,
         
         maleBtn.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
         maleBtn.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
+        maleBtn.addTarget(self, action: #selector(genderTapped(_:)), for: .touchUpInside)
+        maleBtn.isSelected = false
         contentScrollView.addSubview(maleBtn)
         maleBtn.snp.makeConstraints { make in
             make.centerY.equalTo(femaleBtn)
@@ -273,21 +274,19 @@ class SignUpViewController: BaseViewController,
             make.left.equalTo(identityNumberLabel)
         }
         
-        #warning("A Luc lam tiep")
-        
-//        phoneNumberCodeTxt.text = "+01"
-//        phoneNumberCodeTxt.placeholder = "Phone Code *"
-//        phoneNumberCodeTxt.textColor = kDefaultTextColor
-//        phoneNumberCodeTxt.keyboardType = .phonePad
-//        contentScrollView.addSubview(phoneNumberCodeTxt)
-//        phoneNumberCodeTxt.snp.makeConstraints { make in
-//            make.top.equalTo(identityNumberTxt.snp.bottom).offset(50)
-//            make.left.equalToSuperview().offset(20)
-//            make.width.equalTo(self.view).multipliedBy(0.3)
-//        }
-
-        phoneNumberTxt.setPlaceHolderText(" Phone number ")
+        phoneNumberTxt.placeholder = " Phone number "
         phoneNumberTxt.textColor = kDefaultTextColor
+        phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
+        
+        phoneNumberTxt.layer.borderWidth = 1
+        phoneNumberTxt.layer.borderColor = kLightGrayColor.cgColor
+        phoneNumberTxt.layer.cornerRadius = 6
+        phoneNumberTxt.layer.masksToBounds = false
+        
+        phoneNumberTxt.withFlag = true
+        phoneNumberTxt.withPrefix = true
+        phoneNumberTxt.withExamplePlaceholder = true
+        phoneNumberTxt.withDefaultPickerUI = true
         phoneNumberTxt.keyboardType = .phonePad
         contentScrollView.addSubview(phoneNumberTxt)
         phoneNumberTxt.snp.makeConstraints { make in
@@ -296,7 +295,7 @@ class SignUpViewController: BaseViewController,
             make.height.equalTo(40)
             make.centerX.equalToSuperview()
         }
-
+        
         let createAccountBtn = UIButton()
         createAccountBtn.backgroundColor = kPrimaryColor
         createAccountBtn.layer.cornerRadius = 20
@@ -321,47 +320,33 @@ class SignUpViewController: BaseViewController,
         components.day = -1
         let maxDate = calendar.date(byAdding: components, to: currentDate)!
         datePicker.datePickerMode = .date
-//        datePicker.locale = .current
+        //        datePicker.locale = .current
         datePicker.timeZone = TimeZone.init(identifier: "UTC")
         datePicker.maximumDate = maxDate
         if #available(iOS 14, *) {
             datePicker.preferredDatePickerStyle = .wheels
             datePicker.sizeToFit()
         }
-
+        
         let doneToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
         doneToolbar.barStyle = .default
-
+        
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let done = UIBarButtonItem(title: "Done",
                                    style: .done,
                                    target: self,
                                    action: #selector(doneDatePicker))
-
+        
         doneToolbar.setItems([flexSpace, done], animated: true)
         doneToolbar.sizeToFit()
-
+        
         datePicker.addTarget(self, action: #selector(datePickerValueChanged), for: .valueChanged)
         dobTxt.inputView = datePicker
         dobTxt.inputAccessoryView = doneToolbar
-        
-        genderPicker.delegate = self
-        genderPicker.dataSource = self
-//        genderTxt.inputView = genderPicker
-        
-        codePicker.dataSource = self
-        codePicker.delegate = self
-        phoneNumberCodeTxt.inputView = codePicker
     }
     
     @objc private func doneDatePicker() {
         let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
-        
-//        if genderTxt.text == "Male" {
-//            userData.userGender = .male
-//        } else {
-//            userData.userGender = .female
-//        }
         
         dobTxt.text = datePicker.date.toString(dateFormat: "MMM dd, yyyy")
         userData.userDOB = Int(datePicker.date.timeIntervalSince1970)*1000
@@ -376,127 +361,82 @@ class SignUpViewController: BaseViewController,
         viewModel.userData.accept(userData)
     }
     
-    @objc func continueActionTapped(_ sender: Any) {
-//
-//        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
-//        userData.userEmail = self.prevEmail
-//        userData.userName = self.prevEmail
-//        userData.password = self.prevScreenPass
-//        userData.passwordConfirm = self.prevScreenPass
-//
-//        if (firstNameTxt.text ?? "").isEmpty {
-//            firstNameTxt.isErrorRevealed = true
-//            firstNameTxt.error = "This field can not be empty"
-//        } else {
-//            firstNameTxt.isErrorRevealed = false
-//        }
-//        userData.userFirstName = firstNameTxt.text!.formatString()
-//
-//        if (lastNameTxt.text ?? "").isEmpty {
-//            lastNameTxt.isErrorRevealed = true
-//            lastNameTxt.error = "This field can not be empty"
-//        } else {
-//            lastNameTxt.isErrorRevealed = false
-//        }
-//        userData.userLastName = lastNameTxt.text!.formatString()
-//
-//        if (genderTxt.text ?? "").isEmpty {
-//            genderTxt.isErrorRevealed = true
-//            genderTxt.error = "This field can not be empty"
-//        } else {
-//            genderTxt.isErrorRevealed = false
-//        }
-//
-//        if (dobTxt.text ?? "").isEmpty {
-//            dobTxt.isErrorRevealed = true
-//            dobTxt.error = "This field can not be empty"
-//        } else {
-//            dobTxt.isErrorRevealed = false
-//        }
-//
-//        userData.userEmail = emailTxt.text ?? ""
-//
-//        if (identityNumberTxt.text ?? "").isEmpty {
-//            identityNumberTxt.isErrorRevealed = true
-//            identityNumberTxt.error = "This field can not be empty"
-//        } else {
-//            identityNumberTxt.isErrorRevealed = false
-//        }
-//        userData.identityNum = identityNumberTxt.text ?? ""
-//
-//        if (phoneNumberTxt.text ?? "").isEmpty {
-//            phoneNumberTxt.isErrorRevealed = true
-//            phoneNumberTxt.error = "This field can not be empty"
-//        } else {
-//            phoneNumberTxt.isErrorRevealed = false
-//        }
-//        userData.userPhoneNum = phoneNumberTxt.text!
-//
-//        if firstNameTxt.isErrorRevealed ||
-//            lastNameTxt.isErrorRevealed ||
-//            genderTxt.isErrorRevealed ||
-//            dobTxt.isErrorRevealed ||
-//            identityNumberTxt.isErrorRevealed ||
-//            phoneNumberTxt.isErrorRevealed {
-//            return
-//        }
-//
-//        viewModel.userData.accept(userData)
-//        viewModel.signUp {
-//            let vc = SignInSuccessViewController()
-//            vc.centerDesc.text = "Sign-up Success!"
-//            vc.centerDescInfo.text = "Congratulations! You have signed up successfully.\nWe wish you the best experience using our app! Have a good day!"
-//            self.navigationController?.pushViewController(vc, animated: true)
-//        }
-    }
+    // MARK: - Buttons
     
-    // MARK: - UIPickerViewDataSource
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 2
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == genderPicker {
-            if row == 0 {
-                return "Male"
-            }
-            return "Female"
-        } else {
-            if row == 0 {
-                return "+01"
-            }
-            return "+84"
+    @objc private func genderTapped(_ sender: UIButton) {
+        if sender == femaleBtn {
+            sender.isSelected = !sender.isSelected
+            self.maleBtn.isSelected = !self.femaleBtn.isSelected
+        } else if sender == maleBtn {
+            sender.isSelected = !sender.isSelected
+            self.femaleBtn.isSelected = !self.maleBtn.isSelected
         }
     }
     
-    // MARK: - UIPickerViewDelegate
-//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-//
-//        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
-//
-//        if pickerView == genderPicker {
-//            if row == 0 {
-//                genderTxt.text = "Male"
-//                userData.userGender = .male
-//            } else {
-//                genderTxt.text = "Female"
-//                userData.userGender = .female
-//            }
-//        } else {
-//            if row == 0 {
-//                phoneNumberCodeTxt.text = "+01"
-//                userData.userPhoneCode = "01"
-//            } else {
-//                phoneNumberCodeTxt.text = "+84"
-//                userData.userPhoneCode = "84"
-//            }
-//        }
-//
-//        viewModel.userData.accept(userData)
-//    }
+    @objc func continueActionTapped(_ sender: Any) {
+
+        let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
+        userData.userEmail = self.prevEmail
+        userData.userName = self.prevEmail
+        userData.password = self.prevScreenPass
+        userData.passwordConfirm = self.prevScreenPass
+
+        if (firstNameTxt.text ?? "").isEmpty {
+            firstNameTxt.setError("This field can not be empty")
+        } else {
+            firstNameTxt.setError(nil)
+        }
+        userData.userFirstName = firstNameTxt.text!.formatString()
+
+        if (lastNameTxt.text ?? "").isEmpty {
+            lastNameTxt.setError("This field can not be empty")
+        } else {
+            lastNameTxt.setError(nil)
+        }
+        userData.userLastName = lastNameTxt.text!.formatString()
+
+        if (femaleBtn.isSelected == true) {
+            userData.userGender = .female
+        } else {
+            userData.userGender = .male
+        }
+
+        if (dobTxt.text ?? "").isEmpty {
+            dobTxt.setError("This field can not be empty")
+        } else {
+            dobTxt.setError(nil)
+        }
+
+        userData.userEmail = emailTxt.text ?? ""
+
+        if (identityNumberTxt.text ?? "").isEmpty {
+            identityNumberTxt.setError("This field can not be empty")
+        } else {
+            identityNumberTxt.setError(nil)
+        }
+        userData.identityNum = identityNumberTxt.text ?? ""
+
+        if phoneNumberTxt.isValidNumber {
+            phoneNumberTxt.textColor = kDefaultTextColor
+        } else {
+            phoneNumberTxt.textColor = .red
+        }
+        userData.userPhoneNum = phoneNumberTxt.text!
+
+        if (firstNameTxt.text?.isEmpty ?? true) ||
+            lastNameTxt.text?.isEmpty ?? true ||
+            dobTxt.text?.isEmpty ?? true ||
+            identityNumberTxt.text?.isEmpty ?? true ||
+            !phoneNumberTxt.isValidNumber {
+            return
+        }
+
+        viewModel.userData.accept(userData)
+        viewModel.signUp {
+            let vc = SignInSuccessViewController()
+            vc.centerDesc.text = "Sign-up Success!"
+            vc.centerDescInfo.text = "Congratulations! You have signed up successfully.\nWe wish you the best experience using our app! Have a good day!"
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
 }

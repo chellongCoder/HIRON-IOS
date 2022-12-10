@@ -21,6 +21,7 @@ target 'Heron' do
   pod 'Material',                 '3.1.8'
   pod 'MaterialComponents/Chips', '119.1.3'
   pod 'FSCalendar',               '2.8.4'
+  pod 'PhoneNumberKit',           '3.3.4'
   
   pod 'RxSwift',                  '6.5.0'
   pod 'RxCocoa',                  '6.5.0'
