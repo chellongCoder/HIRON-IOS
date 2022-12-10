@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 extension UIView {
     func roundCorners(_ corners: CACornerMask, radius: CGFloat, borderColor: UIColor, borderWidth: CGFloat) {
@@ -24,5 +25,20 @@ extension UIView {
         self.layer.shadowRadius = 3 // Độ rộng đổ bóng
         self.layer.shadowOpacity = 0.1 // Độ đậm nhạt
         self.layer.cornerRadius = 8
+    }
+    
+    func setDashlineBorder(_ color: UIColor, cornerRadius: CGFloat) {
+        
+        self.layer.cornerRadius = cornerRadius
+        
+        let yourViewBorder = CAShapeLayer()
+        yourViewBorder.strokeColor = color.cgColor
+        yourViewBorder.lineDashPattern = [2, 2]
+        yourViewBorder.frame = self.bounds
+        yourViewBorder.fillColor = nil
+        yourViewBorder.path = UIBezierPath(roundedRect: self.bounds,
+                                           byRoundingCorners: .allCorners,
+                                           cornerRadii: CGSize(width: cornerRadius, height: cornerRadius)).cgPath
+        self.layer.addSublayer(yourViewBorder)
     }
 }

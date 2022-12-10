@@ -29,30 +29,27 @@ class VoucherTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
 
         let contentView = UIView()
-        contentView.layer.borderWidth = 1
-        contentView.layer.cornerRadius = 6
-        contentView.layer.borderColor = UIColor.red.cgColor
+        contentView.backgroundColor = UIColor.init(hexString: "fafbfe")
+        contentView.layer.masksToBounds = true
         self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
+            make.top.equalToSuperview().offset(12)
+            make.bottom.lessThanOrEqualToSuperview().offset(8)
         }
         
-        var contentViewBorder = CAShapeLayer()
-        contentViewBorder.strokeColor = UIColor.black.cgColor
-        contentViewBorder.lineDashPattern = [2, 2]
-        contentViewBorder.frame = contentView.bounds
-        contentViewBorder.fillColor = nil
-        contentViewBorder.path = UIBezierPath(rect: contentView.bounds).cgPath
-        contentView.layer.addSublayer(contentViewBorder)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            contentView.setDashlineBorder(kPurpleColor, cornerRadius: 8)
+            contentView.bringSubviewToFront(self.topLineView)
+        }
       
         topLineView.backgroundColor = kPurpleColor
         contentView.addSubview(topLineView)
         topLineView.snp.makeConstraints { make in
-            make.height.equalTo(3)
-            make.left.right.top.equalToSuperview()
+            make.height.equalTo(4)
+            make.top.equalToSuperview().offset(-1)
+            make.left.right.equalToSuperview()
         }
         
         titleLabel.text = ""
@@ -85,25 +82,38 @@ class VoucherTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-12)
         }
         
-        additionalListView.backgroundColor = .white
         contentView.addSubview(additionalListView)
         additionalListView.snp.makeConstraints { make in
             make.top.equalTo(desciptionLabel.snp.bottom)
             make.centerX.width.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
-//        dateAvailableLabel.text = ""
-//        dateAvailableLabel.numberOfLines = 0
-//        dateAvailableLabel.font = getCustomFont(size: 14, name: .regular)
-//        dateAvailableLabel.textColor = kDefaultTextColor
-//        contentView.addSubview(dateAvailableLabel)
-//        dateAvailableLabel.snp.makeConstraints { (make) in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-//            make.left.equalTo(promoValue.snp.right).offset(10)
-//            make.right.equalToSuperview().offset(-10)
-//        }
-//
+        
+        let dateContentView = UIView()
+        dateContentView.backgroundColor = UIColor.init(hexString: "fafbfe")
+        dateContentView.layer.masksToBounds = true
+        self.contentView.addSubview(dateContentView)
+        dateContentView.snp.makeConstraints { (make) in
+            make.top.equalTo(contentView.snp.bottom)
+            make.right.equalToSuperview().offset(-16)
+            make.left.equalToSuperview().offset(16)
+            make.height.equalTo(37)
+            make.bottom.lessThanOrEqualToSuperview().offset(-8)
+        }
+        
+        dateAvailableLabel.text = ""
+        dateAvailableLabel.numberOfLines = 0
+        dateAvailableLabel.font = getCustomFont(size: 13, name: .regular)
+        dateAvailableLabel.textColor = kDefaultTextColor
+        dateContentView.addSubview(dateAvailableLabel)
+        dateAvailableLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.size.equalToSuperview().offset(-24)
+        }
        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            dateContentView.setDashlineBorder(kPurpleColor, cornerRadius: 8)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -134,7 +144,12 @@ class VoucherTableViewCell: UITableViewCell {
         }
         
         #warning("HARD_CODE")
-        let contents = ["Content 1", "Content 2", "Content 3", "Content 3.5", "Content 4"]
+        let contents = ["Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text."]
         var lastetContent : UIView?
         
         for content in contents {
