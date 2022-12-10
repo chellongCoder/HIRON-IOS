@@ -9,12 +9,13 @@ import UIKit
 import RxCocoa
 import RxSwift
 import Material
+import PhoneNumberKit
 
 class AddUserAddressViewController: PageScrollViewController {
     
     private let firstNameTxt        = BoundedIconTextField()
     private let lastNameTxt         = BoundedIconTextField()
-    private let phoneTxt            = BoundedIconTextField()
+    private let phoneNumberTxt      = PhoneNumberTextField()
     private let emailTxt            = BoundedIconTextField()
     
     private let addressTxt          = BoundedIconTextField()
@@ -158,16 +159,23 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalTo(firstNameLabel)
         }
 
-        phoneTxt.setPlaceHolderText("Phone Number")
-        phoneTxt.text = viewModel.contact.value.phone
-        phoneTxt.textColor = kDefaultTextColor
-        phoneTxt.keyboardType = .numberPad
-        phoneTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
-        phoneTxt.rightAction = {
-            self.clearValue(self.phoneTxt)
-        }
-        self.pageScroll.addSubview(phoneTxt)
-        phoneTxt.snp.makeConstraints { make in
+        phoneNumberTxt.placeholder = " Phone number "
+        phoneNumberTxt.textColor = kDefaultTextColor
+        phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
+        
+        phoneNumberTxt.layer.borderWidth = 1
+        phoneNumberTxt.layer.borderColor = kLightGrayColor.cgColor
+        phoneNumberTxt.layer.cornerRadius = 6
+        phoneNumberTxt.layer.masksToBounds = false
+        
+        phoneNumberTxt.withFlag = true
+        phoneNumberTxt.withPrefix = true
+        phoneNumberTxt.withExamplePlaceholder = true
+        phoneNumberTxt.withDefaultPickerUI = true
+        phoneNumberTxt.keyboardType = .phonePad
+
+        self.pageScroll.addSubview(phoneNumberTxt)
+        phoneNumberTxt.snp.makeConstraints { make in
             make.top.equalTo(phoneLabel.snp.bottom).offset(8)
             make.left.equalTo(phoneLabel)
             make.width.equalToSuperview().offset(-56)
@@ -180,12 +188,10 @@ class AddUserAddressViewController: PageScrollViewController {
         warningLabel.textColor = kDarkColor
         pageScroll.addSubview(warningLabel)
         warningLabel.snp.makeConstraints { make in
-            make.top.equalTo(phoneTxt.snp.bottom).offset(20)
+            make.top.equalTo(phoneNumberTxt.snp.bottom).offset(20)
             make.left.equalTo(firstNameLabel)
         }
-        
-        #warning("A Luc lam tiep phonenumber")
-        
+                
         let emailLabel = UILabel()
         emailLabel.text = "Email *"
         emailLabel.textColor = kDarkColor
@@ -346,10 +352,10 @@ class AddUserAddressViewController: PageScrollViewController {
             self.lastNameTxt.setError(nil)
         }
 
-        if (self.phoneTxt.text ?? "").isEmpty {
-            self.phoneTxt.setError("This field can not be empty")
+        if self.phoneNumberTxt.isValidNumber {
+            self.phoneNumberTxt.textColor = kDefaultTextColor
         } else {
-            self.phoneTxt.setError(nil)
+            self.phoneNumberTxt.textColor = .red
         }
 
         if (self.emailTxt.text ?? "").isEmpty {
@@ -404,7 +410,7 @@ class AddUserAddressViewController: PageScrollViewController {
             disableSaveBtn()
             return
         }
-        if self.phoneTxt.text?.isEmpty ?? false {
+        if !self.phoneNumberTxt.isValidNumber {
             disableSaveBtn()
             return
         }
@@ -493,17 +499,17 @@ class AddUserAddressViewController: PageScrollViewController {
             })
             .disposed(by: disposeBag)
 
-        phoneTxt.rx.controlEvent([.editingChanged])
+         phoneNumberTxt.rx.controlEvent([.editingChanged])
             .asObservable()
             .subscribe({ [unowned self] _ in
 
-                if (phoneTxt.text == "") {
-                    phoneTxt.setError("This field can not be empty")
+                if self.phoneNumberTxt.isValidNumber {
+                    phoneNumberTxt.textColor = kDefaultTextColor
                 } else {
-                    phoneTxt.setError(nil)
+                    phoneNumberTxt.textColor = .red
                 }
                 var contact = viewModel.contact.value
-                contact.phone = phoneTxt.text!
+                contact.phone = phoneNumberTxt.text!
                 viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
