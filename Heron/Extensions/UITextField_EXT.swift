@@ -31,7 +31,7 @@ class BoundedIconTextField: UITextField {
     private let rightIcon   = UIButton()
     private let errorLabel  = UILabel()
     
-    var rightAction : (() -> ())? = {}
+    var rightAction : (() -> Void)? = {}
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,7 +51,7 @@ class BoundedIconTextField: UITextField {
         rightIcon.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-12)
-            make.width.height.equalTo(32)
+            make.width.height.equalTo(28)
         }
         
         self.addSubview(errorLabel)
