@@ -26,7 +26,7 @@ class UserProfileActionBtn : UIButton {
             make.height.width.equalTo(30)
         }
         
-        narrowImange.image = UIImage.init(named: "left_icon")
+        narrowImange.image = UIImage.init(named: "right_icon")
         self.addSubview(narrowImange)
         narrowImange.snp.makeConstraints { make in
             make.top.equalTo(actionIcon)

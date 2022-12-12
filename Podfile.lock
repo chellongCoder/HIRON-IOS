@@ -93,6 +93,12 @@ PODS:
     - OneSignalXCFramework/OneSignalOutcomes
   - OneSignalXCFramework/OneSignalOutcomes (3.12.1):
     - OneSignalXCFramework/OneSignalCore
+  - PhoneNumberKit (3.3.4):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.4)
+    - PhoneNumberKit/UIKit (= 3.3.4)
+  - PhoneNumberKit/PhoneNumberKitCore (3.3.4)
+  - PhoneNumberKit/UIKit (3.3.4):
+    - PhoneNumberKit/PhoneNumberKitCore
   - RxCocoa (6.5.0):
     - RxRelay (= 6.5.0)
     - RxSwift (= 6.5.0)
@@ -132,6 +138,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView (= 5.1.1)
   - ObjectMapper (= 4.2.0)
   - OneSignalXCFramework (< 4.0, >= 3.0.0)
+  - PhoneNumberKit (= 3.3.4)
   - RxCocoa (= 6.5.0)
   - RxSwift (= 6.5.0)
   - SDWebImage (= 5.7.3)
@@ -156,6 +163,7 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - ObjectMapper
     - OneSignalXCFramework
+    - PhoneNumberKit
     - RxCocoa
     - RxRelay
     - RxSwift
@@ -183,6 +191,7 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   OneSignalXCFramework: e286449b6048f4a2eade5f5626a04779dfa4fcb2
+  PhoneNumberKit: 441e8b26ec88d598e3591de9061eff18f5dd12e8
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
   RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
@@ -196,6 +205,6 @@ SPEC CHECKSUMS:
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a
 
-PODFILE CHECKSUM: b8c616d6b3fe37260dfdf67560f200803bfdc0ac
+PODFILE CHECKSUM: 4d9cef76aef07b572c4b09c53da516cc7c13cc95
 
 COCOAPODS: 1.11.3

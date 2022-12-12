@@ -33,7 +33,7 @@ class BaseViewController: UIViewController {
     }
     
     func showCloseBtn() {
-        let closeBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "xmark"),
+        let closeBtn = UIBarButtonItem.init(image: UIImage.init(named: "close_bar_icon"),
                                            style: .plain,
                                            target: self,
                                            action: #selector(closeButtonTapped))

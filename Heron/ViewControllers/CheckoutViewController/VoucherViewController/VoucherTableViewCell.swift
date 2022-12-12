@@ -14,12 +14,12 @@ protocol VoucherTableViewCellDelegate : AnyObject {
 
 class VoucherTableViewCell: UITableViewCell {
     
-    private let topLineView     = UIView()
-    private let titleLabel      = UILabel()
-    private let desciptionLabel = UILabel()
-    private let additionalListView = UIView()
+    private let topLineView         = UIView()
+    private let titleLabel          = UILabel()
+    private let desciptionLabel     = UILabel()
+    private let additionalListView  = UIView()
     private let dateAvailableLabel  = UILabel()
-    private let applyBtn            = ExtendedButton()
+    private let selectBtn           = UIButton()
     
     private var voucherData     : VoucherDataSource?
     var delegate                : VoucherTableViewCellDelegate?
@@ -29,20 +29,27 @@ class VoucherTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
 
         let contentView = UIView()
-        contentView.setShadow()
+        contentView.backgroundColor = UIColor.init(hexString: "fafbfe")
+        contentView.layer.masksToBounds = true
         self.contentView.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
-            make.top.equalToSuperview().offset(8)
-            make.bottom.equalToSuperview().offset(-8)
+            make.top.equalToSuperview().offset(12)
+            make.bottom.lessThanOrEqualToSuperview().offset(8)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            contentView.setDashlineBorder(kPurpleColor, cornerRadius: 8)
+            contentView.bringSubviewToFront(self.topLineView)
         }
       
         topLineView.backgroundColor = kPurpleColor
         contentView.addSubview(topLineView)
         topLineView.snp.makeConstraints { make in
-            make.height.equalTo(3)
-            make.left.right.top.equalToSuperview()
+            make.height.equalTo(4)
+            make.top.equalToSuperview().offset(-1)
+            make.left.right.equalToSuperview()
         }
         
         titleLabel.text = ""
@@ -54,17 +61,15 @@ class VoucherTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(12)
         }
         
-        applyBtn.setBackgroundImage(UIImage.init(named: "select_icon"), for: .normal)
-        applyBtn.backgroundColor = kPrimaryColor
-        applyBtn.layer.cornerRadius = 8
-        contentView.addSubview(applyBtn)
-        applyBtn.snp.makeConstraints { make in
+        selectBtn.setBackgroundImage(UIImage.init(named: "circle_selected_icon"), for: .normal)
+        contentView.addSubview(selectBtn)
+        selectBtn.snp.makeConstraints { make in
             make.centerY.equalTo(titleLabel.snp.centerY)
             make.right.equalToSuperview().offset(-12)
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(32)
         }
         
-        desciptionLabel.text = "Discount $10.00 lorem Ipsum is simply dummy text of the printing and standard typesetting industry."
+        desciptionLabel.text = ""
         desciptionLabel.font = getCustomFont(size: 13, name: .light)
         desciptionLabel.textColor = kDefaultTextColor
         desciptionLabel.numberOfLines = 0
@@ -75,25 +80,38 @@ class VoucherTableViewCell: UITableViewCell {
             make.right.equalToSuperview().offset(-12)
         }
         
-        additionalListView.backgroundColor = .white
         contentView.addSubview(additionalListView)
         additionalListView.snp.makeConstraints { make in
             make.top.equalTo(desciptionLabel.snp.bottom)
             make.centerX.width.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
-//        dateAvailableLabel.text = ""
-//        dateAvailableLabel.numberOfLines = 0
-//        dateAvailableLabel.font = getCustomFont(size: 14, name: .regular)
-//        dateAvailableLabel.textColor = kDefaultTextColor
-//        contentView.addSubview(dateAvailableLabel)
-//        dateAvailableLabel.snp.makeConstraints { (make) in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-//            make.left.equalTo(promoValue.snp.right).offset(10)
-//            make.right.equalToSuperview().offset(-10)
-//        }
-//
+        
+        let dateContentView = UIView()
+        dateContentView.backgroundColor = UIColor.init(hexString: "fafbfe")
+        dateContentView.layer.masksToBounds = true
+        self.contentView.addSubview(dateContentView)
+        dateContentView.snp.makeConstraints { (make) in
+            make.top.equalTo(contentView.snp.bottom)
+            make.right.equalToSuperview().offset(-16)
+            make.left.equalToSuperview().offset(16)
+            make.height.equalTo(37)
+            make.bottom.lessThanOrEqualToSuperview().offset(-8)
+        }
+        
+        dateAvailableLabel.text = ""
+        dateAvailableLabel.numberOfLines = 0
+        dateAvailableLabel.font = getCustomFont(size: 13, name: .regular)
+        dateAvailableLabel.textColor = kDefaultTextColor
+        dateContentView.addSubview(dateAvailableLabel)
+        dateAvailableLabel.snp.makeConstraints { (make) in
+            make.center.equalToSuperview()
+            make.size.equalToSuperview().offset(-24)
+        }
        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            dateContentView.setDashlineBorder(kPurpleColor, cornerRadius: 8)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -106,6 +124,7 @@ class VoucherTableViewCell: UITableViewCell {
         
         self.titleLabel.text = cellData.couponRule?.title ?? ""
         self.dateAvailableLabel.text = TimeConverter().getDateFromInt(cellData.couponRule?.startTime ?? 0) + " - " + TimeConverter().getDateFromInt(cellData.couponRule?.endTime ?? 0)
+        self.desciptionLabel.text = cellData.couponRule?.description
         
         if cellData.couponRule?.isFixed ?? false {
             // discount value
@@ -116,16 +135,19 @@ class VoucherTableViewCell: UITableViewCell {
 //            self.promoValue.text = String(format: "%ld%% OFF", cellData.couponRule?.discount ?? 0)
         }
         
-//        if cellData.isSelectedVoucher {
-//            self.applyBtn.setTitle("Cancel", for: .normal)
-//            self.applyBtn.backgroundColor = kRedHightLightColor
-//        } else {
-//            self.applyBtn.setTitle("Apply", for: .normal)
-//            self.applyBtn.backgroundColor = kPrimaryColor
-//        }
+        if cellData.isSelectedVoucher {
+            self.selectBtn.isHidden = false
+        } else {
+            self.selectBtn.isHidden = true
+        }
         
         #warning("HARD_CODE")
-        let contents = ["Content 1", "Content 2", "Content 3", "Content 3.5", "Content 4"]
+        let contents = ["Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text.",
+                        "Lorem Ipsum is simply dummy text."]
         var lastetContent : UIView?
         
         for content in contents {

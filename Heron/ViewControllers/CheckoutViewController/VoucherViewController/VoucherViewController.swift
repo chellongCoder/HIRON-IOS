@@ -11,9 +11,9 @@ import RxCocoa
 import Material
 
 class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
-                             UITableViewDataSource {
+                             UITableViewDataSource, UITableViewDelegate {
     
-    let codeTxt         = ErrorTextField()
+    let codeTxt         = BoundedIconTextField()
     let applyBtn        = UIButton()
     
     let tableView       = UITableView()
@@ -36,32 +36,48 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
         applyBtn.layer.cornerRadius = 20
         self.view.addSubview(applyBtn)
         applyBtn.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-10)
-            make.width.equalTo(75)
+            make.width.equalTo(90)
             make.height.equalTo(40)
         }
         
-        codeTxt.placeholder = "Voucher Code"
-        codeTxt.dividerNormalHeight = 0.5
-        codeTxt.dividerNormalColor = kPrimaryColor
-        codeTxt.errorColor = .red
-        codeTxt.textColor = kDefaultTextColor
+        codeTxt.setPlaceHolderText("Heron voucher")
         self.view.addSubview(codeTxt)
         codeTxt.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(20)
             make.leading.equalTo(10)
             make.right.equalTo(applyBtn.snp.left).offset(-10)
-            make.height.equalTo(50)
+            make.height.equalTo(40)
+        }
+        
+        let guidelineView = UIView()
+        guidelineView.backgroundColor = UIColor.init(hexString: "f6f6f6")
+        self.view.addSubview(guidelineView)
+        guidelineView.snp.makeConstraints { make in
+            make.top.equalTo(codeTxt.snp.bottom).offset(20)
+            make.centerX.width.equalToSuperview()
+            make.height.equalTo(37)
+        }
+        
+        let guideLabel = UILabel()
+        guideLabel.text = "* You can only choose 1 discount code"
+        guideLabel.textColor = kTitleTextColor
+        guideLabel.font = getCustomFont(size: 13, name: .italic)
+        guidelineView.addSubview(guideLabel)
+        guideLabel.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview().offset(-32)
         }
         
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = kBackgroundColor
         tableView.register(VoucherTableViewCell.self, forCellReuseIdentifier: "VoucherTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(codeTxt.snp.bottom).offset(10)
+            make.top.equalTo(guidelineView.snp.bottom).offset(20)
             make.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }
@@ -137,5 +153,18 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
         cell.setDataSource(cellData)
         cell.delegate = self
         return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let cellData = viewModel.listUserVouchers.value[indexPath.row]
+        self.acceptance?.accept(cellData)
+        self.navigationController?.popViewController(animated: true)
+        
+//        tableView.beginUpdates()
+//        tableView.reloadRows(at: [indexPath], with: .automatic)
+//        tableView.endUpdates()
     }
 }

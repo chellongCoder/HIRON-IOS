@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "Contact.svg",
-      "idiom" : "universal"
+      "filename" : "Contact.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Contact 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Contact 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

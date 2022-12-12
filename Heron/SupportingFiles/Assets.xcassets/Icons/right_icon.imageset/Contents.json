@@ -1,8 +1,19 @@
 {
   "images" : [
     {
-      "filename" : "Next.svg",
-      "idiom" : "universal"
+      "filename" : "Next.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Next 1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Next 2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
     }
   ],
   "info" : {

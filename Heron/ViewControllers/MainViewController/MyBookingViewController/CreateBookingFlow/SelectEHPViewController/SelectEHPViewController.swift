@@ -283,7 +283,7 @@ class SelectEHPViewController: UIViewController {
     
     @objc private func updateEHPButtonTapped() {
         let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
-                                             message: "This feature do not available right now.\nIt will available soon",
+                                             message: "This feature is not available at the moment.",
                                              preferredStyle: .alert)
         alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
             alertVC.dismiss()
