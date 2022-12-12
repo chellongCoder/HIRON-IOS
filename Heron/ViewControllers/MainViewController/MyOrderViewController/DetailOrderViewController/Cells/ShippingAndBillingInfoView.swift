@@ -6,20 +6,20 @@
 //
 import RxSwift
 
-class ShippingAndBillingInfoTableViewCell: UITableViewCell {
+class ShippingAndBillingInfoView: UIView {
     
     let shippingName       = UILabel()
     let shippingAddressLabel    = UILabel()
     let billingAddressName      = UILabel()
     let billingAddressEmail     = UILabel()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
         
         let contentView = UIView()
         contentView.backgroundColor = .white
-        self.contentView.addSubview(contentView)
+        self.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -52,7 +52,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         shippingName.font = getCustomFont(size: 13, name: .medium)
         shippingName.textColor = kTitleTextColor
         shippingAddressLabel.numberOfLines = 0
-        contentView.addSubview(shippingName)
+        self.addSubview(shippingName)
         shippingName.snp.makeConstraints {
             $0.left.equalTo(ađressInforTitle)
             $0.centerX.equalToSuperview()
@@ -63,7 +63,7 @@ class ShippingAndBillingInfoTableViewCell: UITableViewCell {
         shippingAddressLabel.font = getCustomFont(size: 13, name: .regular)
         shippingAddressLabel.textColor = kTitleTextColor
         shippingAddressLabel.numberOfLines = 0
-        contentView.addSubview(shippingAddressLabel)
+        self.addSubview(shippingAddressLabel)
         shippingAddressLabel.snp.makeConstraints {
             $0.left.equalTo(ađressInforTitle)
             $0.centerX.equalToSuperview()

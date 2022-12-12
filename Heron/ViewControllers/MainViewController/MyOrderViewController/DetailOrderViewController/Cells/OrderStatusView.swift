@@ -8,19 +8,21 @@
 import RxSwift
 import UIKit
 
-class OrderStatusTableViewCell: UITableViewCell {
+class OrderStatusView: UIView {
+    
     private let statusLabel = UILabel()
     private let descStatusLabel = UILabel()
     private let orderDetailLabel = UILabel()
     private let purchasedLabel = UILabel()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
         self.backgroundColor = UIColor(red: 0.094, green: 0.565, blue: 1, alpha: 0.05)
         
         let contentView = UIView()
         contentView.backgroundColor = .clear
-        self.contentView.addSubview(contentView)
+        self.addSubview(contentView)
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
@@ -32,7 +34,7 @@ class OrderStatusTableViewCell: UITableViewCell {
         statusLabel.textColor = kPrimaryColor
         statusLabel.font = getCustomFont(size: 18, name: .bold)
         statusLabel.font = .boldSystemFont(ofSize: 18)
-        contentView.addSubview(statusLabel)
+        self.addSubview(statusLabel)
         statusLabel.snp.makeConstraints {
             $0.top.left.equalToSuperview().offset(10)
         }
@@ -41,7 +43,7 @@ class OrderStatusTableViewCell: UITableViewCell {
         descStatusLabel.font = getCustomFont(size: 14, name: .regular)
         descStatusLabel.textColor = kDefaultTextColor
         descStatusLabel.numberOfLines = 0
-        contentView.addSubview(descStatusLabel)
+        self.addSubview(descStatusLabel)
         descStatusLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
             $0.right.equalToSuperview().offset(-10)
@@ -51,7 +53,7 @@ class OrderStatusTableViewCell: UITableViewCell {
         let orderIdLabel = UILabel()
         orderIdLabel.text = "Order ID"
         orderIdLabel.font = getCustomFont(size: 14, name: .medium)
-        contentView.addSubview(orderIdLabel)
+        self.addSubview(orderIdLabel)
         orderIdLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
             $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
@@ -60,7 +62,7 @@ class OrderStatusTableViewCell: UITableViewCell {
         let purchasedId = UILabel()
         purchasedId.text = "Purchased date"
         purchasedId.font = getCustomFont(size: 14, name: .medium)
-        contentView.addSubview(purchasedId)
+        self.addSubview(purchasedId)
         purchasedId.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
             $0.top.equalTo(orderIdLabel.snp.bottom).offset(10)
@@ -68,7 +70,7 @@ class OrderStatusTableViewCell: UITableViewCell {
         
         orderDetailLabel.text = "ORD1234567891CD"
         orderDetailLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(orderDetailLabel)
+        self.addSubview(orderDetailLabel)
         orderDetailLabel.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-10)
             $0.top.equalTo(descStatusLabel.snp.bottom).offset(10)
@@ -76,7 +78,7 @@ class OrderStatusTableViewCell: UITableViewCell {
         
         purchasedLabel.text = "Feb 05, 2021  08:28:36 AM"
         purchasedLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(purchasedLabel)
+        self.addSubview(purchasedLabel)
         purchasedLabel.snp.makeConstraints {
             $0.right.equalToSuperview().offset(-10)
             $0.top.equalTo(orderIdLabel.snp.bottom).offset(10)

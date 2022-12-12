@@ -7,12 +7,12 @@
 
 import UIKit
 
-class TotalOrderTableViewCell: UITableViewCell {
+class OrderTotalInView: UIView {
 
     let title = UILabel()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         title.font = getCustomFont(size: 14, name: .regular)
         self.addSubview(title)

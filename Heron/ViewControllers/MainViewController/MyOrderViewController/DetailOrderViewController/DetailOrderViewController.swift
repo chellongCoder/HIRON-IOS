@@ -10,8 +10,15 @@ import RxRelay
 import RxSwift
 
 class DetailOrderViewController: BaseViewController {
-    let tableView       = UITableView(frame: .zero, style: .plain)
+    let tableView       = UITableView(frame: .zero, style: .insetGrouped)
     let viewModel       = DetailOrderViewModel()
+    
+    let statusView      = OrderStatusView()
+    let trackingView    = OrderTrackingView()
+    let shipingView     = ShippingAndBillingInfoView()
+    let totalInView     = OrderTotalInView()
+    let orderStoreView  = OrderStoreView()
+    let paymentView     = PaymentView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,13 +34,7 @@ class DetailOrderViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.register(OrderStatusTableViewCell.self, forCellReuseIdentifier: "ProductStatusTableViewCell")
-        tableView.register(ShippingAndBillingInfoTableViewCell.self, forCellReuseIdentifier: "ShippingInfoTableViewCell")
-        tableView.register(TrackingTableViewCell.self, forCellReuseIdentifier: "TrackingTableViewCell")
-        tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "PaymentTableViewCell")
         tableView.register(PackageTableViewCell.self, forCellReuseIdentifier: "PackageTableViewCell")
-        tableView.register(TotalOrderTableViewCell.self, forCellReuseIdentifier: "TotalOrderTableViewCell")
-        tableView.register(StoreTableViewCell.self, forCellReuseIdentifier: "StoreTableViewCell")
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -87,63 +88,74 @@ class DetailOrderViewController: BaseViewController {
 
 extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel.orderData.value?.items?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        
+        let orderData = self.viewModel.orderData.value
+        statusView.setDataSource(orderData)
+        headerView.addSubview(statusView)
+        statusView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        trackingView.setDataSource(self.viewModel.shippingData.value)
+        headerView.addSubview(trackingView)
+        trackingView.snp.makeConstraints { make in
+            make.top.equalTo(statusView.snp.bottom).offset(10)
+            make.centerX.width.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        shipingView.setUserData(orderData?.userData)
+        shipingView.setShippingData(viewModel.shippingData.value)
+        headerView.addSubview(shipingView)
+        shipingView.snp.makeConstraints { make in
+            make.top.equalTo(trackingView.snp.bottom).offset(10)
+            make.width.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        if orderData?.items?.count == 1 {
+            totalInView.title.text = String(format: "Total (1 product):  %@", getMoneyFormat(orderData?.customAmount))
+        } else {
+            totalInView.title.text = String(format: "Total (%ld products):  %@", (orderData?.items?.count ?? 0), getMoneyFormat(orderData?.customAmount))
+        }
+        headerView.addSubview(totalInView)
+        totalInView.snp.makeConstraints { make in
+            make.top.equalTo(shipingView.snp.bottom).offset(10)
+            make.width.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        orderStoreView.setStoreDataSource(orderData?.store)
+        headerView.addSubview(orderStoreView)
+        orderStoreView.snp.makeConstraints { make in
+            make.top.equalTo(totalInView.snp.bottom).offset(10)
+            make.width.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        return headerView
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let orderData = self.viewModel.orderData.value
         
-        if indexPath.row == 0 {
-            // swiftlint:disable force_cast 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductStatusTableViewCell", for: indexPath) as! OrderStatusTableViewCell
-            cell.setDataSource(orderData)
-            return cell
-        } else if indexPath.row == 1 {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TrackingTableViewCell", for: indexPath) as! TrackingTableViewCell
-            cell.setDataSource(viewModel.shippingData.value)
-            return cell
-        } else if indexPath.row == 2 {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingInfoTableViewCell", for: indexPath) as! ShippingAndBillingInfoTableViewCell
-            cell.setUserData(orderData?.userData)
-            cell.setShippingData(viewModel.shippingData.value)
-            return cell
-        } else if indexPath.row == 3 {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "StoreTableViewCell", for: indexPath) as! StoreTableViewCell
-            cell.setStoreDataSource(orderData?.store)
-            return cell
-        } else if indexPath.row == 4 + (orderData?.items?.count ?? 0) {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TotalOrderTableViewCell", for: indexPath) as! TotalOrderTableViewCell
-            if orderData?.items?.count == 1 {
-                cell.title.text = String(format: "Total (1 product):  %@", getMoneyFormat(orderData?.customAmount))
-            } else {
-                cell.title.text = String(format: "Total (%ld products):  %@", (orderData?.items?.count ?? 0), getMoneyFormat(orderData?.customAmount))
-            }
-            
-            return cell
-        } else if indexPath.row == 5 + (orderData?.items?.count ?? 0) {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell
-            
-            if let cards = orderData?.orderPayment?.metadata?.card {
-                cell.paymentCardLabel.text = String(format: "%@ | %@%@",
-                                                   cards.getBrandName(), String(repeating: "X", count: 10),
-                                                   cards.last4 ?? "")
-            }
-            
-            return cell
-        } else {
-            // swiftlint:disable force_cast
-            let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "PackageTableViewCell", for: indexPath) as! PackageTableViewCell
-            if let cellData = orderData?.items?[indexPath.row - 4] {
-                orderItemCell.setDataSource(cellData)
-            }
-            return orderItemCell
+        // swiftlint:disable force_cast
+        let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "PackageTableViewCell", for: indexPath) as! PackageTableViewCell
+        if let cellData = orderData?.items?[indexPath.row] {
+            orderItemCell.setDataSource(cellData)
         }
+        return orderItemCell        
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6 + (self.viewModel.orderData.value?.items?.count ?? 0)
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return self.paymentView
     }
 }

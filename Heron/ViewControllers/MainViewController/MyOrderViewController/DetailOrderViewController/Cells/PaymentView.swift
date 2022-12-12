@@ -7,16 +7,16 @@
 
 import UIKit
 
-class PaymentTableViewCell: UITableViewCell {
+class PaymentView: UIView {
     
     let paymentCardLabel     = UILabel()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor(red: 0.898, green: 0.898, blue: 0.898, alpha: 1)
         
         let contentView = UIView()
-        self.contentView.addSubview(contentView)
+        self.addSubview(contentView)
         contentView.backgroundColor = .white
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()

@@ -7,12 +7,12 @@
 
 import UIKit
 
-class StoreTableViewCell: UITableViewCell {
+class OrderStoreView: UIView {
     
     let storeLabel = UILabel()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         storeLabel.font = getCustomFont(size: 13, name: .bold)
         storeLabel.textColor = kDefaultTextColor
