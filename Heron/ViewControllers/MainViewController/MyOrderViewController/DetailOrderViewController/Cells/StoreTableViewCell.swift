@@ -14,11 +14,13 @@ class StoreTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        storeLabel.font = getCustomFont(size: 16, name: .bold)
+        storeLabel.font = getCustomFont(size: 13, name: .bold)
+        storeLabel.textColor = kDefaultTextColor
+        storeLabel.text = ""
         self.addSubview(storeLabel)
         storeLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
-            $0.left.equalToSuperview().offset(10)
+            $0.top.equalToSuperview().offset(20)
+            $0.left.equalToSuperview().offset(16)
             $0.centerY.equalToSuperview()
         }
     }
