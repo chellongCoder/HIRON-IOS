@@ -22,6 +22,7 @@ let kCircleBackgroundColor  = UIColor.init(hexString: "2cc8c6")!
 let kLightGrayColor         = UIColor.init(hexString: "d8d8d8")!
 let kLoginTextColor         = UIColor.init(hexString: "52979a")!
 let kDarkColor              = UIColor.init(hexString: "211e22")!
+let kIceBlueColor           = UIColor.init(hexString: "eefbfb")!
 
 extension UIColor {
     
