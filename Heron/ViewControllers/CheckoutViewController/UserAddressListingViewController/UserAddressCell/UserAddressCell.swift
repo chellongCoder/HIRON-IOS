@@ -17,7 +17,7 @@ class UserAddressCell: UITableViewCell {
     let fullName            = UILabel()
     let phoneNumber         = UILabel()
     let addressLabel        = UILabel()
-    let editButton          = UIButton()
+    let editButton          = ExtendedButton()
     let selectButton        = UIButton()
     
     private var contactData : ContactDataSource?
@@ -72,7 +72,7 @@ class UserAddressCell: UITableViewCell {
         editButton.snp.makeConstraints { make in
             make.centerY.equalTo(fullName.snp.centerY)
             make.right.equalToSuperview().offset(-14)
-            make.height.width.equalTo(14)
+            make.height.width.equalTo(32)
             make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
         

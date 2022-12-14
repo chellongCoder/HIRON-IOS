@@ -78,6 +78,7 @@ class AddUserAddressViewController: PageScrollViewController,
             make.height.equalTo(15)
         }
         
+        defaultBtn.isOn = viewModel.contact.value.isDefault
         defaultBtn.addTarget(self, action: #selector(setAsDefaultAddress), for: .valueChanged)
         self.view.addSubview(defaultBtn)
         defaultBtn.snp.makeConstraints { make in
@@ -178,6 +179,7 @@ class AddUserAddressViewController: PageScrollViewController,
         phoneNumberTxt.withDefaultPickerUI = true
         phoneNumberTxt.keyboardType = .phonePad
 
+        phoneNumberTxt.text = viewModel.contact.value.phone
         self.pageScroll.addSubview(phoneNumberTxt)
         phoneNumberTxt.snp.makeConstraints { make in
             make.top.equalTo(phoneLabel.snp.bottom).offset(8)
@@ -295,6 +297,7 @@ class AddUserAddressViewController: PageScrollViewController,
 
         cityTxt.delegate = self
         cityTxt.setPlaceHolderText("City")
+        cityTxt.text = viewModel.contact.value.province
         cityTxt.textColor = kDefaultTextColor
         cityTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
         cityTxt.rightAction = {
@@ -320,6 +323,7 @@ class AddUserAddressViewController: PageScrollViewController,
 
         postCodeTxt.delegate = self
         postCodeTxt.setPlaceHolderText("Zip Code")
+        postCodeTxt.text = viewModel.contact.value.postalCode
         postCodeTxt.textColor = kDefaultTextColor
         postCodeTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
         postCodeTxt.rightAction = {
