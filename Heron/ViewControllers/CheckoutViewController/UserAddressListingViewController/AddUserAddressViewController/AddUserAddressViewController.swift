@@ -11,7 +11,8 @@ import RxSwift
 import Material
 import PhoneNumberKit
 
-class AddUserAddressViewController: PageScrollViewController {
+class AddUserAddressViewController: PageScrollViewController,
+                                    UITextFieldDelegate {
     
     private let firstNameTxt        = BoundedIconTextField()
     private let lastNameTxt         = BoundedIconTextField()
@@ -108,6 +109,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalToSuperview().offset(28)
         }
         
+        firstNameTxt.delegate = self
         firstNameTxt.setPlaceHolderText("First Name")
         firstNameTxt.text = viewModel.contact.value.firstName
         firstNameTxt.textColor = kDefaultTextColor
@@ -134,6 +136,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.right.equalToSuperview().offset(-28)
         }
         
+        lastNameTxt.delegate = self
         lastNameTxt.setPlaceHolderText("Last Name")
         lastNameTxt.text = viewModel.contact.value.lastName
         lastNameTxt.textColor = kDefaultTextColor
@@ -159,6 +162,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalTo(firstNameLabel)
         }
 
+        phoneNumberTxt.delegate = self
         phoneNumberTxt.placeholder = " Phone number "
         phoneNumberTxt.textColor = kDefaultTextColor
         phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
@@ -202,6 +206,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalTo(firstNameLabel)
         }
         
+        emailTxt.delegate = self
         emailTxt.setPlaceHolderText("Email")
         emailTxt.text = viewModel.contact.value.email
         emailTxt.textColor = kDefaultTextColor
@@ -236,6 +241,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalToSuperview().offset(28)
         }
 
+        addressTxt.delegate = self
         addressTxt.setPlaceHolderText("Address")
         addressTxt.text = viewModel.contact.value.address
         addressTxt.textColor = kDefaultTextColor
@@ -261,6 +267,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalTo(addressLabel)
         }
 
+        countryTxt.delegate = self
         countryTxt.setPlaceHolderText("Country")
         countryTxt.text = viewModel.contact.value.country
         countryTxt.textColor = kDefaultTextColor
@@ -286,6 +293,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalTo(addressLabel)
         }
 
+        cityTxt.delegate = self
         cityTxt.setPlaceHolderText("City")
         cityTxt.textColor = kDefaultTextColor
         cityTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
@@ -310,6 +318,7 @@ class AddUserAddressViewController: PageScrollViewController {
             make.left.equalTo(addressLabel)
         }
 
+        postCodeTxt.delegate = self
         postCodeTxt.setPlaceHolderText("Zip Code")
         postCodeTxt.textColor = kDefaultTextColor
         postCodeTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
@@ -593,5 +602,14 @@ class AddUserAddressViewController: PageScrollViewController {
                 viewModel.contact.accept(contact)
             })
             .disposed(by: disposeBag)
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kLightGrayColor.cgColor
     }
 }

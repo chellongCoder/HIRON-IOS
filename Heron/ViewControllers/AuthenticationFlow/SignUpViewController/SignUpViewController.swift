@@ -9,7 +9,8 @@ import UIKit
 import Material
 import PhoneNumberKit
 
-class SignUpViewController: BaseViewController {
+class SignUpViewController: BaseViewController,
+                            UITextFieldDelegate {
     
     private let viewModel   = SignUpViewModel()
     var isSign = true
@@ -78,6 +79,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalToSuperview().offset(28)
         }
         
+        firstNameTxt.delegate = self
         firstNameTxt.setPlaceHolderText(" First name ")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
@@ -99,6 +101,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(firstNameLabel)
         }
         
+        lastNameTxt.delegate = self
         lastNameTxt.setPlaceHolderText(" Last name ")
         lastNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(lastNameTxt)
@@ -178,6 +181,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(genderLabel)
         }
         
+        dobTxt.delegate = self
         dobTxt.setPlaceHolderText("MM dd, yyyy")
         dobTxt.setRightIcon(UIImage.init(named: "calendar_icon"))
         dobTxt.textColor = kDefaultTextColor
@@ -201,6 +205,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(dobLabel)
         }
         
+        emailTxt.delegate = self
         emailTxt.text = self.prevEmail
         emailTxt.setPlaceHolderText(" Email ")
         emailTxt.textColor = kDefaultTextColor
@@ -224,6 +229,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(emailLabel)
         }
         
+        passwordTxt.delegate = self
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
@@ -255,6 +261,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(emailLabel)
         }
         
+        identityNumberTxt.delegate = self
         identityNumberTxt.setPlaceHolderText(" ID Number ")
         identityNumberTxt.textColor = kDefaultTextColor
         identityNumberTxt.autocapitalizationType = .none
@@ -277,6 +284,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(identityNumberLabel)
         }
         
+        phoneNumberTxt.delegate = self
         phoneNumberTxt.placeholder = " Phone number "
         phoneNumberTxt.textColor = kDefaultTextColor
         phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
@@ -460,5 +468,14 @@ class SignUpViewController: BaseViewController {
             vc.centerDescInfo.text = "Congratulations! You have signed up successfully.\nWe wish you the best experience using our app! Have a good day!"
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kLightGrayColor.cgColor
     }
 }

@@ -93,6 +93,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
             make.right.equalToSuperview().offset(-28)
         }
         
+        passwordTxt.delegate = self
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
@@ -246,6 +247,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     
     // MARK: - UITextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kLightGrayColor.cgColor
         if textField == emailTxt {
             if !(emailTxt.text ?? "").isValidEmail() {
                 emailTxt.setError("This email is not valid")
@@ -253,5 +255,9 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
                 emailTxt.setError(nil)
             }
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
     }
 }
