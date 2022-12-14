@@ -39,26 +39,6 @@ class CheckoutViewController: BaseViewController,
                                            action: #selector(customerSupportButtonTapped))
         self.navigationItem.rightBarButtonItem = supportBtn
         
-//        let deliveryTouch = UITapGestureRecognizer.init(target: self, action: #selector(deliveryToTapped))
-//        deliveryTo.addGestureRecognizer(deliveryTouch)
-//        deliveryTo.addressTitle.text = "Delivery To"
-//        self.view.addSubview(deliveryTo)
-//        deliveryTo.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(10)
-//            make.right.equalToSuperview().offset(-10)
-//            make.top.equalToSuperview().offset(2)
-//        }
-//
-//        let billingTouch = UITapGestureRecognizer.init(target: self, action: #selector(billingAddressTapped))
-//        billingAddress.addGestureRecognizer(billingTouch)
-//        billingAddress.addressTitle.text = "Billing Address"
-//        self.view.addSubview(billingAddress)
-//        billingAddress.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(10)
-//            make.right.equalToSuperview().offset(-10)
-//            make.top.equalTo(deliveryTo.snp.bottom).offset(2)
-//        }
-        
         // MARK: - Bottom
         let bottomView = UIView()
         bottomView.backgroundColor = .white
@@ -112,34 +92,6 @@ class CheckoutViewController: BaseViewController,
             make.centerX.equalToSuperview()
             make.left.equalToSuperview().offset(16)
         }
-        
-//        self.view.addSubview(orderTotalView)
-//        orderTotalView.snp.makeConstraints { make in
-//            make.left.equalToSuperview().offset(10)
-//            make.right.equalToSuperview().offset(-10)
-//            make.bottom.equalTo(bottomView.snp.top).offset(-2)
-//        }
-        
-//        let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
-//        voucherView.addGestureRecognizer(voucherTouch)
-//        self.view.addSubview(voucherView)
-//        voucherView.snp.makeConstraints { make in
-//            make.left.equalToSuperview().offset(10)
-//            make.right.equalToSuperview().offset(-10)
-//            make.bottom.equalTo(orderTotalView.snp.top).offset(-2)
-//        }
-        
-//        self.view.layoutIfNeeded()
-//
-//        let tableViewContent = UIView()
-//        tableViewContent.backgroundColor = .red
-//        tableViewContent.setContentHuggingPriority(.defaultLow, for: .vertical)
-//        self.view.addSubview(tableViewContent)
-//        tableViewContent.snp.makeConstraints { make in
-//            make.left.right.equalToSuperview()
-//            make.top.greaterThanOrEqualTo(billingAddress.snp.bottom).offset(10)
-//            make.bottom.lessThanOrEqualTo(voucherView.snp.top).offset(-10)
-//        }
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -374,19 +326,40 @@ class CheckoutViewController: BaseViewController,
             cell.backgroundColor = kBackgroundColor
             
             if indexPath.row == 0 {
-                // Voucher
-                cell.addSubview(voucherView)
-                voucherView.snp.makeConstraints { (make) in
-                    make.left.equalToSuperview().offset(10)
-                    make.top.equalToSuperview().offset(2)
-                    make.center.equalToSuperview()
+                
+                let spacer = UIView()
+                spacer.backgroundColor = UIColor.init(hexString: "efefef")
+                cell.addSubview(spacer)
+                spacer.snp.makeConstraints { make in
+                    make.top.equalToSuperview()
+                    make.left.right.equalToSuperview()
+                    make.height.equalTo(6)
                 }
-            } else {
+                
                 // Total order
                 cell.addSubview(orderTotalView)
                 orderTotalView.snp.makeConstraints { (make) in
                     make.left.equalToSuperview().offset(10)
-                    make.top.equalToSuperview().offset(2)
+                    make.top.equalTo(spacer.snp.bottom).offset(2)
+                    make.center.equalToSuperview()
+                }
+                
+            } else {
+                
+                let spacer = UIView()
+                spacer.backgroundColor = UIColor.init(hexString: "efefef")
+                cell.addSubview(spacer)
+                spacer.snp.makeConstraints { make in
+                    make.top.equalToSuperview()
+                    make.left.right.equalToSuperview()
+                    make.height.equalTo(6)
+                }
+                
+                // Voucher
+                cell.addSubview(voucherView)
+                voucherView.snp.makeConstraints { (make) in
+                    make.left.equalToSuperview().offset(10)
+                    make.top.equalTo(spacer.snp.bottom).offset(2)
                     make.center.equalToSuperview()
                 }
             }

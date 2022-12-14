@@ -41,7 +41,7 @@ class VoucherSelectedView: UIView {
         self.addSubview(nextIcon)
         nextIcon.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.height.width.equalTo(10)
+            make.height.width.equalTo(16)
             make.right.equalToSuperview().offset(-16)
         }
         

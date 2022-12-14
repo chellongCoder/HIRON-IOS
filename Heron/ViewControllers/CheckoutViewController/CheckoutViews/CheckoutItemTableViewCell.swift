@@ -35,7 +35,7 @@ class CheckoutItemTableViewCell: UITableViewCell {
             make.left.equalToSuperview().offset(16)
             make.width.equalTo(50)
             make.height.equalTo(60)
-            make.bottom.lessThanOrEqualToSuperview().offset(-11)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         productTitleLabel.text = ""
@@ -66,8 +66,9 @@ class CheckoutItemTableViewCell: UITableViewCell {
         countLabel.textAlignment = .left
         self.contentView.addSubview(countLabel)
         countLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(tagsContent.snp.bottom).offset(20)
             make.left.equalTo(packageImage.snp.right).offset(16)
-            make.bottom.equalTo(packageImage)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
 
         priceDiscount.text = "$ 10.00"
@@ -75,8 +76,8 @@ class CheckoutItemTableViewCell: UITableViewCell {
         priceDiscount.font = getCustomFont(size: 13, name: .regular)
         self.contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
+            make.centerY.equalTo(countLabel)
             make.left.equalTo(countLabel.snp.right).offset(30)
-            make.bottom.equalTo(packageImage)
             make.bottom.lessThanOrEqualToSuperview().offset(-11)
         }
         
