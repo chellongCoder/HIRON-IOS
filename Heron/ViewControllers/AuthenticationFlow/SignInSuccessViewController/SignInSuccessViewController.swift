@@ -74,6 +74,11 @@ class SignInSuccessViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _NavController.setNavigationBarHidden(true, animated: true)
+    }
+    
     @objc private func updateRootVC() {
         self.continueBtn.isUserInteractionEnabled = false
         self.viewModel.checkUserSubscriptionPlan()

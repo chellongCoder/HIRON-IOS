@@ -23,6 +23,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     
     override func viewDidLoad() {
         self.viewModel.controller = self
+        self.view.backgroundColor = kBackgroundColor
         
         let logoImage = UIImageView()
         logoImage.image = UIImage.init(named: "logo")
@@ -37,14 +38,13 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         skipBtn.setTitle("Skip", for: .normal)
         skipBtn.titleLabel?.font = getCustomFont(size: 13, name: .regular)
         skipBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        skipBtn.addTarget(self, action: #selector(skipButtonTapped), for: .touchUpInside)
         self.view.addSubview(skipBtn)
         skipBtn.snp.makeConstraints { make in
             make.top.equalTo(logoImage.snp.top)
             make.right.equalToSuperview().offset(-16)
         }
-    
-        #warning("a Luc lam vien khung luc selete thi hien vien")
-        
+            
         listItems.isPagingEnabled = true
         listItems.delegate = self
         listItems.showsHorizontalScrollIndicator = false
@@ -56,8 +56,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         }
         self.reloadItemScrollView()
         
-        #warning("a Luc lam di chuyen list + pageControl")
-        pageControl.numberOfPages = 5
+        pageControl.numberOfPages = 3
         pageControl.pageIndicatorTintColor = kLightGrayColor
         pageControl.currentPageIndicatorTintColor = kLoginTextColor
         self.view.addSubview(pageControl)
@@ -72,6 +71,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         confirmBtn.layer.backgroundColor = kPrimaryColor.cgColor
         confirmBtn.layer.cornerRadius = 20
         confirmBtn.layer.masksToBounds = true
+        confirmBtn.addTarget(self, action: #selector(continueActionTapped), for: .touchUpInside)
         self.view.addSubview(confirmBtn)
         confirmBtn.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-40)
@@ -170,7 +170,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         listItems.contentSize = CGSize.init(width: CGFloat(listItemData.count)*(size.width), height: size.height)
     }
     
-    @objc func continueActionTapped(_ sender: Any) {
+    @objc func continueActionTapped() {
         
         if let selectedPlan = selectedPlan.value {
             
@@ -183,9 +183,11 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             let viewController = SubscriptionPaymentViewController()
             viewController.viewModel.subscriptionPlan.accept(selectedPlan)
             self.navigationController?.pushViewController(viewController, animated: true)
-        } else {
-            _NavController.gotoHomepage()
         }
+    }
+    
+    @objc private func skipButtonTapped() {
+        _NavController.gotoHomepage()
     }
     
     // MARK: - Data
@@ -194,6 +196,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
                 self.reloadItemScrollView()
+                self.pageControl.numberOfPages = self.viewModel.subcriptions.value.count
             }
             .disposed(by: disposeBag)
         self.selectedPlan
@@ -220,45 +223,8 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
             self.selectedPlan.accept(plan)
         }
         self.reloadItemScrollView()
+        
+        let index = self.viewModel.subcriptions.value.firstIndex(of: plan)
+        self.pageControl.currentPage = index ?? 0
     }
-    
-    #warning("HARD_CODE")
-    // MARK: - UICollectionViewDataSource
-    //    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    //        return vm.subcriptions.value.count
-    //    }
-    //
-    //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    //        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SubcriptionCollectionViewCell", for: indexPath) as! SubcriptionCollectionViewCell
-    //        cell.titleLabel.text = "Monthly subcription"
-    //        cell.priceLabel.text = "$ 10.00/month"
-    //        cell.footerLabel.text = "Include 14 days free"
-    //        let cellData = viewModel.listCategories[indexPath.row]
-    //        cell.setDataSource(data: cellData)
-    //
-    //        if selectedIndex?.row == indexPath.row && selectedIndex?.section == indexPath.section {
-    //            cell.setSelected(true)
-    //        } else {
-    //            cell.setSelected(false)
-    //        }
-    //
-    //        return cell
-    //    }
-    //
-    //    // MARK: - UICollectionViewDelegate
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        if let tempIndex = self.selectedIndex {
-//            if self.selectedIndex == indexPath {
-//                self.selectedIndex = nil
-//            } else {
-//                self.selectedIndex = indexPath
-//            }
-//            self.collectionView.reloadItems(at: [tempIndex, indexPath])
-//            return
-//        }
-//
-//        self.selectedIndex = indexPath
-//        self.collectionView.reloadItems(at: [indexPath])
-//    }
 }
