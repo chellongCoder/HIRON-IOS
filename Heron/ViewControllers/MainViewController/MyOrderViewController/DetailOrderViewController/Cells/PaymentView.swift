@@ -25,13 +25,23 @@ class PaymentView: UIView {
             make.bottom.equalToSuperview()
         }
         
+        let line = UIView()
+        line.backgroundColor = kGrayColor
+        contentView.addSubview(line)
+        line.snp.makeConstraints {
+            $0.height.equalTo(6)
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+            $0.top.equalTo(contentView.snp.top)
+        }
+        
         let orderInfoLabel = UILabel()
         orderInfoLabel.text = "Order infomation"
         orderInfoLabel.textColor = kDefaultTextColor
         orderInfoLabel.font = getCustomFont(size: 13, name: .bold)
         contentView.addSubview(orderInfoLabel)
         orderInfoLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
+            make.top.equalTo(line.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(16)
         }
         
@@ -112,7 +122,7 @@ class PaymentView: UIView {
         shippingMethodValue.snp.makeConstraints { make in
             make.top.equalTo(shippingMethodLabel.snp.bottom).offset(8)
             make.left.equalTo(orderInfoLabel)
-            make.bottom.lessThanOrEqualToSuperview().offset(-20)
+            make.bottom.lessThanOrEqualToSuperview().offset(-5)
         }
         
     }

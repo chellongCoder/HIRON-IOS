@@ -10,7 +10,11 @@ import RxRelay
 import RxSwift
 
 class DetailOrderViewController: BaseViewController {
-    let tableView       = UITableView(frame: .zero, style: .insetGrouped)
+    
+    let button1         = UIButton()
+    let button2         = UIButton()
+    
+    let tableView       = UITableView(frame: .zero, style: .grouped)
     let viewModel       = DetailOrderViewModel()
     
     let statusView      = OrderStatusView()
@@ -20,12 +24,61 @@ class DetailOrderViewController: BaseViewController {
     let orderStoreView  = OrderStoreView()
     let paymentView     = PaymentView()
     
+    init(_ data: OrderDataSource) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel.orderData.accept(data)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.controller = self
         self.title = "Order Details"
         
         self.showBackBtn()
+        
+        let supportBtn = UIBarButtonItem.init(image: UIImage.init(named: "customer_support_icon"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(customerSupportButtonTapped))
+        self.navigationItem.rightBarButtonItem = supportBtn
+        
+        let bottomView = UIView()
+        bottomView.backgroundColor = .white
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview()
+        }
+        
+        button1.setTitle("Chat", for: .normal)
+        button1.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        button1.setTitleColor(kPrimaryColor, for: .normal)
+        button1.titleLabel?.textAlignment = .center
+        button1.layer.cornerRadius = 20
+        button1.layer.borderColor = kPrimaryColor.cgColor
+        button1.layer.borderWidth = 0.7
+        bottomView.addSubview(button1)
+        button1.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-30)
+            make.top.equalToSuperview().offset(12)
+            make.left.equalToSuperview().offset(16)
+            make.height.equalTo(40)
+            make.width.equalToSuperview().multipliedBy(0.5).offset(-30)
+        }
+        
+        button2.setTitle("Track order", for: .normal)
+        button2.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        button2.setTitleColor(kPrimaryColor, for: .normal)
+        button2.titleLabel?.textAlignment = .center
+        button2.layer.cornerRadius = 20
+        button2.layer.borderColor = kPrimaryColor.cgColor
+        button2.layer.borderWidth = 0.7
+        bottomView.addSubview(button2)
+        button2.snp.makeConstraints { make in
+            make.top.bottom.height.width.equalTo(button1)
+            make.right.equalToSuperview().offset(-16)
+        }
         
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
@@ -39,26 +92,26 @@ class DetailOrderViewController: BaseViewController {
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.centerX.width.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(bottomView.snp.top)
+//            make.bottom.equalToSuperview()
         }
     }
     
-    init(_ data: OrderDataSource?) {
-        
-        #warning("ANh Luc hard code lafm UI")
-        
-        if let data = data {
-            UserDefaults.standard.setValue(data.toJSONString(), forKey: "lucas test")
-            super.init(nibName: nil, bundle: nil)
-            self.viewModel.orderData.accept(data)
-        } else {
-            let cachedString = UserDefaults.standard.string(forKey: "lucas test") as? String ?? ""
-            
-            let cachedData = OrderDataSource.init(JSONString: cachedString)
-            super.init(nibName: nil, bundle: nil)
-            self.viewModel.orderData.accept(cachedData)
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _NavController.setNavigationBarHidden(false, animated: true)
     }
+    
+    @objc private func customerSupportButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)    }
     
     override func bindingData() {
         self.viewModel.orderData
@@ -103,10 +156,10 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        trackingView.setDataSource(self.viewModel.shippingData.value)
+        trackingView.setDataSource(orderData)
         headerView.addSubview(trackingView)
         trackingView.snp.makeConstraints { make in
-            make.top.equalTo(statusView.snp.bottom).offset(10)
+            make.top.equalTo(statusView.snp.bottom).offset(6)
             make.centerX.width.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
@@ -115,7 +168,7 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         shipingView.setShippingData(viewModel.shippingData.value)
         headerView.addSubview(shipingView)
         shipingView.snp.makeConstraints { make in
-            make.top.equalTo(trackingView.snp.bottom).offset(10)
+            make.top.equalTo(trackingView.snp.bottom).offset(6)
             make.width.centerX.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
@@ -127,7 +180,7 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         }
         headerView.addSubview(totalInView)
         totalInView.snp.makeConstraints { make in
-            make.top.equalTo(shipingView.snp.bottom).offset(10)
+            make.top.equalTo(shipingView.snp.bottom).offset(6)
             make.width.centerX.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
@@ -135,9 +188,9 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         orderStoreView.setStoreDataSource(orderData?.store)
         headerView.addSubview(orderStoreView)
         orderStoreView.snp.makeConstraints { make in
-            make.top.equalTo(totalInView.snp.bottom).offset(10)
+            make.top.equalTo(totalInView.snp.bottom).offset(6)
             make.width.centerX.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview()
         }
         
         return headerView

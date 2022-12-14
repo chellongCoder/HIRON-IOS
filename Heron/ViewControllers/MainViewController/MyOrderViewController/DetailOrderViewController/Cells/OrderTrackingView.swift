@@ -20,24 +20,37 @@ class OrderTrackingView: UIView {
         contentView.snp.makeConstraints { (make) in
             make.left.equalToSuperview()
             make.right.equalToSuperview()
-            make.top.equalToSuperview().offset(2)
+            make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        let shippingInfoTitle = UILabel()
-        shippingInfoTitle.text = "Not imple"
-        shippingInfoTitle.font = getCustomFont(size: 16, name: .medium)
-        self.addSubview(shippingInfoTitle)
-        shippingInfoTitle.snp.makeConstraints {
-            $0.top.left.equalToSuperview().offset(10)
+        let timeLeftImage = UIImageView()
+        timeLeftImage.image = UIImage.init(named: "time_left_icon")
+        timeLeftImage.contentMode = .scaleAspectFill
+        self.addSubview(timeLeftImage)
+        timeLeftImage.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().offset(16)
+            make.height.width.equalTo(20)
         }
         
-        shippingCarrierLabel.font = getCustomFont(size: 14, name: .regular)
-        shippingCarrierLabel.text = "Express"
+        let shippingInfoTitle = UILabel()
+        shippingInfoTitle.text = "Estimated delivery time"
+        shippingInfoTitle.font = getCustomFont(size: 13, name: .bold)
+        shippingInfoTitle.textColor = kTitleTextColor
+        self.addSubview(shippingInfoTitle)
+        shippingInfoTitle.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(20)
+            $0.left.equalTo(timeLeftImage.snp.right).offset(12)
+        }
+        
+        shippingCarrierLabel.font = getCustomFont(size: 13, name: .regular)
+        shippingCarrierLabel.text = "Feb 05, 2022 - Feb 07,2022"
+        shippingCarrierLabel.textColor = kTitleTextColor
         self.addSubview(shippingCarrierLabel)
         shippingCarrierLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
-            $0.top.equalTo(shippingInfoTitle.snp.bottom).offset(10)
+            $0.left.equalTo(shippingInfoTitle)
+            $0.top.equalTo(shippingInfoTitle.snp.bottom).offset(8)
             $0.bottom.equalToSuperview().offset(-10)
         }
     }
@@ -46,7 +59,7 @@ class OrderTrackingView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataSource(_ cellData: OrderShippingData?) {
-        self.shippingCarrierLabel.text = String(format: "Express - %@", cellData?.trackingNumber ?? "Unknow")
+    func setDataSource(_ cellData: OrderDataSource?) {
+        self.shippingCarrierLabel.text = String(format: "Express - %@", TimeConverter().getDateFromInt(cellData?.createdAt ?? 0))
     }
 }

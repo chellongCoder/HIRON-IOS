@@ -13,13 +13,14 @@ class OrderStoreView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.backgroundColor = .white
 
         storeLabel.font = getCustomFont(size: 13, name: .bold)
         storeLabel.textColor = kDefaultTextColor
         storeLabel.text = ""
         self.addSubview(storeLabel)
         storeLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(20)
+            $0.top.equalToSuperview().offset(10)
             $0.left.equalToSuperview().offset(16)
             $0.centerY.equalToSuperview()
         }

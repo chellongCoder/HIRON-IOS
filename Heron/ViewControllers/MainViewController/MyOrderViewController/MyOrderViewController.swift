@@ -399,7 +399,7 @@ class MyOrderViewController: BaseViewController,
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewDetailsController = DetailOrderViewController.init(self.viewModel.orders.value[indexPath.section])
-        self.navigationController?.pushViewController(viewDetailsController, animated: true)
+        _NavController.pushViewController(viewDetailsController, animated: true)
         
     }
     

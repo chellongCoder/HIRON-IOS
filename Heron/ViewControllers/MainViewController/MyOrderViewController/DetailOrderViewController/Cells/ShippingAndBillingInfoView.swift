@@ -44,7 +44,7 @@ class ShippingAndBillingInfoView: UIView {
         ađressInforTitle.font = getCustomFont(size: 13, name: .bold)
         contentView.addSubview(ađressInforTitle)
         ađressInforTitle.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(30)
             make.left.equalTo(locationImage1.snp.right).offset(12)
         }
         
@@ -52,7 +52,7 @@ class ShippingAndBillingInfoView: UIView {
         shippingName.font = getCustomFont(size: 13, name: .medium)
         shippingName.textColor = kTitleTextColor
         shippingAddressLabel.numberOfLines = 0
-        self.addSubview(shippingName)
+        contentView.addSubview(shippingName)
         shippingName.snp.makeConstraints {
             $0.left.equalTo(ađressInforTitle)
             $0.centerX.equalToSuperview()
@@ -63,7 +63,7 @@ class ShippingAndBillingInfoView: UIView {
         shippingAddressLabel.font = getCustomFont(size: 13, name: .regular)
         shippingAddressLabel.textColor = kTitleTextColor
         shippingAddressLabel.numberOfLines = 0
-        self.addSubview(shippingAddressLabel)
+        contentView.addSubview(shippingAddressLabel)
         shippingAddressLabel.snp.makeConstraints {
             $0.left.equalTo(ađressInforTitle)
             $0.centerX.equalToSuperview()
@@ -106,7 +106,7 @@ class ShippingAndBillingInfoView: UIView {
             $0.top.equalTo(seperate_line.snp.bottom).offset(20)
         }
         
-        billingAddressName.text = "300 Park Ave, New York, NY 10022"
+        billingAddressName.text = ""
         billingAddressName.numberOfLines = 0
         billingAddressName.font = getCustomFont(size: 13, name: .medium)
         contentView.addSubview(billingAddressName)
@@ -116,8 +116,9 @@ class ShippingAndBillingInfoView: UIView {
             $0.top.equalTo(billingAddressLabel.snp.bottom).offset(12)
         }
         
-        billingAddressEmail.text = "300 Park Ave, New York, NY 10022"
+        billingAddressEmail.text = ""
         billingAddressEmail.font = getCustomFont(size: 13, name: .regular)
+        billingAddressEmail.numberOfLines = 0
         contentView.addSubview(billingAddressEmail)
         billingAddressEmail.snp.makeConstraints {
             $0.left.left.equalTo(billingAddressLabel)
@@ -132,12 +133,12 @@ class ShippingAndBillingInfoView: UIView {
     }
     
     func setUserData(_ userData: OrderUserMetadata?) {
-//        self.billingAddressName.text = String(format: "%@ %@ | %@%@",
-//                                              userData?.firstName ?? "",
-//                                              userData?.lastName ?? "",
-//                                              userData?.phoneCountryCode ?? "",
-//                                              userData?.phoneNumber ?? "")
-//        self.billingAddressEmail.text = userData?.email ?? ""
+        self.billingAddressName.text = String(format: "%@ %@ | %@%@",
+                                             userData?.firstName ?? "",
+                                              userData?.lastName ?? "",
+                                             userData?.phoneCountryCode ?? "",
+                                             userData?.phoneNumber ?? "")
+      self.billingAddressEmail.text = userData?.email ?? ""
     }
     
     func setShippingData(_ shippingData: OrderShippingData?) {
