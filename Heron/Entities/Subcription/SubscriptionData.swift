@@ -19,7 +19,7 @@ enum SubscriptionStatus : String {
     case DISABLE    = "disabled"
 }
 
-struct SubscriptionData : Mappable {
+struct SubscriptionData : Mappable, Equatable {
 	var id              : String = ""
 	var subsItemId      : String = ""
 	private var finalPrice      : Int = 0
@@ -39,6 +39,10 @@ struct SubscriptionData : Mappable {
 	init?(map: Map) {
 
 	}
+    
+    static func == (lhs: SubscriptionData, rhs: SubscriptionData) -> Bool {
+        return lhs.id == rhs.id
+    }
 
 	mutating func mapping(map: Map) {
 

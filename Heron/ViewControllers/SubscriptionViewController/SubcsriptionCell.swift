@@ -7,7 +7,11 @@
 
 import UIKit
 
-class SubcriptionCollectionViewCell: UIView {
+protocol SubcriptionCellDelegate {
+    func didSelectPlan(_ plan: SubscriptionData)
+}
+
+class SubcriptionCell: UIView {
     
     private let cardView = UIImageView()
     let titleLabel      = UILabel()
@@ -15,12 +19,18 @@ class SubcriptionCollectionViewCell: UIView {
     let intervalLabel   = UILabel()
     let iconImage       = UIImageView()
    
+    private var subscriptionPlan: SubscriptionData?
+    var delegate        : SubcriptionCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = .clear
         
+        let selectAction = UITapGestureRecognizer.init(target: self, action: #selector(didTapSubscriptionPlan))
+        self.addGestureRecognizer(selectAction)
+        
         cardView.layer.cornerRadius = 8
-        cardView.layer.borderWidth = 2
+        cardView.layer.borderWidth = 0
         cardView.layer.borderColor = kPrimaryColor.cgColor
         cardView.backgroundColor = .white
         cardView.layer.shadowColor = kPrimaryColor.cgColor // Màu đổ bóng
@@ -98,7 +108,10 @@ class SubcriptionCollectionViewCell: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setDataSource(data : SubscriptionData) {
+    func setDataSource(data : SubscriptionData, currentSelectedPlan: SubscriptionData? = nil) {
+        
+        self.subscriptionPlan = data
+        
         self.titleLabel.text = data.subsItem?.name
         self.priceLabel.text = getMoneyFormat(data.customFinalPrice)
         if data.interval_count == 1 {
@@ -107,16 +120,16 @@ class SubcriptionCollectionViewCell: UIView {
             self.intervalLabel.text = String(format: "/%ld %@s", data.interval_count, data.interval.rawValue)
         }
         
-//         self.footerLabel.text = String(format: "From: %@", getMoneyFormat(data.customRegularPrice))
-    }
-    
-    #warning("HARD_CODE")
-    
-    func setSelected(_ isSelected : Bool) {
-        if isSelected {
-            cardView.layer.borderWidth = 4
+        if data == currentSelectedPlan {
+            cardView.layer.borderWidth = 2
         } else {
             cardView.layer.borderWidth = 0
+        }
+    }
+    
+    @objc private func didTapSubscriptionPlan() {
+        if let subscriptionPlan = subscriptionPlan {
+            self.delegate?.didSelectPlan(subscriptionPlan)
         }
     }
 }

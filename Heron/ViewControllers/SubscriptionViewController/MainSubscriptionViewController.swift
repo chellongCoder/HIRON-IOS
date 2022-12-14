@@ -7,8 +7,9 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 
-class MainSubscriptionViewController: BaseViewController, UICollectionViewDelegate {
+class MainSubscriptionViewController: BaseViewController, UICollectionViewDelegate, SubcriptionCellDelegate {
    
     private let listItems       = UIScrollView()
     private let pageControl     = UIPageControl()
@@ -17,11 +18,7 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     var imagePicker             = UIImagePickerController()
     let skipBtn                 = UIButton()
     let confirmBtn              = UIButton()
-    var selectedIndex           : IndexPath? {
-        didSet {
-            skipBtn.setTitle(selectedIndex == nil ? "Skip":"Confirm", for: .normal)
-        }
-    }
+    var selectedPlan            = BehaviorRelay<SubscriptionData?>(value: nil)
     var currentlySub        : UserRegisteredSubscription?
     
     override func viewDidLoad() {
@@ -162,8 +159,9 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
         for subscriptionData in listItemData {
             
             let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
-            let cell = SubcriptionCollectionViewCell.init(frame: frame)
-            cell.setDataSource(data: subscriptionData)
+            let cell = SubcriptionCell.init(frame: frame)
+            cell.delegate = self
+            cell.setDataSource(data: subscriptionData, currentSelectedPlan: selectedPlan.value)
             listItems.addSubview(cell)
             
             index += 1
@@ -174,18 +172,16 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     
     @objc func continueActionTapped(_ sender: Any) {
         
-        if let selectedIndex = selectedIndex {
-            
-            let selectedSubsciptionPlan = self.viewModel.subcriptions.value[selectedIndex.row]
+        if let selectedPlan = selectedPlan.value {
             
             // switch plan
             if let currentPlan = currentlySub {
-                viewModel.switchPlanTo(fromPlan: currentPlan, toPlan: selectedSubsciptionPlan)
+                viewModel.switchPlanTo(fromPlan: currentPlan, toPlan: selectedPlan)
                 return
             }
             
             let viewController = SubscriptionPaymentViewController()
-            viewController.viewModel.subscriptionPlan.accept(selectedSubsciptionPlan)
+            viewController.viewModel.subscriptionPlan.accept(selectedPlan)
             self.navigationController?.pushViewController(viewController, animated: true)
         } else {
             _NavController.gotoHomepage()
@@ -196,10 +192,34 @@ class MainSubscriptionViewController: BaseViewController, UICollectionViewDelega
     override func bindingData() {
         viewModel.subcriptions
             .observe(on: MainScheduler.instance)
-            .subscribe { subcriptions in
+            .subscribe { _ in
                 self.reloadItemScrollView()
             }
             .disposed(by: disposeBag)
+        self.selectedPlan
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                if self.selectedPlan.value == nil {
+                    self.confirmBtn.setTitleColor(.white, for: .normal)
+                    self.confirmBtn.layer.backgroundColor = kDisableColor.cgColor
+                    self.confirmBtn.isUserInteractionEnabled = false
+                } else {
+                    self.confirmBtn.setTitleColor(.white, for: .normal)
+                    self.confirmBtn.layer.backgroundColor = kPrimaryColor.cgColor
+                    self.confirmBtn.isUserInteractionEnabled = true
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    // MARK: - SubcriptionCellDelegate
+    func didSelectPlan(_ plan: SubscriptionData) {
+        if plan == self.selectedPlan.value {
+            self.selectedPlan.accept(nil)
+        } else {
+            self.selectedPlan.accept(plan)
+        }
+        self.reloadItemScrollView()
     }
     
     #warning("HARD_CODE")
