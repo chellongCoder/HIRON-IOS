@@ -27,7 +27,6 @@ class StackInfoView: UIView {
         stack.alignment = .center
         stack.spacing = 4
         
-        /// TODO: UI discount view
         discountView.backgroundColor = UIColor.init(hexString: "ffe2e2")
         discountView.layer.cornerRadius = 3
         stack.addSubview(discountView)
@@ -39,7 +38,6 @@ class StackInfoView: UIView {
             make.top.equalToSuperview()
         }
         
-        /// TODO: UI original view
         originalPrice.text = "$150.00"
         originalPrice.font = getCustomFont(size: 11, name: .medium)
         originalPrice.setTextColor(kDefaultTextColor)
@@ -50,7 +48,6 @@ class StackInfoView: UIView {
             make.centerY.equalToSuperview()
         }
 
-        /// TODO: UI sale price view
         salePrice.text = "$100.00"
         salePrice.font = getCustomFont(size: 16, name: .bold)
         salePrice.textColor = kDefaultTextColor
@@ -59,8 +56,7 @@ class StackInfoView: UIView {
             make.left.equalTo(originalPrice.snp.right).offset(10)
             make.centerY.equalToSuperview()
         }
-       
-        /// TODO: UI sale amount view
+
         reviewView.text = "80 reviews"
         reviewView.underline()
         reviewView.font = getCustomFont(size: 11, name: .regular)
@@ -81,7 +77,6 @@ class StackInfoView: UIView {
             make.height.equalTo(14)
         }
         
-        /// TODO: UI star view
         starView.text = "★"
         starView.font = getCustomFont(size: 11, name: .regular)
         starView.textColor = UIColor.init(hexString: "ff6d6e")
@@ -100,7 +95,6 @@ class StackInfoView: UIView {
             make.height.equalTo(14)
         }
         
-        /// TODO: UI sale amount view
         saleAmount.text = "120 sales"
         saleAmount.font = getCustomFont(size: 11, name: .regular)
         saleAmount.textColor = kDefaultTextColor
@@ -132,7 +126,11 @@ class StackInfoView: UIView {
     }
     
     func setSaleAmount(_ str: String) {
-        self.saleAmount.text = "\(str) sales"
+        if(str != "1") {
+            self.saleAmount.text = "\(str) sales"
+        } else {
+            self.saleAmount.text = "\(str) sale"
+        }
     }
     
     func setStars(_ str: String) {
@@ -146,7 +144,6 @@ class StackInfoView: UIView {
     func setReviewView(_ str: String) {
         self.reviewView.text = "\(str) reviews"
     }
-    
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
