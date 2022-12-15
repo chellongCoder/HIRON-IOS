@@ -6,27 +6,55 @@
 //
 
 import Foundation
+import RxSwift
 class ProductDetailFooter: UIView {
     private let cardAction      = UIView()
     private let btnBuyNow       = UIButton()
     private let btnAddtoCard    = UIButton()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var count                   = UILabel()
+    let remove                  = UIButton()
+    let add                     = UIButton()
+    var disposeBag              : DisposeBag?
+    weak var viewModel          : ProductDetailsViewModel?
+    weak var controller         : ProductDetailsViewController?
+    var quantityValue           = 1
+
+    @objc private func buyNowButtonTapped() {
+        guard let productData = self.viewModel?.productDataSource.value else {return}
+        let addProductPopup = AddToCartViewController.init(productData: productData, quantityValue)
+        addProductPopup.modalPresentationStyle = .overFullScreen
+        self.controller?.present(addProductPopup, animated: false, completion: nil)
+    }
         
-        let remove = UIButton()
+    @objc private func minusButtonTapped() {
+        if self.quantityValue <= 1 {return}
+        self.quantityValue -= 1
+        count.text = String(format: "%ld", self.quantityValue)
+    }
+    
+    @objc private func plusButtonTapped() {
+        if self.quantityValue >= 99 {return}
+        self.quantityValue += 1
+        count.text = String(format: "%ld", self.quantityValue)
+    }
+    
+    init(frame: CGRect, _ disposeBag: DisposeBag) {
+        super.init(frame: frame)
+        self.disposeBag = disposeBag
         remove.setTitle("-", for: .normal)
         remove.setTitleColor(kDefaultTextColor, for: .normal)
         remove.titleLabel?.font = getCustomFont(size: 13, name: .regular)
-        let count = UILabel()
-        count.text = "1"
+        remove.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+
+        count.text = String(format: "%ld", self.quantityValue)
         count.textColor = kDefaultTextColor
         count.font = getCustomFont(size: 13, name: .regular)
-        let add = UIButton()
+        
         add.setTitle("+", for: .normal)
         add.setTitleColor(kDefaultTextColor, for: .normal)
         add.titleLabel?.font = getCustomFont(size: 13, name: .regular)
-        
+        add.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+
         cardAction.addSubview(add)
         cardAction.addSubview(count)
         cardAction.addSubview(remove)
@@ -85,6 +113,7 @@ class ProductDetailFooter: UIView {
             make.width.equalTo(106)
             make.height.equalTo(40)
         }
+        btnAddtoCard.addTarget(self, action: #selector(buyNowButtonTapped), for: .touchUpInside)
         
         self.addSubview(btnBuyNow)
         btnBuyNow.layer.borderWidth = 0.7
@@ -101,6 +130,33 @@ class ProductDetailFooter: UIView {
             make.height.equalTo(40)
         }
         
+        let loadingIndicator = UIActivityIndicatorView()
+        loadingIndicator.color = .black
+        loadingIndicator.startAnimating()
+        cardAction.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalTo(20)
+            make.height.equalTo(20)
+        }
+        _CartServices.cartLoadingAnimation
+            .observe(on: MainScheduler.instance)
+            .subscribe { loadingAnimation in
+                if loadingAnimation.element ?? false {
+                    UIView.animate(withDuration: 1.0) {
+                        self.count.alpha = 0.0
+                    } completion: { _ in
+                        loadingIndicator.alpha = 1.0
+                    }
+                } else {
+                    UIView.animate(withDuration: 0.1) {
+                        loadingIndicator.alpha = 0.0
+                    } completion: { _ in
+                        self.count.alpha = 1.0
+                    }
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     required init?(coder: NSCoder) {

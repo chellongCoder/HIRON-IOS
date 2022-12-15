@@ -26,6 +26,8 @@ class ProductDetailsViewController: PageScrollViewController,
     var moreButtonItem                  : UIBarButtonItem?
     var cartHub                         : BadgeHub?
     var collectionview                  : UICollectionView!
+    var footer                          : ProductDetailFooter!
+
     var showTabView                     = false
     var topMediaViewHeight              = CGFloat(0)
     var mediaCount                      = 0
@@ -44,18 +46,16 @@ class ProductDetailsViewController: PageScrollViewController,
     let addToCartBtn                    = UIButton()
     let descView                        = UIView()
     let shopView                        = ShopProductView()
-    let footer                          = ProductDetailFooter()
     let reviewRate                      = ReviewRate()
     let tableRateView                   = UITableView(frame: .zero, style: .plain)
 
-    private let packageTitle    = UILabel()
-    private let tagsViewStack   = UIStackView()
-    private let priceDiscount   = UILabel()
-    private let priceLabel      = DiscountLabel()
-    private let starView        = UILabel()
-    private let variantView     = ConfigurationProductVariantView()
-
-    private let cartHotInfo     = CartHotView()
+    private let packageTitle            = UILabel()
+    private let tagsViewStack           = UIStackView()
+    private let priceDiscount           = UILabel()
+    private let priceLabel              = DiscountLabel()
+    private let starView                = UILabel()
+    private let variantView             = ConfigurationProductVariantView()
+    private let cartHotInfo             = CartHotView()
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -89,6 +89,7 @@ class ProductDetailsViewController: PageScrollViewController,
             self.navigationItem.titleView = nil
         }
         
+        self.footer = ProductDetailFooter(frame: .zero, disposeBag)
         self.view.addSubview(footer)
         footer.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview().offset(-20)
@@ -96,6 +97,9 @@ class ProductDetailsViewController: PageScrollViewController,
             make.width.equalToSuperview().offset(-40)
             make.height.equalTo(50)
         }
+        self.footer.controller = self
+        self.footer.viewModel = viewModel
+        self.footer.disposeBag = disposeBag
 
         cartButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "cart_bar_icon"),
                                               style: .plain,
@@ -121,8 +125,7 @@ class ProductDetailsViewController: PageScrollViewController,
                                               action: #selector(filterButtonTapped))
         moreButtonItem?.tintColor = kDefaultTextColor
 
-        self.navigationItem.rightBarButtonItems = [moreButtonItem!,shareButtonItem!,cartButtonItem!]
-
+        self.navigationItem.rightBarButtonItems = [moreButtonItem!, shareButtonItem!, cartButtonItem!]
                 
         pageScroll.delegate = self
         pageScroll.snp.remakeConstraints { (make) in
@@ -307,8 +310,6 @@ class ProductDetailsViewController: PageScrollViewController,
         self.loadReviewView()
         
         self.loadRelateProducts()
-
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -368,14 +369,7 @@ class ProductDetailsViewController: PageScrollViewController,
     @objc private func cartButtonTapped() {
         _NavController.presentCartPage()
     }
-    
-    @objc private func buyNowButtonTapped() {
-        guard let productData = self.viewModel.productDataSource.value else {return}
-        let addProductPopup = AddToCartViewController.init(productData: productData)
-        addProductPopup.modalPresentationStyle = .overFullScreen
-        self.present(addProductPopup, animated: false, completion: nil)
-    }
-    
+ 
     // MARK: - Data
     private func loadMediaView(_ height: CGFloat) {
         guard let listMedia = viewModel.productDataSource.value?.media else {return}
