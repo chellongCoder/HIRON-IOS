@@ -350,9 +350,14 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.stackInfoView.setSaleAmount("\(productData.quantity)")
                 self.stackInfoView.setStars("★★★★★")
                 self.stackInfoView.setReviewView("4")
-                self.pagingView.text = "1/\(productData.media.count)"
-                self.mediaCount = productData.media.count
-
+                
+                if productData.media.count > 1 {
+                    self.pagingView.text = "1/\(productData.media.count)"
+                    self.mediaCount = productData.media.count
+                } else {
+                    self.pagingView.alpha = 0
+                }
+                
                 self.shopView.shopName.text = productData.brand?.name
                 self.shopView.shopDesc.text = ""
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
@@ -482,7 +487,6 @@ class ProductDetailsViewController: PageScrollViewController,
         })
     }
     
-    
     private func loadReviewView() {
         let spacer3 = SpacerView()
         self.contentView.addSubview(spacer3)
@@ -538,7 +542,6 @@ class ProductDetailsViewController: PageScrollViewController,
     }
     
     private func loadRelateProducts() {
-        /// TODO: UI spacer
         let spacer3 = SpacerView()
         self.contentView.addSubview(spacer3)
         spacer3.snp.makeConstraints { (make) in
@@ -580,7 +583,6 @@ class ProductDetailsViewController: PageScrollViewController,
 
     }
 
-    
     @objc private func pageControlDidChange(_ sender: UIPageControl) {
         let current = sender.currentPage
         self.topMediaView.setContentOffset(CGPoint(x: CGFloat(current)*view.frame.width, y: 0), animated: true)
