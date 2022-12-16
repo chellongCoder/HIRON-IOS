@@ -13,6 +13,7 @@ class MyOrderViewController: BaseViewController,
                              UITableViewDelegate, UITableViewDataSource,
                              EmptyViewDelegate {
     
+    private let searchBar       = SearchBarTxt()
     private let topScrollView   = UIScrollView()
     private let stackView       = UIView()
     let tableView               = UITableView(frame: .zero, style: .grouped)
@@ -34,11 +35,21 @@ class MyOrderViewController: BaseViewController,
         self.title = "My orders"
         
         // TODO: A Luc lam thanh search
+        searchBar.setPlaceHolderText("Product name or Order ID")
+        searchBar.backgroundColor = kGrayColor
+        self.view.addSubview(searchBar)
+        searchBar.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().offset(-32)
+        }
         
         topScrollView.showsHorizontalScrollIndicator = false
         self.view.addSubview(topScrollView)
         topScrollView.snp.makeConstraints { (make) in
-            make.left.top.right.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom).offset(20)
+            make.left.right.equalToSuperview()
             make.height.equalTo(46)
         }
         

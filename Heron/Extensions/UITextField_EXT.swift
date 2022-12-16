@@ -126,6 +126,8 @@ class SearchBarTxt: UITextField {
         self.layer.borderColor = UIColor.black.withAlphaComponent(0.25).cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: 1)
         self.layer.shadowColor = UIColor.black.cgColor // Any dark color
+        self.layer.cornerRadius = 6
+        self.layer.masksToBounds = false
       
         addSubview(icon)
         icon.snp.makeConstraints { (make) in
@@ -143,13 +145,6 @@ class SearchBarTxt: UITextField {
         return CGRect(x: self.frame.width - 36, y: self.frame.height / 2 - 10, width: 20, height: 20)
     }
 
-//    @objc private func deleteText() {
-//        self.text = ""
-//        if let delegate = delegate {
-//            delegate.textFieldDidEndEditing?(self)
-//        }
-//    }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -164,6 +159,12 @@ class SearchBarTxt: UITextField {
 
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
+    }
+    
+    func setPlaceHolderText(_ text: String) {
+        self.attributedPlaceholder = NSAttributedString(string: text, attributes: [
+            .foregroundColor: kCustomTextColor,
+            .font: getCustomFont(size: 13, name: .regular) ])
     }
 }
 
