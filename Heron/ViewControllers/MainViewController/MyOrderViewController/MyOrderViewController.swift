@@ -11,7 +11,8 @@ import RxCocoa
 
 class MyOrderViewController: BaseViewController,
                              UITableViewDelegate, UITableViewDataSource,
-                             EmptyViewDelegate {
+                             EmptyViewDelegate,
+                             UITextFieldDelegate {
     
     private let searchBar       = SearchBarTxt()
     private let topScrollView   = UIScrollView()
@@ -34,8 +35,8 @@ class MyOrderViewController: BaseViewController,
         self.viewModel.controller = self
         self.title = "My orders"
         
-        // TODO: A Luc lam thanh search
         searchBar.setPlaceHolderText("Product name or Order ID")
+        searchBar.delegate = self
         searchBar.backgroundColor = kGrayColor
         self.view.addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
@@ -417,5 +418,20 @@ class MyOrderViewController: BaseViewController,
     // MARK: - EmptyViewDelegate
     func didSelectEmptyButton() {
         _NavController.presentCartPage()
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        searchBar.resignFirstResponder()
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
     }
 }

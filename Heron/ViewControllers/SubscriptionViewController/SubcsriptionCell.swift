@@ -7,6 +7,7 @@
 
 import UIKit
 
+// swiftlint:disable class_delegate_protocol
 protocol SubcriptionCellDelegate {
     func didSelectPlan(_ plan: SubscriptionData)
 }
