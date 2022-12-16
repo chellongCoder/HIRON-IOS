@@ -20,10 +20,25 @@ class ProductDetailFooter: UIView {
     var quantityValue           = 1
 
     @objc private func buyNowButtonTapped() {
-        guard let productData = self.viewModel?.productDataSource.value else {return}
-        let addProductPopup = AddToCartViewController.init(productData: productData, quantityValue)
-        addProductPopup.modalPresentationStyle = .overFullScreen
-        self.controller?.present(addProductPopup, animated: false, completion: nil)
+        if let simpleProductData = self.controller?.simpleProductData {
+            simpleProductData.quantity = self.quantityValue
+            
+            let cartVC = CartViewController.sharedInstance
+            cartVC.addProductToCart(simpleProductData)
+            self.controller?.dismiss(animated: true, completion: nil)
+            
+            return
+        }
+        
+        if let productData = self.viewModel?.productDataSource.value {
+            productData.quantity = self.quantityValue
+            
+            let cartVC = CartViewController.sharedInstance
+            cartVC.addProductToCart(productData)
+            self.controller?.dismiss(animated: true, completion: nil)
+            
+            return
+        }
     }
         
     @objc private func minusButtonTapped() {

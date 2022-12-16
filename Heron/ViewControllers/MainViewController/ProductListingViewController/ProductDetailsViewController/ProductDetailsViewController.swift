@@ -27,6 +27,7 @@ class ProductDetailsViewController: PageScrollViewController,
     var cartHub                         : BadgeHub?
     var collectionview                  : UICollectionView!
     var footer                          : ProductDetailFooter!
+    var simpleProductData               : ProductDataSource?
 
     var showTabView                     = false
     var topMediaViewHeight              = CGFloat(0)
@@ -43,7 +44,6 @@ class ProductDetailsViewController: PageScrollViewController,
     let showMoreView                    = UIView()
     let stackTagView                    = StackTagView()
     let stackInfoView                   = StackInfoView()
-    let addToCartBtn                    = UIButton()
     let descView                        = UIView()
     let shopView                        = ShopProductView()
     let reviewRate                      = ReviewRate()
@@ -360,7 +360,7 @@ class ProductDetailsViewController: PageScrollViewController,
                 
                 self.shopView.shopName.text = productData.brand?.name
                 self.shopView.shopDesc.text = ""
-                self.variantView.setConfigurationProduct(productData, isAllowToChange: false)
+                self.variantView.setConfigurationProduct(productData, isAllowToChange: true)
                 self.loadContentDescView()
                 self.loadTagsContents()
                 let staticHeight = (UIScreen.main.bounds.size.width)
@@ -700,12 +700,16 @@ extension ProductDetailsViewController : ProductVariantDelegate {
             return simpleProduct.isMatchingWithVariants(variants)
         }) {
             // Load new UI
-            self.packageTitle.text = matchedSimpleProduct.name
-            self.priceDiscount.text = getMoneyFormat(matchedSimpleProduct.customFinalPrice)
-            self.priceLabel.text = getMoneyFormat(matchedSimpleProduct.customRegularPrice)
-            
-            let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
+            self.nameProduct.text = matchedSimpleProduct.name
+            self.stackInfoView.setDiscountPercent(String(format:"%.1f", matchedSimpleProduct.discountPercent) + "%")
+            self.stackInfoView.setSalePrice(getMoneyFormat(matchedSimpleProduct.customFinalPrice))
+            self.stackInfoView.setOriginalPrice(getMoneyFormat(matchedSimpleProduct.customRegularPrice))
+            self.stackInfoView.setSaleAmount("\(matchedSimpleProduct.quantity)")
+            let staticHeight = (UIScreen.main.bounds.size.width)*1
             self.loadMediaView(staticHeight)
+            
+            self.simpleProductData = matchedSimpleProduct
+
         }
     }
 }
