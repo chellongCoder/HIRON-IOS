@@ -9,7 +9,8 @@ import UIKit
 import Material
 import PhoneNumberKit
 
-class SignUpViewController: BaseViewController {
+class SignUpViewController: BaseViewController,
+                            UITextFieldDelegate {
     
     private let viewModel   = SignUpViewModel()
     var isSign = true
@@ -33,12 +34,16 @@ class SignUpViewController: BaseViewController {
         super.viewDidLoad()
         self.viewModel.controller = self
         
+        self.showBackBtn()
+        
         let image = UIImageView()
         image.image = UIImage.init(named: "logo")
-        self.view.addSubview(image)
+        self.navigationItem.titleView = image
+//        self.view.addSubview(image)
         image.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
-            make.left.equalToSuperview().offset(16)
+//            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+//            make.left.equalToSuperview().offset(16)
+//            make.centerX.equalToSuperview()
             make.height.equalTo(24)
             make.width.equalTo(107)
         }
@@ -50,7 +55,7 @@ class SignUpViewController: BaseViewController {
         signUpLabel.text = "Sign up"
         self.view.addSubview(signUpLabel)
         signUpLabel.snp.makeConstraints { make in
-            make.top.equalTo(image.snp.bottom).offset(48)
+            make.top.equalToSuperview().offset(48)
             make.left.equalToSuperview().offset(28)
         }
         
@@ -74,6 +79,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalToSuperview().offset(28)
         }
         
+        firstNameTxt.delegate = self
         firstNameTxt.setPlaceHolderText(" First name ")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
@@ -95,6 +101,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(firstNameLabel)
         }
         
+        lastNameTxt.delegate = self
         lastNameTxt.setPlaceHolderText(" Last name ")
         lastNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(lastNameTxt)
@@ -174,6 +181,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(genderLabel)
         }
         
+        dobTxt.delegate = self
         dobTxt.setPlaceHolderText("MM dd, yyyy")
         dobTxt.setRightIcon(UIImage.init(named: "calendar_icon"))
         dobTxt.textColor = kDefaultTextColor
@@ -197,11 +205,11 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(dobLabel)
         }
         
+        emailTxt.delegate = self
         emailTxt.text = self.prevEmail
         emailTxt.setPlaceHolderText(" Email ")
         emailTxt.textColor = kDefaultTextColor
         emailTxt.autocapitalizationType = .none
-        emailTxt.isUserInteractionEnabled = false
         contentScrollView.addSubview(emailTxt)
         emailTxt.snp.makeConstraints { make in
             make.top.equalTo(emailLabel.snp.bottom).offset(8)
@@ -221,6 +229,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(emailLabel)
         }
         
+        passwordTxt.delegate = self
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
@@ -252,6 +261,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(emailLabel)
         }
         
+        identityNumberTxt.delegate = self
         identityNumberTxt.setPlaceHolderText(" ID Number ")
         identityNumberTxt.textColor = kDefaultTextColor
         identityNumberTxt.autocapitalizationType = .none
@@ -274,6 +284,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(identityNumberLabel)
         }
         
+        phoneNumberTxt.delegate = self
         phoneNumberTxt.placeholder = " Phone number "
         phoneNumberTxt.textColor = kDefaultTextColor
         phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
@@ -310,6 +321,11 @@ class SignUpViewController: BaseViewController {
             make.height.equalTo(40)
             make.bottom.lessThanOrEqualToSuperview().offset(-100)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _NavController.setNavigationBarHidden(false, animated: true)
     }
     
     private func loadPickerView() {
@@ -415,6 +431,20 @@ class SignUpViewController: BaseViewController {
             identityNumberTxt.setError(nil)
         }
         userData.identityNum = identityNumberTxt.text ?? ""
+        
+        if !(emailTxt.text ?? "").isValidEmail() {
+            emailTxt.setError("Email is not valid")
+        } else {
+            emailTxt.setError(nil)
+        }
+        userData.userEmail = emailTxt.text ?? ""
+        
+        if (passwordTxt.text ?? "").isEmpty {
+            passwordTxt.setError("This field can not be empty")
+        } else {
+            passwordTxt.setError(nil)
+        }
+        userData.password = passwordTxt.text ?? ""
 
         if phoneNumberTxt.isValidNumber {
             phoneNumberTxt.textColor = kDefaultTextColor
@@ -438,5 +468,14 @@ class SignUpViewController: BaseViewController {
             vc.centerDescInfo.text = "Congratulations! You have signed up successfully.\nWe wish you the best experience using our app! Have a good day!"
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kLightGrayColor.cgColor
     }
 }

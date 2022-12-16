@@ -50,7 +50,7 @@ class UserProfileViewController: BaseViewController {
             make.height.width.equalTo(112)
         }
         
-        avatar.image = UIImage.init(named: "default-image")
+        avatar.image = UIImage.init(named: "avatar_default")
         avatar.contentMode = .scaleAspectFit
         avatar.layer.borderColor = UIColor.white.cgColor
         avatar.layer.borderWidth = 12
@@ -180,7 +180,7 @@ class UserProfileViewController: BaseViewController {
             .subscribe { userDataSource in
                 if let userData = userDataSource.element {
                     if let avatarImageURL = URL(string: userData?.userAvatarURL ?? "") {
-                        self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
+                        self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "avatar_default")!)
                     }
                     self.nameLabel.text = String(format: "%@ %@", userData?.userFirstName ?? "", userData?.userLastName ?? "")
                 }
@@ -201,7 +201,7 @@ class UserProfileViewController: BaseViewController {
     
     @objc private func updateUserProfileButtonTapped() {
         let updateEHProfileVC = UpdateUserProfileViewController()
-        self.navigationController?.pushViewController(updateEHProfileVC, animated: true)
+        _NavController.pushViewController(updateEHProfileVC, animated: true)
     }
     
     @objc private func updateEHProfileButtonTapped() {

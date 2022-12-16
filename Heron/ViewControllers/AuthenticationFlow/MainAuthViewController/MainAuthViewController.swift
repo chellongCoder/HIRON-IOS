@@ -84,6 +84,11 @@ class MainAuthViewController: BaseViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _NavController.setNavigationBarHidden(true, animated: true)
+    }
+    
     @objc func signInButtonTapped(_ sender: Any) {
         let vc = SignInViewController()
         self.navigationController?.pushViewController(vc, animated: true)
