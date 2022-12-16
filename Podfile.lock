@@ -83,15 +83,15 @@ PODS:
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
   - ObjectMapper (4.2.0)
-  - OneSignalXCFramework (3.12.1):
-    - OneSignalXCFramework/OneSignalCore (= 3.12.1)
-    - OneSignalXCFramework/OneSignalExtension (= 3.12.1)
-    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.1)
-  - OneSignalXCFramework/OneSignalCore (3.12.1)
-  - OneSignalXCFramework/OneSignalExtension (3.12.1):
+  - OneSignalXCFramework (3.12.3):
+    - OneSignalXCFramework/OneSignalCore (= 3.12.3)
+    - OneSignalXCFramework/OneSignalExtension (= 3.12.3)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.3)
+  - OneSignalXCFramework/OneSignalCore (3.12.3)
+  - OneSignalXCFramework/OneSignalExtension (3.12.3):
     - OneSignalXCFramework/OneSignalCore
     - OneSignalXCFramework/OneSignalOutcomes
-  - OneSignalXCFramework/OneSignalOutcomes (3.12.1):
+  - OneSignalXCFramework/OneSignalOutcomes (3.12.3):
     - OneSignalXCFramework/OneSignalCore
   - PhoneNumberKit (3.3.4):
     - PhoneNumberKit/PhoneNumberKitCore (= 3.3.4)
@@ -190,7 +190,7 @@ SPEC CHECKSUMS:
   Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  OneSignalXCFramework: e286449b6048f4a2eade5f5626a04779dfa4fcb2
+  OneSignalXCFramework: 75844c29607ca95e6176f6f21257b4382c7fdbfb
   PhoneNumberKit: 441e8b26ec88d598e3591de9061eff18f5dd12e8
   RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
   RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
