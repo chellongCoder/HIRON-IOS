@@ -206,7 +206,7 @@ class UserProfileViewController: BaseViewController {
     
     @objc private func updateEHProfileButtonTapped() {
         let updateEHProfileVC = UpdateEHProfileViewController()
-        self.navigationController?.pushViewController(updateEHProfileVC, animated: true)
+        _NavController.pushViewController(updateEHProfileVC, animated: true)
     }
     
     @objc private func userSubscriptionButtonTapped() {

@@ -8,26 +8,22 @@
 import UIKit
 import RxSwift
 import Material
+import PhoneNumberKit
 
 class UpdateUserProfileViewController: PageScrollViewController ,
                                        UIPickerViewDelegate, UIPickerViewDataSource,
                                        UITextFieldDelegate {
 
     private let viewModel   = UpdateUserProfileViewModel()
-    let avatar              = UIImageView()
-    let nameLabel           = UILabel()
-    let dobLabel            = UILabel()
-    let genderLabel         = UILabel()
-    let phoneLabel          = UILabel()
-    let emailLabel          = UILabel()
-    let userIDLabel         = UILabel()
     
-    let firstNameTxt        = ErrorTextField()
-    let lastNameTxt         = ErrorTextField()
-    let genderTxt           = ErrorTextField()
-    let dobTxt              = ErrorTextField()
-    let phoneNumberCodeTxt  = ErrorTextField()
-    let phoneNumberTxt      = ErrorTextField()
+    let firstNameTxt        = BoundedIconTextField()
+    let lastNameTxt         = BoundedIconTextField()
+    let genderTxt           = BoundedIconTextField()
+    let dobTxt              = BoundedIconTextField()
+    let phoneNumberCodeTxt  = BoundedIconTextField()
+    let phoneNumberTxt      = PhoneNumberTextField()
+    let emailTxt            = BoundedIconTextField()
+    let userIDText          = BoundedIconTextField()
     
     private let datePicker  = UIDatePicker()
     private let genderPicker = UIPickerView()
@@ -40,198 +36,234 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         
         self.showBackBtn()
         
-        avatar.image = UIImage.init(named: "default-image")
-        avatar.contentMode = .scaleAspectFit
-        avatar.layer.borderWidth = 1
-        avatar.layer.cornerRadius = 8
-        avatar.layer.borderColor = UIColor.gray.cgColor
-        self.pageScroll.addSubview(avatar)
-        avatar.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(60)
-            make.centerX.equalToSuperview()
-            make.height.width.equalTo(100)
-        }
-        
-        let contentView = UIView()
-        contentView.backgroundColor = UIColor.init(hexString: "F0F0F0")
-        self.pageScroll.addSubview(contentView)
-        contentView.snp.makeConstraints { make in
-            make.top.equalTo(avatar.snp.bottom).offset(35)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-80)
-        }
-        
-        nameLabel.text = "Name: "
-        nameLabel.textColor = kDefaultTextColor
-        nameLabel.numberOfLines = 0
-        nameLabel.textColor = UIColor.init(hexString: "444444")
-        nameLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        dobLabel.text = "DOB: "
-        dobLabel.textColor = kDefaultTextColor
-        dobLabel.numberOfLines = 0
-        dobLabel.textColor = UIColor.init(hexString: "444444")
-        dobLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(dobLabel)
-        dobLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        genderLabel.text = "Gender: "
-        genderLabel.textColor = kDefaultTextColor
-        genderLabel.numberOfLines = 0
-        genderLabel.textColor = UIColor.init(hexString: "444444")
-        genderLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(genderLabel)
-        genderLabel.snp.makeConstraints { make in
-            make.top.equalTo(dobLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        phoneLabel.text = "Phone number: "
-        phoneLabel.textColor = kDefaultTextColor
-        phoneLabel.numberOfLines = 0
-        phoneLabel.textColor = UIColor.init(hexString: "444444")
-        phoneLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(phoneLabel)
-        phoneLabel.snp.makeConstraints { make in
-            make.top.equalTo(genderLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        emailLabel.text = "Email: "
-        emailLabel.textColor = kDefaultTextColor
-        emailLabel.numberOfLines = 0
-        emailLabel.textColor = UIColor.init(hexString: "444444")
-        emailLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(emailLabel)
-        emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(phoneLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        userIDLabel.text = "User Identity: "
-        userIDLabel.textColor = kDefaultTextColor
-        userIDLabel.numberOfLines = 0
-        userIDLabel.textColor = UIColor.init(hexString: "444444")
-        userIDLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(userIDLabel)
-        userIDLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-        
-        firstNameTxt.placeholder = "First Name *"
-        firstNameTxt.dividerNormalHeight = 0.5
-        firstNameTxt.dividerNormalColor = kPrimaryColor
-        firstNameTxt.errorColor = .red
-        firstNameTxt.textColor = kDefaultTextColor
-        firstNameTxt.delegate = self
-        self.pageScroll.addSubview(firstNameTxt)
-        firstNameTxt.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(40)
-            make.left.equalToSuperview().offset(20)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        lastNameTxt.placeholder = "Last Name *"
-        lastNameTxt.dividerNormalHeight = 0.5
-        lastNameTxt.dividerNormalColor = kPrimaryColor
-        lastNameTxt.errorColor = .red
-        lastNameTxt.textColor = kDefaultTextColor
-        lastNameTxt.delegate = self
-        self.pageScroll.addSubview(lastNameTxt)
-        lastNameTxt.snp.makeConstraints { make in
-            make.top.equalTo(firstNameTxt.snp.bottom).offset(40)
-            make.left.equalToSuperview().offset(20)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        genderTxt.placeholder = "Gender"
-        genderTxt.dividerNormalHeight = 0.5
-        genderTxt.dividerNormalColor = kPrimaryColor
-        genderTxt.errorColor = .red
-        genderTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(genderTxt)
-        genderTxt.snp.makeConstraints { make in
-            make.top.equalTo(lastNameTxt.snp.bottom).offset(40)
-            make.left.equalToSuperview().offset(20)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        dobTxt.placeholder = "DOB"
-        dobTxt.dividerNormalHeight = 0.5
-        dobTxt.dividerNormalColor = kPrimaryColor
-        dobTxt.errorColor = .red
-        dobTxt.inputView = self.datePicker
-        dobTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(dobTxt)
-        dobTxt.snp.makeConstraints { make in
-            make.top.equalTo(genderTxt.snp.bottom).offset(40)
-            make.left.equalToSuperview().offset(20)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-//        phoneNumberCodeTxt.text = "+84"
-//        phoneNumberCodeTxt.placeholder = "Phone Code *"
-//        phoneNumberCodeTxt.dividerNormalHeight = 0.5
-//        phoneNumberCodeTxt.dividerNormalColor = kPrimaryColor
-//        phoneNumberCodeTxt.errorColor = .red
-//        phoneNumberCodeTxt.textColor = kDefaultTextColor
-//        phoneNumberCodeTxt.keyboardType = .phonePad
-//        phoneNumberCodeTxt.isUserInteractionEnabled = false
-//        self.pageScroll.addSubview(phoneNumberCodeTxt)
-//        phoneNumberCodeTxt.snp.makeConstraints { make in
-//            make.top.equalTo(dobTxt.snp.bottom).offset(50)
-//            make.left.equalToSuperview().offset(20)
-//            make.width.equalTo(self.view).multipliedBy(0.3)
-//        }
-//
-//        phoneNumberTxt.placeholder = "Phone number *"
-//        phoneNumberTxt.dividerNormalHeight = 0.5
-//        phoneNumberTxt.dividerNormalColor = kPrimaryColor
-//        phoneNumberTxt.errorColor = .red
-//        phoneNumberTxt.textColor = kDefaultTextColor
-//        phoneNumberTxt.keyboardType = .phonePad
-//        phoneNumberTxt.delegate = self
-//        phoneNumberTxt.isUserInteractionEnabled = false
-//        self.pageScroll.addSubview(phoneNumberTxt)
-//        phoneNumberTxt.snp.makeConstraints { make in
-//            make.top.equalTo(dobTxt.snp.bottom).offset(50)
-//            make.left.equalTo(phoneNumberCodeTxt.snp.right).offset(10)
-//            make.right.equalTo(self.view).offset(-20)
-//        }
-        
         let completeBtn = UIButton()
         completeBtn.backgroundColor = kPrimaryColor
-        completeBtn.layer.cornerRadius = 8
+        completeBtn.layer.cornerRadius = 20
         completeBtn.setTitle("Complete", for: .normal)
         completeBtn.setTitleColor(.white, for: .normal)
+        completeBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
         completeBtn.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
-        self.pageScroll.addSubview(completeBtn)
+        self.view.addSubview(completeBtn)
         completeBtn.snp.makeConstraints { make in
-            make.top.equalTo(dobTxt.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-            make.bottom.lessThanOrEqualToSuperview().offset(-20)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(-30)
         }
+        
+        pageScroll.snp.remakeConstraints { (make) in
+            make.left.top.right.equalToSuperview()
+            make.bottom.equalTo(completeBtn.snp.top).offset(-10)
+        }
+        
+        let firstNameLabel      = UILabel()
+        firstNameLabel.text = "First Name *"
+        firstNameLabel.font = getCustomFont(size: 11, name: .light)
+        firstNameLabel.textColor = kDarkColor
+        firstNameLabel.textAlignment = .left
+        self.pageScroll.addSubview(firstNameLabel)
+        firstNameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(35)
+            make.left.equalToSuperview().offset(28)
+        }
+        
+        firstNameTxt.setPlaceHolderText("First Name")
+        firstNameTxt.delegate = self
+        firstNameTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        firstNameTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.firstNameTxt)
+        }
+        self.pageScroll.addSubview(firstNameTxt)
+        firstNameTxt.snp.makeConstraints { make in
+            make.top.equalTo(firstNameLabel.snp.bottom).offset(8)
+            make.left.equalTo(firstNameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let lastNameLabel       = UILabel()
+        lastNameLabel.text = "Last Name *"
+        lastNameLabel.font = getCustomFont(size: 11, name: .light)
+        lastNameLabel.textColor = kDarkColor
+        lastNameLabel.textAlignment = .left
+        self.pageScroll.addSubview(lastNameLabel)
+        lastNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(firstNameTxt.snp.bottom).offset(20)
+            make.left.equalTo(firstNameLabel)
+        }
+        
+        lastNameTxt.setPlaceHolderText("Last Name")
+        lastNameTxt.delegate = self
+        lastNameTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        lastNameTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.lastNameTxt)
+        }
+        self.pageScroll.addSubview(lastNameTxt)
+        lastNameTxt.snp.makeConstraints { make in
+            make.top.equalTo(lastNameLabel.snp.bottom).offset(8)
+            make.left.equalTo(firstNameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let dobLabel            = UILabel()
+        dobLabel.text = "DOB *"
+        dobLabel.font = getCustomFont(size: 11, name: .light)
+        dobLabel.textColor = kDarkColor
+        dobLabel.textAlignment = .left
+        self.pageScroll.addSubview(dobLabel)
+        dobLabel.snp.makeConstraints { make in
+            make.top.equalTo(lastNameTxt.snp.bottom).offset(20)
+            make.left.equalTo(firstNameLabel)
+        }
+        
+        dobTxt.setPlaceHolderText("DOB")
+        dobTxt.inputView = self.datePicker
+        dobTxt.setRightIcon(UIImage.init(named: "calendar_icon"))
+        dobTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.dobTxt)
+        }
+        self.pageScroll.addSubview(dobTxt)
+        dobTxt.snp.makeConstraints { make in
+            make.top.equalTo(dobLabel.snp.bottom).offset(8)
+            make.left.equalTo(firstNameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let genderLabel         = UILabel()
+        genderLabel.text = "Gender *"
+        genderLabel.font = getCustomFont(size: 11, name: .light)
+        genderLabel.textColor = kDarkColor
+        genderLabel.textAlignment = .left
+        self.pageScroll.addSubview(genderLabel)
+        genderLabel.snp.makeConstraints { make in
+            make.top.equalTo(dobTxt.snp.bottom).offset(20)
+            make.left.equalTo(firstNameLabel)
+        }
+        
+        genderTxt.setPlaceHolderText("Gender")
+        genderTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.genderTxt)
+        }
+        genderTxt.setRightIcon(UIImage.init(named: "down_icon"))
+        self.pageScroll.addSubview(genderTxt)
+        genderTxt.snp.makeConstraints { make in
+            make.top.equalTo(genderLabel.snp.bottom).offset(8)
+            make.left.equalTo(firstNameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let phoneNumberLabel    = UILabel()
+        phoneNumberLabel.text = "Phone number *"
+        phoneNumberLabel.font = getCustomFont(size: 11, name: .light)
+        phoneNumberLabel.textColor = kDarkColor
+        phoneNumberLabel.textAlignment = .left
+        self.pageScroll.addSubview(phoneNumberLabel)
+        phoneNumberLabel.snp.makeConstraints { make in
+            make.top.equalTo(genderTxt.snp.bottom).offset(20)
+            make.left.equalTo(firstNameLabel)
+        }
+        
+        phoneNumberTxt.placeholder = " Phone number "
+        phoneNumberTxt.textColor = kCustomTextColor
+        phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
+        
+        phoneNumberTxt.layer.borderWidth = 1
+        phoneNumberTxt.layer.borderColor = kLightGrayColor.cgColor
+        phoneNumberTxt.layer.cornerRadius = 6
+        phoneNumberTxt.layer.masksToBounds = false
+        
+        phoneNumberTxt.withFlag = true
+        phoneNumberTxt.withPrefix = true
+        phoneNumberTxt.withExamplePlaceholder = true
+        phoneNumberTxt.withDefaultPickerUI = true
+        phoneNumberTxt.isUserInteractionEnabled = false
+        phoneNumberTxt.keyboardType = .phonePad
+        self.pageScroll.addSubview(phoneNumberTxt)
+        phoneNumberTxt.snp.makeConstraints { make in
+            make.top.equalTo(phoneNumberLabel.snp.bottom).offset(8)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.centerX.equalToSuperview()
+        }
+        
+        let emailLabel          = UILabel()
+        emailLabel.text = "Email *"
+        emailLabel.font = getCustomFont(size: 11, name: .light)
+        emailLabel.textColor = kDarkColor
+        emailLabel.textAlignment = .left
+        self.pageScroll.addSubview(emailLabel)
+        emailLabel.snp.makeConstraints { make in
+            make.top.equalTo(phoneNumberTxt.snp.bottom).offset(20)
+            make.left.equalTo(firstNameLabel)
+        }
+        
+        emailTxt.delegate = self
+//        emailTxt.text = self.prevEmail
+        emailTxt.setPlaceHolderText(" Email ")
+        emailTxt.textColor = kCustomTextColor
+        emailTxt.isUserInteractionEnabled = false
+        emailTxt.autocapitalizationType = .none
+        self.pageScroll.addSubview(emailTxt)
+        emailTxt.snp.makeConstraints { make in
+            make.top.equalTo(emailLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().offset(-56)
+        }
+        
+        let userIDLabel         = UILabel()
+        userIDLabel.text = "ID *"
+        userIDLabel.font = getCustomFont(size: 11, name: .light)
+        userIDLabel.textColor = kDarkColor
+        userIDLabel.textAlignment = .left
+        self.pageScroll.addSubview(userIDLabel)
+        userIDLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTxt.snp.bottom).offset(20)
+            make.left.equalTo(firstNameLabel)
+        }
+        
+        userIDText.setPlaceHolderText("ID")
+        userIDText.textColor = kCustomTextColor
+        userIDText.isUserInteractionEnabled = false
+        userIDText.delegate = self
+        self.pageScroll.addSubview(userIDText)
+        userIDText.snp.makeConstraints { make in
+            make.top.equalTo(userIDLabel.snp.bottom).offset(8)
+            make.left.equalTo(firstNameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.bottom.lessThanOrEqualToSuperview().offset(-15)
+        }
+        
+//        addressLabel.text = "Address *"
+//        addressLabel.font = getCustomFont(size: 11, name: .light)
+//        addressLabel.textColor = kDarkColor
+//        addressLabel.textAlignment = .left
+//        self.pageScroll.addSubview(addressLabel)
+//        addressLabel.snp.makeConstraints { make in
+//            make.top.equalTo(userIDText.snp.bottom).offset(20)
+//            make.left.equalTo(firstNameLabel)
+//        }
+        
+//        addressTxt.setPlaceHolderText("Address")
+//        addressTxt.delegate = self
+//        addressTxt.rightAction = {
+//            self.righTextFieldButtonTapped(self.addressTxt)
+//        }
+//        addressTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+//        self.pageScroll.addSubview(addressTxt)
+//        addressTxt.snp.makeConstraints { make in
+//            make.top.equalTo(addressLabel.snp.bottom).offset(8)
+//            make.left.equalTo(firstNameLabel)
+//            make.width.equalToSuperview().offset(-56)
+//            make.height.equalTo(40)
+//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+//        }
+//
+//
         
         self.loadPickerView()
     }
@@ -240,6 +272,18 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
         viewModel.getUserProfile()
+    }
+    
+    // MARK: - Buttons
+    
+    private func righTextFieldButtonTapped(_ sender: BoundedIconTextField) {
+        if sender == dobTxt {
+            dobTxt.becomeFirstResponder()
+        } else if sender == genderTxt {
+            genderTxt.becomeFirstResponder()
+        } else {
+            sender.text = ""
+        }
     }
     
     private func loadPickerView() {
@@ -310,22 +354,16 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         viewModel.userData.accept(userData)
     }
     
-    // MARK: Binding Data
+    // MARK: - Binding Data
     override func bindingData() {
         viewModel.userData
             .observe(on: MainScheduler.instance)
             .subscribe { userDataSource in
                 if let userData = userDataSource.element {
-                    if let avatarImageURL = URL(string: userData?.userAvatarURL ?? "") {
-                        self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
-                    }
-                    self.nameLabel.text = String(format: "Name: %@ %@", userData?.userFirstName ?? "", userData?.userLastName ?? "")
+//                    if let avatarImageURL = URL(string: userData?.userAvatarURL ?? "") {
+                        //self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
+//                    }
                     let dateDob = Date.init(timeIntervalSince1970: TimeInterval((userData?.userDOB ?? 0) / 1000))
-                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
-                    self.genderLabel.text = String(format: "Gender: %@", (userData?.userGender == .male) ? "Male" : "Female")
-                    self.phoneLabel.text = String(format: "Phone number: %@%@", userData?.userPhoneCode ?? "", userData?.userPhoneNum ?? "")
-                    self.emailLabel.text = String(format: "Email : %@", userData?.userEmail ?? "")
-                    self.userIDLabel.text = String(format: "User Identity : %@", userData?.identityNum ?? "")
                     
                     self.firstNameTxt.text = userData?.userFirstName
                     self.lastNameTxt.text = userData?.userLastName
@@ -333,6 +371,8 @@ class UpdateUserProfileViewController: PageScrollViewController ,
                     self.dobTxt.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
                     self.phoneNumberCodeTxt.text = userData?.userPhoneCode
                     self.phoneNumberTxt.text = userData?.userPhoneNum
+                    self.emailTxt.text = userData?.userEmail
+                    self.userIDText.text = userData?.identityNum
                 }
                 
             }
@@ -344,47 +384,43 @@ class UpdateUserProfileViewController: PageScrollViewController ,
         let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
                 
         if (firstNameTxt.text ?? "").isEmpty {
-            firstNameTxt.isErrorRevealed = true
-            firstNameTxt.error = "This field can not be empty"
+            firstNameTxt.setError("This field can not be empty")
         } else {
-            firstNameTxt.isErrorRevealed = false
+            firstNameTxt.setError(nil)
         }
         userData.userFirstName = firstNameTxt.text!.formatString()
         
         if (lastNameTxt.text ?? "").isEmpty {
-            lastNameTxt.isErrorRevealed = true
-            lastNameTxt.error = "This field can not be empty"
+            lastNameTxt.setError("This field can not be empty")
         } else {
-            lastNameTxt.isErrorRevealed = false
+            lastNameTxt.setError(nil)
         }
         userData.userLastName = lastNameTxt.text!.formatString()
         
         if (genderTxt.text ?? "").isEmpty {
-            genderTxt.isErrorRevealed = true
-            genderTxt.error = "This field can not be empty"
+            genderTxt.setError("This field can not be empty")
         } else {
-            genderTxt.isErrorRevealed = false
+            genderTxt.setError(nil)
         }
         
         if (dobTxt.text ?? "").isEmpty {
-            dobTxt.isErrorRevealed = true
-            dobTxt.error = "This field can not be empty"
+            dobTxt.setError("This field can not be empty")
         } else {
-            dobTxt.isErrorRevealed = false
+            dobTxt.setError(nil)
         }
                 
-        if (phoneNumberTxt.text ?? "").isEmpty {
-            phoneNumberTxt.isErrorRevealed = true
-            phoneNumberTxt.error = "This field can not be empty"
+        if phoneNumberTxt.isValidNumber {
+            phoneNumberTxt.textColor = kDefaultTextColor
         } else {
-            phoneNumberTxt.isErrorRevealed = false
+            phoneNumberTxt.textColor = .red
         }
         userData.userPhoneNum = phoneNumberTxt.text!
         
-        if firstNameTxt.isErrorRevealed ||
-            lastNameTxt.isErrorRevealed ||
-            genderTxt.isErrorRevealed ||
-            phoneNumberTxt.isErrorRevealed {
+        if firstNameTxt.text?.isEmpty ?? false ||
+            lastNameTxt.text?.isEmpty ?? false ||
+            genderTxt.text?.isEmpty ?? false ||
+            dobTxt.text?.isEmpty ?? false ||
+            !phoneNumberTxt.isValidNumber {
             return
         }
         
@@ -442,7 +478,13 @@ class UpdateUserProfileViewController: PageScrollViewController ,
     }
     
     // MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
+    }
+
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        textField.layer.borderColor = kLightGrayColor.cgColor
         
         let userData = viewModel.userData.value ?? UserDataSource.init(JSONString: "{}")!
         if textField == firstNameTxt {

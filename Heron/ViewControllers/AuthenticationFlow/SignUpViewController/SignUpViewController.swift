@@ -80,7 +80,7 @@ class SignUpViewController: BaseViewController,
         }
         
         firstNameTxt.delegate = self
-        firstNameTxt.setPlaceHolderText(" First name ")
+        firstNameTxt.setPlaceHolderText(" First name *")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
         firstNameTxt.snp.makeConstraints { make in
@@ -91,7 +91,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let lastNameLabel = UILabel()
-        lastNameLabel.text = "Last name"
+        lastNameLabel.text = "Last name *"
         lastNameLabel.font = getCustomFont(size: 11, name: .light)
         lastNameLabel.textColor = kDarkColor
         lastNameLabel.textAlignment = .left
@@ -113,7 +113,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let genderLabel = UILabel()
-        genderLabel.text = "Gender"
+        genderLabel.text = "Gender *"
         genderLabel.font = getCustomFont(size: 11, name: .light)
         genderLabel.textColor = kDarkColor
         genderLabel.textAlignment = .left
