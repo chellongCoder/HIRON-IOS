@@ -22,6 +22,7 @@ class SignUpViewController: BaseViewController,
     let dobTxt              = BoundedIconTextField()
     let emailTxt            = BoundedIconTextField()
     let passwordTxt         = BoundedIconTextField()
+    let retypePasswordTxt   = BoundedIconTextField()
     let identityNumberTxt   = BoundedIconTextField()
     let phoneNumberTxt      = PhoneNumberTextField()
     
@@ -250,6 +251,38 @@ class SignUpViewController: BaseViewController,
             make.height.equalTo(40)
         }
         
+        let retypePasswordLabel = UILabel()
+        retypePasswordLabel.text = "Password Confirm"
+        retypePasswordLabel.font = getCustomFont(size: 11, name: .light)
+        retypePasswordLabel.textColor = kDarkColor
+        retypePasswordLabel.textAlignment = .left
+        contentScrollView.addSubview(retypePasswordLabel)
+        retypePasswordLabel.snp.makeConstraints { make in
+            make.top.equalTo(passwordTxt.snp.bottom).offset(20)
+            make.left.equalTo(emailLabel)
+        }
+        
+        retypePasswordTxt.delegate = self
+        retypePasswordTxt.setPlaceHolderText("Password")
+        retypePasswordTxt.isSecureTextEntry = true
+        retypePasswordTxt.textColor = kDefaultTextColor
+        retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        retypePasswordTxt.rightAction = {
+            self.retypePasswordTxt.isSecureTextEntry = !self.retypePasswordTxt.isSecureTextEntry
+            if self.retypePasswordTxt.isSecureTextEntry {
+                self.retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+            } else {
+                self.retypePasswordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            }
+        }
+        contentScrollView.addSubview(retypePasswordTxt)
+        retypePasswordTxt.snp.makeConstraints { make in
+            make.top.equalTo(retypePasswordLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
         let identityNumberLabel = UILabel()
         identityNumberLabel.text = "ID Number"
         identityNumberLabel.textColor = kDarkColor
@@ -257,7 +290,7 @@ class SignUpViewController: BaseViewController,
         identityNumberLabel.textAlignment = .left
         contentScrollView.addSubview(identityNumberLabel)
         identityNumberLabel.snp.makeConstraints { make in
-            make.top.equalTo(passwordTxt.snp.bottom).offset(20)
+            make.top.equalTo(retypePasswordTxt.snp.bottom).offset(20)
             make.left.equalTo(emailLabel)
         }
         
@@ -445,6 +478,12 @@ class SignUpViewController: BaseViewController,
             passwordTxt.setError(nil)
         }
         userData.password = passwordTxt.text ?? ""
+        
+        if retypePasswordTxt.text != passwordTxt.text {
+            retypePasswordTxt.setError("Password Confirm not matched")
+        } else {
+            retypePasswordTxt.setError(nil)
+        }
 
         if phoneNumberTxt.isValidNumber {
             phoneNumberTxt.textColor = kDefaultTextColor
@@ -457,6 +496,7 @@ class SignUpViewController: BaseViewController,
             lastNameTxt.text?.isEmpty ?? true ||
             dobTxt.text?.isEmpty ?? true ||
             identityNumberTxt.text?.isEmpty ?? true ||
+            passwordTxt.text != retypePasswordTxt.text ||
             !phoneNumberTxt.isValidNumber {
             return
         }
