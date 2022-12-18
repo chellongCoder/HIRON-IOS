@@ -235,14 +235,15 @@ class ProductDetailsViewController: PageScrollViewController,
             make.top.equalTo(stackTagView.snp.bottom).offset(0)
             make.left.equalToSuperview().offset(10)
             make.width.equalToSuperview().offset(-15)
+            make.bottom.lessThanOrEqualToSuperview()
         }
         
         contentDescView.addSubview(stackInfoView)
         stackInfoView.snp.makeConstraints { (make) in
-            make.top.equalTo(nameProduct.snp.bottom).offset(10)
             make.left.equalTo(10)
             make.width.equalToSuperview().offset(-15)
             make.height.equalTo(20)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         self.contentView.addSubview(contentDescView)
@@ -481,11 +482,19 @@ class ProductDetailsViewController: PageScrollViewController,
 
             }
             
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 10
+            paragraphStyle.minimumLineHeight = 10
+            let attrString = content.content.htmlAttributedString()
+            attrString?.addAttribute(NSAttributedString.Key.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attrString!.length))
+
             let contentLabel = UILabel()
             contentLabel.numberOfLines = 0
-            contentLabel.attributedText = content.content.htmlAttributedString()
+            
+            contentLabel.attributedText = attrString
             contentLabel.textColor = UIColor.init(hexString: "172B4D")
             contentLabel.font = getCustomFont(size: 13, name: .regular)
+            
             self.descView.addSubview(contentLabel)
             contentLabel.snp.makeConstraints { make in
                 make.top.equalTo(titleLabel.snp.bottom).offset(15)

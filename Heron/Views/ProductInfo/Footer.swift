@@ -56,19 +56,19 @@ class ProductDetailFooter: UIView {
     init(frame: CGRect, _ disposeBag: DisposeBag) {
         super.init(frame: frame)
         self.disposeBag = disposeBag
-        remove.setTitle("-", for: .normal)
+        remove.setTitle("+", for: .normal)
         remove.setTitleColor(kDefaultTextColor, for: .normal)
         remove.titleLabel?.font = getCustomFont(size: 13, name: .regular)
-        remove.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
+        remove.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
 
         count.text = String(format: "%ld", self.quantityValue)
         count.textColor = kDefaultTextColor
         count.font = getCustomFont(size: 13, name: .regular)
         
-        add.setTitle("+", for: .normal)
+        add.setTitle("-", for: .normal)
         add.setTitleColor(kDefaultTextColor, for: .normal)
         add.titleLabel?.font = getCustomFont(size: 13, name: .regular)
-        add.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+        add.addTarget(self, action: #selector(minusButtonTapped), for: .touchUpInside)
 
         cardAction.addSubview(add)
         cardAction.addSubview(count)
