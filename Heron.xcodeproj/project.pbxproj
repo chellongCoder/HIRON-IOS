@@ -1085,8 +1085,8 @@
 			children = (
 				93C2EA3528AE9AD100371DFE /* MainAuthViewController */,
 				93C2EA3628AF3F8800371DFE /* SignInViewController */,
-				93E24E0D28B883F200E53835 /* SignInSuccessViewController */,
 				93C2EA3B28AF41BA00371DFE /* SignUpViewController */,
+				93E24E0D28B883F200E53835 /* SignInSuccessViewController */,
 			);
 			path = AuthenticationFlow;
 			sourceTree = "<group>";
