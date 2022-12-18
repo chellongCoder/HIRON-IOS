@@ -71,6 +71,20 @@ class ProductDetailsViewController: PageScrollViewController,
         _NavController.presentCartPage()
     }
     
+    @objc private func shareButtonTapped() {
+        //Set the default sharing message.
+        let message = "Message goes here."
+        //Set the link to share.
+        if let link = NSURL(string: "http://yoururl.com")
+        {
+            let objectsToShare = [message,link] as [Any]
+            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+            self.present(activityVC, animated: true, completion: nil)
+        }
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
@@ -116,7 +130,7 @@ class ProductDetailsViewController: PageScrollViewController,
         shareButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "shareIcon"),
                                                    style: .done,
                                               target: self,
-                                              action: #selector(filterButtonTapped))
+                                              action: #selector(shareButtonTapped))
         shareButtonItem?.tintColor = kDefaultTextColor
         
         moreButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "moreIcon"),
