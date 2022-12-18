@@ -101,9 +101,9 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         passwordTxt.rightAction = {
             self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
             if self.passwordTxt.isSecureTextEntry {
-                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
-            } else {
                 self.passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            } else {
+                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
             }
         }
         self.view.addSubview(passwordTxt)
