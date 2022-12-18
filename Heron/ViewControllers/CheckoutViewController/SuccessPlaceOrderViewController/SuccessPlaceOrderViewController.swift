@@ -16,14 +16,13 @@ class SuccessPlaceOrderViewController: UIViewController {
         self.view.backgroundColor = .white
         
         let placedIcon = UIImageView()
-        placedIcon.image = UIImage.init(named: "orderplaced")
+        placedIcon.image = UIImage.init(named: "order_placed")
         placedIcon.contentMode = .scaleAspectFill
         self.view.addSubview(placedIcon)
         placedIcon.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(160)
-            make.centerX.equalToSuperview().offset(12.5)
-            make.height.equalTo(157)
-            make.width.equalTo(105)
+            make.top.equalToSuperview().offset(165)
+            make.centerX.equalToSuperview()
+            make.height.width.equalTo(100)
         }
         
         let orderplacedTitle = UILabel()
@@ -39,16 +38,16 @@ class SuccessPlaceOrderViewController: UIViewController {
         }
         
         let orderplacedMessage = UILabel()
-        orderplacedMessage.text = String(format: "Your order: #%@ has been received and is being processed. Please check the delivery status at My Order screen", self.listOrders.first?.code ?? "" )
+        orderplacedMessage.text = String(format: "Your order: #%@ has been received and is being processed. Please check the delivery status at My Order page", self.listOrders.first?.code ?? "" )
         orderplacedMessage.textAlignment = .center
         orderplacedMessage.textColor = kDefaultTextColor
         orderplacedMessage.font = getCustomFont(size: 13, name: .regular)
         orderplacedMessage.numberOfLines = 0
         self.view.addSubview(orderplacedMessage)
         orderplacedMessage.snp.makeConstraints { make in
-            make.top.equalTo(orderplacedTitle.snp.bottom).offset(20)
+            make.top.equalTo(orderplacedTitle.snp.bottom).offset(12)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-60)
+            make.width.equalToSuperview().offset(-110)
         }
         
         let viewMyOrderBtn = UIButton()
@@ -59,9 +58,9 @@ class SuccessPlaceOrderViewController: UIViewController {
         viewMyOrderBtn.addTarget(self, action: #selector(viewMyBookingButtonTapped), for: .touchUpInside)
         self.view.addSubview(viewMyOrderBtn)
         viewMyOrderBtn.snp.makeConstraints { make in
-            make.top.equalTo(orderplacedMessage.snp.bottom).offset(50)
+            make.top.equalTo(orderplacedMessage.snp.bottom).offset(60)
             make.centerX.equalToSuperview()
-            make.height.equalTo(30)
+            make.height.equalTo(40)
             make.width.equalToSuperview().offset(-100)
         }
         

@@ -11,8 +11,10 @@ import RxCocoa
 
 class MyOrderViewController: BaseViewController,
                              UITableViewDelegate, UITableViewDataSource,
-                             EmptyViewDelegate {
+                             EmptyViewDelegate,
+                             UITextFieldDelegate {
     
+    private let searchBar       = SearchBarTxt()
     private let topScrollView   = UIScrollView()
     private let stackView       = UIView()
     let tableView               = UITableView(frame: .zero, style: .grouped)
@@ -33,12 +35,22 @@ class MyOrderViewController: BaseViewController,
         self.viewModel.controller = self
         self.title = "My orders"
         
-        // TODO: A Luc lam thanh search
+        searchBar.setPlaceHolderText("Product name or Order ID")
+        searchBar.delegate = self
+        searchBar.backgroundColor = kGrayColor
+        self.view.addSubview(searchBar)
+        searchBar.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().offset(-32)
+        }
         
         topScrollView.showsHorizontalScrollIndicator = false
         self.view.addSubview(topScrollView)
         topScrollView.snp.makeConstraints { (make) in
-            make.left.top.right.equalToSuperview()
+            make.top.equalTo(searchBar.snp.bottom).offset(20)
+            make.left.right.equalToSuperview()
             make.height.equalTo(46)
         }
         
@@ -399,12 +411,27 @@ class MyOrderViewController: BaseViewController,
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewDetailsController = DetailOrderViewController.init(self.viewModel.orders.value[indexPath.section])
-        self.navigationController?.pushViewController(viewDetailsController, animated: true)
+        _NavController.pushViewController(viewDetailsController, animated: true)
         
     }
     
     // MARK: - EmptyViewDelegate
     func didSelectEmptyButton() {
         _NavController.presentCartPage()
+    }
+    
+    // MARK: - UITextFieldDelegate
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        searchBar.resignFirstResponder()
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
     }
 }

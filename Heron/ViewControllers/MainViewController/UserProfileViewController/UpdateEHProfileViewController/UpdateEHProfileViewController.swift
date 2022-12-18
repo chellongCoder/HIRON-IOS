@@ -8,25 +8,25 @@
 import UIKit
 import RxSwift
 import Material
+import PhoneNumberKit
 
-class UpdateEHProfileViewController: PageScrollViewController {
+class UpdateEHProfileViewController: PageScrollViewController,
+                                     UITextFieldDelegate {
     private let viewModel   = UpdateEHProfileViewModel()
     
-    let avatar              = UIImageView()
-    let nameLabel           = UILabel()
-    let dobLabel            = UILabel()
-    let genderLabel         = UILabel()
-    let phoneLabel          = UILabel()
-    let emailLabel          = UILabel()
-    
-    private let addressTxt      = ErrorTextField()
-    private let countryTxt      = ErrorTextField()
-    private let regionTxt       = ErrorTextField()
-    private let provinceTxt     = ErrorTextField()
-    private let districtTxt     = ErrorTextField()
-    private let wardTxt         = ErrorTextField()
-    private let postCodeTxt     = ErrorTextField()
-    private let professionTxt   = ErrorTextField()
+    private let nameTxt         = BoundedIconTextField()
+    private let dobTxt          = BoundedIconTextField()
+    private let genderTxt       = BoundedIconTextField()
+    private let phoneNumberTxt  = PhoneNumberTextField()
+    private let emailTxt        = BoundedIconTextField()
+    private let addressTxt      = BoundedIconTextField()
+    private let countryTxt      = BoundedIconTextField()
+    private let regionTxt       = BoundedIconTextField()
+    private let provinceTxt     = BoundedIconTextField()
+    private let districtTxt     = BoundedIconTextField()
+    private let wardTxt         = BoundedIconTextField()
+    private let postCodeTxt     = BoundedIconTextField()
+    private let professionTxt   = BoundedIconTextField()
 
     let updateBtn           = UIButton()
     
@@ -37,203 +37,347 @@ class UpdateEHProfileViewController: PageScrollViewController {
         
         self.showBackBtn()
         
-        avatar.image = UIImage.init(named: "default-image")
-        avatar.contentMode = .scaleAspectFit
-        avatar.layer.borderWidth = 1
-        avatar.layer.cornerRadius = 8
-        avatar.layer.borderColor = UIColor.gray.cgColor
-        self.pageScroll.addSubview(avatar)
-        avatar.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(60)
-            make.centerX.equalToSuperview()
-            make.height.width.equalTo(100)
-        }
-        
-        let contentView = UIView()
-        contentView.backgroundColor = UIColor.init(hexString: "F0F0F0")
-        self.pageScroll.addSubview(contentView)
-        contentView.snp.makeConstraints { make in
-            make.top.equalTo(avatar.snp.bottom).offset(35)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-        }
-        
-        nameLabel.text = "Name: "
-        nameLabel.textColor = kDefaultTextColor
-        nameLabel.numberOfLines = 0
-        nameLabel.textColor = UIColor.init(hexString: "444444")
-        nameLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.top.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        dobLabel.text = "DOB: "
-        dobLabel.textColor = kDefaultTextColor
-        dobLabel.numberOfLines = 0
-        dobLabel.textColor = UIColor.init(hexString: "444444")
-        dobLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(dobLabel)
-        dobLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        genderLabel.text = "Gender: "
-        genderLabel.textColor = kDefaultTextColor
-        genderLabel.numberOfLines = 0
-        genderLabel.textColor = UIColor.init(hexString: "444444")
-        genderLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(genderLabel)
-        genderLabel.snp.makeConstraints { make in
-            make.top.equalTo(dobLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        phoneLabel.text = "Phone number: "
-        phoneLabel.textColor = kDefaultTextColor
-        phoneLabel.numberOfLines = 0
-        phoneLabel.textColor = UIColor.init(hexString: "444444")
-        phoneLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(phoneLabel)
-        phoneLabel.snp.makeConstraints { make in
-            make.top.equalTo(genderLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-        }
-        
-        emailLabel.text = "Email: "
-        emailLabel.textColor = kDefaultTextColor
-        emailLabel.numberOfLines = 0
-        emailLabel.textColor = UIColor.init(hexString: "444444")
-        emailLabel.font = getCustomFont(size: 14, name: .regular)
-        contentView.addSubview(emailLabel)
-        emailLabel.snp.makeConstraints { make in
-            make.top.equalTo(phoneLabel.snp.bottom)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-        
-        addressTxt.placeholder = "Address"
-        addressTxt.dividerNormalHeight = 0.5
-        addressTxt.dividerNormalColor = kPrimaryColor
-        addressTxt.errorColor = .red
-        addressTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(addressTxt)
-        addressTxt.snp.makeConstraints { make in
-            make.top.equalTo(contentView.snp.bottom).offset(20)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        countryTxt.placeholder = "Country"
-        countryTxt.dividerNormalHeight = 0.5
-        countryTxt.dividerNormalColor = kPrimaryColor
-        countryTxt.errorColor = .red
-        countryTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(countryTxt)
-        countryTxt.snp.makeConstraints { make in
-            make.top.equalTo(addressTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        regionTxt.placeholder = "Region"
-        regionTxt.dividerNormalHeight = 0.5
-        regionTxt.dividerNormalColor = kPrimaryColor
-        regionTxt.errorColor = .red
-        regionTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(regionTxt)
-        regionTxt.snp.makeConstraints { make in
-            make.top.equalTo(countryTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        provinceTxt.placeholder = "Province"
-        provinceTxt.dividerNormalHeight = 0.5
-        provinceTxt.dividerNormalColor = kPrimaryColor
-        provinceTxt.errorColor = .red
-        provinceTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(provinceTxt)
-        provinceTxt.snp.makeConstraints { make in
-            make.top.equalTo(regionTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        districtTxt.placeholder = "District"
-        districtTxt.dividerNormalHeight = 0.5
-        districtTxt.dividerNormalColor = kPrimaryColor
-        districtTxt.errorColor = .red
-        districtTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(districtTxt)
-        districtTxt.snp.makeConstraints { make in
-            make.top.equalTo(provinceTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        wardTxt.placeholder = "Ward"
-        wardTxt.dividerNormalHeight = 0.5
-        wardTxt.dividerNormalColor = kPrimaryColor
-        wardTxt.errorColor = .red
-        wardTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(wardTxt)
-        wardTxt.snp.makeConstraints { make in
-            make.top.equalTo(districtTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        postCodeTxt.placeholder = "Zip Code"
-        postCodeTxt.dividerNormalHeight = 0.5
-        postCodeTxt.dividerNormalColor = kPrimaryColor
-        postCodeTxt.errorColor = .red
-        postCodeTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(postCodeTxt)
-        postCodeTxt.snp.makeConstraints { make in
-            make.top.equalTo(wardTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
-        professionTxt.placeholder = "Profession"
-        professionTxt.dividerNormalHeight = 0.5
-        professionTxt.dividerNormalColor = kPrimaryColor
-        professionTxt.errorColor = .red
-        professionTxt.textColor = kDefaultTextColor
-        self.pageScroll.addSubview(professionTxt)
-        professionTxt.snp.makeConstraints { make in
-            make.top.equalTo(postCodeTxt.snp.bottom).offset(40)
-            make.left.equalTo(contentView)
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-        }
-        
         updateBtn.backgroundColor = kPrimaryColor
-        updateBtn.layer.cornerRadius = 8
+        updateBtn.layer.cornerRadius = 20
         updateBtn.setTitle("Complete", for: .normal)
         updateBtn.setTitleColor(.white, for: .normal)
         updateBtn.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
-        self.pageScroll.addSubview(updateBtn)
+        self.view.addSubview(updateBtn)
         updateBtn.snp.makeConstraints { make in
-            make.top.equalTo(professionTxt.snp.bottom).offset(30)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
-            make.bottom.lessThanOrEqualToSuperview().offset(-20)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(-30)
+        }
+        
+        pageScroll.snp.remakeConstraints { (make) in
+            make.left.top.right.centerX.equalToSuperview()
+            make.bottom.equalTo(updateBtn.snp.top).offset(-10)
+        }
+        
+        let nameLabel = UILabel()
+        nameLabel.text = "Name: "
+        nameLabel.textColor = kDarkColor
+        nameLabel.font = getCustomFont(size: 11, name: .light)
+        nameLabel.textAlignment = .left
+        self.pageScroll.addSubview(nameLabel)
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(28)
+        }
+        
+        nameTxt.setPlaceHolderText("Name")
+        nameTxt.isUserInteractionEnabled = false
+        nameTxt.textColor = kCustomTextColor
+        self.pageScroll.addSubview(nameTxt)
+        nameTxt.snp.makeConstraints { make in
+            make.top.equalTo(nameLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let dobLabel = UILabel()
+        dobLabel.text = "DOB: "
+        dobLabel.textColor = kDarkColor
+        dobLabel.font = getCustomFont(size: 11, name: .light)
+        dobLabel.textAlignment = .left
+        self.pageScroll.addSubview(dobLabel)
+        dobLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        dobTxt.setPlaceHolderText("DOB")
+        dobTxt.isUserInteractionEnabled = false
+        dobTxt.textColor = kCustomTextColor
+        self.pageScroll.addSubview(dobTxt)
+        dobTxt.snp.makeConstraints { make in
+            make.top.equalTo(dobLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let genderLabel = UILabel()
+        genderLabel.text = "Gender: "
+        genderLabel.textColor = kDarkColor
+        genderLabel.font = getCustomFont(size: 11, name: .light)
+        genderLabel.textAlignment = .left
+        self.pageScroll.addSubview(genderLabel)
+        genderLabel.snp.makeConstraints { make in
+            make.top.equalTo(dobTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        genderTxt.setPlaceHolderText("Gender")
+        genderTxt.textColor = kCustomTextColor
+        genderTxt.isUserInteractionEnabled = false
+        self.pageScroll.addSubview(genderTxt)
+        genderTxt.snp.makeConstraints { make in
+            make.top.equalTo(genderLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let phoneLabel = UILabel()
+        phoneLabel.text = "Phone number: "
+        phoneLabel.textColor = kDarkColor
+        phoneLabel.font = getCustomFont(size: 11, name: .light)
+        phoneLabel.textAlignment = .left
+        self.pageScroll.addSubview(phoneLabel)
+        phoneLabel.snp.makeConstraints { make in
+            make.top.equalTo(genderTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        phoneNumberTxt.placeholder = " Phone number "
+        phoneNumberTxt.textColor = kCustomTextColor
+        phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
+        
+        phoneNumberTxt.layer.borderWidth = 1
+        phoneNumberTxt.layer.borderColor = kLightGrayColor.cgColor
+        phoneNumberTxt.layer.cornerRadius = 6
+        phoneNumberTxt.layer.masksToBounds = false
+        
+        phoneNumberTxt.withFlag = true
+        phoneNumberTxt.withPrefix = true
+        phoneNumberTxt.withExamplePlaceholder = true
+        phoneNumberTxt.withDefaultPickerUI = true
+        phoneNumberTxt.isUserInteractionEnabled = false
+        phoneNumberTxt.keyboardType = .phonePad
+        self.pageScroll.addSubview(phoneNumberTxt)
+        phoneNumberTxt.snp.makeConstraints { make in
+            make.top.equalTo(phoneLabel.snp.bottom).offset(8)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.centerX.equalToSuperview()
+        }
+        
+        let emailLabel = UILabel()
+        emailLabel.text = "Email: "
+        emailLabel.textColor = kDarkColor
+        emailLabel.font = getCustomFont(size: 11, name: .light)
+        emailLabel.textAlignment = .left
+        self.pageScroll.addSubview(emailLabel)
+        emailLabel.snp.makeConstraints { make in
+            make.top.equalTo(phoneNumberTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        emailTxt.setPlaceHolderText("Email")
+        emailTxt.isUserInteractionEnabled = false
+        emailTxt.textColor = kCustomTextColor
+        self.pageScroll.addSubview(emailTxt)
+        emailTxt.snp.makeConstraints { make in
+            make.top.equalTo(emailLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let addressLabel = UILabel()
+        addressLabel.text = "Address: "
+        addressLabel.textColor = kDarkColor
+        addressLabel.font = getCustomFont(size: 11, name: .light)
+        addressLabel.textAlignment = .left
+        self.pageScroll.addSubview(addressLabel)
+        addressLabel.snp.makeConstraints { make in
+            make.top.equalTo(emailTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        addressTxt.setPlaceHolderText("Address")
+        addressTxt.delegate = self
+        addressTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.addressTxt)
+        }
+        addressTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        addressTxt.delegate = self
+        self.pageScroll.addSubview(addressTxt)
+        addressTxt.snp.makeConstraints { make in
+            make.top.equalTo(addressLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let countryLabel = UILabel()
+        countryLabel.text = "Country: "
+        countryLabel.textColor = kDarkColor
+        countryLabel.font = getCustomFont(size: 11, name: .light)
+        countryLabel.textAlignment = .left
+        self.pageScroll.addSubview(countryLabel)
+        countryLabel.snp.makeConstraints { make in
+            make.top.equalTo(addressTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        countryTxt.setPlaceHolderText("Country")
+        countryTxt.delegate = self
+        countryTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.countryTxt)
+        }
+        countryTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        self.pageScroll.addSubview(countryTxt)
+        countryTxt.snp.makeConstraints { make in
+            make.top.equalTo(countryLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let regionLabel = UILabel()
+        regionLabel.text = "Region: "
+        regionLabel.textColor = kDarkColor
+        regionLabel.font = getCustomFont(size: 11, name: .light)
+        regionLabel.textAlignment = .left
+        self.pageScroll.addSubview(regionLabel)
+        regionLabel.snp.makeConstraints { make in
+            make.top.equalTo(countryTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        regionTxt.setPlaceHolderText("Region")
+        regionTxt.delegate = self
+        regionTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.regionTxt)
+        }
+        regionTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        self.pageScroll.addSubview(regionTxt)
+        regionTxt.snp.makeConstraints { make in
+            make.top.equalTo(regionLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let provinceLabel = UILabel()
+        provinceLabel.text = "Province: "
+        provinceLabel.textColor = kDarkColor
+        provinceLabel.font = getCustomFont(size: 11, name: .light)
+        provinceLabel.textAlignment = .left
+        self.pageScroll.addSubview(provinceLabel)
+        provinceLabel.snp.makeConstraints { make in
+            make.top.equalTo(regionTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        provinceTxt.setPlaceHolderText("Province")
+        provinceTxt.delegate = self
+        provinceTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.provinceTxt)
+        }
+        provinceTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        self.pageScroll.addSubview(provinceTxt)
+        provinceTxt.snp.makeConstraints { make in
+            make.top.equalTo(provinceLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let districtLabel = UILabel()
+        districtLabel.text = "District: "
+        districtLabel.textColor = kDarkColor
+        districtLabel.font = getCustomFont(size: 11, name: .light)
+        districtLabel.textAlignment = .left
+        self.pageScroll.addSubview(districtLabel)
+        districtLabel.snp.makeConstraints { make in
+            make.top.equalTo(provinceTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        districtTxt.setPlaceHolderText("District")
+        districtTxt.delegate = self
+        districtTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.districtTxt)
+        }
+        districtTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        self.pageScroll.addSubview(districtTxt)
+        districtTxt.snp.makeConstraints { make in
+            make.top.equalTo(districtLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let wardLabel = UILabel()
+        wardLabel.text = "Ward: "
+        wardLabel.textColor = kDarkColor
+        wardLabel.font = getCustomFont(size: 11, name: .light)
+        wardLabel.textAlignment = .left
+        self.pageScroll.addSubview(wardLabel)
+        wardLabel.snp.makeConstraints { make in
+            make.top.equalTo(districtTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        wardTxt.setPlaceHolderText("Ward")
+        wardTxt.delegate = self
+        wardTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.wardTxt)
+        }
+        wardTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        self.pageScroll.addSubview(wardTxt)
+        wardTxt.snp.makeConstraints { make in
+            make.top.equalTo(wardLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let postCodeLabel = UILabel()
+        postCodeLabel.text = "Zipcode: "
+        postCodeLabel.textColor = kDarkColor
+        postCodeLabel.font = getCustomFont(size: 11, name: .light)
+        postCodeLabel.textAlignment = .left
+        self.pageScroll.addSubview(postCodeLabel)
+        postCodeLabel.snp.makeConstraints { make in
+            make.top.equalTo(wardTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        postCodeTxt.setPlaceHolderText("Zipcode")
+        postCodeTxt.delegate = self
+        
+        postCodeTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.postCodeTxt)
+        }
+        postCodeTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        self.pageScroll.addSubview(postCodeTxt)
+        postCodeTxt.snp.makeConstraints { make in
+            make.top.equalTo(postCodeLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let professionLabel = UILabel()
+        professionLabel.text = "Profession:"
+        professionLabel.font = getCustomFont(size: 11, name: .light)
+        professionLabel.textColor = kDarkColor
+        professionLabel.textAlignment = .left
+        self.pageScroll.addSubview(professionLabel)
+        professionLabel.snp.makeConstraints { make in
+            make.top.equalTo(postCodeTxt.snp.bottom).offset(20)
+            make.left.equalTo(nameLabel)
+        }
+        
+        professionTxt.setPlaceHolderText("Profession")
+        professionTxt.delegate = self
+        professionTxt.rightAction = {
+            self.righTextFieldButtonTapped(self.professionTxt)
+        }
+        professionTxt.setRightIcon(UIImage.init(named: "close_bar_icon"))
+        self.pageScroll.addSubview(professionTxt)
+        professionTxt.snp.makeConstraints { make in
+            make.top.equalTo(professionLabel.snp.bottom).offset(8)
+            make.left.equalTo(nameLabel)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+            make.bottom.lessThanOrEqualToSuperview().offset(-15)
         }
     }
     
@@ -249,15 +393,15 @@ class UpdateEHProfileViewController: PageScrollViewController {
             .observe(on: MainScheduler.instance)
             .subscribe { listProfiles in
                 if let mainProfile = listProfiles.element?.first {
-                    if let avatarImageURL = URL(string: mainProfile.avatar) {
-                        self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
-                    }
-                    self.nameLabel.text = String(format: "Name: %@ %@", mainProfile.firstName, mainProfile.lastName)
+//                    if let avatarImageURL = URL(string: mainProfile.avatar) {
+//                        self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
+//                    }
+                    self.nameTxt.text = String(format: "%@ %@", mainProfile.firstName, mainProfile.lastName)
                     let dateDob = Date.init(timeIntervalSince1970: TimeInterval((mainProfile.dob ?? 0) / 1000))
-                    self.dobLabel.text = String(format: "DOB: %@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
-                    self.genderLabel.text = String(format: "Gender: %@", (mainProfile.gender == .male) ? "Male" : "Female")
-                    self.phoneLabel.text = String(format: "Phone number: %@", mainProfile.phone)
-                    self.emailLabel.text = String(format: "Email : %@", mainProfile.email)
+                    self.dobTxt.text = String(format: "%@", dateDob.toString(dateFormat: "MMM dd, yyyy"))
+                    self.genderTxt.text = String(format: "%@", (mainProfile.gender == .male) ? "Male" : "Female")
+                    self.phoneNumberTxt.text = String(format: "%@", mainProfile.phone)
+                    self.emailTxt.text = String(format: "%@", mainProfile.email)
                     
                     self.addressTxt.text = mainProfile.addressInfo?.address
                     self.countryTxt.text = mainProfile.addressInfo?.country
@@ -301,5 +445,9 @@ class UpdateEHProfileViewController: PageScrollViewController {
         }
         
         self.viewModel.updateRootEHProfile(rootEHProfile)
+    }
+    
+    private func righTextFieldButtonTapped(_ sender: BoundedIconTextField) {
+        sender.text = ""
     }
 }

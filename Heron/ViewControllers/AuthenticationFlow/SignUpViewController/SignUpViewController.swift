@@ -9,7 +9,8 @@ import UIKit
 import Material
 import PhoneNumberKit
 
-class SignUpViewController: BaseViewController {
+class SignUpViewController: BaseViewController,
+                            UITextFieldDelegate {
     
     private let viewModel   = SignUpViewModel()
     var isSign = true
@@ -21,6 +22,7 @@ class SignUpViewController: BaseViewController {
     let dobTxt              = BoundedIconTextField()
     let emailTxt            = BoundedIconTextField()
     let passwordTxt         = BoundedIconTextField()
+    let retypePasswordTxt   = BoundedIconTextField()
     let identityNumberTxt   = BoundedIconTextField()
     let phoneNumberTxt      = PhoneNumberTextField()
     
@@ -33,12 +35,16 @@ class SignUpViewController: BaseViewController {
         super.viewDidLoad()
         self.viewModel.controller = self
         
+        self.showBackBtn()
+        
         let image = UIImageView()
         image.image = UIImage.init(named: "logo")
-        self.view.addSubview(image)
+        self.navigationItem.titleView = image
+//        self.view.addSubview(image)
         image.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(20)
-            make.left.equalToSuperview().offset(16)
+//            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+//            make.left.equalToSuperview().offset(16)
+//            make.centerX.equalToSuperview()
             make.height.equalTo(24)
             make.width.equalTo(107)
         }
@@ -50,7 +56,7 @@ class SignUpViewController: BaseViewController {
         signUpLabel.text = "Sign up"
         self.view.addSubview(signUpLabel)
         signUpLabel.snp.makeConstraints { make in
-            make.top.equalTo(image.snp.bottom).offset(48)
+            make.top.equalToSuperview().offset(48)
             make.left.equalToSuperview().offset(28)
         }
         
@@ -74,7 +80,8 @@ class SignUpViewController: BaseViewController {
             make.left.equalToSuperview().offset(28)
         }
         
-        firstNameTxt.setPlaceHolderText(" First name ")
+        firstNameTxt.delegate = self
+        firstNameTxt.setPlaceHolderText(" First name *")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
         firstNameTxt.snp.makeConstraints { make in
@@ -85,7 +92,7 @@ class SignUpViewController: BaseViewController {
         }
         
         let lastNameLabel = UILabel()
-        lastNameLabel.text = "Last name"
+        lastNameLabel.text = "Last name *"
         lastNameLabel.font = getCustomFont(size: 11, name: .light)
         lastNameLabel.textColor = kDarkColor
         lastNameLabel.textAlignment = .left
@@ -95,6 +102,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(firstNameLabel)
         }
         
+        lastNameTxt.delegate = self
         lastNameTxt.setPlaceHolderText(" Last name ")
         lastNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(lastNameTxt)
@@ -106,7 +114,7 @@ class SignUpViewController: BaseViewController {
         }
         
         let genderLabel = UILabel()
-        genderLabel.text = "Gender"
+        genderLabel.text = "Gender *"
         genderLabel.font = getCustomFont(size: 11, name: .light)
         genderLabel.textColor = kDarkColor
         genderLabel.textAlignment = .left
@@ -174,6 +182,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(genderLabel)
         }
         
+        dobTxt.delegate = self
         dobTxt.setPlaceHolderText("MM dd, yyyy")
         dobTxt.setRightIcon(UIImage.init(named: "calendar_icon"))
         dobTxt.textColor = kDefaultTextColor
@@ -197,11 +206,11 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(dobLabel)
         }
         
+        emailTxt.delegate = self
         emailTxt.text = self.prevEmail
         emailTxt.setPlaceHolderText(" Email ")
         emailTxt.textColor = kDefaultTextColor
         emailTxt.autocapitalizationType = .none
-        emailTxt.isUserInteractionEnabled = false
         contentScrollView.addSubview(emailTxt)
         emailTxt.snp.makeConstraints { make in
             make.top.equalTo(emailLabel.snp.bottom).offset(8)
@@ -221,6 +230,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(emailLabel)
         }
         
+        passwordTxt.delegate = self
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
@@ -228,14 +238,46 @@ class SignUpViewController: BaseViewController {
         passwordTxt.rightAction = {
             self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
             if self.passwordTxt.isSecureTextEntry {
-                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
-            } else {
                 self.passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            } else {
+                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
             }
         }
         contentScrollView.addSubview(passwordTxt)
         passwordTxt.snp.makeConstraints { make in
             make.top.equalTo(passwordLabel.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
+        let retypePasswordLabel = UILabel()
+        retypePasswordLabel.text = "Password Confirm"
+        retypePasswordLabel.font = getCustomFont(size: 11, name: .light)
+        retypePasswordLabel.textColor = kDarkColor
+        retypePasswordLabel.textAlignment = .left
+        contentScrollView.addSubview(retypePasswordLabel)
+        retypePasswordLabel.snp.makeConstraints { make in
+            make.top.equalTo(passwordTxt.snp.bottom).offset(20)
+            make.left.equalTo(emailLabel)
+        }
+        
+        retypePasswordTxt.delegate = self
+        retypePasswordTxt.setPlaceHolderText("Password")
+        retypePasswordTxt.isSecureTextEntry = true
+        retypePasswordTxt.textColor = kDefaultTextColor
+        retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        retypePasswordTxt.rightAction = {
+            self.retypePasswordTxt.isSecureTextEntry = !self.retypePasswordTxt.isSecureTextEntry
+            if self.retypePasswordTxt.isSecureTextEntry {
+                self.retypePasswordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            } else {
+                self.retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+            }
+        }
+        contentScrollView.addSubview(retypePasswordTxt)
+        retypePasswordTxt.snp.makeConstraints { make in
+            make.top.equalTo(retypePasswordLabel.snp.bottom).offset(8)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-56)
             make.height.equalTo(40)
@@ -248,10 +290,11 @@ class SignUpViewController: BaseViewController {
         identityNumberLabel.textAlignment = .left
         contentScrollView.addSubview(identityNumberLabel)
         identityNumberLabel.snp.makeConstraints { make in
-            make.top.equalTo(passwordTxt.snp.bottom).offset(20)
+            make.top.equalTo(retypePasswordTxt.snp.bottom).offset(20)
             make.left.equalTo(emailLabel)
         }
         
+        identityNumberTxt.delegate = self
         identityNumberTxt.setPlaceHolderText(" ID Number ")
         identityNumberTxt.textColor = kDefaultTextColor
         identityNumberTxt.autocapitalizationType = .none
@@ -274,6 +317,7 @@ class SignUpViewController: BaseViewController {
             make.left.equalTo(identityNumberLabel)
         }
         
+        phoneNumberTxt.delegate = self
         phoneNumberTxt.placeholder = " Phone number "
         phoneNumberTxt.textColor = kDefaultTextColor
         phoneNumberTxt.font = getCustomFont(size: 14, name: .semiBold)
@@ -310,6 +354,11 @@ class SignUpViewController: BaseViewController {
             make.height.equalTo(40)
             make.bottom.lessThanOrEqualToSuperview().offset(-100)
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _NavController.setNavigationBarHidden(false, animated: true)
     }
     
     private func loadPickerView() {
@@ -415,6 +464,26 @@ class SignUpViewController: BaseViewController {
             identityNumberTxt.setError(nil)
         }
         userData.identityNum = identityNumberTxt.text ?? ""
+        
+        if !(emailTxt.text ?? "").isValidEmail() {
+            emailTxt.setError("Email is not valid")
+        } else {
+            emailTxt.setError(nil)
+        }
+        userData.userEmail = emailTxt.text ?? ""
+        
+        if (passwordTxt.text ?? "").isEmpty {
+            passwordTxt.setError("This field can not be empty")
+        } else {
+            passwordTxt.setError(nil)
+        }
+        userData.password = passwordTxt.text ?? ""
+        
+        if retypePasswordTxt.text != passwordTxt.text {
+            retypePasswordTxt.setError("Password Confirm not matched")
+        } else {
+            retypePasswordTxt.setError(nil)
+        }
 
         if phoneNumberTxt.isValidNumber {
             phoneNumberTxt.textColor = kDefaultTextColor
@@ -427,6 +496,7 @@ class SignUpViewController: BaseViewController {
             lastNameTxt.text?.isEmpty ?? true ||
             dobTxt.text?.isEmpty ?? true ||
             identityNumberTxt.text?.isEmpty ?? true ||
+            passwordTxt.text != retypePasswordTxt.text ||
             !phoneNumberTxt.isValidNumber {
             return
         }
@@ -438,5 +508,14 @@ class SignUpViewController: BaseViewController {
             vc.centerDescInfo.text = "Congratulations! You have signed up successfully.\nWe wish you the best experience using our app! Have a good day!"
             self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kLightGrayColor.cgColor
     }
 }

@@ -19,15 +19,19 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         super.viewDidLoad()
         self.viewModel.controller = self
         
+        self.showBackBtn()
+        
         let dissmissKeyboardGesture = UITapGestureRecognizer.init(target: self, action: #selector(dissmissKeyboard))
         self.view.addGestureRecognizer(dissmissKeyboardGesture)
         
         let image = UIImageView()
         image.image = UIImage.init(named: "logo")
-        self.view.addSubview(image)
+        self.navigationItem.titleView = image
+//        self.view.addSubview(image)
         image.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
-            make.left.equalToSuperview().offset(16)
+//            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(10)
+//            make.left.equalToSuperview().offset(16)
+//            make.centerX.equalToSuperview()
             make.height.equalTo(24)
             make.width.equalTo(107)
         }
@@ -39,7 +43,8 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         signInLabel.text = "Sign in"
         self.view.addSubview(signInLabel)
         signInLabel.snp.makeConstraints { make in
-            make.top.equalTo(image.snp.bottom).offset(64)
+//            make.top.equalTo(image.snp.bottom).offset(64)
+            make.top.equalToSuperview().offset(64)
             make.left.equalToSuperview().offset(28)
         }
         
@@ -88,6 +93,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
             make.right.equalToSuperview().offset(-28)
         }
         
+        passwordTxt.delegate = self
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
@@ -95,9 +101,9 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         passwordTxt.rightAction = {
             self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
             if self.passwordTxt.isSecureTextEntry {
-                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
-            } else {
                 self.passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            } else {
+                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
             }
         }
         self.view.addSubview(passwordTxt)
@@ -170,6 +176,11 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _NavController.setNavigationBarHidden(false, animated: true)
+    }
+    
     @objc private func dissmissKeyboard() {
         self.view.endEditing(true)
     }
@@ -231,11 +242,12 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
     
     @objc private func signUpButtonTapped() {
         let signUpVC = SignUpViewController()
-        self.navigationController?.setViewControllers([signUpVC], animated: true)
+        self.navigationController?.pushViewController(signUpVC, animated: true)
     }
     
     // MARK: - UITextFieldDelegate
     func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kLightGrayColor.cgColor
         if textField == emailTxt {
             if !(emailTxt.text ?? "").isValidEmail() {
                 emailTxt.setError("This email is not valid")
@@ -243,5 +255,9 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
                 emailTxt.setError(nil)
             }
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
     }
 }

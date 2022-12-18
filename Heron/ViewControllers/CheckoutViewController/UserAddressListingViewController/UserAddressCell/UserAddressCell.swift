@@ -17,7 +17,7 @@ class UserAddressCell: UITableViewCell {
     let fullName            = UILabel()
     let phoneNumber         = UILabel()
     let addressLabel        = UILabel()
-    let editButton          = UIButton()
+    let editButton          = ExtendedButton()
     let selectButton        = UIButton()
     
     private var contactData : ContactDataSource?
@@ -29,7 +29,7 @@ class UserAddressCell: UITableViewCell {
         
         selectButton.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
         selectButton.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
-        selectButton.addTarget(self, action: #selector(seleteButtonTapped), for: .touchUpInside)
+        selectButton.isUserInteractionEnabled = false
         contentView.addSubview(selectButton)
         selectButton.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
@@ -72,7 +72,7 @@ class UserAddressCell: UITableViewCell {
         editButton.snp.makeConstraints { make in
             make.centerY.equalTo(fullName.snp.centerY)
             make.right.equalToSuperview().offset(-14)
-            make.height.width.equalTo(14)
+            make.height.width.equalTo(32)
             make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
         
@@ -131,9 +131,5 @@ class UserAddressCell: UITableViewCell {
         }
 
         self.delegate?.didEditAddress(contactData)
-    }
-    
-    @objc private func seleteButtonTapped() {
-        selectButton.isSelected = !selectButton.isSelected
     }
 }

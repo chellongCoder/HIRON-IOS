@@ -25,7 +25,7 @@ class ProductFilterViewController: BaseViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        self.title = "Categories"
+        self.title = "Category"
         self.viewModel.controller = self
         self.showBackBtn()
         
@@ -50,7 +50,9 @@ class ProductFilterViewController: BaseViewController,
         collectionview.backgroundColor = .white
         self.view.addSubview(collectionview)
         collectionview.snp.makeConstraints { make in
-            make.top.centerX.width.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
             make.bottom.equalToSuperview().offset(-90)
         }
         
@@ -115,6 +117,7 @@ class ProductFilterViewController: BaseViewController,
         let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as? CategoryCollectionViewCell
         let cellData = viewModel.listCategories[indexPath.row]
         cell?.setDataSource(data: cellData)
+        cell?.setCategoryUICode(viewModel.getUICodeByIndex(indexPath.row))
         
         if selectedIndex?.row == indexPath.row && selectedIndex?.section == indexPath.section {
             cell?.setSelected(true)

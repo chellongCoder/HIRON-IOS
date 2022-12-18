@@ -10,8 +10,24 @@ import RxRelay
 import RxSwift
 
 class DetailOrderViewController: BaseViewController {
-    let tableView       = UITableView(frame: .zero, style: .plain)
+    
+    let button1         = UIButton()
+    let button2         = UIButton()
+    
+    let tableView       = UITableView(frame: .zero, style: .grouped)
     let viewModel       = DetailOrderViewModel()
+    
+    let statusView      = OrderStatusView()
+    let trackingView    = OrderTrackingView()
+    let shipingView     = ShippingAndBillingInfoView()
+    let totalInView     = OrderTotalInView()
+    let orderStoreView  = OrderStoreView()
+    let paymentView     = PaymentView()
+    
+    init(_ data: OrderDataSource) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel.orderData.accept(data)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +36,50 @@ class DetailOrderViewController: BaseViewController {
         
         self.showBackBtn()
         
+        let supportBtn = UIBarButtonItem.init(image: UIImage.init(named: "customer_support_icon"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(customerSupportButtonTapped))
+        self.navigationItem.rightBarButtonItem = supportBtn
+        
+        let bottomView = UIView()
+        bottomView.backgroundColor = .white
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.bottom.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.left.right.equalToSuperview()
+        }
+        
+        button1.setTitle("Chat", for: .normal)
+        button1.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        button1.setTitleColor(kPrimaryColor, for: .normal)
+        button1.titleLabel?.textAlignment = .center
+        button1.layer.cornerRadius = 20
+        button1.layer.borderColor = kPrimaryColor.cgColor
+        button1.layer.borderWidth = 0.7
+        bottomView.addSubview(button1)
+        button1.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-30)
+            make.top.equalToSuperview().offset(12)
+            make.left.equalToSuperview().offset(16)
+            make.height.equalTo(40)
+            make.width.equalToSuperview().multipliedBy(0.5).offset(-30)
+        }
+        
+        button2.setTitle("Track order", for: .normal)
+        button2.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        button2.setTitleColor(kPrimaryColor, for: .normal)
+        button2.titleLabel?.textAlignment = .center
+        button2.layer.cornerRadius = 20
+        button2.layer.borderColor = kPrimaryColor.cgColor
+        button2.layer.borderWidth = 0.7
+        bottomView.addSubview(button2)
+        button2.snp.makeConstraints { make in
+            make.top.bottom.height.width.equalTo(button1)
+            make.right.equalToSuperview().offset(-16)
+        }
+        
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
         }
@@ -27,26 +87,31 @@ class DetailOrderViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = kBackgroundColor
-        tableView.register(OrderStatusTableViewCell.self, forCellReuseIdentifier: "ProductStatusTableViewCell")
-        tableView.register(ShippingAndBillingInfoTableViewCell.self, forCellReuseIdentifier: "ShippingInfoTableViewCell")
-        tableView.register(TrackingTableViewCell.self, forCellReuseIdentifier: "TrackingTableViewCell")
-        tableView.register(PaymentTableViewCell.self, forCellReuseIdentifier: "PaymentTableViewCell")
         tableView.register(PackageTableViewCell.self, forCellReuseIdentifier: "PackageTableViewCell")
-        tableView.register(TotalOrderTableViewCell.self, forCellReuseIdentifier: "TotalOrderTableViewCell")
-        tableView.register(StoreTableViewCell.self, forCellReuseIdentifier: "StoreTableViewCell")
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.top.centerX.width.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(bottomView.snp.top)
+//            make.bottom.equalToSuperview()
         }
     }
     
-    init(_ data: OrderDataSource) {
-        super.init(nibName: nil, bundle: nil)
-        self.viewModel.orderData.accept(data)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        _NavController.setNavigationBarHidden(false, animated: true)
     }
+    
+    @objc private func customerSupportButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)    }
     
     override func bindingData() {
         self.viewModel.orderData
@@ -76,63 +141,74 @@ class DetailOrderViewController: BaseViewController {
 
 extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.viewModel.orderData.value?.items?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        
+        let orderData = self.viewModel.orderData.value
+        statusView.setDataSource(orderData)
+        headerView.addSubview(statusView)
+        statusView.snp.makeConstraints { make in
+            make.top.left.right.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        trackingView.setDataSource(orderData)
+        headerView.addSubview(trackingView)
+        trackingView.snp.makeConstraints { make in
+            make.top.equalTo(statusView.snp.bottom).offset(6)
+            make.centerX.width.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        shipingView.setUserData(orderData?.userData)
+        shipingView.setShippingData(viewModel.shippingData.value)
+        headerView.addSubview(shipingView)
+        shipingView.snp.makeConstraints { make in
+            make.top.equalTo(trackingView.snp.bottom).offset(6)
+            make.width.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        if orderData?.items?.count == 1 {
+            totalInView.title.text = String(format: "Total (1 product):  %@", getMoneyFormat(orderData?.customAmount))
+        } else {
+            totalInView.title.text = String(format: "Total (%ld products):  %@", (orderData?.items?.count ?? 0), getMoneyFormat(orderData?.customAmount))
+        }
+        headerView.addSubview(totalInView)
+        totalInView.snp.makeConstraints { make in
+            make.top.equalTo(shipingView.snp.bottom).offset(6)
+            make.width.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        orderStoreView.setStoreDataSource(orderData?.store)
+        headerView.addSubview(orderStoreView)
+        orderStoreView.snp.makeConstraints { make in
+            make.top.equalTo(totalInView.snp.bottom).offset(6)
+            make.width.centerX.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview()
+        }
+        
+        return headerView
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let orderData = self.viewModel.orderData.value
         
-        if indexPath.row == 0 {
-            // swiftlint:disable force_cast 
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ProductStatusTableViewCell", for: indexPath) as! OrderStatusTableViewCell
-            cell.setDataSource(orderData)
-            return cell
-        } else if indexPath.row == 1 {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TrackingTableViewCell", for: indexPath) as! TrackingTableViewCell
-            cell.setDataSource(viewModel.shippingData.value)
-            return cell
-        } else if indexPath.row == 2 {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ShippingInfoTableViewCell", for: indexPath) as! ShippingAndBillingInfoTableViewCell
-            cell.setUserData(orderData?.userData)
-            cell.setShippingData(viewModel.shippingData.value)
-            return cell
-        } else if indexPath.row == 3 {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "StoreTableViewCell", for: indexPath) as! StoreTableViewCell
-            cell.setStoreDataSource(orderData?.store)
-            return cell
-        } else if indexPath.row == 4 + (orderData?.items?.count ?? 0) {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TotalOrderTableViewCell", for: indexPath) as! TotalOrderTableViewCell
-            if orderData?.items?.count == 1 {
-                cell.title.text = String(format: "Total (1 product):  %@", getMoneyFormat(orderData?.customAmount))
-            } else {
-                cell.title.text = String(format: "Total (%ld products):  %@", (orderData?.items?.count ?? 0), getMoneyFormat(orderData?.customAmount))
-            }
-            
-            return cell
-        } else if indexPath.row == 5 + (orderData?.items?.count ?? 0) {
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTableViewCell", for: indexPath) as! PaymentTableViewCell
-            
-            if let cards = orderData?.orderPayment?.metadata?.card {
-                cell.paymentCardLabel.text = String(format: "%@ | %@%@",
-                                                   cards.getBrandName(), String(repeating: "X", count: 10),
-                                                   cards.last4 ?? "")
-            }
-            
-            return cell
-        } else {
-            // swiftlint:disable force_cast
-            let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "PackageTableViewCell", for: indexPath) as! PackageTableViewCell
-            if let cellData = orderData?.items?[indexPath.row - 4] {
-                orderItemCell.setDataSource(cellData)
-            }
-            return orderItemCell
+        // swiftlint:disable force_cast
+        let orderItemCell = tableView.dequeueReusableCell(withIdentifier: "PackageTableViewCell", for: indexPath) as! PackageTableViewCell
+        if let cellData = orderData?.items?[indexPath.row] {
+            orderItemCell.setDataSource(cellData)
         }
+        return orderItemCell        
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6 + (self.viewModel.orderData.value?.items?.count ?? 0)
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return self.paymentView
     }
 }

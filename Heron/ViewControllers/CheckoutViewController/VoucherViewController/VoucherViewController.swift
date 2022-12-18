@@ -11,7 +11,8 @@ import RxCocoa
 import Material
 
 class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
-                             UITableViewDataSource, UITableViewDelegate {
+                             UITableViewDataSource, UITableViewDelegate,
+                             UITextFieldDelegate {
     
     let codeTxt         = BoundedIconTextField()
     let applyBtn        = UIButton()
@@ -42,6 +43,7 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
             make.height.equalTo(40)
         }
         
+        codeTxt.delegate = self
         codeTxt.setPlaceHolderText("Heron voucher")
         self.view.addSubview(codeTxt)
         codeTxt.snp.makeConstraints { make in
@@ -166,5 +168,14 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
 //        tableView.beginUpdates()
 //        tableView.reloadRows(at: [indexPath], with: .automatic)
 //        tableView.endUpdates()
+    }
+    
+    // MARK: - UITextFieldDelegate
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kPrimaryColor.cgColor
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.layer.borderColor = kLightGrayColor.cgColor
     }
 }
