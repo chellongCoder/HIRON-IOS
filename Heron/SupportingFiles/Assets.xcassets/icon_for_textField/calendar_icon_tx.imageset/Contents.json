@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Down.png",
+      "filename" : "calendarIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Down-1.png",
+      "filename" : "calendarIcon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Down-2.png",
+      "filename" : "calendarIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

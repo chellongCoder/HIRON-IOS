@@ -35,7 +35,7 @@ class OrderTotalInView: UIView {
             $0.centerY.equalToSuperview()
         }
         
-        imagePaymentBtn.setImage(UIImage.init(named: "down1_icon"), for: .normal)
+        imagePaymentBtn.setImage(UIImage.init(named: "down_icon"), for: .normal)
         imagePaymentBtn.contentMode = .scaleAspectFill
         self.addSubview(imagePaymentBtn)
         imagePaymentBtn.snp.makeConstraints { make in

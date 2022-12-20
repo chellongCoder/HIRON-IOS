@@ -81,7 +81,7 @@ class SignUpViewController: BaseViewController,
         }
         
         firstNameTxt.delegate = self
-        firstNameTxt.setPlaceHolderText(" First name ")
+        firstNameTxt.setPlaceHolderText(" First name *")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
         firstNameTxt.snp.makeConstraints { make in
@@ -92,7 +92,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let lastNameLabel = UILabel()
-        lastNameLabel.text = "Last name"
+        lastNameLabel.text = "Last name *"
         lastNameLabel.font = getCustomFont(size: 11, name: .light)
         lastNameLabel.textColor = kDarkColor
         lastNameLabel.textAlignment = .left
@@ -114,7 +114,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let genderLabel = UILabel()
-        genderLabel.text = "Gender"
+        genderLabel.text = "Gender *"
         genderLabel.font = getCustomFont(size: 11, name: .light)
         genderLabel.textColor = kDarkColor
         genderLabel.textAlignment = .left
@@ -238,9 +238,9 @@ class SignUpViewController: BaseViewController,
         passwordTxt.rightAction = {
             self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
             if self.passwordTxt.isSecureTextEntry {
-                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
-            } else {
                 self.passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            } else {
+                self.passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
             }
         }
         contentScrollView.addSubview(passwordTxt)
@@ -270,9 +270,9 @@ class SignUpViewController: BaseViewController,
         retypePasswordTxt.rightAction = {
             self.retypePasswordTxt.isSecureTextEntry = !self.retypePasswordTxt.isSecureTextEntry
             if self.retypePasswordTxt.isSecureTextEntry {
-                self.retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
-            } else {
                 self.retypePasswordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
+            } else {
+                self.retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
             }
         }
         contentScrollView.addSubview(retypePasswordTxt)
