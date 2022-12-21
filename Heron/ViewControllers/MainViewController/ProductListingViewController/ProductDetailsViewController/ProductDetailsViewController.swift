@@ -72,9 +72,7 @@ class ProductDetailsViewController: PageScrollViewController,
     }
     
     @objc private func shareButtonTapped() {
-        //Set the default sharing message.
         let message = "Message goes here."
-        //Set the link to share.
         if let link = NSURL(string: "http://yoururl.com")
         {
             let objectsToShare = [message,link] as [Any]
@@ -299,6 +297,9 @@ class ProductDetailsViewController: PageScrollViewController,
         showMoreTxt.text = "Show more"
         showMoreTxt.font = getCustomFont(size: 11, name: .regular)
         showMoreView.addSubview(showMoreTxt)
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.onShowMoreDescription))
+        self.showMoreView.addGestureRecognizer(gesture)
+
         showMoreTxt.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
@@ -376,7 +377,7 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.shopView.shopName.text = productData.brand?.name
                 self.shopView.shopDesc.text = ""
                 self.variantView.setConfigurationProduct(productData, isAllowToChange: true)
-                self.loadContentDescView()
+                self.loadContentDescView(isShowMore: false)
                 self.loadTagsContents()
                 let staticHeight = (UIScreen.main.bounds.size.width)
                 self.loadMediaView(staticHeight)
@@ -388,6 +389,11 @@ class ProductDetailsViewController: PageScrollViewController,
     // MARK: - Buttons
     @objc private func cartButtonTapped() {
         _NavController.presentCartPage()
+    }
+    
+    @objc func onShowMoreDescription(sender : UITapGestureRecognizer) {
+        self.showMoreView.alpha = 0
+        self.loadContentDescView(isShowMore: true)
     }
  
     // MARK: - Data
@@ -452,7 +458,7 @@ class ProductDetailsViewController: PageScrollViewController,
         
     }
     
-    private func loadContentDescView() {
+    private func loadContentDescView(isShowMore: Bool) {
         for subview in descView.subviews {
             subview.removeFromSuperview()
         }
@@ -505,9 +511,17 @@ class ProductDetailsViewController: PageScrollViewController,
 
         }
         
-        lastView?.snp.makeConstraints({ make in
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        })
+        if(isShowMore) {
+            lastView?.snp.makeConstraints({ make in
+                make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            })
+        } else {
+            lastView?.snp.makeConstraints({ make in
+                make.bottom.lessThanOrEqualToSuperview().offset(-10)
+                make.height.equalTo(200)
+            })
+        }
+        
     }
     
     private func loadReviewView() {
