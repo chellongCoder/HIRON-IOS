@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import FluidTabBarController
 
-class MainViewController: UITabBarController {
+class MainViewController: FluidTabBarController {
 
     public static let sharedInstance = MainViewController()
     
@@ -26,20 +27,25 @@ class MainViewController: UITabBarController {
 //              self.tabBar.scrollEdgeAppearance = view.standardAppearance
         }
         
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
+        tabBar.layer.shadowRadius = 12
+        tabBar.layer.shadowColor = kPrimaryColor.cgColor
+        tabBar.layer.shadowOpacity = 0.6
+        
         let myOrderNav = UINavigationController.init(rootViewController: MyOrderViewController())
-        myOrderNav.tabBarItem = UITabBarItem(title: "Orders", image: UIImage.init(systemName: "bag"), selectedImage: nil)
+        myOrderNav.tabBarItem = FluidTabBarItem(title: "Orders", image: UIImage.init(systemName: "bag"), selectedImage: nil)
 
         let productNav = UINavigationController.init(rootViewController: ProductListingViewController())
-        productNav.tabBarItem = UITabBarItem(title: "Products", image: UIImage.init(systemName: "cart"), selectedImage: nil)
+        productNav.tabBarItem = FluidTabBarItem(title: "Products", image: UIImage.init(systemName: "cart"), selectedImage: nil)
         
         let homeNav = UINavigationController.init(rootViewController: HomepageViewController())
-        homeNav.tabBarItem = UITabBarItem(title: "Home", image: UIImage.init(systemName: "house"), selectedImage: nil)
+        homeNav.tabBarItem = FluidTabBarItem(title: "Home", image: UIImage.init(systemName: "house"), selectedImage: nil)
         
         let bookingNav = UINavigationController.init(rootViewController: MyBookingsViewController())
-        bookingNav.tabBarItem = UITabBarItem(title: "Bookings", image: UIImage.init(systemName: "calendar"), selectedImage: nil)
+        bookingNav.tabBarItem = FluidTabBarItem(title: "Bookings", image: UIImage.init(systemName: "calendar"), selectedImage: nil)
 
         let myProfileNav = UINavigationController.init(rootViewController: UserProfileViewController())
-        myProfileNav.tabBarItem = UITabBarItem(title: "Profile", image: UIImage.init(systemName: "person"), selectedImage: nil)
+        myProfileNav.tabBarItem = FluidTabBarItem(title: "Profile", image: UIImage.init(systemName: "person"), selectedImage: nil)
         
         self.viewControllers = [myOrderNav, productNav, homeNav, bookingNav, myProfileNav]
         self.selectedIndex = 2
