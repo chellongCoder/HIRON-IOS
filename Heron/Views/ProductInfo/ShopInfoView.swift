@@ -28,7 +28,6 @@ class ShopProductView: UIView {
             make.left.equalTo(10)
         }
         
-        #warning("Hard code")
         let view = UIView()
         view.addSubview(shopName)
         shopName.text = "Pharmacity"
@@ -38,7 +37,6 @@ class ShopProductView: UIView {
             make.top.left.equalToSuperview()
         }
         
-        #warning("Hard code")
         view.addSubview(shopDesc)
         shopDesc.text = "Lorem Ipsum is simply dummy text of the printing and typesetting"
         shopDesc.font = getCustomFont(size: 13, name: .regular)
@@ -49,7 +47,6 @@ class ShopProductView: UIView {
             make.width.equalToSuperview().offset(-50)
         }
         
-        #warning("Hard code")
         self.addSubview(view)
         view.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
@@ -58,7 +55,6 @@ class ShopProductView: UIView {
             make.height.equalTo(50)
         }
         
-        #warning("Hard code")
         self.addSubview(btnViewShop)
         btnViewShop.layer.borderWidth = 0.5
         btnViewShop.layer.cornerRadius = 5

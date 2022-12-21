@@ -18,7 +18,7 @@ class ProductDetailsViewController: PageScrollViewController,
     private let viewModel               = ProductDetailsViewModel()
     private let productViewModel        = ProductListingViewModel()
 
-    private let topMediaView            = UIScrollView()
+    let topMediaView                    = UIScrollView()
     private let pageControl             = UIPageControl()
     
     var cartButtonItem                  : UIBarButtonItem?
@@ -47,8 +47,7 @@ class ProductDetailsViewController: PageScrollViewController,
     let descView                        = UIView()
     let shopView                        = ShopProductView()
     let reviewRate                      = ReviewRate()
-    let tableRateView                   = UITableView(frame: .zero, style: .plain)
-
+    let listRateView                    = UIView()
     private let packageTitle            = UILabel()
     private let tagsViewStack           = UIStackView()
     private let priceDiscount           = UILabel()
@@ -73,9 +72,8 @@ class ProductDetailsViewController: PageScrollViewController,
     
     @objc private func shareButtonTapped() {
         let message = "Message goes here."
-        if let link = NSURL(string: "http://yoururl.com")
-        {
-            let objectsToShare = [message,link] as [Any]
+        if let link = NSURL(string: "http://yoururl.com") {
+            let objectsToShare = [message, link] as [Any]
             let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
             self.present(activityVC, animated: true, completion: nil)
@@ -149,6 +147,7 @@ class ProductDetailsViewController: PageScrollViewController,
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         pageScroll.addSubview(refreshControl)
         
+        tabView.scrollView = self.pageScroll
         self.view.addSubview(tabView)
         tabView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
@@ -323,7 +322,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.width.height.equalTo(10)
         }
         
-        self.loadReviewView()
+        self.loadReviewView(isShowMore: false)
         
         self.loadRelateProducts()
     }
@@ -346,13 +345,6 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.cartHotInfo.cartPriceValue.text = getMoneyFormat(cartDataSource?.customGrandTotal)
             }
             .disposed(by: disposeBag)
-        productViewModel.listProducts
-            .bind(to: tableRateView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
-                let cell = ItemReviewTableViewCell(style: .default, reuseIdentifier:"ItemReviewTableViewCell")
-                return cell
-            }
-            .disposed(by: disposeBag)
-
         viewModel.productDataSource
             .observe(on: MainScheduler.instance)
             .subscribe { productDataSource in
@@ -394,6 +386,10 @@ class ProductDetailsViewController: PageScrollViewController,
     @objc func onShowMoreDescription(sender : UITapGestureRecognizer) {
         self.showMoreView.alpha = 0
         self.loadContentDescView(isShowMore: true)
+    }
+    
+    @objc func onShowMoreReviews(sender : UITapGestureRecognizer) {
+        self.loadReviewView(isShowMore: true)
     }
  
     // MARK: - Data
@@ -476,7 +472,7 @@ class ProductDetailsViewController: PageScrollViewController,
             
             if lastView != nil {
                 titleLabel.snp.makeConstraints { make in
-                    make.top.equalTo(lastView!.snp.bottom).offset(16)
+                    make.top.equalTo(lastView!.snp.bottom).offset(0)
                     make.centerX.left.equalToSuperview()
                 }
                 
@@ -524,7 +520,7 @@ class ProductDetailsViewController: PageScrollViewController,
         
     }
     
-    private func loadReviewView() {
+    private func loadReviewView(isShowMore: Bool) {
         let spacer3 = SpacerView()
         self.contentView.addSubview(spacer3)
         spacer3.snp.makeConstraints { (make) in
@@ -532,20 +528,54 @@ class ProductDetailsViewController: PageScrollViewController,
             make.height.equalTo(6)
             make.width.equalToSuperview()
         }
-        
-        tableRateView.delegate = self
-        tableRateView.separatorStyle = .none
-        tableRateView.isScrollEnabled = false
-        tableRateView.register(ItemReviewTableViewCell.self, forCellReuseIdentifier: "ItemReviewTableViewCell")
-        self.contentView.addSubview(tableRateView)
-        tableRateView.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
+        self.contentView.addSubview(reviewRate)
+        reviewRate.snp.makeConstraints { make in
+            make.height.equalTo(80)
+            make.width.equalTo(UIScreen.main.bounds.size.width)
             make.top.equalTo(spacer3.snp.bottom).offset(10)
-            make.height.equalTo(500)
+        }
+        self.contentView.addSubview(listRateView)
+        listRateView.snp.makeConstraints { (make) in
+            make.top.equalTo(reviewRate.snp.bottom).offset(10)
+            make.left.right.equalTo(10)
+            make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-20)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        for subview in listRateView.subviews {
+            subview.removeFromSuperview()
+        }
+
+        let productDataSource = self.productViewModel.listProducts.value
+       
+        var lastView                        : UIView?
+        
+        let reviews = isShowMore ? productDataSource : productDataSource.slice(start: 0, end: 4)
+
+        for _ in reviews {
+            let itemReview = ItemReview()
+            self.listRateView.addSubview(itemReview)
+            
+            if lastView != nil {
+                itemReview.snp.makeConstraints { make in
+                    make.top.equalTo(lastView!.snp.bottom).offset(10)
+                    make.centerX.left.equalToSuperview()
+                }
+                
+            } else {
+                itemReview.snp.makeConstraints { make in
+                    make.top.equalToSuperview()
+                    make.centerX.left.equalToSuperview()
+                }
+
+            }
+            lastView = itemReview
 
         }
+        
+        lastView?.snp.makeConstraints({ make in
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        })
         
         let showMoreTxt = UILabel()
         let showMoreView = UIView()
@@ -556,9 +586,11 @@ class ProductDetailsViewController: PageScrollViewController,
         showMoreTxt.snp.makeConstraints { make in
             make.centerX.centerY.equalToSuperview()
         }
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.onShowMoreReviews))
+        showMoreView.addGestureRecognizer(gesture)
         self.contentView.addSubview(showMoreView)
         showMoreView.snp.makeConstraints { make in
-            make.top.equalTo(tableRateView.snp.bottom)
+            make.top.equalTo(listRateView.snp.bottom)
             make.centerX.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(40)
@@ -582,7 +614,7 @@ class ProductDetailsViewController: PageScrollViewController,
         let spacer3 = SpacerView()
         self.contentView.addSubview(spacer3)
         spacer3.snp.makeConstraints { (make) in
-            make.top.equalTo(tableRateView.snp.bottom).offset(30)
+            make.top.equalTo(listRateView.snp.bottom).offset(30)
             make.height.equalTo(6)
             make.width.equalToSuperview()
         }
@@ -613,7 +645,7 @@ class ProductDetailsViewController: PageScrollViewController,
         collectionview.snp.makeConstraints { make in
             make.centerX.width.equalToSuperview()
             make.top.equalTo(title.snp.bottom).offset(10)
-            make.height.equalTo(500)
+            make.height.equalTo(510)
             make.width.equalToSuperview().offset(-20)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }

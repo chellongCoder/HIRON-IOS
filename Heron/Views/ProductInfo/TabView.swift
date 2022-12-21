@@ -13,8 +13,9 @@ class TabViewProductDetail: UIView {
     private let reviewBtn           = UIButton()
     private let relateBtn           = UIButton()
     private var separatorView       = UIView()
+    var scrollView                  : UIScrollView?
 
-    private var selectedSegmentBtn      : UIButton?
+    private var selectedSegmentBtn  : UIButton?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,6 +79,16 @@ class TabViewProductDetail: UIView {
     }
     
     @objc private func segmentBtnTapped(sender: UIButton) {
+        if(sender == productBtn) {
+            let bottomOffset = CGPoint(x: 0, y: 0)
+            self.scrollView?.setContentOffset(bottomOffset, animated: true)
+        } else if(sender == reviewBtn) {
+            let bottomOffset = CGPoint(x: 0, y: 500)
+            self.scrollView?.setContentOffset(bottomOffset, animated: true)
+        } else {
+            let bottomOffset = CGPoint(x: 0, y: 1500)
+            self.scrollView?.setContentOffset(bottomOffset, animated: true)
+        }
         
         if selectedSegmentBtn == sender {
             return
