@@ -13,6 +13,8 @@ class HomepageViewModel: BaseViewModel {
     var listBanners         : [String] = ["banner_image1", "banner_image2", "banner_image3", "banner_image1", "banner_image2", "banner_image3"]
     var listCategories      = BehaviorRelay<[CategoryDataSource]>(value: [])
     var categoryUICodes     : [CategoryUIData] = []
+    #warning("HARD_CODE")
+    var listBrands          = BehaviorRelay<[String]>(value: ["brand_1", "brand_2", "brand_3", "brand_1", "brand_2", "brand_3", "brand_1", "brand_2", "brand_3"])
     var filterData          : CategoryDataSource?
     var listProducts        = BehaviorRelay<[ProductDataSource]>(value: Array(_AppCoreData.listsavedProducts))
     

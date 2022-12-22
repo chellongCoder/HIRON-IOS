@@ -19,35 +19,18 @@ class HomepageViewController: PageScrollViewController,
     
     private let viewModel           = HomepageViewModel()
     
-    let searchBar                   = UISearchBar()
     private let bannerScrollView    = iCarousel()
     private let pageControl         = UIPageControl()
     private let categoryView        = UIView()
     private let brandView           = UIView()
-    let tableView                   = UITableView(frame: .zero, style: .grouped)
-    let cartHotInfo                 = CartHotView()
-    let noDataView                  = UIView()
+    private let featureView         = UIView()
+    private let suggestedView       = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         
         viewModel.controller = self
-        
-//        searchBar.placeholder = "Seach"
-//        self.navigationItem.titleView = searchBar
-        
-//        let cartButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "cart"),
-//                                              style: .plain,
-//                                              target: self,
-//                                              action: #selector(cartButtonTapped))
-        
-//        let filterButtonItem = UIBarButtonItem.init(image: UIImage.init(systemName: "slider.horizontal.3"),
-//                                              style: .plain,
-//                                              target: self,
-//                                              action: #selector(filterButtonTapped))
-//        self.navigationItem.rightBarButtonItems = [filterButtonItem]// [filterButtonItem, cartButtonItem]
-//
         
         let logoImage = UIImageView()
         logoImage.image = UIImage.init(named: "logo")
@@ -113,9 +96,8 @@ class HomepageViewController: PageScrollViewController,
         
         self.reloadCategoryView()
         self.reloadBrandView()
-        
-        
-        
+        self.reloadFeatureProductView()
+        self.reloadSuggestedView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -157,10 +139,6 @@ class HomepageViewController: PageScrollViewController,
         _NavController.pushViewController(filterVC, animated: true)
     }
     
-    private func dismissKeyboard() {
-        self.searchBar.endEditing(true)
-    }
-    
     override func reloadData() {
         self.viewModel.getProductList()
         self.viewModel.getListCategoris()
@@ -173,38 +151,12 @@ class HomepageViewController: PageScrollViewController,
     
     // MARK: - Binding Data
     override func bindingData() {
-        _CartServices.cartData
-            .observe(on: MainScheduler.instance)
-            .subscribe { cartDataSource in
-                self.cartHotInfo.cartPriceValue.text = getMoneyFormat(cartDataSource?.customGrandTotal)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.listProducts
-            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: ProductDataSource) in
-                let cell = ProductTableViewCell(style: .default, reuseIdentifier:"ProductTableViewCell")
-                cell.setDataSource(element)
-                return cell
-            }
-            .disposed(by: disposeBag)
-        
         viewModel.listCategories
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
                 self.reloadCategoryView()
             }
             .disposed(by: disposeBag)
-
-//        tableView.rx
-//            .modelSelected(ProductDataSource.self)
-//            .subscribe { model in
-//                guard let productData = model.element else {return}
-//                let viewDetailsController = ProductDetailsViewController.init(productData)
-//                _NavController.pushViewController(viewDetailsController, animated: true)
-//
-//                self.dismissKeyboard()
-//            }
-//            .disposed(by: disposeBag)
     }
     
     private func reloadCategoryView() {
@@ -219,14 +171,14 @@ class HomepageViewController: PageScrollViewController,
                 make.top.equalTo(pageControl.snp.bottom)
                 make.left.right.equalToSuperview()
                 make.height.equalTo(0)
-                make.bottom.lessThanOrEqualToSuperview().offset(-10)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
             }
         } else {
             self.pageScroll.addSubview(self.categoryView)
             self.categoryView.snp.remakeConstraints { make in
                 make.top.equalTo(pageControl.snp.bottom)
                 make.left.right.equalToSuperview()
-                make.bottom.lessThanOrEqualToSuperview().offset(-10)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
             }
             
             let categoryTitle = UILabel()
@@ -255,7 +207,6 @@ class HomepageViewController: PageScrollViewController,
             
             let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
             collectionview.dataSource = self
-//            collectionview.delegate = self
             collectionview.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCollectionViewCell")
             collectionview.showsVerticalScrollIndicator = false
             collectionview.isScrollEnabled = false
@@ -266,31 +217,129 @@ class HomepageViewController: PageScrollViewController,
                 make.centerX.equalToSuperview()
                 make.width.equalToSuperview()
                 make.height.equalTo(fixedHeight)
-                make.bottom.lessThanOrEqualToSuperview().offset(-10)
+                make.bottom.lessThanOrEqualToSuperview().offset(-50)
             }
         }
     }
     
     private func reloadBrandView() {
-        for subView in self.categoryView.subviews {
+        for subView in self.brandView.subviews {
             subView.removeFromSuperview()
+        }
+        
+        if viewModel.listBrands.value.isEmpty {
+            self.pageScroll.addSubview(self.brandView)
+            self.brandView.snp.remakeConstraints { make in
+                make.top.equalTo(categoryView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(0)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+        } else {
+            brandView.backgroundColor = UIColor.init(hexString: "fafafa")
+            self.pageScroll.addSubview(self.brandView)
+            self.brandView.snp.remakeConstraints { make in
+                make.top.equalTo(categoryView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(148)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+            
+            let brandTitle = UILabel()
+            brandTitle.text = "Brand"
+            brandTitle.textColor = kDefaultTextColor
+            brandTitle.font = getCustomFont(size: 18, name: .bold)
+            self.brandView.addSubview(brandTitle)
+            brandTitle.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(30)
+                make.left.equalToSuperview().offset(16)
+            }
+
+            let brandScrollView = UIScrollView()
+            brandScrollView.showsHorizontalScrollIndicator = false
+            self.brandView.addSubview(brandScrollView)
+            brandScrollView.snp.makeConstraints { make in
+                make.top.equalTo(brandTitle.snp.bottom).offset(20)
+                make.height.equalTo(50)
+                make.left.right.width.equalToSuperview()
+            }
+            
+            var lastView : UIView?
+            for brand in viewModel.listBrands.value {
+                let cell = BrandView()
+                cell.imageView.image = UIImage.init(named: brand)
+                brandScrollView.addSubview(cell)
+
+                if lastView == nil {
+                    cell.snp.makeConstraints { make in
+                        make.left.top.bottom.height.equalToSuperview()
+                        make.width.equalTo(90)
+                    }
+                } else {
+                    cell.snp.makeConstraints { make in
+                        make.left.equalTo(lastView!.snp.right).offset(10)
+                        make.top.bottom.height.equalToSuperview()
+                        make.width.equalTo(90)
+                    }
+                }
+
+                lastView = cell
+            }
+
+            lastView?.snp.makeConstraints({ make in
+                make.right.lessThanOrEqualToSuperview()
+            })
         }
     }
     
-    // MARK: - UITableViewDelegate
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
-        // (UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10)
+    private func reloadFeatureProductView() {
+        for subView in self.featureView.subviews {
+            subView.removeFromSuperview()
+        }
+        self.featureView.backgroundColor = .yellow
+        
+        if viewModel.listProducts.value.isEmpty {
+            self.pageScroll.addSubview(self.featureView)
+            self.featureView.snp.remakeConstraints { make in
+                make.top.equalTo(brandView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(0)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+        } else {
+            self.pageScroll.addSubview(self.featureView)
+            self.featureView.snp.remakeConstraints { make in
+                make.top.equalTo(brandView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(413)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+        }
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let value = viewModel.listProducts.value
-        let productData = value[indexPath.row]
+    private func reloadSuggestedView() {
+        for subView in self.suggestedView.subviews {
+            subView.removeFromSuperview()
+        }
+        self.suggestedView.backgroundColor = .systemPink
         
-        let viewDetailsController = ProductDetailsViewController.init(productData)
-        _NavController.pushViewController(viewDetailsController, animated: true)
-        
-        self.dismissKeyboard()
+        if viewModel.listProducts.value.isEmpty {
+            self.pageScroll.addSubview(self.suggestedView)
+            self.suggestedView.snp.remakeConstraints { make in
+                make.top.equalTo(featureView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(0)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+        } else {
+            self.pageScroll.addSubview(self.suggestedView)
+            self.suggestedView.snp.remakeConstraints { make in
+                make.top.equalTo(featureView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.height.equalTo(413)
+                make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+        }
     }
     
     // MARK: - UIScrollViewDelegate
@@ -300,8 +349,6 @@ class HomepageViewController: PageScrollViewController,
         
         let page = lroundf(Float(fractionalPage))
         self.pageControl.currentPage = page
-        
-        self.dismissKeyboard()
     }
     
     // MARK: - ProductFilterDelegate
