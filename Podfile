@@ -23,6 +23,7 @@ target 'Heron' do
   pod 'FSCalendar',               '2.8.4'
   pod 'PhoneNumberKit',           '3.3.4'
   pod 'FluidTabBarController'
+  pod 'iCarousel',                '1.8.3'
   
   pod 'RxSwift',                  '6.5.0'
   pod 'RxCocoa',                  '6.5.0'
