@@ -13,7 +13,7 @@ class ProductTableViewCell: UITableViewCell {
     let packageImage        = UIImageView()
     let productTitleLabel   = UILabel()
     let tagsViewStack       = UIView()
-    let starView            = LeftRightImageLabel.init(leftImage: UIImage.init(named: "start_icon"))
+    let starView            = LeftRightImageLabel.init(leftImage: UIImage.init(named: "star_icon"))
     let sourcePriceLabel    = DiscountLabel()
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()

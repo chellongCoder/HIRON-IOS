@@ -11,7 +11,6 @@ import BadgeHub
 
 class ProductDetailsViewController: PageScrollViewController,
                                     UIScrollViewDelegate,
-                                    UITableViewDelegate,
                                     UICollectionViewDataSource,
                                     UICollectionViewDelegate {
 
@@ -678,6 +677,7 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.topMediaViewHeight = self.topMediaView.frame.size.height
             }
             let contentOffset = scrollView.contentOffset
+            print("contentOffset.y + \(contentOffset.y)")
             if (contentOffset.y >= self.topMediaViewHeight * 0.2) {
                 let alpha = min(1, 2 * contentOffset.y / self.topMediaViewHeight - 1)
                 self.topMediaView.alpha = 1 - alpha
@@ -700,6 +700,10 @@ class ProductDetailsViewController: PageScrollViewController,
                             make.top.equalTo(64)
                             make.right.left.equalToSuperview()
                             make.bottom.equalTo(self.topMediaView.snp.top).offset(0)
+                        }
+                        if(!self.showTabView) {
+                            let topOffset = CGPoint(x: 0, y: 362)
+                            self.pageScroll.setContentOffset(topOffset, animated: true)
                         }
                         self.showTabView = true
                     }
@@ -733,22 +737,7 @@ class ProductDetailsViewController: PageScrollViewController,
             }
         }
     }
-    
-    // MARK: - UITableViewDelegate
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UITableView.automaticDimension
-        // (UIScreen.main.bounds.size.width - 32)*1.2 + (10+15+10)
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
- 
-        reviewRate.snp.makeConstraints { make in
-            make.height.equalTo(80)
-            make.width.equalTo(UIScreen.main.bounds.size.width)
-        }
-        return self.reviewRate
-    }
-    
+        
     // MARK: - UICollectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return productViewModel.listProducts.value.count

@@ -17,6 +17,7 @@ class ItemReview: UIView {
     let helpful         = UILabel()
     let likeBTN         = UIButton()
     let line            = UIView()
+    let starsView       = UIView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,21 +39,23 @@ class ItemReview: UIView {
             make.top.equalToSuperview().offset(0)
         }
         
-        stars.text = "★★★★★"
-        stars.textColor = UIColor.init(hexString: "ff6d6e")
-        stars.font = getCustomFont(size: 11, name: .regular)
-        self.addSubview(stars)
-        stars.snp.makeConstraints { make in
-            make.left.equalTo(avatar.snp.right).offset(10)
-            make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
-        }
+        self.loadStarsView()
+
+//        stars.text = "★★★★★"
+//        stars.textColor = UIColor.init(hexString: "ff6d6e")
+//        stars.font = getCustomFont(size: 11, name: .regular)
+//        self.addSubview(stars)
+//        stars.snp.makeConstraints { make in
+//            make.left.equalTo(avatar.snp.right).offset(10)
+//            make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
+//        }
         
         category.text = "10ml - Red"
         category.textColor = UIColor.init(hexString: "888888")
         category.font = getCustomFont(size: 11, name: .regular)
         self.addSubview(category)
         category.snp.makeConstraints { make in
-            make.left.equalTo(stars.snp.right).offset(10)
+            make.left.equalTo(starsView.snp.right).offset(10)
             make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
         }
         
@@ -102,6 +105,46 @@ class ItemReview: UIView {
             make.top.equalTo(helpful.snp.bottom).offset(10)
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
+    }
+    
+    private func loadStarsView() {
+        self.addSubview(starsView)
+        self.starsView.snp.makeConstraints { (make) in
+            make.left.equalTo(avatar.snp.right).offset(10)
+            make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
+        }
+        for subview in self.starsView.subviews {
+            subview.removeFromSuperview()
+        }
+        var lastView                        : UIImageView?
+
+        for i in 1...5 {
+            let starImage = UIImageView()
+            starImage.image = i == 5 ? UIImage.init(named: "star_empty_icon") : UIImage.init(named: "star_icon")
+            starImage.contentMode = .scaleAspectFit
+            self.starsView.addSubview(starImage)
+
+            if lastView != nil {
+                starImage.snp.makeConstraints { make in
+                    make.left.equalTo(lastView!.snp.right).offset(3)
+                    make.centerY.top.equalToSuperview()
+                    make.width.height.equalTo(8)
+                }
+                
+            } else {
+                starImage.snp.makeConstraints { make in
+                    make.left.equalToSuperview()
+                    make.centerY.top.equalToSuperview()
+                }
+
+            }
+
+            lastView = starImage
+
+        }
+        lastView?.snp.makeConstraints({ make in
+            make.right.lessThanOrEqualToSuperview().offset(-10)
+        })
     }
     
     required init?(coder: NSCoder) {
