@@ -38,10 +38,12 @@ class AddToCartViewController: UIViewController {
     
     private let disposeBag  = DisposeBag()
     
-    init(productData: ProductDataSource) {
+    init(productData: ProductDataSource, _ quantity: Int? = nil) {
         super.init(nibName: nil, bundle: nil)
         self.productData = productData
-        
+        if let quantity = quantity {
+            self.quantityValue = quantity
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             self.variantView.delegate = self
             self.variantView.setConfigurationProduct(productData, isAllowToChange: true)
