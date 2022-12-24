@@ -757,6 +757,15 @@ extension ProductDetailsViewController : ProductVariantDelegate {
         }) {
             // Load new UI
             self.nameProduct.text = matchedSimpleProduct.name
+            
+            if(matchedSimpleProduct.customRegularPrice == matchedSimpleProduct.customFinalPrice) {
+                self.stackInfoView.discountView.alpha = 0
+                self.stackInfoView.originalPrice.alpha = 0
+                self.stackInfoView.salePrice.snp.remakeConstraints { make in
+                    make.left.equalToSuperview()
+                    make.centerY.equalToSuperview()
+                }
+            }
             self.stackInfoView.setDiscountPercent(String(format:"%.1f", matchedSimpleProduct.discountPercent) + "%")
             self.stackInfoView.setSalePrice(getMoneyFormat(matchedSimpleProduct.customFinalPrice))
             self.stackInfoView.setOriginalPrice(getMoneyFormat(matchedSimpleProduct.customRegularPrice))
