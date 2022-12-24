@@ -690,7 +690,6 @@ class ProductDetailsViewController: PageScrollViewController,
                 }
                 if (!self.showTabView && contentOffset.y >= self.topMediaViewHeight) {
                     DispatchQueue.main.async {
-                        self.pagingView.alpha = 0
                         self.tabView.snp.remakeConstraints({ make in
                             make.left.equalToSuperview().offset(0)
                             make.top.equalToSuperview()
@@ -724,8 +723,7 @@ class ProductDetailsViewController: PageScrollViewController,
             }
             if (self.showTabView && contentOffset.y < self.topMediaViewHeight * 0.8) {
                 DispatchQueue.main.async {
-                    self.pagingView.alpha = 0.3
-                    self.tabView.snp.remakeConstraints({ make in
+                        self.tabView.snp.remakeConstraints({ make in
                         make.left.equalToSuperview().offset(0)
                         make.top.equalToSuperview()
                         make.width.equalToSuperview()
