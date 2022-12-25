@@ -21,7 +21,10 @@ class ReviewRate: UIView {
         title.textColor = kDefaultTextColor
         title.font = getCustomFont(size: 13, name: .bold)
         
-        stars.text = "★ 4.5"
+        let starImage = UIImageView()
+        starImage.image = UIImage.init(named: "star_icon")
+
+        stars.text = "4.5"
         stars.textColor = kDefaultTextColor
         stars.font = getCustomFont(size: 13, name: .regular)
         
@@ -39,10 +42,17 @@ class ReviewRate: UIView {
         stack.alignment = .fill
         stack.distribution = .fill
         
-        stack.addSubview(stars)
-        stars.snp.makeConstraints { make in
+        stack.addSubview(starImage)
+        starImage.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
             make.centerY.equalToSuperview()
+        }
+
+        stack.addSubview(stars)
+        stars.snp.makeConstraints { make in
+            make.left.equalTo(starImage.snp.right).offset(10)
+            make.centerY.equalToSuperview()
+            make.width.height.equalTo(11)
         }
         
         let spaceLine2 = UIView()
