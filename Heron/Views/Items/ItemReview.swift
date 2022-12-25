@@ -47,7 +47,7 @@ class ItemReview: UIView {
         self.addSubview(category)
         category.snp.makeConstraints { make in
             make.left.equalTo(starsView.snp.right).offset(10)
-            make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
+            make.top.equalTo(rateUserName.snp.bottom).offset(5.5)
         }
         
         time.text = "3 days ago"
@@ -76,6 +76,7 @@ class ItemReview: UIView {
         likeBTN.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
             make.top.equalTo(comment.snp.bottom).offset(15)
+            make.width.height.equalTo(10)
         }
         
         helpful.text = "Helpful (5)"
@@ -84,7 +85,7 @@ class ItemReview: UIView {
         helpful.font = getCustomFont(size: 11, name: .regular)
         helpful.snp.makeConstraints { make in
             make.left.equalTo(likeBTN.snp.right).offset(10)
-            make.top.equalTo(comment.snp.bottom).offset(15)
+            make.top.equalTo(comment.snp.bottom).offset(13)
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
         
