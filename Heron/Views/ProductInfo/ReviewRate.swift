@@ -46,13 +46,13 @@ class ReviewRate: UIView {
         starImage.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(10)
             make.centerY.equalToSuperview()
+            make.width.height.equalTo(11)
         }
 
         stack.addSubview(stars)
         stars.snp.makeConstraints { make in
             make.left.equalTo(starImage.snp.right).offset(10)
             make.centerY.equalToSuperview()
-            make.width.height.equalTo(11)
         }
         
         let spaceLine2 = UIView()

@@ -54,6 +54,7 @@ class ProductDetailsViewController: PageScrollViewController,
     private let starView                = UILabel()
     private let variantView             = ConfigurationProductVariantView()
     private let cartHotInfo             = CartHotView()
+    let titleReleatedProduct            = UILabel()
 
     init(_ data: ProductDataSource) {
         super.init(nibName: nil, bundle: nil)
@@ -147,6 +148,7 @@ class ProductDetailsViewController: PageScrollViewController,
         pageScroll.addSubview(refreshControl)
         
         tabView.scrollView = self.pageScroll
+        tabView.viewController = self
         self.view.addSubview(tabView)
         tabView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
@@ -618,11 +620,10 @@ class ProductDetailsViewController: PageScrollViewController,
             make.width.equalToSuperview()
         }
         
-        let title = UILabel()
-        title.text = "Related product"
-        title.font = getCustomFont(size: 18, name: .bold)
-        self.contentView.addSubview(title)
-        title.snp.makeConstraints { (make) in
+        titleReleatedProduct.text = "Related product"
+        titleReleatedProduct.font = getCustomFont(size: 18, name: .bold)
+        self.contentView.addSubview(titleReleatedProduct)
+        titleReleatedProduct.snp.makeConstraints { (make) in
             make.top.equalTo(spacer3.snp.bottom).offset(10)
             make.left.equalToSuperview().offset(10)
         }
@@ -643,7 +644,7 @@ class ProductDetailsViewController: PageScrollViewController,
         self.contentView.addSubview(collectionview)
         collectionview.snp.makeConstraints { make in
             make.centerX.width.equalToSuperview()
-            make.top.equalTo(title.snp.bottom).offset(10)
+            make.top.equalTo(titleReleatedProduct.snp.bottom).offset(10)
             make.height.equalTo(510)
             make.width.equalToSuperview().offset(-20)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)

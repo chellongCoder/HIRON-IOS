@@ -14,6 +14,7 @@ class TabViewProductDetail: UIView {
     private let relateBtn           = UIButton()
     private var separatorView       = UIView()
     var scrollView                  : UIScrollView?
+    weak var viewController         : ProductDetailsViewController?
 
     private var selectedSegmentBtn  : UIButton?
 
@@ -83,10 +84,10 @@ class TabViewProductDetail: UIView {
             let bottomOffset = CGPoint(x: 0, y: 0)
             self.scrollView?.setContentOffset(bottomOffset, animated: true)
         } else if(sender == reviewBtn) {
-            let bottomOffset = CGPoint(x: 0, y: 500)
+            let bottomOffset = CGPoint(x: 0, y: self.viewController!.reviewRate.frame.minY - 40)
             self.scrollView?.setContentOffset(bottomOffset, animated: true)
         } else {
-            let bottomOffset = CGPoint(x: 0, y: 1500)
+            let bottomOffset = CGPoint(x: 0, y: self.viewController!.titleReleatedProduct.frame.minY - 50)
             self.scrollView?.setContentOffset(bottomOffset, animated: true)
         }
         
