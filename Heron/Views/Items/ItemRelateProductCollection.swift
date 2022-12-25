@@ -48,8 +48,6 @@ class ItemRelateProductCollection: UICollectionViewCell {
             make.top.equalTo(banner.snp.bottom)
             make.right.equalToSuperview()
         }
-
-        
         discount.setDiscount("30%")
         discount.backgroundColor = UIColor.init(hexString: "ffe2e2")
         discount.layer.cornerRadius = 3
@@ -65,7 +63,7 @@ class ItemRelateProductCollection: UICollectionViewCell {
         originalPrice.font = getCustomFont(size: 9, name: .regular)
         self.contentView.addSubview(originalPrice)
         originalPrice.snp.makeConstraints { make in
-            make.top.equalTo(productName.snp.bottom).offset(20)
+            make.top.equalTo(productName.snp.bottom).offset(15)
             make.left.equalTo(discount.snp.right).offset(10)
         }
         

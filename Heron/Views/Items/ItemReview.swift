@@ -46,7 +46,7 @@ class ItemReview: UIView {
         category.font = getCustomFont(size: 11, name: .regular)
         self.addSubview(category)
         category.snp.makeConstraints { make in
-            make.left.equalTo(starsView.snp.right).offset(10)
+            make.left.equalTo(starsView.snp.right).offset(20)
             make.top.equalTo(rateUserName.snp.bottom).offset(5.5)
         }
         
