@@ -188,6 +188,7 @@
 		9AC54E5D28963D8C006312D6 /* TimeableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5C28963D8C006312D6 /* TimeableDataSource.swift */; };
 		9AC54E602896913C006312D6 /* DoctorDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */; };
 		9AC54E62289699E9006312D6 /* DoctorDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */; };
+		A01CE6602958A6780027543C /* FeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CE65F2958A6780027543C /* FeatureView.swift */; };
 		A0979E49293B8B2F00E243A0 /* PlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E48293B8B2F00E243A0 /* PlanView.swift */; };
 		A0979E4B293B90D100E243A0 /* UserDashboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */; };
 		A0979E4D293B9A5100E243A0 /* UserProfileActionBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */; };
@@ -431,6 +432,7 @@
 		9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewController.swift; sourceTree = "<group>"; };
 		9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorDetailsViewModel.swift; sourceTree = "<group>"; };
 		9E3941AEF8829879C51A18C9 /* Pods_HeronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01CE65F2958A6780027543C /* FeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureView.swift; sourceTree = "<group>"; };
 		A0979E48293B8B2F00E243A0 /* PlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlanView.swift; sourceTree = "<group>"; };
 		A0979E4A293B90D100E243A0 /* UserDashboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDashboardItem.swift; sourceTree = "<group>"; };
 		A0979E4C293B9A5100E243A0 /* UserProfileActionBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileActionBtn.swift; sourceTree = "<group>"; };
@@ -818,6 +820,7 @@
 		938F7A892820E7BD00DD60DB /* HomepageViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A01CE65E2958A6660027543C /* FeatureView */,
 				A0A551CB29537B3600CEA604 /* BrandView */,
 				93D5522A282A74870034B2B7 /* ProductFilterViewController */,
 				938F7A8A2820E7DC00DD60DB /* HomepageViewController.swift */,
@@ -1263,6 +1266,14 @@
 			path = CreateBookingFlow;
 			sourceTree = "<group>";
 		};
+		A01CE65E2958A6660027543C /* FeatureView */ = {
+			isa = PBXGroup;
+			children = (
+				A01CE65F2958A6780027543C /* FeatureView.swift */,
+			);
+			path = FeatureView;
+			sourceTree = "<group>";
+		};
 		A097CC8D2937A90400C587AD /* ProductListingFilterView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1642,6 +1653,7 @@
 				B561819D2862B59D009BE6E5 /* OrderPayment.swift in Sources */,
 				9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */,
 				93D55231282A79B40034B2B7 /* AddToCartViewModel.swift in Sources */,
+				A01CE6602958A6780027543C /* FeatureView.swift in Sources */,
 				93EC90F9285A4DF4009056F6 /* OrderService.swift in Sources */,
 				933D19362819946800F1CCC4 /* UIFont_EXT.swift in Sources */,
 				B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */,

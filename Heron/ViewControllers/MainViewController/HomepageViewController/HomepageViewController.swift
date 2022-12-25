@@ -24,7 +24,9 @@ class HomepageViewController: PageScrollViewController,
     private let categoryView        = UIView()
     private var categoryCollection  : UICollectionView?
     private let brandView           = UIView()
+    
     private let featureView         = UIView()
+    private let featureScrollView   = iCarousel()
     
     private let suggestedView       = UIView()
     private var suggestedCollection : UICollectionView?
@@ -106,7 +108,8 @@ class HomepageViewController: PageScrollViewController,
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        self.viewModel.getProductList()
+        self.viewModel.getFeatureProductList()
+        self.viewModel.getSuggestedProductList()
         self.viewModel.getListCategoris()
     }
     
@@ -143,7 +146,7 @@ class HomepageViewController: PageScrollViewController,
     }
     
     override func reloadData() {
-        self.viewModel.getProductList()
+        self.viewModel.getFeatureProductList()
         self.viewModel.getListCategoris()
     }
     
@@ -299,9 +302,8 @@ class HomepageViewController: PageScrollViewController,
         for subView in self.featureView.subviews {
             subView.removeFromSuperview()
         }
-        self.featureView.backgroundColor = .yellow
         
-        if viewModel.listProducts.value.isEmpty {
+        if viewModel.listFeatureProducts.value.isEmpty {
             self.pageScroll.addSubview(self.featureView)
             self.featureView.snp.remakeConstraints { make in
                 make.top.equalTo(brandView.snp.bottom)
@@ -314,8 +316,32 @@ class HomepageViewController: PageScrollViewController,
             self.featureView.snp.remakeConstraints { make in
                 make.top.equalTo(brandView.snp.bottom)
                 make.left.right.equalToSuperview()
-                make.height.equalTo(413)
                 make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+            
+            let featureTitle = UILabel()
+            featureTitle.text = "Featured products"
+            featureTitle.textColor = kDefaultTextColor
+            featureTitle.font = getCustomFont(size: 18, name: .bold)
+            self.featureView.addSubview(featureTitle)
+            featureTitle.snp.makeConstraints { make in
+                make.top.equalToSuperview()
+                make.left.equalToSuperview().offset(16)
+            }
+            
+            let staticHeight = UIScreen.main.bounds.size.width * 0.96
+            
+            featureScrollView.isPagingEnabled = true
+            featureScrollView.type = .coverFlow
+            featureScrollView.delegate = self
+            featureScrollView.dataSource = self
+            self.featureView.addSubview(featureScrollView)
+            featureScrollView.snp.makeConstraints { (make) in
+                make.top.equalTo(featureTitle.snp.bottom).offset(10)
+                make.left.equalToSuperview().offset(-80)
+                make.right.width.equalToSuperview()
+                make.height.equalTo(staticHeight)
+                make.bottom.lessThanOrEqualToSuperview().offset(-10)
             }
         }
     }
@@ -325,7 +351,7 @@ class HomepageViewController: PageScrollViewController,
             subView.removeFromSuperview()
         }
         
-        if viewModel.listProducts.value.isEmpty {
+        if viewModel.listFeatureProducts.value.isEmpty {
             self.pageScroll.addSubview(self.suggestedView)
             self.suggestedView.snp.remakeConstraints { make in
                 make.top.equalTo(featureView.snp.bottom)
@@ -360,7 +386,7 @@ class HomepageViewController: PageScrollViewController,
             layout.minimumInteritemSpacing = 0
             layout.scrollDirection = .vertical
             
-            var fixedHeight = (cellWidth + 97)*2 // 2 row
+            let fixedHeight = (cellWidth + 97)*2 // 2 row
             
             suggestedCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
             suggestedCollection?.dataSource = self
@@ -396,31 +422,58 @@ class HomepageViewController: PageScrollViewController,
     // MARK: - iCarouselDataSource
     
     func numberOfItems(in carousel: iCarousel) -> Int {
-        self.pageControl.numberOfPages = viewModel.listBanners.count
-        return viewModel.listBanners.count
+        if carousel == self.bannerScrollView {
+            self.pageControl.numberOfPages = viewModel.listBanners.count
+            return viewModel.listBanners.count
+        } else if carousel == self.featureScrollView {
+            return self.viewModel.listFeatureProducts.value.count
+        }
+        
+        return 0
     }
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
-        let width = UIScreen.main.bounds.size.width * 0.87
-        let height = UIScreen.main.bounds.size.width * 0.96
-        let size = CGSize(width: width, height: height)
+        if carousel == self.bannerScrollView {
+            let width = UIScreen.main.bounds.size.width * 0.87
+            let height = UIScreen.main.bounds.size.width * 0.96
+            let size = CGSize(width: width, height: height)
+            
+            let imageName = viewModel.listBanners[index]
+            let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
+            
+            let cell = BannerView.init(frame: frame)
+            cell.bannerImage.image = UIImage.init(named: imageName)
+            return cell
+        } else if carousel == self.featureScrollView {
+            let width = UIScreen.main.bounds.size.width * 0.6
+            let height = UIScreen.main.bounds.size.width * 0.8
+            let size = CGSize(width: width, height: height)
+            
+            let cellData = viewModel.listFeatureProducts.value[index]
+            let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
+            
+            let cell = FeatureView.init(frame: frame)
+            cell.setDataSource(cellData)
+            return cell
+        }
         
-        let imageName = viewModel.listBanners[index]
-        let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
-        
-        let cell = BannerView.init(frame: frame)
-        cell.bannerImage.image = UIImage.init(named: imageName)
-        return cell
+        return UIView()
     }
     
     func numberOfPlaceholders(in carousel: iCarousel) -> Int {
-        return 2
+        if carousel == self.bannerScrollView {
+            return 2
+        }
+        
+        return 0
     }
     
     // MARK: - iCarouselDelegate
     
     func carouselCurrentItemIndexDidChange(_ carousel: iCarousel) {
-        self.pageControl.currentPage = carousel.currentItemIndex
+        if carousel == self.bannerScrollView {
+            self.pageControl.currentPage = carousel.currentItemIndex
+        }
     }
     
     // MARK: - UICollectionViewDataSource
@@ -483,7 +536,7 @@ class HomepageViewController: PageScrollViewController,
             // swiftlint:disable force_cast
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
             
-            let value = viewModel.listProducts.value
+            let value = viewModel.listSuggestedProducts.value
             let productData = value[indexPath.row]
             cell.setDataSource(productData)
             return cell

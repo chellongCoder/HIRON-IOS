@@ -16,7 +16,8 @@ class HomepageViewModel: BaseViewModel {
     #warning("HARD_CODE")
     var listBrands          = BehaviorRelay<[String]>(value: ["brand_1", "brand_2", "brand_3", "brand_1", "brand_2", "brand_3", "brand_1", "brand_2", "brand_3"])
     var filterData          : CategoryDataSource?
-    var listProducts        = BehaviorRelay<[ProductDataSource]>(value: Array(_AppCoreData.listsavedProducts))
+    var listFeatureProducts     = BehaviorRelay<[ProductDataSource]>(value: Array(_AppCoreData.listsavedProducts))
+    var listSuggestedProducts   = BehaviorRelay<[ProductDataSource]>(value: Array(_AppCoreData.listsavedProducts))
     
     override init() {
         super.init()
@@ -45,7 +46,7 @@ class HomepageViewModel: BaseViewModel {
         return code
     }
     
-    func getProductList() {
+    func getFeatureProductList() {
         
         var param : [String: Any] = ["filter[featureType][eq]" : "ecom",
                                      "sort[media][sortOrder]": "asc",
@@ -72,7 +73,39 @@ class HomepageViewModel: BaseViewModel {
             }
             
             if let listNewProducts = listNewProducts {
-                self.listProducts.accept(listNewProducts)
+                self.listFeatureProducts.accept(listNewProducts)
+            }
+        }
+    }
+    
+    func getSuggestedProductList() {
+        
+        var param : [String: Any] = ["filter[featureType][eq]" : "ecom",
+                                     "sort[media][sortOrder]": "asc",
+                                     "sort[createdAt]" : "desc"]
+        if let filterData = filterData {
+            param = ["filter[featureType][eq]" : "ecom",
+                     "filter[categoryId][eq]" : filterData.id,
+                     "filter[quantity][not]" : "null",
+                     "filter[visibility][eq]" : "true",
+                     "sort[createdAt]" : "desc"]
+        }
+        
+//        self.controller?.startLoadingAnimation()
+        _InventoryServices.getListProducts(param: param) { errorMessage, listNewProducts in
+//            self.controller?.endLoadingAnimation()
+            self.controller?.refreshControl.endRefreshing()
+            if errorMessage != nil {
+                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                    alertVC.dismiss()
+                }))
+                _NavController.showAlert(alertVC)
+                return
+            }
+            
+            if let listNewProducts = listNewProducts {
+                self.listSuggestedProducts.accept(listNewProducts)
             }
         }
     }
