@@ -78,7 +78,7 @@ class SelectDepartmentViewController: BaseViewController {
     override func bindingData() {
         
         viewModel.listDepartments
-            .bind(to: collectionView!.rx.items(cellIdentifier: "ProductCollectionViewCell") ) { (_: Int, productData: TeamDataSource, cell: SelectDepartmentsCollectionViewCell) in
+            .bind(to: collectionView!.rx.items(cellIdentifier: "SelectDepartmentsCollectionViewCell") ) { (_: Int, productData: TeamDataSource, cell: SelectDepartmentsCollectionViewCell) in
                 if let department = productData.department {
                     cell.setDataSource(department)
                 }
