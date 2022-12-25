@@ -41,15 +41,6 @@ class ItemReview: UIView {
         
         self.loadStarsView()
 
-//        stars.text = "★★★★★"
-//        stars.textColor = UIColor.init(hexString: "ff6d6e")
-//        stars.font = getCustomFont(size: 11, name: .regular)
-//        self.addSubview(stars)
-//        stars.snp.makeConstraints { make in
-//            make.left.equalTo(avatar.snp.right).offset(10)
-//            make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
-//        }
-        
         category.text = "10ml - Red"
         category.textColor = UIColor.init(hexString: "888888")
         category.font = getCustomFont(size: 11, name: .regular)
@@ -135,6 +126,7 @@ class ItemReview: UIView {
                 starImage.snp.makeConstraints { make in
                     make.left.equalToSuperview()
                     make.centerY.top.equalToSuperview()
+                    make.width.height.equalTo(8)
                 }
 
             }
@@ -143,7 +135,7 @@ class ItemReview: UIView {
 
         }
         lastView?.snp.makeConstraints({ make in
-            make.right.lessThanOrEqualToSuperview().offset(-10)
+            make.right.lessThanOrEqualToSuperview().offset(10)
         })
     }
     
