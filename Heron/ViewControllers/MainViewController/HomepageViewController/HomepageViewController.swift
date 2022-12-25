@@ -22,9 +22,12 @@ class HomepageViewController: PageScrollViewController,
     private let bannerScrollView    = iCarousel()
     private let pageControl         = UIPageControl()
     private let categoryView        = UIView()
+    private var categoryCollection  : UICollectionView?
     private let brandView           = UIView()
     private let featureView         = UIView()
+    
     private let suggestedView       = UIView()
+    private var suggestedCollection : UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -205,14 +208,14 @@ class HomepageViewController: PageScrollViewController,
                 fixedHeight = viewWidth*2
             }
             
-            let collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            collectionview.dataSource = self
-            collectionview.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCollectionViewCell")
-            collectionview.showsVerticalScrollIndicator = false
-            collectionview.isScrollEnabled = false
-            collectionview.backgroundColor = .white
-            self.categoryView.addSubview(collectionview)
-            collectionview.snp.makeConstraints { make in
+            categoryCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            categoryCollection?.dataSource = self
+            categoryCollection?.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: "CategoryCollectionViewCell")
+            categoryCollection?.showsVerticalScrollIndicator = false
+            categoryCollection?.isScrollEnabled = false
+            categoryCollection?.backgroundColor = .white
+            self.categoryView.addSubview(categoryCollection!)
+            categoryCollection?.snp.makeConstraints { make in
                 make.top.equalTo(categoryTitle.snp.bottom).offset(20)
                 make.centerX.equalToSuperview()
                 make.width.equalToSuperview()
@@ -321,7 +324,6 @@ class HomepageViewController: PageScrollViewController,
         for subView in self.suggestedView.subviews {
             subView.removeFromSuperview()
         }
-        self.suggestedView.backgroundColor = .systemPink
         
         if viewModel.listProducts.value.isEmpty {
             self.pageScroll.addSubview(self.suggestedView)
@@ -336,8 +338,43 @@ class HomepageViewController: PageScrollViewController,
             self.suggestedView.snp.remakeConstraints { make in
                 make.top.equalTo(featureView.snp.bottom)
                 make.left.right.equalToSuperview()
-                make.height.equalTo(413)
                 make.bottom.lessThanOrEqualToSuperview().offset(-30)
+            }
+            
+            let suggestedTitle = UILabel()
+            suggestedTitle.text = "Suggested products"
+            suggestedTitle.textColor = kDefaultTextColor
+            suggestedTitle.font = getCustomFont(size: 18, name: .bold)
+            self.suggestedView.addSubview(suggestedTitle)
+            suggestedTitle.snp.makeConstraints { make in
+                make.top.equalToSuperview().offset(10)
+                make.left.equalToSuperview().offset(16)
+            }
+            
+            let screenSize = UIScreen.main.bounds
+            let layout = UICollectionViewFlowLayout()
+            let cellWidth = screenSize.width/2
+            layout.itemSize = CGSize(width: cellWidth, height: cellWidth + 97)
+            layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            layout.minimumLineSpacing = 0
+            layout.minimumInteritemSpacing = 0
+            layout.scrollDirection = .vertical
+            
+            var fixedHeight = (cellWidth + 97)*2 // 2 row
+            
+            suggestedCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+            suggestedCollection?.dataSource = self
+            suggestedCollection?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
+            suggestedCollection?.showsVerticalScrollIndicator = false
+            suggestedCollection?.isScrollEnabled = false
+            suggestedCollection?.backgroundColor = .white
+            self.suggestedView.addSubview(suggestedCollection!)
+            suggestedCollection?.snp.makeConstraints { make in
+                make.top.equalTo(suggestedTitle.snp.bottom).offset(20)
+                make.centerX.equalToSuperview()
+                make.width.equalToSuperview()
+                make.height.equalTo(fixedHeight)
+                make.bottom.lessThanOrEqualToSuperview()
             }
         }
     }
@@ -388,52 +425,71 @@ class HomepageViewController: PageScrollViewController,
     
     // MARK: - UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if viewModel.listCategories.value.count < 3 {
-            return viewModel.listCategories.value.count
-        } else if viewModel.listCategories.value.count < 6 {
-            // 1 rows
-            return 3
+        if collectionView == self.categoryCollection {
+            if viewModel.listCategories.value.count < 3 {
+                return viewModel.listCategories.value.count
+            } else if viewModel.listCategories.value.count < 6 {
+                // 1 rows
+                return 3
+            } else {
+                return 6
+            }
+        } else if collectionView == self.suggestedCollection {
+            return 4
         } else {
-            return 6
+            return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as? CategoryCollectionViewCell
-        
-        var isMoreItems = false
-        var moreCount = 0
-        if viewModel.listCategories.value.count <= 2 {
-            // 2 items
-        } else if viewModel.listCategories.value.count == 3 {
-            // 3 items
-        } else if viewModel.listCategories.value.count <= 5 {
-            // 2 items + 1 more
-            if indexPath.row == 2 {
-                isMoreItems = true
-                moreCount = viewModel.listCategories.value.count - 2
+        if collectionView == self.categoryCollection {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as? CategoryCollectionViewCell
+            
+            var isMoreItems = false
+            var moreCount = 0
+            if viewModel.listCategories.value.count <= 2 {
+                // 2 items
+            } else if viewModel.listCategories.value.count == 3 {
+                // 3 items
+            } else if viewModel.listCategories.value.count <= 5 {
+                // 2 items + 1 more
+                if indexPath.row == 2 {
+                    isMoreItems = true
+                    moreCount = viewModel.listCategories.value.count - 2
+                }
+            } else if viewModel.listCategories.value.count == 6 {
+                // 6 items
+            } else {
+                // > 6
+                // 5 items + 1 more
+                if indexPath.row == 5 {
+                    isMoreItems = true
+                    moreCount = viewModel.listCategories.value.count - 5
+                }
             }
-        } else if viewModel.listCategories.value.count == 6 {
-            // 6 items
-        } else {
-            // > 6
-            // 5 items + 1 more
-            if indexPath.row == 5 {
-                isMoreItems = true
-                moreCount = viewModel.listCategories.value.count - 5
+            
+            if isMoreItems {
+                // setting more cell
+                cell?.setMoreData(moreCount)
+                cell?.setCategoryUICode(viewModel.getMoreUICode(indexPath.section))
+            } else {
+                let cellData = viewModel.listCategories.value[indexPath.row]
+                cell?.setDataSource(data: cellData)
+                cell?.setCategoryUICode(viewModel.getUICodeByIndex(indexPath.row))
             }
-        }
-        
-        if isMoreItems {
-            // setting more cell
-            cell?.setMoreData(moreCount)
-            cell?.setCategoryUICode(viewModel.getMoreUICode(indexPath.section))
+            
+            return cell!
+        } else if collectionView == self.suggestedCollection {
+            // swiftlint:disable force_cast
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
+            
+            let value = viewModel.listProducts.value
+            let productData = value[indexPath.row]
+            cell.setDataSource(productData)
+            return cell
         } else {
-            let cellData = viewModel.listCategories.value[indexPath.row]
-            cell?.setDataSource(data: cellData)
-            cell?.setCategoryUICode(viewModel.getUICodeByIndex(indexPath.row))
+            let productCell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCollectionViewCell", for: indexPath) as? CategoryCollectionViewCell
+            return productCell!
         }
-        
-        return cell!
     }
 }

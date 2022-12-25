@@ -2,7 +2,6 @@ PODS:
   - Alamofire (5.2.0)
   - BadgeHub (1.0.0)
   - BugfenderSDK (1.10.4)
-  - FluidTabBarController (0.5.3)
   - FSCalendar (2.8.4)
   - iCarousel (1.8.3)
   - IQKeyboardManager (6.5.10)
@@ -133,7 +132,6 @@ DEPENDENCIES:
   - Alamofire (= 5.2.0)
   - BadgeHub (= 1.0.0)
   - BugfenderSDK (= 1.10.4)
-  - FluidTabBarController
   - FSCalendar (= 2.8.4)
   - iCarousel (= 1.8.3)
   - IQKeyboardManager (= 6.5.10)
@@ -157,7 +155,6 @@ SPEC REPOS:
     - Alamofire
     - BadgeHub
     - BugfenderSDK
-    - FluidTabBarController
     - FSCalendar
     - iCarousel
     - IQKeyboardManager
@@ -187,7 +184,6 @@ SPEC CHECKSUMS:
   Alamofire: c1ca147559e730bfb2182c8c7aafbdd90a867987
   BadgeHub: b227771329f78c37a2dae7502607ec6d00a50bd4
   BugfenderSDK: d48b0baf2fe53339e73ffd3231457f224e77b03b
-  FluidTabBarController: 14b2e61bcf03bc362ec2f4cba0dc804ee0a9c268
   FSCalendar: 2d1d0d9398f12d439f55c1fe0f01525b151b8260
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   IQKeyboardManager: 45a1fa55c1a5b02c61ac0fd7fd5b62bb4ad20d97
@@ -213,6 +209,6 @@ SPEC CHECKSUMS:
   SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
   SWRevealViewController: 6d3fd97f70112fd7cef9de14df4260eacce4c63a
 
-PODFILE CHECKSUM: ea3522f649a1b1eb2cc51583bc8b34fdede3457b
+PODFILE CHECKSUM: 53c5f6e35afe723610d51cf37eeefa4ac7518ce6
 
 COCOAPODS: 1.11.3
