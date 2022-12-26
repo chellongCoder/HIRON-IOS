@@ -364,9 +364,19 @@ class UpdateUserProfileViewController: PageScrollViewController ,
                         //self.avatar.setImage(url: avatarImageURL, placeholder: UIImage.init(named: "default-image")!)
 //                    }
                     let dateDob = Date.init(timeIntervalSince1970: TimeInterval((userData?.userDOB ?? 0) / 1000))
+                    self.datePicker.setDate(dateDob, animated: true)
                     
                     self.firstNameTxt.text = userData?.userFirstName
                     self.lastNameTxt.text = userData?.userLastName
+                    
+                    if userData?.userGender == .male {
+                        self.genderTxt.text = "Male"
+                        self.genderPicker.selectRow(0, inComponent: 0, animated: false)
+                    } else {
+                        self.genderTxt.text = "Female"
+                        self.genderPicker.selectRow(1, inComponent: 0, animated: false)
+                    }
+                    
                     self.genderTxt.text = (userData?.userGender == .male) ? "Male" : "Female"
                     self.dobTxt.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
                     self.phoneNumberCodeTxt.text = userData?.userPhoneCode

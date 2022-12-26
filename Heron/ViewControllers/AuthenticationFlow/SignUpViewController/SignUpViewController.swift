@@ -234,7 +234,7 @@ class SignUpViewController: BaseViewController,
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
-        passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
         passwordTxt.rightAction = {
             self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
             if self.passwordTxt.isSecureTextEntry {
@@ -266,7 +266,7 @@ class SignUpViewController: BaseViewController,
         retypePasswordTxt.setPlaceHolderText("Password")
         retypePasswordTxt.isSecureTextEntry = true
         retypePasswordTxt.textColor = kDefaultTextColor
-        retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        retypePasswordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
         retypePasswordTxt.rightAction = {
             self.retypePasswordTxt.isSecureTextEntry = !self.retypePasswordTxt.isSecureTextEntry
             if self.retypePasswordTxt.isSecureTextEntry {
