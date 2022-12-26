@@ -70,7 +70,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let firstNameLabel = UILabel()
-        firstNameLabel.text = "First name"
+        firstNameLabel.text = "First name *"
         firstNameLabel.font = getCustomFont(size: 11, name: .light)
         firstNameLabel.textColor = kDarkColor
         firstNameLabel.textAlignment = .left
@@ -81,7 +81,7 @@ class SignUpViewController: BaseViewController,
         }
         
         firstNameTxt.delegate = self
-        firstNameTxt.setPlaceHolderText(" First name *")
+        firstNameTxt.setPlaceHolderText(" First name")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
         firstNameTxt.snp.makeConstraints { make in
@@ -484,6 +484,7 @@ class SignUpViewController: BaseViewController,
         } else {
             retypePasswordTxt.setError(nil)
         }
+        userData.passwordConfirm = retypePasswordTxt.text ?? ""
 
         if phoneNumberTxt.isValidNumber {
             phoneNumberTxt.textColor = kDefaultTextColor
