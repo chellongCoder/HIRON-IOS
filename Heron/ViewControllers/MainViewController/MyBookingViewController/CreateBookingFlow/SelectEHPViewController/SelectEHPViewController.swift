@@ -17,215 +17,246 @@ class SelectEHPViewController: UIViewController {
     let emailValueLabel     = UILabel()
     let phoneValueLabel     = UILabel()
     let dobValueLabel       = UILabel()
-    let professionLabel     = UILabel()
     let addressLabel        = UILabel()
     
     let makeBookingBtn      = UIButton()
+    let updateEHPBtn        = UIButton()
     
     private let disposeBag  = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
+        self.view.backgroundColor = UIColor.init(hexString: "f5f7f9")
         self.edgesForExtendedLayout = []
-        navigationItem.title = "My E-Health Profile"
+        navigationItem.title = "Select E-Health Profile"
         
         viewModel.controller = self
         
-        let closeBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "xmark"),
+        let closeBtn = UIBarButtonItem.init(image: UIImage.init(named: "close_bar_icon"),
                                            style: .plain,
                                            target: self,
                                            action: #selector(closeButtonTapped))
         self.navigationItem.leftBarButtonItem = closeBtn
         
+        let avatarView = UIView()
+        avatarView.backgroundColor = .white
+        avatarView.layer.borderWidth = 0.7
+        avatarView.layer.borderColor = kPrimaryColor.cgColor
+        avatarView.layer.masksToBounds = true
+        avatarView.layer.cornerRadius = 60
+        self.view.addSubview(avatarView)
+        avatarView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(65)
+            make.centerX.equalToSuperview()
+            make.height.width.equalTo(120)
+        }
+        
         avatar.image = UIImage.init(named: "default-image")
         avatar.contentMode = .scaleAspectFit
-        avatar.layer.borderWidth = 1
-        avatar.layer.cornerRadius = 8
-        avatar.layer.borderColor = UIColor.gray.cgColor
-        self.view.addSubview(avatar)
+        avatar.layer.cornerRadius = 47
+        avatarView.addSubview(avatar)
         avatar.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(120)
-            make.centerX.equalToSuperview()
-            make.height.width.equalTo(100)
-        }
-        
-        let basicInforLabel = UILabel()
-        basicInforLabel.text = "Basic Information"
-        basicInforLabel.textColor = kDefaultTextColor
-        basicInforLabel.font = getCustomFont(size: 17, name: .semiBold)
-        self.view.addSubview(basicInforLabel)
-        basicInforLabel.snp.makeConstraints { make in
-            make.top.equalTo(avatar.snp.bottom).offset(30)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
-        }
-        
-        let nameLabel = UILabel()
-        nameLabel.text = "Name:"
-        nameLabel.textColor = kDefaultTextColor
-        nameLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(nameLabel)
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(basicInforLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
+            make.center.equalToSuperview()
+            make.height.width.equalTo(94)
         }
         
         nameValueLabel.text = ""
-        nameValueLabel.numberOfLines = 0
-        nameValueLabel.textColor = kPrimaryColor
-        nameValueLabel.font = getCustomFont(size: 12, name: .semiBold)
+        nameValueLabel.numberOfLines = 1
+        nameValueLabel.textAlignment = .center
+        nameValueLabel.textColor = kTitleTextColor
+        nameValueLabel.font = getCustomFont(size: 15, name: .extraBold)
         self.view.addSubview(nameValueLabel)
         nameValueLabel.snp.makeConstraints { make in
-            make.top.equalTo(basicInforLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX).offset(-40)
-            make.right.equalToSuperview()
+            make.top.equalTo(avatarView.snp.bottom).offset(10)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-32)
         }
         
-        let genderInforLabel = UILabel()
-        genderInforLabel.text = "Gender:"
-        genderInforLabel.textColor = kDefaultTextColor
-        genderInforLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(genderInforLabel)
-        genderInforLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameValueLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
-        }
-        
-        genderValueLabel.text = ""
-        genderValueLabel.numberOfLines = 0
-        genderValueLabel.textColor = kPrimaryColor
-        genderValueLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(genderValueLabel)
-        genderValueLabel.snp.makeConstraints { make in
-            make.top.equalTo(nameValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX).offset(-40)
-            make.right.equalToSuperview()
+        let contentView = UIView()
+        contentView.backgroundColor = .white
+        contentView.layer.cornerRadius = 24
+        self.view.addSubview(contentView)
+        contentView.snp.makeConstraints { make in
+            make.top.equalTo(nameValueLabel.snp.bottom).offset(23)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-32)
         }
         
         let emailInforLabel = UILabel()
         emailInforLabel.text = "Email:"
         emailInforLabel.textColor = kDefaultTextColor
-        emailInforLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(emailInforLabel)
+        emailInforLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(emailInforLabel)
         emailInforLabel.snp.makeConstraints { make in
-            make.top.equalTo(genderValueLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(20)
         }
         
         emailValueLabel.text = ""
+        emailValueLabel.textAlignment = .right
         emailValueLabel.numberOfLines = 0
-        emailValueLabel.textColor = kPrimaryColor
-        emailValueLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(emailValueLabel)
+        emailValueLabel.textColor = kValueTextColor
+        emailValueLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(emailValueLabel)
         emailValueLabel.snp.makeConstraints { make in
-            make.top.equalTo(genderValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX).offset(-40)
-            make.right.equalToSuperview()
+            make.top.equalToSuperview().offset(20)
+            make.left.greaterThanOrEqualTo(emailInforLabel.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-20)
         }
         
-        let phoneInforLabel = UILabel()
-        phoneInforLabel.text = "Phone Number:"
-        phoneInforLabel.textColor = kDefaultTextColor
-        phoneInforLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(phoneInforLabel)
-        phoneInforLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailValueLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
-        }
-        
-        phoneValueLabel.text = ""
-        phoneValueLabel.numberOfLines = 0
-        phoneValueLabel.textColor = kPrimaryColor
-        phoneValueLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(phoneValueLabel)
-        phoneValueLabel.snp.makeConstraints { make in
-            make.top.equalTo(emailValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX).offset(-40)
-            make.right.equalToSuperview()
+        let line1 = UIView()
+        line1.backgroundColor = kLightGrayColor
+        contentView.addSubview(line1)
+        line1.snp.makeConstraints { make in
+            make.top.equalTo(emailValueLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(0.5)
         }
         
         let dobInforLabel = UILabel()
         dobInforLabel.text = "DOB:"
         dobInforLabel.textColor = kDefaultTextColor
-        dobInforLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(dobInforLabel)
+        dobInforLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(dobInforLabel)
         dobInforLabel.snp.makeConstraints { make in
-            make.top.equalTo(phoneValueLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
+            make.top.equalTo(line1.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(20)
         }
         
         dobValueLabel.text = ""
         dobValueLabel.numberOfLines = 0
-        dobValueLabel.textColor = kPrimaryColor
-        dobValueLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(dobValueLabel)
+        dobValueLabel.textAlignment = .right
+        dobValueLabel.textColor = kValueTextColor
+        dobValueLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(dobValueLabel)
         dobValueLabel.snp.makeConstraints { make in
-            make.top.equalTo(phoneValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX).offset(-40)
-            make.right.equalToSuperview()
+            make.top.equalTo(line1.snp.bottom).offset(16)
+            make.left.greaterThanOrEqualTo(dobInforLabel.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-20)
         }
         
-        let professtionLabel = UILabel()
-        professtionLabel.text = "Profession:"
-        professtionLabel.textColor = kDefaultTextColor
-        professtionLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(professtionLabel)
-        professtionLabel.snp.makeConstraints { make in
-            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
+        let line2 = UIView()
+        line2.backgroundColor = kLightGrayColor
+        contentView.addSubview(line2)
+        line2.snp.makeConstraints { make in
+            make.top.equalTo(dobValueLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(0.5)
+        }
+    
+        let genderInforLabel = UILabel()
+        genderInforLabel.text = "Gender:"
+        genderInforLabel.textColor = kDefaultTextColor
+        genderInforLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(genderInforLabel)
+        genderInforLabel.snp.makeConstraints { make in
+            make.top.equalTo(line2.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(20)
+        }
+
+        genderValueLabel.text = ""
+        genderValueLabel.numberOfLines = 0
+        genderValueLabel.textAlignment = .right
+        genderValueLabel.textColor = kValueTextColor
+        genderValueLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(genderValueLabel)
+        genderValueLabel.snp.makeConstraints { make in
+            make.top.equalTo(line2.snp.bottom).offset(16)
+            make.left.greaterThanOrEqualTo(genderInforLabel.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-20)
         }
         
-        professionLabel.text = ""
-        professionLabel.numberOfLines = 0
-        professionLabel.textColor = kPrimaryColor
-        professionLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(professionLabel)
-        professionLabel.snp.makeConstraints { make in
-            make.top.equalTo(dobValueLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX).offset(-40)
-            make.right.equalToSuperview()
+        let line3 = UIView()
+        line3.backgroundColor = kLightGrayColor
+        contentView.addSubview(line3)
+        line3.snp.makeConstraints { make in
+            make.top.equalTo(genderValueLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(0.5)
+        }
+
+        let phoneInforLabel = UILabel()
+        phoneInforLabel.text = "Phone Number:"
+        phoneInforLabel.textColor = kDefaultTextColor
+        phoneInforLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(phoneInforLabel)
+        phoneInforLabel.snp.makeConstraints { make in
+            make.top.equalTo(line3.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(20)
         }
         
-        let addressInforLabel = UILabel()
-        addressInforLabel.text = "Address:"
-        addressInforLabel.textColor = kDefaultTextColor
-        addressInforLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(addressInforLabel)
-        addressInforLabel.snp.makeConstraints { make in
-            make.top.equalTo(professionLabel.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview()
+        phoneValueLabel.text = ""
+        phoneValueLabel.numberOfLines = 0
+        phoneValueLabel.textAlignment = .right
+        phoneValueLabel.textColor = kValueTextColor
+        phoneValueLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(phoneValueLabel)
+        phoneValueLabel.snp.makeConstraints { make in
+            make.top.equalTo(line3.snp.bottom).offset(16)
+            make.left.greaterThanOrEqualTo(phoneInforLabel.snp.right).offset(10)
+            make.right.equalToSuperview().offset(-20)
         }
         
+        let line4 = UIView()
+        line4.backgroundColor = kLightGrayColor
+        contentView.addSubview(line4)
+        line4.snp.makeConstraints { make in
+            make.top.equalTo(phoneValueLabel.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(0.5)
+        }
+        
+        let addressTitle = UILabel()
+        addressTitle.text = "Address:"
+        addressTitle.textColor = kDefaultTextColor
+        addressTitle.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(addressTitle)
+        addressTitle.snp.makeConstraints { make in
+            make.top.equalTo(line4.snp.bottom).offset(16)
+            make.left.equalToSuperview().offset(20)
+        }
+
         addressLabel.text = ""
         addressLabel.numberOfLines = 0
-        addressLabel.textColor = kPrimaryColor
-        addressLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.view.addSubview(addressLabel)
+        addressLabel.textAlignment = .right
+        addressLabel.textColor = kValueTextColor
+        addressLabel.font = getCustomFont(size: 15, name: .semiBold)
+        contentView.addSubview(addressLabel)
         addressLabel.snp.makeConstraints { make in
-            make.top.equalTo(professionLabel.snp.bottom).offset(20)
-            make.left.equalTo(self.view.snp.centerX).offset(-40)
+            make.top.equalTo(line4.snp.bottom).offset(16)
+            make.left.greaterThanOrEqualTo(addressTitle.snp.right).offset(10)
             make.right.equalToSuperview().offset(-20)
+            make.bottom.lessThanOrEqualToSuperview().offset(-22)
+        }
+
+        updateEHPBtn.setTitle("Update E-health profile", for: .normal)
+        updateEHPBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        updateEHPBtn.titleLabel?.font = getCustomFont(size: 14, name: .light)
+        updateEHPBtn.addTarget(self, action: #selector(updateEHPButtonTapped), for: .touchUpInside)
+        self.view.addSubview(updateEHPBtn)
+        updateEHPBtn.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-10)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(36)
         }
         
         makeBookingBtn.setTitle("Create Booking", for: .normal)
         makeBookingBtn.addTarget(self, action: #selector(makeBookingButtonTapped), for: .touchUpInside)
         makeBookingBtn.backgroundColor = kPrimaryColor
-        makeBookingBtn.layer.cornerRadius = 8
+        makeBookingBtn.titleLabel?.font = getCustomFont(size: 15, name: .bold)
+        makeBookingBtn.setTitleColor(.white, for: .normal)
+        makeBookingBtn.layer.cornerRadius = 18
         self.view.addSubview(makeBookingBtn)
-        makeBookingBtn.snp.makeConstraints {
-            $0.top.greaterThanOrEqualTo(addressLabel.snp.bottom).offset(30)
-            $0.bottom.lessThanOrEqualToSuperview().offset(-30)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().offset(-40)
-            $0.height.equalTo(50)
+        makeBookingBtn.snp.makeConstraints { make in
+            make.bottom.equalTo(updateEHPBtn.snp.top).offset(-10)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(36)
         }
         
         self.bindingData()
@@ -262,7 +293,6 @@ class SelectEHPViewController: UIViewController {
                 self.phoneValueLabel.text = firstEHProfile.phone
                 let dateDob = Date.init(timeIntervalSince1970: TimeInterval((firstEHProfile.dob ?? 0) / 1000))
                 self.dobValueLabel.text = dateDob.toString(dateFormat: "MMM dd, yyyy")
-                self.professionLabel.text = firstEHProfile.profession
                 self.addressLabel.text = firstEHProfile.addressInfo?.getAddressString() ?? ""
                 
             } onError: { error in
