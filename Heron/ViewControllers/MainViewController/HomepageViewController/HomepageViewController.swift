@@ -145,6 +145,14 @@ class HomepageViewController: PageScrollViewController,
         _NavController.pushViewController(filterVC, animated: true)
     }
     
+    @objc private func showAllButtonTapped() {
+        let alertVC = UIAlertController.init(title: "Ops!", message: "This feature is not available at the moment.", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: "OK", style: .default, handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
     override func reloadData() {
         self.viewModel.getFeatureProductList()
         self.viewModel.getListCategoris()
@@ -327,6 +335,27 @@ class HomepageViewController: PageScrollViewController,
             featureTitle.snp.makeConstraints { make in
                 make.top.equalToSuperview()
                 make.left.equalToSuperview().offset(16)
+            }
+            
+            let seeMoreIconBtn = ExtendedButton()
+            seeMoreIconBtn.setImage(UIImage.init(named: "right_icon"), for: .normal)
+            seeMoreIconBtn.addTarget(self, action: #selector(showAllButtonTapped), for: .touchUpInside)
+            self.featureView.addSubview(seeMoreIconBtn)
+            seeMoreIconBtn.snp.makeConstraints { make in
+                make.top.centerY.equalTo(featureTitle)
+                make.right.equalToSuperview().offset(-16)
+                make.height.width.equalTo(16)
+            }
+            
+            let seeMoreBtn = UIButton()
+            seeMoreBtn.setTitle("Show all", for: .normal)
+            seeMoreBtn.setTitleColor(kDefaultTextColor, for: .normal)
+            seeMoreBtn.titleLabel?.font = getCustomFont(size: 11, name: .regular)
+            seeMoreBtn.addTarget(self, action: #selector(showAllButtonTapped), for: .touchUpInside)
+            self.featureView.addSubview(seeMoreBtn)
+            seeMoreBtn.snp.makeConstraints { make in
+                make.top.centerY.equalTo(featureTitle)
+                make.right.equalTo(seeMoreIconBtn).offset(-16)
             }
             
             let staticHeight = UIScreen.main.bounds.size.width * 0.96

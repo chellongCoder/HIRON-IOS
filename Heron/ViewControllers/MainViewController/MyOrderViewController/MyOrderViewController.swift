@@ -334,14 +334,24 @@ class MyOrderViewController: BaseViewController,
         
         let sessionData = self.viewModel.orders.value[section]
         
+        let priceLabel = UILabel()
+        priceLabel.text = getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable)
+        priceLabel.font = getCustomFont(size: 13, name: .bold)
+        priceLabel.textColor = kDefaultTextColor
+        headerView.addSubview(priceLabel)
+        priceLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-17)
+        }
+        
         let totalLabel = UILabel()
-        totalLabel.text = String(format: "Total %@", getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
+        totalLabel.text = "Total "
         totalLabel.font = getCustomFont(size: 13, name: .regular)
         totalLabel.textColor = kDefaultTextColor
         headerView.addSubview(totalLabel)
         totalLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-17)
+            make.right.equalTo(priceLabel.snp.left)
         }
                 
         let productCountLabel = UILabel()

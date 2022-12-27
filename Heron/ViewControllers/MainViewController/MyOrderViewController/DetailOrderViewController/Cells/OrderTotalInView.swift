@@ -9,7 +9,8 @@ import UIKit
 
 class OrderTotalInView: UIView {
 
-    let title               = UILabel()
+    let totalLabel          = UILabel()
+    let priceLabel          = UILabel()
     let paymentDetailBtn    = UIButton()
     let imagePaymentBtn     = UIButton()
     
@@ -26,20 +27,28 @@ class OrderTotalInView: UIView {
             make.bottom.equalToSuperview()
         }
         
-        title.font = getCustomFont(size: 13, name: .regular)
-        self.addSubview(title)
-        title.snp.makeConstraints {
+        totalLabel.font = getCustomFont(size: 13, name: .regular)
+        self.addSubview(totalLabel)
+        totalLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(20)
             $0.bottom.equalToSuperview().offset(-15)
             $0.left.equalToSuperview().offset(16)
-            $0.centerY.equalToSuperview()
+        }
+        
+        priceLabel.font = getCustomFont(size: 13, name: .bold)
+        self.addSubview(priceLabel)
+        priceLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(20)
+            $0.bottom.equalToSuperview().offset(-15)
+            $0.left.equalTo(totalLabel.snp.right).offset(6)
+            $0.right.lessThanOrEqualToSuperview().offset(-10)
         }
         
         imagePaymentBtn.setImage(UIImage.init(named: "down_icon"), for: .normal)
         imagePaymentBtn.contentMode = .scaleAspectFill
         self.addSubview(imagePaymentBtn)
         imagePaymentBtn.snp.makeConstraints { make in
-            make.top.equalTo(title)
+            make.top.equalTo(totalLabel)
             make.right.equalToSuperview().offset(-16)
             make.height.width.equalTo(10)
             make.centerY.equalToSuperview()
