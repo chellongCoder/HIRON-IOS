@@ -5,7 +5,6 @@
 //  Created by Longnn on 11/11/2022.
 //
 
-
 class DiscountView: UIView {
 
     var discount     = UILabel()

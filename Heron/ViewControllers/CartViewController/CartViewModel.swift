@@ -16,15 +16,18 @@ class CartViewModel {
         self.controller?.startLoadingAnimation()
         _CartServices.addToCart(listProducts: [product]) { errorMessage, _ in
             self.controller?.endLoadingAnimation()
-            
+            var alertVC: UIAlertController!
             if errorMessage != nil {
-                let alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
-                    alertVC.dismiss()
-                }))
-                _NavController.showAlert(alertVC)
-                return
+                alertVC = UIAlertController.init(title: NSLocalizedString("Error", comment: ""), message: errorMessage, preferredStyle: .alert)
+            } else {
+                alertVC = UIAlertController.init(title: NSLocalizedString("Add to cart successful!", comment: ""),
+                                                     message: "Check in the cart to view your selected product", preferredStyle: .alert)
             }
+            alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""), style: .default, handler: { _ in
+                alertVC.dismiss()
+            }))
+            _NavController.showAlert(alertVC)
+
         }
     }
     

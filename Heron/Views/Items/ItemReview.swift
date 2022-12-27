@@ -41,22 +41,13 @@ class ItemReview: UIView {
         
         self.loadStarsView()
 
-//        stars.text = "★★★★★"
-//        stars.textColor = UIColor.init(hexString: "ff6d6e")
-//        stars.font = getCustomFont(size: 11, name: .regular)
-//        self.addSubview(stars)
-//        stars.snp.makeConstraints { make in
-//            make.left.equalTo(avatar.snp.right).offset(10)
-//            make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
-//        }
-        
         category.text = "10ml - Red"
         category.textColor = UIColor.init(hexString: "888888")
         category.font = getCustomFont(size: 11, name: .regular)
         self.addSubview(category)
         category.snp.makeConstraints { make in
-            make.left.equalTo(starsView.snp.right).offset(10)
-            make.top.equalTo(rateUserName.snp.bottom).offset(7.5)
+            make.left.equalTo(starsView.snp.right).offset(20)
+            make.top.equalTo(rateUserName.snp.bottom).offset(5.5)
         }
         
         time.text = "3 days ago"
@@ -85,6 +76,7 @@ class ItemReview: UIView {
         likeBTN.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
             make.top.equalTo(comment.snp.bottom).offset(15)
+            make.width.height.equalTo(10)
         }
         
         helpful.text = "Helpful (5)"
@@ -93,7 +85,7 @@ class ItemReview: UIView {
         helpful.font = getCustomFont(size: 11, name: .regular)
         helpful.snp.makeConstraints { make in
             make.left.equalTo(likeBTN.snp.right).offset(10)
-            make.top.equalTo(comment.snp.bottom).offset(15)
+            make.top.equalTo(comment.snp.bottom).offset(13)
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
         
@@ -135,6 +127,7 @@ class ItemReview: UIView {
                 starImage.snp.makeConstraints { make in
                     make.left.equalToSuperview()
                     make.centerY.top.equalToSuperview()
+                    make.width.height.equalTo(8)
                 }
 
             }
@@ -143,7 +136,7 @@ class ItemReview: UIView {
 
         }
         lastView?.snp.makeConstraints({ make in
-            make.right.lessThanOrEqualToSuperview().offset(-10)
+            make.right.lessThanOrEqualToSuperview().offset(10)
         })
     }
     
