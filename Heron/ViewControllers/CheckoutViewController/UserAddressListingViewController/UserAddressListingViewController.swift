@@ -18,6 +18,7 @@ class UserAddressListingViewController: BaseViewController,
     private let tableView           = UITableView()
     private let emptyView           = EmptyView()
     private let addNewAddressBtn    = UIButton()
+    private let addedView           = UIView()
     var acceptance                  : BehaviorRelay<ContactDataSource?>?
     
     private let viewModel           = UserAddressListingViewModel()

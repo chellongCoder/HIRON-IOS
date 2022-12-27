@@ -164,7 +164,7 @@
 		9A88B778288E499B00BE1E05 /* SelectDepartmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */; };
 		9A88B77A288E4AB100BE1E05 /* SelectDepartmentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */; };
 		9A88B77C288E4ECF00BE1E05 /* DepartmentDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */; };
-		9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */; };
+		9A88B77E288E540400BE1E05 /* SelectDepartmentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B77D288E540400BE1E05 /* SelectDepartmentsCollectionViewCell.swift */; };
 		9A88B781288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift */; };
 		9AB248C72921364F007812D5 /* Mulish-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248C429212D4B007812D5 /* Mulish-Medium.ttf */; };
 		9AB248C82921364F007812D5 /* Mulish-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9AB248BF29212D4B007812D5 /* Mulish-Regular.ttf */; };
@@ -407,7 +407,7 @@
 		9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentViewController.swift; sourceTree = "<group>"; };
 		9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentViewModel.swift; sourceTree = "<group>"; };
 		9A88B77B288E4ECF00BE1E05 /* DepartmentDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepartmentDataSource.swift; sourceTree = "<group>"; };
-		9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentsTableViewCell.swift; sourceTree = "<group>"; };
+		9A88B77D288E540400BE1E05 /* SelectDepartmentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDepartmentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		9A88B780288E5B4900BE1E05 /* SelectDateAndTimeBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDateAndTimeBookingViewController.swift; sourceTree = "<group>"; };
 		9AB248B729212D4A007812D5 /* Mulish-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-Black.ttf"; sourceTree = "<group>"; };
 		9AB248B829212D4B007812D5 /* Mulish-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Mulish-ExtraLight.ttf"; sourceTree = "<group>"; };
@@ -1220,7 +1220,7 @@
 			children = (
 				9A88B777288E499B00BE1E05 /* SelectDepartmentViewController.swift */,
 				9A88B779288E4AB100BE1E05 /* SelectDepartmentViewModel.swift */,
-				9A88B77D288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift */,
+				9A88B77D288E540400BE1E05 /* SelectDepartmentsCollectionViewCell.swift */,
 			);
 			path = SelectDepartmentViewController;
 			sourceTree = "<group>";
@@ -1718,7 +1718,7 @@
 				934D72A428A02A0900E4255F /* BookingInfoTableViewCell.swift in Sources */,
 				18D91C3D291E062F003F2328 /* TagView.swift in Sources */,
 				93A1881528F5589700F60EDF /* OrderStoreView.swift in Sources */,
-				9A88B77E288E540400BE1E05 /* SelectDepartmentsTableViewCell.swift in Sources */,
+				9A88B77E288E540400BE1E05 /* SelectDepartmentsCollectionViewCell.swift in Sources */,
 				93BB69132830050D00BC2E5E /* CategoryDataSource.swift in Sources */,
 				93AF91F7284BE2410075CD65 /* OrderTotalView.swift in Sources */,
 				93EC90C6285A2D85009056F6 /* CarrierView.swift in Sources */,

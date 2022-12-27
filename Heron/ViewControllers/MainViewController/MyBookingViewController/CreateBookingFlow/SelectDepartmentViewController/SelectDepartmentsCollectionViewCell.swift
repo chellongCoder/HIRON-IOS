@@ -7,13 +7,13 @@
 
 import UIKit
 
-class SelectDepartmentsTableViewCell: UITableViewCell {
+class SelectDepartmentsCollectionViewCell: UICollectionViewCell {
     
     private let departmentNameLabel = UILabel()
     private let checkSelectedIcon   = UIImageView()
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         let contentView = UIView()
         contentView.setShadow()
