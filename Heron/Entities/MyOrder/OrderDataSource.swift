@@ -22,7 +22,7 @@ struct OrderDataSource : Mappable {
 	var targetId        : String?
 	var orderPaymentId  : String?
 	var featureType     : String?
-    private var status  : OrderStatus = .PENDING
+    var status  : OrderStatus = .PENDING
 	var shipmentStatus  : String?
 	var isPaid          : Bool?
 	private var amount  : Int?

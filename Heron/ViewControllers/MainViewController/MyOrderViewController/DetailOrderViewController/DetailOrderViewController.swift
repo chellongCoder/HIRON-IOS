@@ -111,7 +111,8 @@ class DetailOrderViewController: BaseViewController {
                                              handler: { _ in
             alertVC.dismiss()
         }))
-        _NavController.showAlert(alertVC)    }
+        _NavController.showAlert(alertVC)
+    }
     
     override func bindingData() {
         self.viewModel.orderData
