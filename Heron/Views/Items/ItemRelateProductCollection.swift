@@ -15,7 +15,11 @@ class ItemRelateProductCollection: UICollectionViewCell {
     let salePrice       = UILabel()
     let star            = UILabel()
     let starPoint       = UILabel()
-    let heartItem       = UIButton(type: .custom)
+    let heartItem       = ExtendedButton()
+    
+    @objc private func likeTapped(button: ExtendedButton) {
+        button.setSeleted(!button.isSelected)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,25 +41,29 @@ class ItemRelateProductCollection: UICollectionViewCell {
         productName.textColor = kDefaultTextColor
         self.contentView.addSubview(productName)
         productName.snp.makeConstraints { make in
-            make.top.equalTo(banner.snp.bottom)
+            make.top.equalTo(banner.snp.bottom).offset(8)
             make.left.equalToSuperview()
         }
         
-        heartItem.setImage(UIImage(systemName: "heart"), for: .normal)
+        heartItem.setBackgroundImage(UIImage.init(named: "heartActive"), for: .selected)
+        heartItem.setBackgroundImage(UIImage.init(named: "heart"), for: .normal)
+        heartItem.addTarget(self, action: #selector(likeTapped(button:)), for: .touchUpInside)
         heartItem.tintColor = kDefaultTextColor
         self.contentView.addSubview(heartItem)
         heartItem.snp.makeConstraints { make in
-            make.top.equalTo(banner.snp.bottom)
+            make.top.equalTo(banner.snp.bottom).offset(5)
             make.right.equalToSuperview()
+            make.width.height.equalTo(30)
         }
         discount.setDiscount("30%")
+        discount.discount.font = getCustomFont(size: 7, name: .bold)
         discount.backgroundColor = UIColor.init(hexString: "ffe2e2")
         discount.layer.cornerRadius = 3
         self.contentView.addSubview(discount)
         discount.snp.makeConstraints { make in
-            make.width.equalTo(30)
-            make.height.equalTo(20)
-            make.top.equalTo(productName.snp.bottom).offset(10)
+            make.width.equalTo(25)
+            make.height.equalTo(10)
+            make.top.equalTo(productName.snp.bottom).offset(6.5)
             make.left.equalToSuperview()
         }
 
@@ -63,7 +71,7 @@ class ItemRelateProductCollection: UICollectionViewCell {
         originalPrice.font = getCustomFont(size: 9, name: .regular)
         self.contentView.addSubview(originalPrice)
         originalPrice.snp.makeConstraints { make in
-            make.top.equalTo(productName.snp.bottom).offset(15)
+            make.top.equalTo(productName.snp.bottom).offset(6)
             make.left.equalTo(discount.snp.right).offset(10)
         }
         
@@ -73,7 +81,7 @@ class ItemRelateProductCollection: UICollectionViewCell {
         salePrice.snp.makeConstraints { make in
             make.top.equalTo(discount.snp.bottom).offset(10)
             make.left.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(0)
         }
         
         starPoint.text = "4.5"
@@ -82,7 +90,7 @@ class ItemRelateProductCollection: UICollectionViewCell {
         starPoint.snp.makeConstraints { make in
             make.top.equalTo(discount.snp.bottom).offset(10)
             make.right.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(0)
         }
 
         star.text = "★"
@@ -92,9 +100,8 @@ class ItemRelateProductCollection: UICollectionViewCell {
         star.snp.makeConstraints { make in
             make.top.equalTo(discount.snp.bottom).offset(10)
             make.right.equalTo(starPoint.snp.left)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(0)
         }
-
 
     }
     

@@ -37,7 +37,7 @@ class ProductDetailsViewController: PageScrollViewController,
     private let pagingView              = UILabel()
     private let topView                 = UIImageView()
     private let contentDescView         = UIView()
-    let heartItem                       = UIButton(type: .custom)
+    let heartItem                       = ExtendedButton()
     private let nameProduct             = UILabel()
 
     let showMoreView                    = UIView()
@@ -68,6 +68,10 @@ class ProductDetailsViewController: PageScrollViewController,
     // MARK: - Buttons
     @objc private func filterButtonTapped() {
         _NavController.presentCartPage()
+    }
+    
+    @objc private func likeTapped(button: ExtendedButton) {
+        button.setSeleted(!button.isSelected)
     }
     
     @objc private func shareButtonTapped() {
@@ -208,19 +212,20 @@ class ProductDetailsViewController: PageScrollViewController,
 
         contentDescView.addSubview(stackTagView)
         stackTagView.snp.makeConstraints { (make) in
-            make.top.left.equalToSuperview().offset(10)
+            make.top.left.equalToSuperview().offset(20)
             make.width.equalToSuperview().offset(-50)
             make.height.equalTo(30)
         }
 
-        heartItem.setImage(UIImage(systemName: "heart"), for: .normal)
+        heartItem.setBackgroundImage(UIImage.init(named: "heartActive"), for: .selected)
+        heartItem.setBackgroundImage(UIImage.init(named: "heart"), for: .normal)
+        heartItem.addTarget(self, action: #selector(likeTapped(button:)), for: .touchUpInside)
         heartItem.tintColor = kDefaultTextColor
         contentDescView.addSubview(heartItem)
         heartItem.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(10)
+            make.top.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-10)
-            make.width.equalTo(20)
-            make.height.equalTo(20)
+            make.width.height.equalTo(30)
         }
 
         nameProduct.lineBreakMode = .byWordWrapping
@@ -241,7 +246,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.left.equalTo(10)
             make.width.equalToSuperview().offset(-15)
             make.height.equalTo(20)
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+            make.bottom.lessThanOrEqualToSuperview().offset(-20)
         }
         
         self.contentView.addSubview(contentDescView)
@@ -249,7 +254,7 @@ class ProductDetailsViewController: PageScrollViewController,
             make.top.equalTo(topMediaView.snp.bottom).offset(-30)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-15)
-            make.height.equalTo(contentDescView.snp.width).multipliedBy(0.3)
+            make.height.equalTo(contentDescView.snp.width).multipliedBy(0.36)
         }
 
         self.variantView.delegate = self
@@ -764,6 +769,13 @@ extension ProductDetailsViewController : ProductVariantDelegate {
                 self.stackInfoView.originalPrice.alpha = 0
                 self.stackInfoView.salePrice.snp.remakeConstraints { make in
                     make.left.equalToSuperview()
+                    make.centerY.equalToSuperview()
+                }
+            } else {
+                self.stackInfoView.discountView.alpha = 1
+                self.stackInfoView.originalPrice.alpha = 1
+                self.stackInfoView.salePrice.snp.remakeConstraints { (make) in
+                    make.left.equalTo(self.stackInfoView.originalPrice.snp.right).offset(10)
                     make.centerY.equalToSuperview()
                 }
             }
