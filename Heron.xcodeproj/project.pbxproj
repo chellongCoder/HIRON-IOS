@@ -197,6 +197,7 @@
 		A097CC8F2937A91A00C587AD /* ProductListingFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */; };
 		A0A551CD29537B4800CEA604 /* BrandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A551CC29537B4800CEA604 /* BrandView.swift */; };
 		A0D505D5293F896300D89122 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D505D4293F896300D89122 /* TutorialCell.swift */; };
+		A0E81D3C295DE9BA00236D0D /* DoctorBasicInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E81D3B295DE9BA00236D0D /* DoctorBasicInformationView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingAndBillingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingAndBillingInfoView.swift */; };
 		B5061C02286BF22700A03271 /* OrderTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* OrderTrackingView.swift */; };
@@ -441,6 +442,7 @@
 		A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingFilterView.swift; sourceTree = "<group>"; };
 		A0A551CC29537B4800CEA604 /* BrandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandView.swift; sourceTree = "<group>"; };
 		A0D505D4293F896300D89122 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
+		A0E81D3B295DE9BA00236D0D /* DoctorBasicInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBasicInformationView.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
 		B5061BFA286BF22700A03271 /* ShippingAndBillingInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAndBillingInfoView.swift; sourceTree = "<group>"; };
@@ -1246,6 +1248,7 @@
 		9AC54E5E2896910A006312D6 /* DoctorDetailsViewController */ = {
 			isa = PBXGroup;
 			children = (
+				A0E81D3A295DE98E00236D0D /* DoctorBasicInformationView */,
 				9AC54E5F2896913C006312D6 /* DoctorDetailsViewController.swift */,
 				9AC54E61289699E9006312D6 /* DoctorDetailsViewModel.swift */,
 			);
@@ -1296,6 +1299,14 @@
 				A0D505D4293F896300D89122 /* TutorialCell.swift */,
 			);
 			path = TutorialCell;
+			sourceTree = "<group>";
+		};
+		A0E81D3A295DE98E00236D0D /* DoctorBasicInformationView */ = {
+			isa = PBXGroup;
+			children = (
+				A0E81D3B295DE9BA00236D0D /* DoctorBasicInformationView.swift */,
+			);
+			path = DoctorBasicInformationView;
 			sourceTree = "<group>";
 		};
 		B561813F2862B195009BE6E5 /* BaseViewController */ = {
@@ -1622,6 +1633,7 @@
 				933D19412819947000F1CCC4 /* SessionDataSource.swift in Sources */,
 				9AC54E592892F575006312D6 /* SelectDateCollectionViewCell.swift in Sources */,
 				B55B372D2836425B005245AB /* Utils.swift in Sources */,
+				A0E81D3C295DE9BA00236D0D /* DoctorBasicInformationView.swift in Sources */,
 				93C2EA3D28AF41E100371DFE /* SignUpViewModel.swift in Sources */,
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
 				9343119A28DB6D8F003B77F9 /* EmptyView.swift in Sources */,

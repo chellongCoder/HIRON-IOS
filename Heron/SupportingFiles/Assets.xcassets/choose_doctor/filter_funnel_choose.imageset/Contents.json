@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Back.png",
+      "filename" : "filterFunnel02.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Back-1.png",
+      "filename" : "filterFunnel02@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Back-2.png",
+      "filename" : "filterFunnel02@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
