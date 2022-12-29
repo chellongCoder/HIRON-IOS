@@ -766,6 +766,13 @@ extension ProductDetailsViewController : ProductVariantDelegate {
                     make.left.equalToSuperview()
                     make.centerY.equalToSuperview()
                 }
+            } else {
+                self.stackInfoView.discountView.alpha = 1
+                self.stackInfoView.originalPrice.alpha = 1
+                self.stackInfoView.salePrice.snp.remakeConstraints { (make) in
+                    make.left.equalTo(self.stackInfoView.originalPrice.snp.right).offset(10)
+                    make.centerY.equalToSuperview()
+                }
             }
             self.stackInfoView.setDiscountPercent(String(format:"%.1f", matchedSimpleProduct.discountPercent) + "%")
             self.stackInfoView.setSalePrice(getMoneyFormat(matchedSimpleProduct.customFinalPrice))
