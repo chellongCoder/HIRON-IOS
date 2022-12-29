@@ -37,7 +37,7 @@ class ProductDetailsViewController: PageScrollViewController,
     private let pagingView              = UILabel()
     private let topView                 = UIImageView()
     private let contentDescView         = UIView()
-    let heartItem                       = UIButton(type: .custom)
+    let heartItem                       = ExtendedButton()
     private let nameProduct             = UILabel()
 
     let showMoreView                    = UIView()
@@ -217,16 +217,15 @@ class ProductDetailsViewController: PageScrollViewController,
             make.height.equalTo(30)
         }
 
-        heartItem.setBackgroundImage(UIImage.init(named: "liked"), for: .selected)
-        heartItem.setBackgroundImage(UIImage.init(named: "like"), for: .normal)
+        heartItem.setBackgroundImage(UIImage.init(named: "heartActive"), for: .selected)
+        heartItem.setBackgroundImage(UIImage.init(named: "heart"), for: .normal)
         heartItem.addTarget(self, action: #selector(likeTapped(button:)), for: .touchUpInside)
-        heartItem.setImage(UIImage(systemName: "heart"), for: .normal)
         heartItem.tintColor = kDefaultTextColor
         contentDescView.addSubview(heartItem)
         heartItem.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(20)
             make.right.equalToSuperview().offset(-10)
-            make.width.height.equalTo(20)
+            make.width.height.equalTo(30)
         }
 
         nameProduct.lineBreakMode = .byWordWrapping

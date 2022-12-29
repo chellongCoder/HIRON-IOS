@@ -51,9 +51,9 @@ class ItemRelateProductCollection: UICollectionViewCell {
         heartItem.tintColor = kDefaultTextColor
         self.contentView.addSubview(heartItem)
         heartItem.snp.makeConstraints { make in
-            make.top.equalTo(banner.snp.bottom).offset(8)
+            make.top.equalTo(banner.snp.bottom).offset(5)
             make.right.equalToSuperview()
-            make.width.height.equalTo(16)
+            make.width.height.equalTo(30)
         }
         discount.setDiscount("30%")
         discount.discount.font = getCustomFont(size: 7, name: .bold)
