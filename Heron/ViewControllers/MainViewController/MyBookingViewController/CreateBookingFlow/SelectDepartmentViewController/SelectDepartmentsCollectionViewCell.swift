@@ -9,12 +9,13 @@ import UIKit
 
 class SelectDepartmentsCollectionViewCell: UICollectionViewCell {
     
-    let cellContentView             = UIView()
-    private let departmentIcon      = UIImageView()
-    private let departmentNameLabel = UILabel()
-    private let departmentForm      = UILabel()
-    private let discountValue       = DiscountValueView()
-    private let priceLabel          = UILabel()
+    let cellContentView                     = UIView()
+    private let departmentIcon              = UIImageView()
+    private let departmentNameLabel         = UILabel()
+    private let departmentForm              = UILabel()
+    private let discountValue               = DiscountValueView()
+    private let priceDiscountLabel          = UILabel()
+    private let priceLabel                  = DiscountLabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,7 +38,7 @@ class SelectDepartmentsCollectionViewCell: UICollectionViewCell {
         }
                 
         departmentNameLabel.text = ""
-        departmentNameLabel.font = getCustomFont(size: 14, name: .bold)
+        departmentNameLabel.font = getCustomFont(size: 13.5, name: .bold)
         departmentNameLabel.textColor = kDefaultTextColor
         cellContentView.addSubview(departmentNameLabel)
         departmentNameLabel.snp.makeConstraints { (make) in
@@ -46,9 +47,9 @@ class SelectDepartmentsCollectionViewCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
-        departmentForm.text = ""
-        departmentForm.font = getCustomFont(size: 12, name: .regular)
-        departmentForm.textColor = kDefaultTextColor
+        departmentForm.text = "Consulting price only from"
+        departmentForm.font = getCustomFont(size: 11.5, name: .regular)
+        departmentForm.textColor = kCustomTextColor
         departmentForm.numberOfLines = 0
         cellContentView.addSubview(departmentForm)
         departmentForm.snp.makeConstraints { (make) in
@@ -57,7 +58,30 @@ class SelectDepartmentsCollectionViewCell: UICollectionViewCell {
             make.centerX.equalToSuperview()
         }
         
-        priceLabel.text = "%200.00"
+        priceDiscountLabel.text = "$100.00"
+        priceDiscountLabel.font = getCustomFont(size: 13.5, name: .extraBold)
+        priceDiscountLabel.textColor = kDefaultTextColor
+        cellContentView.addSubview(priceDiscountLabel)
+        priceDiscountLabel.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-20)
+            make.left.equalToSuperview().offset(10)
+        }
+        
+        priceLabel.text = "$150.00"
+        priceLabel.font = getCustomFont(size: 11.5, name: .semiBold)
+        priceLabel.textColor = kDefaultTextColor
+        cellContentView.addSubview(priceLabel)
+        priceLabel.snp.makeConstraints { make in
+            make.bottom.equalTo(priceDiscountLabel)
+            make.left.equalTo(priceDiscountLabel.snp.right).offset(5)
+        }
+        
+        discountValue.contentLabel.text = "-30%"
+        cellContentView.addSubview(discountValue)
+        discountValue.snp.makeConstraints { make in
+            make.bottom.equalTo(priceDiscountLabel.snp.top).offset(-8)
+            make.left.equalToSuperview().offset(10)
+        }
         
     }
     
@@ -68,5 +92,6 @@ class SelectDepartmentsCollectionViewCell: UICollectionViewCell {
     // MARK: - Data
     func setDataSource(_ departmentData: DepartmentDataSource) {
         self.departmentNameLabel.text = departmentData.name
+        // TODO: - Hard code data
     }
 }

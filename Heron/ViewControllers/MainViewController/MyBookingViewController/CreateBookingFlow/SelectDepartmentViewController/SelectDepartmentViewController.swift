@@ -24,6 +24,16 @@ class SelectDepartmentViewController: BaseViewController {
                                            action: #selector(moreButtonTapped))
         self.navigationItem.rightBarButtonItem = moreBtn
         
+        let textLabel = UILabel()
+        textLabel.text = "Please select the service you are care."
+        textLabel.font = getCustomFont(size: 13.5, name: .semiBold)
+        textLabel.textColor = kDefaultTextColor
+        self.view.addSubview(textLabel)
+        textLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.left.equalToSuperview().offset(20)
+        }
+        
         let viewWidth = UIScreen.main.bounds.size.width/2
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -44,7 +54,7 @@ class SelectDepartmentViewController: BaseViewController {
         collectionView?.backgroundColor = .white
         self.view.addSubview(collectionView!)
         collectionView?.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(textLabel.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.height.equalTo(fixedHeight)
