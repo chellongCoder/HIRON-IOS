@@ -15,10 +15,14 @@ class ItemReview: UIView {
     let time            = UILabel()
     let comment         = UILabel()
     let helpful         = UILabel()
-    let likeBTN         = UIButton()
+    let likeBTN         = ExtendedButton()
     let line            = UIView()
     let starsView       = UIView()
 
+    @objc private func likeTapped(button: ExtendedButton) {
+        button.setSeleted(!button.isSelected)
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -70,13 +74,15 @@ class ItemReview: UIView {
             make.width.equalToSuperview()
         }
         
-        likeBTN.setImage(UIImage(named: "like"), for: .normal)
         likeBTN.tintColor = kDefaultTextColor
         self.addSubview(likeBTN)
+        likeBTN.setBackgroundImage(UIImage.init(named: "liked"), for: .selected)
+        likeBTN.setBackgroundImage(UIImage.init(named: "like"), for: .normal)
+        likeBTN.addTarget(self, action: #selector(likeTapped(button:)), for: .touchUpInside)
         likeBTN.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
-            make.top.equalTo(comment.snp.bottom).offset(15)
-            make.width.height.equalTo(10)
+            make.top.equalTo(comment.snp.bottom).offset(10)
+            make.width.height.equalTo(20)
         }
         
         helpful.text = "Helpful (5)"
@@ -84,7 +90,7 @@ class ItemReview: UIView {
         helpful.textColor = UIColor.init(hexString: "888888")
         helpful.font = getCustomFont(size: 11, name: .regular)
         helpful.snp.makeConstraints { make in
-            make.left.equalTo(likeBTN.snp.right).offset(10)
+            make.left.equalTo(likeBTN.snp.right).offset(3)
             make.top.equalTo(comment.snp.bottom).offset(13)
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
         }
@@ -95,7 +101,7 @@ class ItemReview: UIView {
             make.width.equalToSuperview()
             make.height.equalTo(0.5)
             make.top.equalTo(helpful.snp.bottom).offset(10)
-            make.bottom.lessThanOrEqualToSuperview().offset(-16)
+            make.bottom.lessThanOrEqualToSuperview().offset(0)
         }
     }
     
