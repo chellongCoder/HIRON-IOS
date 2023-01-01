@@ -81,7 +81,7 @@ class ItemReview: UIView {
         likeBTN.addTarget(self, action: #selector(likeTapped(button:)), for: .touchUpInside)
         likeBTN.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
-            make.top.equalTo(comment.snp.bottom).offset(10)
+            make.top.equalTo(comment.snp.bottom).offset(16)
             make.width.height.equalTo(20)
         }
         
@@ -91,8 +91,8 @@ class ItemReview: UIView {
         helpful.font = getCustomFont(size: 11, name: .regular)
         helpful.snp.makeConstraints { make in
             make.left.equalTo(likeBTN.snp.right).offset(3)
-            make.top.equalTo(comment.snp.bottom).offset(13)
-            make.bottom.lessThanOrEqualToSuperview().offset(-16)
+            make.top.equalTo(comment.snp.bottom).offset(16)
+            make.bottom.lessThanOrEqualToSuperview().offset(0)
         }
         
         line.backgroundColor = kLightGrayColor
@@ -100,7 +100,7 @@ class ItemReview: UIView {
         line.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.height.equalTo(0.5)
-            make.top.equalTo(helpful.snp.bottom).offset(10)
+            make.top.equalTo(helpful.snp.bottom).offset(16)
             make.bottom.lessThanOrEqualToSuperview().offset(0)
         }
     }

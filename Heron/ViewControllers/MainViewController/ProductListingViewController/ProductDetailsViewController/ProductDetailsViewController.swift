@@ -212,9 +212,11 @@ class ProductDetailsViewController: PageScrollViewController,
 
         contentDescView.addSubview(stackTagView)
         stackTagView.snp.makeConstraints { (make) in
-            make.top.left.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(14)
             make.width.equalToSuperview().offset(-50)
-            make.height.equalTo(30)
+            make.height.equalTo(17)
+            make.bottom.lessThanOrEqualToSuperview()
         }
 
         heartItem.setBackgroundImage(UIImage.init(named: "heartActive"), for: .selected)
@@ -223,9 +225,10 @@ class ProductDetailsViewController: PageScrollViewController,
         heartItem.tintColor = kDefaultTextColor
         contentDescView.addSubview(heartItem)
         heartItem.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-10)
-            make.width.height.equalTo(30)
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-4)
+            make.height.width.equalTo(40)
+            make.bottom.lessThanOrEqualToSuperview()
         }
 
         nameProduct.lineBreakMode = .byWordWrapping
@@ -235,26 +238,26 @@ class ProductDetailsViewController: PageScrollViewController,
         nameProduct.textColor = UIColor.init(hexString: "424242")
         contentDescView.addSubview(nameProduct)
         nameProduct.snp.makeConstraints { (make) in
-            make.top.equalTo(stackTagView.snp.bottom).offset(0)
-            make.left.equalToSuperview().offset(10)
-            make.width.equalToSuperview().offset(-15)
+            make.top.equalTo(stackTagView.snp.bottom).offset(6)
+            make.left.equalToSuperview().offset(14)
+            make.width.equalToSuperview().offset(-14)
             make.bottom.lessThanOrEqualToSuperview()
         }
         
         contentDescView.addSubview(stackInfoView)
         stackInfoView.snp.makeConstraints { (make) in
-            make.left.equalTo(10)
-            make.width.equalToSuperview().offset(-15)
+            make.left.equalTo(14)
+            make.width.equalToSuperview().offset(-28)
             make.height.equalTo(20)
-            make.bottom.lessThanOrEqualToSuperview().offset(-20)
+            make.top.equalTo(nameProduct.snp.bottom).offset(8.5)
+            make.bottom.lessThanOrEqualToSuperview().offset(-19)
         }
         
         self.contentView.addSubview(contentDescView)
         contentDescView.snp.makeConstraints { (make) in
             make.top.equalTo(topMediaView.snp.bottom).offset(-30)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-15)
-            make.height.equalTo(contentDescView.snp.width).multipliedBy(0.36)
+            make.width.equalToSuperview().offset(-32)
         }
 
         self.variantView.delegate = self

@@ -10,7 +10,7 @@ import Foundation
 class ItemRelateProductCollection: UICollectionViewCell {
     let banner          = UIImageView()
     let productName     = UILabel()
-    let discount        = DiscountView()
+    let discount        = DiscountValueView()
     let originalPrice   = DiscountLabel()
     let salePrice       = UILabel()
     let star            = UILabel()
@@ -55,15 +55,20 @@ class ItemRelateProductCollection: UICollectionViewCell {
             make.right.equalToSuperview()
             make.width.height.equalTo(30)
         }
-        discount.setDiscount("30%")
-        discount.discount.font = getCustomFont(size: 7, name: .bold)
-        discount.backgroundColor = UIColor.init(hexString: "ffe2e2")
-        discount.layer.cornerRadius = 3
+        
+        self.discount.contentLabel.text = "-30%"
+        self.discount.contentLabel.font = getCustomFont(size: 7, name: .bold)
+        self.discount.layer.cornerRadius = 2
         self.contentView.addSubview(discount)
-        discount.snp.makeConstraints { make in
+        self.discount.contentLabel.snp.remakeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview().offset(-4)
+            make.height.equalToSuperview().offset(-3)
+        }
+        self.discount.snp.makeConstraints { make in
             make.width.equalTo(25)
             make.height.equalTo(10)
-            make.top.equalTo(productName.snp.bottom).offset(6.5)
+            make.top.equalTo(productName.snp.bottom).offset(6)
             make.left.equalToSuperview()
         }
 
@@ -72,7 +77,7 @@ class ItemRelateProductCollection: UICollectionViewCell {
         self.contentView.addSubview(originalPrice)
         originalPrice.snp.makeConstraints { make in
             make.top.equalTo(productName.snp.bottom).offset(6)
-            make.left.equalTo(discount.snp.right).offset(10)
+            make.left.equalTo(discount.snp.right).offset(4)
         }
         
         salePrice.text = "$150.00"
