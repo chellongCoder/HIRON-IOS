@@ -14,18 +14,27 @@ class SelectDepartmentViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Select Specialty"
+        navigationItem.title = "Choose a service"
         viewModel.controller = self
         
         self.showBackBtn()
-        
-        let nextBtn = UIBarButtonItem.init(title: "Next",
+        let moreBtn = UIBarButtonItem.init(image: UIImage.init(named: "moreI_bar_icon"),
                                            style: .plain,
                                            target: self,
-                                           action: #selector(nextButtonTapped))
-        self.navigationItem.rightBarButtonItem = nextBtn
+                                           action: #selector(moreButtonTapped))
+        self.navigationItem.rightBarButtonItem = moreBtn
         
-        let viewWidth = UIScreen.main.bounds.size.width/3
+        let textLabel = UILabel()
+        textLabel.text = "Please select the service you are care."
+        textLabel.font = getCustomFont(size: 13.5, name: .semiBold)
+        textLabel.textColor = kDefaultTextColor
+        self.view.addSubview(textLabel)
+        textLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.left.equalToSuperview().offset(20)
+        }
+        
+        let viewWidth = UIScreen.main.bounds.size.width/2
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: viewWidth, height: viewWidth)
@@ -45,7 +54,7 @@ class SelectDepartmentViewController: BaseViewController {
         collectionView?.backgroundColor = .white
         self.view.addSubview(collectionView!)
         collectionView?.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(textLabel.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview()
             make.height.equalTo(fixedHeight)
@@ -69,6 +78,18 @@ class SelectDepartmentViewController: BaseViewController {
         self.navigationController?.pushViewController(selectDoctorVC, animated: true)
     }
     
+    @objc private func moreButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
     // MARK: - Data
     
     override func reloadData() {
@@ -78,11 +99,11 @@ class SelectDepartmentViewController: BaseViewController {
     override func bindingData() {
         
         viewModel.listDepartments
-            .bind(to: collectionView!.rx.items(cellIdentifier: "SelectDepartmentsCollectionViewCell") ) { (_: Int, productData: TeamDataSource, cell: SelectDepartmentsCollectionViewCell) in
+            .bind(to: collectionView!.rx.items(cellIdentifier: "SelectDepartmentsCollectionViewCell") ) { ( index: Int, productData: TeamDataSource, cell: SelectDepartmentsCollectionViewCell) in
+                cell.cellContentView.backgroundColor = self.viewModel.getBackgroundColor(index)
                 if let department = productData.department {
                     cell.setDataSource(department)
                 }
-                cell.setIsSelected(productData.id == _BookingServices.selectedDepartment.value?.id)
             }
             .disposed(by: disposeBag)
         

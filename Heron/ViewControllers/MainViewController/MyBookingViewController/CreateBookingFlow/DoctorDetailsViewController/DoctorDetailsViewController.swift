@@ -10,18 +10,23 @@ import RxSwift
 
 class DoctorDetailsViewController: PageScrollViewController {
 
-    private let viewModel       = DoctorDetailsViewModel()
-    private let doctorAvatar    = UIImageView()
-    private let doctorTitle     = UILabel()
-    private let starView        = UILabel()
-    private let tagsViewScroll  = UIScrollView()
-    private let tagsContentView = UIView()
+    private let blueView            = UIImageView()
+    private let viewModel           = DoctorDetailsViewModel()
+    private let doctorAvatar        = UIImageView()
+    private let doctorTitle         = UILabel()
+    private let nickNamwTitle       = UILabel()
     
-    private let aboutContents   = UILabel()
-    private let workExpContents = UILabel()
-    private let certContents    = UILabel()
+    private let whiteView           = UIView()
+    private let starView            = UILabel()
+    private let numberStarView      = UILabel()
+    private let tagsContent         = UILabel()
+    private let experienceTitle     = UILabel()
     
-    private let confirmBtn      = UIButton()
+    private let aboutContents       = UILabel()
+    private let workExpContents     = UILabel()
+    private let certContents        = UILabel()
+    
+    private let confirmBtn          = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,57 +34,156 @@ class DoctorDetailsViewController: PageScrollViewController {
         self.showBackBtn()
         self.viewModel.controller = self
         
+        let moreBtn = UIBarButtonItem.init(image: UIImage.init(named: "moreI_bar_icon"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(moreButtonTapped))
+        self.navigationItem.rightBarButtonItem = moreBtn
+        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         self.pageScroll.addSubview(refreshControl)
         
-        let staticHeight = (UIScreen.main.bounds.size.width)*0.5625
+        
+        blueView.backgroundColor = kPrimaryColor
+        blueView.layer.cornerRadius = 10
+        blueView.contentMode = .scaleAspectFit
+        self.pageScroll.addSubview(blueView)
+        blueView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.width.equalToSuperview().offset(-32)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(250)
+        }
         
         if let avatarURL = URL(string: viewModel.doctorData.value?.user?.avatar ?? "") {
             self.doctorAvatar.setImage(url: avatarURL, placeholder: UIImage(named: "default-image")!)
         }
         doctorAvatar.contentMode = .scaleAspectFit
-        contentView.addSubview(doctorAvatar)
+        doctorAvatar.layer.borderColor = UIColor.white.cgColor
+        doctorAvatar.layer.borderWidth = 10
+        doctorAvatar.layer.cornerRadius = 50
+        blueView.addSubview(doctorAvatar)
         doctorAvatar.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.right.left.equalToSuperview()
-            make.bottom.equalTo(doctorAvatar.snp.top).offset(staticHeight + 50)
-        }
-        
-        doctorTitle.font = getCustomFont(size: 20, name: .medium)
-        doctorTitle.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
-        doctorTitle.numberOfLines = 0
-        contentView.addSubview(doctorTitle)
-        doctorTitle.snp.makeConstraints { make in
-            make.top.equalTo(doctorAvatar.snp.bottom)
-            make.left.equalToSuperview().offset(30)
-            make.right.equalToSuperview().offset(-30)
-        }
-        
-        starView.text = "★★★★★"
-        starView.font = getCustomFont(size: 16, name: .medium)
-        starView.textColor = UIColor.init(hexString: "F1C644")
-        contentView.addSubview(starView)
-        starView.snp.makeConstraints { make in
-            make.top.equalTo(doctorTitle.snp.bottom)
-            make.left.equalTo(doctorTitle)
-        }
-        
-        tagsViewScroll.showsHorizontalScrollIndicator = false
-        contentView.addSubview(tagsViewScroll)
-        tagsViewScroll.snp.makeConstraints { make in
-            make.top.equalTo(starView.snp.bottom).offset(10)
+            make.top.equalToSuperview().offset(35)
+            make.height.width.equalTo(100)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(40)
+        }
+        
+        doctorTitle.font = getCustomFont(size: 18.5, name: .bold)
+        doctorTitle.textColor = kDefaultTextColor
+        doctorTitle.numberOfLines = 0
+        blueView.addSubview(doctorTitle)
+        doctorTitle.snp.makeConstraints { make in
+            make.top.equalTo(doctorAvatar.snp.bottom).offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        nickNamwTitle.text = "Dean"
+        nickNamwTitle.font = getCustomFont(size: 13.5, name: .regular)
+        nickNamwTitle.textColor = kDefaultTextColor
+        blueView.addSubview(nickNamwTitle)
+        nickNamwTitle.snp.makeConstraints { make in
+            make.top.equalTo(doctorTitle.snp.bottom).offset(8)
+            make.centerX.equalToSuperview()
+        }
+        
+        whiteView.backgroundColor = .white
+        whiteView.layer.cornerRadius = 10
+        whiteView.layer.borderColor = kPrimaryColor.cgColor
+        whiteView.layer.borderWidth = 0.5
+        self.pageScroll.addSubview(whiteView)
+        whiteView.snp.makeConstraints { make in
+            make.width.equalTo(225)
+            make.centerY.equalTo(blueView.snp.bottom)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(67)
+        }
+        
+        tagsContent.text = "Cardiology"
+        tagsContent.numberOfLines = 0
+        tagsContent.font = getCustomFont(size: 11.5, name: .semiBold)
+        tagsContent.textAlignment = .center
+        tagsContent.layer.masksToBounds = true
+        tagsContent.textColor = kPrimaryColor
+        tagsContent.layer.cornerRadius = 10
+        tagsContent.backgroundColor = UIColor.init(hexString: "ebedfb")
+        whiteView.addSubview(tagsContent)
+        tagsContent.snp.makeConstraints { (make) in
+            make.top.equalToSuperview().offset(12)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(20)
+            make.width.equalTo(100)
+        }
+        
+        let centerView = UIView()
+        whiteView.addSubview(centerView)
+        centerView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(tagsContent.snp.bottom).offset(10)
+        }
+        
+        experienceTitle.text = "5 years experience"
+        experienceTitle.numberOfLines = 0
+        experienceTitle.font = getCustomFont(size: 11.5, name: .regular)
+        experienceTitle.textColor = kDefaultTextColor
+        centerView.addSubview(experienceTitle)
+        experienceTitle.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview().offset(16)
+        }
+        
+        starView.text = "★"
+        starView.font = getCustomFont(size: 10, name: .medium)
+        starView.textColor = .red
+        centerView.addSubview(starView)
+        starView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalTo(experienceTitle.snp.right).offset(6)
+//            make.right.equalTo(numberStarView.snp.left).offset(-2)
+        }
+        
+        numberStarView.text = "4.5"
+        numberStarView.font = getCustomFont(size: 11.5, name: .regular)
+        numberStarView.textColor = kDefaultTextColor
+        centerView.addSubview(numberStarView)
+        numberStarView.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.left.equalTo(starView.snp.right)
+            make.right.lessThanOrEqualToSuperview().offset(-16)
+        }
+        
+        let detailView = UIView()
+        self.pageScroll.addSubview(detailView)
+        detailView.snp.makeConstraints { make in
+            make.top.equalTo(whiteView.snp.bottom)
+            make.left.right.equalToSuperview()
+        }
+        
+        var lastItem : UIView?
+        for index in 1...4 {
+            let inforView = DoctorBasicInformationView()
+            detailView.addSubview(inforView)
+            inforView.snp.makeConstraints { make in
+                make.left.right.equalToSuperview()
+            }
+            
+            if lastItem == nil {
+                inforView.snp.makeConstraints { make in
+                    make.top.equalToSuperview().offset(10)
+                }
+            } else {
+                inforView.snp.makeConstraints { make in
+                    make.top.equalTo(lastItem!.snp.bottom)
+                }
+            }
+            
+            lastItem = inforView
+        }
+        
+        lastItem?.snp.makeConstraints({ make in
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
-        }
-
-        tagsContentView.backgroundColor = .white
-        tagsViewScroll.addSubview(tagsContentView)
-        tagsContentView.snp.makeConstraints { (make) in
-            make.left.top.right.bottom.height.equalToSuperview()
-        }
+        })
         
         let aboutTitle = UILabel()
         aboutTitle.text = "About"
@@ -87,7 +191,7 @@ class DoctorDetailsViewController: PageScrollViewController {
         aboutTitle.font = getCustomFont(size: 16, name: .medium)
         contentView.addSubview(aboutTitle)
         aboutTitle.snp.makeConstraints { make in
-            make.top.equalTo(tagsViewScroll.snp.bottom).offset(50)
+            make.top.equalTo(detailView.snp.bottom).offset(50)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
@@ -191,6 +295,20 @@ class DoctorDetailsViewController: PageScrollViewController {
         self.navigationController?.pushViewController(selectDateVC, animated: true)
     }
     
+    // MARK: - UIButton Action
+    
+    @objc private func moreButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
     // MARK: - Data
     func setDoctorDataSource(_ doctorData: DoctorDataSource) {
         self.viewModel.doctorData.accept(doctorData)
@@ -214,7 +332,6 @@ class DoctorDetailsViewController: PageScrollViewController {
                 if let user = doctorData.user {
                     self.doctorTitle.text = user.firstName + " " + user.lastName
                 }
-                self.loadTagsContents()
                 
                 // About
                 if let aboutAttribute = doctorData.attributeValues.first(where: { doctorAttribute in
@@ -238,95 +355,5 @@ class DoctorDetailsViewController: PageScrollViewController {
                 }
             }
             .disposed(by: disposeBag)
-    }
-    
-    private func loadTagsContents() {
-        
-        for subView in tagsContentView.subviews {
-            subView.removeFromSuperview()
-        }
-        
-        guard let doctorData = self.viewModel.doctorData.value else {return}
-        
-        var lastView : UIView?
-        
-        // Name deparment
-        for teamMemberPosition in doctorData.teamMemberPosition {
-            if let deparment = teamMemberPosition.team?.department {
-                let newChipView = ChipView.init(title: deparment.name)
-                newChipView.backgroundColor = kRedHightLightColor
-                newChipView.borderColor = kRedHightLightColor
-                newChipView.textLabel.textColor = .white
-                tagsContentView.addSubview(newChipView)
-                
-                if let lastView = lastView {
-                    newChipView.snp.makeConstraints { make in
-                        make.centerY.top.bottom.equalToSuperview()
-                        make.left.equalTo(lastView.snp.right).offset(10)
-                    }
-                } else {
-                    newChipView.snp.makeConstraints { make in
-                        make.centerY.top.bottom.equalToSuperview()
-                        make.left.equalToSuperview().offset(10)
-                    }
-                }
-                
-                lastView = newChipView
-            }
-        }
-        
-        // Experience
-        if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
-            return doctorAttribute.attributeCode == .Experience
-        }) {
-            let newChipView = ChipView.init(title: expAtribute.value)
-            newChipView.backgroundColor = kPrimaryColor
-            newChipView.borderColor = kPrimaryColor
-            newChipView.textLabel.textColor = .white
-            tagsContentView.addSubview(newChipView)
-            
-            if let lastView = lastView {
-                newChipView.snp.makeConstraints { make in
-                    make.centerY.top.bottom.equalToSuperview()
-                    make.left.equalTo(lastView.snp.right).offset(10)
-                }
-            } else {
-                newChipView.snp.makeConstraints { make in
-                    make.centerY.top.bottom.equalToSuperview()
-                    make.left.equalToSuperview().offset(10)
-                }
-            }
-            
-            lastView = newChipView
-        }
-        
-        // Dean
-        if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
-            return doctorAttribute.attributeCode == .Dean
-        }) {
-            let newChipView = ChipView.init(title: expAtribute.value)
-            newChipView.backgroundColor = kPrimaryColor
-            newChipView.borderColor = kPrimaryColor
-            newChipView.textLabel.textColor = .white
-            tagsContentView.addSubview(newChipView)
-            
-            if let lastView = lastView {
-                newChipView.snp.makeConstraints { make in
-                    make.centerY.top.bottom.equalToSuperview()
-                    make.left.equalTo(lastView.snp.right).offset(10)
-                }
-            } else {
-                newChipView.snp.makeConstraints { make in
-                    make.centerY.top.bottom.equalToSuperview()
-                    make.left.equalToSuperview().offset(10)
-                }
-            }
-            
-            lastView = newChipView
-        }
-        
-        lastView?.snp.makeConstraints({ make in
-            make.right.lessThanOrEqualToSuperview().offset(-10)
-        })
     }
 }

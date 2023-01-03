@@ -30,31 +30,32 @@ class EmptyView: UIView {
         imageView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.bottom.equalTo(self.snp.centerY)
-            make.width.equalTo(250)
-            make.height.equalTo(200)
+            make.width.equalTo(70)
+            make.height.equalTo(100)
         }
         
         titleLabel.text = "Your box is empty"
-        titleLabel.font = getCustomFont(size: 16, name: .bold)
+        titleLabel.font = getCustomFont(size: 13.5, name: .bold)
         titleLabel.textColor = kDefaultTextColor
         titleLabel.textAlignment = .center
         titleLabel.numberOfLines = 0
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom)
+            make.top.equalTo(imageView.snp.bottom).offset(26)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
+            make.width.equalToSuperview().offset(-110)
         }
         
         messageLabel.text = "All incoming requests will be listed in this folder"
         messageLabel.textColor = kDefaultTextColor
-        messageLabel.font = getCustomFont(size: 12, name: .regular)
+        messageLabel.font = getCustomFont(size: 13.5, name: .regular)
         messageLabel.numberOfLines = 0
         messageLabel.textAlignment = .center
         self.addSubview(messageLabel)
         messageLabel.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.centerX.width.equalTo(titleLabel)
+            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.centerX.equalTo(titleLabel)
+            make.width.equalToSuperview().offset(-110)
         }
         
         actionButon.backgroundColor = kPrimaryColor

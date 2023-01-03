@@ -32,8 +32,8 @@ class MainViewController: UITabBarController {
         }
         
         tabBar.layer.shadowOffset = CGSize(width: 0, height: 0)
-        tabBar.layer.shadowRadius = 6
-        tabBar.layer.shadowColor = kPrimaryColor.cgColor
+        tabBar.layer.shadowRadius = 3
+        tabBar.layer.shadowColor = kDefaultTextColor.cgColor
         tabBar.layer.shadowOpacity = 0.6
         
         let myOrderNav = UINavigationController.init(rootViewController: MyOrderViewController())

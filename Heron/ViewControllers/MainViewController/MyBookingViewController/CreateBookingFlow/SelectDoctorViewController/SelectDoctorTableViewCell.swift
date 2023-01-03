@@ -15,9 +15,12 @@ class SelectDoctorTableViewCell: UITableViewCell {
     
     private let doctorAvatar        = UIImageView()
     private let doctorNameLabel     = UILabel()
-    private let tagsContent         = UIView()
+    private let heartView           = UIImageView()
+    private let addressLabel        = UILabel()
+    private let tagsContent         = UILabel()
     private let checkSelectedIcon   = UIImageView()
     private let starView            = UILabel()
+    private let numberStarView      = UILabel()
     private let bookNowBtn          = UIButton()
     
     private var indexPath           : Int?
@@ -26,72 +29,94 @@ class SelectDoctorTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .clear
-
-        let contentView = UIView()
-        contentView.setShadow()
-        self.contentView.addSubview(contentView)
-        contentView.snp.makeConstraints { (make) in
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.top.equalToSuperview().offset(2)
-            make.bottom.equalToSuperview().offset(-2)
-        }
         
         doctorAvatar.image = UIImage(named: "default-image")
         doctorAvatar.contentMode = .scaleAspectFill
         doctorAvatar.clipsToBounds = true
         doctorAvatar.layer.cornerRadius = 8
-        contentView.addSubview(doctorAvatar)
+        self.addSubview(doctorAvatar)
         doctorAvatar.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(24)
-            make.left.equalToSuperview().offset(10)
-            make.width.height.equalTo(120)
+            make.left.equalToSuperview().offset(16)
+            make.width.height.equalTo(110)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         doctorNameLabel.text = ""
         doctorNameLabel.numberOfLines = 0
-        doctorNameLabel.font = getCustomFont(size: 16, name: .medium)
+        doctorNameLabel.font = getCustomFont(size: 13.5, name: .regular)
         doctorNameLabel.textColor = kDefaultTextColor
         doctorNameLabel.numberOfLines = 0
-        contentView.addSubview(doctorNameLabel)
+        self.addSubview(doctorNameLabel)
         doctorNameLabel.snp.makeConstraints { (make) in
             make.left.equalTo(doctorAvatar.snp.right).offset(15)
-            make.top.equalTo(doctorAvatar)
-            make.right.equalToSuperview().offset(-16)
+            make.top.equalTo(doctorAvatar).offset(5)
         }
         
-//        tagsContent.text = ""
-//        tagsContent.numberOfLines = 0
-//        tagsContent.font = getCustomFont(size: 12, weight: .regular)
-//        tagsContent.textColor = kDefaultTextColor
-        contentView.addSubview(tagsContent)
+        heartView.image = UIImage.init(named: "heart")
+        heartView.contentMode = .scaleAspectFit
+        self.addSubview(heartView)
+        heartView.snp.makeConstraints { make in
+            make.top.equalTo(doctorNameLabel)
+            make.right.equalToSuperview().offset(-17)
+            make.height.width.equalTo(20)
+        }
+        
+        addressLabel.text = "Brooklyn Hospital"
+        addressLabel.numberOfLines = 0
+        addressLabel.font = getCustomFont(size: 8.5, name: .semiBold)
+        addressLabel.textColor = kDefaultTextColor
+        addressLabel.numberOfLines = 0
+        self.addSubview(addressLabel)
+        addressLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(doctorNameLabel)
+            make.top.equalTo(doctorNameLabel.snp.bottom).offset(4)
+        }
+        
+        tagsContent.text = ""
+        tagsContent.numberOfLines = 0
+        tagsContent.font = getCustomFont(size: 9, name: .regular)
+        tagsContent.textColor = kDefaultTextColor
+        tagsContent.layer.cornerRadius = 2
+        tagsContent.backgroundColor = UIColor.init(hexString: "ebedfb")
+        self.addSubview(tagsContent)
         tagsContent.snp.makeConstraints { (make) in
-            make.left.equalTo(doctorAvatar.snp.right).offset(15)
-            make.top.equalTo(doctorNameLabel.snp.bottom).offset(5)
-            make.right.equalToSuperview().offset(-16)
-            make.height.equalTo(30)
+            make.left.equalTo(addressLabel)
+            make.top.equalTo(addressLabel.snp.bottom).offset(8)
+            make.height.equalTo(15)
         }
         
-        starView.text = "★★★★★"
-        starView.font = getCustomFont(size: 16, name: .medium)
-        starView.textColor = UIColor.init(hexString: "F1C644")
-        contentView.addSubview(starView)
+        starView.text = "★"
+        starView.font = getCustomFont(size: 10, name: .medium)
+        starView.textColor = .red
+        self.addSubview(starView)
         starView.snp.makeConstraints { make in
-            make.top.equalTo(tagsContent.snp.bottom).offset(5)
+            make.bottom.equalTo(doctorAvatar.snp.bottom).offset(-10)
             make.left.equalTo(tagsContent)
         }
         
-        bookNowBtn.setTitle("Book Now", for: .normal)
-        bookNowBtn.backgroundColor = kPrimaryColor
-        bookNowBtn.layer.cornerRadius = 8
+        numberStarView.text = "4.5"
+        numberStarView.font = getCustomFont(size: 11.5, name: .regular)
+        numberStarView.textColor = kDefaultTextColor
+        self.addSubview(numberStarView)
+        numberStarView.snp.makeConstraints { make in
+            make.top.equalTo(starView)
+            make.left.equalTo(starView.snp.right).offset(5)
+        }
+        
+        bookNowBtn.setTitle("Book now", for: .normal)
+        bookNowBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        bookNowBtn.setTitleColor(kPrimaryColor, for: .normal)
+        bookNowBtn.backgroundColor = kIceBlueColor
+        bookNowBtn.layer.borderColor = kPrimaryColor.cgColor
+        bookNowBtn.layer.borderWidth = 0.7
+        bookNowBtn.layer.cornerRadius = 14
         bookNowBtn.addTarget(self, action: #selector(bookNowButtonTapped), for: .touchUpInside)
-        contentView.addSubview(bookNowBtn)
+        self.addSubview(bookNowBtn)
         bookNowBtn.snp.makeConstraints { make in
-            make.top.equalTo(starView.snp.bottom).offset(10)
-            make.right.equalToSuperview().offset(-20)
-            make.height.equalTo(40)
-            make.left.equalTo(doctorNameLabel)
+            make.right.equalToSuperview().offset(-17)
+            make.height.equalTo(28)
+            make.width.equalTo(110)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
     }
@@ -113,58 +138,59 @@ class SelectDoctorTableViewCell: UITableViewCell {
         // Name deparment
         for teamMemberPosition in doctorData.teamMemberPosition {
             if let deparment = teamMemberPosition.team?.department {
-                let newChipView = ChipView.init(title: deparment.name)
-                newChipView.backgroundColor = kRedHightLightColor
-                newChipView.borderColor = kRedHightLightColor
-                newChipView.textLabel.textColor = .white
-                newChipView.textLabel.font = getCustomFont(size: 11, name: .semiBold)
-                tagsContent.addSubview(newChipView)
-                
-                if let lastView = lastView {
-                    newChipView.snp.makeConstraints { make in
-                        make.centerY.top.bottom.equalToSuperview()
-                        make.left.equalTo(lastView.snp.right).offset(10)
-                    }
-                } else {
-                    newChipView.snp.makeConstraints { make in
-                        make.centerY.top.bottom.equalToSuperview()
-                        make.left.equalToSuperview().offset(10)
-                    }
-                }
-                
-                lastView = newChipView
+                tagsContent.text = String(format: "  %@  ", deparment.name)
+//                let newChipView = ChipView.init(title: deparment.name)
+//                newChipView.backgroundColor = kRedHightLightColor
+//                newChipView.borderColor = kRedHightLightColor
+//                newChipView.textLabel.textColor = .white
+//                newChipView.textLabel.font = getCustomFont(size: 11, name: .semiBold)
+//                tagsContent.addSubview(newChipView)
+//
+//                if let lastView = lastView {
+//                    newChipView.snp.makeConstraints { make in
+//                        make.centerY.top.bottom.equalToSuperview()
+//                        make.left.equalTo(lastView.snp.right).offset(10)
+//                    }
+//                } else {
+//                    newChipView.snp.makeConstraints { make in
+//                        make.centerY.top.bottom.equalToSuperview()
+//                        make.left.equalToSuperview().offset(10)
+//                    }
+//                }
+//
+//                lastView = newChipView
             }
         }
         
         // Experience
-        if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
-            return doctorAttribute.attributeCode == .Experience
-        }) {
-            let newChipView = ChipView.init(title: expAtribute.value)
-            newChipView.backgroundColor = kPrimaryColor
-            newChipView.borderColor = kPrimaryColor
-            newChipView.textLabel.textColor = .white
-            newChipView.textLabel.font = getCustomFont(size: 11, name: .semiBold)
-            tagsContent.addSubview(newChipView)
-            
-            if let lastView = lastView {
-                newChipView.snp.makeConstraints { make in
-                    make.centerY.top.bottom.equalToSuperview()
-                    make.left.equalTo(lastView.snp.right).offset(10)
-                }
-            } else {
-                newChipView.snp.makeConstraints { make in
-                    make.centerY.top.bottom.equalToSuperview()
-                    make.left.equalToSuperview().offset(10)
-                }
-            }
-            
-            lastView = newChipView
-        }
-        
-        lastView?.snp.makeConstraints({ make in
-            make.right.lessThanOrEqualToSuperview().offset(-10)
-        })
+//        if let expAtribute = doctorData.attributeValues.first(where: { doctorAttribute in
+//            return doctorAttribute.attributeCode == .Experience
+//        }) {
+//            let newChipView = ChipView.init(title: expAtribute.value)
+//            newChipView.backgroundColor = kPrimaryColor
+//            newChipView.borderColor = kPrimaryColor
+//            newChipView.textLabel.textColor = .white
+//            newChipView.textLabel.font = getCustomFont(size: 11, name: .semiBold)
+//            tagsContent.addSubview(newChipView)
+//
+//            if let lastView = lastView {
+//                newChipView.snp.makeConstraints { make in
+//                    make.centerY.top.bottom.equalToSuperview()
+//                    make.left.equalTo(lastView.snp.right).offset(10)
+//                }
+//            } else {
+//                newChipView.snp.makeConstraints { make in
+//                    make.centerY.top.bottom.equalToSuperview()
+//                    make.left.equalToSuperview().offset(10)
+//                }
+//            }
+//
+//            lastView = newChipView
+//        }
+//
+//        lastView?.snp.makeConstraints({ make in
+//            make.right.lessThanOrEqualToSuperview().offset(-10)
+//        })
     }
     
     func setIsSelected(_ isSelected: Bool = false) {
