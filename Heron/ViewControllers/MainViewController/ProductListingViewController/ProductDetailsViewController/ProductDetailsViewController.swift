@@ -10,9 +10,8 @@ import RxSwift
 import BadgeHub
 
 class ProductDetailsViewController: PageScrollViewController,
-                                    UIScrollViewDelegate,
-                                    UICollectionViewDataSource,
-                                    UICollectionViewDelegate {
+                                    UIScrollViewDelegate
+                                     {
 
     private let viewModel               = ProductDetailsViewModel()
     private let productViewModel        = ProductListingViewModel()
@@ -212,9 +211,11 @@ class ProductDetailsViewController: PageScrollViewController,
 
         contentDescView.addSubview(stackTagView)
         stackTagView.snp.makeConstraints { (make) in
-            make.top.left.equalToSuperview().offset(20)
+            make.top.equalToSuperview().offset(20)
+            make.left.equalToSuperview().offset(14)
             make.width.equalToSuperview().offset(-50)
-            make.height.equalTo(30)
+            make.height.equalTo(17)
+            make.bottom.lessThanOrEqualToSuperview()
         }
 
         heartItem.setBackgroundImage(UIImage.init(named: "heartActive"), for: .selected)
@@ -223,9 +224,10 @@ class ProductDetailsViewController: PageScrollViewController,
         heartItem.tintColor = kDefaultTextColor
         contentDescView.addSubview(heartItem)
         heartItem.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(20)
-            make.right.equalToSuperview().offset(-10)
-            make.width.height.equalTo(30)
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-4)
+            make.height.width.equalTo(40)
+            make.bottom.lessThanOrEqualToSuperview()
         }
 
         nameProduct.lineBreakMode = .byWordWrapping
@@ -235,26 +237,26 @@ class ProductDetailsViewController: PageScrollViewController,
         nameProduct.textColor = UIColor.init(hexString: "424242")
         contentDescView.addSubview(nameProduct)
         nameProduct.snp.makeConstraints { (make) in
-            make.top.equalTo(stackTagView.snp.bottom).offset(0)
-            make.left.equalToSuperview().offset(10)
-            make.width.equalToSuperview().offset(-15)
+            make.top.equalTo(stackTagView.snp.bottom).offset(6)
+            make.left.equalToSuperview().offset(14)
+            make.width.equalToSuperview().offset(-14)
             make.bottom.lessThanOrEqualToSuperview()
         }
         
         contentDescView.addSubview(stackInfoView)
         stackInfoView.snp.makeConstraints { (make) in
-            make.left.equalTo(10)
-            make.width.equalToSuperview().offset(-15)
+            make.left.equalTo(14)
+            make.width.equalToSuperview().offset(-28)
             make.height.equalTo(20)
-            make.bottom.lessThanOrEqualToSuperview().offset(-20)
+            make.top.equalTo(nameProduct.snp.bottom).offset(8.5)
+            make.bottom.lessThanOrEqualToSuperview().offset(-19)
         }
         
         self.contentView.addSubview(contentDescView)
         contentDescView.snp.makeConstraints { (make) in
             make.top.equalTo(topMediaView.snp.bottom).offset(-30)
             make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-15)
-            make.height.equalTo(contentDescView.snp.width).multipliedBy(0.36)
+            make.width.equalToSuperview().offset(-32)
         }
 
         self.variantView.delegate = self
@@ -351,11 +353,14 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.cartHotInfo.cartPriceValue.text = getMoneyFormat(cartDataSource?.customGrandTotal)
             }
             .disposed(by: disposeBag)
+        
         viewModel.productDataSource
             .observe(on: MainScheduler.instance)
             .subscribe { productDataSource in
                 guard let productDataA = productDataSource.element else {return}
                 guard let productData = productDataA else {return}
+                
+                self.viewModel.getProductList(productData.id)
                 
                 self.nameProduct.text = productData.name
                 self.stackInfoView.setDiscountPercent(String(format:"%.1f", productData.discountPercent) + "%")
@@ -382,6 +387,23 @@ class ProductDetailsViewController: PageScrollViewController,
 
             }
             .disposed(by: disposeBag)
+        
+        viewModel.listProducts
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                let viewWidth = UIScreen.main.bounds.size.width/2.2
+                if(!self.viewModel.listProducts.value.isEmpty) {
+                    let length = self.viewModel.listProducts.value.count
+                    let heightCollection = ceil(CGFloat(length / 2)) * (viewWidth * 1.7)
+                    self.collectionview.snp.remakeConstraints { make in
+                        make.centerX.width.equalToSuperview()
+                        make.top.equalTo(self.titleReleatedProduct.snp.bottom).offset(10)
+                        make.height.equalTo(heightCollection)
+                        make.width.equalToSuperview().offset(-20)
+                        make.bottom.lessThanOrEqualToSuperview().offset(-10)
+                    }
+                }
+            }
     }
     
     // MARK: - Buttons
@@ -552,7 +574,7 @@ class ProductDetailsViewController: PageScrollViewController,
             subview.removeFromSuperview()
         }
 
-        let productDataSource = self.productViewModel.listProducts.value
+        let productDataSource = self.viewModel.listProducts.value
        
         var lastView                        : UIView?
         
@@ -636,21 +658,21 @@ class ProductDetailsViewController: PageScrollViewController,
         let viewWidth = UIScreen.main.bounds.size.width/2.2
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: viewWidth, height: viewWidth * 1.5)
+        layout.itemSize = CGSize(width: viewWidth, height: viewWidth * 1.7)
         layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 0
         
         collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionview.dataSource = self
         collectionview.delegate = self
-        collectionview.register(ItemRelateProductCollection.self, forCellWithReuseIdentifier: "ItemRelateProductCollection")
+        
+        collectionview?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
         collectionview.showsVerticalScrollIndicator = false
         collectionview.isScrollEnabled = false
         self.contentView.addSubview(collectionview)
         collectionview.snp.makeConstraints { make in
             make.centerX.width.equalToSuperview()
             make.top.equalTo(titleReleatedProduct.snp.bottom).offset(10)
-            make.height.equalTo(510)
             make.width.equalToSuperview().offset(-20)
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
@@ -741,16 +763,7 @@ class ProductDetailsViewController: PageScrollViewController,
             }
         }
     }
-        
-    // MARK: - UICollectionView
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return productViewModel.listProducts.value.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionview.dequeueReusableCell(withReuseIdentifier: "ItemRelateProductCollection", for: indexPath) as? ItemRelateProductCollection
-        return cell!
-    }
+
     
 }
 
@@ -789,5 +802,35 @@ extension ProductDetailsViewController : ProductVariantDelegate {
             self.simpleProductData = matchedSimpleProduct
 
         }
+    }
+}
+
+extension ProductDetailsViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    
+    // MARK: - UICollectionViewDelegateFlowLayout
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let value = viewModel.listProducts.value
+        if(value.isEmpty) {
+            return
+        }
+        let productData = value[indexPath.row]
+        let viewDetailsController = ProductDetailsViewController.init(productData)
+        _NavController.pushViewController(viewDetailsController, animated: true)
+        
+    }
+    
+    // MARK: - UICollectionViewDataSource
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.listProducts.value.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        // swiftlint:disable force_cast
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProductCollectionViewCell", for: indexPath) as! ProductCollectionViewCell
+        
+       let value = viewModel.listProducts.value
+       let productData = value[indexPath.row]
+       cell.setDataSource(productData)
+        return cell
     }
 }

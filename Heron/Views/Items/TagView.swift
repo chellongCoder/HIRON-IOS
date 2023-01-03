@@ -15,7 +15,7 @@ class TagView: UIView {
         super.init(frame: .zero)
         self.backgroundColor = .white
         
-        self.layer.cornerRadius = 5
+        self.layer.cornerRadius = 2
         self.layer.masksToBounds = true
                 
         self.textLabel.text = title
@@ -26,8 +26,8 @@ class TagView: UIView {
         self.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.right.equalToSuperview().offset(-10)
-            make.bottom.equalToSuperview().offset(-4)
+            make.left.equalToSuperview().offset(4)
+            make.top.equalToSuperview().offset(2.5)
         }
     }
     
