@@ -252,7 +252,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let retypePasswordLabel = UILabel()
-        retypePasswordLabel.text = "Password Confirm"
+        retypePasswordLabel.text = "Confirm Password"
         retypePasswordLabel.font = getCustomFont(size: 11, name: .light)
         retypePasswordLabel.textColor = kDarkColor
         retypePasswordLabel.textAlignment = .left
@@ -480,7 +480,7 @@ class SignUpViewController: BaseViewController,
         userData.password = passwordTxt.text ?? ""
         
         if retypePasswordTxt.text != passwordTxt.text {
-            retypePasswordTxt.setError("Password Confirm not matched")
+            retypePasswordTxt.setError("Confirm Password not matched")
         } else {
             retypePasswordTxt.setError(nil)
         }

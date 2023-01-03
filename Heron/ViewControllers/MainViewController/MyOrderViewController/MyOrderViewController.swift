@@ -365,7 +365,7 @@ class MyOrderViewController: BaseViewController,
         }
         
         let idLabel = UILabel()
-        idLabel.text = "ID order #\(orderData.code)"
+        idLabel.text = "Order ID #\(orderData.code)"
         idLabel.font = getCustomFont(size: 13, name: .regular)
         idLabel.textColor = kDefaultTextColor
         headerView.addSubview(idLabel)

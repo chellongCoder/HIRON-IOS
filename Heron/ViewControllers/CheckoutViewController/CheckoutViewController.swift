@@ -298,7 +298,7 @@ class CheckoutViewController: BaseViewController,
                 // Delivery Address
                 let cell = UITableViewCell.init(style: .default, reuseIdentifier: "UITableViewCell")
                 
-                deliveryTo.addressTitle.text = "Delivery To"
+                deliveryTo.addressTitle.text = "Delivery Information"
                 cell.addSubview(deliveryTo)
                 deliveryTo.snp.makeConstraints { (make) in
                     make.center.size.equalToSuperview()

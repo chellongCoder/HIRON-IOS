@@ -46,7 +46,7 @@ class PaymentView: UIView {
         }
         
         let orderIdLabel = UILabel()
-        orderIdLabel.text = "ID order"
+        orderIdLabel.text = "Order ID"
         orderIdLabel.textColor = kDefaultTextColor
         orderIdLabel.font = getCustomFont(size: 11, name: .regular)
         contentView.addSubview(orderIdLabel)
