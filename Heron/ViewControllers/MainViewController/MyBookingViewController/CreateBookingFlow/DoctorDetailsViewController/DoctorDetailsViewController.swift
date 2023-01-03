@@ -28,6 +28,11 @@ class DoctorDetailsViewController: PageScrollViewController {
     
     private let confirmBtn          = UIButton()
     
+    private let aboutTitle          = UILabel()
+    private var isShowMore          = false
+    private let showBtn             = UIButton()
+    private let showIconBtn         = ExtendedButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Doctor Details"
@@ -40,10 +45,38 @@ class DoctorDetailsViewController: PageScrollViewController {
                                            action: #selector(moreButtonTapped))
         self.navigationItem.rightBarButtonItem = moreBtn
         
+        let bottomView = UIView()
+        bottomView.backgroundColor = .white
+        self.view.addSubview(bottomView)
+        bottomView.snp.makeConstraints { make in
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(50)
+        }
+
+        confirmBtn.setTitle("Book now", for: .normal)
+        confirmBtn.backgroundColor = kPrimaryColor
+        confirmBtn.layer.cornerRadius = 20
+        confirmBtn.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+        confirmBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        bottomView.addSubview(confirmBtn)
+        confirmBtn.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview().offset(-40)
+            make.height.equalTo(40)
+        }
+        
+        pageScroll.showsVerticalScrollIndicator = false
+        self.view.addSubview(pageScroll)
+        pageScroll.snp.remakeConstraints { (make) in
+            make.left.top.right.equalToSuperview()
+            make.bottom.equalTo(bottomView.snp.top).offset(-10)
+        }
+        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         self.pageScroll.addSubview(refreshControl)
-        
         
         blueView.backgroundColor = kPrimaryColor
         blueView.layer.cornerRadius = 10
@@ -185,13 +218,21 @@ class DoctorDetailsViewController: PageScrollViewController {
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         })
         
-        let aboutTitle = UILabel()
+        let line1 = UIView()
+        line1.layer.backgroundColor = kGrayColor.cgColor
+        self.pageScroll.addSubview(line1)
+        line1.snp.makeConstraints { make in
+            make.top.equalTo(detailView.snp.bottom).offset(10)
+            make.width.equalToSuperview()
+            make.height.equalTo(6)
+        }
+        
         aboutTitle.text = "About"
         aboutTitle.textColor = kDefaultTextColor
-        aboutTitle.font = getCustomFont(size: 16, name: .medium)
-        contentView.addSubview(aboutTitle)
+        aboutTitle.font = getCustomFont(size: 13.5, name: .bold)
+        self.pageScroll.addSubview(aboutTitle)
         aboutTitle.snp.makeConstraints { make in
-            make.top.equalTo(detailView.snp.bottom).offset(50)
+            make.top.equalTo(line1.snp.bottom).offset(25)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
@@ -203,22 +244,51 @@ class DoctorDetailsViewController: PageScrollViewController {
             self.aboutContents.text = aboutAttribute.value
         }
         aboutContents.textColor = kDefaultTextColor
-        aboutContents.font = getCustomFont(size: 14, name: .regular)
+        aboutContents.font = getCustomFont(size: 13.5, name: .regular)
         aboutContents.numberOfLines = 0
-        contentView.addSubview(aboutContents)
+        self.pageScroll.addSubview(aboutContents)
         aboutContents.snp.makeConstraints { make in
-            make.top.equalTo(aboutTitle.snp.bottom).offset(15)
+            make.top.equalTo(aboutTitle.snp.bottom).offset(12)
             make.left.equalToSuperview().offset(16)
+            make.height.lessThanOrEqualTo(100)
             make.centerX.equalToSuperview()
         }
         
+        showBtn.setTitle("Show more", for: .normal)
+        showBtn.titleLabel?.font = getCustomFont(size: 11.5, name: .regular)
+        showBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        showBtn.addTarget(self, action: #selector(showMoreButtonTapped), for: .touchUpInside)
+        self.pageScroll.addSubview(showBtn)
+        showBtn.snp.makeConstraints { make in
+            make.top.equalTo(aboutContents.snp.bottom).offset(25)
+            make.centerX.equalToSuperview()
+        }
+        
+        showIconBtn.setImage(UIImage.init(named: "down_icon"), for: .normal)
+        showIconBtn.addTarget(self, action: #selector(showMoreButtonTapped), for: .touchUpInside)
+        self.pageScroll.addSubview(showIconBtn)
+        showIconBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(showBtn)
+            make.left.equalTo(showBtn.snp.right).offset(2)
+            make.height.width.equalTo(20)
+        }
+        
+        let line2 = UIView()
+        line2.layer.backgroundColor = kGrayColor.cgColor
+        self.pageScroll.addSubview(line2)
+        line2.snp.makeConstraints { make in
+            make.top.equalTo(showBtn.snp.bottom).offset(20)
+            make.width.equalToSuperview()
+            make.height.equalTo(6)
+        }
+        
         let workExpTitle = UILabel()
-        workExpTitle.text = "Work Experience"
+        workExpTitle.text = "Working Experience"
         workExpTitle.textColor = kDefaultTextColor
-        workExpTitle.font = getCustomFont(size: 16, name: .medium)
-        contentView.addSubview(workExpTitle)
+        workExpTitle.font = getCustomFont(size: 13.5, name: .bold)
+        self.pageScroll.addSubview(workExpTitle)
         workExpTitle.snp.makeConstraints { make in
-            make.top.equalTo(aboutContents.snp.bottom).offset(16)
+            make.top.equalTo(line2.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
@@ -230,22 +300,31 @@ class DoctorDetailsViewController: PageScrollViewController {
             self.workExpContents.text = workExperienceAttribute.value
         }
         workExpContents.textColor = kDefaultTextColor
-        workExpContents.font = getCustomFont(size: 14, name: .regular)
+        workExpContents.font = getCustomFont(size: 13.5, name: .regular)
         workExpContents.numberOfLines = 0
         contentView.addSubview(workExpContents)
         workExpContents.snp.makeConstraints { make in
-            make.top.equalTo(workExpTitle.snp.bottom).offset(15)
+            make.top.equalTo(workExpTitle.snp.bottom).offset(12)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
+        }
+        
+        let line3 = UIView()
+        line3.layer.backgroundColor = kGrayColor.cgColor
+        self.pageScroll.addSubview(line3)
+        line3.snp.makeConstraints { make in
+            make.top.equalTo(workExpContents.snp.bottom).offset(20)
+            make.width.equalToSuperview()
+            make.height.equalTo(6)
         }
         
         let certificateTitle = UILabel()
         certificateTitle.text = "Certificate"
         certificateTitle.textColor = kDefaultTextColor
-        certificateTitle.font = getCustomFont(size: 16, name: .medium)
-        contentView.addSubview(certificateTitle)
+        certificateTitle.font = getCustomFont(size: 13.5, name: .bold)
+        self.pageScroll.addSubview(certificateTitle)
         certificateTitle.snp.makeConstraints { make in
-            make.top.equalTo(workExpContents.snp.bottom).offset(16)
+            make.top.equalTo(line3.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
@@ -257,35 +336,14 @@ class DoctorDetailsViewController: PageScrollViewController {
             self.certContents.text = certificateAttribute.value
         }
         certContents.textColor = kDefaultTextColor
-        certContents.font = getCustomFont(size: 14, name: .regular)
+        certContents.font = getCustomFont(size: 13.5, name: .regular)
         certContents.numberOfLines = 0
-        contentView.addSubview(certContents)
+        self.pageScroll.addSubview(certContents)
         certContents.snp.makeConstraints { make in
-            make.top.equalTo(certificateTitle.snp.bottom).offset(15)
+            make.top.equalTo(certificateTitle.snp.bottom).offset(12)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-60)
-        }
-        
-        let bottomView = UIView()
-        bottomView.backgroundColor = .white
-        self.view.addSubview(bottomView)
-        bottomView.snp.makeConstraints { make in
-            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview()
-            make.height.equalTo(50)
-        }
-
-        confirmBtn.setTitle("Make Appointment Now", for: .normal)
-        confirmBtn.backgroundColor = kPrimaryColor
-        confirmBtn.layer.cornerRadius = 8
-        confirmBtn.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
-        bottomView.addSubview(confirmBtn)
-        confirmBtn.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
+            make.bottom.lessThanOrEqualToSuperview().offset(-70)
         }
     }
     
@@ -307,6 +365,35 @@ class DoctorDetailsViewController: PageScrollViewController {
             alertVC.dismiss()
         }))
         _NavController.showAlert(alertVC)
+    }
+    
+    @objc private func showMoreButtonTapped() {
+        self.isShowMore = !self.isShowMore
+        
+        if self.isShowMore {
+            aboutContents.snp.remakeConstraints { make in
+                make.top.equalTo(aboutTitle.snp.bottom).offset(12)
+                make.left.equalToSuperview().offset(16)
+                make.centerX.equalToSuperview()
+            }
+            
+            showBtn.setTitle("Show less", for: .normal)
+            showIconBtn.setImage(UIImage.init(named: "up_icon"), for: .normal)
+            
+            self.aboutContents.layoutIfNeeded()
+        } else {
+            aboutContents.snp.remakeConstraints { make in
+                make.top.equalTo(aboutTitle.snp.bottom).offset(12)
+                make.left.equalToSuperview().offset(16)
+                make.height.lessThanOrEqualTo(100)
+                make.centerX.equalToSuperview()
+            }
+            
+            showBtn.setTitle("Show more", for: .normal)
+            showIconBtn.setImage(UIImage.init(named: "down_icon"), for: .normal)
+            
+            self.aboutContents.layoutIfNeeded()
+        }
     }
     
     // MARK: - Data
