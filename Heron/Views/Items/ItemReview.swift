@@ -82,7 +82,7 @@ class ItemReview: UIView {
         likeBTN.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(0)
             make.top.equalTo(comment.snp.bottom).offset(16)
-            make.width.height.equalTo(20)
+            make.width.height.equalTo(24)
         }
         
         helpful.text = "Helpful (5)"
@@ -90,8 +90,8 @@ class ItemReview: UIView {
         helpful.textColor = UIColor.init(hexString: "888888")
         helpful.font = getCustomFont(size: 11, name: .regular)
         helpful.snp.makeConstraints { make in
-            make.left.equalTo(likeBTN.snp.right).offset(3)
-            make.top.equalTo(comment.snp.bottom).offset(16)
+            make.left.equalTo(likeBTN.snp.right).offset(-3)
+            make.top.equalTo(comment.snp.bottom).offset(20)
             make.bottom.lessThanOrEqualToSuperview().offset(0)
         }
         

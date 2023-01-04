@@ -19,7 +19,7 @@ class ProductDetailsViewModel: NSObject {
 
     func getProductList(_ productId: String) {
         
-        var param : [String: Any] = ["filter[featureType][eq]" : "ecom",
+        let param : [String: Any] = ["filter[featureType][eq]" : "ecom",
                                      "filter[categoryId][eq]" : productId,
                                      "filter[quantity][not]" : "null",
                                      "filter[visibility][eq]" : "true",
@@ -44,7 +44,6 @@ class ProductDetailsViewModel: NSObject {
             }
         }
     }
-
     
     func reloadProductDetails() {
         guard let productDataSource = productDataSource.value else {
