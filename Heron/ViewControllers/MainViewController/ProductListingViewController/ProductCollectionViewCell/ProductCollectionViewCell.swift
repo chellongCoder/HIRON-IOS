@@ -55,7 +55,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         addToWishlistBtn.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
         self.contentView.addSubview(addToWishlistBtn)
         addToWishlistBtn.snp.makeConstraints { make in
-            make.top.equalTo(productTitleLabel)
+            make.top.equalTo(packageImage.snp.bottom).offset(2)
             make.right.equalTo(packageImage)
             make.height.width.equalTo(32)
         }

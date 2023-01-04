@@ -10,8 +10,7 @@ import RxSwift
 import BadgeHub
 
 class ProductDetailsViewController: PageScrollViewController,
-                                    UIScrollViewDelegate
-                                     {
+                                    UIScrollViewDelegate {
 
     private let viewModel               = ProductDetailsViewModel()
     private let productViewModel        = ProductListingViewModel()
@@ -23,7 +22,7 @@ class ProductDetailsViewController: PageScrollViewController,
     var shareButtonItem                 : UIBarButtonItem?
     var moreButtonItem                  : UIBarButtonItem?
     var cartHub                         : BadgeHub?
-    var collectionview                  : UICollectionView!
+    var collectionview                  : UICollectionView?
     var footer                          : ProductDetailFooter!
     var simpleProductData               : ProductDataSource?
 
@@ -361,7 +360,7 @@ class ProductDetailsViewController: PageScrollViewController,
                 guard let productData = productDataA else {return}
                 
                 self.viewModel.getProductList(productData.id)
-                
+
                 self.nameProduct.text = productData.name
                 self.stackInfoView.setDiscountPercent(String(format:"%.1f", productData.discountPercent) + "%")
                 self.stackInfoView.setOriginalPrice(getMoneyFormat(productData.customRegularPrice))
@@ -393,9 +392,16 @@ class ProductDetailsViewController: PageScrollViewController,
             .subscribe { _ in
                 let viewWidth = UIScreen.main.bounds.size.width/2.2
                 if(!self.viewModel.listProducts.value.isEmpty) {
+                    self.collectionview?.dataSource = nil
+                    self.viewModel.listProducts
+                        .bind(to: self.collectionview!.rx.items(cellIdentifier: "ProductCollectionViewCell") ) {(_: Int, productData: ProductDataSource, cell: ProductCollectionViewCell) in
+                            cell.setDataSource(productData)
+                        }
+                    .disposed(by: self.disposeBag)
+                    self.loadReviewView(isShowMore: true)
                     let length = self.viewModel.listProducts.value.count
                     let heightCollection = ceil(CGFloat(length / 2)) * (viewWidth * 1.7)
-                    self.collectionview.snp.remakeConstraints { make in
+                    self.collectionview?.snp.remakeConstraints { make in
                         make.centerX.width.equalToSuperview()
                         make.top.equalTo(self.titleReleatedProduct.snp.bottom).offset(10)
                         make.height.equalTo(heightCollection)
@@ -404,6 +410,7 @@ class ProductDetailsViewController: PageScrollViewController,
                     }
                 }
             }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Buttons
@@ -663,14 +670,13 @@ class ProductDetailsViewController: PageScrollViewController,
         layout.minimumLineSpacing = 0
         
         collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionview.dataSource = self
-        collectionview.delegate = self
+        collectionview?.delegate = self
         
         collectionview?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
-        collectionview.showsVerticalScrollIndicator = false
-        collectionview.isScrollEnabled = false
-        self.contentView.addSubview(collectionview)
-        collectionview.snp.makeConstraints { make in
+        collectionview?.showsVerticalScrollIndicator = false
+       collectionview?.isScrollEnabled = false
+        self.contentView.addSubview(collectionview!)
+        collectionview?.snp.makeConstraints { make in
             make.centerX.width.equalToSuperview()
             make.top.equalTo(titleReleatedProduct.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-20)
@@ -764,7 +770,6 @@ class ProductDetailsViewController: PageScrollViewController,
         }
     }
 
-    
 }
 
 extension ProductDetailsViewController : ProductVariantDelegate {
@@ -807,7 +812,6 @@ extension ProductDetailsViewController : ProductVariantDelegate {
 
 extension ProductDetailsViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let value = viewModel.listProducts.value
         if(value.isEmpty) {

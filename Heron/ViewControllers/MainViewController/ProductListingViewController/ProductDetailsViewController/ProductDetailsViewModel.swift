@@ -14,15 +14,13 @@ class ProductDetailsViewModel: NSObject {
     weak var controller : ProductDetailsViewController?
     var productDataSource   = BehaviorRelay<ProductDataSource?>(value: nil)
     var filterData          : CategoryDataSource?
-    let listProducts        = BehaviorRelay<[ProductDataSource]>(value: Array(_AppCoreData.listsavedProducts))
+    let listProducts        = BehaviorRelay<[ProductDataSource]>(value: [ProductDataSource]([]))
     let viewMode            = BehaviorRelay<ProductListingMode>(value: .gridView)
 
     func getProductList(_ productId: String) {
         
         let param : [String: Any] = ["filter[featureType][eq]" : "ecom",
-                                     "filter[categoryId][eq]" : productId,
-                                     "filter[quantity][not]" : "null",
-                                     "filter[visibility][eq]" : "true",
+                                     "filter[categoryId][eq]" : "eabf1a86-a1c0-49b7-a986-40934010af10",
                                      "sort[createdAt]" : "desc"]
         if self.listProducts.value.isEmpty {
             self.controller?.startLoadingAnimation()
