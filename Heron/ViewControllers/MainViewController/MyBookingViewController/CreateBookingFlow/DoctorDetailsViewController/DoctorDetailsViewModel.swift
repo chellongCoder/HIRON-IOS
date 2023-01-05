@@ -11,4 +11,12 @@ import RxRelay
 class DoctorDetailsViewModel: NSObject {
     weak var controller     : DoctorDetailsViewController?
     var doctorData          = BehaviorRelay<DoctorDataSource?>(value: nil)
+    var doctorReviews       = BehaviorRelay<[ReviewDataSource]>(value: [])
+    
+    override init() {
+        super.init()
+        
+        doctorReviews.accept([ReviewDataSource.init(JSONString: "{}")!,
+                              ReviewDataSource.init(JSONString: "{}")!])
+    }
 }

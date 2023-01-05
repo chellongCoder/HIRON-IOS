@@ -196,6 +196,8 @@
 		A097CC8C29379DA400C587AD /* ExtendedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8B29379DA400C587AD /* ExtendedLabel.swift */; };
 		A097CC8F2937A91A00C587AD /* ProductListingFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */; };
 		A0A551CD29537B4800CEA604 /* BrandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A551CC29537B4800CEA604 /* BrandView.swift */; };
+		A0B6872729671007003A780F /* ReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B6872629671007003A780F /* ReviewCell.swift */; };
+		A0B6872A29671091003A780F /* ReviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B6872929671091003A780F /* ReviewDataSource.swift */; };
 		A0D505D5293F896300D89122 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D505D4293F896300D89122 /* TutorialCell.swift */; };
 		A0E81D3C295DE9BA00236D0D /* DoctorBasicInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E81D3B295DE9BA00236D0D /* DoctorBasicInformationView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
@@ -441,6 +443,8 @@
 		A097CC8B29379DA400C587AD /* ExtendedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedLabel.swift; sourceTree = "<group>"; };
 		A097CC8E2937A91A00C587AD /* ProductListingFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductListingFilterView.swift; sourceTree = "<group>"; };
 		A0A551CC29537B4800CEA604 /* BrandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandView.swift; sourceTree = "<group>"; };
+		A0B6872629671007003A780F /* ReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewCell.swift; sourceTree = "<group>"; };
+		A0B6872929671091003A780F /* ReviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDataSource.swift; sourceTree = "<group>"; };
 		A0D505D4293F896300D89122 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
 		A0E81D3B295DE9BA00236D0D /* DoctorBasicInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBasicInformationView.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -718,6 +722,7 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A0B6872529670FF1003A780F /* Reviews */,
 				18D91C3B291E0568003F2328 /* Items */,
 				1891A4C3291D7971007D98DA /* ProductInfo */,
 				930175792884885400151A4B /* Buttons */,
@@ -762,6 +767,7 @@
 			isa = PBXGroup;
 			children = (
 				93E7A8AD28A2A52F008371D1 /* AttributeValues.swift */,
+				A0B687282967107A003A780F /* Review */,
 				9A88B76F288DBD3700BE1E05 /* Booking */,
 				9A88B767288DB78B00BE1E05 /* EHealthDataSource */,
 				B56181A02862B643009BE6E5 /* Subcription */,
@@ -1293,6 +1299,22 @@
 			path = BrandView;
 			sourceTree = "<group>";
 		};
+		A0B6872529670FF1003A780F /* Reviews */ = {
+			isa = PBXGroup;
+			children = (
+				A0B6872629671007003A780F /* ReviewCell.swift */,
+			);
+			path = Reviews;
+			sourceTree = "<group>";
+		};
+		A0B687282967107A003A780F /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				A0B6872929671091003A780F /* ReviewDataSource.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		A0D505D3293F88FF00D89122 /* TutorialCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1635,6 +1657,7 @@
 				B55B372D2836425B005245AB /* Utils.swift in Sources */,
 				A0E81D3C295DE9BA00236D0D /* DoctorBasicInformationView.swift in Sources */,
 				93C2EA3D28AF41E100371DFE /* SignUpViewModel.swift in Sources */,
+				A0B6872A29671091003A780F /* ReviewDataSource.swift in Sources */,
 				933D191C2819940B00F1CCC4 /* ApplicationDataHandler.swift in Sources */,
 				9343119A28DB6D8F003B77F9 /* EmptyView.swift in Sources */,
 				9393CCD128C64F4300DF6C50 /* UpdateEHProfileViewModel.swift in Sources */,
@@ -1676,6 +1699,7 @@
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
 				189F8BEB2924E16600DBB5E1 /* Footer.swift in Sources */,
 				B5061C04286BF22700A03271 /* OrderStatusView.swift in Sources */,
+				A0B6872729671007003A780F /* ReviewCell.swift in Sources */,
 				B56181972862B59D009BE6E5 /* ItemUnit.swift in Sources */,
 				93D73F1228450CFD0015C4FB /* InventoryServices.swift in Sources */,
 				A0979E49293B8B2F00E243A0 /* PlanView.swift in Sources */,

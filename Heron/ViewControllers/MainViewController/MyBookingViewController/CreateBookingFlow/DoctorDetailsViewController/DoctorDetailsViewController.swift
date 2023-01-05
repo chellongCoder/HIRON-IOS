@@ -26,6 +26,8 @@ class DoctorDetailsViewController: PageScrollViewController {
     private let workExpContents     = UILabel()
     private let certContents        = UILabel()
     
+    private let reviewView          = UIView()
+    
     private let confirmBtn          = UIButton()
     
     private let aboutTitle          = UILabel()
@@ -302,7 +304,7 @@ class DoctorDetailsViewController: PageScrollViewController {
         workExpContents.textColor = kDefaultTextColor
         workExpContents.font = getCustomFont(size: 13.5, name: .regular)
         workExpContents.numberOfLines = 0
-        contentView.addSubview(workExpContents)
+        self.pageScroll.addSubview(workExpContents)
         workExpContents.snp.makeConstraints { make in
             make.top.equalTo(workExpTitle.snp.bottom).offset(12)
             make.left.equalToSuperview().offset(16)
@@ -343,17 +345,134 @@ class DoctorDetailsViewController: PageScrollViewController {
             make.top.equalTo(certificateTitle.snp.bottom).offset(12)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-70)
         }
+        
+        let line4 = UIView()
+        line4.layer.backgroundColor = kGrayColor.cgColor
+        self.pageScroll.addSubview(line4)
+        line4.snp.makeConstraints { make in
+            make.top.equalTo(certContents.snp.bottom).offset(20)
+            make.width.equalToSuperview()
+            make.height.equalTo(6)
+        }
+        
+        self.pageScroll.addSubview(reviewView)
+        reviewView.snp.makeConstraints { make in
+            make.top.equalTo(line4.snp.bottom)
+            make.left.right.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        self.reloadReviewData()
     }
     
-    // MARK: - Buttons
+    // MARK: - UI/UX
+    
+    private func reloadReviewData() {
+        // Remove old reviews
+        for subview in self.reviewView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        let reviewTilte = UILabel()
+        reviewTilte.text = "Reviews"
+        reviewTilte.font = getCustomFont(size: 13.5, name: .bold)
+        reviewTilte.textColor = kDefaultTextColor
+        reviewTilte.textAlignment = .left
+        reviewView.addSubview(reviewTilte)
+        reviewTilte.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.left.equalToSuperview().offset(16)
+        }
+        
+        let starImage = UILabel()
+        starImage.text = "★"
+        starImage.font = getCustomFont(size: 11, name: .medium)
+        starImage.textColor = .red
+        reviewView.addSubview(starImage)
+        starImage.snp.makeConstraints { make in
+            make.top.equalTo(reviewTilte.snp.bottom).offset(15)
+            make.left.equalToSuperview().offset(16)
+        }
+        
+        let numberStar = UILabel()
+        numberStar.text = "4.5"
+        numberStar.font = getCustomFont(size: 13.5, name: .regular)
+        numberStar.textColor = kDefaultTextColor
+        reviewView.addSubview(numberStar)
+        numberStar.snp.makeConstraints { make in
+            make.top.equalTo(starImage)
+            make.left.equalTo(starImage.snp.right).offset(2)
+        }
+        
+        let sepraterLine = UIView()
+        sepraterLine.backgroundColor = kLightGrayColor
+        reviewView.addSubview(sepraterLine)
+        sepraterLine.snp.makeConstraints { make in
+            make.top.height.equalTo(numberStar)
+            make.left.equalTo(numberStar.snp.right).offset(8)
+            make.width.equalTo(0.5)
+        }
+        
+        let totalReviews = UILabel()
+        totalReviews.text = "80 reviews"
+        totalReviews.font = getCustomFont(size: 13.5, name: .regular)
+        totalReviews.textColor = kDefaultTextColor
+        totalReviews.textAlignment = .left
+        reviewView.addSubview(totalReviews)
+        totalReviews.snp.makeConstraints { make in
+            make.top.equalTo(sepraterLine)
+            make.left.equalTo(sepraterLine.snp.right).offset(8)
+        }
+        
+        let showReviewIconBtn = UIButton()
+        showReviewIconBtn.setImage(UIImage.init(named: "right_icon"), for: .normal)
+        showReviewIconBtn.addTarget(self, action: #selector(showAllButtonTapped), for: .touchUpInside)
+        reviewView.addSubview(showReviewIconBtn)
+        showReviewIconBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(totalReviews)
+            make.right.equalToSuperview().offset(-16)
+            make.height.width.equalTo(24)
+        }
+        
+        let showReviewBtn = UIButton()
+        showReviewBtn.setTitle("Show all", for: .normal)
+        showReviewBtn.titleLabel?.font = getCustomFont(size: 11.5, name: .regular)
+        showReviewBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        showReviewBtn.addTarget(self, action: #selector(showAllButtonTapped), for: .touchUpInside)
+        reviewView.addSubview(showReviewBtn)
+        showReviewBtn.snp.makeConstraints { make in
+            make.centerY.equalTo(showReviewIconBtn)
+            make.right.equalTo(showReviewIconBtn.snp.left)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        var lastReviewView: UIView = showReviewBtn
+
+        for reviewData in self.viewModel.doctorReviews.value {
+
+            let newCell = ReviewCell()
+            newCell.setDataSource(reviewData)
+            self.reviewView.addSubview(newCell)
+            newCell.snp.makeConstraints { make in
+                make.top.equalTo(lastReviewView.snp.bottom)
+                make.left.right.equalToSuperview()
+            }
+
+            lastReviewView = newCell
+        }
+        
+        lastReviewView.snp.makeConstraints({ make in
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        })
+        
+    }
+    
+    // MARK: - UIButton Action
     @objc private func confirmButtonTapped() {
         let selectDateVC = SelectDateAndTimeBookingViewController()
         self.navigationController?.pushViewController(selectDateVC, animated: true)
     }
-    
-    // MARK: - UIButton Action
     
     @objc private func moreButtonTapped() {
         let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
@@ -394,6 +513,18 @@ class DoctorDetailsViewController: PageScrollViewController {
             
             self.aboutContents.layoutIfNeeded()
         }
+    }
+    
+    @objc private func showAllButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
     }
     
     // MARK: - Data
@@ -440,6 +571,13 @@ class DoctorDetailsViewController: PageScrollViewController {
                 }) {
                     self.certContents.text = certificateAttribute.value
                 }
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.doctorReviews
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                self.reloadReviewData()
             }
             .disposed(by: disposeBag)
     }
