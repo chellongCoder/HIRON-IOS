@@ -711,11 +711,9 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.topMediaViewHeight = self.topMediaView.frame.size.height
             }
             let contentOffset = scrollView.contentOffset
-            print("contentOffset.y + \(contentOffset.y)")
             if (contentOffset.y >= self.topMediaViewHeight * 0.2) {
                 let alpha = min(1, 2 * contentOffset.y / self.topMediaViewHeight - 1)
                 self.topMediaView.alpha = 1 - alpha
-                print(self.topMediaViewHeight)
                 if (!self.showTabView && contentOffset.y >= self.topMediaViewHeight * 0.8) {
                     DispatchQueue.main.async {
                         self.navigationItem.titleView = self.topView
@@ -729,14 +727,9 @@ class ProductDetailsViewController: PageScrollViewController,
                             make.top.equalToSuperview()
                             make.width.equalToSuperview()
                         })
-                        self.topMediaView.snp.remakeConstraints { make in
-                            make.top.equalTo(64)
-                            make.right.left.equalToSuperview()
-                            make.bottom.equalTo(self.topMediaView.snp.top).offset(0)
-                        }
-                        if(!self.showTabView) {
-                            let topOffset = CGPoint(x: 0, y: 362)
-                            self.pageScroll.setContentOffset(topOffset, animated: true)
+
+                        UIView.animate(withDuration: 1) {
+                            self.topMediaView.layer.height = 0
                         }
                         self.showTabView = true
                     }
@@ -756,6 +749,8 @@ class ProductDetailsViewController: PageScrollViewController,
                 }
             }
             if (self.showTabView && contentOffset.y < self.topMediaViewHeight * 0.8) {
+                let staticHeight = (UIScreen.main.bounds.size.width) * 1
+
                 DispatchQueue.main.async {
                         self.tabView.snp.remakeConstraints({ make in
                         make.left.equalToSuperview().offset(0)
@@ -766,6 +761,10 @@ class ProductDetailsViewController: PageScrollViewController,
                 }
                 
                 self.showTabView = false
+                UIView.animate(withDuration: 1) {
+                    self.topMediaView.layer.height = staticHeight
+                }
+
             }
         }
     }
