@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
+class SelectDoctorViewController: BaseViewController, DoctorListingViewDelegate {
     
     private let viewModel   = SelectDoctorViewModel()
     private let tableView   = UITableView()
@@ -99,12 +99,10 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
             .disposed(by: disposeBag)
         
         viewModel.listDoctor
-            .bind(to: tableView.rx.items) { (_: UITableView, index: Int, element: DoctorDataSource) in
+            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: DoctorDataSource) in
                 let cell = SelectDoctorTableViewCell(style: .default, reuseIdentifier:"SelectDoctorTableViewCell")
                 cell.setDataSource(element)
-                cell.setIsSelected(element.id == _BookingServices.selectedDoctor.value?.id)
-                cell.delegate = self
-                cell.setIndexPath(index)
+                cell.setDelegate(self)
                 return cell
             }
             .disposed(by: disposeBag)
@@ -138,10 +136,9 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
         _NavController.showAlert(alertVC)
     }
     
-    // MARK: - SelectDoctorCellDelegate
-    func bookNow(_ indexPath: Int) {
-        let cellData = self.viewModel.listDoctor.value[indexPath]
-        _BookingServices.selectedDoctor.accept(cellData)
+    // MARK: - DoctorListingViewDelegate
+    func bookNow(_ data: DoctorDataSource) {
+        _BookingServices.selectedDoctor.accept(data)
         let selectDateVC = SelectDateAndTimeBookingViewController()
         self.navigationController?.pushViewController(selectDateVC, animated: true)
     }

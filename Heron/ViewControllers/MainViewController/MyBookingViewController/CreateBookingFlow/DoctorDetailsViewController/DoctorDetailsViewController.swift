@@ -27,6 +27,7 @@ class DoctorDetailsViewController: PageScrollViewController {
     private let certContents        = UILabel()
     
     private let reviewView          = UIView()
+    private let relatedView         = UIView()
     
     private let confirmBtn          = UIButton()
     
@@ -360,10 +361,23 @@ class DoctorDetailsViewController: PageScrollViewController {
         reviewView.snp.makeConstraints { make in
             make.top.equalTo(line4.snp.bottom)
             make.left.right.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         self.reloadReviewData()
+        
+        self.pageScroll.addSubview(relatedView)
+        relatedView.snp.makeConstraints { make in
+            make.top.equalTo(reviewView.snp.bottom)
+            make.left.right.equalToSuperview()
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        }
+        
+        self.reloadRelatedDoctors()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.viewModel.getListDoctor()
     }
     
     // MARK: - UI/UX
@@ -466,6 +480,56 @@ class DoctorDetailsViewController: PageScrollViewController {
             make.bottom.lessThanOrEqualToSuperview().offset(-10)
         })
         
+    }
+    
+    private func reloadRelatedDoctors() {
+        // Remove old reviews
+        for subview in self.relatedView.subviews {
+            subview.removeFromSuperview()
+        }
+        
+        if viewModel.relatedDoctors.value.isEmpty {
+            return
+        }
+        
+        let line5 = UIView()
+        line5.layer.backgroundColor = kGrayColor.cgColor
+        relatedView.addSubview(line5)
+        line5.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(6)
+        }
+        
+        let relatedDoctorTitle = UILabel()
+        relatedDoctorTitle.text = "Related doctor"
+        relatedDoctorTitle.font = getCustomFont(size: 13.5, name: .bold)
+        relatedDoctorTitle.textColor = kDefaultTextColor
+        relatedDoctorTitle.textAlignment = .left
+        relatedView.addSubview(relatedDoctorTitle)
+        relatedDoctorTitle.snp.makeConstraints { make in
+            make.top.equalTo(line5.snp.bottom).offset(24)
+            make.left.equalToSuperview().offset(16)
+        }
+        
+        var lastRelatedView: UIView = relatedDoctorTitle
+
+        for doctorData in self.viewModel.relatedDoctors.value {
+
+            let newCell = DoctorListingView()
+            newCell.setDataSource(doctorData)
+            self.relatedView.addSubview(newCell)
+            newCell.snp.makeConstraints { make in
+                make.top.equalTo(lastRelatedView.snp.bottom)
+                make.left.right.equalToSuperview()
+            }
+
+            lastRelatedView = newCell
+        }
+        
+        lastRelatedView.snp.makeConstraints({ make in
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
+        })
     }
     
     // MARK: - UIButton Action
@@ -578,6 +642,13 @@ class DoctorDetailsViewController: PageScrollViewController {
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
                 self.reloadReviewData()
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.relatedDoctors
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                self.reloadRelatedDoctors()
             }
             .disposed(by: disposeBag)
     }
