@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import CoreML
 
 class DoctorDetailsViewController: PageScrollViewController {
 
@@ -513,10 +514,12 @@ class DoctorDetailsViewController: PageScrollViewController {
         }
         
         var lastRelatedView: UIView = relatedDoctorTitle
+        var index = 0
 
         for doctorData in self.viewModel.relatedDoctors.value {
 
             let newCell = DoctorListingView()
+            newCell.tag = index
             newCell.setDataSource(doctorData)
             self.relatedView.addSubview(newCell)
             newCell.snp.makeConstraints { make in
@@ -524,7 +527,12 @@ class DoctorDetailsViewController: PageScrollViewController {
                 make.left.right.equalToSuperview()
             }
 
+            // add touchActions
+            let touched = UITapGestureRecognizer.init(target: self, action: #selector(handleDoctorSelected(_:)))
+            newCell.addGestureRecognizer(touched)
+            
             lastRelatedView = newCell
+            index += 1
         }
         
         lastRelatedView.snp.makeConstraints({ make in
@@ -589,6 +597,14 @@ class DoctorDetailsViewController: PageScrollViewController {
             alertVC.dismiss()
         }))
         _NavController.showAlert(alertVC)
+    }
+    
+    @objc private func handleDoctorSelected(_ sender: UITapGestureRecognizer) {
+        if let index = sender.view?.tag {
+            let doctorData = viewModel.relatedDoctors.value[index]
+            viewModel.doctorData.accept(doctorData)
+            viewModel.getListDoctor()
+        }
     }
     
     // MARK: - Data
