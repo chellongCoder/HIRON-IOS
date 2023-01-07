@@ -91,6 +91,7 @@ class UserAddressListingViewController: BaseViewController,
     @objc private func addNewAddressButtonTapped() {
         
         let newAddressVC = AddUserAddressViewController()
+        newAddressVC.title = "Add New Address"
         if _DeliveryServices.listUserAddress.value.isEmpty {
             // First address
             let userProfile = _AppCoreData.userDataSource.value
@@ -157,6 +158,7 @@ class UserAddressListingViewController: BaseViewController,
     // MARK: - UserAddressCellDelegate
     func didEditAddress(_ address: ContactDataSource) {
         let newAddressVC = AddUserAddressViewController()
+        newAddressVC.title = "Edit Address"
         newAddressVC.viewModel.contact.accept(address)
         newAddressVC.viewModel.isUpdated = true
         self.navigationController?.pushViewController(newAddressVC, animated: true)

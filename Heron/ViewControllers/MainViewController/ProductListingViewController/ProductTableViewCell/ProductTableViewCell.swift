@@ -54,7 +54,7 @@ class ProductTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(tagsViewStack)
         tagsViewStack.snp.makeConstraints { make in
-            make.top.equalTo(productTitleLabel.snp.bottom)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
             make.left.right.equalTo(productTitleLabel)
             make.height.equalTo(14)
         }

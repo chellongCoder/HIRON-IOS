@@ -35,7 +35,6 @@ class AddUserAddressViewController: PageScrollViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        navigationItem.title = "Add new address"
         self.showBackBtn()
         
         viewModel.controller = self
