@@ -9,33 +9,61 @@ import UIKit
 
 class SelectDepartmentViewController: BaseViewController {
 
-    private let viewModel   = SelectDepartmentViewModel()
-    private let tableView   = UITableView()
+    private let viewModel       = SelectDepartmentViewModel()
+    private var collectionView  : UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Select Specialty"
+        navigationItem.title = "Choose a service"
         viewModel.controller = self
         
         self.showBackBtn()
-        
-        let nextBtn = UIBarButtonItem.init(title: "Next",
+        let moreBtn = UIBarButtonItem.init(image: UIImage.init(named: "moreI_bar_icon"),
                                            style: .plain,
                                            target: self,
-                                           action: #selector(nextButtonTapped))
-        self.navigationItem.rightBarButtonItem = nextBtn
+                                           action: #selector(moreButtonTapped))
+        self.navigationItem.rightBarButtonItem = moreBtn
+        
+        let textLabel = UILabel()
+        textLabel.text = "Please select the service you are care."
+        textLabel.font = getCustomFont(size: 13.5, name: .semiBold)
+        textLabel.textColor = kDefaultTextColor
+        self.view.addSubview(textLabel)
+        textLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(24)
+            make.left.equalToSuperview().offset(20)
+        }
+        
+        let viewWidth = UIScreen.main.bounds.size.width/2
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.itemSize = CGSize(width: viewWidth, height: viewWidth)
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        
+        var fixedHeight = viewWidth // 1 row
+        if viewModel.listDepartments.value.count >= 6 {
+            // 2 rows
+            fixedHeight = viewWidth*2
+        }
+        
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView?.register(SelectDepartmentsCollectionViewCell.self, forCellWithReuseIdentifier: "SelectDepartmentsCollectionViewCell")
+        collectionView?.showsVerticalScrollIndicator = false
+        collectionView?.isScrollEnabled = false
+        collectionView?.backgroundColor = .white
+        self.view.addSubview(collectionView!)
+        collectionView?.snp.makeConstraints { make in
+            make.top.equalTo(textLabel.snp.bottom).offset(24)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview()
+            make.height.equalTo(fixedHeight)
+            make.bottom.lessThanOrEqualToSuperview().offset(-50)
+        }
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
-        tableView.addSubview(refreshControl)
-        
-        tableView.separatorStyle = .none
-        tableView.backgroundColor = kBackgroundColor
-        tableView.register(SelectDepartmentsTableViewCell.self, forCellReuseIdentifier: "SelectDepartmentsTableViewCell")
-        self.view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
-            make.top.bottom.centerX.width.equalTo(self.view.safeAreaLayoutGuide)
-        }
+        collectionView?.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +78,18 @@ class SelectDepartmentViewController: BaseViewController {
         self.navigationController?.pushViewController(selectDoctorVC, animated: true)
     }
     
+    @objc private func moreButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
     // MARK: - Data
     
     override func reloadData() {
@@ -57,24 +97,23 @@ class SelectDepartmentViewController: BaseViewController {
     }
     
     override func bindingData() {
+        
         viewModel.listDepartments
-            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: TeamDataSource) in
-                let cell = SelectDepartmentsTableViewCell(style: .default, reuseIdentifier:"SelectDoctorTableViewCell")
-                if let department = element.department {
+            .bind(to: collectionView!.rx.items(cellIdentifier: "SelectDepartmentsCollectionViewCell") ) { ( index: Int, productData: TeamDataSource, cell: SelectDepartmentsCollectionViewCell) in
+                cell.cellContentView.backgroundColor = self.viewModel.getBackgroundColor(index)
+                if let department = productData.department {
                     cell.setDataSource(department)
                 }
-                cell.setIsSelected(element.id == _BookingServices.selectedDepartment.value?.id)
-                return cell
             }
             .disposed(by: disposeBag)
         
-        tableView.rx.itemSelected
+        collectionView?.rx.itemSelected
           .subscribe(onNext: { [weak self] indexPath in
               
               let elementData = self?.viewModel.listDepartments.value[indexPath.row]
               _BookingServices.selectedDepartment.accept(elementData)
               
-              self?.tableView.reloadData()
+              self?.collectionView?.reloadData()
               self?.nextButtonTapped()
               
           }).disposed(by: disposeBag)

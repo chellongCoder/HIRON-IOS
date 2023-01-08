@@ -72,6 +72,47 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
             make.width.equalToSuperview().offset(-32)
         }
         
+        var nextView : UIView = guidelineView
+        if let selectedVoucher = _CartServices.voucherCode.value {
+            
+            let addedTitle = UILabel()
+            addedTitle.text = "Added"
+            addedTitle.textColor = kDefaultTextColor
+            addedTitle.font = getCustomFont(size: 13, name: .bold)
+            self.view.addSubview(addedTitle)
+            addedTitle.snp.makeConstraints { make in
+                make.top.equalTo(guidelineView.snp.bottom).offset(20)
+                make.left.equalToSuperview().offset(16)
+            }
+            
+            let chipView = ChipViewVoucher.init(title: selectedVoucher.couponRule?.title ?? "")
+            chipView.layer.cornerRadius = 15
+            self.view.addSubview(chipView)
+            chipView.snp.makeConstraints { make in
+                make.top.equalTo(addedTitle.snp.bottom).offset(16)
+                make.left.equalToSuperview().offset(16)
+                make.height.equalTo(30)
+            }
+            
+            chipView.imageIcon.snp.remakeConstraints { make in
+                make.height.width.equalTo(18)
+                make.centerY.equalToSuperview()
+                make.left.equalToSuperview().offset(12)
+            }
+            
+            chipView.textLabel.font = getCustomFont(size: 13, name: .bold)
+            
+            chipView.clearBtn.snp.remakeConstraints { make in
+                make.centerY.equalToSuperview()
+                make.height.width.equalTo(18)
+                make.height.equalToSuperview().offset(-12)
+                make.left.equalTo(chipView.textLabel.snp.right).offset(12)
+                make.right.equalToSuperview().offset(-6)
+            }
+            
+            nextView = chipView
+        }
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
@@ -79,7 +120,7 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
         tableView.register(VoucherTableViewCell.self, forCellReuseIdentifier: "VoucherTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(guidelineView.snp.bottom).offset(20)
+            make.top.equalTo(nextView.snp.bottom).offset(20)
             make.centerX.width.equalToSuperview()
             make.bottom.equalToSuperview()
         }

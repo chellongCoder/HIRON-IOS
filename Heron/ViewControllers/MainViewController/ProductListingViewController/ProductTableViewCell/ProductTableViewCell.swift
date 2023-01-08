@@ -28,9 +28,11 @@ class ProductTableViewCell: UITableViewCell {
         self.backgroundColor = kBackgroundColor
 
         packageImage.image = UIImage(named: "default-image")
-        packageImage.contentMode = .scaleAspectFill
+        packageImage.contentMode = .scaleAspectFit
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
+        packageImage.layer.borderColor = kGrayColor.cgColor
+        packageImage.layer.borderWidth = 2
         self.contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(15)
@@ -52,7 +54,7 @@ class ProductTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(tagsViewStack)
         tagsViewStack.snp.makeConstraints { make in
-            make.top.equalTo(productTitleLabel.snp.bottom)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
             make.left.right.equalTo(productTitleLabel)
             make.height.equalTo(14)
         }

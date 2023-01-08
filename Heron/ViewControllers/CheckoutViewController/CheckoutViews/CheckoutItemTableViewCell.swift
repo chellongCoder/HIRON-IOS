@@ -29,6 +29,8 @@ class CheckoutItemTableViewCell: UITableViewCell {
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
+        packageImage.layer.borderColor = kGrayColor.cgColor
+        packageImage.layer.borderWidth = 2
         self.contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
             make.top.equalToSuperview().offset(11)

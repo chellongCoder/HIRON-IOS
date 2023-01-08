@@ -32,6 +32,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
         packageImage.contentMode = .scaleAspectFill
         packageImage.clipsToBounds = true
         packageImage.layer.cornerRadius = 8
+        packageImage.layer.borderColor = kGrayColor.cgColor
+        packageImage.layer.borderWidth = 2
         self.contentView.addSubview(packageImage)
         packageImage.snp.makeConstraints { (make) in
             make.top.left.equalToSuperview().offset(10)

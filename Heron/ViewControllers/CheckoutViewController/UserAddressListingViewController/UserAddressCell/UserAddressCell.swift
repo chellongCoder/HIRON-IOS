@@ -27,6 +27,7 @@ class UserAddressCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = .white
         
+        selectButton.isUserInteractionEnabled = false
         selectButton.setBackgroundImage(UIImage.init(named: "radio_inactive_btn"), for: .normal)
         selectButton.setBackgroundImage(UIImage.init(named: "radio_active_btn"), for: .selected)
         selectButton.isUserInteractionEnabled = false

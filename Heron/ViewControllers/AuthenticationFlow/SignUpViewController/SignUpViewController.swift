@@ -70,7 +70,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let firstNameLabel = UILabel()
-        firstNameLabel.text = "First name"
+        firstNameLabel.text = "First name *"
         firstNameLabel.font = getCustomFont(size: 11, name: .light)
         firstNameLabel.textColor = kDarkColor
         firstNameLabel.textAlignment = .left
@@ -81,7 +81,7 @@ class SignUpViewController: BaseViewController,
         }
         
         firstNameTxt.delegate = self
-        firstNameTxt.setPlaceHolderText(" First name *")
+        firstNameTxt.setPlaceHolderText(" First name")
         firstNameTxt.textColor = kDefaultTextColor
         contentScrollView.addSubview(firstNameTxt)
         firstNameTxt.snp.makeConstraints { make in
@@ -234,7 +234,7 @@ class SignUpViewController: BaseViewController,
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
-        passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
         passwordTxt.rightAction = {
             self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
             if self.passwordTxt.isSecureTextEntry {
@@ -252,7 +252,7 @@ class SignUpViewController: BaseViewController,
         }
         
         let retypePasswordLabel = UILabel()
-        retypePasswordLabel.text = "Password Confirm"
+        retypePasswordLabel.text = "Confirm Password"
         retypePasswordLabel.font = getCustomFont(size: 11, name: .light)
         retypePasswordLabel.textColor = kDarkColor
         retypePasswordLabel.textAlignment = .left
@@ -266,7 +266,7 @@ class SignUpViewController: BaseViewController,
         retypePasswordTxt.setPlaceHolderText("Password")
         retypePasswordTxt.isSecureTextEntry = true
         retypePasswordTxt.textColor = kDefaultTextColor
-        retypePasswordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        retypePasswordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
         retypePasswordTxt.rightAction = {
             self.retypePasswordTxt.isSecureTextEntry = !self.retypePasswordTxt.isSecureTextEntry
             if self.retypePasswordTxt.isSecureTextEntry {
@@ -480,10 +480,11 @@ class SignUpViewController: BaseViewController,
         userData.password = passwordTxt.text ?? ""
         
         if retypePasswordTxt.text != passwordTxt.text {
-            retypePasswordTxt.setError("Password Confirm not matched")
+            retypePasswordTxt.setError("Confirm Password not matched")
         } else {
             retypePasswordTxt.setError(nil)
         }
+        userData.passwordConfirm = retypePasswordTxt.text ?? ""
 
         if phoneNumberTxt.isValidNumber {
             phoneNumberTxt.textColor = kDefaultTextColor

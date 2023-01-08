@@ -25,7 +25,7 @@ class BaseViewController: UIViewController {
     }
     
     func showBackBtn() {
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(named: "left_icon"),
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(named: "back_icon_nav"),
                                            style: .plain,
                                            target: self,
                                            action: #selector(backButtonTapped))

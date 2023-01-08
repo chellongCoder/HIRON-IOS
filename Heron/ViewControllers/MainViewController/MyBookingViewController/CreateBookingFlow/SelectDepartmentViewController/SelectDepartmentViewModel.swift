@@ -36,4 +36,11 @@ class SelectDepartmentViewModel: NSObject {
             }
         }
     }
+    
+    func getBackgroundColor(_ index: Int) -> UIColor {
+        let sourceColor = ["fdefda", "eefbfb", "ebedfa", "fbedf9", "fff0f0", "e6faf5", "fbf5d8", "fff0e6"]
+        
+        let countedIndex = index % sourceColor.count
+        return UIColor.init(hexString: sourceColor[countedIndex])!
+    }
 }

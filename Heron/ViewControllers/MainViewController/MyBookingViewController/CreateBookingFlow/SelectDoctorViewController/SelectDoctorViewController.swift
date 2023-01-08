@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
+class SelectDoctorViewController: BaseViewController, DoctorListingViewDelegate {
     
     private let viewModel   = SelectDoctorViewModel()
     private let tableView   = UITableView()
@@ -16,10 +16,34 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Select Doctor"
+        navigationItem.title = "Choose Doctor"
         viewModel.controller = self
         
-        self.showBackBtn()
+//        self.showBackBtn()
+        
+        let moreBtn = UIBarButtonItem.init(image: UIImage.init(named: "moreI_bar_icon"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(moreButtonTapped))
+        let filterBtn = UIBarButtonItem.init(image: UIImage.init(named: "filter_funnel_choose"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(moreButtonTapped))
+        let sliderBtn = UIBarButtonItem.init(image: UIImage.init(named: "sliders_choose"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(moreButtonTapped))
+        self.navigationItem.rightBarButtonItems = [moreBtn, filterBtn, sliderBtn]
+        
+        let backBtn = UIBarButtonItem.init(image: UIImage.init(named: "back_icon_nav"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(backButtonTapped))
+        let searchBtn = UIBarButtonItem.init(image: UIImage.init(named: "search_choose"),
+                                           style: .plain,
+                                           target: self,
+                                           action: #selector(moreButtonTapped))
+        self.navigationItem.leftBarButtonItems = [backBtn, searchBtn]
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
@@ -75,12 +99,10 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
             .disposed(by: disposeBag)
         
         viewModel.listDoctor
-            .bind(to: tableView.rx.items) { (_: UITableView, index: Int, element: DoctorDataSource) in
+            .bind(to: tableView.rx.items) { (_: UITableView, _: Int, element: DoctorDataSource) in
                 let cell = SelectDoctorTableViewCell(style: .default, reuseIdentifier:"SelectDoctorTableViewCell")
                 cell.setDataSource(element)
-                cell.setIsSelected(element.id == _BookingServices.selectedDoctor.value?.id)
-                cell.delegate = self
-                cell.setIndexPath(index)
+                cell.setDelegate(self)
                 return cell
             }
             .disposed(by: disposeBag)
@@ -100,10 +122,23 @@ class SelectDoctorViewController: BaseViewController, SelectDoctorCellDelegate {
 
     }
     
-    // MARK: - SelectDoctorCellDelegate
-    func bookNow(_ indexPath: Int) {
-        let cellData = self.viewModel.listDoctor.value[indexPath]
-        _BookingServices.selectedDoctor.accept(cellData)
+    // MARK: - UIButton Action
+    
+    @objc private func moreButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
+    // MARK: - DoctorListingViewDelegate
+    func bookNow(_ data: DoctorDataSource) {
+        _BookingServices.selectedDoctor.accept(data)
         let selectDateVC = SelectDateAndTimeBookingViewController()
         self.navigationController?.pushViewController(selectDateVC, animated: true)
     }

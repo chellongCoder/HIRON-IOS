@@ -21,52 +21,73 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Select Date"
+        self.title = "Select Visiting Date"
         self.viewModel.controller = self
 
-        let backBtn = UIBarButtonItem.init(image: UIImage.init(systemName: "chevron.backward")?.withRenderingMode(.alwaysOriginal),
+        self.showBackBtn()
+        
+        let moreBtn = UIBarButtonItem.init(image: UIImage.init(named: "moreI_bar_icon"),
                                            style: .plain,
                                            target: self,
-                                           action: #selector(backButtonTapped))
-        self.navigationItem.leftBarButtonItem = backBtn
+                                           action: #selector(moreButtonTapped))
+        self.navigationItem.rightBarButtonItem = moreBtn
                 
+        let calendarView = UIView()
+        calendarView.layer.borderWidth = 0.7
+        calendarView.layer.borderColor = kPrimaryColor.cgColor
+        calendarView.layer.cornerRadius = 10
+        calendarView.backgroundColor = .white
+        calendarView.layer.shadowColor = UIColor.black.cgColor // Màu đổ bóng
+        calendarView.layer.shadowOffset = CGSize(width: 1, height: 1) // Hướng đổ bóng + right/bottom, - left/top
+        calendarView.layer.shadowRadius = 6 // Độ rộng đổ bóng
+        calendarView.layer.shadowOpacity = 0.3 // Độ đậm nhạt
+        self.view.addSubview(calendarView)
+        calendarView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(20)
+            make.width.equalToSuperview().offset(-32)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(calendarView.snp.width).multipliedBy(0.85)
+        }
+        
         calendar.dataSource = self
         calendar.delegate = self
-        self.view.addSubview(calendar)
+        calendarView.addSubview(calendar)
         calendar.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.left.right.equalToSuperview()
-            make.height.equalTo(calendar.snp.width).multipliedBy(0.85)
+            make.center.size.equalToSuperview()
         }
         
         let chooseTime = UILabel()
-        chooseTime.text = NSLocalizedString("Select time", comment: "")
-        chooseTime.textColor = .lightGray
-        chooseTime.font = getCustomFont(size: 16, name: .medium)
+        chooseTime.text = NSLocalizedString("Visiting Time", comment: "")
+        chooseTime.textColor = kDefaultTextColor
+        chooseTime.textAlignment = .center
+        chooseTime.font = getCustomFont(size: 13.5, name: .bold)
         self.view.addSubview(chooseTime)
         chooseTime.snp.makeConstraints {
-            $0.top.equalTo(calendar.snp.bottom).offset(10)
+            $0.top.equalTo(calendarView.snp.bottom).offset(30)
             $0.left.equalToSuperview().offset(16)
+            $0.centerX.equalToSuperview()
             $0.right.equalToSuperview().offset(-16)
         }
         
         let bottomView = UIView()
         self.view.addSubview(bottomView)
         bottomView.snp.makeConstraints { make in
-            make.left.right.bottom.equalToSuperview()
+            make.left.right.equalToSuperview()
+            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
             make.height.equalTo(80)
         }
         
         confirmBtn.setTitle("Continue", for: .normal)
+        confirmBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
         confirmBtn.isUserInteractionEnabled = false
-        confirmBtn.layer.cornerRadius = 8
+        confirmBtn.layer.cornerRadius = 20
         confirmBtn.backgroundColor = kDisableColor
         confirmBtn.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         bottomView.addSubview(self.confirmBtn)
         confirmBtn.snp.makeConstraints { make in
             make.center.equalToSuperview()
-            make.width.equalToSuperview().offset(-40)
-            make.height.equalTo(50)
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
         }
 
         let layout = SelectDateCalendarFlowLayout()
@@ -90,7 +111,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         })
         
         emptyView.titleLabel.text = "Sorry, it seems like there are no doctors available for this date"
-        emptyView.messageLabel.text = "Please select different date with availability (dates with a dot next by on calendar)"
+        emptyView.messageLabel.text = "Please select a different date.\n(Dates with a dot next by on calendar)"
         emptyView.actionButon.isHidden = true
         emptyView.isHidden = true
         self.view.addSubview(emptyView)
@@ -136,6 +157,18 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         self.navigationController?.popViewController(animated: true)
     }
     
+    @objc private func moreButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
     // MARK: - Mapping Data
     override func bindingData() {
         viewModel.listTimeables
@@ -154,7 +187,10 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
                     self.confirmBtn.backgroundColor = kPrimaryColor
                 } else {
                     self.confirmBtn.isUserInteractionEnabled = false
-                    self.confirmBtn.backgroundColor = kDisableColor
+                    self.confirmBtn.backgroundColor = .white
+                    self.confirmBtn.setTitleColor(kPrimaryColor, for: .normal)
+                    self.confirmBtn.layer.borderColor = kPrimaryColor.cgColor
+                    self.confirmBtn.layer.borderWidth = 0.7
                 }
             }
             .disposed(by: disposeBag)

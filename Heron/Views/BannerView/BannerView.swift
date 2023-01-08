@@ -15,6 +15,7 @@ class BannerView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.masksToBounds = true
+        self.backgroundColor = .white
         
         bannerImage.image = UIImage.init(named: "default-image")
         bannerImage.contentMode = .scaleAspectFit

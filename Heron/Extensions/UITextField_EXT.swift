@@ -28,7 +28,7 @@ class TextField: UITextField {
 class BoundedIconTextField: UITextField {
 
     let padding             = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 40)
-    private let rightIcon   = UIButton()
+    private let rightIcon   = ExtendedButton()
     private let errorLabel  = UILabel()
     
     var rightAction : (() -> Void)? = {}
@@ -50,8 +50,8 @@ class BoundedIconTextField: UITextField {
         addSubview(rightIcon)
         rightIcon.snp.makeConstraints { (make) in
             make.centerY.equalToSuperview()
-            make.right.equalToSuperview().offset(-12)
-            make.width.height.equalTo(28)
+            make.right.equalToSuperview()
+            make.width.height.equalTo(40)
         }
         
         self.addSubview(errorLabel)
@@ -82,7 +82,7 @@ class BoundedIconTextField: UITextField {
         }
         
         self.rightIcon.isHidden = false
-        rightIcon.setImage(image, for: .normal)
+        rightIcon.setBackgroundImage(image, for: .normal)
     }
     
     @objc private func rightButtonTapped() {

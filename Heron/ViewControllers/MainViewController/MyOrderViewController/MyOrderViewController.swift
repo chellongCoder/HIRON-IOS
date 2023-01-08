@@ -214,6 +214,66 @@ class MyOrderViewController: BaseViewController,
         }
     }
     
+    @objc private func chatButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
+    @objc private func cancelButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
+    @objc private func confirmButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
+    @objc private func returnButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
+    @objc private func shippingButtonTapped() {
+        let alertVC = UIAlertController.init(title: NSLocalizedString("Ops!", comment: ""),
+                                             message: "This feature is not available at the moment.",
+                                             preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction.init(title: NSLocalizedString("OK", comment: ""),
+                                             style: .default,
+                                             handler: { _ in
+            alertVC.dismiss()
+        }))
+        _NavController.showAlert(alertVC)
+    }
+    
     // MARK: - Binding Data
     override func bindingData() {
         viewModel.orders
@@ -305,7 +365,7 @@ class MyOrderViewController: BaseViewController,
         }
         
         let idLabel = UILabel()
-        idLabel.text = "ID order #\(orderData.code)"
+        idLabel.text = "Order ID #\(orderData.code)"
         idLabel.font = getCustomFont(size: 13, name: .regular)
         idLabel.textColor = kDefaultTextColor
         headerView.addSubview(idLabel)
@@ -334,14 +394,24 @@ class MyOrderViewController: BaseViewController,
         
         let sessionData = self.viewModel.orders.value[section]
         
+        let priceLabel = UILabel()
+        priceLabel.text = getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable)
+        priceLabel.font = getCustomFont(size: 13, name: .bold)
+        priceLabel.textColor = kDefaultTextColor
+        headerView.addSubview(priceLabel)
+        priceLabel.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-17)
+        }
+        
         let totalLabel = UILabel()
-        totalLabel.text = String(format: "Total %@", getMoneyFormat(sessionData.orderPayment?.metadata?.checkoutPriceData?.customTotalPayable))
+        totalLabel.text = "Total "
         totalLabel.font = getCustomFont(size: 13, name: .regular)
         totalLabel.textColor = kDefaultTextColor
         headerView.addSubview(totalLabel)
         totalLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-17)
+            make.right.equalTo(priceLabel.snp.left)
         }
                 
         let productCountLabel = UILabel()
@@ -360,33 +430,96 @@ class MyOrderViewController: BaseViewController,
             $0.bottom.equalToSuperview().offset(-15)
         }
         
-        #warning("hardcode")
-        
-        let button1 = UIButton()
-        button1.setTitle("   Button1   ", for: .normal)
-        button1.setTitleColor( .white, for: .normal)
-        button1.titleLabel?.font = getCustomFont(size: 13, name: .regular)
-        button1.layer.cornerRadius = 15
-        button1.layer.backgroundColor = kPrimaryColor.cgColor
-        headerView.addSubview(button1)
-        button1.snp.makeConstraints { make in
-            make.centerY.equalTo(totalLabel)
-            make.left.equalToSuperview().offset(16)
-            make.height.equalTo(30)
-        }
-        
-        let button2 = UIButton()
-        button2.setTitle("   Button2   ", for: .normal)
-        button2.titleLabel?.font = getCustomFont(size: 13, name: .regular)
-        button2.setTitleColor(kPrimaryColor, for: .normal)
-        button2.layer.borderColor = kPrimaryColor.cgColor
-        button2.layer.borderWidth = 0.8
-        button2.layer.cornerRadius = 15
-        headerView.addSubview(button2)
-        button2.snp.makeConstraints { make in
-            make.centerY.height.equalTo(button1)
-            make.left.equalTo(button1.snp.right).offset(10)
-            make.bottom.lessThanOrEqualToSuperview().offset(-16)
+        switch sessionData.status {
+        case .PENDING:
+            break
+        case .CONFIRMED:
+            let chatBtn = UIButton()
+            chatBtn.setTitle("   Chat   ", for: .normal)
+            chatBtn.setTitleColor( kPrimaryColor, for: .normal)
+            chatBtn.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+            chatBtn.layer.cornerRadius = 15
+            chatBtn.layer.borderColor = kPrimaryColor.cgColor
+            chatBtn.layer.borderWidth = 1
+            chatBtn.addTarget(self, action: #selector(chatButtonTapped), for: .touchUpInside)
+            headerView.addSubview(chatBtn)
+            chatBtn.snp.makeConstraints { make in
+                make.centerY.equalTo(totalLabel)
+                make.left.equalToSuperview().offset(16)
+                make.height.equalTo(30)
+            }
+            
+            let cancelBtn = UIButton()
+            cancelBtn.setTitle("   Cancel   ", for: .normal)
+            cancelBtn.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+            cancelBtn.setTitleColor(kPrimaryColor, for: .normal)
+            cancelBtn.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+            headerView.addSubview(cancelBtn)
+            cancelBtn.snp.makeConstraints { make in
+                make.centerY.height.equalTo(chatBtn)
+                make.left.equalTo(chatBtn.snp.right).offset(10)
+                make.bottom.lessThanOrEqualToSuperview().offset(-16)
+            }
+        case .PROCESSING:
+            let shippingBtn = UIButton()
+            shippingBtn.setTitle("   Shipping information   ", for: .normal)
+            shippingBtn.setTitleColor( kPrimaryColor, for: .normal)
+            shippingBtn.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+            shippingBtn.layer.cornerRadius = 15
+            shippingBtn.layer.borderColor = kPrimaryColor.cgColor
+            shippingBtn.layer.borderWidth = 1
+            shippingBtn.addTarget(self, action: #selector(shippingButtonTapped), for: .touchUpInside)
+            headerView.addSubview(shippingBtn)
+            shippingBtn.snp.makeConstraints { make in
+                make.centerY.equalTo(totalLabel)
+                make.left.equalToSuperview().offset(16)
+                make.height.equalTo(30)
+            }
+        case .COMPLETED:
+            let confirmBtn = UIButton()
+            confirmBtn.setTitle("   Confirm   ", for: .normal)
+            confirmBtn.setTitleColor( kPrimaryColor, for: .normal)
+            confirmBtn.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+            confirmBtn.layer.cornerRadius = 15
+            confirmBtn.layer.borderColor = kPrimaryColor.cgColor
+            confirmBtn.layer.borderWidth = 1
+            confirmBtn.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
+            headerView.addSubview(confirmBtn)
+            confirmBtn.snp.makeConstraints { make in
+                make.centerY.equalTo(totalLabel)
+                make.left.equalToSuperview().offset(16)
+                make.height.equalTo(30)
+            }
+            
+            let returnBtn = UIButton()
+            returnBtn.setTitle("   Returns   ", for: .normal)
+            returnBtn.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+            returnBtn.setTitleColor(kPrimaryColor, for: .normal)
+            returnBtn.addTarget(self, action: #selector(returnButtonTapped), for: .touchUpInside)
+            headerView.addSubview(returnBtn)
+            returnBtn.snp.makeConstraints { make in
+                make.centerY.height.equalTo(confirmBtn)
+                make.left.equalTo(confirmBtn.snp.right).offset(10)
+                make.bottom.lessThanOrEqualToSuperview().offset(-16)
+            }
+        case .CANCELED:
+            let reorderBtn = UIButton()
+            reorderBtn.setTitle("   Reorder   ", for: .normal)
+            reorderBtn.titleLabel?.font = getCustomFont(size: 13, name: .regular)
+            reorderBtn.setTitleColor(.white, for: .normal)
+            reorderBtn.backgroundColor = kPrimaryColor
+            reorderBtn.layer.cornerRadius = 15
+            reorderBtn.addTarget(self, action: #selector(returnButtonTapped), for: .touchUpInside)
+            headerView.addSubview(reorderBtn)
+            reorderBtn.snp.makeConstraints { make in
+                make.centerY.equalTo(totalLabel)
+                make.left.equalToSuperview().offset(16)
+                make.height.equalTo(30)
+            }
+        case .REJECTED:
+            break
+        case .EXPIRED:
+            break
         }
         
         let separator = UIView()

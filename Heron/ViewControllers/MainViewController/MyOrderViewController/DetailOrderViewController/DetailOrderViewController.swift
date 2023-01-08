@@ -111,7 +111,8 @@ class DetailOrderViewController: BaseViewController {
                                              handler: { _ in
             alertVC.dismiss()
         }))
-        _NavController.showAlert(alertVC)    }
+        _NavController.showAlert(alertVC)
+    }
     
     override func bindingData() {
         self.viewModel.orderData
@@ -174,9 +175,11 @@ extension DetailOrderViewController: UITableViewDelegate, UITableViewDataSource 
         }
         
         if orderData?.items?.count == 1 {
-            totalInView.title.text = String(format: "Total (1 product):  %@", getMoneyFormat(orderData?.customAmount))
+            totalInView.totalLabel.text = "Total (1 product)"
+            totalInView.priceLabel.text = getMoneyFormat(orderData?.customAmount)
         } else {
-            totalInView.title.text = String(format: "Total (%ld products):  %@", (orderData?.items?.count ?? 0), getMoneyFormat(orderData?.customAmount))
+            totalInView.totalLabel.text = String(format: "Total (%ld products):", (orderData?.items?.count ?? 0))
+            totalInView.priceLabel.text = getMoneyFormat(orderData?.customAmount)
         }
         headerView.addSubview(totalInView)
         totalInView.snp.makeConstraints { make in

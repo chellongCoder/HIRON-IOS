@@ -97,7 +97,7 @@ class SignInViewController: BaseViewController, UITextFieldDelegate {
         passwordTxt.setPlaceHolderText("Password")
         passwordTxt.isSecureTextEntry = true
         passwordTxt.textColor = kDefaultTextColor
-        passwordTxt.setRightIcon(UIImage.init(named: "show_pass_icon"))
+        passwordTxt.setRightIcon(UIImage.init(named: "hidden_pass_icon"))
         passwordTxt.rightAction = {
             self.passwordTxt.isSecureTextEntry = !self.passwordTxt.isSecureTextEntry
             if self.passwordTxt.isSecureTextEntry {
