@@ -18,7 +18,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
-    let addToWishlistBtn    = ExtendedButton()
+    let addToWishlistBtn    = UIButton()
+    var selectedWishlist    = false
     
     private var productData : ProductDataSource?
     private let disposeBag  = DisposeBag()
@@ -52,14 +53,13 @@ class ProductCollectionViewCell: UICollectionViewCell {
             make.right.equalToSuperview().offset(-34)
         }
         
-        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
         addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .normal)
         addToWishlistBtn.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
         self.contentView.addSubview(addToWishlistBtn)
         addToWishlistBtn.snp.makeConstraints { make in
             make.top.equalTo(productTitleLabel)
             make.right.equalTo(packageImage)
-            make.height.width.equalTo(32)
+            make.height.width.equalTo(16)
         }
         
         contentView.addSubview(discountValue)
@@ -148,9 +148,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
         }
         
         if _AppCoreData.wishListProduct.value.contains(cellData) {
-            self.addToWishlistBtn.setSeleted(true)
+            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
         } else {
-            self.addToWishlistBtn.setSeleted(false)
+            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .selected)
         }
     }
     
@@ -216,8 +216,12 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func addToWishListButtonTapped() {
-        self.addToWishlistBtn.setSeleted(!self.addToWishlistBtn.isSelected)
-        
+        if(self.selectedWishlist) {
+            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .normal)
+        } else {
+            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .normal)
+        }
+        self.selectedWishlist = !self.selectedWishlist
         guard let productData = self.productData else {
             return
         }
