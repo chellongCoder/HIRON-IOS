@@ -362,7 +362,7 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.viewModel.getProductList(productData.id)
 
                 self.nameProduct.text = productData.name
-                self.stackInfoView.setDiscountPercent(String(format:"%.1f", productData.discountPercent) + "%")
+                self.stackInfoView.setDiscountPercent("-" + String(format:"%.0f", productData.discountPercent) + "%")
                 self.stackInfoView.setOriginalPrice(getMoneyFormat(productData.customRegularPrice))
                 self.stackInfoView.setSalePrice(getMoneyFormat(Float(productData.customFinalPrice)))
                 self.stackInfoView.setSaleAmount("\(productData.quantity)")
@@ -796,7 +796,7 @@ extension ProductDetailsViewController : ProductVariantDelegate {
                     make.centerY.equalToSuperview()
                 }
             }
-            self.stackInfoView.setDiscountPercent(String(format:"%.1f", matchedSimpleProduct.discountPercent) + "%")
+            self.stackInfoView.setDiscountPercent("-" + String(format:"%.0f", matchedSimpleProduct.discountPercent) + "%")
             self.stackInfoView.setSalePrice(getMoneyFormat(matchedSimpleProduct.customFinalPrice))
             self.stackInfoView.setOriginalPrice(getMoneyFormat(matchedSimpleProduct.customRegularPrice))
             self.stackInfoView.setSaleAmount("\(matchedSimpleProduct.quantity)")

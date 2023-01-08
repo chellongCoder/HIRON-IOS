@@ -68,10 +68,10 @@ class ProductCollectionViewCell: UICollectionViewCell {
         
         sourcePriceLabel.text = "$ 20.00"
         sourcePriceLabel.setTextColor(kDefaultTextColor)
-        sourcePriceLabel.font = getCustomFont(size: 11, name: .semiBold)
+        sourcePriceLabel.font = getCustomFont(size: 12, name: .semiBold)
         self.contentView.addSubview(sourcePriceLabel)
         sourcePriceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(7)
             make.left.equalTo(discountValue.snp.right).offset(4)
         }
         
