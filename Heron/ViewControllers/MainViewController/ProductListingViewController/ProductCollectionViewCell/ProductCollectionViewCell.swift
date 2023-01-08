@@ -19,7 +19,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
     let addToWishlistBtn    = UIButton()
-    var selectedWishlist    = false
     
     private var productData : ProductDataSource?
     private let disposeBag  = DisposeBag()
@@ -53,6 +52,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
             make.right.equalToSuperview().offset(-34)
         }
         
+        addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
         addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .normal)
         addToWishlistBtn.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
         self.contentView.addSubview(addToWishlistBtn)
@@ -148,9 +148,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
         }
         
         if _AppCoreData.wishListProduct.value.contains(cellData) {
-            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
+            self.addToWishlistBtn.isSelected = true
         } else {
-            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .selected)
+            self.addToWishlistBtn.isSelected = false
         }
     }
     
@@ -216,12 +216,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func addToWishListButtonTapped() {
-        if(self.selectedWishlist) {
-            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_inactive_btn"), for: .normal)
-        } else {
-            self.addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .normal)
-        }
-        self.selectedWishlist = !self.selectedWishlist
+        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
+        
         guard let productData = self.productData else {
             return
         }
