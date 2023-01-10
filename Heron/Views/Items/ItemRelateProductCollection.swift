@@ -73,7 +73,7 @@ class ItemRelateProductCollection: UICollectionViewCell {
         }
 
         originalPrice.text = "$150.00"
-        originalPrice.font = getCustomFont(size: 9, name: .regular)
+        originalPrice.font = getCustomFont(size: 11, name: .regular)
         self.contentView.addSubview(originalPrice)
         originalPrice.snp.makeConstraints { make in
             make.top.equalTo(productName.snp.bottom).offset(6)

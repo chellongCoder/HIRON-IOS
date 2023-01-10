@@ -10,8 +10,7 @@ import RxSwift
 import BadgeHub
 
 class ProductDetailsViewController: PageScrollViewController,
-                                    UIScrollViewDelegate
-                                     {
+                                    UIScrollViewDelegate {
 
     private let viewModel               = ProductDetailsViewModel()
     private let productViewModel        = ProductListingViewModel()
@@ -23,7 +22,9 @@ class ProductDetailsViewController: PageScrollViewController,
     var shareButtonItem                 : UIBarButtonItem?
     var moreButtonItem                  : UIBarButtonItem?
     var cartHub                         : BadgeHub?
-    var collectionview                  : UICollectionView!
+    let cartButton                      = UIButton()
+    var productImage                    = UIImageView()
+    var collectionview                  : UICollectionView?
     var footer                          : ProductDetailFooter!
     var simpleProductData               : ProductDataSource?
 
@@ -113,33 +114,36 @@ class ProductDetailsViewController: PageScrollViewController,
         self.footer.controller = self
         self.footer.viewModel = viewModel
         self.footer.disposeBag = disposeBag
-
-        cartButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "cart_bar_icon"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(cartButtonTapped))
-        cartButtonItem?.tintColor = kDefaultTextColor
-        self.cartHub = BadgeHub(barButtonItem: cartButtonItem!)
+        
+        cartButton.setBackgroundImage(UIImage.init(named: "cart_bar_icon"), for: .normal)
+        cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+        
+        self.cartHub = BadgeHub(view: cartButton)
+        self.cartHub?.setCircleAtFrame(CGRect(x: 12, y: -10, width: 20, height: 20))
         self.cartHub?.setCircleColor(kRedHightLightColor, label: .white)
         self.cartHub?.setCircleBorderColor(.white, borderWidth: 1)
         self.cartHub?.setMaxCount(to: 99)
-        self.cartHub?.setCount(10)
+        self.cartHub?.setCount(0)
         self.cartHub?.pop()
-        
-        shareButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "shareIcon"),
-                                                   style: .done,
-                                              target: self,
-                                              action: #selector(shareButtonTapped))
-        shareButtonItem?.tintColor = kDefaultTextColor
-        
-        moreButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "moreIcon"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(filterButtonTapped))
-        moreButtonItem?.tintColor = kDefaultTextColor
+        let cartButtonItem = UIBarButtonItem(customView: cartButton)
 
-        self.navigationItem.rightBarButtonItems = [moreButtonItem!, shareButtonItem!, cartButtonItem!]
-                
+        let shareBtn = UIButton(type: .custom)
+        shareBtn.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+        shareBtn.setImage(UIImage(named:"shareIcon"), for: .normal)
+        shareBtn.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+
+        let shareButtonItem = UIBarButtonItem(customView: shareBtn)
+        
+        let moreBtn = UIButton(type: .custom)
+        let moreImg = UIImage(named:"moreIcon")
+        moreBtn.contentMode = .scaleToFill
+        moreBtn.frame = CGRect(x: 0.0, y: 0.0, width: 10, height: 10)
+        moreBtn.setImage(moreImg, for: .normal)
+        moreBtn.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+
+        let moreButtonItem = UIBarButtonItem(customView: moreBtn)
+
+        self.navigationItem.rightBarButtonItems = [moreButtonItem, shareButtonItem, cartButtonItem]
         pageScroll.delegate = self
         pageScroll.snp.remakeConstraints { (make) in
             make.left.top.right.equalToSuperview()
@@ -347,10 +351,16 @@ class ProductDetailsViewController: PageScrollViewController,
     }
     
     override func bindingData() {
+
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.cartHotInfo.cartPriceValue.text = getMoneyFormat(cartDataSource?.customGrandTotal)
+                
+                guard let cartData = cartDataSource.element else {return}
+                
+                self.cartHub?.setCount(cartData?.totalItemCount ?? 0)
+                self.cartHub?.pop()
+
             }
             .disposed(by: disposeBag)
         
@@ -361,9 +371,9 @@ class ProductDetailsViewController: PageScrollViewController,
                 guard let productData = productDataA else {return}
                 
                 self.viewModel.getProductList(productData.id)
-                
+
                 self.nameProduct.text = productData.name
-                self.stackInfoView.setDiscountPercent(String(format:"%.1f", productData.discountPercent) + "%")
+                self.stackInfoView.setDiscountPercent("-" + String(format:"%.0f", productData.discountPercent) + "%")
                 self.stackInfoView.setOriginalPrice(getMoneyFormat(productData.customRegularPrice))
                 self.stackInfoView.setSalePrice(getMoneyFormat(Float(productData.customFinalPrice)))
                 self.stackInfoView.setSaleAmount("\(productData.quantity)")
@@ -393,9 +403,16 @@ class ProductDetailsViewController: PageScrollViewController,
             .subscribe { _ in
                 let viewWidth = UIScreen.main.bounds.size.width/2.2
                 if(!self.viewModel.listProducts.value.isEmpty) {
+                    self.collectionview?.dataSource = nil
+                    self.viewModel.listProducts
+                        .bind(to: self.collectionview!.rx.items(cellIdentifier: "ProductCollectionViewCell") ) {(_: Int, productData: ProductDataSource, cell: ProductCollectionViewCell) in
+                            cell.setDataSource(productData)
+                        }
+                    .disposed(by: self.disposeBag)
+                    self.loadReviewView(isShowMore: true)
                     let length = self.viewModel.listProducts.value.count
                     let heightCollection = ceil(CGFloat(length / 2)) * (viewWidth * 1.7)
-                    self.collectionview.snp.remakeConstraints { make in
+                    self.collectionview?.snp.remakeConstraints { make in
                         make.centerX.width.equalToSuperview()
                         make.top.equalTo(self.titleReleatedProduct.snp.bottom).offset(10)
                         make.height.equalTo(heightCollection)
@@ -404,6 +421,7 @@ class ProductDetailsViewController: PageScrollViewController,
                     }
                 }
             }
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Buttons
@@ -441,10 +459,15 @@ class ProductDetailsViewController: PageScrollViewController,
                 cell.bannerImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
             }
             topMediaView.addSubview(cell)
+            self.productImage = cell.bannerImage
             
             index += 1
         }
-        
+//        let imageViewPosition : CGPoint =  self.footer.btnBuyNow.convert(self.footer.btnBuyNow.bounds.origin, to: self.contentView)
+//
+//        self.productImage.frame = CGRect(x: imageViewPosition.x, y: imageViewPosition.y, width: 100, height: 100)
+//
+        self.contentView.addSubview(self.productImage)
         let mediaData = listMedia[0]
         if let imageURL = URL.init(string: mediaData.value ?? "") {
             topView.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
@@ -663,14 +686,13 @@ class ProductDetailsViewController: PageScrollViewController,
         layout.minimumLineSpacing = 0
         
         collectionview = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionview.dataSource = self
-        collectionview.delegate = self
+        collectionview?.delegate = self
         
         collectionview?.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: "ProductCollectionViewCell")
-        collectionview.showsVerticalScrollIndicator = false
-        collectionview.isScrollEnabled = false
-        self.contentView.addSubview(collectionview)
-        collectionview.snp.makeConstraints { make in
+        collectionview?.showsVerticalScrollIndicator = false
+       collectionview?.isScrollEnabled = false
+        self.contentView.addSubview(collectionview!)
+        collectionview?.snp.makeConstraints { make in
             make.centerX.width.equalToSuperview()
             make.top.equalTo(titleReleatedProduct.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-20)
@@ -705,11 +727,9 @@ class ProductDetailsViewController: PageScrollViewController,
                 self.topMediaViewHeight = self.topMediaView.frame.size.height
             }
             let contentOffset = scrollView.contentOffset
-            print("contentOffset.y + \(contentOffset.y)")
             if (contentOffset.y >= self.topMediaViewHeight * 0.2) {
                 let alpha = min(1, 2 * contentOffset.y / self.topMediaViewHeight - 1)
                 self.topMediaView.alpha = 1 - alpha
-                print(self.topMediaViewHeight)
                 if (!self.showTabView && contentOffset.y >= self.topMediaViewHeight * 0.8) {
                     DispatchQueue.main.async {
                         self.navigationItem.titleView = self.topView
@@ -723,14 +743,9 @@ class ProductDetailsViewController: PageScrollViewController,
                             make.top.equalToSuperview()
                             make.width.equalToSuperview()
                         })
-                        self.topMediaView.snp.remakeConstraints { make in
-                            make.top.equalTo(64)
-                            make.right.left.equalToSuperview()
-                            make.bottom.equalTo(self.topMediaView.snp.top).offset(0)
-                        }
-                        if(!self.showTabView) {
-                            let topOffset = CGPoint(x: 0, y: 362)
-                            self.pageScroll.setContentOffset(topOffset, animated: true)
+
+                        UIView.animate(withDuration: 1) {
+                            self.topMediaView.layer.height = 0
                         }
                         self.showTabView = true
                     }
@@ -750,6 +765,8 @@ class ProductDetailsViewController: PageScrollViewController,
                 }
             }
             if (self.showTabView && contentOffset.y < self.topMediaViewHeight * 0.8) {
+                let staticHeight = (UIScreen.main.bounds.size.width) * 1
+
                 DispatchQueue.main.async {
                         self.tabView.snp.remakeConstraints({ make in
                         make.left.equalToSuperview().offset(0)
@@ -760,11 +777,14 @@ class ProductDetailsViewController: PageScrollViewController,
                 }
                 
                 self.showTabView = false
+                UIView.animate(withDuration: 1) {
+                    self.topMediaView.layer.height = staticHeight
+                }
+
             }
         }
     }
 
-    
 }
 
 extension ProductDetailsViewController : ProductVariantDelegate {
@@ -792,7 +812,7 @@ extension ProductDetailsViewController : ProductVariantDelegate {
                     make.centerY.equalToSuperview()
                 }
             }
-            self.stackInfoView.setDiscountPercent(String(format:"%.1f", matchedSimpleProduct.discountPercent) + "%")
+            self.stackInfoView.setDiscountPercent("-" + String(format:"%.0f", matchedSimpleProduct.discountPercent) + "%")
             self.stackInfoView.setSalePrice(getMoneyFormat(matchedSimpleProduct.customFinalPrice))
             self.stackInfoView.setOriginalPrice(getMoneyFormat(matchedSimpleProduct.customRegularPrice))
             self.stackInfoView.setSaleAmount("\(matchedSimpleProduct.quantity)")
@@ -807,7 +827,6 @@ extension ProductDetailsViewController : ProductVariantDelegate {
 
 extension ProductDetailsViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    // MARK: - UICollectionViewDelegateFlowLayout
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let value = viewModel.listProducts.value
         if(value.isEmpty) {

@@ -517,7 +517,10 @@ class HomepageViewController: PageScrollViewController,
                 return 6
             }
         } else if collectionView == self.suggestedCollection {
-            return 4
+            if self.viewModel.listSuggestedProducts.value.count > 4 {
+                return 4
+            }
+            return self.viewModel.listSuggestedProducts.value.count
         } else {
             return 0
         }

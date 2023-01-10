@@ -28,14 +28,13 @@ class StackInfoView: UIView {
         stack.spacing = 4
         
         discountView.backgroundColor = UIColor.init(hexString: "ffe2e2")
-        discountView.layer.cornerRadius = 3
+        discountView.layer.cornerRadius = 2
         stack.addSubview(discountView)
         discountView.snp.makeConstraints { (make) in
             make.width.equalTo(30)
-            make.height.equalTo(20)
-            make.centerY.equalToSuperview()
+            make.height.equalTo(13)
             make.left.equalToSuperview()
-            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         originalPrice.text = "$150.00"
@@ -43,9 +42,8 @@ class StackInfoView: UIView {
         originalPrice.setTextColor(kDefaultTextColor)
         stack.addSubview(originalPrice)
         originalPrice.snp.makeConstraints { (make) in
-            make.left.equalTo(discountView.snp.right).offset(10)
-            make.top.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.left.equalTo(discountView.snp.right).offset(4)
+            make.bottom.equalToSuperview()
         }
 
         salePrice.text = "$100.00"
@@ -53,7 +51,7 @@ class StackInfoView: UIView {
         salePrice.textColor = kDefaultTextColor
         stack.addSubview(salePrice)
         salePrice.snp.makeConstraints { (make) in
-            make.left.equalTo(originalPrice.snp.right).offset(10)
+            make.left.equalTo(originalPrice.snp.right).offset(4)
             make.centerY.equalToSuperview()
         }
 
@@ -71,7 +69,7 @@ class StackInfoView: UIView {
         stack.addSubview(spaceLine2)
         spaceLine2.backgroundColor = kDefaultGreyColor
         spaceLine2.snp.makeConstraints { (make) in
-            make.right.equalTo(reviewView.snp.left).offset(-10)
+            make.right.equalTo(reviewView.snp.left).offset(-4)
             make.centerY.equalToSuperview()
             make.width.equalTo(0.5)
             make.height.equalTo(14)
@@ -82,14 +80,14 @@ class StackInfoView: UIView {
         starView.textColor = UIColor.init(hexString: "ff6d6e")
         stack.addSubview(starView)
         starView.snp.makeConstraints { (make) in
-            make.right.equalTo(spaceLine2.snp.left).offset(-10)
+            make.right.equalTo(spaceLine2.snp.left).offset(-4)
             make.centerY.equalToSuperview()
         }
         
         spaceLine.backgroundColor = kDefaultGreyColor
         stack.addSubview(spaceLine)
         spaceLine.snp.makeConstraints { (make) in
-            make.right.equalTo(starView.snp.left).offset(-10)
+            make.right.equalTo(starView.snp.left).offset(-4)
             make.centerY.equalToSuperview()
             make.width.equalTo(0.5)
             make.height.equalTo(14)
@@ -100,7 +98,7 @@ class StackInfoView: UIView {
         saleAmount.textColor = kDefaultTextColor
         stack.addSubview(saleAmount)
         saleAmount.snp.makeConstraints { (make) in
-            make.right.equalTo(spaceLine.snp.left).offset(-10)
+            make.right.equalTo(spaceLine.snp.left).offset(-2)
             make.centerY.equalToSuperview()
         }
         

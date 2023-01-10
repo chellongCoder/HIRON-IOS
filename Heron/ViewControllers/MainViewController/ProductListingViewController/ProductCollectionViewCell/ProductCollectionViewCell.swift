@@ -18,7 +18,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     let discountValue       = DiscountValueView()
     let truePriceLabel      = UILabel()
     let variantMark         = UILabel()
-    let addToWishlistBtn    = ExtendedButton()
+    let addToWishlistBtn    = UIButton()
     
     private var productData : ProductDataSource?
     private let disposeBag  = DisposeBag()
@@ -59,7 +59,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         addToWishlistBtn.snp.makeConstraints { make in
             make.top.equalTo(productTitleLabel)
             make.right.equalTo(packageImage)
-            make.height.width.equalTo(32)
+            make.height.width.equalTo(16)
         }
         
         contentView.addSubview(discountValue)
@@ -70,10 +70,10 @@ class ProductCollectionViewCell: UICollectionViewCell {
         
         sourcePriceLabel.text = "$ 20.00"
         sourcePriceLabel.setTextColor(kDefaultTextColor)
-        sourcePriceLabel.font = getCustomFont(size: 11, name: .semiBold)
+        sourcePriceLabel.font = getCustomFont(size: 12, name: .semiBold)
         self.contentView.addSubview(sourcePriceLabel)
         sourcePriceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
+            make.top.equalTo(productTitleLabel.snp.bottom).offset(7)
             make.left.equalTo(discountValue.snp.right).offset(4)
         }
         
@@ -148,9 +148,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
         }
         
         if _AppCoreData.wishListProduct.value.contains(cellData) {
-            self.addToWishlistBtn.setSeleted(true)
+            self.addToWishlistBtn.isSelected = true
         } else {
-            self.addToWishlistBtn.setSeleted(false)
+            self.addToWishlistBtn.isSelected = false
         }
     }
     
@@ -216,7 +216,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func addToWishListButtonTapped() {
-        self.addToWishlistBtn.setSeleted(!self.addToWishlistBtn.isSelected)
+        self.addToWishlistBtn.isSelected = !self.addToWishlistBtn.isSelected
         
         guard let productData = self.productData else {
             return

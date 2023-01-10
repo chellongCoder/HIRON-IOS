@@ -7,10 +7,19 @@
 
 import Foundation
 import RxSwift
+extension UIView {
+    func animationZoom(scaleX: CGFloat, y: CGFloat) {
+        self.transform = CGAffineTransform(scaleX: scaleX, y: y)
+    }
+    
+    func animationRoted(angle : CGFloat) {
+        self.transform = self.transform.rotated(by: angle)
+    }
+}
 class ProductDetailFooter: UIView {
     private let cardAction      = UIView()
-    private let btnBuyNow       = UIButton()
-    private let btnAddtoCard    = UIButton()
+    let btnBuyNow               = UIButton()
+    let btnAddtoCard            = UIButton()
     var count                   = UILabel()
     let remove                  = UIButton()
     let add                     = UIButton()
@@ -20,25 +29,55 @@ class ProductDetailFooter: UIView {
     var quantityValue           = 1
 
     @objc private func buyNowButtonTapped() {
-        if let simpleProductData = self.controller?.simpleProductData {
-            simpleProductData.quantity = self.quantityValue
-            
-            let cartVC = CartViewController.sharedInstance
-            cartVC.addProductToCart(simpleProductData)
-            self.controller?.dismiss(animated: true, completion: nil)
-            
-            return
-        }
+        let productImage = self.controller?.productImage
+        let buynowPosition : CGPoint =  btnBuyNow.convert(btnBuyNow.bounds.origin, to: self)
+        let cartButtonPosition : CGPoint =  self.controller!.cartButton.convert(self.controller!.cartButton.bounds.origin, to: self)
+
+        productImage?.frame = CGRect(x: buynowPosition.x, y: buynowPosition.y, width: 100, height: 100)
+        UIView.animate(withDuration: 1.0,
+                       animations: {
+            productImage?.animationZoom(scaleX: 1.5, y: 1.5)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.5, animations: {
+                
+                productImage?.animationZoom(scaleX: 0.2, y: 0.2)
+                productImage?.animationRoted(angle: CGFloat(Double.pi))
+                productImage?.frame.origin.x = cartButtonPosition.x
+                productImage?.frame.origin.y = cartButtonPosition.y
+                
+            }, completion: { _ in
+                productImage?.removeFromSuperview()
+                
+                UIView.animate(withDuration: 1.0, animations: {
+                    self.controller?.cartButton.animationZoom(scaleX: 2.4, y: 2.4)
+                }, completion: {_ in
+                    UIView.animate(withDuration: 1.0, animations: {
+                        self.controller?.cartButton.animationZoom(scaleX: 1.0, y: 1.0)
+                    })
+                })
+
+            })
+        })
+
+       if let simpleProductData = self.controller?.simpleProductData {
+           simpleProductData.quantity = self.quantityValue
+
+           let cartVC = CartViewController.sharedInstance
+           cartVC.addProductToCart(simpleProductData)
+           self.controller?.dismiss(animated: true, completion: nil)
+
+           return
+       }
         
-        if let productData = self.viewModel?.productDataSource.value {
-            productData.quantity = self.quantityValue
-            
-            let cartVC = CartViewController.sharedInstance
-            cartVC.addProductToCart(productData)
-            self.controller?.dismiss(animated: true, completion: nil)
-            
-            return
-        }
+       if let productData = self.viewModel?.productDataSource.value {
+           productData.quantity = self.quantityValue
+
+           let cartVC = CartViewController.sharedInstance
+           cartVC.addProductToCart(productData)
+           self.controller?.dismiss(animated: true, completion: nil)
+
+           return
+       }
     }
         
     @objc private func minusButtonTapped() {
