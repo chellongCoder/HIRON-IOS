@@ -28,14 +28,13 @@ class StackInfoView: UIView {
         stack.spacing = 4
         
         discountView.backgroundColor = UIColor.init(hexString: "ffe2e2")
-        discountView.layer.cornerRadius = 3
+        discountView.layer.cornerRadius = 2
         stack.addSubview(discountView)
         discountView.snp.makeConstraints { (make) in
             make.width.equalTo(30)
-            make.height.equalTo(20)
-            make.centerY.equalToSuperview()
+            make.height.equalTo(13)
             make.left.equalToSuperview()
-            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         originalPrice.text = "$150.00"
@@ -44,8 +43,7 @@ class StackInfoView: UIView {
         stack.addSubview(originalPrice)
         originalPrice.snp.makeConstraints { (make) in
             make.left.equalTo(discountView.snp.right).offset(4)
-            make.top.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
 
         salePrice.text = "$100.00"

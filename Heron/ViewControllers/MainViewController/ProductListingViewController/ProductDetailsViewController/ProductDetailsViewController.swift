@@ -22,6 +22,8 @@ class ProductDetailsViewController: PageScrollViewController,
     var shareButtonItem                 : UIBarButtonItem?
     var moreButtonItem                  : UIBarButtonItem?
     var cartHub                         : BadgeHub?
+    let cartButton                      = UIButton()
+    var productImage                    = UIImageView()
     var collectionview                  : UICollectionView?
     var footer                          : ProductDetailFooter!
     var simpleProductData               : ProductDataSource?
@@ -112,33 +114,36 @@ class ProductDetailsViewController: PageScrollViewController,
         self.footer.controller = self
         self.footer.viewModel = viewModel
         self.footer.disposeBag = disposeBag
-
-        cartButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "cart_bar_icon"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(cartButtonTapped))
-        cartButtonItem?.tintColor = kDefaultTextColor
-        self.cartHub = BadgeHub(barButtonItem: cartButtonItem!)
+        
+        cartButton.setBackgroundImage(UIImage.init(named: "cart_bar_icon"), for: .normal)
+        cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
+        
+        self.cartHub = BadgeHub(view: cartButton)
+        self.cartHub?.setCircleAtFrame(CGRect(x: 12, y: -10, width: 20, height: 20))
         self.cartHub?.setCircleColor(kRedHightLightColor, label: .white)
         self.cartHub?.setCircleBorderColor(.white, borderWidth: 1)
         self.cartHub?.setMaxCount(to: 99)
-        self.cartHub?.setCount(10)
+        self.cartHub?.setCount(0)
         self.cartHub?.pop()
-        
-        shareButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "shareIcon"),
-                                                   style: .done,
-                                              target: self,
-                                              action: #selector(shareButtonTapped))
-        shareButtonItem?.tintColor = kDefaultTextColor
-        
-        moreButtonItem = UIBarButtonItem.init(image: UIImage.init(named: "moreIcon"),
-                                              style: .plain,
-                                              target: self,
-                                              action: #selector(filterButtonTapped))
-        moreButtonItem?.tintColor = kDefaultTextColor
+        let cartButtonItem = UIBarButtonItem(customView: cartButton)
 
-        self.navigationItem.rightBarButtonItems = [moreButtonItem!, shareButtonItem!, cartButtonItem!]
-                
+        let shareBtn = UIButton(type: .custom)
+        shareBtn.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+        shareBtn.setImage(UIImage(named:"shareIcon"), for: .normal)
+        shareBtn.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+
+        let shareButtonItem = UIBarButtonItem(customView: shareBtn)
+        
+        let moreBtn = UIButton(type: .custom)
+        let moreImg = UIImage(named:"moreIcon")
+        moreBtn.contentMode = .scaleToFill
+        moreBtn.frame = CGRect(x: 0.0, y: 0.0, width: 10, height: 10)
+        moreBtn.setImage(moreImg, for: .normal)
+        moreBtn.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+
+        let moreButtonItem = UIBarButtonItem(customView: moreBtn)
+
+        self.navigationItem.rightBarButtonItems = [moreButtonItem, shareButtonItem, cartButtonItem]
         pageScroll.delegate = self
         pageScroll.snp.remakeConstraints { (make) in
             make.left.top.right.equalToSuperview()
@@ -346,10 +351,16 @@ class ProductDetailsViewController: PageScrollViewController,
     }
     
     override func bindingData() {
+
         _CartServices.cartData
             .observe(on: MainScheduler.instance)
             .subscribe { cartDataSource in
-                self.cartHotInfo.cartPriceValue.text = getMoneyFormat(cartDataSource?.customGrandTotal)
+                
+                guard let cartData = cartDataSource.element else {return}
+                
+                self.cartHub?.setCount(cartData?.totalItemCount ?? 0)
+                self.cartHub?.pop()
+
             }
             .disposed(by: disposeBag)
         
@@ -448,10 +459,15 @@ class ProductDetailsViewController: PageScrollViewController,
                 cell.bannerImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
             }
             topMediaView.addSubview(cell)
+            self.productImage = cell.bannerImage
             
             index += 1
         }
-        
+//        let imageViewPosition : CGPoint =  self.footer.btnBuyNow.convert(self.footer.btnBuyNow.bounds.origin, to: self.contentView)
+//
+//        self.productImage.frame = CGRect(x: imageViewPosition.x, y: imageViewPosition.y, width: 100, height: 100)
+//
+        self.contentView.addSubview(self.productImage)
         let mediaData = listMedia[0]
         if let imageURL = URL.init(string: mediaData.value ?? "") {
             topView.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)

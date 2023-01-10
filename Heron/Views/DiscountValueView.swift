@@ -19,7 +19,7 @@ class DiscountValueView: UIView {
         
         contentLabel.text = "-50%"
         contentLabel.textColor = kRedHightLightColor
-        contentLabel.font = getCustomFont(size: 11, name: .extraBold)
+        contentLabel.font = getCustomFont(size: 11, name: .bold)
         self.addSubview(contentLabel)
         contentLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
