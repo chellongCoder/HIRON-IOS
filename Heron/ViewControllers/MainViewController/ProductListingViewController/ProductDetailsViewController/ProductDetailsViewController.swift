@@ -22,8 +22,8 @@ class ProductDetailsViewController: PageScrollViewController,
     var shareButtonItem                 : UIBarButtonItem?
     var moreButtonItem                  : UIBarButtonItem?
     var cartHub                         : BadgeHub?
-    let cartButton                      = UIButton()
-    var productImage                    = UIImageView()
+    let cartButton                      = UIButton(type: .custom)
+    var productImage                    : UIImageView?
     var collectionview                  : UICollectionView?
     var footer                          : ProductDetailFooter!
     var simpleProductData               : ProductDataSource?
@@ -115,30 +115,34 @@ class ProductDetailsViewController: PageScrollViewController,
         self.footer.viewModel = viewModel
         self.footer.disposeBag = disposeBag
         
-        cartButton.setBackgroundImage(UIImage.init(named: "cart_bar_icon"), for: .normal)
+        cartButton.setImage(UIImage.init(named: "cart_bar_icon"), for: .normal)
         cartButton.addTarget(self, action: #selector(cartButtonTapped), for: .touchUpInside)
-        
         self.cartHub = BadgeHub(view: cartButton)
-        self.cartHub?.setCircleAtFrame(CGRect(x: 12, y: -10, width: 20, height: 20))
+        self.cartHub?.setCircleAtFrame(CGRect(x: 14, y: -10, width: 20, height: 20))
         self.cartHub?.setCircleColor(kRedHightLightColor, label: .white)
         self.cartHub?.setCircleBorderColor(.white, borderWidth: 1)
         self.cartHub?.setMaxCount(to: 99)
         self.cartHub?.setCount(0)
         self.cartHub?.pop()
         let cartButtonItem = UIBarButtonItem(customView: cartButton)
+        cartButton.frame = CGRect(x: 0.0, y: 0.0, width: 30, height: 20)
+        cartButton.imageView?.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+        cartButton.imageView?.contentMode = .scaleAspectFit
+        cartButton.contentMode = .scaleAspectFit
 
         let shareBtn = UIButton(type: .custom)
-        shareBtn.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
+        shareBtn.frame = CGRect(x: 0.0, y: 0.0, width: 30, height: 20)
         shareBtn.setImage(UIImage(named:"shareIcon"), for: .normal)
+        shareBtn.imageView?.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
         shareBtn.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-
         let shareButtonItem = UIBarButtonItem(customView: shareBtn)
         
         let moreBtn = UIButton(type: .custom)
         let moreImg = UIImage(named:"moreIcon")
         moreBtn.contentMode = .scaleToFill
-        moreBtn.frame = CGRect(x: 0.0, y: 0.0, width: 10, height: 10)
+        moreBtn.frame = CGRect(x: 0.0, y: 0.0, width: 30, height: 10)
         moreBtn.setImage(moreImg, for: .normal)
+        moreBtn.imageView?.frame = CGRect(x: 0.0, y: 0.0, width: 20, height: 20)
         moreBtn.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
 
         let moreButtonItem = UIBarButtonItem(customView: moreBtn)
@@ -449,25 +453,24 @@ class ProductDetailsViewController: PageScrollViewController,
         let width = UIScreen.main.bounds.size.width
         let size = CGSize(width: width, height: height)
         var index = 0
-        
+        self.productImage = UIImageView(frame: .zero)
+
         for mediaData in listMedia {
             
             let frame = CGRect.init(x: CGFloat(index)*(size.width), y: 0, width: size.width, height: size.height)
             
             let cell = ProductBannerView.init(frame: frame)
+
             if let imageURL = URL.init(string: mediaData.value ?? "") {
                 cell.bannerImage.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
+                self.productImage?.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
             }
             topMediaView.addSubview(cell)
-            self.productImage = cell.bannerImage
-            
+
             index += 1
         }
-//        let imageViewPosition : CGPoint =  self.footer.btnBuyNow.convert(self.footer.btnBuyNow.bounds.origin, to: self.contentView)
-//
-//        self.productImage.frame = CGRect(x: imageViewPosition.x, y: imageViewPosition.y, width: 100, height: 100)
-//
-        self.contentView.addSubview(self.productImage)
+
+//        self.contentView.addSubview(self.productImage)
         let mediaData = listMedia[0]
         if let imageURL = URL.init(string: mediaData.value ?? "") {
             topView.setImage(url: imageURL, placeholder: UIImage(named: "default-image")!)
@@ -641,7 +644,7 @@ class ProductDetailsViewController: PageScrollViewController,
         showMoreView.addGestureRecognizer(gesture)
         self.contentView.addSubview(showMoreView)
         showMoreView.snp.makeConstraints { make in
-            make.top.equalTo(listRateView.snp.bottom)
+            make.top.equalTo(listRateView.snp.bottom).offset(-10)
             make.centerX.equalToSuperview()
             make.width.equalTo(100)
             make.height.equalTo(40)
