@@ -215,14 +215,23 @@ class CartViewController: BaseViewController,
         
         _CartServices.cartPreCheckoutResponseData
             .observe(on: MainScheduler.instance)
-            .subscribe { cartPreCheckoutDataSource in
-                guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {
+            .subscribe { _ in
+                guard let cartPreCheckoutDataSource = _CartServices.cartPreCheckoutResponseData.value else {
                     
                     self.checkoutBtn.backgroundColor = kDisableColor
                     self.checkoutBtn.isUserInteractionEnabled = false
                     
                     self.totalLabel.text = "Total: $0.0"
-                    //                    self.savingLabel.text = "Saving: $0.0"
+                    self.checkoutBtn.setTitle("Checkout (0)", for: .normal)
+                    return
+                }
+                
+                if _CartServices.cartData.value?.countItemSelected() == 0 {
+                    self.checkoutBtn.backgroundColor = kDisableColor
+                    self.checkoutBtn.isUserInteractionEnabled = false
+                    
+                    self.totalLabel.text = "Total: $0.0"
+                    self.checkoutBtn.setTitle("Checkout (0)", for: .normal)
                     return
                 }
                 
@@ -230,7 +239,7 @@ class CartViewController: BaseViewController,
                 self.checkoutBtn.isUserInteractionEnabled = true
                 
                 self.totalLabel.text = String(format: "Total: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
-                //                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
+                self.checkoutBtn.setTitle("Checkout (\(cartPreCheckoutDataSource.countProductSelected()))", for: .normal)
                 
             }
             .disposed(by: disposeBag)

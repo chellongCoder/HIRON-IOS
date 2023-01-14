@@ -90,6 +90,15 @@ struct CartPrepearedResponseDataSource: Mappable {
         checkoutPriceData   <- map["checkoutPriceData"]
         cartDetail          <- map["cartDetail"]
     }
+    
+    func countProductSelected() -> Int {
+        var returnValue = 0
+        for store in cartDetail {
+            returnValue += store.cartItems.count
+        }
+        
+        return returnValue
+    }
 }
 
 struct CartPrepearedResponseCheckoutPriceData: Mappable {
