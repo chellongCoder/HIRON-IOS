@@ -114,7 +114,10 @@ class ConfigurationProductVariantView: UIView {
                 lastConfig = scrollView
                 
                 var lastBtn : UIButton?
-                for value in configuration.values {
+                let values = configuration.values.sorted {
+                    Int($0) ?? 0 > Int($1) ?? 0
+                }
+                for value in values {
                     let chipButton = VariantButton()
                     chipButton.addTarget(self, action: #selector(didSelectVariant(_:)), for: .touchUpInside)
                     chipButton.updateVariant(SelectedVariant(attributeCode: configuration.code, value: value))

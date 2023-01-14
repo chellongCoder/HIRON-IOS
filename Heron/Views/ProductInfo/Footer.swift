@@ -49,12 +49,12 @@ class ProductDetailFooter: UIView {
                 self.productImage.frame.origin.y = cartButtonPosition.y
                 
             }, completion: { _ in
-                
+                self.productImage.animationZoom(scaleX: 1, y: 1)
+                self.productImage.removeFromSuperview()
                 UIView.animate(withDuration: 1.0, animations: {
                     self.controller?.cartButton.animationZoom(scaleX: 2.4, y: 2.4)
                 }, completion: {_ in
                     self.controller?.cartButton.animationZoom(scaleX: 1, y: 1)
-                    self.productImage.animationZoom(scaleX: 1, y: 1)
                 })
             })
         })
