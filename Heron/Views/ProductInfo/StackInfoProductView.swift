@@ -77,7 +77,7 @@ class StackInfoView: UIView {
         
         starView.text = "★"
         starView.font = getCustomFont(size: 11, name: .regular)
-        starView.textColor = UIColor.init(hexString: "ff6d6e")
+        starView.textColor = kRedPinkColor
         stack.addSubview(starView)
         starView.snp.makeConstraints { (make) in
             make.right.equalTo(spaceLine2.snp.left).offset(-4)

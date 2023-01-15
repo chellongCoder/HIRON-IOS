@@ -7,11 +7,27 @@
 
 import UIKit
 import RxRelay
+import RxSwift
 
 class SelectDateAndTimeBookingViewModel: NSObject {
-    weak var controller     : SelectDateAndTimeBookingViewController?
-    var listTimeables       = BehaviorRelay<[TimeableDataSource]>(value: [])
-    var selectedDate        : Date?
+    weak var controller         : SelectDateAndTimeBookingViewController?
+    private var listTimeables   : [TimeableDataSource] = []
+    let showedlistTimeables     = BehaviorRelay<[TimeableDataSource]>(value: [])
+    var selectedDate            : Date?
+    let selectedType            = BehaviorRelay<TimeableBlockType>(value: .morning)
+    
+    private let disposeBag      = DisposeBag()
+    
+    override init() {
+        super.init()
+        
+        self.selectedType
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                self.processBlockData()
+            }
+            .disposed(by: disposeBag)
+    }
     
     func getListTimeable() {
         self.controller?.startLoadingAnimation()
@@ -27,36 +43,46 @@ class SelectDateAndTimeBookingViewModel: NSObject {
             }
             
             if let listTimeables = listTimeables {
-                let filteredTimeable = listTimeables.filter { timeableData in
+                self.listTimeables = listTimeables.filter { timeableData in
                     return( timeableData.totalSlots - timeableData.totalUsage >= 1)
                 }
-                self.listTimeables.accept(filteredTimeable)
+                
+                self.processBlockData()
             }
         }
     }
     
     // MARK: - Untils
+    func processBlockData() {
+        self.showedlistTimeables.accept(
+            self.listTimeables.filter { timeableData in
+                return (timeableData.blockType == self.selectedType.value)
+        })
+    }
+    
+    // CollectionView
     func getListTimeableByDate() -> [TimeableDataSource] {
-        if self.listTimeables.value.isEmpty {
+        if self.showedlistTimeables.value.isEmpty {
             return []
         }
         let selectedDate = selectedDate ?? Date()
         let dateString = selectedDate.toString(dateFormat: "MMM dd, yyyy")
         
-        let listFiltered = self.listTimeables.value.filter { timeableData in
+        let listFiltered = self.showedlistTimeables.value.filter { timeableData in
             let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))
             let currentDateInt = Int(Date().timeIntervalSince1970*1000)
-            return (date.toString(dateFormat: "MMM dd, yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))
+            return (date.toString(dateFormat: "MMM dd, yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000)) && timeableData.blockType == selectedType.value
         }
         
         return listFiltered
     }
     
+    // Calendar
     func getListTimeableByDate(_ date: Date) -> [TimeableDataSource] {
-        if self.listTimeables.value.isEmpty { return [] }
+        if self.listTimeables.isEmpty { return [] }
         let dateString = date.toString(dateFormat: "MMM dd, yyyy")
         
-        let listFiltered = self.listTimeables.value.filter { timeableData in
+        let listFiltered = self.listTimeables.filter { timeableData in
             let date = Date.init(timeIntervalSince1970: TimeInterval(timeableData.startTime/1000))
             let currentDateInt = Int(Date().timeIntervalSince1970*1000)
             return (date.toString(dateFormat: "MMM dd, yyyy") == dateString) && (timeableData.startTime >= (currentDateInt + 10000))

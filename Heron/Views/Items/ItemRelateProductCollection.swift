@@ -100,7 +100,7 @@ class ItemRelateProductCollection: UICollectionViewCell {
 
         star.text = "★"
         star.font = getCustomFont(size: 11, name: .bold)
-        star.textColor = UIColor.init(hexString: "ff6d6e")
+        star.textColor = kRedPinkColor
         self.contentView.addSubview(star)
         star.snp.makeConstraints { make in
             make.top.equalTo(discount.snp.bottom).offset(10)

@@ -14,10 +14,17 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
 
     private let viewModel           = SelectDateAndTimeBookingViewModel()
     
-    let calendar                    = FSCalendar()
-    var collectionView              : UICollectionView?
-    let emptyView                   = EmptyView()
-    let confirmBtn                  = UIButton()
+    private let calendar        = FSCalendar()
+    private let stackView       = UIView()
+    var collectionView          : UICollectionView?
+    let emptyView               = EmptyView()
+    let confirmBtn              = UIButton()
+    
+    private let morningBtn      = UIButton()
+    private let afternoonBtn    = UIButton()
+    private let eveningBtn      = UIButton()
+    private var separatorView   = UIView()
+    private var selectedBtn     : UIButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +76,22 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
             $0.right.equalToSuperview().offset(-16)
         }
         
+        stackView.backgroundColor = .white
+        self.view.addSubview(stackView)
+        stackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(chooseTime.snp.bottom).offset(20)
+        }
+        
+        self.loadHeaderView(stackView: stackView)
+        
+        separatorView.backgroundColor = kPrimaryColor
+        self.view.addSubview(separatorView)
+        separatorView.snp.makeConstraints { (make) in
+            make.bottom.centerX.width.equalTo(selectedBtn!)
+            make.height.equalTo(2)
+        }
+        
         let bottomView = UIView()
         self.view.addSubview(bottomView)
         bottomView.snp.makeConstraints { make in
@@ -105,7 +128,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         
         self.view.addSubview(collectionView!)
         collectionView!.snp.makeConstraints({ (make) in
-            make.top.equalTo(chooseTime.snp.bottom).offset(10)
+            make.top.equalTo(stackView.snp.bottom).offset(10)
             make.centerX.width.equalToSuperview()
             make.bottom.equalTo(bottomView.snp.top).offset(-10)
         })
@@ -130,6 +153,78 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.layoutIfNeeded()
+    }
+    
+    // MARK: - UI handler
+    private func loadHeaderView(stackView: UIView) {
+        morningBtn.isSelected = true
+        self.selectedBtn = self.morningBtn
+        morningBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        morningBtn.setTitle("   MORNING   ", for: .normal)
+        morningBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        morningBtn.setTitleColor(kPrimaryColor, for: .selected)
+        morningBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        stackView.addSubview(morningBtn)
+        morningBtn.snp.makeConstraints { (make) in
+            make.left.top.bottom.equalToSuperview()
+            make.height.equalTo(46)
+        }
+        
+        afternoonBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        afternoonBtn.setTitle("   AFTERNOON   ", for: .normal)
+        afternoonBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        afternoonBtn.setTitleColor(kPrimaryColor, for: .selected)
+        afternoonBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        stackView.addSubview(afternoonBtn)
+        afternoonBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(morningBtn.snp.right).offset(2)
+            make.top.bottom.equalToSuperview()
+            make.height.equalTo(46)
+        }
+        
+        eveningBtn.addTarget(self, action: #selector(segmentBtnTapped(sender:)), for: .touchUpInside)
+        eveningBtn.setTitle("   EVERNING   ", for: .normal)
+        eveningBtn.setTitleColor(kDefaultTextColor, for: .normal)
+        eveningBtn.setTitleColor(kPrimaryColor, for: .selected)
+        eveningBtn.titleLabel?.font = getCustomFont(size: 12, name: .semiBold)
+        stackView.addSubview(eveningBtn)
+        eveningBtn.snp.makeConstraints { (make) in
+            make.left.equalTo(afternoonBtn.snp.right).offset(2)
+            make.top.bottom.equalToSuperview()
+            make.height.equalTo(46)
+            make.right.lessThanOrEqualToSuperview()
+        }
+    }
+    
+    @objc private func segmentBtnTapped(sender: UIButton) {
+        
+        switch sender {
+        case self.morningBtn:
+            self.viewModel.selectedType.accept(.morning)
+        case self.afternoonBtn:
+            self.viewModel.selectedType.accept(.afternoon)
+        case self.eveningBtn:
+            self.viewModel.selectedType.accept(.evening)
+        default:
+            self.viewModel.selectedType.accept(.morning)
+        }
+        
+        if selectedBtn == sender {
+            return
+        }
+        
+        selectedBtn?.isSelected = false
+        sender.isSelected = true
+        selectedBtn = sender
+        
+        separatorView.snp.remakeConstraints { (remake) in
+            remake.bottom.centerX.width.equalTo(selectedBtn!)
+            remake.height.equalTo(2)
+        }
+        
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     // MARK: - UIButton Action
@@ -171,7 +266,15 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
     
     // MARK: - Mapping Data
     override func bindingData() {
-        viewModel.listTimeables
+        viewModel.showedlistTimeables
+            .observe(on: MainScheduler.instance)
+            .subscribe { _ in
+                self.collectionView?.reloadData()
+                self.calendar.reloadData()
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.selectedType
             .observe(on: MainScheduler.instance)
             .subscribe { _ in
                 self.collectionView?.reloadData()
@@ -185,6 +288,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
                 if _BookingServices.selectedTimeable.value != nil {
                     self.confirmBtn.isUserInteractionEnabled = true
                     self.confirmBtn.backgroundColor = kPrimaryColor
+                    self.confirmBtn.setTitleColor(.white, for: .normal)
                 } else {
                     self.confirmBtn.isUserInteractionEnabled = false
                     self.confirmBtn.backgroundColor = .white
@@ -219,6 +323,10 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         } else {
             return 3
         }
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        return [kRedPinkColor]
     }
 }
 

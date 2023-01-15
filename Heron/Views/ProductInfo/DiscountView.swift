@@ -16,7 +16,7 @@ class DiscountView: UIView {
         discount.text = "30%"
         
         discount.font = getCustomFont(size: 9, name: .bold)
-        discount.textColor = UIColor.init(hexString: "ff6d6e")
+        discount.textColor = kRedPinkColor
         self.addSubview(discount)
         discount.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
