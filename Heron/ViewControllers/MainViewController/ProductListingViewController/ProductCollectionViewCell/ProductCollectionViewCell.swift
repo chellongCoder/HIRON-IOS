@@ -68,13 +68,14 @@ class ProductCollectionViewCell: UICollectionViewCell {
             make.left.equalTo(productTitleLabel)
         }
         
-        sourcePriceLabel.text = "$ 20.00"
-        sourcePriceLabel.setTextColor(kDefaultTextColor)
-        sourcePriceLabel.font = getCustomFont(size: 12, name: .semiBold)
-        self.contentView.addSubview(sourcePriceLabel)
-        sourcePriceLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(productTitleLabel.snp.bottom).offset(7)
-            make.left.equalTo(discountValue.snp.right).offset(4)
+        starView.textLabel?.text = "4.5"
+        starView.textLabel?.font = getCustomFont(size: 11, name: .regular)
+        starView.textLabel?.textColor = kDefaultTextColor
+        self.contentView.addSubview(starView)
+        starView.snp.makeConstraints { make in
+            make.centerY.equalTo(discountValue)
+            make.right.equalTo(packageImage)
+            make.height.equalTo(11)
         }
         
         truePriceLabel.text = "$ 10.00"
@@ -84,16 +85,16 @@ class ProductCollectionViewCell: UICollectionViewCell {
         truePriceLabel.snp.makeConstraints { (make) in
             make.top.equalTo(discountValue.snp.bottom).offset(2)
             make.left.equalTo(productTitleLabel)
+            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
-        starView.textLabel?.text = "4.5"
-        starView.textLabel?.font = getCustomFont(size: 11, name: .regular)
-        starView.textLabel?.textColor = kDefaultTextColor
-        self.contentView.addSubview(starView)
-        starView.snp.makeConstraints { make in
+        sourcePriceLabel.text = "$ 20.00"
+        sourcePriceLabel.setTextColor(kDefaultTextColor)
+        sourcePriceLabel.font = getCustomFont(size: 12, name: .semiBold)
+        self.contentView.addSubview(sourcePriceLabel)
+        sourcePriceLabel.snp.makeConstraints { (make) in
             make.centerY.equalTo(truePriceLabel)
-            make.right.equalTo(packageImage)
-            make.height.equalTo(11)
+            make.left.equalTo(truePriceLabel.snp.right).offset(20)
         }
         
         _AppCoreData.wishListProduct

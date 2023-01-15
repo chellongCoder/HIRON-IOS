@@ -16,21 +16,6 @@ class MainAuthViewController: BaseViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
        
-        let signInBtn = UIButton()
-        signInBtn.setTitle("Sign in", for: .normal)
-        signInBtn.backgroundColor = kPrimaryColor
-        signInBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
-        signInBtn.setTitleColor(.white, for: .normal)
-        signInBtn.layer.cornerRadius = 20
-        signInBtn.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
-        self.view.addSubview(signInBtn)
-        signInBtn.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-30)
-            $0.centerX.equalToSuperview()
-            $0.width.equalToSuperview().offset(-70)
-            $0.height.equalTo(40)
-        }
-        
         let signUpBtn = UIButton()
         signUpBtn.setTitle("Sign Up", for: .normal)
         signUpBtn.backgroundColor = .clear
@@ -40,7 +25,22 @@ class MainAuthViewController: BaseViewController {
         signUpBtn.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         self.view.addSubview(signUpBtn)
         signUpBtn.snp.makeConstraints { make in
-            make.bottom.equalTo(signInBtn.snp.top).offset(-10)
+            make.bottom.equalToSuperview().offset(-30)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-70)
+            make.height.equalTo(40)
+        }
+        
+        let signInBtn = UIButton()
+        signInBtn.setTitle("Sign in", for: .normal)
+        signInBtn.backgroundColor = kPrimaryColor
+        signInBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
+        signInBtn.setTitleColor(.white, for: .normal)
+        signInBtn.layer.cornerRadius = 20
+        signInBtn.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        self.view.addSubview(signInBtn)
+        signInBtn.snp.makeConstraints { make in
+            make.bottom.equalTo(signUpBtn.snp.top).offset(-10)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-70)
             make.height.equalTo(40)
@@ -52,7 +52,7 @@ class MainAuthViewController: BaseViewController {
         self.view.addSubview(pageControl)
         pageControl.snp.makeConstraints { make in
             make.centerX.width.equalToSuperview()
-            make.bottom.equalTo(signUpBtn.snp.top).offset(-20)
+            make.bottom.equalTo(signInBtn.snp.top).offset(-20)
         }
         
         let contentView = TutorialCell()

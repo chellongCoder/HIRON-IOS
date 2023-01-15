@@ -68,19 +68,19 @@ class ProductTableViewCell: UITableViewCell {
             make.left.equalTo(productTitleLabel)
         }
         
-        contentView.addSubview(discountValue)
-        discountValue.snp.makeConstraints { make in
-            make.left.equalTo(productTitleLabel)
-            make.bottom.equalTo(truePriceLabel.snp.top).offset(-5)
-        }
-        
         sourcePriceLabel.text = "$ 20.00"
         sourcePriceLabel.setTextColor(kDefaultTextColor)
         sourcePriceLabel.font = getCustomFont(size: 11, name: .semiBold)
         self.contentView.addSubview(sourcePriceLabel)
         sourcePriceLabel.snp.makeConstraints { (make) in
+            make.centerY.equalTo(truePriceLabel)
+            make.left.equalTo(truePriceLabel.snp.right).offset(20)
+        }
+        
+        contentView.addSubview(discountValue)
+        discountValue.snp.makeConstraints { make in
+            make.left.equalTo(productTitleLabel)
             make.bottom.equalTo(truePriceLabel.snp.top).offset(-5)
-            make.left.equalTo(discountValue.snp.right).offset(4)
         }
         
         addToWishlistBtn.setBackgroundImage(UIImage.init(named: "wishlist_active_btn"), for: .selected)
@@ -88,7 +88,7 @@ class ProductTableViewCell: UITableViewCell {
         addToWishlistBtn.addTarget(self, action: #selector(addToWishListButtonTapped), for: .touchUpInside)
         self.contentView.addSubview(addToWishlistBtn)
         addToWishlistBtn.snp.makeConstraints { make in
-            make.centerY.equalTo(truePriceLabel)
+            make.centerY.equalTo(discountValue)
             make.right.equalTo(productTitleLabel)
             make.height.width.equalTo(32)
         }
@@ -98,7 +98,7 @@ class ProductTableViewCell: UITableViewCell {
         starView.textLabel?.textColor = kDefaultTextColor
         self.contentView.addSubview(starView)
         starView.snp.makeConstraints { make in
-            make.centerY.equalTo(truePriceLabel)
+            make.centerY.equalTo(discountValue)
             make.right.equalTo(addToWishlistBtn.snp.left).offset(-16)
             make.height.equalTo(11)
         }

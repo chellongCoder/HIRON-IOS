@@ -79,7 +79,7 @@ class ProductListingViewController: BaseViewController,
         let screenSize = UIScreen.main.bounds
         let layout = UICollectionViewFlowLayout()
         let cellWidth = screenSize.width/2
-        layout.itemSize = CGSize(width: cellWidth, height: cellWidth + 97)
+        layout.itemSize = CGSize(width: cellWidth, height: cellWidth + 100)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
