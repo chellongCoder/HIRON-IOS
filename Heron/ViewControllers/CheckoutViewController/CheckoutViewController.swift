@@ -208,7 +208,7 @@ class CheckoutViewController: BaseViewController,
                 guard let cartPreCheckoutDataSource = cartPreCheckoutDataSource.element as? CartPrepearedResponseDataSource else {
                     self.orderTotalView.subTotalValue.text = "$0.0"
                     self.orderTotalView.discountValue.text = "$0.0"
-                    self.orderTotalView.shippingAndTaxValue.text = "$0.0"
+                    self.orderTotalView.shippingValue.text = "$0.0"
                     
                     self.totalLabel.text = "$0.0"
 //                    self.savingLabel.text = "Saving $0.0"
@@ -217,9 +217,9 @@ class CheckoutViewController: BaseViewController,
                 }
                 
                 self.orderTotalView.subTotalValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customMerchandiseSubtotal)
-                self.orderTotalView.discountValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied)
-                self.orderTotalView.shippingAndTaxValue.text = getMoneyFormat((cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal ?? 0.0) +
-                                                                              (cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable ?? 0.0))
+                self.orderTotalView.discountValue.text = "- " + getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied)
+                self.orderTotalView.shippingValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal)
+                self.orderTotalView.taxValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable)
                 self.totalLabel.text = String(format: "%@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
 //                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
                 

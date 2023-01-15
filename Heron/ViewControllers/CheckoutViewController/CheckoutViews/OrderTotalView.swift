@@ -14,8 +14,10 @@ class OrderTotalView: UIView {
     let subTotalValue       = UILabel()
     let discountLabel       = UILabel()
     let discountValue       = UILabel()
-    let shippingAndTaxLabel = UILabel()
-    let shippingAndTaxValue = UILabel()
+    let shippingLabel       = UILabel()
+    let shippingValue       = UILabel()
+    let taxLabel            = UILabel()
+    let taxValue            = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -63,24 +65,46 @@ class OrderTotalView: UIView {
             make.centerX.equalToSuperview()
         }
         
-        shippingAndTaxLabel.text = "Shipping and Tax"
-        shippingAndTaxLabel.textAlignment = .left
-        shippingAndTaxLabel.font = getCustomFont(size: 13, name: .light)
-        shippingAndTaxLabel.textColor = kTitleTextColor
-        self.addSubview(shippingAndTaxLabel)
-        shippingAndTaxLabel.snp.makeConstraints { make in
+        shippingLabel.text = "Shipping"
+        shippingLabel.textAlignment = .left
+        shippingLabel.font = getCustomFont(size: 13, name: .light)
+        shippingLabel.textColor = kTitleTextColor
+        self.addSubview(shippingLabel)
+        shippingLabel.snp.makeConstraints { make in
             make.top.equalTo(discountValue.snp.bottom).offset(12)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
         }
         
-        shippingAndTaxValue.text = "$0"
-        shippingAndTaxValue.textAlignment = .right
-        shippingAndTaxValue.font = getCustomFont(size: 13, name: .semiBold)
-        shippingAndTaxValue.textColor = kTitleTextColor
-        self.addSubview(shippingAndTaxValue)
-        shippingAndTaxValue.snp.makeConstraints { make in
-            make.centerY.equalTo(shippingAndTaxLabel.snp.centerY)
+        shippingValue.text = "$0"
+        shippingValue.textAlignment = .right
+        shippingValue.font = getCustomFont(size: 13, name: .semiBold)
+        shippingValue.textColor = kTitleTextColor
+        self.addSubview(shippingValue)
+        shippingValue.snp.makeConstraints { make in
+            make.centerY.equalTo(shippingLabel.snp.centerY)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        taxLabel.text = "Tax"
+        taxLabel.textAlignment = .left
+        taxLabel.font = getCustomFont(size: 13, name: .light)
+        taxLabel.textColor = kTitleTextColor
+        self.addSubview(taxLabel)
+        taxLabel.snp.makeConstraints { make in
+            make.top.equalTo(shippingValue.snp.bottom).offset(12)
+            make.left.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        taxValue.text = "$0"
+        taxValue.textAlignment = .right
+        taxValue.font = getCustomFont(size: 13, name: .semiBold)
+        taxValue.textColor = kTitleTextColor
+        self.addSubview(taxValue)
+        taxValue.snp.makeConstraints { make in
+            make.centerY.equalTo(taxLabel.snp.centerY)
             make.left.equalToSuperview().offset(16)
             make.centerX.equalToSuperview()
             make.bottom.lessThanOrEqualToSuperview().offset(-16)
