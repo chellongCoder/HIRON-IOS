@@ -74,12 +74,13 @@ class CheckoutItemTableViewCell: UITableViewCell {
         }
 
         priceDiscount.text = "$ 10.00"
+        priceDiscount.textAlignment = .right
         priceDiscount.textColor = kDefaultTextColor
         priceDiscount.font = getCustomFont(size: 13, name: .regular)
         self.contentView.addSubview(priceDiscount)
         priceDiscount.snp.makeConstraints { (make) in
             make.centerY.equalTo(countLabel)
-            make.left.equalTo(countLabel.snp.right).offset(30)
+            make.right.equalToSuperview().offset(-26)
             make.bottom.lessThanOrEqualToSuperview().offset(-11)
         }
         
