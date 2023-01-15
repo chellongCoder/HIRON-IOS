@@ -342,7 +342,7 @@ class HomepageViewController: PageScrollViewController,
             seeMoreIconBtn.addTarget(self, action: #selector(showAllButtonTapped), for: .touchUpInside)
             self.featureView.addSubview(seeMoreIconBtn)
             seeMoreIconBtn.snp.makeConstraints { make in
-                make.top.centerY.equalTo(featureTitle)
+                make.centerY.equalTo(featureTitle)
                 make.right.equalToSuperview().offset(-16)
                 make.height.width.equalTo(16)
             }
