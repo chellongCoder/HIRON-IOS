@@ -12,11 +12,13 @@ import Material
 
 class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
                              UITableViewDataSource, UITableViewDelegate,
-                             UITextFieldDelegate {
+                             UITextFieldDelegate, ChipViewVoucherDelegate {
+    
     
     let codeTxt         = BoundedIconTextField()
     let applyBtn        = UIButton()
     
+    let guidelineView   = UIView()
     let tableView       = UITableView()
     let emptyView       = EmptyView()
     
@@ -53,7 +55,6 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
             make.height.equalTo(40)
         }
         
-        let guidelineView = UIView()
         guidelineView.backgroundColor = UIColor.init(hexString: "f6f6f6")
         self.view.addSubview(guidelineView)
         guidelineView.snp.makeConstraints { make in
@@ -86,6 +87,7 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
             }
             
             let chipView = ChipViewVoucher.init(title: selectedVoucher.couponRule?.title ?? "")
+            chipView.delegate = self
             chipView.layer.cornerRadius = 15
             self.view.addSubview(chipView)
             chipView.snp.makeConstraints { make in
@@ -218,5 +220,24 @@ class VoucherViewController: BaseViewController, VoucherTableViewCellDelegate,
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.layer.borderColor = kLightGrayColor.cgColor
+    }
+    
+    // MARK: - ChipViewVoucherDelegate
+    func didSelectClearBtn() {
+        _CartServices.voucherCode.accept(nil)
+        
+        tableView.snp.remakeConstraints { (make) in
+            make.top.equalTo(guidelineView.snp.bottom).offset(10)
+            make.centerX.width.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
+        
+        let listVoucher = viewModel.listUserVouchers.value
+        for voucher in listVoucher {
+            voucher.isSelectedVoucher = false
+        }
+        viewModel.listUserVouchers.accept(listVoucher)
+        
+        self.tableView.reloadData()
     }
 }

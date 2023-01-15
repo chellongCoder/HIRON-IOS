@@ -11,7 +11,7 @@ import RxSwift
 class CartViewController: BaseViewController,
                           UITableViewDataSource, UITableViewDelegate,
                           CartProductCellDelegate,
-                          EmptyViewDelegate {
+                          EmptyViewDelegate, VoucherSelectedViewDelegate {
     
     public static let sharedInstance    = CartViewController()
     private let viewModel               = CartViewModel()
@@ -102,6 +102,7 @@ class CartViewController: BaseViewController,
         
         let voucherTouch = UITapGestureRecognizer.init(target: self, action: #selector(voucherTapped))
         voucherView.addGestureRecognizer(voucherTouch)
+        voucherView.delegate = self
         self.view.addSubview(voucherView)
         voucherView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
@@ -456,5 +457,10 @@ class CartViewController: BaseViewController,
     func didSelectEmptyButton() {
         self.dismiss(animated: true)
         _NavController.gotoProductListing()
+    }
+    
+    // MARK: - VoucherSelectedViewDelegate
+    func didSelectClearBtn() {
+        _CartServices.voucherCode.accept(nil)
     }
 }

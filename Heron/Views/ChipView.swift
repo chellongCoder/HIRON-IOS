@@ -75,11 +75,17 @@ class ChipViewDropDown: UIView {
     }
 }
 
+protocol ChipViewVoucherDelegate {
+    func didSelectClearBtn()
+}
+
 class ChipViewVoucher: UIView {
     
     let imageIcon   = UIImageView()
     let textLabel   = UILabel()
     let clearBtn    = UIButton()
+    
+    var delegate    : ChipViewVoucherDelegate?
     
     init(title: String) {
         super.init(frame: .zero)
@@ -109,6 +115,7 @@ class ChipViewVoucher: UIView {
         }
         
         self.clearBtn.setBackgroundImage(UIImage.init(named: "clear_voucher_btn"), for: .normal)
+        self.clearBtn.addTarget(self, action: #selector(clearButtonTapped), for: .touchUpInside)
         self.addSubview(clearBtn)
         clearBtn.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
@@ -121,5 +128,9 @@ class ChipViewVoucher: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func clearButtonTapped() {
+        delegate?.didSelectClearBtn()
     }
 }

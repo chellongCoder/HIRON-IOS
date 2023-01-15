@@ -370,8 +370,8 @@ class MyOrderViewController: BaseViewController,
         idLabel.textColor = kDefaultTextColor
         headerView.addSubview(idLabel)
         idLabel.snp.makeConstraints { make in
-            make.top.equalTo(status.snp.bottom).offset(8)
-            make.left.equalTo(status)
+            make.centerY.equalTo(status)
+            make.right.equalToSuperview().offset(-16)
         }
         
         let date = UILabel()
@@ -380,8 +380,8 @@ class MyOrderViewController: BaseViewController,
         date.textColor = kDefaultTextColor
         headerView.addSubview(date)
         date.snp.makeConstraints { make in
-            make.top.equalTo(idLabel.snp.bottom).offset(8)
-            make.right.equalToSuperview().offset(-16)
+            make.top.equalTo(status.snp.bottom).offset(8)
+            make.left.equalTo(status)
             make.bottom.equalToSuperview().offset(-5)
         }
         

@@ -62,7 +62,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
             make.height.width.equalTo(16)
         }
         
-        contentView.addSubview(discountValue)
+        self.contentView.addSubview(discountValue)
         discountValue.snp.makeConstraints { make in
             make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
             make.left.equalTo(productTitleLabel)
@@ -84,7 +84,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
         truePriceLabel.snp.makeConstraints { (make) in
             make.top.equalTo(discountValue.snp.bottom).offset(2)
             make.left.equalTo(productTitleLabel)
-//            make.bottom.lessThanOrEqualToSuperview().offset(-10)
         }
         
         starView.textLabel?.text = "4.5"
@@ -136,8 +135,16 @@ class ProductCollectionViewCell: UICollectionViewCell {
         if cellData.discountPercent > 0 {
             self.discountValue.isHidden = false
             self.discountValue.contentLabel.text = String(format: "-%.f%%", cellData.discountPercent )
+            self.truePriceLabel.snp.remakeConstraints { make in
+                make.top.equalTo(discountValue.snp.bottom).offset(6)
+                make.left.equalTo(productTitleLabel)
+            }
         } else {
             self.discountValue.isHidden = true
+            self.truePriceLabel.snp.remakeConstraints { make in
+                make.top.equalTo(productTitleLabel.snp.bottom).offset(6)
+                make.left.equalTo(productTitleLabel)
+            }
         }
         
         variantMark.isHidden = (cellData.type == .simple) || cellData.configurableOptions.isEmpty

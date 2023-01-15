@@ -7,10 +7,16 @@
 
 import UIKit
 
-class VoucherSelectedView: UIView {
+protocol VoucherSelectedViewDelegate {
+    func didSelectClearBtn()
+}
+
+class VoucherSelectedView: UIView, ChipViewVoucherDelegate {
     
     let voucherTitle    = UILabel()
     let voucherCode     = ChipViewVoucher.init(title: "")
+    
+    var delegate        : VoucherSelectedViewDelegate?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,6 +51,7 @@ class VoucherSelectedView: UIView {
             make.right.equalToSuperview().offset(-16)
         }
         
+        voucherCode.delegate = self
         voucherCode.textLabel.text = ""
         self.addSubview(voucherCode)
         voucherCode.snp.makeConstraints { make in
@@ -74,5 +81,10 @@ class VoucherSelectedView: UIView {
             // discout percent
             self.voucherCode.textLabel.text = String(format: " %ld%% OFF ", voucherDataSource.couponRule?.discount ?? 0).uppercased()
         }
+    }
+    
+    //MARK: - ChipViewVoucherDelegate
+    func didSelectClearBtn() {
+        delegate?.didSelectClearBtn()
     }
 }
