@@ -14,6 +14,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
 
     private let viewModel           = SelectDateAndTimeBookingViewModel()
     
+    private let stepView        = BookingStepView(step: 2)
     private let calendar        = FSCalendar()
     private let stackView       = UIView()
     var collectionView          : UICollectionView?
@@ -38,7 +39,22 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
                                            target: self,
                                            action: #selector(moreButtonTapped))
         self.navigationItem.rightBarButtonItem = moreBtn
-                
+        
+        self.view.addSubview(stepView)
+        stepView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
+            make.height.equalTo(80)
+        }
+        
+        let line = UIView()
+        line.backgroundColor = kDisableColor
+        self.view.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.top.equalTo(stepView.snp.bottom)
+            make.height.equalTo(0.5)
+            make.width.equalToSuperview()
+        }
+        
         let calendarView = UIView()
         calendarView.layer.borderWidth = 0.7
         calendarView.layer.borderColor = kPrimaryColor.cgColor
@@ -50,7 +66,7 @@ class SelectDateAndTimeBookingViewController: BaseViewController,
         calendarView.layer.shadowOpacity = 0.3 // Độ đậm nhạt
         self.view.addSubview(calendarView)
         calendarView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(20)
+            make.top.equalTo(line.snp.bottom).offset(10)
             make.width.equalToSuperview().offset(-32)
             make.centerX.equalToSuperview()
             make.height.equalTo(calendarView.snp.width).multipliedBy(0.85)
