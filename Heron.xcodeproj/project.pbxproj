@@ -201,6 +201,7 @@
 		A0B6872A29671091003A780F /* ReviewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B6872929671091003A780F /* ReviewDataSource.swift */; };
 		A0D505D5293F896300D89122 /* TutorialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D505D4293F896300D89122 /* TutorialCell.swift */; };
 		A0E81D3C295DE9BA00236D0D /* DoctorBasicInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E81D3B295DE9BA00236D0D /* DoctorBasicInformationView.swift */; };
+		A0EFD71B296AA2D400B28474 /* BookingStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0EFD71A296AA2D400B28474 /* BookingStepView.swift */; };
 		B5061C00286BF22700A03271 /* DetailOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */; };
 		B5061C01286BF22700A03271 /* ShippingAndBillingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFA286BF22700A03271 /* ShippingAndBillingInfoView.swift */; };
 		B5061C02286BF22700A03271 /* OrderTrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5061BFB286BF22700A03271 /* OrderTrackingView.swift */; };
@@ -449,6 +450,7 @@
 		A0B6872929671091003A780F /* ReviewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewDataSource.swift; sourceTree = "<group>"; };
 		A0D505D4293F896300D89122 /* TutorialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialCell.swift; sourceTree = "<group>"; };
 		A0E81D3B295DE9BA00236D0D /* DoctorBasicInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoctorBasicInformationView.swift; sourceTree = "<group>"; };
+		A0EFD71A296AA2D400B28474 /* BookingStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingStepView.swift; sourceTree = "<group>"; };
 		A5AA9FA9CA3DFD5B55427CA8 /* Pods_HeronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HeronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5061BF9286BF22700A03271 /* DetailOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailOrderViewController.swift; sourceTree = "<group>"; };
 		B5061BFA286BF22700A03271 /* ShippingAndBillingInfoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingAndBillingInfoView.swift; sourceTree = "<group>"; };
@@ -724,6 +726,7 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A0EFD719296AA2C300B28474 /* BookingStepView */,
 				A0B11E032969A95C0062BC2C /* DoctorListingView */,
 				A0B6872529670FF1003A780F /* Reviews */,
 				18D91C3B291E0568003F2328 /* Items */,
@@ -1342,6 +1345,14 @@
 			path = DoctorBasicInformationView;
 			sourceTree = "<group>";
 		};
+		A0EFD719296AA2C300B28474 /* BookingStepView */ = {
+			isa = PBXGroup;
+			children = (
+				A0EFD71A296AA2D400B28474 /* BookingStepView.swift */,
+			);
+			path = BookingStepView;
+			sourceTree = "<group>";
+		};
 		B561813F2862B195009BE6E5 /* BaseViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1788,6 +1799,7 @@
 				B5061C03286BF22700A03271 /* PackageTableViewCell.swift in Sources */,
 				93EC90EB285A4D73009056F6 /* SignUpViewController.swift in Sources */,
 				933D19342819946800F1CCC4 /* UITableView_EXT.swift in Sources */,
+				A0EFD71B296AA2D400B28474 /* BookingStepView.swift in Sources */,
 				933D19432819947000F1CCC4 /* ResponseDataSource.swift in Sources */,
 				93C2EA3428AE8A9700371DFE /* SideBarMenuViewController.swift in Sources */,
 				933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */,

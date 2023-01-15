@@ -10,6 +10,7 @@ import UIKit
 class SelectDepartmentViewController: BaseViewController {
 
     private let viewModel       = SelectDepartmentViewModel()
+    private let stepView        = BookingStepView(step: 0)
     private var collectionView  : UICollectionView?
     
     override func viewDidLoad() {
@@ -24,13 +25,28 @@ class SelectDepartmentViewController: BaseViewController {
                                            action: #selector(moreButtonTapped))
         self.navigationItem.rightBarButtonItem = moreBtn
         
+        self.view.addSubview(stepView)
+        stepView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
+            make.height.equalTo(80)
+        }
+        
+        let line = UIView()
+        line.backgroundColor = kDisableColor
+        self.view.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.top.equalTo(stepView.snp.bottom)
+            make.height.equalTo(0.5)
+            make.width.equalToSuperview()
+        }
+        
         let textLabel = UILabel()
         textLabel.text = "Please select the service you are care."
         textLabel.font = getCustomFont(size: 13.5, name: .semiBold)
         textLabel.textColor = kDefaultTextColor
         self.view.addSubview(textLabel)
         textLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(24)
+            make.top.equalTo(line.snp.bottom).offset(20)
             make.left.equalToSuperview().offset(20)
         }
         

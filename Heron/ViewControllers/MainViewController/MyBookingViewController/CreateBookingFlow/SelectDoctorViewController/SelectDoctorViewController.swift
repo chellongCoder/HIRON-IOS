@@ -11,6 +11,7 @@ import RxSwift
 class SelectDoctorViewController: BaseViewController, DoctorListingViewDelegate {
     
     private let viewModel   = SelectDoctorViewModel()
+    private let stepView    = BookingStepView(step: 1)
     private let tableView   = UITableView()
     private let emptyView   = EmptyView()
     
@@ -45,6 +46,21 @@ class SelectDoctorViewController: BaseViewController, DoctorListingViewDelegate 
                                            action: #selector(moreButtonTapped))
         self.navigationItem.leftBarButtonItems = [backBtn, searchBtn]
         
+        self.view.addSubview(stepView)
+        stepView.snp.makeConstraints { make in
+            make.top.left.right.equalTo(self.view.safeAreaLayoutGuide)
+            make.height.equalTo(80)
+        }
+        
+        let line = UIView()
+        line.backgroundColor = kDisableColor
+        self.view.addSubview(line)
+        line.snp.makeConstraints { make in
+            make.top.equalTo(stepView.snp.bottom)
+            make.height.equalTo(0.5)
+            make.width.equalToSuperview()
+        }
+        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(reloadData), for: .valueChanged)
         tableView.addSubview(refreshControl)
@@ -54,7 +70,8 @@ class SelectDoctorViewController: BaseViewController, DoctorListingViewDelegate 
         tableView.register(SelectDoctorTableViewCell.self, forCellReuseIdentifier: "SelectDoctorTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.top.bottom.centerX.width.equalTo(self.view.safeAreaLayoutGuide)
+            make.top.equalTo(line.snp.bottom)
+            make.bottom.centerX.width.equalTo(self.view.safeAreaLayoutGuide)
         }
         
         emptyView.titleLabel.text = "Sorry, it seems like there are no doctor available at this current time"
