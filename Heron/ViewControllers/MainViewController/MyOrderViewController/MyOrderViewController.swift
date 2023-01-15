@@ -375,13 +375,14 @@ class MyOrderViewController: BaseViewController,
         }
         
         let date = UILabel()
-        date.text = "Created Date \(TimeConverter().getDateFromInt(orderData.createdAt ?? 0))"
+        date.text = "Created at \(TimeConverter().getDateFromInt(orderData.createdAt ?? 0))"
         date.font = getCustomFont(size: 11, name: .regular)
+        date.textAlignment = .right
         date.textColor = kDefaultTextColor
         headerView.addSubview(date)
         date.snp.makeConstraints { make in
             make.top.equalTo(status.snp.bottom).offset(8)
-            make.left.equalTo(status)
+            make.right.equalTo(idLabel)
             make.bottom.equalToSuperview().offset(-5)
         }
         
@@ -535,7 +536,9 @@ class MyOrderViewController: BaseViewController,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.orders.value[section].items?.count ?? 0
+//        viewModel.orders.value[section].items?.count ?? 0
+        // base on request: https://devtak.cbidigital.com/projects/mpv-app-healthcare/work_packages/13001/activity
+        return 1
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
