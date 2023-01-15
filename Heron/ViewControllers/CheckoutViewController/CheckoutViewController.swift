@@ -57,7 +57,7 @@ class CheckoutViewController: BaseViewController,
 //            make.bottom.equalTo(self.view.safeAreaLayoutGuide)
 //        }
         
-        totalLabel.text = "$0.0"
+        totalLabel.text = "Total: $0.0"
         totalLabel.textColor = kDefaultTextColor
         totalLabel.font = getCustomFont(size: 16, name: .extraBold)
         bottomView.addSubview(totalLabel)
@@ -210,7 +210,7 @@ class CheckoutViewController: BaseViewController,
                     self.orderTotalView.discountValue.text = "$0.0"
                     self.orderTotalView.shippingValue.text = "$0.0"
                     
-                    self.totalLabel.text = "$0.0"
+                    self.totalLabel.text = "Total:  $0.0"
 //                    self.savingLabel.text = "Saving $0.0"
                     
                     return
@@ -220,7 +220,7 @@ class CheckoutViewController: BaseViewController,
                 self.orderTotalView.discountValue.text = "- " + getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied)
                 self.orderTotalView.shippingValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customShippingSubtotal)
                 self.orderTotalView.taxValue.text = getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTaxPayable)
-                self.totalLabel.text = String(format: "%@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
+                self.totalLabel.text = String(format: "Total: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customTotalPayable))
 //                self.savingLabel.text = String(format: "Saving: %@", getMoneyFormat(cartPreCheckoutDataSource.checkoutPriceData?.customCouponApplied))
                 
                 self.viewModel.cartPreCheckout = cartPreCheckoutDataSource
