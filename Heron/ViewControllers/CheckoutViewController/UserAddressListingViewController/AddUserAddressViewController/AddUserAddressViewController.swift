@@ -39,6 +39,19 @@ class AddUserAddressViewController: PageScrollViewController,
         
         viewModel.controller = self
         
+        cancelBtn.layer.cornerRadius = 20
+        cancelBtn.setTitle("Cancel", for: .normal)
+        cancelBtn.setTitleColor(kPrimaryColor, for: .normal)
+        cancelBtn.titleLabel?.font = getCustomFont(size: 14, name: .semiBold)
+        cancelBtn.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        self.view.addSubview(cancelBtn)
+        cancelBtn.snp.makeConstraints { make in
+            make.bottom.equalToSuperview().offset(-30)
+            make.centerX.equalToSuperview()
+            make.width.equalToSuperview().offset(-56)
+            make.height.equalTo(40)
+        }
+        
         saveBtn.backgroundColor = kPrimaryColor
         saveBtn.layer.cornerRadius = 20
         saveBtn.setTitle("Save", for: .normal)
@@ -47,20 +60,7 @@ class AddUserAddressViewController: PageScrollViewController,
         saveBtn.addTarget(self, action: #selector(completeButtonTapped), for: .touchUpInside)
         self.view.addSubview(saveBtn)
         saveBtn.snp.makeConstraints { make in
-            make.bottom.equalToSuperview().offset(-30)
-            make.centerX.equalToSuperview()
-            make.width.equalToSuperview().offset(-56)
-            make.height.equalTo(40)
-        }
-        
-        cancelBtn.layer.cornerRadius = 20
-        cancelBtn.setTitle("Cancel", for: .normal)
-        cancelBtn.setTitleColor(kPrimaryColor, for: .normal)
-        cancelBtn.titleLabel?.font = getCustomFont(size: 14, name: .semiBold)
-        cancelBtn.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
-        self.view.addSubview(cancelBtn)
-        cancelBtn.snp.makeConstraints { make in
-            make.bottom.equalTo(saveBtn.snp.top).offset(-10)
+            make.bottom.equalTo(cancelBtn.snp.top).offset(-10)
             make.centerX.equalToSuperview()
             make.width.equalToSuperview().offset(-56)
             make.height.equalTo(40)
@@ -72,7 +72,7 @@ class AddUserAddressViewController: PageScrollViewController,
         defaultLabel.textAlignment = .left
         self.view.addSubview(defaultLabel)
         defaultLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(cancelBtn.snp.top).offset(-15)
+            make.bottom.equalTo(saveBtn.snp.top).offset(-15)
             make.left.equalToSuperview().offset(28)
             make.height.equalTo(15)
         }

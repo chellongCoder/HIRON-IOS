@@ -50,20 +50,6 @@ class SuccessPlaceOrderViewController: UIViewController {
             make.width.equalToSuperview().offset(-110)
         }
         
-        let viewMyOrderBtn = UIButton()
-        viewMyOrderBtn.setTitle("View the order just placed", for: .normal)
-        viewMyOrderBtn.backgroundColor = .white
-        viewMyOrderBtn.setTitleColor(kPrimaryColor, for: .normal)
-        viewMyOrderBtn.titleLabel?.font = getCustomFont(size: 14, name: .semiBold)
-        viewMyOrderBtn.addTarget(self, action: #selector(viewMyBookingButtonTapped), for: .touchUpInside)
-        self.view.addSubview(viewMyOrderBtn)
-        viewMyOrderBtn.snp.makeConstraints { make in
-            make.top.equalTo(orderplacedMessage.snp.bottom).offset(60)
-            make.centerX.equalToSuperview()
-            make.height.equalTo(40)
-            make.width.equalToSuperview().offset(-100)
-        }
-        
         let continueBtn = UIButton()
         continueBtn.setTitle("Continue your journey", for: .normal)
         continueBtn.setTitleColor(.white, for: .normal)
@@ -75,7 +61,21 @@ class SuccessPlaceOrderViewController: UIViewController {
         continueBtn.addTarget(self, action: #selector(continueButtonTapped), for: .touchUpInside)
         self.view.addSubview(continueBtn)
         continueBtn.snp.makeConstraints { make in
-            make.top.equalTo(viewMyOrderBtn.snp.bottom).offset(15)
+            make.top.equalTo(orderplacedMessage.snp.bottom).offset(60)
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().offset(-100)
+        }
+        
+        let viewMyOrderBtn = UIButton()
+        viewMyOrderBtn.setTitle("View the order just placed", for: .normal)
+        viewMyOrderBtn.backgroundColor = .white
+        viewMyOrderBtn.setTitleColor(kPrimaryColor, for: .normal)
+        viewMyOrderBtn.titleLabel?.font = getCustomFont(size: 14, name: .semiBold)
+        viewMyOrderBtn.addTarget(self, action: #selector(viewMyBookingButtonTapped), for: .touchUpInside)
+        self.view.addSubview(viewMyOrderBtn)
+        viewMyOrderBtn.snp.makeConstraints { make in
+            make.top.equalTo(continueBtn.snp.bottom).offset(15)
             make.centerX.equalToSuperview()
             make.height.equalTo(40)
             make.width.equalToSuperview().offset(-100)

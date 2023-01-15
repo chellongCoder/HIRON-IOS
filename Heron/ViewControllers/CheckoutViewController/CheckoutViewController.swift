@@ -281,7 +281,7 @@ class CheckoutViewController: BaseViewController,
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             // shipping address and billing address
-            return 1
+            return 2
         } else if section == (viewModel.cartPreCheckout?.cartDetail.count ?? 0) + 1 {
             // Voucher and total
             return 2
