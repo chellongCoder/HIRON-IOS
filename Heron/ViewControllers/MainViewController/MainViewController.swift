@@ -44,7 +44,7 @@ class MainViewController: UITabBarController {
         let productNav = UINavigationController.init(rootViewController: ProductListingViewController())
         productNav.tabBarItem = UITabBarItem(title: "Product",
                                              image: UIImage.init(named: "product_list_tabbar_unselected"),
-                                             selectedImage: UIImage.init(named: "product_list_tabbar_selected"))
+                                             selectedImage: UIImage.init(named: "product_list_tabbar_selected")?.withRenderingMode(.alwaysOriginal))
         
         let homeNav = UINavigationController.init(rootViewController: HomepageViewController())
         homeNav.tabBarItem = UITabBarItem(title: "", image: UIImage.init(named: ""), selectedImage: nil)
