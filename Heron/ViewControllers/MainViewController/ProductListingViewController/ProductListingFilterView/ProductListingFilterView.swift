@@ -20,6 +20,13 @@ class ProductListingFilterView : UIView {
     let chipView3           = ChipView(title: "Lorem")
     let chipView4           = ChipView(title: "Lorem Ipsum")
     
+    @objc func onFilter(sender : UITapGestureRecognizer) {
+        // Do what you want
+        let filterViewController = FilterProdcutViewController.init()
+        _NavController.pushViewController(filterViewController, animated: true)
+
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -58,6 +65,8 @@ class ProductListingFilterView : UIView {
             make.height.equalTo(13)
             make.left.equalTo(exampleLabel2.snp.right).offset(12)
         }
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.onFilter))
+        self.filterLabel.addGestureRecognizer(gesture)
 
         let spacer = UIView()
         spacer.backgroundColor = kDisableColor

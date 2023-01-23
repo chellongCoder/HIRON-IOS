@@ -14,6 +14,9 @@
 		189F8BEB2924E16600DBB5E1 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F8BEA2924E16600DBB5E1 /* Footer.swift */; };
 		18B28507291F91E900AF16B2 /* StackInfoProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B28506291F91E900AF16B2 /* StackInfoProductView.swift */; };
 		18B30835291E9B970015F13E /* DiscountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B30834291E9B970015F13E /* DiscountView.swift */; };
+		18D13FF1297EE15900CCC2E0 /* PriceRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D13FF0297EE15900CCC2E0 /* PriceRange.swift */; };
+		18D74CEF297D96B3008805E9 /* FilterProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D74CEE297D96B3008805E9 /* FilterProductViewController.swift */; };
+		18D74CF2297E59EE008805E9 /* DropDownPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D74CF1297E59EE008805E9 /* DropDownPicker.swift */; };
 		18D91C3D291E062F003F2328 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3C291E062F003F2328 /* TagView.swift */; };
 		18D91C3F291E0642003F2328 /* StackTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D91C3E291E0642003F2328 /* StackTagView.swift */; };
 		18E00220293CE895006F4940 /* ItemRelateProductCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0021F293CE895006F4940 /* ItemRelateProductCollection.swift */; };
@@ -256,6 +259,9 @@
 		189F8BEA2924E16600DBB5E1 /* Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Footer.swift; sourceTree = "<group>"; };
 		18B28506291F91E900AF16B2 /* StackInfoProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackInfoProductView.swift; sourceTree = "<group>"; };
 		18B30834291E9B970015F13E /* DiscountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscountView.swift; sourceTree = "<group>"; };
+		18D13FF0297EE15900CCC2E0 /* PriceRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceRange.swift; sourceTree = "<group>"; };
+		18D74CEE297D96B3008805E9 /* FilterProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterProductViewController.swift; sourceTree = "<group>"; };
+		18D74CF1297E59EE008805E9 /* DropDownPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropDownPicker.swift; sourceTree = "<group>"; };
 		18D91C3C291E062F003F2328 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		18D91C3E291E0642003F2328 /* StackTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackTagView.swift; sourceTree = "<group>"; };
 		18E0021F293CE895006F4940 /* ItemRelateProductCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemRelateProductCollection.swift; sourceTree = "<group>"; };
@@ -529,6 +535,30 @@
 			path = ProductInfo;
 			sourceTree = "<group>";
 		};
+		18D13FEF297EE14900CCC2E0 /* PriceRange */ = {
+			isa = PBXGroup;
+			children = (
+				18D13FF0297EE15900CCC2E0 /* PriceRange.swift */,
+			);
+			path = PriceRange;
+			sourceTree = "<group>";
+		};
+		18D74CED297D9693008805E9 /* FilterProductViewController */ = {
+			isa = PBXGroup;
+			children = (
+				18D74CEE297D96B3008805E9 /* FilterProductViewController.swift */,
+			);
+			path = FilterProductViewController;
+			sourceTree = "<group>";
+		};
+		18D74CF0297E59D4008805E9 /* DropDownPicker */ = {
+			isa = PBXGroup;
+			children = (
+				18D74CF1297E59EE008805E9 /* DropDownPicker.swift */,
+			);
+			path = DropDownPicker;
+			sourceTree = "<group>";
+		};
 		18D91C3B291E0568003F2328 /* Items */ = {
 			isa = PBXGroup;
 			children = (
@@ -726,6 +756,8 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				18D13FEF297EE14900CCC2E0 /* PriceRange */,
+				18D74CF0297E59D4008805E9 /* DropDownPicker */,
 				A0EFD719296AA2C300B28474 /* BookingStepView */,
 				A0B11E032969A95C0062BC2C /* DoctorListingView */,
 				A0B6872529670FF1003A780F /* Reviews */,
@@ -791,6 +823,7 @@
 		933D194628199DD700F1CCC4 /* ProductListingViewController */ = {
 			isa = PBXGroup;
 			children = (
+				18D74CED297D9693008805E9 /* FilterProductViewController */,
 				A097CC8D2937A90400C587AD /* ProductListingFilterView */,
 				930F3030281A0577003D247A /* ProductDetailsViewController */,
 				9AB248D7292147BD007812D5 /* ProductCollectionViewCell */,
@@ -1675,6 +1708,7 @@
 				933D193A2819946800F1CCC4 /* UIColor_EXT.swift in Sources */,
 				933D1913281993DB00F1CCC4 /* AppDelegate.swift in Sources */,
 				933D19412819947000F1CCC4 /* SessionDataSource.swift in Sources */,
+				18D74CEF297D96B3008805E9 /* FilterProductViewController.swift in Sources */,
 				9AC54E592892F575006312D6 /* SelectDateCollectionViewCell.swift in Sources */,
 				B55B372D2836425B005245AB /* Utils.swift in Sources */,
 				A0E81D3C295DE9BA00236D0D /* DoctorBasicInformationView.swift in Sources */,
@@ -1734,6 +1768,7 @@
 				933D19192819940B00F1CCC4 /* ApplicationTracking.swift in Sources */,
 				B56181922862B59D009BE6E5 /* OrderItems.swift in Sources */,
 				18B28507291F91E900AF16B2 /* StackInfoProductView.swift in Sources */,
+				18D13FF1297EE15900CCC2E0 /* PriceRange.swift in Sources */,
 				B561819F2862B59D009BE6E5 /* ItemCategory.swift in Sources */,
 				93C2EA4D28B28B5E00371DFE /* MyBookingViewModel.swift in Sources */,
 				93AF9207284CC36A0075CD65 /* AddUserAddressViewModel.swift in Sources */,
@@ -1804,6 +1839,7 @@
 				93C2EA3428AE8A9700371DFE /* SideBarMenuViewController.swift in Sources */,
 				933D194828199EEB00F1CCC4 /* ProductListingViewController.swift in Sources */,
 				93E7BE2028C3A2C00037D82A /* UserSubscriptionViewController.swift in Sources */,
+				18D74CF2297E59EE008805E9 /* DropDownPicker.swift in Sources */,
 				933D19322819946800F1CCC4 /* UITextField_EXT.swift in Sources */,
 				B594E88A286BF7D3004BC088 /* SubcriptionServives.swift in Sources */,
 				934D72A128A0285900E4255F /* ConfirmBookingViewModel.swift in Sources */,
