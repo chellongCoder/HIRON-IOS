@@ -21,8 +21,7 @@ class ProductListingFilterView : UIView {
     let chipView4           = ChipView(title: "Lorem Ipsum")
     
     @objc func onFilter(sender : UITapGestureRecognizer) {
-        // Do what you want
-        let filterViewController = FilterProdcutViewController.init()
+        let filterViewController = FilterProductViewController.init()
         _NavController.pushViewController(filterViewController, animated: true)
 
     }

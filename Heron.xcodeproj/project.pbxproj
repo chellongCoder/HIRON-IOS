@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		181ED8A5292A23B2005848CE /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181ED8A4292A23B2005848CE /* TabView.swift */; };
 		181F79FD292FCE860080068B /* ReviewRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181F79FC292FCE860080068B /* ReviewRate.swift */; };
+		1853E2052981557200802A35 /* RatingPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853E2042981557200802A35 /* RatingPicker.swift */; };
+		1853E207298158E700802A35 /* RatingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853E206298158E700802A35 /* RatingButton.swift */; };
 		1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891A4C4291D7A5C007D98DA /* ChipView.swift */; };
 		1891FB8E291E4C1200365CA4 /* ScrollableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */; };
 		189F8BEB2924E16600DBB5E1 /* Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F8BEA2924E16600DBB5E1 /* Footer.swift */; };
@@ -253,6 +255,8 @@
 /* Begin PBXFileReference section */
 		181ED8A4292A23B2005848CE /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		181F79FC292FCE860080068B /* ReviewRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRate.swift; sourceTree = "<group>"; };
+		1853E2042981557200802A35 /* RatingPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingPicker.swift; sourceTree = "<group>"; };
+		1853E206298158E700802A35 /* RatingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingButton.swift; sourceTree = "<group>"; };
 		1891A4C4291D7A5C007D98DA /* ChipView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChipView.swift; path = Heron/Views/ChipView.swift; sourceTree = SOURCE_ROOT; };
 		1891FB8D291E4C1200365CA4 /* ScrollableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableStackView.swift; sourceTree = "<group>"; };
 		189DD447291EBD0100F5603C /* UILabel_EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel_EXT.swift; sourceTree = "<group>"; };
@@ -519,6 +523,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1853E2032981556200802A35 /* RatingPicker */ = {
+			isa = PBXGroup;
+			children = (
+				1853E2042981557200802A35 /* RatingPicker.swift */,
+				1853E206298158E700802A35 /* RatingButton.swift */,
+			);
+			path = RatingPicker;
+			sourceTree = "<group>";
+		};
 		1891A4C3291D7971007D98DA /* ProductInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -756,6 +769,7 @@
 		933D19252819946000F1CCC4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1853E2032981556200802A35 /* RatingPicker */,
 				18D13FEF297EE14900CCC2E0 /* PriceRange */,
 				18D74CF0297E59D4008805E9 /* DropDownPicker */,
 				A0EFD719296AA2C300B28474 /* BookingStepView */,
@@ -1750,6 +1764,7 @@
 				B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */,
 				93AF91F2284BD6570075CD65 /* AddressView.swift in Sources */,
 				930175752883322A00151A4B /* ConfigurationProductVariantView.swift in Sources */,
+				1853E207298158E700802A35 /* RatingButton.swift in Sources */,
 				9A88B778288E499B00BE1E05 /* SelectDepartmentViewController.swift in Sources */,
 				93EC90C8285A382B009056F6 /* OrderSumView.swift in Sources */,
 				933D19352819946800F1CCC4 /* UIImageView_EXT.swift in Sources */,
@@ -1780,6 +1795,7 @@
 				933D19402819947000F1CCC4 /* UserDataSource.swift in Sources */,
 				1891A4C5291D7A5C007D98DA /* ChipView.swift in Sources */,
 				938F7A8E28210F3100DD60DB /* ProductTableViewCell.swift in Sources */,
+				1853E2052981557200802A35 /* RatingPicker.swift in Sources */,
 				B561819E2862B59D009BE6E5 /* OrderDataSource.swift in Sources */,
 				933D191A2819940B00F1CCC4 /* ApplicationCoreData.swift in Sources */,
 				B56181992862B59D009BE6E5 /* ItemBrand.swift in Sources */,

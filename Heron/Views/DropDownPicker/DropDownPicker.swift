@@ -55,6 +55,12 @@ class DropDownPicker: UIView {
             make.centerY.equalToSuperview()
             make.right.equalToSuperview().offset(-16)
         }
+        
+        menu.selectionAction = { [unowned self] (index: Int, item: String) in
+          print("Selected item: \(item) at index: \(index)")
+            selectedItem.text = item
+        }
+
     }
     
     required init?(coder: NSCoder) {

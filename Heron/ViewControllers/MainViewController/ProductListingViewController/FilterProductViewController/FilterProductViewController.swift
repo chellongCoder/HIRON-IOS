@@ -6,14 +6,15 @@
 //
 
 import Foundation
-class FilterProdcutViewController: BaseViewController, UIScrollViewDelegate {
+class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
     var dropdown = DropDownPicker([ "Item1",
                                     "Item2",
                                     "Item3",
                                     "Item3",
                                     "Item4"])
     var priceRangeView = PriceRange()
-    
+    var ratingPickerView = RatingPicker()
+
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -51,6 +52,13 @@ class FilterProdcutViewController: BaseViewController, UIScrollViewDelegate {
             make.width.equalToSuperview().offset(-32)
             make.centerX.equalToSuperview()
             make.top.equalTo(dropdown.snp.bottom).offset(30)
+        }
+        
+        self.view.addSubview(ratingPickerView)
+        ratingPickerView.snp.makeConstraints { make in
+            make.width.equalToSuperview().offset(-32)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(priceRangeView.snp.bottom).offset(30)
         }
         
     }
