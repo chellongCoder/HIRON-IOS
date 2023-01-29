@@ -14,7 +14,8 @@ class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
                                     "Item4"])
     var priceRangeView = PriceRange()
     var ratingPickerView = RatingPicker()
-
+    let actionButon = UIButton()
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -22,7 +23,9 @@ class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    @objc func onClick(sender: UIButton) {
+        print(sender)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
@@ -61,6 +64,19 @@ class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
             make.top.equalTo(priceRangeView.snp.bottom).offset(30)
         }
         
+        self.view.addSubview(actionButon)
+        actionButon.backgroundColor = kPrimaryColor
+//        actionButon.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
+        actionButon.setTitle("Apply", for: .normal)
+        actionButon.titleLabel?.font = getCustomFont(size: 14.5, name: .bold)
+        actionButon.layer.cornerRadius = 20
+        actionButon.addTarget(self, action: #selector(onClick), for: .touchUpInside)
+        actionButon.snp.makeConstraints { make in
+            make.width.equalToSuperview().offset(-76)
+            make.height.equalTo(40)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-30)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
