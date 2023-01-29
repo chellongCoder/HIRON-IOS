@@ -37,7 +37,6 @@ class RatingPicker: UIView {
                     make.top.equalTo(label.snp.bottom).offset(16)
                     make.width.equalTo(59)
                     make.height.equalTo(37)
-
                 }
             } else {
                 rateBtn.snp.makeConstraints { make in

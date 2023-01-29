@@ -66,7 +66,6 @@ class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
         
         self.view.addSubview(actionButon)
         actionButon.backgroundColor = kPrimaryColor
-//        actionButon.addTarget(self, action: #selector(okButtonTapped), for: .touchUpInside)
         actionButon.setTitle("Apply", for: .normal)
         actionButon.titleLabel?.font = getCustomFont(size: 14.5, name: .bold)
         actionButon.layer.cornerRadius = 20
