@@ -22,6 +22,8 @@ class UserProfileViewController: BaseViewController {
     private let updateProfileBtn    = UserProfileActionBtn()
     private let updateEHProfileBtn  = UserProfileActionBtn()
     private let userSubscriptions   = UserProfileActionBtn()
+    private let userWishlistBtn   = UserProfileActionBtn()
+
     private let signOutBtn          = UIButton()
     
     override func viewDidLoad() {
@@ -149,6 +151,16 @@ class UserProfileViewController: BaseViewController {
             make.centerX.equalToSuperview()
         }
 
+        userWishlistBtn.actionName.text = "Wishlists"
+        userWishlistBtn.actionIcon.image = UIImage.init(named: "user_supscription_icon")
+        userWishlistBtn.addTarget(self, action: #selector(userWishlistButtonTapped), for: .touchUpInside)
+        contentView.addSubview(userWishlistBtn)
+        userWishlistBtn.snp.makeConstraints { make in
+            make.top.equalTo(userSubscriptions.snp.bottom).offset(5)
+            make.width.equalToSuperview()
+            make.centerX.equalToSuperview()
+        }
+
         signOutBtn.setTitle("Sign out", for: .normal)
         signOutBtn.setTitleColor(kPrimaryColor, for: .normal)
         signOutBtn.titleLabel?.font = getCustomFont(size: 14, name: .bold)
@@ -212,6 +224,11 @@ class UserProfileViewController: BaseViewController {
     @objc private func userSubscriptionButtonTapped() {
         let listUserSubscriptionVC = UserSubscriptionViewController()
         _NavController.pushViewController(listUserSubscriptionVC, animated: true)
+    }
+    
+    @objc private func userWishlistButtonTapped() {
+        let wishlistProductVC = WishListProductController()
+        _NavController.pushViewController(wishlistProductVC, animated: true)
     }
     
     @objc private func signoutButtonTapped() {
