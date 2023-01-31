@@ -7,11 +7,12 @@
 
 import Foundation
 class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
+    private let viewModel           = FilterProductViewModel()
     var dropdown = DropDownPicker([ "Item1",
                                     "Item2",
                                     "Item3",
                                     "Item3",
-                                    "Item4"])
+                                    "Item4444"])
     var priceRangeView = PriceRange()
     var ratingPickerView = RatingPicker()
     let actionButon = UIButton()
@@ -29,6 +30,7 @@ class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.showBackBtn()
+        viewModel.controller = self
         self.navigationItem.title = "Filter Products"
         let resetButton = UIButton(type: .system)
         resetButton.setTitle("Reset", for: .normal)
@@ -46,7 +48,7 @@ class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
             make.centerX.equalToSuperview()
             make.top.equalToSuperview().offset(15.5)
         }
-        
+       
         self.view.addSubview(priceRangeView)
         priceRangeView.layer.borderWidth = 1
         priceRangeView.layer.borderColor = kDefaultGreyColor.cgColor
@@ -81,5 +83,6 @@ class FilterProductViewController: BaseViewController, UIScrollViewDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = false
+        self.viewModel.getListCategories()
     }
 }

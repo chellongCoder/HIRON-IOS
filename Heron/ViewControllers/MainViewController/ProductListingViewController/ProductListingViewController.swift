@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import BadgeHub
 
-class ProductListingViewController: BaseViewController,
+class ProductListingViewController:     BaseViewController,
                                     UITableViewDelegate,
                                     ProductFilterDelegate {
     
