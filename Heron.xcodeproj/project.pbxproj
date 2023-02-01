@@ -234,6 +234,7 @@
 		B56181A92862B64E009BE6E5 /* SubscriptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181A42862B64E009BE6E5 /* SubscriptionData.swift */; };
 		B56181AA2862B64E009BE6E5 /* SubsItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B56181A52862B64E009BE6E5 /* SubsItem.swift */; };
 		B594E88A286BF7D3004BC088 /* SubcriptionServives.swift in Sources */ = {isa = PBXBuildFile; fileRef = B594E889286BF7D3004BC088 /* SubcriptionServives.swift */; };
+		F039C157298966E00045446B /* FilterProductViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F039C156298966E00045446B /* FilterProductViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -493,6 +494,7 @@
 		E5347407A9305C42287066FB /* Pods-HeronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HeronUITests.debug.xcconfig"; path = "Target Support Files/Pods-HeronUITests/Pods-HeronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E85654E54AF8EB6B8A702EA4 /* Pods-Heron-HeronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron-HeronUITests.release.xcconfig"; path = "Target Support Files/Pods-Heron-HeronUITests/Pods-Heron-HeronUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EFB177E120D1345F5BAF7A28 /* Pods-Heron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron.debug.xcconfig"; path = "Target Support Files/Pods-Heron/Pods-Heron.debug.xcconfig"; sourceTree = "<group>"; };
+		F039C156298966E00045446B /* FilterProductViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterProductViewModel.swift; sourceTree = "<group>"; };
 		F367B9427926BC6D4EFB89E4 /* Pods_Heron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Heron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE5658FDA4AA8F3FACA459F3 /* Pods-Heron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Heron.release.xcconfig"; path = "Target Support Files/Pods-Heron/Pods-Heron.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -570,6 +572,7 @@
 			isa = PBXGroup;
 			children = (
 				18D74CEE297D96B3008805E9 /* FilterProductViewController.swift */,
+				F039C156298966E00045446B /* FilterProductViewModel.swift */,
 			);
 			path = FilterProductViewController;
 			sourceTree = "<group>";
@@ -1908,6 +1911,7 @@
 				A0B11E052969A9750062BC2C /* DoctorListingView.swift in Sources */,
 				9393CCCF28C6422E00DF6C50 /* UpdateEHProfileViewController.swift in Sources */,
 				93EC90ED285A4D73009056F6 /* SignInSuccessViewController.swift in Sources */,
+				F039C157298966E00045446B /* FilterProductViewModel.swift in Sources */,
 				B5061C05286BF22700A03271 /* MyOrderViewController.swift in Sources */,
 				93C2EA5828B33B5000371DFE /* BookingAppointmentDataSource.swift in Sources */,
 				934D729F28A024DB00E4255F /* ConfirmBookingViewController.swift in Sources */,
